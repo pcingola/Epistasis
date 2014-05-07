@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SnpEff"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/SnpSift"/>
+	<classpathentry kind="lib" path="lib/biojava3-structure-3.0.7.jar" sourcepath="/home/pcingola/tools/bioJava/bj3.0.7/biojava3-structure/src/main/java/"/>
+	<classpathentry kind="lib" path="lib/biojava3-core-3.0.7.jar"/>
+	<classpathentry kind="lib" path="lib/trove4j-3.0.2.jar"/>
+	<classpathentry kind="lib" path="lib/commons-math3-3.2.jar" sourcepath="lib/commons-math3-3.2-sources.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
