@@ -173,17 +173,28 @@ public class Epistasis implements CommandLine {
 		// Load or calculate transition matrix
 		//---
 		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		TransitionMatrix Q;
 
+		//		// Calculate likelihood using random matrix
+		//		Q = mltm.randQ();
+		//		Timer.showStdErr("Random Q matrix:\n" + Q);
+		//		mltm.logLikelyhood();
+
+		// Load or calculate transition matrix
 		if (Gpr.canRead(qMatrixFile)) {
 			Timer.showStdErr("Loading Q matrix  from file '" + qMatrixFile);
-			TransitionMatrix Q = mltm.loadTransitionMatrix(qMatrixFile);
-			System.out.println("Q matrix:\n" + Q.toString());
+			Q = mltm.loadTransitionMatrix(qMatrixFile);
 		} else {
 			Timer.showStdErr("Q matrix file '" + qMatrixFile + "' not found, calculating matrix");
-			TransitionMatrix Q = mltm.estimateTransitionMatrix();
+			Q = mltm.estimateTransitionMatrix();
 			Timer.showStdErr("Saving Q matrix to file '" + qMatrixFile + "'");
 			Q.save(qMatrixFile);
 		}
+		System.out.println("Q matrix:\n" + Q.toString());
+		mltm.showEienQ();
+
+		// Calculate likelihood using estimated matrix
+		mltm.logLikelyhood();
 
 		return true;
 	}

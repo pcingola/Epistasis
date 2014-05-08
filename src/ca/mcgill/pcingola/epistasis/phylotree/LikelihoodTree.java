@@ -96,22 +96,24 @@ public class LikelihoodTree extends PhylogeneticTree {
 		//---
 
 		// Likelihood from the left sub-tree
-		RealMatrix m = tmatrix.matrix(distanceLeft);
+		RealMatrix P = tmatrix.matrix(distanceLeft);
 		double pleft = 0;
 		if (left != null) {
 			for (int sc = 0; sc < p.length; sc++) {
 				double lleft = ((LikelihoodTree) left).likelihood(tmatrix, sc);
-				pleft += lleft * m.getEntry(seqCode, sc);
+				double pij = P.getEntry(seqCode, sc);
+				pleft += lleft * pij;
 			}
 		} else pleft = 1.0; // No node
 
 		// Likelihood from the right sub-tree
-		m = tmatrix.matrix(distanceRight);
+		P = tmatrix.matrix(distanceRight);
 		double pright = 0;
 		if (right != null) {
 			for (int sc = 0; sc < p.length; sc++) {
 				double lright = ((LikelihoodTree) right).likelihood(tmatrix, sc);
-				pright += lright * m.getEntry(seqCode, sc);
+				double pij = P.getEntry(seqCode, sc);
+				pright += lright * pij;
 			}
 		} else pright = 1.0; // No node
 

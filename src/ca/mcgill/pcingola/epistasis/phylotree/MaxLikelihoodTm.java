@@ -9,7 +9,6 @@ import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
@@ -23,11 +22,12 @@ public class MaxLikelihoodTm {
 
 	boolean verbose = false;
 
+	int pseudoCount = 1;
+	double pi[];
 	LikelihoodTree tree;
 	MultipleSequenceAlignmentSet msas;
 	TransitionMatrixMarkov Q;
 	ArrayRealVector piVect;
-	double pi[];
 	Random random;
 
 	public MaxLikelihoodTm(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
@@ -41,6 +41,8 @@ public class MaxLikelihoodTm {
 	 * Note: We calculate using 'all' alignments and the first alignment
 	 */
 	protected ArrayRealVector calcPi() {
+		if (pi != null && piVect != null) return piVect;
+
 		System.out.println("Counting amino acids: ");
 		int countAa[] = msas.countAa();
 		int countAaFirst[] = msas.countAa(0); // Count AA only using the first sequence
@@ -108,15 +110,13 @@ public class MaxLikelihoodTm {
 		double t = tree.distance(seqName1, seqName2);
 		System.out.println("\t" + seqName1 + "\t" + seqName2 + "\ttime: " + t);
 
-		int pseudoCounts = 1;
-
 		// Count all transitions
 		int count[][] = msas.countTransitions(seqNum1, seqNum2);
 
 		// Add pseudo-counts
 		for (int i = 0; i < count.length; i++)
 			for (int j = 0; j < count.length; j++)
-				count[i][j] += pseudoCounts;
+				count[i][j] += pseudoCount;
 
 		// Calculate total counts
 		int sum = Arrays.stream(count).flatMapToInt(x -> Arrays.stream(x)).sum();
@@ -127,12 +127,20 @@ public class MaxLikelihoodTm {
 		double n = sum;
 		for (int i = 0; i < phat.length; i++)
 			for (int j = 0; j < phat.length; j++)
-				phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i];
+				phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i]; // Note: We use symmetry
 
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
+
+		// Remove negative entries from matrix
+		double dqhat[][] = Qhat.getData();
+		for (int i = 0; i < dqhat.length; i++)
+			for (int j = 0; j < dqhat.length; j++)
+				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
+
+		Qhat = new TransitionMatrixMarkov(dqhat);
 		return Qhat;
 	}
 
@@ -160,21 +168,24 @@ public class MaxLikelihoodTm {
 	public double logLikelyhood() {
 		double logLik = 0.0;
 
+		calcPi();
+
 		// Calculate likelihood for each MSA & each base
 		for (MultipleSequenceAlignment msa : msas) {
-			System.out.println("MSA: " + msa.getId() + "\t" + logLik);
 
-			for (int i = 0; i < msa.length(); i++) {
-				if (msa.isSkip(i)) continue;
-				String seqCol = msa.getColumn(i);
+			for (int pos = 0; pos < msa.length(); pos++) {
+				if (msa.isSkip(pos)) continue;
 
-				// Set sequence
+				// Set sequence and calculate likelihood
+				String seqCol = msa.getColumn(pos);
 				tree.setLeafSequence(seqCol);
 				double like = tree.likelihood(Q, pi);
 				logLik += -Math.log(like);
-				if (verbose) System.out.println("Likelyhood: " + like + "\t\t" + logLik + "\t\t" + msa.getId() + "\tpos: " + i + "\t" + seqCol);
+
+				if (verbose) System.out.println("Likelyhood: " + like + "\t\t" + logLik + "\t\t" + msa.getId() + "\tpos: " + pos + "\t" + seqCol);
 			}
 
+			System.out.println("MSA: " + msa.getId() + "\t" + logLik);
 		}
 
 		return logLik;
@@ -199,12 +210,12 @@ public class MaxLikelihoodTm {
 
 		// Diagonal
 		for (int i = 0; i < N; i++)
-			r[i][i] = 50 * random.nextDouble();
+			r[i][i] = 0 * random.nextDouble();
 
 		// Only one side
 		for (int i = 0; i < N; i++)
 			for (int j = i + 1; j < N; j++)
-				r[i][j] = 0.01 * random.nextDouble();
+				r[i][j] = random.nextDouble();
 
 		// Apply symmetry
 		for (int i = 0; i < N; i++)
@@ -217,35 +228,57 @@ public class MaxLikelihoodTm {
 			for (int j = 0; j < N; j++)
 				sum += r[i][j];
 
-			for (int j = 0; j < N; j++)
-				r[i][j] /= sum;
+			//			for (int j = 0; j < N; j++)
+			//				r[i][j] /= sum;
+
+			r[i][i] = -sum;
 		}
 
 		// We assume that the matrix is P(1) = exp( 1.0 * Q )
-		TransitionMatrixMarkov P = new TransitionMatrixMarkov(r);
-		Gpr.debug("P(1) :\n" + P);
+		// TransitionMatrixMarkov P = new TransitionMatrixMarkov(r);
+		// Gpr.debug("P (1):\n" + P);
+		Q = new TransitionMatrixMarkov(r);
 
 		//---
 		// Matrix log
 		///---
+		showEienQ();
+		//		// Did we already perform eigendecomposition?
+		//		EigenDecomposition eigen = new EigenDecomposition(P);
+		//
+		//		// Exponentiate the diagonal
+		//		RealMatrix D = eigen.getD().copy();
+		//		double maxLambda = Double.NEGATIVE_INFINITY;
+		//		int dim = D.getColumnDimension();
+		//		for (int i = 0; i < dim; i++) {
+		//			double lambda = D.getEntry(i, i);
+		//			maxLambda = Math.max(maxLambda, lambda);
+		//			Gpr.debug("\tLambda: " + lambda + "\tMax lambda: " + maxLambda);
+		//			// D.setEntry(i, i, Math.log(lambda));
+		//		}
+		//		Gpr.debug("Max lambda: " + maxLambda);
+		//
+		//		// Perform matrix exponential
+		//		RealMatrix qmatrix = eigen.getV().multiply(D).multiply(eigen.getVT());
+		//
+		//		Q = new TransitionMatrixMarkov(qmatrix.getData());
+		return Q;
+	}
 
+	public void showEienQ() {
 		// Did we already perform eigendecomposition?
-		EigenDecomposition eigen = new EigenDecomposition(P);
+		EigenDecomposition eigen = new EigenDecomposition(Q);
 
 		// Exponentiate the diagonal
+		System.out.println("Q's Eigenvalues: ");
 		RealMatrix D = eigen.getD().copy();
 		double maxLambda = Double.NEGATIVE_INFINITY;
 		int dim = D.getColumnDimension();
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
 			maxLambda = Math.max(maxLambda, lambda);
-			D.setEntry(i, i, Math.log(lambda));
+			System.out.println("\tlambda_" + i + ":\t" + lambda);
 		}
-
-		// Perform matrix exponential
-		RealMatrix qmatrix = eigen.getV().multiply(D).multiply(eigen.getVT());
-
-		Q = new TransitionMatrixMarkov(qmatrix.getData());
-		return Q;
+		System.out.println("\tlambda_max:\t" + maxLambda);
 	}
 }
