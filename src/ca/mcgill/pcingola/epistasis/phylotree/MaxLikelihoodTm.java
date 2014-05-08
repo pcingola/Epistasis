@@ -21,6 +21,7 @@ import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
 public class MaxLikelihoodTm {
 
 	boolean verbose = false;
+	boolean debug = false;
 
 	int pseudoCount = 1;
 	double pi[];
@@ -182,10 +183,10 @@ public class MaxLikelihoodTm {
 				double like = tree.likelihood(Q, pi);
 				logLik += -Math.log(like);
 
-				if (verbose) System.out.println("Likelyhood: " + like + "\t\t" + logLik + "\t\t" + msa.getId() + "\tpos: " + pos + "\t" + seqCol);
+				if (debug) System.out.println("Likelyhood: " + like + "\t\t" + logLik + "\t\t" + msa.getId() + "\tpos: " + pos + "\t" + seqCol);
 			}
 
-			System.out.println("MSA: " + msa.getId() + "\t" + logLik);
+			if (verbose) System.out.println("MSA: " + msa.getId() + "\t" + logLik);
 		}
 
 		return logLik;
@@ -228,9 +229,6 @@ public class MaxLikelihoodTm {
 			for (int j = 0; j < N; j++)
 				sum += r[i][j];
 
-			//			for (int j = 0; j < N; j++)
-			//				r[i][j] /= sum;
-
 			r[i][i] = -sum;
 		}
 
@@ -242,7 +240,6 @@ public class MaxLikelihoodTm {
 		//---
 		// Matrix log
 		///---
-		showEienQ();
 		//		// Did we already perform eigendecomposition?
 		//		EigenDecomposition eigen = new EigenDecomposition(P);
 		//
