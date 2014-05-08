@@ -14,6 +14,7 @@ import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
  */
 public class Epistasis implements CommandLine {
 
+	public static int MIN_DISTANCE = 1000000;
 	String[] args;
 
 	public static void main(String[] args) {
@@ -146,12 +147,12 @@ public class Epistasis implements CommandLine {
 		// Initialize
 		//---
 
-		// Load tree
+		// Load: tree
 		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
 		LikelihoodTree tree = new LikelihoodTree();
 		tree.load(phyloFileName);
 
-		// Load MSA
+		// Load: MSA
 		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlign);
 		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
 		msas.load();
@@ -169,9 +170,7 @@ public class Epistasis implements CommandLine {
 
 		System.out.println("\nSpecies: " + sbTree);
 
-		//---
-		// Load or calculate transition matrix
-		//---
+		// Load: Q (calculate if not available)
 		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
 		TransitionMatrix Q;
 
@@ -188,19 +187,34 @@ public class Epistasis implements CommandLine {
 		System.out.println("Q matrix:\n" + Q.toString());
 		mltm.showEienQ();
 
-		// Calculate likelihood using estimated matrix
-		Timer.show("Calculating likelihood:\n");
-		double llQ = mltm.logLikelyhood();
-		Timer.show("LogLikelihood:" + llQ);
+		// Calculate Bayes Factor
 
-		// Calculate likelihood using random matrix
-		double maxRand = 0;
-		for (int i = 0; i < 100; i++) {
-			Q = mltm.randQ();
-			double llrand = mltm.logLikelyhood();
-			maxRand = Math.max(maxRand, llrand);
+		// For each MSA...
+		mltm.calcPi();
+		for (MultipleSequenceAlignment msa1 : msas) {
+			for (MultipleSequenceAlignment msa2 : msas) {
+				// Make sure the MSAs are far away from each other
+				if (msa2.compareTo(msa1) < MIN_DISTANCE) continue;
 
-			Timer.show("ll(rand): " + llrand + "\tmax ll(rand): " + maxRand + "\tll(Q): " + llQ + "\t" + (maxRand / llQ));
+				// All pair of positions
+				for (int pos1 = 0; pos1 < msa1.length(); pos1++) {
+					if (msa1.isSkip(pos1)) continue;
+
+					// Log likelihood at position 1
+					double loklik1 = mltm.logLikelyhood(msa1, pos1);
+
+					for (int pos2 = 0; pos2 < msa2.length(); pos2++) {
+						if (msa2.isSkip(pos2)) continue;
+
+						// Log likelihood at position 2
+						double loklik2 = mltm.logLikelyhood(msa2, pos2);
+						System.out.println(msa1.getId() + "\t" + msa2.getId() + "\t" + pos1 + "\t" + pos2 + "\t" + loklik1 + "\t" + loklik2);
+
+						// Combined log likelihood
+						mltm.logLikelyhood(msa1, pos1, msa2, pos2);
+					}
+				}
+			}
 		}
 
 		return true;

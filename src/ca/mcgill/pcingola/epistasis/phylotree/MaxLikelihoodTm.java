@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
@@ -30,18 +31,20 @@ public class MaxLikelihoodTm {
 	TransitionMatrixMarkov Q;
 	ArrayRealVector piVect;
 	Random random;
+	HashMap<String, Double> cacheLogLikelihood;
 
 	public MaxLikelihoodTm(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
 		this.tree = tree;
 		this.msas = msas;
 		random = new Random(20140426);
+		cacheLogLikelihood = new HashMap<String, Double>();
 	}
 
 	/**
 	 * Calculate 'stable' probability for each amino acid
 	 * Note: We calculate using 'all' alignments and the first alignment
 	 */
-	protected ArrayRealVector calcPi() {
+	public ArrayRealVector calcPi() {
 		if (pi != null && piVect != null) return piVect;
 
 		System.out.println("Counting amino acids: ");
@@ -164,32 +167,62 @@ public class MaxLikelihoodTm {
 	}
 
 	/**
-	 * Calculate the likelihood of the current transition matrix
+	 * Calculate the likelihood (sum all MSAS and pos)
 	 */
 	public double logLikelyhood() {
 		double logLik = 0.0;
-
 		calcPi();
 
 		// Calculate likelihood for each MSA & each base
 		for (MultipleSequenceAlignment msa : msas) {
-
 			for (int pos = 0; pos < msa.length(); pos++) {
 				if (msa.isSkip(pos)) continue;
-
-				// Set sequence and calculate likelihood
-				String seqCol = msa.getColumn(pos);
-				tree.setLeafSequence(seqCol);
-				double like = tree.likelihood(Q, pi);
+				double like = logLikelyhood(msa, pos);
 				logLik += -Math.log(like);
-
-				if (debug) System.out.println("Likelyhood: " + like + "\t\t" + logLik + "\t\t" + msa.getId() + "\tpos: " + pos + "\t" + seqCol);
 			}
-
 			if (verbose) System.out.println("MSA: " + msa.getId() + "\t" + logLik);
 		}
 
 		return logLik;
+	}
+
+	/**
+	 * Calculate log likelihood for an msa:pos
+	 * @param msa
+	 * @param pos
+	 * @return
+	 */
+	public double logLikelyhood(MultipleSequenceAlignment msa, int pos) {
+		// Check cache
+		String key = msa.getId() + ":" + pos;
+		Double logLik = cacheLogLikelihood.get(key);
+		if (logLik != null) return logLik;
+
+		// Set sequence and calculate likelihood
+		String seqCol = msa.getColumn(pos);
+		tree.setLeafSequence(seqCol);
+		double like = tree.likelihood(Q, pi);
+		logLik = -Math.log(like);
+
+		// Cache result
+		cacheLogLikelihood.put(key, logLik);
+
+		return logLik;
+	}
+
+	/**
+	 * Calculate log likelihood for an msa:pos
+	 * @param msa
+	 * @param pos
+	 * @return
+	 */
+	public double logLikelyhood(MultipleSequenceAlignment msa1, int pos1, MultipleSequenceAlignment msa2, int pos2) {
+		// Calculate Q2
+
+		// Calculate likelihood for each lambda
+
+		// Max likelihoood from all lambdas
+		return 0;
 	}
 
 	/**
@@ -262,6 +295,9 @@ public class MaxLikelihoodTm {
 		return Q;
 	}
 
+	/**
+	 * Show matrix's eigenvalues
+	 */
 	public void showEienQ() {
 		// Did we already perform eigendecomposition?
 		EigenDecomposition eigen = new EigenDecomposition(Q);

@@ -9,7 +9,7 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
  *
  * @author pcingola
  */
-public class MultipleSequenceAlignment {
+public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAlignment> {
 
 	public static final double MAX_GAP_PERCENT = 0.3;
 	public static final int ROTATE_BITS = 5;
@@ -28,6 +28,18 @@ public class MultipleSequenceAlignment {
 	public synchronized void calcSkip() {
 		for (int i = 0; i < getSeqLen(); i++)
 			isSkip(i);
+	}
+
+	@Override
+	public int compareTo(MultipleSequenceAlignment msa) {
+		int comp = chromo.compareTo(msa.chromo);
+		if (comp > 0) return Integer.MAX_VALUE;
+		if (comp < 0) return Integer.MIN_VALUE;
+
+		if (start > msa.end) return start - msa.end;
+		if (end < msa.start) return end - msa.start;
+
+		return 0;
 	}
 
 	/**
