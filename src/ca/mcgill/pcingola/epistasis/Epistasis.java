@@ -1,11 +1,14 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.HashSet;
+
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 import ca.mcgill.pcingola.epistasis.phylotree.MaxLikelihoodTm;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
+import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
 
 /**
  * Main command line
@@ -50,7 +53,6 @@ public class Epistasis implements CommandLine {
 		case "mi":
 			numAligns = Gpr.parseIntSafe(args[1]);
 			int numBases = Gpr.parseIntSafe(args[2]);
-			;
 			multAlign = args[3];
 			if (numAligns <= 0) usage("number of alignments must be positive number");
 			runMsaMi(numAligns, numBases, multAlign);
@@ -76,11 +78,14 @@ public class Epistasis implements CommandLine {
 
 		case "phylo":
 			if (args.length < 4) usage("Missing arguments for command '" + cmd + "'");
-			numAligns = Gpr.parseIntSafe(args[1]);
+			String tree = args[1];
 			multAlign = args[2];
-			String tree = args[3];
-			String qMatrixFile = args[4];
-			runPhylo(tree, numAligns, multAlign, qMatrixFile);
+			String qMatrixFile = args[3];
+			runPhylo(tree, multAlign, qMatrixFile);
+			break;
+
+		case "test":
+			runTest(args);
 			break;
 
 		default:
@@ -142,7 +147,7 @@ public class Epistasis implements CommandLine {
 	 * @param multAlign
 	 * @return
 	 */
-	public boolean runPhylo(String phyloFileName, int numAligns, String multAlign, String qMatrixFile) {
+	public boolean runPhylo(String phyloFileName, String multAlign, String qMatrixFile) {
 		//---
 		// Initialize
 		//---
@@ -151,6 +156,7 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
 		LikelihoodTree tree = new LikelihoodTree();
 		tree.load(phyloFileName);
+		int numAligns = tree.childNames().size();
 
 		// Load: MSA
 		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlign);
@@ -191,6 +197,8 @@ public class Epistasis implements CommandLine {
 
 		// For each MSA...
 		mltm.calcPi();
+		HashSet<String> seqs = new HashSet<String>();
+		int count = 0;
 		for (MultipleSequenceAlignment msa1 : msas) {
 			for (MultipleSequenceAlignment msa2 : msas) {
 				// Make sure the MSAs are far away from each other
@@ -200,22 +208,47 @@ public class Epistasis implements CommandLine {
 				for (int pos1 = 0; pos1 < msa1.length(); pos1++) {
 					if (msa1.isSkip(pos1)) continue;
 
-					// Log likelihood at position 1
-					double loklik1 = mltm.logLikelyhood(msa1, pos1);
+					//					// Log likelihood at position 1
+					//					double loklik1 = mltm.logLikelyhood(msa1, pos1);
 
 					for (int pos2 = 0; pos2 < msa2.length(); pos2++) {
 						if (msa2.isSkip(pos2)) continue;
 
-						// Log likelihood at position 2
-						double loklik2 = mltm.logLikelyhood(msa2, pos2);
-						System.out.println(msa1.getId() + "\t" + msa2.getId() + "\t" + pos1 + "\t" + pos2 + "\t" + loklik1 + "\t" + loklik2);
+						String seqCol1 = msa1.getColumn(pos1);
+						String seqCol2 = msa2.getColumn(pos2);
+						seqs.add(seqCol1 + seqCol2);
+						count++;
 
-						// Combined log likelihood
-						mltm.logLikelyhood(msa1, pos1, msa2, pos2);
+						//						// Log likelihood at position 2
+						//						double loklik2 = mltm.logLikelyhood(msa2, pos2);
+						//						System.out.println(msa1.getId() + "\t" + msa2.getId() + "\t" + pos1 + "\t" + pos2 + "\t" + loklik1 + "\t" + loklik2);
+						//
+						//						// Combined log likelihood
+						//						mltm.logLikelyhood(msa1, pos1, msa2, pos2);
 					}
 				}
+
 			}
+			double ratio = ((double) seqs.size()) / ((double) count);
+			System.out.println("Count: " + count + "\t" + seqs.size() + "\t" + ratio);
 		}
+
+		return true;
+	}
+
+	public boolean runTest(String args[]) {
+		int N = 400;
+		double d[][] = new double[N][N];
+
+		// Rand matrix
+		for (int i = 0; i < N; i++)
+			for (int j = 0; j < N; j++)
+				d[i][j] = Math.random();
+
+		TransitionMatrixMarkov Q = new TransitionMatrixMarkov(d);
+		Timer.show("Start Exp");
+		Q.exp(1.0);
+		Timer.show("End Exp");
 
 		return true;
 	}
@@ -227,7 +260,8 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'corr'      : " + this.getClass().getSimpleName() + " corr number_of_aligns multiple_alignment_file.fa");
 		System.err.println("Command 'mi'        : " + this.getClass().getSimpleName() + " mi number_of_bases number_of_aligns multiple_alignment_file.fa");
 		System.err.println("Command 'pdbdist'   : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold path/to/pdb/dir path/to/id_map.txt");
-		System.err.println("Command 'phylo'     : " + this.getClass().getSimpleName() + " phylo number_of_bases number_of_aligns phylo.nh Q_matrix.txt");
+		System.err.println("Command 'phylo'     : " + this.getClass().getSimpleName() + " phylo phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
+		System.err.println("Command 'test'      : " + this.getClass().getSimpleName() + " ...");
 		System.exit(-1);
 	}
 
