@@ -10,6 +10,7 @@ import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
@@ -20,6 +21,9 @@ import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
  * @author pcingola
  */
 public class MaxLikelihoodTm {
+
+	public static final int NUM_AA = GprSeq.AMINO_ACIDS.length;
+	public static final int NUM_AA_SQUARE = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
 
 	boolean verbose = false;
 	boolean debug = false;
@@ -127,7 +131,7 @@ public class MaxLikelihoodTm {
 
 		// Convert to transition frequencies
 		// Estimate matrix P
-		double phat[][] = new double[GprSeq.AMINO_ACIDS.length][GprSeq.AMINO_ACIDS.length];
+		double phat[][] = new double[NUM_AA][NUM_AA];
 		double n = sum;
 		for (int i = 0; i < phat.length; i++)
 			for (int j = 0; j < phat.length; j++)
@@ -218,6 +222,14 @@ public class MaxLikelihoodTm {
 	 */
 	public double logLikelyhood(MultipleSequenceAlignment msa1, int pos1, MultipleSequenceAlignment msa2, int pos2) {
 		// Calculate Q2
+		char[] seqCol1 = msa1.getColumn(pos1).toCharArray();
+		char[] seqCol2 = msa2.getColumn(pos2).toCharArray();
+
+		double count[][] = new double[NUM_AA_SQUARE][NUM_AA_SQUARE];
+
+		for (int i = 0; i < seqCol1.length; i++) {
+			Gpr.debug("FINISH THIS!!!");
+		}
 
 		// Calculate likelihood for each lambda
 

@@ -1,7 +1,5 @@
 package ca.mcgill.pcingola.epistasis;
 
-import java.util.HashSet;
-
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -197,8 +195,6 @@ public class Epistasis implements CommandLine {
 
 		// For each MSA...
 		mltm.calcPi();
-		HashSet<String> seqs = new HashSet<String>();
-		int count = 0;
 		for (MultipleSequenceAlignment msa1 : msas) {
 			for (MultipleSequenceAlignment msa2 : msas) {
 				// Make sure the MSAs are far away from each other
@@ -208,29 +204,22 @@ public class Epistasis implements CommandLine {
 				for (int pos1 = 0; pos1 < msa1.length(); pos1++) {
 					if (msa1.isSkip(pos1)) continue;
 
-					//					// Log likelihood at position 1
-					//					double loklik1 = mltm.logLikelyhood(msa1, pos1);
+					// Log likelihood at position 1
+					double loklik1 = mltm.logLikelyhood(msa1, pos1);
 
 					for (int pos2 = 0; pos2 < msa2.length(); pos2++) {
 						if (msa2.isSkip(pos2)) continue;
 
-						String seqCol1 = msa1.getColumn(pos1);
-						String seqCol2 = msa2.getColumn(pos2);
-						seqs.add(seqCol1 + seqCol2);
-						count++;
+						// Log likelihood at position 2
+						double loklik2 = mltm.logLikelyhood(msa2, pos2);
+						System.out.println(msa1.getId() + "\t" + msa2.getId() + "\t" + pos1 + "\t" + pos2 + "\t" + loklik1 + "\t" + loklik2);
 
-						//						// Log likelihood at position 2
-						//						double loklik2 = mltm.logLikelyhood(msa2, pos2);
-						//						System.out.println(msa1.getId() + "\t" + msa2.getId() + "\t" + pos1 + "\t" + pos2 + "\t" + loklik1 + "\t" + loklik2);
-						//
-						//						// Combined log likelihood
-						//						mltm.logLikelyhood(msa1, pos1, msa2, pos2);
+						// Combined log likelihood
+						mltm.logLikelyhood(msa1, pos1, msa2, pos2);
 					}
 				}
 
 			}
-			double ratio = ((double) seqs.size()) / ((double) count);
-			System.out.println("Count: " + count + "\t" + seqs.size() + "\t" + ratio);
 		}
 
 		return true;
