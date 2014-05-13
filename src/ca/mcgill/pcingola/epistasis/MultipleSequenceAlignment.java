@@ -157,7 +157,20 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @param colNum
 	 * @return
 	 */
-	public String getColumn(int colNum) {
+	public byte[] getColumn(int colNum) {
+		byte col[] = new byte[size()];
+		for (int i = 0; i < col.length; i++)
+			col[i] = align[i][colNum];
+
+		return col;
+	}
+
+	/**
+	 * Get all characters in column 'colNum'
+	 * @param colNum
+	 * @return
+	 */
+	public String getColumnString(int colNum) {
 		char col[] = new char[size()];
 		for (int i = 0; i < col.length; i++)
 			col[i] = getChar(i, colNum);

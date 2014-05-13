@@ -10,7 +10,6 @@ import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
@@ -30,6 +29,7 @@ public class MaxLikelihoodTm {
 
 	int pseudoCount = 1;
 	double pi[];
+	double time[][];
 	LikelihoodTree tree;
 	MultipleSequenceAlignmentSet msas;
 	TransitionMatrixMarkov Q;
@@ -42,6 +42,7 @@ public class MaxLikelihoodTm {
 		this.msas = msas;
 		random = new Random(20140426);
 		cacheLogLikelihood = new HashMap<String, Double>();
+		time = new double[NUM_AA][NUM_AA];
 	}
 
 	/**
@@ -115,7 +116,7 @@ public class MaxLikelihoodTm {
 	public TransitionMatrix estimateTransitionMatrix(int seqNum1, int seqNum2) {
 		String seqName1 = msas.getSpecies()[seqNum1];
 		String seqName2 = msas.getSpecies()[seqNum2];
-		double t = tree.distance(seqName1, seqName2);
+		double t = time(seqNum1, seqNum2);
 		System.out.println("\t" + seqName1 + "\t" + seqName2 + "\ttime: " + t);
 
 		// Count all transitions
@@ -203,7 +204,7 @@ public class MaxLikelihoodTm {
 		if (logLik != null) return logLik;
 
 		// Set sequence and calculate likelihood
-		String seqCol = msa.getColumn(pos);
+		String seqCol = msa.getColumnString(pos);
 		tree.setLeafSequence(seqCol);
 		double like = tree.likelihood(Q, pi);
 		logLik = -Math.log(like);
@@ -221,15 +222,34 @@ public class MaxLikelihoodTm {
 	 * @return
 	 */
 	public double logLikelyhood(MultipleSequenceAlignment msa1, int pos1, MultipleSequenceAlignment msa2, int pos2) {
-		// Calculate Q2
-		char[] seqCol1 = msa1.getColumn(pos1).toCharArray();
-		char[] seqCol2 = msa2.getColumn(pos2).toCharArray();
+		// Get codes
+		byte code1[] = msa1.getColumn(pos1);
+		byte code2[] = msa2.getColumn(pos2);
 
+		// Initialize
+		int codes[] = new int[code1.length];
 		double count[][] = new double[NUM_AA_SQUARE][NUM_AA_SQUARE];
-
-		for (int i = 0; i < seqCol1.length; i++) {
-			Gpr.debug("FINISH THIS!!!");
+		for (int i = 0; i < code1.length; i++) {
+			codes[i] = code1[i] * NUM_AA + code2[i];
+			Arrays.fill(count[i], pseudoCount);
 		}
+
+		// Count entries
+		for (int i = 0; i < code1.length; i++)
+			for (int j = i + 1; j < code1.length; j++)
+				count[codes[j]][codes[j]] += 1.0;
+
+		// Phat estimation
+		// TODO: WRONG!!!
+		//		double phat[][] = new double[NUM_AA_SQUARE][NUM_AA_SQUARE];
+		//		for (int i = 0; i < count.length; i++)
+		//			for (int j = i + 1; j < count.length; j++)
+		//				phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i] * pi[i]; // Note: We use symmetry
+		//
+		//		// Create matrix
+		//		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
+		//		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
+		//		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
 
 		// Calculate likelihood for each lambda
 
@@ -325,5 +345,17 @@ public class MaxLikelihoodTm {
 			System.out.println("\tlambda_" + i + ":\t" + lambda);
 		}
 		System.out.println("\tlambda_max:\t" + maxLambda);
+	}
+
+	/**
+	 * Calculate time and cache it
+	 */
+	double time(int seqNum1, int seqNum2) {
+		double t = time[seqNum1][seqNum2];
+		if (t > 0 || seqNum1 == seqNum2) return t;
+		String seqName1 = msas.getSpecies()[seqNum1];
+		String seqName2 = msas.getSpecies()[seqNum2];
+		t = time[seqNum1][seqNum2] = tree.distance(seqName1, seqName2);
+		return t;
 	}
 }
