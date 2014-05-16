@@ -218,7 +218,6 @@ public class Epistasis implements CommandLine {
 						mltm.logLikelyhood(msa1, pos1, msa2, pos2);
 					}
 				}
-
 			}
 		}
 
