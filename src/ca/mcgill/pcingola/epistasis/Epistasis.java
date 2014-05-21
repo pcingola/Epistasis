@@ -1,5 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.Arrays;
+
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -74,6 +76,13 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[2];
 			String qMatrixFile = args[3];
 			runPhylo(treeFile, multAlignFile, qMatrixFile);
+			break;
+
+		case "checkPdbGenome":
+			// Parse command line
+			PdbMsaGenome pdbMsa = new PdbMsaGenome(Arrays.copyOfRange(args, 1, args.length));
+			pdbMsa.initialize();
+			pdbMsa.checkCoordinates();
 			break;
 
 		case "test":
@@ -273,11 +282,12 @@ public class Epistasis implements CommandLine {
 	public void usage(String message) {
 		if (message != null) System.err.println("Error: " + message + "\n");
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
-		System.err.println("Command 'corr'      : " + this.getClass().getSimpleName() + " corr number_of_aligns multiple_alignment_file.fa");
-		System.err.println("Command 'mi'        : " + this.getClass().getSimpleName() + " mi number_of_bases number_of_aligns multiple_alignment_file.fa");
-		System.err.println("Command 'pdbdist'   : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold path/to/pdb/dir id_map.txt phylo.nh multiple_sequence_alignment.fa");
-		System.err.println("Command 'phylo'     : " + this.getClass().getSimpleName() + " phylo phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
-		System.err.println("Command 'test'      : " + this.getClass().getSimpleName() + " ...");
+		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr number_of_aligns multiple_alignment_file.fa");
+		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases number_of_aligns multiple_alignment_file.fa");
+		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold path/to/pdb/dir id_map.txt phylo.nh multiple_sequence_alignment.fa");
+		System.err.println("Command 'phylo'          : " + this.getClass().getSimpleName() + " phylo phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
+		System.err.println("Command 'checkPdbGenome' : " + this.getClass().getSimpleName() + " checkPdbGenome snpeff.config genome pdbDir phylo.nh multiple_sequence_alignment.fa idMapFile");
+		System.err.println("Command 'test'           : " + this.getClass().getSimpleName() + " ...");
 		System.exit(-1);
 	}
 

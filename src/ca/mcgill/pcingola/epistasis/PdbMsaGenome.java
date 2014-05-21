@@ -33,13 +33,13 @@ import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
  * @author pcingola
  *
  */
-public class PdbMsa extends SnpEff {
+public class PdbMsaGenome extends SnpEff {
 
 	public static final double MAX_MISMATCH_RATE = 0.1;
 
 	public static void main(String[] args) {
 		String genome = "testHg3771Chr1";
-		PdbMsa zzz = new PdbMsa( //
+		PdbMsaGenome zzz = new PdbMsaGenome( //
 				Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE //
 				, genome //
 				, Gpr.HOME + "/snpEff/db/pdb" //
@@ -52,6 +52,9 @@ public class PdbMsa extends SnpEff {
 		zzz.checkCoordinates();
 	}
 
+	public static final double PDB_RESOLUTION = 3.0; // PDB file resolution (in Angstrom)
+	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
+
 	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
 	LikelihoodTree tree;
@@ -59,7 +62,11 @@ public class PdbMsa extends SnpEff {
 	HashMap<String, Transcript> trancriptById;
 	PDBFileReader pdbreader;
 
-	public PdbMsa(String configFile, String genome, String pdbDir, String phyloFile, String multAlignFile, String idMapFile) {
+	public PdbMsaGenome(String args[]) {
+		this(args[0], args[1], args[2], args[3], args[4], args[5]);
+	}
+
+	public PdbMsaGenome(String configFile, String genome, String pdbDir, String phyloFile, String multAlignFile, String idMapFile) {
 		super(null);
 		this.configFile = configFile;
 		this.genome = genome;
@@ -97,6 +104,7 @@ public class PdbMsa extends SnpEff {
 			throw new RuntimeException(e);
 		}
 
+		idMapper = idMapperConfirmed;
 		return idMapperConfirmed;
 	}
 
@@ -139,6 +147,11 @@ public class PdbMsa extends SnpEff {
 		if (tr == null) return idmapsNew;
 		String prot = tr.protein();
 		if (debug) System.out.println("\tProtein: " + prot);
+
+		// Filter PDB structure
+		// Within resolution limits? => Process
+		double res = pdbStruct.getPDBHeader().getResolution();
+		if (res > PDB_RESOLUTION) return idmapsNew;
 
 		// Compare to PDB structure
 		for (Chain chain : pdbStruct.getChains()) {
@@ -183,7 +196,7 @@ public class PdbMsa extends SnpEff {
 
 		if (verbose) {
 			System.out.println("Mapping Pdb ID\t" + pdbId);
-			idmapsNew.stream().forEach(i -> System.out.println("\t" + i));
+			idmapsNew.stream().forEach(i -> System.out.println("Confirmed IdMapping:\t" + i));
 		}
 
 		return idmapsNew;
