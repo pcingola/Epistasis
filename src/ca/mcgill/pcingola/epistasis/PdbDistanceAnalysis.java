@@ -23,7 +23,7 @@ import org.biojava.bio.structure.io.PDBFileReader;
  */
 public class PdbDistanceAnalysis {
 
-	public static final int AA_MIN_SEPARATION = 15;
+	public static final int AA_MIN_SEPARATION = 25;
 	public static final int MAX_AA_LEN = 10000;
 	public static final boolean debug = true;
 	public static final boolean verbose = true;
@@ -74,8 +74,6 @@ public class PdbDistanceAnalysis {
 				AminoAcid aa2 = aas1.get(j);
 
 				int aadist = Math.abs(i - j);
-				//				int resnum1 = aa1.getResidueNumber().getSeqNum();
-				//				int resnum2 = aa2.getResidueNumber().getSeqNum();
 				if (aadist == 0) throw new RuntimeException("WTF!?\n\t" + aa1 + "\t" + chain1 + "\n\t" + aa2 + "\t" + chain2);
 
 				double d = distanceMin(aa1, aa2);
@@ -87,10 +85,10 @@ public class PdbDistanceAnalysis {
 					if (debug) {
 						Structure structure = chain1.getParent();
 						String pdbId = structure.getPDBCode();
-						String trIds = IdMapper.trIds(idMapper.getByPdbId(pdbId));
+						String refSeqIds = IdMapper.refSeqIds(idMapper.getByPdbId(pdbId));
 
 						if (verbose) System.out.println("pdbId: " + pdbId //
-								+ "\ttrIDs: " + trIds //
+								+ "\trefSeqIDs: " + refSeqIds //
 								+ "\tdistance: " + d //
 								+ "\taa1: " + aa1.getChemComp().getId() + ", " + chain1.getChainID() + ", " + aa1.getResidueNumber() + ", " + (i + 1) //
 								+ "\taa2: " + aa2.getChemComp().getId() + ", " + chain2.getChainID() + ", " + aa2.getResidueNumber() + ", " + (j + 1) //
@@ -110,9 +108,6 @@ public class PdbDistanceAnalysis {
 		// Distance
 		for (Chain chain1 : structure.getChains())
 			distance(chain1, chain1);
-		//			for (Chain chain2 : structure.getChains())
-		//				if (chain1.getChainID().compareTo(chain2.getChainID()) <= 0) distance(chain1, chain2);
-
 	}
 
 	/**

@@ -1,1 +1,0 @@
-<!DOCTYPE Query><Query client="true" processor="TSV" limit="-1" header="1"><Dataset name="hsapiens_gene_ensembl" config="gene_ensembl_config_4"><Attribute name="ensembl_gene_id"/><Attribute name="ensembl_transcript_id"/><Attribute name="ensembl_peptide_id"/><Attribute name="external_gene_id"/><Attribute name="pfam"/><Attribute name="pdb"/></Dataset></Query>

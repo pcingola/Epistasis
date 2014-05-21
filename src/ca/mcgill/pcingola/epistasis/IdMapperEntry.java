@@ -7,7 +7,7 @@ package ca.mcgill.pcingola.epistasis;
  */
 public class IdMapperEntry {
 
-	public String geneId, trId, protId, geneName, ucscId, pfamId, pdbId;
+	public String geneId, trId, geneName, refSeqId, pdbId;
 
 	public IdMapperEntry(String line) {
 		parseLine(line);
@@ -17,16 +17,14 @@ public class IdMapperEntry {
 		String fields[] = line.split("\t", -1);
 		geneId = fields[0];
 		trId = fields[1];
-		protId = fields[2];
-		geneName = fields[3];
-		ucscId = fields[4];
-		pfamId = fields[5];
-		pdbId = fields[6];
+		geneName = fields[2];
+		refSeqId = fields[3];
+		pdbId = fields[4];
 	}
 
 	@Override
 	public String toString() {
-		return geneId + "\t" + trId + "\t" + protId + "\t" + geneName + "\t" + ucscId + "\t" + pfamId + "\t" + pdbId;
+		return geneId + "\t" + trId + "\t" + geneName + "\t" + refSeqId + "\t" + pdbId;
 	}
 
 }

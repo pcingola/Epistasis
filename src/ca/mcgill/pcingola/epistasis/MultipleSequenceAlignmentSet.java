@@ -108,9 +108,9 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 				if (!header.startsWith(">")) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting header empty line, got: '" + header + "'");
 
 				// Parse and check species
-				int fieldIdx = header.indexOf('_');
-				int speciesIdx = header.indexOf('_', fieldIdx + 1);
-				String speciesName = header.substring(fieldIdx + 1, speciesIdx);
+				String fields[] = header.split("_");
+				String geneId = fields[0] + "_" + fields[1];
+				String speciesName = fields[2];
 				if (species[i] == null) species[i] = speciesName;
 				else if (!speciesName.equals(species[i])) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting species '" + species[i] + "', got: '" + speciesName + "'");
 
@@ -122,12 +122,9 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 				if (seqLen < 0) {
 					seqLen = sequence.length();
 
-					// Parse header information
-					String geneId = header.substring(1, fieldIdx); // Skip '>' sign
-
 					// Chr:start=end
-					fieldIdx = header.lastIndexOf(' ');
-					String chrpos = header.substring(fieldIdx + 1);
+					fields = header.split(" ");
+					String chrpos = fields[4];
 					int idxPos = chrpos.indexOf(':');
 					int idxEnd = chrpos.indexOf('-');
 					String chr = chrpos.substring(0, idxPos);
