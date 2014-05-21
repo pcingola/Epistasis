@@ -1,8 +1,11 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
 
 import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Chain;
@@ -34,7 +37,7 @@ public class Zzz extends SnpEff {
 		zzz.loadAll();
 		zzz.loadDb();
 
-		zzz.mapCoordinates();
+		zzz.checkCoordinates();
 	}
 
 	String pdbId = "1AN4";
@@ -85,15 +88,17 @@ public class Zzz extends SnpEff {
 	/**
 	 * Map coordinates from Pdb to Transcript
 	 */
-	void mapCoordinates() {
+	void checkCoordinates() {
 		Timer.showStdErr("Mapping coordinates");
 
 		// Initialize trancriptById
-		trancriptById = new HashMap<>();
-		config.getSnpEffectPredictor().getGenome().getGenes().forEach( //
-				g -> g.subintervals().forEach( //
-						t -> trancriptById.put(t.getId(), t)) //
-				);
+		if (trancriptById == null) {
+			trancriptById = new HashMap<>();
+			config.getSnpEffectPredictor().getGenome().getGenes().forEach( //
+					g -> g.subintervals().forEach( //
+							t -> trancriptById.put(t.getId(), t)) //
+					);
+		}
 
 		// Get trancsript IDs
 		String trIdsStr = IdMapper.trIds(idMapper.getByPdbId(pdbId));
@@ -101,26 +106,34 @@ public class Zzz extends SnpEff {
 		String trIds[] = trIdsStr.split(",");
 
 		// Mapping coordinates
-		Arrays.stream(trIds).forEach(id -> mapPdb2Tr(structure, id));
+		HashSet<IdMapperEntry> confirmed = new HashSet<>();
+		Arrays.stream(trIds).forEach(id -> confirmed.addAll(checkCoordinates(pdbId, structure, id)));
+		Gpr.debug("Confirmed: ");
+		confirmed.stream().forEach(System.out::println);
 	}
 
 	/**
-	 * Map transcript to pdb coordinates
+	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
+	 * Note: Only part of the sequence usually matches
 	 */
-	void mapPdb2Tr(Structure pdbStruct, String trId) {
-		System.out.println("Mapping " + trId + "\t<->\t" + pdbStruct.getPDBCode());
+	List<IdMapperEntry> checkCoordinates(String pdbId, Structure pdbStruct, String trId) {
+		if (debug) System.out.println("Checking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
+		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
+		List<IdMapperEntry> idmapsNew = new ArrayList<>();
 
 		// Transcript
 		Transcript tr = trancriptById.get(trId);
-		if (tr == null) return;
-		// System.out.println("\tCDS: " + tr.cds());
+		if (tr == null) return idmapsNew;
 		String prot = tr.protein();
-		System.out.println("\tProtein: " + prot);
+		if (debug) System.out.println("\tProtein: " + prot);
 
-		// Compare to 
+		// Compare to PDB structure
 		for (Chain chain : structure.getChains()) {
+			// Compare sequence to each AA-Chain
 			StringBuilder sb = new StringBuilder();
 			int countMatch = 0, countMismatch = 0;
+
+			// Count differences
 			for (Group group : chain.getAtomGroups())
 				if (group instanceof AminoAcid) {
 					AminoAcid aa = (AminoAcid) group;
@@ -137,12 +150,22 @@ public class Zzz extends SnpEff {
 					sb.append(aa.getChemComp().getOne_letter_code());
 				}
 
+			// Only use mappings that have low error rate
 			if (countMatch + countMismatch > 0) {
 				double err = countMismatch / ((double) (countMatch + countMismatch));
-				System.out.println("\tChain: " + chain.getChainID() + "\terror: " + err + "\t" + sb);
-				if (err < MAX_MISMATCH_RATE) Gpr.debug("Confirm transcript " + trId);
+				if (debug) System.out.println("\tChain: " + chain.getChainID() + "\terror: " + err + "\t" + sb);
+
+				if (err < MAX_MISMATCH_RATE) {
+					if (debug) Gpr.debug("Confirm transcript " + trId);
+
+					idmapsOri.stream() //
+							.filter(idm -> trId.equals(idm.trId) && pdbId.equals(idm.pdbId)) //
+							.findFirst() //
+							.ifPresent(idm -> idmapsNew.add(idm));
+				}
 			}
 		}
 
+		return idmapsNew;
 	}
 }
