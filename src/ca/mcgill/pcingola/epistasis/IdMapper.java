@@ -5,9 +5,11 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
@@ -20,37 +22,15 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  */
 public class IdMapper {
 
-	public static String refSeqIds(List<IdMapperEntry> ids) {
+	public static String ids(List<IdMapperEntry> ids, Function<IdMapperEntry, String> ime2id) {
 		if (ids == null) return null;
 
 		StringBuilder sb = new StringBuilder();
 
 		// Unique names
 		HashSet<String> set = new HashSet<String>();
-		for (IdMapperEntry id : ids)
-			set.add(id.refSeqId);
-
-		// Sort
-		ArrayList<String> list = new ArrayList<String>();
-		list.addAll(set);
-		Collections.sort(list);
-
-		// Concatenate
-		for (String s : list)
-			sb.append((sb.length() <= 0 ? "" : ",") + s);
-
-		return sb.toString();
-	}
-
-	public static String trIds(List<IdMapperEntry> ids) {
-		if (ids == null) return null;
-
-		StringBuilder sb = new StringBuilder();
-
-		// Unique names
-		HashSet<String> set = new HashSet<String>();
-		for (IdMapperEntry id : ids)
-			set.add(id.trId);
+		for (IdMapperEntry ime : ids)
+			set.add(ime2id.apply(ime));
 
 		// Sort
 		ArrayList<String> list = new ArrayList<String>();
@@ -66,6 +46,7 @@ public class IdMapper {
 
 	int count;
 	AutoHashMap<String, ArrayList<IdMapperEntry>> byGeneId, byTrId, byGeneName, byRefSeqId, byPdbId;
+	HashSet<IdMapperEntry> entries;
 
 	public IdMapper() {
 		this(null);
@@ -78,6 +59,7 @@ public class IdMapper {
 		byGeneName = new AutoHashMap<String, ArrayList<IdMapperEntry>>(emptyList);
 		byRefSeqId = new AutoHashMap<String, ArrayList<IdMapperEntry>>(emptyList);
 		byPdbId = new AutoHashMap<String, ArrayList<IdMapperEntry>>(emptyList);;
+		entries = new HashSet<>();
 
 		if (fileName != null) load(fileName);
 	}
@@ -88,6 +70,7 @@ public class IdMapper {
 		if (ime.geneName != null) byGeneName.getOrCreate(ime.geneName).add(ime);
 		if (ime.refSeqId != null) byRefSeqId.getOrCreate(ime.refSeqId).add(ime);
 		if (ime.pdbId != null) byPdbId.getOrCreate(ime.pdbId).add(ime);
+		entries.add(ime);
 	}
 
 	public List<IdMapperEntry> getByGeneId(String id) {
@@ -108,6 +91,10 @@ public class IdMapper {
 
 	public List<IdMapperEntry> getByTrId(String id) {
 		return byTrId.get(id);
+	}
+
+	public Collection<IdMapperEntry> getEntries() {
+		return entries;
 	}
 
 	void load(String fileName) {

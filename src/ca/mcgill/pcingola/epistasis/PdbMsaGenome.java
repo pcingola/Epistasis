@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Function;
 import java.util.stream.Stream;
 
 import org.biojava.bio.structure.AminoAcid;
@@ -15,6 +16,7 @@ import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.io.PDBFileReader;
 
+import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.Config;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
@@ -36,6 +38,11 @@ import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 public class PdbMsaGenome extends SnpEff {
 
 	public static final double MAX_MISMATCH_RATE = 0.1;
+	public static final double PDB_RESOLUTION = 3.0; // PDB file resolution (in Angstrom)
+	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
+
+	// Select ID
+	public static final Function<IdMapperEntry, String> ime2id = ime -> ime.refSeqId;
 
 	public static void main(String[] args) {
 		String genome = "testHg3771Chr1";
@@ -51,9 +58,6 @@ public class PdbMsaGenome extends SnpEff {
 		zzz.initialize();
 		zzz.checkCoordinates();
 	}
-
-	public static final double PDB_RESOLUTION = 3.0; // PDB file resolution (in Angstrom)
-	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
 
 	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
@@ -86,10 +90,12 @@ public class PdbMsaGenome extends SnpEff {
 		// Initialize trancriptById
 		if (trancriptById == null) {
 			trancriptById = new HashMap<>();
-			config.getSnpEffectPredictor().getGenome().getGenes().forEach( //
-					g -> g.subintervals().forEach( //
-							t -> trancriptById.put(t.getId(), t)) //
-					);
+			for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
+				for (Transcript tr : g) {
+					String id = tr.getId();
+					id = id.substring(0, id.indexOf('.'));
+					trancriptById.put(id, tr);
+				}
 		}
 
 		// Create a new IdMapper using only confirmed entries
@@ -123,7 +129,7 @@ public class PdbMsaGenome extends SnpEff {
 		String pdbId = pdbStruct.getPDBCode();
 
 		// Get trancsript IDs
-		String trIdsStr = IdMapper.trIds(idMapper.getByPdbId(pdbId));
+		String trIdsStr = IdMapper.ids(idMapper.getByPdbId(pdbId), ime2id);
 		String trIds[] = trIdsStr.split(",");
 
 		// Check idMaps. Only return those that match
@@ -173,7 +179,7 @@ public class PdbMsaGenome extends SnpEff {
 						if (aaLetter == trAaLetter) countMatch++;
 						else countMismatch++;
 
-						if (debug) System.out.println("\t\t" + aaPos + "\t" + aaLetter + "\t" + trAaLetter + "\t" + (aaLetter != trAaLetter ? "*" : ""));
+						//if (debug) System.out.println("\t\t" + aaPos + "\t" + aaLetter + "\t" + trAaLetter + "\t" + (aaLetter != trAaLetter ? "*" : ""));
 					} else countMismatch++;
 					sb.append(aa.getChemComp().getOne_letter_code());
 				}
@@ -184,10 +190,10 @@ public class PdbMsaGenome extends SnpEff {
 				if (debug) System.out.println("\tChain: " + chain.getChainID() + "\terror: " + err + "\t" + sb);
 
 				if (err < MAX_MISMATCH_RATE) {
-					if (debug) Gpr.debug("Confirm transcript " + trId);
+					if (debug) Gpr.debug("Confirm transcript " + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(idm.trId) && pdbId.equals(idm.pdbId)) //
+							.filter(idm -> trId.equals(ime2id.apply(idm)) && pdbId.equals(idm.pdbId)) //
 							.findFirst() //
 							.ifPresent(idm -> idmapsNew.add(idm));
 				}
@@ -200,6 +206,14 @@ public class PdbMsaGenome extends SnpEff {
 		}
 
 		return idmapsNew;
+	}
+
+	/**
+	 * Distance analysis
+	 */
+	public void distanceAnalysis(double distanceThreshold) {
+		PdbDistanceAnalysis pda = new PdbDistanceAnalysis(pdbDir, distanceThreshold, idMapper);
+		pda.run();
 	}
 
 	/**

@@ -80,9 +80,13 @@ public class Epistasis implements CommandLine {
 
 		case "checkPdbGenome":
 			// Parse command line
-			PdbMsaGenome pdbMsa = new PdbMsaGenome(Arrays.copyOfRange(args, 1, args.length));
+			distThreshold = Gpr.parseDoubleSafe(args[7]);
+			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[7] + "'");
+			PdbMsaGenome pdbMsa = new PdbMsaGenome(Arrays.copyOfRange(args, 1, 7));
 			pdbMsa.initialize();
+			//			pdbMsa.setDebug(true);
 			pdbMsa.checkCoordinates();
+			pdbMsa.distanceAnalysis(distThreshold);
 			break;
 
 		case "test":
@@ -286,7 +290,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases number_of_aligns multiple_alignment_file.fa");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold path/to/pdb/dir id_map.txt phylo.nh multiple_sequence_alignment.fa");
 		System.err.println("Command 'phylo'          : " + this.getClass().getSimpleName() + " phylo phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
-		System.err.println("Command 'checkPdbGenome' : " + this.getClass().getSimpleName() + " checkPdbGenome snpeff.config genome pdbDir phylo.nh multiple_sequence_alignment.fa idMapFile");
+		System.err.println("Command 'checkPdbGenome' : " + this.getClass().getSimpleName() + " checkPdbGenome snpeff.config genome pdbDir phylo.nh multiple_sequence_alignment.fa idMapFile distanceThreshold");
 		System.err.println("Command 'test'           : " + this.getClass().getSimpleName() + " ...");
 		System.exit(-1);
 	}
