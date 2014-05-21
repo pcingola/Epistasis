@@ -65,8 +65,11 @@ public class IdMapper {
 	}
 
 	int count;
-
 	AutoHashMap<String, ArrayList<IdMapperEntry>> byGeneId, byTrId, byGeneName, byRefSeqId, byPdbId;
+
+	public IdMapper() {
+		this(null);
+	}
 
 	public IdMapper(String fileName) {
 		ArrayList<IdMapperEntry> emptyList = new ArrayList<IdMapperEntry>();
@@ -76,7 +79,15 @@ public class IdMapper {
 		byRefSeqId = new AutoHashMap<String, ArrayList<IdMapperEntry>>(emptyList);
 		byPdbId = new AutoHashMap<String, ArrayList<IdMapperEntry>>(emptyList);;
 
-		load(fileName);
+		if (fileName != null) load(fileName);
+	}
+
+	public void add(IdMapperEntry ime) {
+		if (ime.geneId != null) byGeneId.getOrCreate(ime.geneId).add(ime);
+		if (ime.trId != null) byTrId.getOrCreate(ime.trId).add(ime);
+		if (ime.geneName != null) byGeneName.getOrCreate(ime.geneName).add(ime);
+		if (ime.refSeqId != null) byRefSeqId.getOrCreate(ime.refSeqId).add(ime);
+		if (ime.pdbId != null) byPdbId.getOrCreate(ime.pdbId).add(ime);
 	}
 
 	public List<IdMapperEntry> getByGeneId(String id) {
@@ -118,13 +129,7 @@ public class IdMapper {
 	 */
 	void parseLine(String line) {
 		IdMapperEntry ime = new IdMapperEntry(line);
-
-		if (ime.geneId != null) byGeneId.getOrCreate(ime.geneId).add(ime);
-		if (ime.trId != null) byTrId.getOrCreate(ime.trId).add(ime);
-		if (ime.geneName != null) byGeneName.getOrCreate(ime.geneName).add(ime);
-		if (ime.refSeqId != null) byRefSeqId.getOrCreate(ime.refSeqId).add(ime);
-		if (ime.pdbId != null) byPdbId.getOrCreate(ime.pdbId).add(ime);
-
+		add(ime);
 		count++;
 	}
 }

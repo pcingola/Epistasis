@@ -1,11 +1,13 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
+import java.util.stream.Stream;
 
 import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Chain;
@@ -20,75 +22,58 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 
-public class Zzz extends SnpEff {
+/**
+ * This class has information from
+ * 		- PDB
+ * 		- Multiple Sequence alignment
+ * 		- Genome (SnpEff)
+ * 		- Phylogeny tree
+ * 		- IdMapper
+ *
+ * @author pcingola
+ *
+ */
+public class PdbMsa extends SnpEff {
 
 	public static final double MAX_MISMATCH_RATE = 0.1;
 
 	public static void main(String[] args) {
-		// SnpEff database
 		String genome = "testHg3771Chr1";
-		// String argsSnpEff[] = { "eff", "-v", "-nextProt", "-c", Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE, genome };
-		String argsSnpEff[] = { "eff", "-v", "-c", Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE, genome };
+		PdbMsa zzz = new PdbMsa( //
+				Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE //
+				, genome //
+				, Gpr.HOME + "/snpEff/db/pdb" //
+				, Gpr.HOME + "/snpEff/db/multiz100way/hg19.100way.nh" //
+				, Gpr.HOME + "/snpEff/db/multiz100way/refGene.exonAA.head.fa" //
+				, Gpr.HOME + "/snpEff/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt" //
+		);
 
-		Zzz zzz = new Zzz(argsSnpEff);
-		zzz.setGenomeVer(genome);
-		zzz.parseArgs(argsSnpEff);
-		zzz.loadConfig();
-		zzz.loadAll();
-		zzz.loadDb();
-
+		zzz.initialize();
 		zzz.checkCoordinates();
 	}
 
-	String pdbId = "1AN4";
-	String pdbFile = Gpr.HOME + "/snpEff/db/pdb/" + pdbId.toLowerCase() + ".pdb";
-	String phyloFile = Gpr.HOME + "/snpEff/db/multiz100way/hg19.100way.nh";
-	String multAlignFile = Gpr.HOME + "/snpEff/db/multiz100way/refGene.exonAA.head.fa";
-	String idMapFile = Gpr.HOME + "/snpEff/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt";
+	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
 	LikelihoodTree tree;
 	MultipleSequenceAlignmentSet msas;
-	Structure structure;
 	HashMap<String, Transcript> trancriptById;
+	PDBFileReader pdbreader;
 
-	public Zzz(String[] args) {
-		super(args);
+	public PdbMsa(String configFile, String genome, String pdbDir, String phyloFile, String multAlignFile, String idMapFile) {
+		super(null);
+		this.configFile = configFile;
+		this.genome = genome;
+		this.pdbDir = pdbDir;
+		this.phyloFile = phyloFile;
+		this.multAlignFile = multAlignFile;
+		this.idMapFile = idMapFile;
 	}
 
 	/**
-	 * Load files
+	 * Check mapping.
+	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
-	void loadAll() {
-		// Pdb file
-		Timer.showStdErr("Loading pdb file " + pdbFile);
-		PDBFileReader pdbreader = new PDBFileReader();
-		try {
-			structure = pdbreader.getStructure(pdbFile);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-		System.out.println(structure);
-
-		// Id Map
-		Timer.showStdErr("Loading id maps " + idMapFile);
-		idMapper = new IdMapper(idMapFile);
-
-		// Load: tree
-		Timer.showStdErr("Loading phylogenetic tree from " + phyloFile);
-		tree = new LikelihoodTree();
-		tree.load(phyloFile);
-		int numAligns = tree.childNames().size();
-
-		// Load: MSA
-		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlignFile);
-		msas = new MultipleSequenceAlignmentSet(multAlignFile, numAligns);
-		msas.load();
-	}
-
-	/**
-	 * Map coordinates from Pdb to Transcript
-	 */
-	void checkCoordinates() {
+	IdMapper checkCoordinates() {
 		Timer.showStdErr("Mapping coordinates");
 
 		// Initialize trancriptById
@@ -100,19 +85,47 @@ public class Zzz extends SnpEff {
 					);
 		}
 
-		// Get trancsript IDs
-		String trIdsStr = IdMapper.trIds(idMapper.getByPdbId(pdbId));
-		System.out.println("Mapping Pdb ID '" + pdbId + "' to transcripts: " + trIdsStr);
-		String trIds[] = trIdsStr.split(",");
+		// Create a new IdMapper using only confirmed entries
+		IdMapper idMapperConfirmed = new IdMapper();
+		try {
+			Files.list(Paths.get(pdbDir)) //
+					.filter(s -> s.toString().endsWith(".pdb")) //
+					.map(pf -> checkCoordinates(pf.toString())) //
+					.flatMap(s -> s) //
+					.forEach(im -> idMapperConfirmed.add(im));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 
-		// Mapping coordinates
-		HashSet<IdMapperEntry> confirmed = new HashSet<>();
-		Arrays.stream(trIds).forEach(id -> confirmed.addAll(checkCoordinates(pdbId, structure, id)));
-		Gpr.debug("Confirmed: ");
-		confirmed.stream().forEach(System.out::println);
+		return idMapperConfirmed;
 	}
 
 	/**
+	 * Check mapping.
+	 * Return a stream of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
+	 */
+	Stream<IdMapperEntry> checkCoordinates(String pdbFile) {
+		Structure pdbStruct;
+		try {
+			pdbStruct = pdbreader.getStructure(pdbFile);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+
+		String pdbId = pdbStruct.getPDBCode();
+
+		// Get trancsript IDs
+		String trIdsStr = IdMapper.trIds(idMapper.getByPdbId(pdbId));
+		String trIds[] = trIdsStr.split(",");
+
+		// Check idMaps. Only return those that match
+		return Arrays.stream(trIds) //
+				.map(id -> checkCoordinates(pdbId, pdbStruct, id)) //
+				.flatMap(l -> l.stream());
+	}
+
+	/**
+	 * Check mapping.
 	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 * Note: Only part of the sequence usually matches
 	 */
@@ -128,7 +141,7 @@ public class Zzz extends SnpEff {
 		if (debug) System.out.println("\tProtein: " + prot);
 
 		// Compare to PDB structure
-		for (Chain chain : structure.getChains()) {
+		for (Chain chain : pdbStruct.getChains()) {
 			// Compare sequence to each AA-Chain
 			StringBuilder sb = new StringBuilder();
 			int countMatch = 0, countMismatch = 0;
@@ -138,6 +151,8 @@ public class Zzz extends SnpEff {
 				if (group instanceof AminoAcid) {
 					AminoAcid aa = (AminoAcid) group;
 					int aaPos = aa.getResidueNumber().getSeqNum() - 1;
+					if (aaPos < 0) continue; // I don't know why some PDB coordinates are negative...
+
 					char aaLetter = aa.getChemComp().getOne_letter_code().charAt(0);
 					if (prot.length() > aaPos) {
 						char trAaLetter = prot.charAt(aaPos);
@@ -166,6 +181,44 @@ public class Zzz extends SnpEff {
 			}
 		}
 
+		if (verbose) {
+			System.out.println("Mapping Pdb ID\t" + pdbId);
+			idmapsNew.stream().forEach(i -> System.out.println("\t" + i));
+		}
+
 		return idmapsNew;
+	}
+
+	/**
+	 * Load all data
+	 */
+	void initialize() {
+		// Set up SnpEff arguments
+		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genome };
+		args = argsSnpEff;
+		setGenomeVer(genome);
+		parseArgs(argsSnpEff);
+		loadConfig();
+
+		// Id Map
+		Timer.showStdErr("Loading id maps " + idMapFile);
+		idMapper = new IdMapper(idMapFile);
+
+		// Load: tree
+		Timer.showStdErr("Loading phylogenetic tree from " + phyloFile);
+		tree = new LikelihoodTree();
+		tree.load(phyloFile);
+		int numAligns = tree.childNames().size();
+
+		// Load: MSA
+		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlignFile);
+		msas = new MultipleSequenceAlignmentSet(multAlignFile, numAligns);
+		msas.load();
+
+		// Initialize reader
+		pdbreader = new PDBFileReader();
+
+		// Load SnpEff database
+		loadDb();
 	}
 }
