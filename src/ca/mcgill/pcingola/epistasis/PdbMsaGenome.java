@@ -145,7 +145,7 @@ public class PdbMsaGenome extends SnpEff {
 	 * Note: Only part of the sequence usually matches
 	 */
 	List<IdMapperEntry> checkCoordinates(String pdbId, Structure pdbStruct, String trId) {
-		if (debug) System.out.println("Checking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
+		System.out.println("Checking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
 		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
 		List<IdMapperEntry> idmapsNew = new ArrayList<>();
 
@@ -225,7 +225,11 @@ public class PdbMsaGenome extends SnpEff {
 
 				// Find genomic position based on AA position
 				int aa2pos[] = tr.aaNumber2Pos();
-				if ((aa2pos.length <= dres.aaPos1) || (aa2pos.length <= dres.aaPos2)) {
+				if ((aa2pos.length <= dres.aaPos1) //
+						|| (aa2pos.length <= dres.aaPos2) //
+						|| (dres.aaPos1 < 0) //
+						|| (dres.aaPos2 < 0) //
+				) {
 					// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
 					continue;
 				}
