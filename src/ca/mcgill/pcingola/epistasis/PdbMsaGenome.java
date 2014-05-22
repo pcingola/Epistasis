@@ -42,7 +42,7 @@ public class PdbMsaGenome extends SnpEff {
 	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
 
 	// Select ID
-	public static final Function<IdMapperEntry, String> ime2id = ime -> ime.refSeqId;
+	public static final Function<IdMapperEntry, String> idme2id = ime -> ime.refSeqId;
 
 	public static void main(String[] args) {
 		String genome = "testHg3771Chr1";
@@ -85,7 +85,7 @@ public class PdbMsaGenome extends SnpEff {
 	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
 	IdMapper checkCoordinates() {
-		Timer.showStdErr("Mapping coordinates");
+		Timer.showStdErr("Checking PDB <-> Transcript sequences");
 
 		// Initialize trancriptById
 		if (trancriptById == null) {
@@ -129,7 +129,7 @@ public class PdbMsaGenome extends SnpEff {
 		String pdbId = pdbStruct.getPDBCode();
 
 		// Get trancsript IDs
-		String trIdsStr = IdMapper.ids(idMapper.getByPdbId(pdbId), ime2id);
+		String trIdsStr = IdMapper.ids(idMapper.getByPdbId(pdbId), idme2id);
 		String trIds[] = trIdsStr.split(",");
 
 		// Check idMaps. Only return those that match
@@ -175,11 +175,8 @@ public class PdbMsaGenome extends SnpEff {
 					char aaLetter = aa.getChemComp().getOne_letter_code().charAt(0);
 					if (prot.length() > aaPos) {
 						char trAaLetter = prot.charAt(aaPos);
-
 						if (aaLetter == trAaLetter) countMatch++;
 						else countMismatch++;
-
-						//if (debug) System.out.println("\t\t" + aaPos + "\t" + aaLetter + "\t" + trAaLetter + "\t" + (aaLetter != trAaLetter ? "*" : ""));
 					} else countMismatch++;
 					sb.append(aa.getChemComp().getOne_letter_code());
 				}
@@ -193,27 +190,54 @@ public class PdbMsaGenome extends SnpEff {
 					if (debug) Gpr.debug("Confirm transcript " + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(ime2id.apply(idm)) && pdbId.equals(idm.pdbId)) //
+							.filter(idm -> trId.equals(idme2id.apply(idm)) && pdbId.equals(idm.pdbId)) //
 							.findFirst() //
 							.ifPresent(idm -> idmapsNew.add(idm));
 				}
 			}
 		}
 
-		if (verbose) {
-			System.out.println("Mapping Pdb ID\t" + pdbId);
-			idmapsNew.stream().forEach(i -> System.out.println("Confirmed IdMapping:\t" + i));
-		}
+		if (verbose) idmapsNew.stream().forEach(i -> System.out.println("Confirmed IdMapping:\t" + i));
 
 		return idmapsNew;
 	}
 
 	/**
-	 * Distance analysis
+	 * Distance analysis: Calculate amino acids closer than 'distanceThreshold' (within each protein) 
 	 */
 	public void distanceAnalysis(double distanceThreshold) {
+		Timer.showStdErr("Distance analysis");
+		// Get all results 
 		PdbDistanceAnalysis pda = new PdbDistanceAnalysis(pdbDir, distanceThreshold, idMapper);
-		pda.run();
+		List<DistanceResult> results = pda.run();
+
+		// Map them to MSA
+		Timer.showStdErr("Distance analysis: Find sequences from results");
+		for (DistanceResult dres : results) {
+			List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
+
+			// Find all transcripts
+			for (IdMapperEntry idme : idmes) {
+				String trid = idme2id.apply(idme);
+				Transcript tr = trancriptById.get(trid);
+				if (tr == null) throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
+
+				// Find genomic position based on AA position
+				int aa2pos[] = tr.aaNumber2Pos();
+				if ((aa2pos.length <= dres.aaPos1) || (aa2pos.length <= dres.aaPos2)) {
+					// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
+					continue;
+				}
+				int pos1 = aa2pos[dres.aaPos1];
+				int pos2 = aa2pos[dres.aaPos2];
+
+				// Find sequences
+				String seq1 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos1);
+				if (seq1 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1);
+				String seq2 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos2);
+				if (seq2 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2);
+			}
+		}
 	}
 
 	/**

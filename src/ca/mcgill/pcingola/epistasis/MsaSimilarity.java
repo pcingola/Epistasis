@@ -179,7 +179,7 @@ public class MsaSimilarity {
 	 */
 	public String similarity(MultipleSequenceAlignment msai) {
 		String result = msas.getMsas().stream() //
-				.filter(msaj -> msai.getGeneId().equals(msaj.getGeneId())) // Filter by name (only same sequence)
+				.filter(msaj -> msai.getTranscriptId().equals(msaj.getTranscriptId())) // Filter by name (only same sequence)
 				.filter(msaj -> msai.getId().compareTo(msaj.getId()) <= 0) // Filter by name (don't work twice on the same pair of sequences)
 				.map(msaj -> similarity(msai, msaj)) // Calculate similarities
 				.collect(Collectors.joining()) // Join results to one string

@@ -24,8 +24,8 @@ public class PdbDistanceAnalysis {
 
 	public static final int AA_MIN_SEPARATION = 25;
 	public static final int MAX_AA_LEN = 10000;
-	public static final boolean debug = true;
-	public static final boolean verbose = true;
+	public static final boolean debug = false;
+	public static final boolean verbose = false;
 
 	String pdbDir;
 	double distanceThreshold = 5.0;
@@ -129,15 +129,13 @@ public class PdbDistanceAnalysis {
 	 */
 	public List<DistanceResult> run() {
 		PDBFileReader pdbreader = new PDBFileReader();
-
 		ArrayList<DistanceResult> results = new ArrayList<>();
 
-		int count = 0, countProcessed = 0;
 		for (IdMapperEntry ime : idMapper.getEntries()) {
 			try {
 				String pdbFileName = pdbDir + "/" + ime.pdbId.toLowerCase() + ".pdb";
 
-				System.err.println("Distance: " + pdbFileName);
+				if (verbose) System.err.println("Distance: " + pdbFileName);
 				Structure psbStruct = pdbreader.getStructure(pdbFileName);
 
 				// Within resolution limits? => Process
@@ -150,19 +148,10 @@ public class PdbDistanceAnalysis {
 
 				// Distance
 				results.addAll(distance(psbStruct));
-				countProcessed++;
-
-				count++;
 			} catch (IOException e) {
 				throw new RuntimeException(e);
 			}
 		}
-
-		System.out.println("Done." //
-				+ "\n\tTotal files     : " + count //
-				+ "\n\tProcessed files : " + countProcessed //
-				+ "\n\tFiltered files  : " + (count - countProcessed) //
-		);
 
 		return results;
 	}

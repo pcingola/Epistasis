@@ -14,14 +14,14 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	public static final double MAX_GAP_PERCENT = 0.3;
 	public static final int ROTATE_BITS = 5;
 
-	String geneId;
+	String transcriptId;
 	String chromo;
 	int start, end, strand;
 	byte[][] align;
 	Boolean skip[];
 
 	public MultipleSequenceAlignment(String id, int numAlign, int length) {
-		geneId = id;
+		transcriptId = id;
 		align = new byte[numAlign][length];
 	}
 
@@ -182,12 +182,8 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		return end;
 	}
 
-	public String getGeneId() {
-		return geneId;
-	}
-
 	public String getId() {
-		return geneId + "_" + chromo + ":" + start + "-" + end;
+		return transcriptId + "_" + chromo + ":" + start + "-" + end;
 	}
 
 	public int getNumSeqs() {
@@ -204,6 +200,10 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	public int getStrand() {
 		return strand;
+	}
+
+	public String getTranscriptId() {
+		return transcriptId;
 	}
 
 	/**

@@ -2,7 +2,9 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
+import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
@@ -24,6 +26,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	public final int MIN_SECOND_TOP_BASE_COUNT = 5;
 
 	ArrayList<MultipleSequenceAlignment> msas;
+	AutoHashMap<String, List<MultipleSequenceAlignment>> msasById;
 	int numAligns;
 	String sequenceAlignmentFile;
 	String species[];
@@ -33,6 +36,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		this.sequenceAlignmentFile = sequenceAlignmentFile;
 		species = new String[numAligns];
 		msas = new ArrayList<MultipleSequenceAlignment>();
+		msasById = new AutoHashMap<String, List<MultipleSequenceAlignment>>(new ArrayList<MultipleSequenceAlignment>());
 	}
 
 	/**
@@ -65,6 +69,36 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[][] = new int[GprSeq.AMINO_ACIDS.length][GprSeq.AMINO_ACIDS.length];
 		forEach(m -> m.countTransitions(seqNum1, seqNum2, counts));
 		return counts;
+	}
+
+	/**
+	 * Find a multiple sequence alignment
+	 */
+	public String findColumnSequence(String trid, String chr, int pos) {
+		// Find all MSA
+		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
+		if (msaList == null) return null;
+
+		// Check all MSA
+		for (MultipleSequenceAlignment msa : msaList) {
+			// Different chromosome?
+			if (!msa.getChromo().equals(chr)) {
+				Gpr.debug("Transcript '" + trid + "' is expected in chromosome '" + chr + "', but found in chromosome '" + msa.getChromo() + "'. Skipped");
+				continue;
+			}
+
+			// Different position?
+			if (pos < msa.getStart() || msa.getEnd() < pos) {
+				Gpr.debug("Transcript '" + trid + "' is expected in position " + pos + ", but found in interval [ " + msa.getStart() + " , " + msa.getEnd() + " ]. Skipped");
+				continue;
+			}
+
+			// Found!
+			int idx = pos - msa.getStart();
+			return msa.getColumnString(idx);
+		}
+
+		return null;
 	}
 
 	public ArrayList<MultipleSequenceAlignment> getMsas() {
@@ -109,7 +143,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 				// Parse and check species
 				String fields[] = header.split("_");
-				String geneId = fields[0] + "_" + fields[1];
+				String transcriptId = fields[0] + "_" + fields[1];
 				String speciesName = fields[2];
 				if (species[i] == null) species[i] = speciesName;
 				else if (!speciesName.equals(species[i])) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting species '" + species[i] + "', got: '" + speciesName + "'");
@@ -133,8 +167,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 					int start = Gpr.parseIntSafe(posStart);
 					int end = Gpr.parseIntSafe(posEnd);
 
-					if (debug) System.out.println(geneId + " " + chr + ":" + start + "-" + end);
-					msa = new MultipleSequenceAlignment(geneId, numAligns, seqLen);
+					if (debug) System.out.println(transcriptId + " " + chr + ":" + start + "-" + end);
+					msa = new MultipleSequenceAlignment(transcriptId, numAligns, seqLen);
 					msa.set(chr, start, end);
 				} else if (sequence.length() != seqLen) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting sequence of length " + seqLen);
 
@@ -160,6 +194,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 			if (msa != null) {
 				msas.add(msa);
+				msasById.getOrCreate(msa.getTranscriptId()).add(msa);
 				if (verbose) System.out.println(msa.getId());
 			}
 
