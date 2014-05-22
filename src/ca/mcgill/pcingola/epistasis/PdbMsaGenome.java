@@ -130,6 +130,7 @@ public class PdbMsaGenome extends SnpEff {
 
 		// Get trancsript IDs
 		String trIdsStr = IdMapper.ids(idMapper.getByPdbId(pdbId), idme2id);
+		if (trIdsStr == null) return Stream.empty();
 		String trIds[] = trIdsStr.split(",");
 
 		// Check idMaps. Only return those that match
