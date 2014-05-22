@@ -127,6 +127,7 @@ public class PdbMsaGenome extends SnpEff {
 		}
 
 		String pdbId = pdbStruct.getPDBCode();
+		System.out.print(pdbId + " ");
 
 		// Get trancsript IDs
 		String trIdsStr = IdMapper.ids(idMapper.getByPdbId(pdbId), idme2id);
@@ -145,7 +146,7 @@ public class PdbMsaGenome extends SnpEff {
 	 * Note: Only part of the sequence usually matches
 	 */
 	List<IdMapperEntry> checkCoordinates(String pdbId, Structure pdbStruct, String trId) {
-		System.out.println("Checking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
+		System.out.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
 		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
 		List<IdMapperEntry> idmapsNew = new ArrayList<>();
 
