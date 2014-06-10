@@ -200,7 +200,7 @@ public class PdbMsaGenome extends SnpEff {
 				if (debug) System.out.println("\tChain: " + chain.getChainID() + "\terror: " + err + "\t" + sb);
 
 				if (err < MAX_MISMATCH_RATE) {
-					if (debug) Gpr.debug("Confirm transcript " + trId + "\terror: " + err);
+					if (debug) System.err.println("\t\tConfirm transcript " + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
 							.filter(idm -> trId.equals(idme2id.apply(idm)) && pdbId.equals(idm.pdbId)) //
