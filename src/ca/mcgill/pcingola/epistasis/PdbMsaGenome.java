@@ -136,8 +136,10 @@ public class PdbMsaGenome extends SnpEff {
 		if (debug || true) {
 			System.err.println(pdbId);
 			System.err.println("\tEntries: ");
-			if (idEntries != null) idEntries.forEach(le -> System.err.println("\t\t" + le));
-			System.err.println("\tTranscripts:\t" + trIdsStr);
+			if (idEntries != null) {
+				idEntries.forEach(le -> System.err.println("\t\t" + le));
+				System.err.println("\tTranscripts:\t" + trIdsStr);
+			}
 		} else System.out.print(pdbId + " ");
 
 		if (trIdsStr == null) return Stream.empty();
