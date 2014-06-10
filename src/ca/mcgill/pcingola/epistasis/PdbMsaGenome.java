@@ -133,7 +133,7 @@ public class PdbMsaGenome extends SnpEff {
 		List<IdMapperEntry> idEntries = idMapper.getByPdbId(pdbId);
 		String trIdsStr = IdMapper.ids(idEntries, idme2id);
 
-		if (debug || true) {
+		if (debug) {
 			System.err.println(pdbId);
 			System.err.println("\tEntries: ");
 			if (idEntries != null) {
