@@ -85,7 +85,7 @@ public class PdbMsaGenome extends SnpEff {
 	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
 	IdMapper checkCoordinates() {
-		Timer.showStdErr("Checking PDB <-> Transcript sequences");
+		Timer.showStdErr("Checking PDB <-> Transcript sequences\tdebug:" + debug);
 
 		// Initialize trancriptById
 		if (trancriptById == null) {
@@ -95,6 +95,7 @@ public class PdbMsaGenome extends SnpEff {
 					String id = tr.getId();
 					id = id.substring(0, id.indexOf('.'));
 					trancriptById.put(id, tr);
+					if (debug) System.err.println("\t" + id);
 				}
 		}
 
@@ -127,10 +128,18 @@ public class PdbMsaGenome extends SnpEff {
 		}
 
 		String pdbId = pdbStruct.getPDBCode();
-		System.out.print(pdbId + " ");
 
 		// Get trancsript IDs
-		String trIdsStr = IdMapper.ids(idMapper.getByPdbId(pdbId), idme2id);
+		List<IdMapperEntry> idEntries = idMapper.getByPdbId(pdbId);
+		String trIdsStr = IdMapper.ids(idEntries, idme2id);
+
+		if (debug || true) {
+			System.err.println(pdbId);
+			System.err.println("\tEntries: ");
+			if (idEntries != null) idEntries.forEach(le -> System.err.println("\t\t" + le));
+			System.err.println("\tTranscripts:\t" + trIdsStr);
+		} else System.out.print(pdbId + " ");
+
 		if (trIdsStr == null) return Stream.empty();
 		String trIds[] = trIdsStr.split(",");
 

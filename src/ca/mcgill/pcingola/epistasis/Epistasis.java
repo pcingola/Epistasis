@@ -18,6 +18,7 @@ import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
 public class Epistasis implements CommandLine {
 
 	public static int MIN_DISTANCE = 1000000;
+	public static boolean debug = true;
 
 	public static void main(String[] args) {
 		Epistasis epistasis = new Epistasis(args);
@@ -84,7 +85,7 @@ public class Epistasis implements CommandLine {
 			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[7] + "'");
 			PdbMsaGenome pdbMsa = new PdbMsaGenome(Arrays.copyOfRange(args, 1, 7));
 			pdbMsa.initialize();
-			//			pdbMsa.setDebug(true);
+			pdbMsa.setDebug(debug);
 			pdbMsa.checkCoordinates();
 			pdbMsa.distanceAnalysis(distThreshold);
 			break;
