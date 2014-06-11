@@ -18,9 +18,7 @@ import org.biojava.bio.structure.io.PDBFileReader;
 
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
-import ca.mcgill.mcb.pcingola.snpEffect.Config;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 
@@ -43,21 +41,6 @@ public class PdbMsaGenome extends SnpEff {
 
 	// Select ID
 	public static final Function<IdMapperEntry, String> idme2id = ime -> ime.refSeqId;
-
-	public static void main(String[] args) {
-		String genome = "testHg3771Chr1";
-		PdbMsaGenome zzz = new PdbMsaGenome( //
-				Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE //
-				, genome //
-				, Gpr.HOME + "/snpEff/db/pdb" //
-				, Gpr.HOME + "/snpEff/db/multiz100way/hg19.100way.nh" //
-				, Gpr.HOME + "/snpEff/db/multiz100way/refGene.exonAA.head.fa" //
-				, Gpr.HOME + "/snpEff/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt" //
-		);
-
-		zzz.initialize();
-		zzz.checkCoordinates();
-	}
 
 	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
@@ -95,10 +78,9 @@ public class PdbMsaGenome extends SnpEff {
 					String id = tr.getId();
 					id = id.substring(0, id.indexOf('.'));
 					trancriptById.put(id, tr);
-					if (debug) System.err.print("\t" + id);
+					if (debug) System.err.println("\t" + id);
 				}
 		}
-		if (debug) System.err.println("");
 
 		// Create a new IdMapper using only confirmed entries
 		IdMapper idMapperConfirmed = new IdMapper();
