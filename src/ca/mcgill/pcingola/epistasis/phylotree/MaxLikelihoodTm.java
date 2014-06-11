@@ -28,6 +28,7 @@ public class MaxLikelihoodTm {
 	boolean debug = false;
 
 	int pseudoCount = 1;
+	int numSpecies;
 	double pi[];
 	double time[][];
 	LikelihoodTree tree;
@@ -42,7 +43,8 @@ public class MaxLikelihoodTm {
 		this.msas = msas;
 		random = new Random(20140426);
 		cacheLogLikelihood = new HashMap<String, Double>();
-		time = new double[NUM_AA][NUM_AA];
+		numSpecies = tree.childNames().size();
+		time = new double[numSpecies][numSpecies];
 	}
 
 	/**
@@ -344,7 +346,9 @@ public class MaxLikelihoodTm {
 			maxLambda = Math.max(maxLambda, lambda);
 			System.out.println("\tlambda_" + i + ":\t" + lambda);
 		}
+
 		System.out.println("\tlambda_max:\t" + maxLambda);
+		if (maxLambda > 0) throw new RuntimeException("All Q's eigenvalues should be non-positive!");
 	}
 
 	/**

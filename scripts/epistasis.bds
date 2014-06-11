@@ -1,0 +1,11 @@
+#!/usr/bin/env bds
+
+#-------------------------------------------------------------------------------
+# Epistasis project
+#
+#															Pablo Cingolani 2014
+#-------------------------------------------------------------------------------
+
+
+# Estimate matrix Q from sequence alignment and tree
+
