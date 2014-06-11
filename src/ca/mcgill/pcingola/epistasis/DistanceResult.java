@@ -32,11 +32,19 @@ public class DistanceResult {
 
 	@Override
 	public String toString() {
-		return "pdbId1: " + pdbId //
-				+ "\tchain: " + chainId //
-				+ "\tdistance: " + distance //
-				+ "\taa1: " + aa1 + ", " + aaPos1 //
-				+ "\taa2: " + aa2 + ", " + aaPos2 //
+		return pdbId //
+				+ "\t" + chainId //
+				+ "\t" + distance //
+				+ "\t" + aa1 //
+				+ "\t" + aaPos1 //
+				+ "\taa2: " + aa2 //
+				+ "\t" + aaPos2 //
 		;
+		//		return "pdbId: " + pdbId //
+		//				+ "\tchain: " + chainId //
+		//				+ "\tdistance: " + distance //
+		//				+ "\taa1: " + aa1 + ", " + aaPos1 //
+		//				+ "\taa2: " + aa2 + ", " + aaPos2 //
+		//		;
 	}
 }

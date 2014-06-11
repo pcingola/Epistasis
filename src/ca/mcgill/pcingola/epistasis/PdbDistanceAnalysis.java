@@ -22,22 +22,22 @@ import org.biojava.bio.structure.io.PDBFileReader;
  */
 public class PdbDistanceAnalysis {
 
-	public static final int AA_MIN_SEPARATION = 25;
 	public static final int MAX_AA_LEN = 10000;
 	public static final boolean debug = false;
 	public static final boolean verbose = true || debug;
 
 	String pdbDir;
-	double distanceThreshold = 5.0;
-	double maxResolution = 3.0;
+	double distanceThreshold;
 	double sumDist[];
 	int count[];
 	int countTh[];
+	int aaMinSeparation;
 	IdMapper idMapper;
 
-	public PdbDistanceAnalysis(String pdbDir, double distanceThreshold, IdMapper idMapper) {
+	public PdbDistanceAnalysis(String pdbDir, double distanceThreshold, int aaMinSeparation, IdMapper idMapper) {
 		this.pdbDir = pdbDir;
 		this.distanceThreshold = distanceThreshold;
+		this.aaMinSeparation = aaMinSeparation;
 		this.idMapper = idMapper;
 		sumDist = new double[MAX_AA_LEN];
 		count = new int[sumDist.length];
@@ -65,7 +65,7 @@ public class PdbDistanceAnalysis {
 		List<AminoAcid> aas = aminoAcids(chain);
 
 		for (int i = 0; i < aas.size(); i++) {
-			int minj = i + AA_MIN_SEPARATION;
+			int minj = i + aaMinSeparation;
 
 			for (int j = minj; j < aas.size(); j++) {
 				AminoAcid aa1 = aas.get(i);
@@ -80,7 +80,7 @@ public class PdbDistanceAnalysis {
 					countTh[aadist]++;
 					DistanceResult dres = new DistanceResult(aa1, aa2, d);
 					results.add(dres);
-					if (verbose) System.out.println(dres);
+					if (verbose) System.out.println("Contact:\t" + dres);
 				}
 			}
 		}
@@ -137,10 +137,6 @@ public class PdbDistanceAnalysis {
 
 				if (verbose) System.err.println("Distance: " + pdbFileName);
 				Structure psbStruct = pdbreader.getStructure(pdbFileName);
-
-				// Within resolution limits? => Process
-				double res = psbStruct.getPDBHeader().getResolution();
-				if (res > maxResolution) continue;
 
 				// Does it have associated transcripts?
 				String pdbId = psbStruct.getPDBCode();

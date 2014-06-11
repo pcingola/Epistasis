@@ -198,47 +198,47 @@ public class PdbMsaGenome extends SnpEff {
 		return idmapsNew;
 	}
 
-	/**
-	 * Distance analysis: Calculate amino acids closer than 'distanceThreshold' (within each protein) 
-	 */
-	public void distanceAnalysis(double distanceThreshold) {
-		Timer.showStdErr("Distance analysis");
-		// Get all results 
-		PdbDistanceAnalysis pda = new PdbDistanceAnalysis(pdbDir, distanceThreshold, idMapper);
-		List<DistanceResult> results = pda.run();
-
-		// Map them to MSA
-		Timer.showStdErr("Distance analysis: Find sequences from results");
-		for (DistanceResult dres : results) {
-			List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
-
-			// Find all transcripts
-			for (IdMapperEntry idme : idmes) {
-				String trid = idme2id.apply(idme);
-				Transcript tr = trancriptById.get(trid);
-				if (tr == null) throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
-
-				// Find genomic position based on AA position
-				int aa2pos[] = tr.aaNumber2Pos();
-				if ((aa2pos.length <= dres.aaPos1) //
-						|| (aa2pos.length <= dres.aaPos2) //
-						|| (dres.aaPos1 < 0) //
-						|| (dres.aaPos2 < 0) //
-				) {
-					// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
-					continue;
-				}
-				int pos1 = aa2pos[dres.aaPos1];
-				int pos2 = aa2pos[dres.aaPos2];
-
-				// Find sequences
-				String seq1 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos1);
-				if (seq1 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1);
-				String seq2 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos2);
-				if (seq2 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2);
-			}
-		}
-	}
+	//	/**
+	//	 * Distance analysis: Calculate amino acids closer than 'distanceThreshold' (within each protein) 
+	//	 */
+	//	public void distanceAnalysis(double distanceThreshold) {
+	//		Timer.showStdErr("Distance analysis");
+	//		// Get all results 
+	//		PdbDistanceAnalysis pda = new PdbDistanceAnalysis(pdbDir, distanceThreshold, idMapper);
+	//		List<DistanceResult> results = pda.run();
+	//
+	//		// Map them to MSA
+	//		Timer.showStdErr("Distance analysis: Find sequences from results");
+	//		for (DistanceResult dres : results) {
+	//			List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
+	//
+	//			// Find all transcripts
+	//			for (IdMapperEntry idme : idmes) {
+	//				String trid = idme2id.apply(idme);
+	//				Transcript tr = trancriptById.get(trid);
+	//				if (tr == null) throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
+	//
+	//				// Find genomic position based on AA position
+	//				int aa2pos[] = tr.aaNumber2Pos();
+	//				if ((aa2pos.length <= dres.aaPos1) //
+	//						|| (aa2pos.length <= dres.aaPos2) //
+	//						|| (dres.aaPos1 < 0) //
+	//						|| (dres.aaPos2 < 0) //
+	//				) {
+	//					// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
+	//					continue;
+	//				}
+	//				int pos1 = aa2pos[dres.aaPos1];
+	//				int pos2 = aa2pos[dres.aaPos2];
+	//
+	//				// Find sequences
+	//				String seq1 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos1);
+	//				if (seq1 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1);
+	//				String seq2 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos2);
+	//				if (seq2 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2);
+	//			}
+	//		}
+	//	}
 
 	/**
 	 * Load all data

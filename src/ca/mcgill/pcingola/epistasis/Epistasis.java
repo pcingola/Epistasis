@@ -43,11 +43,13 @@ public class Epistasis implements CommandLine {
 	public void parseArgs(String[] args) {
 		if (args.length < 1) usage("Missing command");
 		String cmd = args[0];
+		String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile;
 
-		switch (cmd) {
+		int argNum = 1;
+		switch (cmd.toLowerCase()) {
 		case "corr":
 			int numAligns = Gpr.parseIntSafe(args[1]);
-			String multAlignFile = args[2];
+			multAlignFile = args[2];
 			if (numAligns <= 0) usage("number of alignments must be positive number");
 			runMsaCorr(numAligns, multAlignFile);
 			break;
@@ -60,33 +62,29 @@ public class Epistasis implements CommandLine {
 			runMsaMi(numAligns, numBases, multAlignFile);
 			break;
 
-		case "mapPdbGenome":
+		case "mappdbgenome":
 			// Parse command line
-			//			distThreshold = Gpr.parseDoubleSafe(args[7]);
-			//			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[7] + "'");
-			PdbMsaGenome pdbMsa = new PdbMsaGenome(Arrays.copyOfRange(args, 1, args.length));
-			pdbMsa.initialize();
-			pdbMsa.setDebug(debug);
-			pdbMsa.checkCoordinates();
-			//			pdbMsa.distanceAnalysis(distThreshold);
+			PdbMsaGenome pdbMsaGen = new PdbMsaGenome(Arrays.copyOfRange(args, 1, args.length));
+			pdbMsaGen.initialize();
+			pdbMsaGen.setDebug(debug);
+			pdbMsaGen.checkCoordinates();
 			break;
 
 		case "pdbdist":
 			// Parse command line
-			double distThreshold = Gpr.parseDoubleSafe(args[1]);
+			double distThreshold = Gpr.parseDoubleSafe(args[argNum++]);
 			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[1] + "'");
-			String pdbDir = args[2];
-			String idMapFile = args[3];
-			String treeFile = args[4];
-			multAlignFile = args[5];
-			runPdbDist(distThreshold, pdbDir, idMapFile, treeFile, multAlignFile);
+			int aaMinSeparation = Gpr.parseIntSafe(args[argNum++]);
+			pdbDir = args[argNum++];
+			idMapFile = args[argNum++];
+			runPdbDist(pdbDir, distThreshold, aaMinSeparation, idMapFile);
 			break;
 
 		case "qhat":
 			if (args.length < 4) usage("Missing arguments for command '" + cmd + "'");
 			treeFile = args[1];
 			multAlignFile = args[2];
-			String qMatrixFile = args[3];
+			qMatrixFile = args[3];
 			runQhat(treeFile, multAlignFile, qMatrixFile);
 			break;
 
@@ -202,23 +200,13 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Run Pdb distance
 	 */
-	void runPdbDist(double distThreshold, String pdbDir, String idMapFile, String phyloFileName, String multAlignFile) {
-		// Load: tree
-		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
-		LikelihoodTree tree = new LikelihoodTree();
-		tree.load(phyloFileName);
-		int numAligns = tree.childNames().size();
-
-		// Load: MSA
-		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlignFile);
-		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlignFile, numAligns);
-		msas.load();
-
+	void runPdbDist(String pdbDir, double distThreshold, int aaMinSeparation, String idMapFile) {
+		// Load IdMaps
 		Timer.showStdErr("Loading id maps " + idMapFile);
 		IdMapper idMapper = new IdMapper(idMapFile);
 
 		// Run analysis
-		PdbDistanceAnalysis pdban = new PdbDistanceAnalysis(pdbDir, distThreshold, idMapper);
+		PdbDistanceAnalysis pdban = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
 		pdban.run();
 		System.out.println(pdban);
 
@@ -300,7 +288,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr number_of_aligns multiple_alignment_file.fa");
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir phylo.nh multiple_sequence_alignment.fa idMapFile");
 		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases number_of_aligns multiple_alignment_file.fa");
-		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold path/to/pdb/dir id_map.txt phylo.nh multiple_sequence_alignment.fa");
+		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
 		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
 		System.err.println("Command 'test'           : " + this.getClass().getSimpleName() + " ...");
 		System.exit(-1);

@@ -6,12 +6,18 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
-# Data files
-debug			:= true
 dir				:= "$HOME/snpEff"
+
+# Parameters
+aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
+aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
+debug			:= true
+genome			:= "hg19"
+
+# Data files
+aaContact		:= "$dir/db/pdb/aa.contact.txt"
 idMap			:= "$dir/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/db/multiz100way/idMap_ensemblId_refseq_pdbId.confirmed.txt"
-genome			:= "hg19"
 msa				:= "$dir/db/multiz100way/refGene.exonAA.fa"
 pdbDir			:= "$dir/db/pdb/pdb_hires_human"
 qhat			:= "$dir/db/multiz100way/Qhat.txt"
@@ -32,7 +38,7 @@ if( debug ) {
 #-------------------------------------------------------------------------------
 
 # Estimate matrix Q from sequence alignment and tree
-task( qhat <- [tree, msa] )	sys $cmdEpistasis qhat $tree $msa $qhat
+task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
 wait
 
 # Map Pdb <-> MSA <-> Genome
@@ -42,6 +48,15 @@ task( idMapConfirmed <- [pdbDir, tree, msa, idMap] ) {
 	sys grep "^Confirmed IdMapping" $tmp | cut -f 2- | sort | uniq > $idMapConfirmed
 }
 wait
+
+# Amino acids in contact within the same protein
+task( aaContact <- [pdbDir, idMapConfirmed] ) {
+	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed \
+		| tee \
+		| grep "^Contact:" \
+		| cut -f 2- \
+		> $aaContact
+}
 
 # Done
 wait
