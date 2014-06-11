@@ -9,9 +9,14 @@
 # Data files
 debug			:= true
 dir				:= "$HOME/snpEff/"
-tree			:= "$dir/db/multiz100way/hg19.100way.nh"
+idMap			:= "$dirdb/multiz100way/idMap_ensemblId_refseq_pdbId.txt"
+idMapConfirmed	:= "$dirdb/multiz100way/idMap_ensemblId_refseq_pdbId.txt"
+genome			:= "hg19"
 msa				:= "$dir/db/multiz100way/refGene.exonAA.fa"
+pdbDir			:= "$dir/pdb/pdb_hires_human"
 qhat			:= "$dir/db/multiz100way/Qhat.txt"
+tree			:= "$dir/db/multiz100way/hg19.100way.nh"
+snpeffConfig	:= "$dir/snpEff.config"
 
 # Commands
 cmdEpistasis	:= "java -Xmx4G -jar Epistasis.jar"
@@ -28,6 +33,9 @@ if( debug ) {
 
 # Estimate matrix Q from sequence alignment and tree
 task( qhat <- [tree, msa] )	sys $cmdEpistasis qhat $tree $msa $qhat
+wait
+
+task() sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $tree $msa $idMap
 
 # Done
 wait
