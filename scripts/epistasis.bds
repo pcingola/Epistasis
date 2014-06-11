@@ -7,17 +7,28 @@
 #-------------------------------------------------------------------------------
 
 # Data files
+debug			:= true
+dir				:= "$HOME/snpEff/"
 tree			:= "$dir/db/multiz100way/hg19.100way.nh"
-msa				:= "$dir/db/multiz100way/head.fa"
-qhat			:= "$dir/db/multiz100way/Qhat_head.txt"
+msa				:= "$dir/db/multiz100way/refGene.exonAA.fa"
+qhat			:= "$dir/db/multiz100way/Qhat.txt"
 
 # Commands
 cmdEpistasis	:= "java -Xmx4G -jar Epistasis.jar"
+
+# Change parameters if we are debugging (smaller datasets)
+if( debug ) {
+	msa  = "$dir/db/multiz100way/head.fa"
+	qhat = "$dir/db/multiz100way/Qhat_head.txt"
+}
 
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
 
 # Estimate matrix Q from sequence alignment and tree
-task( qhat <- [tre, msa] )	sys $cmdEpistasis qhat $tree $msa $qhat
+task( qhat <- [tree, msa] )	sys $cmdEpistasis qhat $tree $msa $qhat
 
+# Done
+wait
+print("Done!\n")
