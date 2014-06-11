@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
@@ -171,6 +172,8 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @return
 	 */
 	public String getColumnString(int colNum) {
+		if (colNum < 0 || colNum >= length()) return null;
+
 		char col[] = new char[size()];
 		for (int i = 0; i < col.length; i++)
 			col[i] = getChar(i, colNum);
@@ -291,7 +294,7 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @param end
 	 */
 	public void set(String chr, int start, int end) {
-		chromo = chr;
+		chromo = Chromosome.simpleName(chr);
 		this.start = start;
 		this.end = end;
 	}

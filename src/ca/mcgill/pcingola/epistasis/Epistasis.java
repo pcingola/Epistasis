@@ -3,8 +3,8 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Collectors;
 
+import ca.mcgill.mcb.pcingola.snpEffect.Config;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -30,6 +30,7 @@ public class Epistasis implements CommandLine {
 	String[] args;
 	String cmd;
 	String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile;
+	String configFile, genome;
 	LikelihoodTree tree;
 	TransitionMatrix Q;
 	MultipleSequenceAlignmentSet msas;
@@ -38,6 +39,8 @@ public class Epistasis implements CommandLine {
 
 	public Epistasis(String[] args) {
 		this.args = args;
+		genome = "hg19";
+		configFile = Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE;
 	}
 
 	@Override
@@ -295,23 +298,15 @@ public class Epistasis implements CommandLine {
 		loadTree(treeFile);
 		loadMsas(multAlignFile);
 		loadIdMap(idMapFile);
+		PdbGenome pdbGenome = new PdbGenome(configFile, genome, pdbDir, idMapFile);
+		pdbGenome.initialize();
 
 		// Load AA contact
 		List<DistanceResult> dists = loadAaContact(aaContactFile);
-
-		dists.forEach(d -> mapDist(d));
+		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
 
 		// Run analysis
 		return true;
-	}
-
-	/**
-	 * Map aa distance result to MSA
-	 */
-	void mapDist(DistanceResult d) {
-		String ids = IdMapper.ids(idMapper.getByPdbId(d.pdbId), PdbGenome.IDME_TO_ID);
-		String idsMsa = Arrays.stream(ids.split("\t")).filter(id -> msas.getMsas(id) != null).collect(Collectors.joining(","));
-		if (!idsMsa.isEmpty()) System.out.println(d + "\t=>\t" + ids + "\t=>\t" + idsMsa);
 	}
 
 	/**

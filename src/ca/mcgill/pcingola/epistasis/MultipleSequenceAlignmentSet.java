@@ -81,20 +81,12 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 		// Check all MSA
 		for (MultipleSequenceAlignment msa : msaList) {
-			// Different chromosome?
-			if (!msa.getChromo().equals(chr)) {
-				Gpr.debug("Transcript '" + trid + "' is expected in chromosome '" + chr + "', but found in chromosome '" + msa.getChromo() + "'. Skipped");
-				continue;
-			}
-
-			// Different position?
-			if (pos < msa.getStart() || msa.getEnd() < pos) {
-				Gpr.debug("Transcript '" + trid + "' is expected in position " + pos + ", but found in interval [ " + msa.getStart() + " , " + msa.getEnd() + " ]. Skipped");
-				continue;
-			}
+			// Different chromosome or position? Skip
+			if (!msa.getChromo().equals(chr)) continue;
+			if (pos < msa.getStart() || msa.getEnd() < pos) continue;
 
 			// Found!
-			int idx = pos - msa.getStart();
+			int idx = (pos - msa.getStart()) / 3;
 			return msa.getColumnString(idx);
 		}
 

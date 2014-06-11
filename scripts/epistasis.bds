@@ -55,6 +55,8 @@ task( aaContact <- [pdbDir, idMapConfirmed] ) {
 		| tee \
 		| grep "^Contact:" \
 		| cut -f 2- \
+		| sort \
+		| uniq \
 		> $aaContact
 }
 

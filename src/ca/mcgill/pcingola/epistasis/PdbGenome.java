@@ -63,18 +63,6 @@ public class PdbGenome extends SnpEff {
 	IdMapper checkCoordinates() {
 		Timer.showStdErr("Checking PDB <-> Transcript sequences\tdebug:" + debug);
 
-		// Initialize trancriptById
-		if (trancriptById == null) {
-			trancriptById = new HashMap<>();
-			for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
-				for (Transcript tr : g) {
-					String id = tr.getId();
-					id = id.substring(0, id.indexOf('.'));
-					trancriptById.put(id, tr);
-					if (debug) System.err.println("\t" + id);
-				}
-		}
-
 		// Create a new IdMapper using only confirmed entries
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
@@ -191,48 +179,6 @@ public class PdbGenome extends SnpEff {
 		return idmapsNew;
 	}
 
-	//	/**
-	//	 * Distance analysis: Calculate amino acids closer than 'distanceThreshold' (within each protein) 
-	//	 */
-	//	public void distanceAnalysis(double distanceThreshold) {
-	//		Timer.showStdErr("Distance analysis");
-	//		// Get all results 
-	//		PdbDistanceAnalysis pda = new PdbDistanceAnalysis(pdbDir, distanceThreshold, idMapper);
-	//		List<DistanceResult> results = pda.run();
-	//
-	//		// Map them to MSA
-	//		Timer.showStdErr("Distance analysis: Find sequences from results");
-	//		for (DistanceResult dres : results) {
-	//			List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
-	//
-	//			// Find all transcripts
-	//			for (IdMapperEntry idme : idmes) {
-	//				String trid = idme2id.apply(idme);
-	//				Transcript tr = trancriptById.get(trid);
-	//				if (tr == null) throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
-	//
-	//				// Find genomic position based on AA position
-	//				int aa2pos[] = tr.aaNumber2Pos();
-	//				if ((aa2pos.length <= dres.aaPos1) //
-	//						|| (aa2pos.length <= dres.aaPos2) //
-	//						|| (dres.aaPos1 < 0) //
-	//						|| (dres.aaPos2 < 0) //
-	//				) {
-	//					// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
-	//					continue;
-	//				}
-	//				int pos1 = aa2pos[dres.aaPos1];
-	//				int pos2 = aa2pos[dres.aaPos2];
-	//
-	//				// Find sequences
-	//				String seq1 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos1);
-	//				if (seq1 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1);
-	//				String seq2 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos2);
-	//				if (seq2 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2);
-	//			}
-	//		}
-	//	}
-
 	/**
 	 * Load all data
 	 */
@@ -253,5 +199,60 @@ public class PdbGenome extends SnpEff {
 
 		// Load SnpEff database
 		loadDb();
+
+		// Initialize trancriptById
+		trancriptById = new HashMap<>();
+		for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
+			for (Transcript tr : g) {
+				String id = tr.getId();
+				id = id.substring(0, id.indexOf('.'));
+				trancriptById.put(id, tr);
+				if (debug) System.err.println("\t" + id);
+			}
+	}
+
+	/**
+	 * Map to MSA
+	 */
+	public void mapToMsa(MultipleSequenceAlignmentSet msas, DistanceResult dres) {
+		if (!dres.pdbId.equals("3V6O") || dres.aaPos1 != 553) return;
+
+		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
+		if (idmes == null) return;
+
+		// Find all transcripts
+		for (IdMapperEntry idme : idmes) {
+			String trid = IDME_TO_ID.apply(idme);
+			Transcript tr = trancriptById.get(trid);
+			if (tr == null) throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
+
+			// Find genomic position based on AA position
+			int aa2pos[] = tr.aaNumber2Pos();
+			if ((aa2pos.length <= dres.aaPos1) //
+					|| (aa2pos.length <= dres.aaPos2) //
+					|| (dres.aaPos1 < 0) //
+					|| (dres.aaPos2 < 0) //
+			) {
+				// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
+				continue;
+			}
+			int pos1 = aa2pos[dres.aaPos1];
+			int pos2 = aa2pos[dres.aaPos2];
+
+			// Find sequences
+			String seq1 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos1);
+			//			if (seq1 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1);
+			String seq2 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos2);
+			//			if (seq2 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2);
+
+			// Both available?
+			if ((seq1 != null) && (seq2 != null)) {
+				System.out.println(dres //
+						+ "\t" + tr.getId() //
+						+ "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1//
+						+ "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2 //
+				);
+			}
+		}
 	}
 }
