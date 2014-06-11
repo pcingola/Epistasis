@@ -20,46 +20,39 @@ import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.util.Timer;
-import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 
 /**
  * This class has information from
  * 		- PDB
- * 		- Multiple Sequence alignment
  * 		- Genome (SnpEff)
- * 		- Phylogeny tree
  * 		- IdMapper
  *
  * @author pcingola
  *
  */
-public class PdbMsaGenome extends SnpEff {
+public class PdbGenome extends SnpEff {
 
 	public static final double MAX_MISMATCH_RATE = 0.1;
 	public static final double PDB_RESOLUTION = 3.0; // PDB file resolution (in Angstrom)
 	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
 
-	// Select ID
-	public static final Function<IdMapperEntry, String> idme2id = ime -> ime.refSeqId;
+	// Select ID function
+	public static final Function<IdMapperEntry, String> IDME_TO_ID = ime -> ime.refSeqId;
 
 	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
-	LikelihoodTree tree;
-	MultipleSequenceAlignmentSet msas;
 	HashMap<String, Transcript> trancriptById;
 	PDBFileReader pdbreader;
 
-	public PdbMsaGenome(String args[]) {
-		this(args[0], args[1], args[2], args[3], args[4], args[5]);
+	public PdbGenome(String args[]) {
+		this(args[0], args[1], args[2], args[3]);
 	}
 
-	public PdbMsaGenome(String configFile, String genome, String pdbDir, String phyloFile, String multAlignFile, String idMapFile) {
+	public PdbGenome(String configFile, String genome, String pdbDir, String idMapFile) {
 		super(null);
 		this.configFile = configFile;
 		this.genome = genome;
 		this.pdbDir = pdbDir;
-		this.phyloFile = phyloFile;
-		this.multAlignFile = multAlignFile;
 		this.idMapFile = idMapFile;
 	}
 
@@ -114,7 +107,7 @@ public class PdbMsaGenome extends SnpEff {
 
 		// Get trancsript IDs
 		List<IdMapperEntry> idEntries = idMapper.getByPdbId(pdbId);
-		String trIdsStr = IdMapper.ids(idEntries, idme2id);
+		String trIdsStr = IdMapper.ids(idEntries, IDME_TO_ID);
 
 		if (debug) {
 			System.err.println(pdbId);
@@ -186,7 +179,7 @@ public class PdbMsaGenome extends SnpEff {
 					if (debug) System.err.println("\t\tConfirm transcript " + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(idme2id.apply(idm)) && pdbId.equals(idm.pdbId)) //
+							.filter(idm -> trId.equals(IDME_TO_ID.apply(idm)) && pdbId.equals(idm.pdbId)) //
 							.findFirst() //
 							.ifPresent(idm -> idmapsNew.add(idm));
 				}
@@ -254,17 +247,6 @@ public class PdbMsaGenome extends SnpEff {
 		// Id Map
 		Timer.showStdErr("Loading id maps " + idMapFile);
 		idMapper = new IdMapper(idMapFile);
-
-		// Load: tree
-		Timer.showStdErr("Loading phylogenetic tree from " + phyloFile);
-		tree = new LikelihoodTree();
-		tree.load(phyloFile);
-		int numAligns = tree.childNames().size();
-
-		// Load: MSA
-		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlignFile);
-		msas = new MultipleSequenceAlignmentSet(multAlignFile, numAligns);
-		msas.load();
 
 		// Initialize reader
 		pdbreader = new PDBFileReader();

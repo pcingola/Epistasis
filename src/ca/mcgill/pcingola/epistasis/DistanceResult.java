@@ -2,6 +2,8 @@ package ca.mcgill.pcingola.epistasis;
 
 import org.biojava.bio.structure.AminoAcid;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
+
 public class DistanceResult {
 
 	public String pdbId;
@@ -14,6 +16,18 @@ public class DistanceResult {
 		setAa1(aa1);
 		setAa2(aa2);
 		this.distance = distance;
+	}
+
+	DistanceResult(String line) {
+		String fields[] = line.split("\t");
+		int n = 0;
+		pdbId = fields[n++];
+		chainId = fields[n++];
+		distance = Gpr.parseDoubleSafe(fields[n++]);
+		aa1 = fields[n++].charAt(0);
+		aaPos1 = Gpr.parseIntSafe(fields[n++]);
+		aa2 = fields[n++].charAt(0);
+		aaPos2 = Gpr.parseIntSafe(fields[n++]);
 	}
 
 	public void setAa1(AminoAcid aa) {
@@ -37,14 +51,8 @@ public class DistanceResult {
 				+ "\t" + distance //
 				+ "\t" + aa1 //
 				+ "\t" + aaPos1 //
-				+ "\taa2: " + aa2 //
+				+ "\t" + aa2 //
 				+ "\t" + aaPos2 //
 		;
-		//		return "pdbId: " + pdbId //
-		//				+ "\tchain: " + chainId //
-		//				+ "\tdistance: " + distance //
-		//				+ "\taa1: " + aa1 + ", " + aaPos1 //
-		//				+ "\taa2: " + aa2 + ", " + aaPos2 //
-		//		;
 	}
 }

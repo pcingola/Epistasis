@@ -1,6 +1,9 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collectors;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -8,7 +11,6 @@ import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 import ca.mcgill.pcingola.epistasis.phylotree.MaxLikelihoodTm;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
-import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
 
 /**
  * Main command line
@@ -26,6 +28,13 @@ public class Epistasis implements CommandLine {
 	}
 
 	String[] args;
+	String cmd;
+	String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile;
+	LikelihoodTree tree;
+	TransitionMatrix Q;
+	MultipleSequenceAlignmentSet msas;
+	MaxLikelihoodTm mltm;
+	IdMapper idMapper;
 
 	public Epistasis(String[] args) {
 		this.args = args;
@@ -37,34 +46,78 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Load AA contact list
+	 */
+	List<DistanceResult> loadAaContact(String aaContactFile) {
+		List<DistanceResult> dists = new ArrayList<>();
+		for (String line : Gpr.readFile(aaContactFile).split("\n"))
+			dists.add(new DistanceResult(line));
+
+		return dists;
+	}
+
+	void loadIdMap(String idMapFile) {
+		Timer.showStdErr("Loading id maps " + idMapFile);
+		idMapper = new IdMapper(idMapFile);
+	}
+
+	/**
+	 * Load MSAs
+	 */
+	void loadMsas(String multAlign) {
+		int numAligns = tree.childNames().size();
+
+		// Load: MSA
+		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlign);
+		msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
+		msas.load();
+	}
+
+	/**
+	 * Load Q matrix
+	 */
+	void loadQ(String qMatrixFile) {
+		Timer.showStdErr("Loading Q matrix  from file '" + qMatrixFile);
+		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		Q = mltm.loadTransitionMatrix(qMatrixFile);
+	}
+
+	/**
+	 * Load a tree from a file
+	 */
+	void loadTree(String phyloFileName) {
+		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
+		tree = new LikelihoodTree();
+		tree.load(phyloFileName);
+	}
+
+	/**
 	 * Parse command line arguments
 	 */
 	@Override
 	public void parseArgs(String[] args) {
 		if (args.length < 1) usage("Missing command");
-		String cmd = args[0];
-		String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile;
+		cmd = args[0];
 
 		int argNum = 1;
 		switch (cmd.toLowerCase()) {
 		case "corr":
-			int numAligns = Gpr.parseIntSafe(args[1]);
-			multAlignFile = args[2];
-			if (numAligns <= 0) usage("number of alignments must be positive number");
-			runMsaCorr(numAligns, multAlignFile);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			runMsaCorr(treeFile, multAlignFile);
 			break;
 
 		case "mi":
-			numAligns = Gpr.parseIntSafe(args[1]);
-			int numBases = Gpr.parseIntSafe(args[2]);
-			multAlignFile = args[3];
-			if (numAligns <= 0) usage("number of alignments must be positive number");
-			runMsaMi(numAligns, numBases, multAlignFile);
+			int numBases = Gpr.parseIntSafe(args[argNum++]);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			if (numBases <= 0) usage("number of alignments must be positive number");
+			runMsaMi(treeFile, numBases, multAlignFile);
 			break;
 
 		case "mappdbgenome":
 			// Parse command line
-			PdbMsaGenome pdbMsaGen = new PdbMsaGenome(Arrays.copyOfRange(args, 1, args.length));
+			PdbGenome pdbMsaGen = new PdbGenome(Arrays.copyOfRange(args, 1, args.length));
 			pdbMsaGen.initialize();
 			pdbMsaGen.setDebug(debug);
 			pdbMsaGen.checkCoordinates();
@@ -73,7 +126,7 @@ public class Epistasis implements CommandLine {
 		case "pdbdist":
 			// Parse command line
 			double distThreshold = Gpr.parseDoubleSafe(args[argNum++]);
-			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[1] + "'");
+			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[argNum - 1] + "'");
 			int aaMinSeparation = Gpr.parseIntSafe(args[argNum++]);
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
@@ -82,9 +135,9 @@ public class Epistasis implements CommandLine {
 
 		case "qhat":
 			if (args.length < 4) usage("Missing arguments for command '" + cmd + "'");
-			treeFile = args[1];
-			multAlignFile = args[2];
-			qMatrixFile = args[3];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			qMatrixFile = args[argNum++];
 			runQhat(treeFile, multAlignFile, qMatrixFile);
 			break;
 
@@ -100,16 +153,14 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate or load transition matrix
 	 */
-	TransitionMatrix qHat(String qMatrixFile, LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
+	TransitionMatrix qHat(String qMatrixFile) {
 		// Load: Q (calculate if not available)
-		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
-		TransitionMatrix Q;
 
 		// Load or calculate transition matrix
 		if (Gpr.canRead(qMatrixFile)) {
-			Timer.showStdErr("Loading Q matrix  from file '" + qMatrixFile);
-			Q = mltm.loadTransitionMatrix(qMatrixFile);
+			loadQ(qMatrixFile);
 		} else {
+			MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
 			Timer.showStdErr("Q matrix file '" + qMatrixFile + "' not found, calculating matrix");
 			Q = mltm.estimateTransitionMatrix();
 			Timer.showStdErr("Saving Q matrix to file '" + qMatrixFile + "'");
@@ -170,10 +221,10 @@ public class Epistasis implements CommandLine {
 	 * @param numAligns
 	 * @param multAlign
 	 */
-	void runMsaCorr(int numAligns, String multAlign) {
+	void runMsaCorr(String treeFile, String multAlign) {
 		// Load
-		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
-		msas.load();
+		loadTree(treeFile);
+		loadMsas(multAlign);
 
 		// Run similarity
 		MsaSimilarity sim = new MsaSimilarity(msas);
@@ -185,10 +236,10 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Run Mutual Information
 	 */
-	void runMsaMi(int numAligns, int numBases, String multAlign) {
+	void runMsaMi(String treeFile, int numBases, String multAlign) {
 		// Load
-		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
-		msas.load();
+		loadTree(treeFile);
+		loadMsas(multAlign);
 
 		// Run similarity
 		MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
@@ -220,25 +271,11 @@ public class Epistasis implements CommandLine {
 	 * Run phylogenetic analysis
 	 */
 	void runQhat(String phyloFileName, String multAlign, String qMatrixFile) {
-		// Do not overwrite file!
-		if (Gpr.exists(qMatrixFile)) throw new RuntimeException("Cowardly refusing to overwrite Qhat matrix file '" + qMatrixFile + "'");
-
-		// Load: tree
-		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
-		LikelihoodTree tree = new LikelihoodTree();
-		tree.load(phyloFileName);
-		int numAligns = tree.childNames().size();
-
-		// Load: MSA
-		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlign);
-		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
-		msas.load();
-
-		// Sanity check: Make sure that the alignment and the tree match
-		sanityCheck(tree, msas);
-
-		// Load: Q (calculate if not available)
-		qHat(qMatrixFile, tree, msas);
+		// Load
+		loadTree(phyloFileName);
+		loadMsas(multAlign);
+		sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
+		qHat(qMatrixFile); // Calculate Qhat
 	}
 
 	/**
@@ -247,20 +284,34 @@ public class Epistasis implements CommandLine {
 	 * @return
 	 */
 	public boolean runTest(String args[]) {
-		int N = 400;
-		double d[][] = new double[N][N];
+		// Parse command line arguments
+		int argNum = 1;
+		treeFile = args[argNum++];
+		multAlignFile = args[argNum++];
+		idMapFile = args[argNum++];
+		String aaContactFile = args[argNum++];
 
-		// Rand matrix
-		for (int i = 0; i < N; i++)
-			for (int j = 0; j < N; j++)
-				d[i][j] = Math.random();
+		// Load data
+		loadTree(treeFile);
+		loadMsas(multAlignFile);
+		loadIdMap(idMapFile);
 
-		TransitionMatrixMarkov Q = new TransitionMatrixMarkov(d);
-		Timer.show("Start Exp");
-		Q.exp(1.0);
-		Timer.show("End Exp");
+		// Load AA contact
+		List<DistanceResult> dists = loadAaContact(aaContactFile);
 
+		dists.forEach(d -> mapDist(d));
+
+		// Run analysis
 		return true;
+	}
+
+	/**
+	 * Map aa distance result to MSA
+	 */
+	void mapDist(DistanceResult d) {
+		String ids = IdMapper.ids(idMapper.getByPdbId(d.pdbId), PdbGenome.IDME_TO_ID);
+		String idsMsa = Arrays.stream(ids.split("\t")).filter(id -> msas.getMsas(id) != null).collect(Collectors.joining(","));
+		if (!idsMsa.isEmpty()) System.out.println(d + "\t=>\t" + ids + "\t=>\t" + idsMsa);
 	}
 
 	/**
@@ -285,9 +336,9 @@ public class Epistasis implements CommandLine {
 	public void usage(String message) {
 		if (message != null) System.err.println("Error: " + message + "\n");
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
-		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr number_of_aligns multiple_alignment_file.fa");
-		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir phylo.nh multiple_sequence_alignment.fa idMapFile");
-		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases number_of_aligns multiple_alignment_file.fa");
+		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
+		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
+		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
 		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
 		System.err.println("Command 'test'           : " + this.getClass().getSimpleName() + " ...");

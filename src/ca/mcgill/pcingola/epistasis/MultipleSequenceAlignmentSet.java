@@ -105,6 +105,10 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		return msas;
 	}
 
+	public List<MultipleSequenceAlignment> getMsas(String trid) {
+		return msasById.get(trid);
+	}
+
 	public int getNumAligns() {
 		return numAligns;
 	}
@@ -143,7 +147,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 				// Parse and check species
 				String fields[] = header.split("_");
-				String transcriptId = fields[0] + "_" + fields[1];
+				String transcriptId = fields[0].substring(1) + "_" + fields[1];
 				String speciesName = fields[2];
 				if (species[i] == null) species[i] = speciesName;
 				else if (!speciesName.equals(species[i])) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting species '" + species[i] + "', got: '" + speciesName + "'");
