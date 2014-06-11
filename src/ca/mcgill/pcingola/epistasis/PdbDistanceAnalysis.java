@@ -25,7 +25,7 @@ public class PdbDistanceAnalysis {
 	public static final int AA_MIN_SEPARATION = 25;
 	public static final int MAX_AA_LEN = 10000;
 	public static final boolean debug = false;
-	public static final boolean verbose = false;
+	public static final boolean verbose = true || debug;
 
 	String pdbDir;
 	double distanceThreshold = 5.0;
@@ -149,7 +149,7 @@ public class PdbDistanceAnalysis {
 				// Distance
 				results.addAll(distance(psbStruct));
 			} catch (IOException e) {
-				throw new RuntimeException(e);
+				e.printStackTrace();
 			}
 		}
 

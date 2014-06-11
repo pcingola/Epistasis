@@ -11,5 +11,5 @@ java -Xmx4G -jar Epistasis.jar \
 		/home/pcingola/snpEff/db/multiz100way/head.fa \
 		/home/pcingola/snpEff/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt \
 		5.0 \
-	2>&1 | tee epistasis.out
+	> epistasis.out 2>&1
 

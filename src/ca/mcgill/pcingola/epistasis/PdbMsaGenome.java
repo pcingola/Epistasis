@@ -95,9 +95,10 @@ public class PdbMsaGenome extends SnpEff {
 					String id = tr.getId();
 					id = id.substring(0, id.indexOf('.'));
 					trancriptById.put(id, tr);
-					if (debug) System.err.println("\t" + id);
+					if (debug) System.err.print("\t" + id);
 				}
 		}
+		if (debug) System.err.println("");
 
 		// Create a new IdMapper using only confirmed entries
 		IdMapper idMapperConfirmed = new IdMapper();
