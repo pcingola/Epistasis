@@ -6,12 +6,12 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
+debug			:= false
 dir				:= "$HOME/snpEff"
 
 # Parameters
 aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
 aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
-debug			:= true
 genome			:= "hg19"
 
 # Data files
