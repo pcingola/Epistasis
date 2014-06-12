@@ -19,6 +19,7 @@ import org.biojava.bio.structure.io.PDBFileReader;
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -39,6 +40,7 @@ public class PdbGenome extends SnpEff {
 	// Select ID function
 	public static final Function<IdMapperEntry, String> IDME_TO_ID = ime -> ime.refSeqId;
 
+	public int countSeqMatch, countSeqMismatch, warn;
 	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
 	HashMap<String, Transcript> trancriptById;
@@ -215,8 +217,6 @@ public class PdbGenome extends SnpEff {
 	 * Map to MSA
 	 */
 	public void mapToMsa(MultipleSequenceAlignmentSet msas, DistanceResult dres) {
-		if (!dres.pdbId.equals("3V6O") || dres.aaPos1 != 553) return;
-
 		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
 		if (idmes == null) return;
 
@@ -224,7 +224,11 @@ public class PdbGenome extends SnpEff {
 		for (IdMapperEntry idme : idmes) {
 			String trid = IDME_TO_ID.apply(idme);
 			Transcript tr = trancriptById.get(trid);
-			if (tr == null) throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
+			if (tr == null) {
+				if (warn++ < 10) Gpr.debug("!!!");
+				return;
+				// throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
+			}
 
 			// Find genomic position based on AA position
 			int aa2pos[] = tr.aaNumber2Pos();
@@ -236,22 +240,31 @@ public class PdbGenome extends SnpEff {
 				// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
 				continue;
 			}
+
+			// Convert to genomic positions
 			int pos1 = aa2pos[dres.aaPos1];
 			int pos2 = aa2pos[dres.aaPos2];
 
 			// Find sequences
-			String seq1 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos1);
-			//			if (seq1 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1);
-			String seq2 = msas.findColumnSequence(trid, tr.getChromosomeName(), pos2);
-			//			if (seq2 != null) System.out.println(dres + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2);
+			String seq1 = msas.findColumnSequence(tr, trid, pos1);
+			String seq2 = msas.findColumnSequence(tr, trid, pos2);
 
 			// Both available?
 			if ((seq1 != null) && (seq2 != null)) {
-				System.out.println(dres //
+				String ok = "OK   ";
+
+				if ((dres.aa1 != seq1.charAt(0)) || (dres.aa2 != seq2.charAt(0))) {
+					ok = "ERROR";
+					countSeqMismatch++;
+				} else countSeqMatch++;
+
+				System.out.println(ok //
+						+ "\t" + dres //
 						+ "\t" + tr.getId() //
 						+ "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1//
 						+ "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2 //
 				);
+
 			}
 		}
 	}

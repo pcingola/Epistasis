@@ -6,6 +6,8 @@ import java.util.List;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
+import ca.mcgill.mcb.pcingola.interval.Exon;
+import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -74,7 +76,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	/**
 	 * Find a multiple sequence alignment
 	 */
-	public String findColumnSequence(String trid, String chr, int pos) {
+	public String findColumnSequence(Transcript tr, String trid, int pos) {
 		// Find all MSA
 		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
 		if (msaList == null) return null;
@@ -82,11 +84,20 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		// Check all MSA
 		for (MultipleSequenceAlignment msa : msaList) {
 			// Different chromosome or position? Skip
-			if (!msa.getChromo().equals(chr)) continue;
+			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
 			if (pos < msa.getStart() || msa.getEnd() < pos) continue;
 
-			// Found!
+			// Find exon
+			Exon exon = tr.findExon(pos);
+			if (exon == null) {
+				Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
+				return null;
+			}
+
+			// Find index
 			int idx = (pos - msa.getStart()) / 3;
+			if (exon.getFrame() != 0) idx++; // If exon has non-zero frame, then the MSA has one AA (from the previous exon). I don't know why they do it this way...
+
 			return msa.getColumnString(idx);
 		}
 
@@ -160,8 +171,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 					String chr = chrpos.substring(0, idxPos);
 					String posStart = chrpos.substring(idxPos + 1, idxEnd);
 					String posEnd = chrpos.substring(idxEnd + 1, chrpos.length() - 1);
-					int start = Gpr.parseIntSafe(posStart);
-					int end = Gpr.parseIntSafe(posEnd);
+					int start = Gpr.parseIntSafe(posStart) - 1;
+					int end = Gpr.parseIntSafe(posEnd) - 1;
 
 					if (debug) System.out.println(transcriptId + " " + chr + ":" + start + "-" + end);
 					msa = new MultipleSequenceAlignment(transcriptId, numAligns, seqLen);

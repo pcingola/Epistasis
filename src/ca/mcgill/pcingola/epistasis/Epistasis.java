@@ -39,7 +39,7 @@ public class Epistasis implements CommandLine {
 
 	public Epistasis(String[] args) {
 		this.args = args;
-		genome = "hg19";
+		genome = debug ? "testHg19Chr1" : "hg19";
 		configFile = Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE;
 	}
 
@@ -298,6 +298,10 @@ public class Epistasis implements CommandLine {
 		List<DistanceResult> dists = loadAaContact(aaContactFile);
 		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
 
+		System.out.println("Totals:" //
+				+ "\n\tCount match    : " + pdbGenome.countSeqMatch //
+				+ "\n\tCount mismatch : " + pdbGenome.countSeqMismatch //
+		);
 		// Run analysis
 		return true;
 	}
