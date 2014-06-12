@@ -137,8 +137,10 @@ public class MaxLikelihoodTm {
 		double phat[][] = new double[NUM_AA][NUM_AA];
 		double n = sum;
 		for (int i = 0; i < phat.length; i++)
-			for (int j = 0; j < phat.length; j++)
-				phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // Note: We use symmetry
+			for (int j = 0; j < phat.length; j++) {
+				// phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // Note: We use symmetry
+				phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i]; // Note: We use symmetry
+			}
 
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]

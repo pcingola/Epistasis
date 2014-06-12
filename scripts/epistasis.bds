@@ -6,7 +6,7 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
-debug			:= false
+debug			:= true
 dir				:= "$HOME/snpEff"
 
 # Parameters
@@ -29,6 +29,7 @@ cmdEpistasis	:= "java -Xmx4G -jar Epistasis.jar"
 
 # Change parameters if we are debugging (smaller datasets)
 if( debug ) {
+	genome = "testHg19Chr1"
 	msa  = "$dir/db/multiz100way/head.fa"
 	qhat = "$dir/db/multiz100way/Qhat_head.txt"
 }
@@ -38,10 +39,12 @@ if( debug ) {
 #-------------------------------------------------------------------------------
 
 # Estimate matrix Q from sequence alignment and tree
+print("Estimate Q\n")
 task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
 wait
 
 # Map Pdb <-> Genome
+print("Map Pdb entries to transcripts\n")
 tmp := "$idMapConfirmed.tmp"
 task( idMapConfirmed <- [pdbDir, tree, msa, idMap] ) {
 	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $tmp 
@@ -50,6 +53,7 @@ task( idMapConfirmed <- [pdbDir, tree, msa, idMap] ) {
 wait
 
 # Calculate amino acids "in contact" within the same protein
+print("Calculate AA in contact within proteins\n")
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
 	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed \
 		| tee \
