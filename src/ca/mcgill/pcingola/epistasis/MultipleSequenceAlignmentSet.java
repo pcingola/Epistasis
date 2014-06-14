@@ -118,7 +118,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			// Different chromosome or position? Skip
 			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
 			msasTr.add(msa);
-			reverse |= msa.getStrand() < 0;
+			reverse |= msa.isStrandNegative();
 		}
 
 		// Sort
@@ -199,12 +199,13 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 					String chr = chrpos.substring(0, idxPos);
 					String posStart = chrpos.substring(idxPos + 1, idxEnd);
 					String posEnd = chrpos.substring(idxEnd + 1, chrpos.length() - 1);
+					boolean strand = (chrpos.charAt(chrpos.length() - 1) == '-');
 					int start = Gpr.parseIntSafe(posStart) - 1;
 					int end = Gpr.parseIntSafe(posEnd) - 1;
 
 					if (debug) System.out.println(transcriptId + " " + chr + ":" + start + "-" + end);
 					msa = new MultipleSequenceAlignment(transcriptId, numAligns, seqLen);
-					msa.set(chr, start, end);
+					msa.set(chr, start, end, strand);
 				} else if (sequence.length() != seqLen) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting sequence of length " + seqLen);
 
 				// Add sequence

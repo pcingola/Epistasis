@@ -287,7 +287,7 @@ public class Epistasis implements CommandLine {
 		treeFile = args[argNum++];
 		multAlignFile = args[argNum++];
 		idMapFile = args[argNum++];
-		String aaContactFile = args[argNum++];
+		argNum++;
 
 		// Load data
 		loadTree(treeFile);
@@ -295,6 +295,8 @@ public class Epistasis implements CommandLine {
 		loadIdMap(idMapFile);
 		PdbGenome pdbGenome = new PdbGenome(configFile, genome, pdbDir, idMapFile);
 		pdbGenome.initialize();
+
+		pdbGenome.mapToMsa(msas);
 
 		/**
 		 *  TODO

@@ -17,7 +17,8 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	String transcriptId;
 	String chromo;
-	int start, end, strand;
+	int start, end;
+	boolean strandNegative;
 	byte[][] align;
 	Boolean skip[];
 
@@ -179,6 +180,18 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		return new String(col);
 	}
 
+	public int getEnd() {
+		return end;
+	}
+
+	public String getId() {
+		return transcriptId + "_" + chromo + ":" + start + "-" + end;
+	}
+
+	public int getNumSeqs() {
+		return align.length;
+	}
+
 	/**
 	 * Get all characters in row 'rowNum'
 	 */
@@ -192,28 +205,12 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		return new String(row);
 	}
 
-	public int getEnd() {
-		return end;
-	}
-
-	public String getId() {
-		return transcriptId + "_" + chromo + ":" + start + "-" + end;
-	}
-
-	public int getNumSeqs() {
-		return align.length;
-	}
-
 	public int getSeqLen() {
 		return align[0].length;
 	}
 
 	public int getStart() {
 		return start;
-	}
-
-	public int getStrand() {
-		return strand;
 	}
 
 	public String getTranscriptId() {
@@ -256,6 +253,14 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		skip[pos] = skipThis;
 
 		return skip[pos];
+	}
+
+	public boolean isStrandNegative() {
+		return strandNegative;
+	}
+
+	public boolean isStrandPositive() {
+		return !strandNegative;
 	}
 
 	public int length() {
@@ -304,10 +309,11 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @param start
 	 * @param end
 	 */
-	public void set(String chr, int start, int end) {
+	public void set(String chr, int start, int end, boolean strandNegative) {
 		chromo = Chromosome.simpleName(chr);
 		this.start = start;
 		this.end = end;
+		this.strandNegative = strandNegative;
 	}
 
 	public int size() {

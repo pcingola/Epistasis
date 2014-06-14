@@ -215,6 +215,10 @@ public class PdbGenome extends SnpEff {
 			}
 	}
 
+	public void mapToMsa(MultipleSequenceAlignmentSet msas) {
+		trancriptById.keySet().stream().forEach(trid -> mapToMsa(msas, trid));
+	}
+
 	/**
 	 * Map to MSA
 	 */
@@ -265,5 +269,26 @@ public class PdbGenome extends SnpEff {
 				);
 			}
 		}
+	}
+
+	void mapToMsa(MultipleSequenceAlignmentSet msas, String trid) {
+		Transcript tr = trancriptById.get(trid);
+		String proteinTr = removeAaStop(tr.protein());
+		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
+
+		if (!proteinTr.isEmpty() && proteinMsa != null) {
+			boolean match = proteinTr.equals(proteinMsa);
+			countMatch.inc("AA MSA-TR " + (match ? "OK" : "ERROR"));
+			if (!match) System.out.println(trid + "\t" + proteinTr.equals(proteinMsa) //
+					+ "\n\tPortein Tr  :\t" + proteinTr //
+					+ "\n\tPortein MSA :\t" + proteinMsa //
+					+ "\n");
+		}
+	}
+
+	String removeAaStop(String seq) {
+		if (seq == null) return null;
+		if (seq.endsWith("-") || seq.endsWith("*")) return seq.substring(0, seq.length() - 1);
+		return seq;
 	}
 }
