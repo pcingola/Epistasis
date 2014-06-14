@@ -148,6 +148,7 @@ public class Epistasis implements CommandLine {
 			configFile = args[argNum++];
 			genome = args[argNum++];
 			pdbDir = args[argNum++];
+			idMapFile = args[argNum++];
 			runMapPdbGenome();
 			break;
 

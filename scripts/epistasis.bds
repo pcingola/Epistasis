@@ -38,17 +38,17 @@ if( debug ) {
 # Main
 #-------------------------------------------------------------------------------
 
-# Estimate matrix Q from sequence alignment and tree
-print("Estimate Q\n")
-task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
-wait
+# # Estimate matrix Q from sequence alignment and tree
+# print("Estimate Q\n")
+# task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
+# wait
 
 # Map Pdb <-> Genome
 print("Map Pdb entries to transcripts\n")
 tmp := "$idMapConfirmed.tmp"
 task( idMapConfirmed <- [pdbDir, tree, msa, idMap] ) {
-	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $tmp 
-	sys grep "^Confirmed IdMapping" $tmp | cut -f 2- | sort | uniq > $idMapConfirmed
+	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
+	#sys grep "^Confirmed IdMapping" $tmp | cut -f 2- | sort | uniq > $idMapConfirmed
 }
 wait
 
