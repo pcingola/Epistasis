@@ -46,10 +46,7 @@ if( debug ) {
 # Map Pdb <-> Genome
 print("Map Pdb entries to transcripts\n")
 tmp := "$idMapConfirmed.tmp"
-task( idMapConfirmed <- [pdbDir, tree, msa, idMap] ) {
-	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
-	#sys grep "^Confirmed IdMapping" $tmp | cut -f 2- | sort | uniq > $idMapConfirmed
-}
+task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
 wait
 
 # Calculate amino acids "in contact" within the same protein
