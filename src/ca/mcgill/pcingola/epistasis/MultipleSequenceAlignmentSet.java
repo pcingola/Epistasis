@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
@@ -103,6 +104,32 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		}
 
 		return null;
+	}
+
+	public String findRowSequence(Transcript tr, String trid) {
+		// Find all MSA
+		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
+		if (msaList == null) return null;
+
+		// Get all msas for this 'trid'
+		ArrayList<MultipleSequenceAlignment> msasTr = new ArrayList<>();
+		boolean reverse = false;
+		for (MultipleSequenceAlignment msa : msaList) {
+			// Different chromosome or position? Skip
+			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
+			msasTr.add(msa);
+			reverse |= msa.getStrand() < 0;
+		}
+
+		// Sort
+		if (reverse) Collections.sort(msasTr, Collections.reverseOrder());
+		else Collections.sort(msasTr);
+
+		StringBuilder sb = new StringBuilder();
+		for (MultipleSequenceAlignment msa : msasTr)
+			sb.append(msa.getRowString(0));
+
+		return sb.toString();
 	}
 
 	public ArrayList<MultipleSequenceAlignment> getMsas() {

@@ -168,8 +168,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	/**
 	 * Get all characters in column 'colNum'
-	 * @param colNum
-	 * @return
 	 */
 	public String getColumnString(int colNum) {
 		if (colNum < 0 || colNum >= length()) return null;
@@ -179,6 +177,19 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 			col[i] = getChar(i, colNum);
 
 		return new String(col);
+	}
+
+	/**
+	 * Get all characters in row 'rowNum'
+	 */
+	public String getRowString(int rowNum) {
+		if (rowNum < 0 || rowNum >= getNumSeqs()) return null;
+
+		char row[] = new char[length()];
+		for (int i = 0; i < row.length; i++)
+			row[i] = getChar(rowNum, i);
+
+		return new String(row);
 	}
 
 	public int getEnd() {

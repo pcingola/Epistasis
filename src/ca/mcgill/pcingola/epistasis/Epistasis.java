@@ -296,12 +296,15 @@ public class Epistasis implements CommandLine {
 		PdbGenome pdbGenome = new PdbGenome(configFile, genome, pdbDir, idMapFile);
 		pdbGenome.initialize();
 
-		// Load AA contact
-		List<DistanceResult> dists = loadAaContact(aaContactFile);
-		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
+		/**
+		 *  TODO
+		 *  	- Create 'protein' sequences form MSAs:	msas.findRowSequence()
+		 *  	- Compare to transcript.protein()
+		 */
 
-		// TODO
-		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+		//		// Load AA contact
+		//		List<DistanceResult> dists = loadAaContact(aaContactFile);
+		//		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
 
 		System.out.println("Totals:\n" + pdbGenome.countMatch);
 
