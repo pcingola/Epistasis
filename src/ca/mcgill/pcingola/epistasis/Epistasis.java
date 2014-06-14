@@ -282,6 +282,8 @@ public class Epistasis implements CommandLine {
 	public boolean runTest(String args[]) {
 		// Parse command line arguments
 		int argNum = 1;
+		configFile = args[argNum++];
+		genome = args[argNum++];
 		treeFile = args[argNum++];
 		multAlignFile = args[argNum++];
 		idMapFile = args[argNum++];
@@ -298,10 +300,11 @@ public class Epistasis implements CommandLine {
 		List<DistanceResult> dists = loadAaContact(aaContactFile);
 		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
 
-		System.out.println("Totals:" //
-				+ "\n\tCount match    : " + pdbGenome.countSeqMatch //
-				+ "\n\tCount mismatch : " + pdbGenome.countSeqMismatch //
-		);
+		// TODO
+		// !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+		System.out.println("Totals:\n" + pdbGenome.countMatch);
+
 		// Run analysis
 		return true;
 	}

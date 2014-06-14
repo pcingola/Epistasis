@@ -19,6 +19,7 @@ import org.biojava.bio.structure.io.PDBFileReader;
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
+import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
@@ -40,7 +41,8 @@ public class PdbGenome extends SnpEff {
 	// Select ID function
 	public static final Function<IdMapperEntry, String> IDME_TO_ID = ime -> ime.refSeqId;
 
-	public int countSeqMatch, countSeqMismatch, warn;
+	int warn;
+	public CountByType countMatch = new CountByType();
 	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
 	IdMapper idMapper;
 	HashMap<String, Transcript> trancriptById;
@@ -251,12 +253,9 @@ public class PdbGenome extends SnpEff {
 
 			// Both available?
 			if ((seq1 != null) && (seq2 != null)) {
-				String ok = "OK   ";
-
-				if ((dres.aa1 != seq1.charAt(0)) || (dres.aa2 != seq2.charAt(0))) {
-					ok = "ERROR";
-					countSeqMismatch++;
-				} else countSeqMatch++;
+				String ok = ((dres.aa1 != seq1.charAt(0)) || (dres.aa2 != seq2.charAt(0))) ? "ERROR" : "OK   ";
+				countMatch.inc(dres.pdbId + "\t" + ok);
+				countMatch.inc("_Total\t" + ok);
 
 				System.out.println(ok //
 						+ "\t" + dres //
@@ -264,7 +263,6 @@ public class PdbGenome extends SnpEff {
 						+ "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1//
 						+ "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2 //
 				);
-
 			}
 		}
 	}
