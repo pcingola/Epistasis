@@ -20,8 +20,8 @@ import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 
 /**
  * This class has information from
@@ -43,21 +43,26 @@ public class PdbGenome extends SnpEff {
 
 	int warn;
 	public CountByType countMatch = new CountByType();
-	String genome, pdbDir, phyloFile, multAlignFile, idMapFile;
-	IdMapper idMapper;
+	String genome, pdbDir;
 	HashMap<String, Transcript> trancriptById;
+	IdMapper idMapper;
+	LikelihoodTree tree;
+	MultipleSequenceAlignmentSet msas;
 	PDBFileReader pdbreader;
 
 	public PdbGenome(String args[]) {
-		this(args[0], args[1], args[2], args[3]);
+		this(args[0], args[1], args[2]);
 	}
 
-	public PdbGenome(String configFile, String genome, String pdbDir, String idMapFile) {
+	public void setTree(LikelihoodTree tree) {
+		this.tree = tree;
+	}
+
+	public PdbGenome(String configFile, String genome, String pdbDir) {
 		super(null);
 		this.configFile = configFile;
 		this.genome = genome;
 		this.pdbDir = pdbDir;
-		this.idMapFile = idMapFile;
 	}
 
 	/**
@@ -183,26 +188,50 @@ public class PdbGenome extends SnpEff {
 		return idmapsNew;
 	}
 
+	public void checkSequenceMsaTr() {
+		trancriptById.keySet().stream().forEach(trid -> checkSequenceMsaTr(trid));
+	}
+
+	/**
+	 * Check is the protein sequence from a transcript and the MSA match
+	 * @return 'true' if protein sequences match
+	 */
+	boolean checkSequenceMsaTr(String trid) {
+		Transcript tr = trancriptById.get(trid);
+		String proteinTr = removeAaStop(tr.protein());
+		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
+
+		if (!proteinTr.isEmpty() && proteinMsa != null) {
+			boolean match = proteinTr.equals(proteinMsa);
+
+			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
+			if (verbose && !match) System.out.println(trid + "\t" + proteinTr.equals(proteinMsa) //
+					+ "\n\tPortein Tr  :\t" + proteinTr //
+					+ "\n\tPortein MSA :\t" + proteinMsa //
+					+ "\n");
+
+			return match;
+		}
+
+		return false;
+	}
+
 	/**
 	 * Load all data
 	 */
 	void initialize() {
-		// Set up SnpEff arguments
+		//---
+		// Initialize SnpEff
+		//---
+
 		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genome };
 		args = argsSnpEff;
 		setGenomeVer(genome);
 		parseArgs(argsSnpEff);
 		loadConfig();
 
-		// Id Map
-		Timer.showStdErr("Loading id maps " + idMapFile);
-		idMapper = new IdMapper(idMapFile);
-
-		// Initialize reader
-		pdbreader = new PDBFileReader();
-
 		// Load SnpEff database
-		loadDb();
+		if (genome != null) loadDb();
 
 		// Initialize trancriptById
 		trancriptById = new HashMap<>();
@@ -213,10 +242,11 @@ public class PdbGenome extends SnpEff {
 				trancriptById.put(id, tr);
 				if (debug) System.err.println("\t" + id);
 			}
-	}
 
-	public void mapToMsa(MultipleSequenceAlignmentSet msas) {
-		trancriptById.keySet().stream().forEach(trid -> mapToMsa(msas, trid));
+		//---
+		// Initialize reader
+		//---
+		pdbreader = new PDBFileReader();
 	}
 
 	/**
@@ -231,7 +261,7 @@ public class PdbGenome extends SnpEff {
 			String trid = IDME_TO_ID.apply(idme);
 			Transcript tr = trancriptById.get(trid);
 			if (tr == null) {
-				if (warn++ < 10) Gpr.debug("!!!");
+				warn("Transcript not found", tr.getId());
 				return;
 				// throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
 			}
@@ -271,24 +301,24 @@ public class PdbGenome extends SnpEff {
 		}
 	}
 
-	void mapToMsa(MultipleSequenceAlignmentSet msas, String trid) {
-		Transcript tr = trancriptById.get(trid);
-		String proteinTr = removeAaStop(tr.protein());
-		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
-
-		if (!proteinTr.isEmpty() && proteinMsa != null) {
-			boolean match = proteinTr.equals(proteinMsa);
-			countMatch.inc("AA MSA-TR " + (match ? "OK" : "ERROR"));
-			if (!match) System.out.println(trid + "\t" + proteinTr.equals(proteinMsa) //
-					+ "\n\tPortein Tr  :\t" + proteinTr //
-					+ "\n\tPortein MSA :\t" + proteinMsa //
-					+ "\n");
-		}
-	}
-
+	/**
+	 * Remove 'stop' AA form sequence
+	 */
 	String removeAaStop(String seq) {
 		if (seq == null) return null;
 		if (seq.endsWith("-") || seq.endsWith("*")) return seq.substring(0, seq.length() - 1);
 		return seq;
+	}
+
+	public void setIdMapper(IdMapper idMapper) {
+		this.idMapper = idMapper;
+	}
+
+	public void setMsas(MultipleSequenceAlignmentSet msas) {
+		this.msas = msas;
+	}
+
+	void warn(String warningType, String warning) {
+		if (warn++ < 10) System.err.println("WARNING: " + warningType + " " + warning);
 	}
 }

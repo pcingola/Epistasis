@@ -29,13 +29,13 @@ public class Epistasis implements CommandLine {
 
 	String[] args;
 	String cmd;
-	String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile;
-	String configFile, genome;
+	String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile, configFile, genome;
 	LikelihoodTree tree;
 	TransitionMatrix Q;
 	MultipleSequenceAlignmentSet msas;
 	MaxLikelihoodTm mltm;
 	IdMapper idMapper;
+	PdbGenome pdbGenome;
 
 	public Epistasis(String[] args) {
 		this.args = args;
@@ -46,6 +46,25 @@ public class Epistasis implements CommandLine {
 	@Override
 	public String[] getArgs() {
 		return args;
+	}
+
+	/**
+	 * Load files
+	 */
+	void load() {
+		if (treeFile != null) loadTree(treeFile);
+		if (multAlignFile != null) loadMsas(multAlignFile);
+		if (idMapFile != null) loadIdMap(idMapFile);
+
+		if (genome != null) {
+			pdbGenome = new PdbGenome(configFile, genome, pdbDir);
+			pdbGenome.setIdMapper(idMapper);
+			pdbGenome.setMsas(msas);
+			pdbGenome.setTree(tree);
+			pdbGenome.initialize();
+		}
+
+		if (qMatrixFile != null) loadQ(qMatrixFile);
 	}
 
 	/**
@@ -81,6 +100,11 @@ public class Epistasis implements CommandLine {
 	 */
 	void loadQ(String qMatrixFile) {
 		Timer.showStdErr("Loading Q matrix  from file '" + qMatrixFile);
+		if (!Gpr.exists(qMatrixFile)) {
+			System.err.println("Matrix file doesn't exists, nothing done");
+			return;
+		}
+
 		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
 		Q = mltm.loadTransitionMatrix(qMatrixFile);
 	}
@@ -115,7 +139,7 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			if (numBases <= 0) usage("number of alignments must be positive number");
-			runMsaMi(treeFile, numBases, multAlignFile);
+			runMsaMi(numBases);
 			break;
 
 		case "mappdbgenome":
@@ -133,7 +157,7 @@ public class Epistasis implements CommandLine {
 			int aaMinSeparation = Gpr.parseIntSafe(args[argNum++]);
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
-			runPdbDist(pdbDir, distThreshold, aaMinSeparation, idMapFile);
+			runPdbDist(distThreshold, aaMinSeparation);
 			break;
 
 		case "qhat":
@@ -141,11 +165,16 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			qMatrixFile = args[argNum++];
-			runQhat(treeFile, multAlignFile, qMatrixFile);
+			runQhat();
 			break;
 
 		case "test":
-			runTest(args);
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			runTest();
 			break;
 
 		default:
@@ -218,9 +247,7 @@ public class Epistasis implements CommandLine {
 	 * @param multAlign
 	 */
 	void runMsaCorr(String treeFile, String multAlign) {
-		// Load
-		loadTree(treeFile);
-		loadMsas(multAlign);
+		load();
 
 		// Run similarity
 		MsaSimilarity sim = new MsaSimilarity(msas);
@@ -232,10 +259,8 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Run Mutual Information
 	 */
-	void runMsaMi(String treeFile, int numBases, String multAlign) {
-		// Load
-		loadTree(treeFile);
-		loadMsas(multAlign);
+	void runMsaMi(int numBases) {
+		load();
 
 		// Run similarity
 		MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
@@ -247,10 +272,8 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Run Pdb distance
 	 */
-	void runPdbDist(String pdbDir, double distThreshold, int aaMinSeparation, String idMapFile) {
-		// Load IdMaps
-		Timer.showStdErr("Loading id maps " + idMapFile);
-		IdMapper idMapper = new IdMapper(idMapFile);
+	void runPdbDist(double distThreshold, int aaMinSeparation) {
+		load();
 
 		// Run analysis
 		PdbDistanceAnalysis pdban = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
@@ -264,12 +287,10 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Run phylogenetic analysis
+	 * Estimate Q matrix from MSA and Phylogenetic-Tree
 	 */
-	void runQhat(String phyloFileName, String multAlign, String qMatrixFile) {
-		// Load
-		loadTree(phyloFileName);
-		loadMsas(multAlign);
+	void runQhat() {
+		load();
 		sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
 		qHat(qMatrixFile); // Calculate Qhat
 	}
@@ -279,24 +300,9 @@ public class Epistasis implements CommandLine {
 	 * @param args
 	 * @return
 	 */
-	public boolean runTest(String args[]) {
-		// Parse command line arguments
-		int argNum = 1;
-		configFile = args[argNum++];
-		genome = args[argNum++];
-		treeFile = args[argNum++];
-		multAlignFile = args[argNum++];
-		idMapFile = args[argNum++];
-		argNum++;
-
-		// Load data
-		loadTree(treeFile);
-		loadMsas(multAlignFile);
-		loadIdMap(idMapFile);
-		PdbGenome pdbGenome = new PdbGenome(configFile, genome, pdbDir, idMapFile);
-		pdbGenome.initialize();
-
-		pdbGenome.mapToMsa(msas);
+	public boolean runTest() {
+		load();
+		pdbGenome.checkSequenceMsaTr();
 
 		/**
 		 *  TODO
