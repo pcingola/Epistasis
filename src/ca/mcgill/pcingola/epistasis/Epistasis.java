@@ -30,6 +30,7 @@ public class Epistasis implements CommandLine {
 	String cmd;
 	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
 	LikelihoodTree tree;
+	List<DistanceResult> aaContacts;
 	TransitionMatrix Q;
 	MultipleSequenceAlignmentSet msas;
 	MaxLikelihoodTm mltm;
@@ -54,6 +55,7 @@ public class Epistasis implements CommandLine {
 		if (treeFile != null) loadTree(treeFile);
 		if (multAlignFile != null) loadMsas(multAlignFile);
 		if (idMapFile != null) loadIdMap(idMapFile);
+		if (aaContactFile != null) loadAaContact(aaContactFile);
 
 		if (genome != null) {
 			pdbGenome = new PdbGenome(configFile, genome, pdbDir);
@@ -71,11 +73,11 @@ public class Epistasis implements CommandLine {
 	 * Load AA contact list
 	 */
 	List<DistanceResult> loadAaContact(String aaContactFile) {
-		List<DistanceResult> dists = new ArrayList<>();
+		aaContacts = new ArrayList<>();
 		for (String line : Gpr.readFile(aaContactFile).split("\n"))
-			dists.add(new DistanceResult(line));
+			aaContacts.add(new DistanceResult(line));
 
-		return dists;
+		return aaContacts;
 	}
 
 	void loadIdMap(String idMapFile) {
@@ -173,6 +175,8 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			pdbDir = args[argNum++];
 			runTest();
 			break;
 
@@ -242,7 +246,7 @@ public class Epistasis implements CommandLine {
 
 	void runMapPdbGenome() {
 		load();
-		pdbGenome.checkCoordinates();
+		pdbGenome.checkSequencePdbTr();
 	}
 
 	/**
@@ -304,18 +308,19 @@ public class Epistasis implements CommandLine {
 	 * @param args
 	 * @return
 	 */
-	boolean runTest() {
+	void runTest() {
 		load();
 		pdbGenome.checkSequenceMsaTr();
 
 		// Load AA contact
-		List<DistanceResult> dists = loadAaContact(aaContactFile);
-		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
-
+		aaContacts.forEach(d -> pdbGenome.mapToMsa(msas, d));
 		System.out.println("Totals:\n" + pdbGenome.countMatch);
 
-		// Run analysis
-		return true;
+		// Checking pdb structure
+		String pdbId = "1B72";
+		String pdbFile = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
+		pdbGenome.checkSequencePdbTr(pdbFile);
+
 	}
 
 	/**

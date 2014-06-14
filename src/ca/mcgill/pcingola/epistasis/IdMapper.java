@@ -73,6 +73,10 @@ public class IdMapper {
 		entries.add(ime);
 	}
 
+	public void addAll(Collection<IdMapperEntry> imes) {
+		imes.stream().forEach(ime -> add(ime));
+	}
+
 	public List<IdMapperEntry> getByGeneId(String id) {
 		return byGeneId.get(id);
 	}

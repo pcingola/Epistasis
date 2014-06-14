@@ -4,11 +4,9 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Function;
-import java.util.stream.Stream;
 
 import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Chain;
@@ -16,6 +14,7 @@ import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.io.PDBFileReader;
 
+import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
@@ -58,20 +57,53 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Check mapping.
+	 * Check that 'protein' sequences match (MSA vs Genome)
+	 */
+	public void checkSequenceMsaTr() {
+		trancriptById.keySet().stream().forEach(trid -> checkSequenceMsaTr(trid));
+	}
+
+	/**
+	 * Check is the protein sequence from a transcript and the MSA match
+	 * @return 'true' if protein sequences match
+	 */
+	boolean checkSequenceMsaTr(String trid) {
+		Transcript tr = trancriptById.get(trid);
+		String proteinTr = removeAaStop(tr.protein());
+		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
+
+		if (!proteinTr.isEmpty() && proteinMsa != null) {
+			boolean match = proteinTr.equals(proteinMsa);
+
+			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
+			if (trid.equals("NM_001204961") || (verbose && !match)) {
+				System.out.println(trid + "\t" //
+						+ (proteinTr.equals(proteinMsa) ? "OK" : "ERROR") //
+						+ "\n\tPortein Tr  :\t" + proteinTr //
+						+ "\n\tPortein MSA :\t" + proteinMsa //
+						+ "\n");
+			}
+
+			return match;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Check that protein sequences match between PDB and Genome
 	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
-	IdMapper checkCoordinates() {
+	IdMapper checkSequencePdbTr() {
 		Timer.showStdErr("Checking PDB <-> Transcript sequences\tdebug:" + debug);
 
 		// Create a new IdMapper using only confirmed entries
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-			.filter(s -> s.toString().endsWith(".pdb")) //
-			.map(pf -> checkCoordinates(pf.toString())) //
-			.flatMap(s -> s) //
-			.forEach(im -> idMapperConfirmed.add(im));
+					.filter(s -> s.toString().endsWith(".pdb")) //
+					.map(pf -> checkSequencePdbTr(pf.toString())) //
+					.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -81,10 +113,10 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Check mapping.
+	 * Check that protein sequences match between PDB and Genome.
 	 * Return a stream of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 */
-	Stream<IdMapperEntry> checkCoordinates(String pdbFile) {
+	List<IdMapperEntry> checkSequencePdbTr(String pdbFile) {
 		Structure pdbStruct;
 		try {
 			pdbStruct = pdbreader.getStructure(pdbFile);
@@ -105,24 +137,26 @@ public class PdbGenome extends SnpEff {
 				idEntries.forEach(le -> System.err.println("\t\t" + le));
 				System.err.println("\tTranscripts:\t" + trIdsStr);
 			}
-		} else System.out.print(pdbId + " ");
+		} else System.err.print(pdbId + " ");
 
-		if (trIdsStr == null) return Stream.empty();
+		ArrayList<IdMapperEntry> list = new ArrayList<IdMapperEntry>();
+		if (trIdsStr == null) return list;
 		String trIds[] = trIdsStr.split(",");
 
 		// Check idMaps. Only return those that match
-		return Arrays.stream(trIds) //
-				.map(id -> checkCoordinates(pdbId, pdbStruct, id)) //
-				.flatMap(l -> l.stream());
+		for (String trid : trIds)
+			list.addAll(checkSequencePdbTr(pdbId, pdbStruct, trid));
+
+		return list;
 	}
 
 	/**
-	 * Check mapping.
+	 * Check that protein sequences match between PDB and Genome
 	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 * Note: Only part of the sequence usually matches
 	 */
-	List<IdMapperEntry> checkCoordinates(String pdbId, Structure pdbStruct, String trId) {
-		System.out.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
+	List<IdMapperEntry> checkSequencePdbTr(String pdbId, Structure pdbStruct, String trId) {
+		System.err.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
 		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
 		List<IdMapperEntry> idmapsNew = new ArrayList<>();
 
@@ -130,7 +164,7 @@ public class PdbGenome extends SnpEff {
 		Transcript tr = trancriptById.get(trId);
 		if (tr == null) return idmapsNew;
 		String prot = tr.protein();
-		if (debug) System.out.println("\tProtein: " + prot);
+		if (debug) System.err.println("\tProtein: " + prot);
 
 		// Filter PDB structure
 		// Within resolution limits? => Process
@@ -162,50 +196,23 @@ public class PdbGenome extends SnpEff {
 			// Only use mappings that have low error rate
 			if (countMatch + countMismatch > 0) {
 				double err = countMismatch / ((double) (countMatch + countMismatch));
-				if (debug) System.out.println("\tChain: " + chain.getChainID() + "\terror: " + err + "\t" + sb);
+				if (debug) System.err.println("\tChain: " + chain.getChainID() + "\terror: " + err + "\t" + sb);
 
 				if (err < MAX_MISMATCH_RATE) {
-					if (debug) System.err.println("\t\tConfirm transcript " + trId + "\terror: " + err);
+					if (debug) System.err.println("\t\tMapping OK    :\t" + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-					.filter(idm -> trId.equals(IDME_TO_ID.apply(idm)) && pdbId.equals(idm.pdbId)) //
-					.findFirst() //
-					.ifPresent(idm -> idmapsNew.add(idm));
-				}
+							.filter(idm -> trId.equals(IDME_TO_ID.apply(idm)) && pdbId.equals(idm.pdbId)) //
+							.findFirst() //
+							.ifPresent(i -> idmapsNew.add(i.cloneAndSetChainId(chain.getChainID())));
+				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
 
-		if (verbose) idmapsNew.stream().forEach(i -> System.out.println("Confirmed IdMapping:\t" + i));
+		// Show all confirmed mappings
+		idmapsNew.stream().forEach(i -> System.out.println(i));
 
 		return idmapsNew;
-	}
-
-	public void checkSequenceMsaTr() {
-		trancriptById.keySet().stream().forEach(trid -> checkSequenceMsaTr(trid));
-	}
-
-	/**
-	 * Check is the protein sequence from a transcript and the MSA match
-	 * @return 'true' if protein sequences match
-	 */
-	boolean checkSequenceMsaTr(String trid) {
-		Transcript tr = trancriptById.get(trid);
-		String proteinTr = removeAaStop(tr.protein());
-		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
-
-		if (!proteinTr.isEmpty() && proteinMsa != null) {
-			boolean match = proteinTr.equals(proteinMsa);
-
-			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
-			if (verbose && !match) System.out.println(trid + "\t" + proteinTr.equals(proteinMsa) //
-					+ "\n\tPortein Tr  :\t" + proteinTr //
-					+ "\n\tPortein MSA :\t" + proteinMsa //
-					+ "\n");
-
-			return match;
-		}
-
-		return false;
 	}
 
 	/**
@@ -232,7 +239,6 @@ public class PdbGenome extends SnpEff {
 				String id = tr.getId();
 				id = id.substring(0, id.indexOf('.'));
 				trancriptById.put(id, tr);
-				if (debug) System.err.println("\t" + id);
 			}
 
 		//---
@@ -251,11 +257,17 @@ public class PdbGenome extends SnpEff {
 		// Find all transcripts
 		for (IdMapperEntry idme : idmes) {
 			String trid = IDME_TO_ID.apply(idme);
+
+			// Transcript's protein doesn't match MSA's protein? Nothing to do
+			if (!checkSequenceMsaTr(trid)) {
+				countMatch.inc("_Total\tERROR\tTR-MSA");
+				return;
+			}
+
 			Transcript tr = trancriptById.get(trid);
 			if (tr == null) {
-				warn("Transcript not found", tr.getId());
+				warn("Transcript not found", trid);
 				return;
-				// throw new RuntimeException("Transcript '" + trid + "' not found. This should never happen!");
 			}
 
 			// Find genomic position based on AA position
@@ -264,7 +276,7 @@ public class PdbGenome extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-					) {
+			) {
 				// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
 				continue;
 			}
@@ -279,16 +291,24 @@ public class PdbGenome extends SnpEff {
 
 			// Both available?
 			if ((seq1 != null) && (seq2 != null)) {
-				String ok = ((dres.aa1 != seq1.charAt(0)) || (dres.aa2 != seq2.charAt(0))) ? "ERROR" : "OK   ";
-				countMatch.inc(dres.pdbId + "\t" + ok);
-				countMatch.inc("_Total\t" + ok);
+				Exon exon1 = tr.findExon(pos1);
+				Exon exon2 = tr.findExon(pos2);
+				String ok1 = dres.aa1 != seq1.charAt(0) ? "ERROR" : "OK___";
+				String ok2 = dres.aa2 != seq2.charAt(0) ? "ERROR" : "OK___";
+				countMatch.inc(dres.pdbId + "_" + ok1);
+				countMatch.inc(dres.pdbId + "_" + ok2);
+				countMatch.inc("_TOTAL_" + ok1 + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon1.getFrame());
+				countMatch.inc("_TOTAL_" + ok2 + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon2.getFrame());
 
-				System.out.println(ok //
-						+ "\t" + dres //
-						+ "\t" + tr.getId() //
-						+ "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1//
-						+ "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2 //
-						);
+				if ((dres.aa1 != seq1.charAt(0)) && (exon1.getFrame() == 0) && tr.isStrandPlus()) {
+					System.out.println(ok1 + " " + ok2 //
+							+ "\t" + dres.pdbId //
+							+ "\t" + tr.getId() //
+							+ "\t" + dres.distance //
+							+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
+							+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon1.getFrame() + "\t" + seq2 //
+					);
+				}
 			}
 		}
 	}

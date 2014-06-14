@@ -97,9 +97,13 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 			// Find index
 			int idx = (pos - msa.getStart()) / 3;
-			if (exon.getFrame() == 1) idx++; // If exon has non-zero frame, then the MSA has one AA (from the previous exon). I don't know why they do it this way...
-			//System.out.println("Frame: " + exon.getFrame());
+			if (tr.isStrandMinus()) {
+				idx = msa.getSeqLen() - 1 - idx;
+			} else {
+				if (exon.getFrame() == 1) idx++; // If exon has non-zero frame, then the MSA has one AA (from the previous exon). I don't know why they do it this way...
+			}
 
+			// Return column sequence
 			return msa.getColumnString(idx);
 		}
 
