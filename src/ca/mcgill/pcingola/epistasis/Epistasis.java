@@ -1,7 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import ca.mcgill.mcb.pcingola.snpEffect.Config;
@@ -29,7 +28,7 @@ public class Epistasis implements CommandLine {
 
 	String[] args;
 	String cmd;
-	String pdbDir, idMapFile, treeFile, multAlignFile, qMatrixFile, configFile, genome;
+	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
 	LikelihoodTree tree;
 	TransitionMatrix Q;
 	MultipleSequenceAlignmentSet msas;
@@ -58,6 +57,7 @@ public class Epistasis implements CommandLine {
 
 		if (genome != null) {
 			pdbGenome = new PdbGenome(configFile, genome, pdbDir);
+			pdbGenome.setDebug(debug);
 			pdbGenome.setIdMapper(idMapper);
 			pdbGenome.setMsas(msas);
 			pdbGenome.setTree(tree);
@@ -131,7 +131,7 @@ public class Epistasis implements CommandLine {
 		case "corr":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
-			runMsaCorr(treeFile, multAlignFile);
+			runMsaCorr();
 			break;
 
 		case "mi":
@@ -143,11 +143,10 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "mappdbgenome":
-			// Parse command line
-			PdbGenome pdbMsaGen = new PdbGenome(Arrays.copyOfRange(args, 1, args.length));
-			pdbMsaGen.initialize();
-			pdbMsaGen.setDebug(debug);
-			pdbMsaGen.checkCoordinates();
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			pdbDir = args[argNum++];
+			runMapPdbGenome();
 			break;
 
 		case "pdbdist":
@@ -209,7 +208,7 @@ public class Epistasis implements CommandLine {
 		return true;
 	}
 
-	void runBayes(String phyloFileName, String multAlign, String qMatrixFile) {
+	void runBayes() {
 		//	// Calculate Bayes Factor
 		//
 		//	// For each MSA...
@@ -241,12 +240,17 @@ public class Epistasis implements CommandLine {
 		//	}
 	}
 
+	void runMapPdbGenome() {
+		load();
+		pdbGenome.checkCoordinates();
+	}
+
 	/**
 	 * Run correlation
 	 * @param numAligns
 	 * @param multAlign
 	 */
-	void runMsaCorr(String treeFile, String multAlign) {
+	void runMsaCorr() {
 		load();
 
 		// Run similarity
@@ -300,19 +304,13 @@ public class Epistasis implements CommandLine {
 	 * @param args
 	 * @return
 	 */
-	public boolean runTest() {
+	boolean runTest() {
 		load();
 		pdbGenome.checkSequenceMsaTr();
 
-		/**
-		 *  TODO
-		 *  	- Create 'protein' sequences form MSAs:	msas.findRowSequence()
-		 *  	- Compare to transcript.protein()
-		 */
-
-		//		// Load AA contact
-		//		List<DistanceResult> dists = loadAaContact(aaContactFile);
-		//		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
+		// Load AA contact
+		List<DistanceResult> dists = loadAaContact(aaContactFile);
+		dists.forEach(d -> pdbGenome.mapToMsa(msas, d));
 
 		System.out.println("Totals:\n" + pdbGenome.countMatch);
 

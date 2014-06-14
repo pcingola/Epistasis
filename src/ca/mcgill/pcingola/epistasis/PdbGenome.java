@@ -50,14 +50,6 @@ public class PdbGenome extends SnpEff {
 	MultipleSequenceAlignmentSet msas;
 	PDBFileReader pdbreader;
 
-	public PdbGenome(String args[]) {
-		this(args[0], args[1], args[2]);
-	}
-
-	public void setTree(LikelihoodTree tree) {
-		this.tree = tree;
-	}
-
 	public PdbGenome(String configFile, String genome, String pdbDir) {
 		super(null);
 		this.configFile = configFile;
@@ -76,10 +68,10 @@ public class PdbGenome extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-					.filter(s -> s.toString().endsWith(".pdb")) //
-					.map(pf -> checkCoordinates(pf.toString())) //
-					.flatMap(s -> s) //
-					.forEach(im -> idMapperConfirmed.add(im));
+			.filter(s -> s.toString().endsWith(".pdb")) //
+			.map(pf -> checkCoordinates(pf.toString())) //
+			.flatMap(s -> s) //
+			.forEach(im -> idMapperConfirmed.add(im));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -176,9 +168,9 @@ public class PdbGenome extends SnpEff {
 					if (debug) System.err.println("\t\tConfirm transcript " + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(IDME_TO_ID.apply(idm)) && pdbId.equals(idm.pdbId)) //
-							.findFirst() //
-							.ifPresent(idm -> idmapsNew.add(idm));
+					.filter(idm -> trId.equals(IDME_TO_ID.apply(idm)) && pdbId.equals(idm.pdbId)) //
+					.findFirst() //
+					.ifPresent(idm -> idmapsNew.add(idm));
 				}
 			}
 		}
@@ -272,7 +264,7 @@ public class PdbGenome extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-			) {
+					) {
 				// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
 				continue;
 			}
@@ -296,7 +288,7 @@ public class PdbGenome extends SnpEff {
 						+ "\t" + tr.getId() //
 						+ "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + seq1//
 						+ "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + seq2 //
-				);
+						);
 			}
 		}
 	}
@@ -316,6 +308,10 @@ public class PdbGenome extends SnpEff {
 
 	public void setMsas(MultipleSequenceAlignmentSet msas) {
 		this.msas = msas;
+	}
+
+	public void setTree(LikelihoodTree tree) {
+		this.tree = tree;
 	}
 
 	void warn(String warningType, String warning) {
