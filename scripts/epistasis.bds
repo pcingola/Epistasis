@@ -6,7 +6,7 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
-debug			:= false
+debug			:= true
 dir				:= "$HOME/snpEff"
 
 # Parameters
@@ -16,6 +16,7 @@ genome			:= "hg19"
 
 # Data files
 aaContact		:= "$dir/db/pdb/aa.contact.txt"
+aaContactSeq	:= "$dir/db/pdb/aa.contact.sequence.txt"
 idMap			:= "$dir/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/db/multiz100way/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 msa				:= "$dir/db/multiz100way/refGene.exonAA.fa"
@@ -39,7 +40,7 @@ if( debug ) {
 #-------------------------------------------------------------------------------
 
 # # Estimate matrix Q from sequence alignment and tree
-# print("Estimate Q\n")
+print("Estimate Q\n")
 # task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
 # wait
 
@@ -60,8 +61,11 @@ task( aaContact <- [pdbDir, idMapConfirmed] ) {
 		| uniq \
 		> $aaContact
 }
+wait
 
-# TODO: Sample sequences of amino acids "in contact"
+# Add MSA sequences
+print("Add MSA information to 'AA in contact'\n")
+task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 
 # TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)
 

@@ -12,6 +12,8 @@ public class DistanceResult {
 	public char aa1, aa2;
 	public double distance;
 	public String aaSeq1, aaSeq2;
+	public String chr1, chr2;
+	public int pos1, pos2;
 
 	DistanceResult(AminoAcid aa1, AminoAcid aa2, double distance) {
 		setAa1(aa1);
@@ -30,9 +32,21 @@ public class DistanceResult {
 		aa2 = fields[n++].charAt(0);
 		aaPos2 = Gpr.parseIntSafe(fields[n++]);
 
-		// Two optional fields
-		if (fields.length < n) aaSeq1 = fields[n++];
-		if (fields.length < n) aaSeq2 = fields[n++];
+		// Optional fields
+		if (fields.length < n) {
+			String chrPos1 = fields[n++];
+			String f[] = chrPos1.split(":");
+			chr1 = f[0];
+			pos1 = Gpr.parseIntSafe(f[1]);
+
+			String chrPos2 = fields[n++];
+			f = chrPos2.split(":");
+			chr2 = f[0];
+			pos2 = Gpr.parseIntSafe(f[1]);
+
+			aaSeq1 = fields[n++];
+			aaSeq2 = fields[n++];
+		}
 	}
 
 	public void setAa1(AminoAcid aa) {
@@ -58,6 +72,8 @@ public class DistanceResult {
 				+ "\t" + aaPos1 //
 				+ "\t" + aa2 //
 				+ "\t" + aaPos2 //
+				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
+				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
 				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
 		;

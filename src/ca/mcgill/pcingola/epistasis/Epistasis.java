@@ -221,7 +221,7 @@ public class Epistasis implements CommandLine {
 		// Sanity check: Make sure MSA protein sequences match genome's protein data
 		Timer.showStdErr("Checking MSA proteing sequences vs. genome protein sequences");
 		pdbGenome.checkSequenceMsaTr();
-		System.out.println("Totals:\n" + pdbGenome.countMatch);
+		System.err.println("Totals:\n" + pdbGenome.countMatch);
 		pdbGenome.resetStats();
 
 		// Add MSA sequences to 'AA contact' entries
@@ -229,7 +229,7 @@ public class Epistasis implements CommandLine {
 		aaContacts.forEach(d -> pdbGenome.mapToMsa(msas, d));
 		System.err.println("Totals:\n" + pdbGenome.countMatch);
 
-		System.out.println("Mapped AA sequences:\n");
+		System.err.println("Mapped AA sequences:\n");
 		aaContacts.stream().filter(d -> d.aaSeq1 != null).forEach(System.out::println);
 	}
 
