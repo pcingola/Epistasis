@@ -30,6 +30,7 @@ cmdEpistasis	:= "java -Xmx4G -jar Epistasis.jar"
 
 # Change parameters if we are debugging (smaller datasets)
 if( debug ) {
+	print("DEBUG MODE: Setting 'debug' paths\n")
 	genome = "testHg19Chr1"
 	msa  = "$dir/db/multiz100way/head.fa"
 	qhat = "$dir/db/multiz100way/Qhat_head.txt"
