@@ -10,6 +10,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
@@ -87,6 +88,14 @@ public class IdMapper {
 
 	public List<IdMapperEntry> getByPdbId(String id) {
 		return byPdbId.get(id);
+	}
+
+	public List<IdMapperEntry> getByPdbId(String id, String chainId) {
+		if (byPdbId.get(id) == null) return null;
+		return byPdbId.get(id) //
+				.stream() //
+				.filter(ime -> chainId.equals(ime.pdbChainId)) //
+				.collect(Collectors.toList());
 	}
 
 	public List<IdMapperEntry> getByPfamId(String id) {

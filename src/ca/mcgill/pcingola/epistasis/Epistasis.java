@@ -311,16 +311,20 @@ public class Epistasis implements CommandLine {
 	 */
 	void runTest() {
 		load();
+		Timer.showStdErr("Checking MSA proteing sequences vs. genome protein sequences");
 		pdbGenome.checkSequenceMsaTr();
+		System.out.println("Totals:\n" + pdbGenome.countMatch);
+		pdbGenome.resetStats();
 
-		// Load AA contact
+		// AA contact info
+		Timer.showStdErr("Checking AA contact information");
 		aaContacts.forEach(d -> pdbGenome.mapToMsa(msas, d));
 		System.out.println("Totals:\n" + pdbGenome.countMatch);
 
-		// Checking pdb structure
-		String pdbId = "1B72";
-		String pdbFile = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
-		pdbGenome.checkSequencePdbTr(pdbFile);
+		//		// Checking pdb structure
+		//		String pdbId = "1B72";
+		//		String pdbFile = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
+		//		pdbGenome.checkSequencePdbTr(pdbFile);
 
 	}
 

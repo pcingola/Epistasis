@@ -36,12 +36,14 @@ public class PdbGenome extends SnpEff {
 	public static final double MAX_MISMATCH_RATE = 0.1;
 	public static final double PDB_RESOLUTION = 3.0; // PDB file resolution (in Angstrom)
 	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
+	public static int MAX_WARN = 20;
 
 	// Select ID function
 	public static final Function<IdMapperEntry, String> IDME_TO_ID = ime -> ime.refSeqId;
 
 	int warn;
 	public CountByType countMatch = new CountByType();
+	CountByType countWarn = new CountByType();
 	String genome, pdbDir;
 	HashMap<String, Transcript> trancriptById;
 	IdMapper idMapper;
@@ -69,6 +71,12 @@ public class PdbGenome extends SnpEff {
 	 */
 	boolean checkSequenceMsaTr(String trid) {
 		Transcript tr = trancriptById.get(trid);
+		if (tr == null) {
+			warn("Transcript not found:", trid);
+			return false;
+		}
+
+		// Get protein sequences
 		String proteinTr = removeAaStop(tr.protein());
 		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
 
@@ -76,7 +84,7 @@ public class PdbGenome extends SnpEff {
 			boolean match = proteinTr.equals(proteinMsa);
 
 			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
-			if (trid.equals("NM_001204961") || (verbose && !match)) {
+			if (verbose && !match) {
 				System.out.println(trid + "\t" //
 						+ (proteinTr.equals(proteinMsa) ? "OK" : "ERROR") //
 						+ "\n\tPortein Tr  :\t" + proteinTr //
@@ -251,8 +259,11 @@ public class PdbGenome extends SnpEff {
 	 * Map to MSA
 	 */
 	public void mapToMsa(MultipleSequenceAlignmentSet msas, DistanceResult dres) {
-		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId);
-		if (idmes == null) return;
+		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
+		if (idmes == null || idmes.isEmpty()) {
+			warn("No mapping found for PdbId: ", "'" + dres.pdbId + "', chain '" + dres.pdbChainId + "'");
+			return;
+		}
 
 		// Find all transcripts
 		for (IdMapperEntry idme : idmes) {
@@ -295,10 +306,13 @@ public class PdbGenome extends SnpEff {
 				Exon exon2 = tr.findExon(pos2);
 				String ok1 = dres.aa1 != seq1.charAt(0) ? "ERROR" : "OK___";
 				String ok2 = dres.aa2 != seq2.charAt(0) ? "ERROR" : "OK___";
+				String ok = (dres.aa1 != seq1.charAt(0)) || (dres.aa2 != seq2.charAt(0)) ? "ERROR" : "OK___";
 				countMatch.inc(dres.pdbId + "_" + ok1);
 				countMatch.inc(dres.pdbId + "_" + ok2);
 				countMatch.inc("_TOTAL_" + ok1 + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon1.getFrame());
 				countMatch.inc("_TOTAL_" + ok2 + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon2.getFrame());
+
+				countMatch.inc("_TOTAL_" + ok);
 
 				if ((dres.aa1 != seq1.charAt(0)) && (exon1.getFrame() == 0) && tr.isStrandPlus()) {
 					System.out.println(ok1 + " " + ok2 //
@@ -322,6 +336,10 @@ public class PdbGenome extends SnpEff {
 		return seq;
 	}
 
+	public void resetStats() {
+		countMatch = new CountByType();
+	}
+
 	public void setIdMapper(IdMapper idMapper) {
 		this.idMapper = idMapper;
 	}
@@ -335,6 +353,7 @@ public class PdbGenome extends SnpEff {
 	}
 
 	void warn(String warningType, String warning) {
-		if (warn++ < 10) System.err.println("WARNING: " + warningType + " " + warning);
+		countWarn.inc(warningType);
+		if (countWarn.getCount(warningType) < MAX_WARN) System.err.println("WARNING: " + warningType + " " + warning);
 	}
 }

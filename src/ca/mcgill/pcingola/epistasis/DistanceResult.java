@@ -7,7 +7,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 public class DistanceResult {
 
 	public String pdbId;
-	public String chainId;
+	public String pdbChainId;
 	public int aaPos1, aaPos2;
 	public char aa1, aa2;
 	public double distance;
@@ -22,7 +22,7 @@ public class DistanceResult {
 		String fields[] = line.split("\t");
 		int n = 0;
 		pdbId = fields[n++];
-		chainId = fields[n++];
+		pdbChainId = fields[n++];
 		distance = Gpr.parseDoubleSafe(fields[n++]);
 		aa1 = fields[n++].charAt(0);
 		aaPos1 = Gpr.parseIntSafe(fields[n++]);
@@ -32,14 +32,14 @@ public class DistanceResult {
 
 	public void setAa1(AminoAcid aa) {
 		pdbId = aa.getChain().getParent().getPDBCode();
-		chainId = aa.getChainId();
+		pdbChainId = aa.getChainId();
 		aaPos1 = aa.getResidueNumber().getSeqNum() - 1;
 		aa1 = aa.getChemComp().getOne_letter_code().charAt(0);
 	}
 
 	public void setAa2(AminoAcid aa) {
 		pdbId = aa.getChain().getParent().getPDBCode();
-		chainId = aa.getChainId();
+		pdbChainId = aa.getChainId();
 		aaPos2 = aa.getResidueNumber().getSeqNum() - 1;
 		aa2 = aa.getChemComp().getOne_letter_code().charAt(0);
 	}
@@ -47,12 +47,12 @@ public class DistanceResult {
 	@Override
 	public String toString() {
 		return pdbId //
-				+ "\t" + chainId //
+				+ "\t" + pdbChainId //
 				+ "\t" + distance //
 				+ "\t" + aa1 //
 				+ "\t" + aaPos1 //
 				+ "\t" + aa2 //
 				+ "\t" + aaPos2 //
-		;
+				;
 	}
 }
