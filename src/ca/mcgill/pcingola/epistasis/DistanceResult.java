@@ -11,6 +11,7 @@ public class DistanceResult {
 	public int aaPos1, aaPos2;
 	public char aa1, aa2;
 	public double distance;
+	public String aaSeq1, aaSeq2;
 
 	DistanceResult(AminoAcid aa1, AminoAcid aa2, double distance) {
 		setAa1(aa1);
@@ -28,6 +29,10 @@ public class DistanceResult {
 		aaPos1 = Gpr.parseIntSafe(fields[n++]);
 		aa2 = fields[n++].charAt(0);
 		aaPos2 = Gpr.parseIntSafe(fields[n++]);
+
+		// Two optional fields
+		if (fields.length < n) aaSeq1 = fields[n++];
+		if (fields.length < n) aaSeq2 = fields[n++];
 	}
 
 	public void setAa1(AminoAcid aa) {
@@ -53,6 +58,8 @@ public class DistanceResult {
 				+ "\t" + aaPos1 //
 				+ "\t" + aa2 //
 				+ "\t" + aaPos2 //
-				;
+				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
+				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
+		;
 	}
 }

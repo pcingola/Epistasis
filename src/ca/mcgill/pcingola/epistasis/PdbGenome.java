@@ -300,27 +300,41 @@ public class PdbGenome extends SnpEff {
 			String seq1 = msas.findColumnSequence(tr, trid, pos1);
 			String seq2 = msas.findColumnSequence(tr, trid, pos2);
 
-			// Both available?
+			// Both sequences are available?
 			if ((seq1 != null) && (seq2 != null)) {
 				Exon exon1 = tr.findExon(pos1);
 				Exon exon2 = tr.findExon(pos2);
-				String ok1 = dres.aa1 != seq1.charAt(0) ? "ERROR" : "OK___";
-				String ok2 = dres.aa2 != seq2.charAt(0) ? "ERROR" : "OK___";
-				String ok = (dres.aa1 != seq1.charAt(0)) || (dres.aa2 != seq2.charAt(0)) ? "ERROR" : "OK___";
-				countMatch.inc(dres.pdbId + "_" + ok1);
-				countMatch.inc(dres.pdbId + "_" + ok2);
-				countMatch.inc("_TOTAL_" + ok1 + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon1.getFrame());
-				countMatch.inc("_TOTAL_" + ok2 + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon2.getFrame());
 
-				countMatch.inc("_TOTAL_" + ok);
+				// Count correct mappings
+				boolean ok = (dres.aa1 == seq1.charAt(0)) && (dres.aa2 == seq2.charAt(0));
+				String okStr = (ok ? "OK___" : "ERROR");
+				String ok1Str = dres.aa1 != seq1.charAt(0) ? "ERROR" : "OK___";
+				String ok2Str = dres.aa2 != seq2.charAt(0) ? "ERROR" : "OK___";
+				countMatch.inc("_TOTAL_" + okStr);
 
-				System.out.println(ok1 + " " + ok2 //
-						+ "\t" + dres.pdbId //
-						+ "\t" + tr.getId() //
-						+ "\t" + dres.distance //
-						+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
-						+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon1.getFrame() + "\t" + seq2 //
-				);
+				// Detailed counts for debugging
+				if (debug) {
+					countMatch.inc(dres.pdbId + "_" + ok1Str);
+					countMatch.inc(dres.pdbId + "_" + ok2Str);
+					countMatch.inc("_TOTAL_" + ok1Str + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon1.getFrame());
+					countMatch.inc("_TOTAL_" + ok2Str + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon2.getFrame());
+				}
+
+				// Add information
+				if (ok) {
+					dres.aaSeq1 = seq1;
+					dres.aaSeq2 = seq2;
+				} else {
+					// Show mapping errors
+					System.err.println(ok1Str + " " + ok2Str //
+							+ "\t" + dres.pdbId //
+							+ "\t" + tr.getId() //
+							+ "\t" + dres.distance //
+							+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
+							+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
+					);
+				}
+
 			}
 		}
 	}

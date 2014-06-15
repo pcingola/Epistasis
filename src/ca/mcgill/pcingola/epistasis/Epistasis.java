@@ -130,6 +130,16 @@ public class Epistasis implements CommandLine {
 
 		int argNum = 1;
 		switch (cmd.toLowerCase()) {
+		case "addmsaseqs":
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			runAddMsaSeqs();
+			break;
+
 		case "corr":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
@@ -170,17 +180,6 @@ public class Epistasis implements CommandLine {
 			runQhat();
 			break;
 
-		case "test":
-			configFile = args[argNum++];
-			genome = args[argNum++];
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
-			pdbDir = args[argNum++];
-			runTest();
-			break;
-
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -211,6 +210,27 @@ public class Epistasis implements CommandLine {
 		parseArgs(args);
 		Timer.showStdErr("End");
 		return true;
+	}
+
+	/**
+	 * Add MSA sequences to 'AA contact' data
+	 */
+	void runAddMsaSeqs() {
+		load();
+
+		// Sanity check: Make sure MSA protein sequences match genome's protein data
+		Timer.showStdErr("Checking MSA proteing sequences vs. genome protein sequences");
+		pdbGenome.checkSequenceMsaTr();
+		System.out.println("Totals:\n" + pdbGenome.countMatch);
+		pdbGenome.resetStats();
+
+		// Add MSA sequences to 'AA contact' entries
+		Timer.showStdErr("Adding MSA sequences");
+		aaContacts.forEach(d -> pdbGenome.mapToMsa(msas, d));
+		System.err.println("Totals:\n" + pdbGenome.countMatch);
+
+		System.out.println("Mapped AA sequences:\n");
+		aaContacts.stream().filter(d -> d.aaSeq1 != null).forEach(System.out::println);
 	}
 
 	void runBayes() {
@@ -305,30 +325,6 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Generic "test" wrapper
-	 * @param args
-	 * @return
-	 */
-	void runTest() {
-		load();
-		Timer.showStdErr("Checking MSA proteing sequences vs. genome protein sequences");
-		pdbGenome.checkSequenceMsaTr();
-		System.out.println("Totals:\n" + pdbGenome.countMatch);
-		pdbGenome.resetStats();
-
-		// AA contact info
-		Timer.showStdErr("Checking AA contact information");
-		aaContacts.forEach(d -> pdbGenome.mapToMsa(msas, d));
-		System.out.println("Totals:\n" + pdbGenome.countMatch);
-
-		//		// Checking pdb structure
-		//		String pdbId = "1B72";
-		//		String pdbFile = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
-		//		pdbGenome.checkSequencePdbTr(pdbFile);
-
-	}
-
-	/**
 	 * Check consistency between MSA and tree
 	 */
 	void sanityCheck(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
@@ -350,12 +346,13 @@ public class Epistasis implements CommandLine {
 	public void usage(String message) {
 		if (message != null) System.err.println("Error: " + message + "\n");
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
+
+		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
 		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
 		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
-		System.err.println("Command 'test'           : " + this.getClass().getSimpleName() + " ...");
 		System.exit(-1);
 	}
 
