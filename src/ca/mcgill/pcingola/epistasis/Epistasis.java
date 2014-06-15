@@ -3,7 +3,6 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.ArrayList;
 import java.util.List;
 
-import ca.mcgill.mcb.pcingola.snpEffect.Config;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -39,8 +38,8 @@ public class Epistasis implements CommandLine {
 
 	public Epistasis(String[] args) {
 		this.args = args;
-		genome = debug ? "testHg19Chr1" : "hg19";
-		configFile = Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE;
+		// genome = debug ? "testHg19Chr1" : "hg19";
+		// configFile = Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE;
 	}
 
 	@Override
