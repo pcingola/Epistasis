@@ -50,7 +50,7 @@ task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGen
 wait
 
 # Calculate amino acids "in contact" within the same protein
-print("Calculate AA in contact within proteins\n")
+print("Calculate AA in contact within proteins: $aaContact\n")
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
 	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed \
 		| tee \
@@ -63,7 +63,7 @@ task( aaContact <- [pdbDir, idMapConfirmed] ) {
 wait
 
 # Add MSA sequences
-print("Add MSA information to 'AA in contact'\n")
+print("Add MSA information to 'AA in contact': Genome '$genome'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 
 # TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)
