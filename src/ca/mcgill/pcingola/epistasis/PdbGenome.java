@@ -314,15 +314,13 @@ public class PdbGenome extends SnpEff {
 
 				countMatch.inc("_TOTAL_" + ok);
 
-				if ((dres.aa1 != seq1.charAt(0)) && (exon1.getFrame() == 0) && tr.isStrandPlus()) {
-					System.out.println(ok1 + " " + ok2 //
-							+ "\t" + dres.pdbId //
-							+ "\t" + tr.getId() //
-							+ "\t" + dres.distance //
-							+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
-							+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon1.getFrame() + "\t" + seq2 //
-					);
-				}
+				System.out.println(ok1 + " " + ok2 //
+						+ "\t" + dres.pdbId //
+						+ "\t" + tr.getId() //
+						+ "\t" + dres.distance //
+						+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
+						+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon1.getFrame() + "\t" + seq2 //
+				);
 			}
 		}
 	}
