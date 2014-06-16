@@ -11,7 +11,8 @@ import org.biojava.bio.structure.Chain;
 import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.StructureException;
-import org.biojava.bio.structure.io.PDBFileReader;
+
+import ca.mcgill.pcingola.epistasis.pdb.PdbFile;
 
 /**
  * PDB distance analysis
@@ -128,7 +129,7 @@ public class PdbDistanceAnalysis {
 	 * Run
 	 */
 	public List<DistanceResult> run() {
-		PDBFileReader pdbreader = new PDBFileReader();
+		PdbFile pdbreader = new PdbFile();
 		ArrayList<DistanceResult> results = new ArrayList<>();
 
 		for (IdMapperEntry ime : idMapper.getEntries()) {
@@ -136,14 +137,14 @@ public class PdbDistanceAnalysis {
 				String pdbFileName = pdbDir + "/" + ime.pdbId.toLowerCase() + ".pdb";
 
 				if (verbose) System.err.println("Distance: " + pdbFileName);
-				Structure psbStruct = pdbreader.getStructure(pdbFileName);
+				Structure pdbStruct = pdbreader.getStructure(pdbFileName);
 
 				// Does it have associated transcripts?
-				String pdbId = psbStruct.getPDBCode();
+				String pdbId = pdbStruct.getPDBCode();
 				if (idMapper.getByPdbId(pdbId) == null) continue;
 
 				// Distance
-				results.addAll(distance(psbStruct));
+				results.addAll(distance(pdbStruct));
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
