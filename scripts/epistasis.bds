@@ -56,7 +56,7 @@ print("\nCalculate AA in contact within proteins: $aaContact\n")
 tmp := "$aaContact.tmp"
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
 	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed | grep "^Contact:" | cut -f 2- > $tmp
-	sys sort $tmp | uniq > $aaContact
+	sys cat $tmp | grep "^Contact:" | cut -f 2- | sort | uniq > $aaContact
 	sys rm $tmp
 }
 wait
