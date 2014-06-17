@@ -14,6 +14,7 @@ public class DistanceResult {
 	public double distance;
 	public String aaSeq1, aaSeq2;
 	public String chr1, chr2;
+	public int chr1Num, chr2Num;
 	public int pos1, pos2;
 
 	DistanceResult(AminoAcid aa1, AminoAcid aa2, double distance) {
@@ -47,6 +48,9 @@ public class DistanceResult {
 
 			aaSeq1 = fields[n++];
 			aaSeq2 = fields[n++];
+
+			chr1Num = Chromosome.number(chr1);
+			chr2Num = Chromosome.number(chr1);
 		}
 	}
 
@@ -55,7 +59,7 @@ public class DistanceResult {
 	 */
 	public int compareByPos(DistanceResult d) {
 		// Compare first position
-		int comp = Chromosome.number(chr1) - Chromosome.number(d.chr1);
+		int comp = Chromosome.compare(chr1, d.chr1);
 		if (comp != 0) return comp;
 
 		comp = pos1 - d.pos1;
@@ -63,6 +67,9 @@ public class DistanceResult {
 
 		// Compare second position
 		comp = Chromosome.number(chr2) - Chromosome.number(d.chr2);
+		if (comp != 0) return comp;
+
+		comp = Chromosome.compare(chr2, d.chr2);
 		if (comp != 0) return comp;
 
 		comp = pos2 - d.pos2;
@@ -80,7 +87,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-		;
+				;
 	}
 
 	public void setAa1(AminoAcid aa) {
@@ -110,13 +117,13 @@ public class DistanceResult {
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
 				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
-		;
+				;
 	}
 
 	public String toStringPos() {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-		;
+				;
 	}
 }

@@ -1,6 +1,5 @@
 package ca.mcgill.pcingola.epistasis;
 
-import java.util.Collections;
 import java.util.List;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
@@ -341,7 +340,6 @@ public class Epistasis implements CommandLine {
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins();
-		Collections.sort(aaContactsUniq, (d1, d2) -> d1.compareByPos(d2));
 
 		//---
 		// Show MI and conservation
