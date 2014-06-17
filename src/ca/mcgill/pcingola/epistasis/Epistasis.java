@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.Collections;
 import java.util.List;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
@@ -336,20 +337,20 @@ public class Epistasis implements CommandLine {
 		//---
 		// Group by genomic position
 		//---
-		System.out.println("\nSort by position");
+		Timer.showStdErr("\nSort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.forEach(d -> aaContactsUniq.addMin(d, d.toStringPos()));
-		aaContactsUniq.stream().sorted((d1, d2) -> d1.compareByPos(d2)).forEach(System.out::println);
+		Collections.sort(aaContactsUniq, (d1, d2) -> d1.compareByPos(d2));
 
 		//---
 		// Show MI and conservation
 		//---
 		aaContactsUniq.stream().forEach( //
-				d -> System.out.println( //
-						MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
-								+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
-								+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
-								+ "\t" + d) //
+				d -> System.out.println(d //
+						+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
+						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
+				) //
 				);
 
 		//---

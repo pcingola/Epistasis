@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import org.biojava.bio.structure.AminoAcid;
 
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 
 public class DistanceResult {
@@ -54,14 +55,14 @@ public class DistanceResult {
 	 */
 	public int compareByPos(DistanceResult d) {
 		// Compare first position
-		int comp = chr1.compareTo(d.chr1);
+		int comp = Chromosome.number(chr1) - Chromosome.number(d.chr1);
 		if (comp != 0) return comp;
 
 		comp = pos1 - d.pos1;
 		if (comp != 0) return comp;
 
 		// Compare second position
-		comp = chr2.compareTo(d.chr2);
+		comp = Chromosome.number(chr2) - Chromosome.number(d.chr2);
 		if (comp != 0) return comp;
 
 		comp = pos2 - d.pos2;
@@ -79,7 +80,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-				;
+		;
 	}
 
 	public void setAa1(AminoAcid aa) {
@@ -109,13 +110,13 @@ public class DistanceResult {
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
 				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
-				;
+		;
 	}
 
 	public String toStringPos() {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-				;
+		;
 	}
 }

@@ -42,17 +42,17 @@ if( debug ) {
 #-------------------------------------------------------------------------------
 
 # # Estimate matrix Q from sequence alignment and tree
-print("\nEstimate Q\n")
+print("\nEstimate Q: '$qhat'\n")
 task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
 wait
 
 # Map Pdb <-> Genome
-print("\nMap Pdb entries to transcripts\n")
+print("\nMap Pdb entries to transcripts: '$idMapConfirmed'\n")
 task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
 wait
 
 # Calculate amino acids "in contact" within the same protein
-print("\nCalculate AA in contact within proteins: $aaContact\n")
+print("\nCalculate AA in contact within proteins: $aaContact: '$aaContact'\n")
 tmp := "$aaContact.tmp"
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
 	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed > $tmp
@@ -61,18 +61,18 @@ task( aaContact <- [pdbDir, idMapConfirmed] ) {
 wait
 
 # Add MSA sequences
-print("\nAdd MSA information to 'AA in contact': Genome '$genome'\n")
+print("\nAdd MSA information to AA in contact: '$aaContactSeq'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 wait
 
 # TODO: Claculate MI, conservation, etc.
-print("\nCalculating MI, conservation, etc.\n")
 aaMi := "$dir/db/pdb/aa.contact.sequence.mi.txt"
-task( aaMi <- aaContactSeq )	sys $cmdEpistasis test $aaContactSeq | tee $aaMi
+print("\nCalculating MI and conservation: '$aaMi'\n")
+task( aaMi <- aaContactSeq )	sys $cmdEpistasis test $aaContactSeq > $aaMi
 wait
 
 # TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)
 
 # Done
 wait
-print("Done!\n")
+print("\nDone!\n")
