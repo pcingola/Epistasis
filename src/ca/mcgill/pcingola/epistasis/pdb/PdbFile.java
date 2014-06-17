@@ -20,7 +20,7 @@ import org.biojava3.core.util.InputStreamProvider;
  */
 public class PdbFile {
 
-	FileParsingParameters params;
+	FileParsingParameters params = new FileParsingParameters();
 
 	/** 
 	 * Opens filename, parses it and returns aStructure object .

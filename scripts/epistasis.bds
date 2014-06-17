@@ -41,30 +41,27 @@ if( debug ) {
 #-------------------------------------------------------------------------------
 
 # # Estimate matrix Q from sequence alignment and tree
-print("Estimate Q\n")
-# task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
-# wait
+print("\nEstimate Q\n")
+task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
+wait
 
 # Map Pdb <-> Genome
-print("Map Pdb entries to transcripts\n")
+print("\nMap Pdb entries to transcripts\n")
 task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
 wait
 
 # Calculate amino acids "in contact" within the same protein
-print("Calculate AA in contact within proteins: $aaContact\n")
+print("\nCalculate AA in contact within proteins: $aaContact\n")
+tmp := "$aaContact.tmp"
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
-	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed \
-		| tee \
-		| grep "^Contact:" \
-		| cut -f 2- \
-		| sort \
-		| uniq \
-		> $aaContact
+	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed | grep "^Contact:" | cut -f 2- > $tmp
+	sys sort $tmp | uniq > $aaContact
+	sys rm $tmp
 }
 wait
 
 # Add MSA sequences
-print("Add MSA information to 'AA in contact': Genome '$genome'\n")
+print("\nAdd MSA information to 'AA in contact': Genome '$genome'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 
 # TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)

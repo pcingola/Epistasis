@@ -81,7 +81,7 @@ public class PdbDistanceAnalysis {
 					countTh[aadist]++;
 					DistanceResult dres = new DistanceResult(aa1, aa2, d);
 					results.add(dres);
-					System.out.println(dres);
+					System.out.println("Contact:\t" + dres);
 				}
 			}
 		}
