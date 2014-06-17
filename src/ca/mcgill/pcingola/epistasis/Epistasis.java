@@ -178,7 +178,7 @@ public class Epistasis implements CommandLine {
 			runQhat();
 			break;
 
-		case "aaContactMi":
+		case "aacontactmi":
 			aaContactFile = args[argNum++];
 			runAaContactMi();
 			break;
