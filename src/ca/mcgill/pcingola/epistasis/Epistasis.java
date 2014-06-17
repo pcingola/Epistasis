@@ -337,9 +337,10 @@ public class Epistasis implements CommandLine {
 		//---
 		// Group by genomic position
 		//---
-		Timer.showStdErr("\nSort by position");
+		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
-		aaContacts.forEach(d -> aaContactsUniq.addMin(d, d.toStringPos()));
+		aaContacts.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		aaContactsUniq.addMins();
 		Collections.sort(aaContactsUniq, (d1, d2) -> d1.compareByPos(d2));
 
 		//---

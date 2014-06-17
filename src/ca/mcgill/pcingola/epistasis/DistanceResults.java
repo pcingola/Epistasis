@@ -31,14 +31,19 @@ public class DistanceResults extends ArrayList<DistanceResult> {
 	}
 
 	/**
-	 * Add elements, keep 'min' by key
+	 * Add all elements from collection
 	 */
-	public void addMin(DistanceResult d, String key) {
+	public void addMins() {
+		byKey.values().stream().sorted((d1, d2) -> d1.compareByPos(d2)).forEach(d -> add(d));
+	}
+
+	/**
+	 * Collect elements, keep 'min' by key
+	 */
+	public void collectMin(DistanceResult d, String key) {
 		if (byKey == null) byKey = new HashMap<>();
-		if (!byKey.containsKey(key)) {
-			add(d);
-			byKey.put(key, d);
-		} else {
+		if (!byKey.containsKey(key)) byKey.put(key, d);
+		else {
 			DistanceResult dold = byKey.get(key);
 			if (dold.equalPos(d) && d.compareByPos(dold) < 0) // Same position? Keep smallest one
 				byKey.put(key, d);
