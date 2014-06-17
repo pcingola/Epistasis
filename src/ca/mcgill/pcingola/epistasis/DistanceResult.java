@@ -49,6 +49,39 @@ public class DistanceResult {
 		}
 	}
 
+	/**
+	 * Compare by genomic position
+	 */
+	public int compareByPos(DistanceResult d) {
+		// Compare first position
+		int comp = chr1.compareTo(d.chr1);
+		if (comp != 0) return comp;
+
+		comp = pos1 - d.pos1;
+		if (comp != 0) return comp;
+
+		// Compare second position
+		comp = chr2.compareTo(d.chr2);
+		if (comp != 0) return comp;
+
+		comp = pos2 - d.pos2;
+		if (comp != 0) return comp;
+
+		// Compare distances
+		return (int) Math.signum(distance - d.distance);
+	}
+
+	/**
+	 * Same genomic positions
+	 */
+	public boolean equalPos(DistanceResult d) {
+		return chr1.equals(d.chr1) //
+				&& chr2.equals(d.chr2) //
+				&& pos1 == d.pos1 //
+				&& pos2 == d.pos2 //
+				;
+	}
+
 	public void setAa1(AminoAcid aa) {
 		pdbId = aa.getChain().getParent().getPDBCode();
 		pdbChainId = aa.getChainId();
@@ -76,6 +109,6 @@ public class DistanceResult {
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
 				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
-		;
+				;
 	}
 }

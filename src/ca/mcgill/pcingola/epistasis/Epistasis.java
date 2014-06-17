@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
@@ -353,7 +354,15 @@ public class Epistasis implements CommandLine {
 						, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
 						) //
 				);
-		System.err.println("Count fist AA:\n" + countFirstAa.toStringTop(10));
+		System.err.println("Count fist AA:\n" + countFirstAa);
+
+		//---
+		// Group by genomic position
+		//---
+		List<DistanceResult> aaContactsByPos = new ArrayList<DistanceResult>();
+		aaContactsByPos.addAll(aaContacts);
+		Collections.sort(aaContactsByPos, (ac1, ac2) -> ac1.compareByPos(ac2));
+		aaContactsByPos.forEach(System.out::println);
 	}
 
 	/**
