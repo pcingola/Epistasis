@@ -178,9 +178,9 @@ public class Epistasis implements CommandLine {
 			runQhat();
 			break;
 
-		case "test":
+		case "aaContactMi":
 			aaContactFile = args[argNum++];
-			runTest();
+			runAaContactMi();
 			break;
 
 		default:
@@ -329,8 +329,7 @@ public class Epistasis implements CommandLine {
 		qHat(qMatrixFile); // Calculate Qhat
 	}
 
-	void runTest() {
-		Timer.showStdErr("Test!");
+	void runAaContactMi() {
 		load();
 
 		//---
@@ -389,6 +388,7 @@ public class Epistasis implements CommandLine {
 		if (message != null) System.err.println("Error: " + message + "\n");
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
 
+		System.err.println("Command 'aaContactMi'    : " + this.getClass().getSimpleName() + " addMsaSeqs aa_contact.sequences.txt ");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");

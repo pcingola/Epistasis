@@ -68,7 +68,7 @@ wait
 # TODO: Claculate MI, conservation, etc.
 aaMi := "$dir/db/pdb/aa.contact.sequence.mi.txt"
 print("\nCalculating MI and conservation: '$aaMi'\n")
-task( aaMi <- aaContactSeq )	sys $cmdEpistasis test $aaContactSeq > $aaMi
+task( aaMi <- aaContactSeq )	sys $cmdEpistasis aaContactMi $aaContactSeq > $aaMi
 wait
 
 # TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)

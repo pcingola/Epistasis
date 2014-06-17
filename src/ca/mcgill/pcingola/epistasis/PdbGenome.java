@@ -328,6 +328,7 @@ public class PdbGenome extends SnpEff {
 					dres.aaSeq2 = seq2;
 					dres.chr2 = tr.getChromosomeName();
 					dres.pos2 = pos2;
+					dres.transcriptId = tr.getId();
 				} else {
 					// Show mapping errors
 					System.err.println(ok1Str + " " + ok2Str //

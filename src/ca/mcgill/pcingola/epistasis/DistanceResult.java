@@ -12,6 +12,7 @@ public class DistanceResult {
 	public int aaPos1, aaPos2;
 	public char aa1, aa2;
 	public double distance;
+	public String transcriptId;
 	public String aaSeq1, aaSeq2;
 	public String chr1, chr2;
 	public int chr1Num, chr2Num;
@@ -46,6 +47,7 @@ public class DistanceResult {
 			chr2 = f[0];
 			pos2 = Gpr.parseIntSafe(f[1]);
 
+			transcriptId = fields[n++];
 			aaSeq1 = fields[n++];
 			aaSeq2 = fields[n++];
 
@@ -115,11 +117,15 @@ public class DistanceResult {
 				+ "\t" + aaPos2 //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
+				+ (transcriptId != null ? "\t" + transcriptId : "") //
 				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
 				;
 	}
 
+	/**
+	 * Show genomic positions only
+	 */
 	public String toStringPos() {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
