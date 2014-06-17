@@ -33,7 +33,7 @@ public class DistanceResult {
 		aaPos2 = Gpr.parseIntSafe(fields[n++]);
 
 		// Optional fields
-		if (fields.length < n) {
+		if (fields.length > n) {
 			String chrPos1 = fields[n++];
 			String f[] = chrPos1.split(":");
 			chr1 = f[0];

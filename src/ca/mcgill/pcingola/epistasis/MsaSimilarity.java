@@ -19,6 +19,20 @@ public class MsaSimilarity {
 	public static final int MIN_AA_DISTANCE = 10;
 	public static final int SCORE_BINS = 1000;
 
+	/**
+	 * Ratio: number of AA equal the the first / number of non-gap
+	 */
+	public static double conservation(String seq) {
+		char fisrt = seq.charAt(0);
+		int countEq = 0, count = 0;
+		for (int i = 1; i < seq.length(); i++) {
+			if (seq.charAt(i) != '-') count++;
+			if (seq.charAt(i) == fisrt) countEq++;
+
+		}
+		return ((double) countEq) / ((double) count);
+	}
+
 	protected boolean debug = false;
 	protected int numBases;
 	protected double max = 0.0;
@@ -183,7 +197,7 @@ public class MsaSimilarity {
 				.filter(msaj -> msai.getId().compareTo(msaj.getId()) <= 0) // Filter by name (don't work twice on the same pair of sequences)
 				.map(msaj -> similarity(msai, msaj)) // Calculate similarities
 				.collect(Collectors.joining()) // Join results to one string
-				;
+		;
 
 		return result.isEmpty() ? "" : msai.getId() + "\n" + result;
 	}
@@ -217,7 +231,7 @@ public class MsaSimilarity {
 									+ "\n\tmsa j : " + msaj.getId() //
 									+ "\n\tpos j : " + posj //
 									+ "\n\tlen j : " + msaj.getSeqLen() //
-									);
+							);
 							throw new RuntimeException(t);
 						}
 					}

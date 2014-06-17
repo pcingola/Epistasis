@@ -72,6 +72,7 @@ public class Epistasis implements CommandLine {
 	 * Load AA contact list
 	 */
 	List<DistanceResult> loadAaContact(String aaContactFile) {
+		Timer.showStdErr("Loading AA contact information " + aaContactFile);
 		aaContacts = new ArrayList<>();
 		for (String line : Gpr.readFile(aaContactFile).split("\n"))
 			aaContacts.add(new DistanceResult(line));
@@ -179,9 +180,16 @@ public class Epistasis implements CommandLine {
 			runQhat();
 			break;
 
+		case "test":
+			aaContactFile = args[argNum++];
+			runTest();
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
+
+		Timer.showStdErr("Done!");
 	}
 
 	/**
@@ -267,6 +275,18 @@ public class Epistasis implements CommandLine {
 	void runMapPdbGenome() {
 		load();
 		pdbGenome.checkSequencePdbTr();
+	}
+
+	void runTest() {
+		Timer.showStdErr("Test!");
+		load();
+
+		aaContacts.stream().forEach(d -> System.out.println( //
+				MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
+						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
+						+ "\t" + d) //
+				);
 	}
 
 	/**
