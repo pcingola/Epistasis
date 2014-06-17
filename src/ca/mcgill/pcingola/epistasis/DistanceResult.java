@@ -111,4 +111,11 @@ public class DistanceResult {
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
 				;
 	}
+
+	public String toStringPos() {
+		return "" //
+				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
+				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
+				;
+	}
 }

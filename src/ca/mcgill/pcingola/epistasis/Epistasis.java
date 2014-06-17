@@ -1,6 +1,5 @@
 package ca.mcgill.pcingola.epistasis;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
@@ -30,7 +29,7 @@ public class Epistasis implements CommandLine {
 	String cmd;
 	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
 	LikelihoodTree tree;
-	List<DistanceResult> aaContacts;
+	DistanceResults aaContacts;
 	TransitionMatrix Q;
 	MultipleSequenceAlignmentSet msas;
 	MaxLikelihoodTm mltm;
@@ -74,10 +73,8 @@ public class Epistasis implements CommandLine {
 	 */
 	List<DistanceResult> loadAaContact(String aaContactFile) {
 		Timer.showStdErr("Loading AA contact information " + aaContactFile);
-		aaContacts = new ArrayList<>();
-		for (String line : Gpr.readFile(aaContactFile).split("\n"))
-			aaContacts.add(new DistanceResult(line));
-
+		aaContacts = new DistanceResults();
+		aaContacts.load(aaContactFile);
 		return aaContacts;
 	}
 
@@ -336,8 +333,18 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Test!");
 		load();
 
+		//---
+		// Group by genomic position
+		//---
+		System.out.println("\nSort by position");
+		DistanceResults aaContactsUniq = new DistanceResults();
+		aaContacts.forEach(d -> aaContactsUniq.addMin(d, d.toStringPos()));
+		aaContactsUniq.stream().sorted((d1, d2) -> d1.compareByPos(d2)).forEach(System.out::println);
+
+		//---
 		// Show MI and conservation
-		aaContacts.stream().forEach( //
+		//---
+		aaContactsUniq.stream().forEach( //
 				d -> System.out.println( //
 						MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
 								+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
@@ -345,23 +352,18 @@ public class Epistasis implements CommandLine {
 								+ "\t" + d) //
 				);
 
+		//---
 		// Count first 'AA'
+		//---
 		CountByType countFirstAa = new CountByType();
-		aaContacts.stream().forEach( //
+		aaContactsUniq.stream().forEach( //
 				d -> countFirstAa.addScore( //
 						(d.aa1 <= d.aa2 ? d.aa1 + "-" + d.aa2 : d.aa2 + "-" + d.aa1) //
 						, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
 						) //
 				);
-		System.err.println("Count fist AA:\n" + countFirstAa);
+		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
 
-		//---
-		// Group by genomic position
-		//---
-		System.out.println("\nSort by position");
-		aaContacts.stream() //
-				.sorted((ac1, ac2) -> ac1.compareByPos(ac2)) //
-				.forEach(System.out::println);
 	}
 
 	/**
