@@ -14,7 +14,15 @@ public class MsaSimilarityMutInf extends MsaSimilarity {
 	public static final double LOG_2 = Math.log(2.0);
 
 	/**
-	 * Measure similarity: Correlation between two loci
+	 * Measure similarity: Mutual information (do not return NaN, use 1.0 instead)
+	 */
+	public static double miNoNan(String seqi, String seqj) {
+		double mi = mi(seqi, seqj);
+		return Double.isNaN(mi) ? 0.0 : mi;
+	}
+
+	/**
+	 * Measure similarity: Mutual information
 	 */
 	public static double mi(String seqi, String seqj) {
 		int count = 0;
@@ -90,7 +98,7 @@ public class MsaSimilarityMutInf extends MsaSimilarity {
 	}
 
 	/**
-	 * Measure similarity: Correlation between two loci
+	 * Measure similarity: Mutual information
 	 */
 	@Override
 	public double calc(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {

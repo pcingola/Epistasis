@@ -63,6 +63,13 @@ wait
 # Add MSA sequences
 print("\nAdd MSA information to 'AA in contact': Genome '$genome'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
+wait
+
+# TODO: Claculate MI, conservation, etc.
+print("\nCalculating MI, conservation, etc.\n")
+aaMi := "$dir/db/pdb/aa.contact.sequence.mi.txt"
+task( aaMi <- aaContactSeq )	sys $cmdEpistasis test $aaContactSeq | tee $aaMi
+wait
 
 # TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)
 

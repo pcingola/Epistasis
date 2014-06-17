@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
+import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
@@ -277,18 +278,6 @@ public class Epistasis implements CommandLine {
 		pdbGenome.checkSequencePdbTr();
 	}
 
-	void runTest() {
-		Timer.showStdErr("Test!");
-		load();
-
-		aaContacts.stream().forEach(d -> System.out.println( //
-				MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
-						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
-						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
-						+ "\t" + d) //
-				);
-	}
-
 	/**
 	 * Run correlation
 	 * @param numAligns
@@ -341,6 +330,30 @@ public class Epistasis implements CommandLine {
 		load();
 		sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
 		qHat(qMatrixFile); // Calculate Qhat
+	}
+
+	void runTest() {
+		Timer.showStdErr("Test!");
+		load();
+
+		// Show MI and conservation
+		aaContacts.stream().forEach( //
+				d -> System.out.println( //
+						MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+								+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
+								+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
+								+ "\t" + d) //
+				);
+
+		// Count first 'AA'
+		CountByType countFirstAa = new CountByType();
+		aaContacts.stream().forEach( //
+				d -> countFirstAa.addScore( //
+						(d.aa1 <= d.aa2 ? d.aa1 + "-" + d.aa2 : d.aa2 + "-" + d.aa1) //
+						, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
+						) //
+				);
+		System.err.println("Count fist AA:\n" + countFirstAa.toStringTop(10));
 	}
 
 	/**
