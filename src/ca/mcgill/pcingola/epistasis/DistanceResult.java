@@ -98,7 +98,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-		;
+				;
 	}
 
 	/**
@@ -112,14 +112,18 @@ public class DistanceResult {
 	 * Return amino acid pair (sorted) + all combinations of annotations
 	 */
 	public List<String> getAaPairAnnotations() {
-		String aaPair = getAaPair();
+		boolean reversed = (aa1 > aa2);
+		String aaPair = reversed ? aa2 + "-" + aa1 : aa1 + "-" + aa2;
 
 		List<String> anns = new ArrayList<>();
 		Arrays.stream(annotations1.split(";")) //
+		.forEach( //
+				ann1 -> Arrays.stream(annotations2.split(";")) //
 				.forEach( //
-						ann1 -> Arrays.stream(annotations2.split(";")) //
-								.forEach( //
-										ann2 -> anns.add(aaPair + "\t" + ann1 + "\t" + ann2)) //
+						ann2 -> anns.add(aaPair + "\t" //
+								+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+								) //
+						) //
 				);
 
 		return anns;
@@ -155,7 +159,7 @@ public class DistanceResult {
 				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
 				+ (annotations1 != null ? "\t" + annotations1 : "") //
 				+ (annotations2 != null ? "\t" + annotations2 : "") //
-		;
+				;
 	}
 
 	/**
@@ -165,6 +169,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-		;
+				;
 	}
 }
