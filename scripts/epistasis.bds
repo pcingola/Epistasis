@@ -75,7 +75,7 @@ wait
 # Annotations of amino acids "in contact" (e.g. NextProt annotations)
 aaNextProt := "$dir/db/pdb/aa.contact.nextProt.txt"
 print("\nAnnotating with NextProt: '$aaNextProt'\n")
-task( aaMi <- aaContactSeq )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapConfirmed $aaContactSeq > $aaNextProt
+task( aaNextProt <- aaContactSeq )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapConfirmed $aaContactSeq > $aaNextProt
 wait
 
 # Done
