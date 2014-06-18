@@ -270,7 +270,7 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> d.annotations1 != null && d.annotations2 != null) // Only entries having annotations
+				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
 								ap -> countFirstAaAnn.addScore(ap, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2)) //

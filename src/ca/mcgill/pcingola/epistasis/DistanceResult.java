@@ -23,13 +23,23 @@ public class DistanceResult {
 	public int pos1, pos2;
 	public String annotations1, annotations2;
 
-	DistanceResult(AminoAcid aa1, AminoAcid aa2, double distance) {
+	public DistanceResult() {
+		pdbId = pdbChainId = transcriptId = aaSeq1 = aaSeq2 = chr1 = chr2 = annotations1 = annotations2 = "";
+		aaPos1 = aaPos2 = pos1 = pos2 = chr1Num = chr2Num - 1;
+		distance = -1;
+	}
+
+	public DistanceResult(AminoAcid aa1, AminoAcid aa2, double distance) {
+		this();
 		setAa1(aa1);
 		setAa2(aa2);
 		this.distance = distance;
 	}
 
-	DistanceResult(String line) {
+	public DistanceResult(String line) {
+		this();
+
+		// Parse line
 		String fields[] = line.split("\t");
 		int n = 0;
 		pdbId = fields[n++];
@@ -62,7 +72,6 @@ public class DistanceResult {
 		if (fields.length > n) aaSeq2 = fields[n++];
 		if (fields.length > n) annotations1 = fields[n++];
 		if (fields.length > n) annotations2 = fields[n++];
-
 	}
 
 	/**
@@ -152,13 +161,13 @@ public class DistanceResult {
 				+ "\t" + aaPos1 //
 				+ "\t" + aa2 //
 				+ "\t" + aaPos2 //
-				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
-				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-				+ (transcriptId != null ? "\t" + transcriptId : "") //
-				+ (aaSeq1 != null ? "\t" + aaSeq1 : "") //
-				+ (aaSeq2 != null ? "\t" + aaSeq2 : "") //
-				+ (annotations1 != null ? "\t" + annotations1 : "") //
-				+ (annotations2 != null ? "\t" + annotations2 : "") //
+				+ "\t" + (chr1 != null ? chr1 + ":" + pos1 : "") //
+				+ "\t" + (chr2 != null ? chr2 + ":" + pos2 : "") //
+				+ "\t" + (transcriptId != null ? transcriptId : "") //
+				+ "\t" + (aaSeq1 != null ? aaSeq1 : "") //
+				+ "\t" + (aaSeq2 != null ? aaSeq2 : "") //
+				+ "\t" + (annotations1 != null ? annotations1 : "") //
+				+ "\t" + (annotations2 != null ? annotations2 : "") //
 				;
 	}
 
