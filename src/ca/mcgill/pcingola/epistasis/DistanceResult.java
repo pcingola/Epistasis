@@ -11,17 +11,24 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 
 public class DistanceResult {
 
+	// Pdb information
 	public String pdbId;
 	public String pdbChainId;
 	public int aaPos1, aaPos2;
 	public char aa1, aa2;
 	public double distance;
+
+	// Genomic information
 	public String transcriptId;
-	public String aaSeq1, aaSeq2;
 	public String chr1, chr2;
 	public int chr1Num, chr2Num;
 	public int pos1, pos2;
 	public String annotations1, annotations2;
+
+	// MSA information
+	public String aaSeq1, aaSeq2;
+	public String msa1, msa2;
+	public int msaIdx1, msaIdx2;
 
 	public DistanceResult() {
 		pdbId = pdbChainId = transcriptId = aaSeq1 = aaSeq2 = chr1 = chr2 = annotations1 = annotations2 = "";
@@ -72,6 +79,10 @@ public class DistanceResult {
 		if (fields.length > n) aaSeq2 = fields[n++];
 		if (fields.length > n) annotations1 = fields[n++];
 		if (fields.length > n) annotations2 = fields[n++];
+		if (fields.length > n) msa1 = fields[n++];
+		if (fields.length > n) msa2 = fields[n++];
+		if (fields.length > n) msaIdx1 = Gpr.parseIntSafe(fields[n++]);
+		if (fields.length > n) msaIdx2 = Gpr.parseIntSafe(fields[n++]);
 	}
 
 	/**
@@ -107,7 +118,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-				;
+		;
 	}
 
 	/**
@@ -126,13 +137,13 @@ public class DistanceResult {
 
 		List<String> anns = new ArrayList<>();
 		Arrays.stream(annotations1.split(";")) //
-		.forEach( //
-				ann1 -> Arrays.stream(annotations2.split(";")) //
 				.forEach( //
-						ann2 -> anns.add(aaPair + "\t" //
-								+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+						ann1 -> Arrays.stream(annotations2.split(";")) //
+								.forEach( //
+										ann2 -> anns.add(aaPair + "\t" //
+												+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+										) //
 								) //
-						) //
 				);
 
 		return anns;
@@ -168,7 +179,11 @@ public class DistanceResult {
 				+ "\t" + (aaSeq2 != null ? aaSeq2 : "") //
 				+ "\t" + (annotations1 != null ? annotations1 : "") //
 				+ "\t" + (annotations2 != null ? annotations2 : "") //
-				;
+				+ "\t" + (msa1 != null ? msa1 : "") //
+				+ "\t" + (msa2 != null ? msa2 : "") //
+				+ "\t" + msaIdx1 //
+				+ "\t" + msaIdx2 //
+		;
 	}
 
 	/**
@@ -178,6 +193,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-				;
+		;
 	}
 }

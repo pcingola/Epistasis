@@ -77,7 +77,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	/**
 	 * Find a multiple sequence alignment
 	 */
-	public String findColumnSequence(Transcript tr, String trid, int pos) {
+	public Triplet<String, String, Integer> findColumnSequence(Transcript tr, String trid, int pos) {
 		// Find all MSA
 		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
 		if (msaList == null) return null;
@@ -101,7 +101,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			if (exon.getFrame() == 1) idxAa++; // If exon frame is 1, the MSA has one additional AA (from the previous exon). I don't know why they do it this way...
 
 			// Return column sequence
-			return msa.getColumnString(idxAa);
+			return new Triplet<String, String, Integer>(msa.getColumnString(idxAa), msa.getId(), idxAa);
 		}
 
 		return null;

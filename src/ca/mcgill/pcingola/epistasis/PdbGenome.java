@@ -111,9 +111,9 @@ public class PdbGenome extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-					.filter(s -> s.toString().endsWith(".pdb")) //
-					.map(pf -> checkSequencePdbTr(pf.toString())) //
-					.forEach(ims -> idMapperConfirmed.addAll(ims));
+			.filter(s -> s.toString().endsWith(".pdb")) //
+			.map(pf -> checkSequencePdbTr(pf.toString())) //
+			.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -212,9 +212,9 @@ public class PdbGenome extends SnpEff {
 					if (debug) System.err.println("\t\tMapping OK    :\t" + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
-							.findFirst() //
-							.ifPresent(i -> idmapsNew.add(i.cloneAndSetChainId(chain.getChainID())));
+					.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
+					.findFirst() //
+					.ifPresent(i -> idmapsNew.add(i.cloneAndSetChainId(chain.getChainID())));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
@@ -289,7 +289,7 @@ public class PdbGenome extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-			) {
+					) {
 				// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
 				continue;
 			}
@@ -299,11 +299,14 @@ public class PdbGenome extends SnpEff {
 			int pos2 = aa2pos[dres.aaPos2];
 
 			// Find sequences
-			String seq1 = msas.findColumnSequence(tr, trid, pos1);
-			String seq2 = msas.findColumnSequence(tr, trid, pos2);
+			Triplet<String, String, Integer> res1 = msas.findColumnSequence(tr, trid, pos1);
+			Triplet<String, String, Integer> res2 = msas.findColumnSequence(tr, trid, pos2);
 
 			// Both sequences are available?
-			if ((seq1 != null) && (seq2 != null)) {
+			if ((res1 != null) && (res2 != null)) {
+				String seq1 = res1.a;
+				String seq2 = res2.a;
+
 				Exon exon1 = tr.findExon(pos1);
 				Exon exon2 = tr.findExon(pos2);
 
@@ -324,13 +327,20 @@ public class PdbGenome extends SnpEff {
 
 				// Add information
 				if (ok) {
-					dres.aaSeq1 = seq1;
 					dres.chr1 = tr.getChromosomeName();
 					dres.pos1 = pos1;
-					dres.aaSeq2 = seq2;
+					dres.aaSeq1 = seq1;
+
 					dres.chr2 = tr.getChromosomeName();
 					dres.pos2 = pos2;
+					dres.aaSeq2 = seq2;
+
 					dres.transcriptId = tr.getId();
+
+					dres.msa1 = res1.b;
+					dres.msaIdx1 = res1.c;
+					dres.msa2 = res2.b;
+					dres.msaIdx2 = res2.c;
 				} else {
 					// Show mapping errors
 					System.err.println(ok1Str + " " + ok2Str //
@@ -339,7 +349,7 @@ public class PdbGenome extends SnpEff {
 							+ "\t" + dres.distance //
 							+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
 							+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
-					);
+							);
 				}
 
 			}
@@ -361,7 +371,7 @@ public class PdbGenome extends SnpEff {
 	public String nextProt(String chr, int pos, String refSeqId) {
 		if (refSeqId.indexOf('.') > 0) refSeqId = refSeqId.substring(0, refSeqId.indexOf('.'));
 
-		// Create a set of transcript IDs 
+		// Create a set of transcript IDs
 		List<IdMapperEntry> idEntries = idMapper.getByRefSeqId(refSeqId);
 		String trIdsStr = IdMapper.ids(idEntries, IdMapperEntry.IDME_TO_ENSEMBLID);
 		HashSet<String> trIds = new HashSet<String>();
@@ -373,11 +383,11 @@ public class PdbGenome extends SnpEff {
 
 		return results.stream() //
 				.filter(r -> r instanceof NextProt && trIds.contains(((Transcript) r.getParent().getParent()).getId())) //
-				.map(r -> r.getId()) // 
+				.map(r -> r.getId()) //
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-				);
+						);
 	}
 
 	/**
