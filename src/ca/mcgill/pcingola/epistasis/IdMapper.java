@@ -98,7 +98,7 @@ public class IdMapper {
 				.collect(Collectors.toList());
 	}
 
-	public List<IdMapperEntry> getByPfamId(String id) {
+	public List<IdMapperEntry> getByRefSeqId(String id) {
 		return byRefSeqId.get(id);
 	}
 

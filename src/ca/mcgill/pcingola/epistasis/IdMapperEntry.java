@@ -1,11 +1,17 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.function.Function;
+
 /**
  * An entry in a ID mapping file
  *
  * @author pcingola
  */
 public class IdMapperEntry implements Cloneable {
+
+	// Select ID function
+	public static final Function<IdMapperEntry, String> IDME_TO_REFSEQ = ime -> ime.refSeqId;
+	public static final Function<IdMapperEntry, String> IDME_TO_ENSEMBLID = ime -> ime.trId;
 
 	public String geneId, trId, geneName, refSeqId, pdbId, pdbChainId;
 

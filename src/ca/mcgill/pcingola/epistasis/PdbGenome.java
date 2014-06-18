@@ -4,9 +4,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
-import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Chain;
@@ -16,6 +18,9 @@ import org.biojava.bio.structure.io.PDBFileReader;
 
 import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
+import ca.mcgill.mcb.pcingola.interval.Marker;
+import ca.mcgill.mcb.pcingola.interval.Markers;
+import ca.mcgill.mcb.pcingola.interval.NextProt;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
@@ -38,13 +43,10 @@ public class PdbGenome extends SnpEff {
 	public static final String PDB_ORGANISM_COMMON = "HUMAN"; // PDB organism
 	public static int MAX_WARN = 20;
 
-	// Select ID function
-	public static final Function<IdMapperEntry, String> IDME_TO_ID = ime -> ime.refSeqId;
-
 	int warn;
 	public CountByType countMatch = new CountByType();
 	CountByType countWarn = new CountByType();
-	String genome, pdbDir;
+	String genomeVer, pdbDir;
 	HashMap<String, Transcript> trancriptById;
 	IdMapper idMapper;
 	LikelihoodTree tree;
@@ -54,7 +56,7 @@ public class PdbGenome extends SnpEff {
 	public PdbGenome(String configFile, String genome, String pdbDir) {
 		super(null);
 		this.configFile = configFile;
-		this.genome = genome;
+		genomeVer = genome;
 		this.pdbDir = pdbDir;
 	}
 
@@ -136,7 +138,7 @@ public class PdbGenome extends SnpEff {
 
 		// Get trancsript IDs
 		List<IdMapperEntry> idEntries = idMapper.getByPdbId(pdbId);
-		String trIdsStr = IdMapper.ids(idEntries, IDME_TO_ID);
+		String trIdsStr = IdMapper.ids(idEntries, IdMapperEntry.IDME_TO_REFSEQ);
 
 		if (debug) {
 			System.err.println(pdbId);
@@ -210,7 +212,7 @@ public class PdbGenome extends SnpEff {
 					if (debug) System.err.println("\t\tMapping OK    :\t" + trId + "\terror: " + err);
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(IDME_TO_ID.apply(idm)) && pdbId.equals(idm.pdbId)) //
+							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
 							.findFirst() //
 							.ifPresent(i -> idmapsNew.add(i.cloneAndSetChainId(chain.getChainID())));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
@@ -231,21 +233,21 @@ public class PdbGenome extends SnpEff {
 		// Initialize SnpEff
 		//---
 
-		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genome };
+		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genomeVer };
 		args = argsSnpEff;
-		setGenomeVer(genome);
+		setGenomeVer(genomeVer);
 		parseArgs(argsSnpEff);
 		loadConfig();
 
 		// Load SnpEff database
-		if (genome != null) loadDb();
+		if (genomeVer != null) loadDb();
 
 		// Initialize trancriptById
 		trancriptById = new HashMap<>();
 		for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
 			for (Transcript tr : g) {
 				String id = tr.getId();
-				id = id.substring(0, id.indexOf('.'));
+				if (id.indexOf('.') > 0) id = id.substring(0, id.indexOf('.')); // When using RefSeq transcripts, we don't store sub-version number
 				trancriptById.put(id, tr);
 			}
 
@@ -267,7 +269,7 @@ public class PdbGenome extends SnpEff {
 
 		// Find all transcripts
 		for (IdMapperEntry idme : idmes) {
-			String trid = IDME_TO_ID.apply(idme);
+			String trid = IdMapperEntry.IDME_TO_REFSEQ.apply(idme);
 
 			// Transcript's protein doesn't match MSA's protein? Nothing to do
 			if (!checkSequenceMsaTr(trid)) {
@@ -345,6 +347,40 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
+	 * Find nextprot annotations
+	 */
+	public void nextProt(DistanceResult d) {
+		d.annotations1 = nextProt(d.chr1, d.pos1, d.transcriptId);
+		d.annotations2 = nextProt(d.chr2, d.pos2, d.transcriptId);
+		System.out.println(d);
+	}
+
+	/**
+	 * Find nextprot annotations
+	 */
+	public String nextProt(String chr, int pos, String refSeqId) {
+		if (refSeqId.indexOf('.') > 0) refSeqId = refSeqId.substring(0, refSeqId.indexOf('.'));
+
+		// Create a set of transcript IDs 
+		List<IdMapperEntry> idEntries = idMapper.getByRefSeqId(refSeqId);
+		String trIdsStr = IdMapper.ids(idEntries, IdMapperEntry.IDME_TO_ENSEMBLID);
+		HashSet<String> trIds = new HashSet<String>();
+		Arrays.stream(trIdsStr.split(",")).forEach(id -> trIds.add(id));
+
+		// Find all nextprot entries matching any transcript ID
+		Marker m = new Marker(config.getGenome().getChromosome(chr), pos, pos, 1, "");
+		Markers results = config.getSnpEffectPredictor().query(m);
+
+		return results.stream() //
+				.filter(r -> r instanceof NextProt && trIds.contains(((Transcript) r.getParent().getParent()).getId())) //
+				.map(r -> r.getId()) // 
+				.sorted() //
+				.distinct() //
+				.collect(Collectors.joining(";") //
+				);
+	}
+
+	/**
 	 * Remove 'stop' AA form sequence
 	 */
 	String removeAaStop(String seq) {
@@ -365,6 +401,11 @@ public class PdbGenome extends SnpEff {
 		this.msas = msas;
 	}
 
+	public void setNextProt(boolean nextProt) {
+		this.nextProt = nextProt;
+		// nextProtKeepAllTrs = true;
+	}
+
 	public void setTree(LikelihoodTree tree) {
 		this.tree = tree;
 	}
@@ -373,4 +414,5 @@ public class PdbGenome extends SnpEff {
 		countWarn.inc(warningType);
 		if (countWarn.getCount(warningType) < MAX_WARN) System.err.println("WARNING: " + warningType + " " + warning);
 	}
+
 }

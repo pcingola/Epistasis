@@ -25,6 +25,7 @@ public class Epistasis implements CommandLine {
 		epistasis.run();
 	}
 
+	boolean nextProt;
 	String[] args;
 	String cmd;
 	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
@@ -62,6 +63,7 @@ public class Epistasis implements CommandLine {
 			pdbGenome.setIdMapper(idMapper);
 			pdbGenome.setMsas(msas);
 			pdbGenome.setTree(tree);
+			pdbGenome.setNextProt(nextProt);
 			pdbGenome.initialize();
 		}
 
@@ -183,6 +185,14 @@ public class Epistasis implements CommandLine {
 			runAaContactMi();
 			break;
 
+		case "nextprot":
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			runNextProt();
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -273,6 +283,14 @@ public class Epistasis implements CommandLine {
 	void runMapPdbGenome() {
 		load();
 		pdbGenome.checkSequencePdbTr();
+	}
+
+	void runNextProt() {
+		nextProt = true;
+		load();
+
+		// Add nextprot annotations
+		aaContacts.forEach(d -> pdbGenome.nextProt(d));
 	}
 
 	/**
