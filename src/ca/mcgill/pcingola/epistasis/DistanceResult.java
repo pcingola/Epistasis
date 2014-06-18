@@ -75,14 +75,14 @@ public class DistanceResult {
 		}
 
 		if (fields.length > n) transcriptId = fields[n++];
-		if (fields.length > n) aaSeq1 = fields[n++];
-		if (fields.length > n) aaSeq2 = fields[n++];
-		if (fields.length > n) annotations1 = fields[n++];
-		if (fields.length > n) annotations2 = fields[n++];
 		if (fields.length > n) msa1 = fields[n++];
 		if (fields.length > n) msa2 = fields[n++];
 		if (fields.length > n) msaIdx1 = Gpr.parseIntSafe(fields[n++]);
 		if (fields.length > n) msaIdx2 = Gpr.parseIntSafe(fields[n++]);
+		if (fields.length > n) aaSeq1 = fields[n++];
+		if (fields.length > n) aaSeq2 = fields[n++];
+		if (fields.length > n) annotations1 = fields[n++];
+		if (fields.length > n) annotations2 = fields[n++];
 	}
 
 	/**
@@ -175,14 +175,14 @@ public class DistanceResult {
 				+ "\t" + (chr1 != null ? chr1 + ":" + pos1 : "") //
 				+ "\t" + (chr2 != null ? chr2 + ":" + pos2 : "") //
 				+ "\t" + (transcriptId != null ? transcriptId : "") //
-				+ "\t" + (aaSeq1 != null ? aaSeq1 : "") //
-				+ "\t" + (aaSeq2 != null ? aaSeq2 : "") //
-				+ "\t" + (annotations1 != null ? annotations1 : "") //
-				+ "\t" + (annotations2 != null ? annotations2 : "") //
 				+ "\t" + (msa1 != null ? msa1 : "") //
 				+ "\t" + (msa2 != null ? msa2 : "") //
 				+ "\t" + msaIdx1 //
 				+ "\t" + msaIdx2 //
+				+ "\t" + (aaSeq1 != null ? aaSeq1 : "") //
+				+ "\t" + (aaSeq2 != null ? aaSeq2 : "") //
+				+ "\t" + (annotations1 != null ? annotations1 : "") //
+				+ "\t" + (annotations2 != null ? annotations2 : "") //
 		;
 	}
 
