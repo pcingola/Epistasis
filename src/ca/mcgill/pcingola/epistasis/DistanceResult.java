@@ -1,5 +1,9 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 import org.biojava.bio.structure.AminoAcid;
 
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
@@ -42,24 +46,23 @@ public class DistanceResult {
 			String f[] = chrPos1.split(":");
 			chr1 = f[0];
 			pos1 = Gpr.parseIntSafe(f[1]);
+			chr1Num = Chromosome.number(chr1);
+		}
 
+		if (fields.length > n) {
 			String chrPos2 = fields[n++];
-			f = chrPos2.split(":");
+			String f[] = chrPos2.split(":");
 			chr2 = f[0];
 			pos2 = Gpr.parseIntSafe(f[1]);
-
-			transcriptId = fields[n++];
-			aaSeq1 = fields[n++];
-			aaSeq2 = fields[n++];
-
-			chr1Num = Chromosome.number(chr1);
 			chr2Num = Chromosome.number(chr1);
-
-			if (fields.length > n) {
-				annotations1 = fields[n++];
-				annotations1 = fields[n++];
-			}
 		}
+
+		if (fields.length > n) transcriptId = fields[n++];
+		if (fields.length > n) aaSeq1 = fields[n++];
+		if (fields.length > n) aaSeq2 = fields[n++];
+		if (fields.length > n) annotations1 = fields[n++];
+		if (fields.length > n) annotations2 = fields[n++];
+
 	}
 
 	/**
@@ -96,6 +99,30 @@ public class DistanceResult {
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
 		;
+	}
+
+	/**
+	 * Return amino acid pair (sorted)
+	 */
+	public String getAaPair() {
+		return aa1 <= aa2 ? aa1 + "-" + aa2 : aa2 + "-" + aa1;
+	}
+
+	/**
+	 * Return amino acid pair (sorted) + all combinations of annotations
+	 */
+	public List<String> getAaPairAnnotations() {
+		String aaPair = getAaPair();
+
+		List<String> anns = new ArrayList<>();
+		Arrays.stream(annotations1.split(";")) //
+				.forEach( //
+						ann1 -> Arrays.stream(annotations2.split(";")) //
+								.forEach( //
+										ann2 -> anns.add(aaPair + "\t" + ann1 + "\t" + ann2)) //
+				);
+
+		return anns;
 	}
 
 	public void setAa1(AminoAcid aa) {

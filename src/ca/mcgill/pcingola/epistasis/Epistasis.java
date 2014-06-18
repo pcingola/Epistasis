@@ -140,10 +140,23 @@ public class Epistasis implements CommandLine {
 			runAddMsaSeqs();
 			break;
 
+		case "aacontactmi":
+			aaContactFile = args[argNum++];
+			runAaContactMi();
+			break;
+
 		case "corr":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			runMsaCorr();
+			break;
+
+		case "mappdbgenome":
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			pdbDir = args[argNum++];
+			idMapFile = args[argNum++];
+			runMapPdbGenome();
 			break;
 
 		case "mi":
@@ -154,12 +167,12 @@ public class Epistasis implements CommandLine {
 			runMsaMi(numBases);
 			break;
 
-		case "mappdbgenome":
+		case "nextprot":
 			configFile = args[argNum++];
 			genome = args[argNum++];
-			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
-			runMapPdbGenome();
+			aaContactFile = args[argNum++];
+			runNextProt();
 			break;
 
 		case "pdbdist":
@@ -178,19 +191,6 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			qMatrixFile = args[argNum++];
 			runQhat();
-			break;
-
-		case "aacontactmi":
-			aaContactFile = args[argNum++];
-			runAaContactMi();
-			break;
-
-		case "nextprot":
-			configFile = args[argNum++];
-			genome = args[argNum++];
-			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
-			runNextProt();
 			break;
 
 		default:
@@ -225,6 +225,59 @@ public class Epistasis implements CommandLine {
 		parseArgs(args);
 		Timer.showStdErr("End");
 		return true;
+	}
+
+	/**
+	 * Calculate MI and other statistics
+	 */
+	void runAaContactMi() {
+		load();
+
+		//---
+		// Group by genomic position
+		//---
+		Timer.showStdErr("Sort by position");
+		DistanceResults aaContactsUniq = new DistanceResults();
+		aaContacts.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		aaContactsUniq.addMins();
+
+		//		//---
+		//		// Show MI and conservation
+		//		//---
+		//		aaContactsUniq.stream().forEach( //
+		//				d -> System.out.println(d //
+		//						+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+		//						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
+		//						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
+		//				) //
+		//				);
+		//
+		//		//---
+		//		// Count first 'AA'
+		//		//---
+		//		CountByType countFirstAa = new CountByType();
+		//		aaContactsUniq.stream() //
+		//				.forEach( //
+		//						d -> countFirstAa.addScore( //
+		//								d.getAaPair() //
+		//								, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
+		//								) //
+		//				);
+		//		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
+
+		//---
+		// Count first 'AA' with annotations
+		//---
+		CountByType countFirstAaAnn = new CountByType();
+		aaContactsUniq.stream() //
+				.filter(d -> d.annotations1 != null && d.annotations2 != null) // Only entries having annotations
+				.forEach( //
+						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
+								ap -> countFirstAaAnn.addScore(ap, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2)) //
+								) //
+				) //
+		;
+		System.err.println("Count fist AA with annotations:\n" + countFirstAaAnn.toStringSort());
 	}
 
 	/**
@@ -285,14 +338,6 @@ public class Epistasis implements CommandLine {
 		pdbGenome.checkSequencePdbTr();
 	}
 
-	void runNextProt() {
-		nextProt = true;
-		load();
-
-		// Add nextprot annotations
-		aaContacts.forEach(d -> pdbGenome.nextProt(d));
-	}
-
 	/**
 	 * Run correlation
 	 * @param numAligns
@@ -321,6 +366,14 @@ public class Epistasis implements CommandLine {
 		System.out.println("Score statistics:\n" + sim);
 	}
 
+	void runNextProt() {
+		nextProt = true;
+		load();
+
+		// Add nextprot annotations
+		aaContacts.forEach(d -> pdbGenome.nextProt(d));
+	}
+
 	/**
 	 * Run Pdb distance
 	 */
@@ -347,42 +400,6 @@ public class Epistasis implements CommandLine {
 		qHat(qMatrixFile); // Calculate Qhat
 	}
 
-	void runAaContactMi() {
-		load();
-
-		//---
-		// Group by genomic position
-		//---
-		Timer.showStdErr("Sort by position");
-		DistanceResults aaContactsUniq = new DistanceResults();
-		aaContacts.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
-		aaContactsUniq.addMins();
-
-		//---
-		// Show MI and conservation
-		//---
-		aaContactsUniq.stream().forEach( //
-				d -> System.out.println(d //
-						+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
-						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
-						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
-				) //
-				);
-
-		//---
-		// Count first 'AA'
-		//---
-		CountByType countFirstAa = new CountByType();
-		aaContactsUniq.stream().forEach( //
-				d -> countFirstAa.addScore( //
-						(d.aa1 <= d.aa2 ? d.aa1 + "-" + d.aa2 : d.aa2 + "-" + d.aa1) //
-						, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
-						) //
-				);
-		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
-
-	}
-
 	/**
 	 * Check consistency between MSA and tree
 	 */
@@ -406,7 +423,7 @@ public class Epistasis implements CommandLine {
 		if (message != null) System.err.println("Error: " + message + "\n");
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
 
-		System.err.println("Command 'aaContactMi'    : " + this.getClass().getSimpleName() + " addMsaSeqs aa_contact.sequences.txt ");
+		System.err.println("Command 'aaContactMi'    : " + this.getClass().getSimpleName() + " aaContactMi aa_contact.nextprot.txt ");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
