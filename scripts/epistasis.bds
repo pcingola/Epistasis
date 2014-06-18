@@ -53,7 +53,7 @@ task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGen
 wait
 
 # Calculate amino acids "in contact" within the same protein
-print("\nCalculate AA in contact within proteins: $aaContact: '$aaContact'\n")
+print("\nCalculate AA in contact within proteins: '$aaContact'\n")
 tmp := "$aaContact.tmp"
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
 	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed > $tmp
@@ -66,16 +66,17 @@ print("\nAdd MSA information to AA in contact: '$aaContactSeq'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 wait
 
-# Claculate MI, conservation, etc.
-aaMi := "$dir/db/pdb/aa.contact.sequence.mi.txt"
-print("\nCalculating MI and conservation: '$aaMi'\n")
-task( aaMi <- aaContactSeq )	sys $cmdEpistasis aaContactMi $aaContactSeq > $aaMi
-wait
-
 # Annotations of amino acids "in contact" (e.g. NextProt annotations)
 aaNextProt := "$dir/db/pdb/aa.contact.nextProt.txt"
 print("\nAnnotating with NextProt: '$aaNextProt'\n")
 task( aaNextProt <- aaContactSeq )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapConfirmed $aaContactSeq > $aaNextProt
+wait
+
+# Claculate MI, conservation, etc.
+aaMi := "$dir/db/pdb/aa.contact.mi.txt"
+aaMiSummary := "$dir/db/pdb/aa.contact.mi.summary.txt"
+print("\nCalculating MI and conservation:\n\t'$aaMi'\n\t'$aaMiSummary'\n")
+task( aaMi <- aaNextProt )	sys $cmdEpistasis aaContactMi $aaNextProt > $aaMi 2> $aaMiSummary
 wait
 
 # Done

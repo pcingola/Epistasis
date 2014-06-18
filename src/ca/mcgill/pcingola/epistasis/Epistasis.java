@@ -241,29 +241,29 @@ public class Epistasis implements CommandLine {
 		aaContacts.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins();
 
-		//		//---
-		//		// Show MI and conservation
-		//		//---
-		//		aaContactsUniq.stream().forEach( //
-		//				d -> System.out.println(d //
-		//						+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
-		//						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
-		//						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
-		//				) //
-		//				);
-		//
-		//		//---
-		//		// Count first 'AA'
-		//		//---
-		//		CountByType countFirstAa = new CountByType();
-		//		aaContactsUniq.stream() //
-		//				.forEach( //
-		//						d -> countFirstAa.addScore( //
-		//								d.getAaPair() //
-		//								, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
-		//								) //
-		//				);
-		//		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
+		//---
+		// Show MI and conservation
+		//---
+		aaContactsUniq.stream().forEach( //
+				d -> System.out.println(d //
+						+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
+						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
+				) //
+				);
+
+		//---
+		// Count first 'AA'
+		//---
+		CountByType countFirstAa = new CountByType();
+		aaContactsUniq.stream() //
+				.forEach( //
+						d -> countFirstAa.addScore( //
+								d.getAaPair() //
+								, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
+								) //
+				);
+		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
 
 		//---
 		// Count first 'AA' with annotations
