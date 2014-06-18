@@ -13,6 +13,7 @@ dir				:= "$HOME/snpEff"
 aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
 aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
 genome			:= "hg19"
+genomeEnsembl	:= "GRCh37.75"
 
 # Data files
 aaContact		:= "$dir/db/pdb/aa.contact.txt"
@@ -65,13 +66,17 @@ print("\nAdd MSA information to AA in contact: '$aaContactSeq'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 wait
 
-# TODO: Claculate MI, conservation, etc.
+# Claculate MI, conservation, etc.
 aaMi := "$dir/db/pdb/aa.contact.sequence.mi.txt"
 print("\nCalculating MI and conservation: '$aaMi'\n")
 task( aaMi <- aaContactSeq )	sys $cmdEpistasis aaContactMi $aaContactSeq > $aaMi
 wait
 
-# TODO: Annotations of amino acids "in contact" (e.g. NextProt annotations)
+# Annotations of amino acids "in contact" (e.g. NextProt annotations)
+aaNextProt := "$dir/db/pdb/aa.contact.nextProt.txt"
+print("\nAnnotating with NextProt: '$aaNextProt'\n")
+task( aaMi <- aaContactSeq )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapConfirmed $aaContactSeq > $aaNextProt
+wait
 
 # Done
 wait
