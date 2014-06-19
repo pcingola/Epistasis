@@ -238,18 +238,21 @@ public class Epistasis implements CommandLine {
 		//---
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
-		aaContacts.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
-		aaContactsUniq.addMins();
+		aaContacts.stream() //
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
 		// Show MI and conservation
 		//---
-		aaContactsUniq.stream().forEach( //
-				d -> System.out.println(d //
-						+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
-						+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
-						+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
-				) //
+		aaContactsUniq.stream() //
+				.forEach( //
+						d -> System.out.println(d //
+								+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+								+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
+								+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
+						) //
 				);
 
 		//---

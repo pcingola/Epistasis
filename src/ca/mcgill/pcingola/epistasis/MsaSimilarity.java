@@ -25,6 +25,8 @@ public class MsaSimilarity {
 	 * Ratio: number of AA equal the the first / number of non-gap
 	 */
 	public static double conservation(String seq) {
+		if (seq == null || seq.isEmpty()) return 0;
+
 		char fisrt = seq.charAt(0);
 		int countEq = 0, count = 0;
 		for (int i = 1; i < seq.length(); i++) {
