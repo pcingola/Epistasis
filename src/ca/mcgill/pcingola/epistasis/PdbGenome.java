@@ -375,6 +375,8 @@ public class PdbGenome extends SnpEff {
 		// Create a set of transcript IDs
 		List<IdMapperEntry> idEntries = idMapper.getByRefSeqId(refSeqId);
 		String trIdsStr = IdMapper.ids(idEntries, IdMapperEntry.IDME_TO_ENSEMBLID);
+		if (trIdsStr == null) return "";
+
 		HashSet<String> trIds = new HashSet<String>();
 		Arrays.stream(trIdsStr.split(",")).forEach(id -> trIds.add(id));
 
