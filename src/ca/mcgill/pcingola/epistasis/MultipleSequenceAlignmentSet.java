@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
@@ -40,6 +41,11 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		species = new String[numAligns];
 		msas = new ArrayList<MultipleSequenceAlignment>();
 		msasById = new AutoHashMap<String, List<MultipleSequenceAlignment>>(new ArrayList<MultipleSequenceAlignment>());
+	}
+
+	public void calcSkip() {
+		Timer.showStdErr("Pre-calculating skips.");
+		getMsas().parallelStream().forEach(MultipleSequenceAlignment::calcSkip);
 	}
 
 	/**
@@ -241,6 +247,13 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		}
 
 		Timer.showStdErr("Done. Total number of alignments: " + msas.size());
+	}
+
+	/**
+	 * Get a random element
+	 */
+	public MultipleSequenceAlignment rand(Random random) {
+		return msas.get(random.nextInt(msas.size()));
 	}
 
 	public int size() {

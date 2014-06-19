@@ -119,7 +119,7 @@ public class MsaSimilarityMutInfN extends MsaSimilarity {
 		}
 
 		// Only a few organisms align? Filter out
-		if (miCalc.count < MIN_COUNT_THRESHOLD) return Double.NaN;
+		if (miCalc.count < minCount) return Double.NaN;
 
 		double mutInf = miCalc.mi();
 

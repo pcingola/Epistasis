@@ -6,6 +6,7 @@ import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.pcingola.epistasis.entropy.Entropy;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 import ca.mcgill.pcingola.epistasis.phylotree.MaxLikelihoodTm;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
@@ -145,10 +146,14 @@ public class Epistasis implements CommandLine {
 			runAaContactMi();
 			break;
 
-		case "corr":
+		case "background":
+			int numBases = Gpr.parseIntSafe(args[argNum++]);
+			int numSamples = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
-			runMsaCorr();
+			if (numBases <= 0) usage("number of bases must be positive number");
+			if (numSamples <= 0) usage("number of samples must be positive number");
+			runMsaMi(numBases, numSamples);
 			break;
 
 		case "mappdbgenome":
@@ -157,14 +162,6 @@ public class Epistasis implements CommandLine {
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
 			runMapPdbGenome();
-			break;
-
-		case "mi":
-			int numBases = Gpr.parseIntSafe(args[argNum++]);
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			if (numBases <= 0) usage("number of alignments must be positive number");
-			runMsaMi(numBases);
 			break;
 
 		case "nextprot":
@@ -249,7 +246,9 @@ public class Epistasis implements CommandLine {
 		aaContactsUniq.stream() //
 				.forEach( //
 						d -> System.out.println(d //
-								+ "\t" + MsaSimilarityMutInf.mi(d.aaSeq1, d.aaSeq2) //
+								+ "\t" + Entropy.mutualInformation(d.aaSeq1, d.aaSeq2) //
+								+ "\t" + Entropy.condEntropy(d.aaSeq1, d.aaSeq2) //
+								+ "\t" + Entropy.entropy(d.aaSeq1, d.aaSeq2) //
 								+ "\t" + MsaSimilarity.conservation(d.aaSeq1) //
 								+ "\t" + MsaSimilarity.conservation(d.aaSeq2) //
 						) //
@@ -263,7 +262,7 @@ public class Epistasis implements CommandLine {
 				.forEach( //
 						d -> countFirstAa.addScore( //
 								d.getAaPair() //
-								, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2) //
+								, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2) //
 								) //
 				);
 		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
@@ -276,7 +275,7 @@ public class Epistasis implements CommandLine {
 				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
-								ap -> countFirstAaAnn.addScore(ap, MsaSimilarityMutInf.miNoNan(d.aaSeq1, d.aaSeq2)) //
+								ap -> countFirstAaAnn.addScore(ap, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2)) //
 								) //
 				) //
 		;
@@ -342,29 +341,14 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Run correlation
-	 * @param numAligns
-	 * @param multAlign
-	 */
-	void runMsaCorr() {
-		load();
-
-		// Run similarity
-		MsaSimilarity sim = new MsaSimilarity(msas);
-		sim.similarity();
-
-		System.out.println("Score statistics:\n" + sim);
-	}
-
-	/**
 	 * Run Mutual Information
 	 */
-	void runMsaMi(int numBases) {
+	void runMsaMi(int numBases, int numSamples) {
 		load();
 
 		// Run MI
 		MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
-		sim.similarity();
+		sim.backgroundDistribution(numSamples);
 
 		// Show scores distribution
 		System.out.println(sim);
@@ -429,9 +413,9 @@ public class Epistasis implements CommandLine {
 
 		System.err.println("Command 'aaContactMi'    : " + this.getClass().getSimpleName() + " aaContactMi aa_contact.nextprot.txt ");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
+		System.err.println("Command 'background'     : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
-		System.err.println("Command 'mi'             : " + this.getClass().getSimpleName() + " mi number_of_bases phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
 		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
 		System.exit(-1);

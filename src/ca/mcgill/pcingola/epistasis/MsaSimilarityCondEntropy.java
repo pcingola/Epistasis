@@ -56,7 +56,7 @@ public class MsaSimilarityCondEntropy extends MsaSimilarity {
 		}
 
 		// Only a few organisms align? Filter out
-		if (count < MIN_COUNT_THRESHOLD) return Double.NaN;
+		if (count < minCount) return Double.NaN;
 
 		double mutInf = 0.0;
 		for (int i = 0; i < aaLen; i++) {

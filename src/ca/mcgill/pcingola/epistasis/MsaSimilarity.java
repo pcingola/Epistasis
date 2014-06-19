@@ -1,10 +1,10 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Random;
+import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
  * Implement a 'similarity' by correlation
@@ -15,8 +15,7 @@ public class MsaSimilarity {
 
 	public static final byte ALIGN_GAP = (byte) -1;
 	public static double SHOW_THRESHOLD = 0.99;
-	public static final int MIN_COUNT_THRESHOLD = 50;
-	public static final int MIN_SECOND_TOP_BASE_COUNT = 5;
+	// public static final int MIN_SECOND_TOP_BASE_COUNT = 5;
 	public static final int MIN_AA_DISTANCE = 25;
 	public static final int SCORE_BINS = 1000;
 	public static int SHOW_EVERY = 1000;
@@ -38,6 +37,7 @@ public class MsaSimilarity {
 	}
 
 	int count = 1;
+	protected int minCount = 0;
 	protected double threshold = 0;
 	protected boolean debug = false;
 	protected int numBases;
@@ -45,6 +45,7 @@ public class MsaSimilarity {
 	double minScore, maxScore;
 	protected int countScore[];
 	protected MultipleSequenceAlignmentSet msas;
+	protected Random random = new Random();
 
 	public MsaSimilarity(MultipleSequenceAlignmentSet msas) {
 		this.msas = msas;
@@ -55,12 +56,48 @@ public class MsaSimilarity {
 	}
 
 	/**
+	 * Measure similarity between all alignments
+	 */
+	public void backgroundDistribution(int numberOfSamples) {
+		// Pre-calculate skip on all msas
+		msas.calcSkip();
+
+		// Calculate in parallel
+		IntStream.range(1, numberOfSamples) //
+				.parallel() //
+				.forEach(i -> backgroundDistribution());
+	}
+
+	/**
+	 * Calculate one sample of a random distribution
+	 */
+	void backgroundDistribution() {
+		while (true) {
+			// Select one MSA and position randomly
+			MultipleSequenceAlignment msai = msas.rand(random);
+			int posi = msai.randomColumnNumber(random);
+			if (msai.isSkip(posi)) continue;
+
+			// Select another MSA and position randomly
+			String trId = msai.getTranscriptId();
+			List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
+			MultipleSequenceAlignment msaj = msasTr.get(random.nextInt(msasTr.size()));
+			int posj = msaj.randomColumnNumber(random);
+			if (msaj.isSkip(posj)) continue;
+
+			// Calculate
+			double calc = calc(msai, msaj, posi, posj);
+			if (debug) System.err.println(calc + "\t" + showSeqs(msai, msaj, posi, posj));
+			else Gpr.showMark(count++, SHOW_EVERY);
+			return;
+		}
+	}
+
+	/**
 	 * Measure similarity: Correlation between two loci
 	 */
 	public double calc(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
 		int count = 0, sum = 0;
-		int changes = 0;
-		byte prevBase = -1;
 		int numAligns = msas.getNumAligns();
 		byte matchBases[] = new byte[numAligns];
 
@@ -78,22 +115,15 @@ public class MsaSimilarity {
 			count++;
 			if (basei == basej) {
 				sum++;
-				if (prevBase != basei) changes++;
-				matchBases[i] = prevBase = basei;
+				matchBases[i] = basei;
 			}
 		}
 
 		// Only a few organisms align? Filter out
-		if (count < MIN_COUNT_THRESHOLD) return Double.NaN;
-
-		// Filter out if they match only in the same base
-		if (changes <= 1) return Double.NaN;
-
-		// Filter out is too low count on the second 'top' base
-		if (secondMostCommonBaseCount(matchBases) < MIN_SECOND_TOP_BASE_COUNT) return Double.NaN;
+		if (count < minCount) return Double.NaN;
 
 		// Results
-		float corr = ((float) sum) / ((float) count);
+		double corr = ((double) sum) / ((double) count);
 
 		incScore(corr);
 		if (corr > SHOW_THRESHOLD) return corr;
@@ -179,98 +209,68 @@ public class MsaSimilarity {
 		return sb.toString();
 	}
 
-	/**
-	 * Background selection
-	 */
-	public void similarityBg() {
-	}
+	//	void similarity(MultipleSequenceAlignment msai, List<MultipleSequenceAlignment> msasTr) {
+	//		msasTr.stream() //
+	//				.filter(msaj -> msai.compareTo(msaj) <= 0) //
+	//				.forEach(msaj -> similarity(msai, msaj)) //
+	//		;
+	//	}
+	//
+	//	/**
+	//	 * Measure correlation between two alignments
+	//	 */
+	//	void similarity(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj) {
+	//		int maxi = msai.getSeqLen();
+	//		int maxj = msaj.getSeqLen();
+	//
+	//		for (int posi = 0; posi < maxi; posi++) {
+	//			if (!msai.isSkip(posi)) {
+	//				int posjmin = 0;
+	//
+	//				// Same alignment? Then make sure we are at least MIN_AA_DISTANCE away (obviously two adjacent AAs are correlated and interacting)
+	//				if (msai.getId().equals(msaj.getId())) posjmin = posi + MIN_AA_DISTANCE;
+	//
+	//				for (int posj = posjmin; posj < maxj; posj++)
+	//					if (!msaj.isSkip(posj)) {
+	//						try {
+	//							similarity(msai, msaj, posi, posj);
+	//						} catch (Throwable t) {
+	//							// Show error details
+	//							Gpr.debug("ERROR processing:" //
+	//									+ "\n\tmsa i : " + msai.getId() //
+	//									+ "\n\tpos i : " + posi //
+	//									+ "\n\tlen i : " + msai.getSeqLen() //
+	//									+ "\n" //
+	//									+ "\n\tmsa j : " + msaj.getId() //
+	//									+ "\n\tpos j : " + posj //
+	//									+ "\n\tlen j : " + msaj.getSeqLen() //
+	//							);
+	//							throw new RuntimeException(t);
+	//						}
+	//					}
+	//			}
+	//		}
+	//	}
 
-	/**
-	 * Measure similarity between all alignments
-	 */
-	public void similarity() {
-		// Pre-calculate skip on all msas
-		Timer.showStdErr("Pre-calculating skips.");
-		msas.getMsas().parallelStream().forEach(MultipleSequenceAlignment::calcSkip);
+	//	/**
+	//	 * Measure correlation between two loci
+	//	 */
+	//	protected void similarity(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
+	//		double calc = calc(msai, msaj, posi, posj);
+	//		if (Double.isNaN(calc)) return;
+	//		if (debug) System.err.println(calc + "\t" + showSeqs(msai, msaj, posi, posj));
+	//		else Gpr.showMark(count++, SHOW_EVERY);
+	//	}
 
-		// List of transcript IDs
-		List<String> trIds = msas.getMsas() //
-				.stream() //
-				.map(msa -> msa.getTranscriptId()) //
-				.sorted() //
-				.distinct() //
-				.collect(Collectors.toList());
-
-		// Correlation
-		Timer.showStdErr("Calculating similarity.");
-		trIds.parallelStream().forEach(id -> similarity(id));
-
-		Timer.showStdErr("Done.");
-	}
-
-	void similarity(MultipleSequenceAlignment msai, List<MultipleSequenceAlignment> msasTr) {
-		msasTr.stream() //
-				.filter(msaj -> msai.compareTo(msaj) <= 0) //
-				.forEach(msaj -> similarity(msai, msaj)) //
-		;
-	}
-
-	/**
-	 * Measure correlation between two alignments
-	 */
-	void similarity(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj) {
-		int maxi = msai.getSeqLen();
-		int maxj = msaj.getSeqLen();
-
-		for (int posi = 0; posi < maxi; posi++) {
-			if (!msai.isSkip(posi)) {
-				int posjmin = 0;
-
-				// Same alignment? Then make sure we are at least MIN_AA_DISTANCE away (obviously two adjacent AAs are correlated and interacting)
-				if (msai.getId().equals(msaj.getId())) posjmin = posi + MIN_AA_DISTANCE;
-
-				for (int posj = posjmin; posj < maxj; posj++)
-					if (!msaj.isSkip(posj)) {
-						try {
-							similarity(msai, msaj, posi, posj);
-						} catch (Throwable t) {
-							// Show error details
-							Gpr.debug("ERROR processing:" //
-									+ "\n\tmsa i : " + msai.getId() //
-									+ "\n\tpos i : " + posi //
-									+ "\n\tlen i : " + msai.getSeqLen() //
-									+ "\n" //
-									+ "\n\tmsa j : " + msaj.getId() //
-									+ "\n\tpos j : " + posj //
-									+ "\n\tlen j : " + msaj.getSeqLen() //
-							);
-							throw new RuntimeException(t);
-						}
-					}
-			}
-		}
-	}
-
-	/**
-	 * Measure correlation between two loci
-	 */
-	public void similarity(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
-		double calc = calc(msai, msaj, posi, posj);
-		if (Double.isNaN(calc)) return;
-
-		if (debug) System.err.println(calc + "\t" + showSeqs(msai, msaj, posi, posj));
-		else Gpr.showMark(count++, SHOW_EVERY);
-	}
-
-	/**
-	 * Correlation with another multiple sequence alignment
-	 * @param msai
-	 */
-	public void similarity(String trId) {
-		// Get all MSAs for this transcript ID
-		List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
-		msasTr.stream().forEach(msa -> similarity(msa, msasTr));
-	}
+	//	/**
+	//	 * Correlation with another multiple sequence alignment
+	//	 * @param msai
+	//	 */
+	//	public void similarity(String trId) {
+	//		// Get all MSAs for this transcript ID
+	//		List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
+	//		msasTr.stream().forEach(msa -> similarity(msa, msasTr));
+	//	}
 
 	public int size() {
 		return msas.size();

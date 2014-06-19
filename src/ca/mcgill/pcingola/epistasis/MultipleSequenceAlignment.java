@@ -1,5 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.Random;
+
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
@@ -268,6 +270,13 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	}
 
 	/**
+	 * Return a random column number
+	 */
+	public int randomColumnNumber(Random random) {
+		return random.nextInt(getSeqLen());
+	}
+
+	/**
 	 * What is the count for the second most common base
 	 * @param pos
 	 * @return
@@ -334,5 +343,4 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 		return sb.toString();
 	}
-
 }
