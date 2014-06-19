@@ -80,8 +80,6 @@ class MICalc {
  */
 public class MsaSimilarityMutInfN extends MsaSimilarity {
 
-	public static final double LOG_2 = Math.log(2.0);
-
 	public MsaSimilarityMutInfN(MultipleSequenceAlignmentSet msas, int numBases) {
 		super(msas);
 		maxScore = 5.0;

@@ -24,7 +24,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 	public static boolean debug = false;
 	public static boolean verbose = false;
-	public static byte ALIGN_GAP = (byte) 0;
 	public double SHOW_THRESHOLD = 0.99;
 	public final int MIN_COUNT_THRESHOLD = 50;
 	public final int MIN_SECOND_TOP_BASE_COUNT = 5;

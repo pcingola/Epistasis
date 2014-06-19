@@ -3,6 +3,7 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.Random;
 
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
@@ -117,7 +118,7 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		int gaps = 0;
 		for (int i = 0; i < getNumSeqs(); i++) {
 			byte base = getCode(i, pos);
-			if (base == MultipleSequenceAlignmentSet.ALIGN_GAP) gaps++;
+			if (base == GprSeq.GAP_CODE) gaps++;
 		}
 		return ((double) gaps) / ((double) getNumSeqs());
 	}
@@ -242,6 +243,9 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @return
 	 */
 	public synchronized boolean isSkip(int pos) {
+		if (getId().equals("NM_001277444_1:144823812-144823984") && pos == 44) //
+			Gpr.debug("DEBUG!");
+
 		if (skip == null) skip = new Boolean[getSeqLen()];
 		if (skip[pos] != null) return skip[pos];
 
@@ -293,8 +297,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 		int max = 0, second = 0;
 		for (int i = 0; i < count.length; i++) {
-			if (i == MultipleSequenceAlignmentSet.ALIGN_GAP) continue;
-
 			if (count[i] > max) max = count[i];
 			else if (count[i] > second) second = count[i];
 		}

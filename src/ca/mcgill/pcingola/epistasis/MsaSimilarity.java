@@ -14,6 +14,8 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  */
 public class MsaSimilarity {
 
+	public static final double LOG_2 = Math.log(2.0);
+
 	public static final byte ALIGN_GAP = (byte) -1;
 	public static double SHOW_THRESHOLD = 0.99;
 	// public static final int MIN_SECOND_TOP_BASE_COUNT = 5;
@@ -86,6 +88,9 @@ public class MsaSimilarity {
 			MultipleSequenceAlignment msaj = msasTr.get(random.nextInt(msasTr.size()));
 			int posj = msaj.randomColumnNumber(random);
 			if (msaj.isSkip(posj)) continue;
+
+			// Same MSA and position? Find another random
+			if (posi == posj && msai.getId().equals(msaj.getId())) continue;
 
 			// Calculate
 			double calc = calc(msai, msaj, posi, posj);

@@ -11,9 +11,6 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
  */
 public class MsaSimilarityCondEntropy extends MsaSimilarity {
 
-	public static final double LOG_2 = Math.log(2.0);
-	protected double threshold = 1.5;
-
 	public MsaSimilarityCondEntropy(MultipleSequenceAlignmentSet msas) {
 		super(msas);
 		maxScore = 4.0;

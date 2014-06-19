@@ -284,4 +284,62 @@ public class Entropy {
 		return mutualInformation(codei, codej);
 	}
 
+	/**
+	 * Variation of information = H(X|Y) + H(Y|X) = H(X,y) - I(X,Y)
+	 * It can be used as a distance metric
+	 */
+	public static double variationOfInformation(byte codei[], byte codej[]) {
+		//---
+		// Initialize counters
+		//---
+		int count = 0;
+		int numAligns = codei.length;
+		int aaLen = GprSeq.AA_TO_CODE.length;
+		short countIJ[][] = new short[aaLen][aaLen];
+		short countI[] = new short[aaLen];
+		short countJ[] = new short[aaLen];
+
+		for (int i = 0; i < aaLen; i++)
+			Arrays.fill(countIJ[i], (short) 0);
+		Arrays.fill(countI, (short) 0);
+		Arrays.fill(countJ, (short) 0);
+
+		//---
+		// Count matching bases
+		//---
+		for (int i = 0; i < numAligns; i++) {
+			byte basei = codei[i];
+			byte basej = codej[i];
+			if ((basei == MsaSimilarity.ALIGN_GAP) || (basej == MsaSimilarity.ALIGN_GAP)) continue;
+
+			// Count
+			countI[basei]++;
+			countJ[basej]++;
+			countIJ[basei][basej]++;
+			count++;
+		}
+
+		double mutInf = 0.0;
+		double hxy = 0;
+		for (int i = 0; i < aaLen; i++) {
+			if (countI[i] <= 0) continue;
+
+			for (int j = 0; j < aaLen; j++) {
+				if (countJ[j] <= 0) continue;
+
+				if (countIJ[i][j] > 0) {
+					double pij = ((double) countIJ[i][j]) / ((double) count);
+					double pi = ((double) countI[i]) / ((double) count);
+					double pj = ((double) countJ[j]) / ((double) count);
+
+					mutInf += pij * Math.log(pij / (pi * pj)) / LOG_2;
+					hxy -= pij * Math.log(pij) / LOG_2;
+				}
+			}
+		}
+
+		// Results
+		return hxy - mutInf;
+	}
+
 }
