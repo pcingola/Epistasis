@@ -252,7 +252,18 @@ public class Epistasis implements CommandLine {
 		//---
 		aaContactsUniq.stream() //
 				.forEach( //
-						d -> System.out.printf("%s\t%.4f\t%.4f\t%.4f\t%.4f\t%.4f\n", d, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2), Entropy.condEntropy(d.aaSeq1, d.aaSeq2), Entropy.entropy(d.aaSeq1, d.aaSeq2), MsaSimilarity.conservation(d.aaSeq1), MsaSimilarity.conservation(d.aaSeq2)) //
+						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+								, d //
+								, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2) //
+								, Entropy.entropy(d.aaSeq1, d.aaSeq2) //
+								, Entropy.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+								, Entropy.condEntropy(d.aaSeq1, d.aaSeq2) //
+								, Entropy.condEntropy(d.aaSeq2, d.aaSeq1) //
+								, Entropy.entropy(d.aaSeq1) //
+								, Entropy.entropy(d.aaSeq2) //
+								, MsaSimilarity.conservation(d.aaSeq1) //
+								, MsaSimilarity.conservation(d.aaSeq2) //
+								) //
 				);
 
 		//---
