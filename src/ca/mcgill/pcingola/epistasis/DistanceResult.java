@@ -118,7 +118,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-		;
+				;
 	}
 
 	/**
@@ -137,13 +137,13 @@ public class DistanceResult {
 
 		List<String> anns = new ArrayList<>();
 		Arrays.stream(annotations1.split(";")) //
+		.forEach( //
+				ann1 -> Arrays.stream(annotations2.split(";")) //
 				.forEach( //
-						ann1 -> Arrays.stream(annotations2.split(";")) //
-								.forEach( //
-										ann2 -> anns.add(aaPair + "\t" //
-												+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
-										) //
+						ann2 -> anns.add(aaPair + "\t" //
+								+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
 								) //
+						) //
 				);
 
 		return anns;
@@ -172,18 +172,18 @@ public class DistanceResult {
 				+ "\t" + aaPos1 //
 				+ "\t" + aa2 //
 				+ "\t" + aaPos2 //
-				+ "\t" + (chr1 != null ? chr1 + ":" + pos1 : "") //
-				+ "\t" + (chr2 != null ? chr2 + ":" + pos2 : "") //
-				+ "\t" + (transcriptId != null ? transcriptId : "") //
-				+ "\t" + (msa1 != null ? msa1 : "") //
-				+ "\t" + (msa2 != null ? msa2 : "") //
+				+ "\t" + (!chr1.isEmpty() ? chr1 + ":" + pos1 : "") //
+				+ "\t" + (!chr2.isEmpty() ? chr2 + ":" + pos2 : "") //
+				+ "\t" + transcriptId //
+				+ "\t" + msa1 //
+				+ "\t" + msa2 //
 				+ "\t" + msaIdx1 //
 				+ "\t" + msaIdx2 //
-				+ "\t" + (aaSeq1 != null ? aaSeq1 : "") //
-				+ "\t" + (aaSeq2 != null ? aaSeq2 : "") //
-				+ "\t" + (annotations1 != null ? annotations1 : "") //
-				+ "\t" + (annotations2 != null ? annotations2 : "") //
-		;
+				+ "\t" + aaSeq1 //
+				+ "\t" + aaSeq2 //
+				+ "\t" + annotations1 //
+				+ "\t" + annotations2 //
+				;
 	}
 
 	/**
@@ -193,6 +193,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-		;
+				;
 	}
 }
