@@ -79,6 +79,11 @@ print("\nCalculating MI and conservation:\n\t'$aaMi'\n\t'$aaMiSummary'\n")
 task( aaMi <- aaNextProt )	sys $cmdEpistasis aaContactMi $aaNextProt > $aaMi 2> $aaMiSummary
 wait
 
+# Background distribution
+bg := "$dir/db/pdb/bg.txt"
+bgNum := 10 * 1000 * 1000
+task( bg <- [tree, msa] ) sys $cmdEpistasis background 1 $bgNum $tree $msa | tee $bg
+
 # Done
 wait
 print("\nDone!\n")
