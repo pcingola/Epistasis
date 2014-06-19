@@ -255,7 +255,14 @@ public class Epistasis implements CommandLine {
 				);
 
 		//---
-		// Count first 'AA'
+		// Count first 'AA' (all)
+		//---
+		CountByType countFirstAaAll = new CountByType();
+		aaContactsUniq.stream().forEach(d -> countFirstAaAll.inc(d.getAaPair()));
+		System.err.println("Count fist AA (all):\n" + countFirstAaAll.toStringSort());
+
+		//---
+		// Count first 'AA' (not-fully conserved)
 		//---
 		CountByType countFirstAa = new CountByType();
 		aaContactsUniq.stream() //
@@ -266,10 +273,22 @@ public class Epistasis implements CommandLine {
 								, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2) //
 								) //
 				);
-		System.err.println("Count fist AA:\n" + countFirstAa.toStringSort());
+		System.err.println("Count fist AA (non-fully conserved):\n" + countFirstAa.toStringSort());
 
 		//---
-		// Count first 'AA' with annotations
+		// Count first 'AA' with annotations (all)
+		//---
+		CountByType countFirstAaAnnAll = new CountByType();
+		aaContactsUniq.stream() //
+				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+				.forEach( //
+						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
+				) //
+		;
+		System.err.println("Count fist AA with annotations (all):\n" + countFirstAaAnnAll.toStringSort());
+
+		//---
+		// Count first 'AA' with annotations (not-fully conserved)
 		//---
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
@@ -281,7 +300,8 @@ public class Epistasis implements CommandLine {
 								) //
 				) //
 		;
-		System.err.println("Count fist AA with annotations:\n" + countFirstAaAnn.toStringSort());
+		System.err.println("Count fist AA with annotations (non-fully conserved):\n" + countFirstAaAnn.toStringSort());
+
 	}
 
 	/**
