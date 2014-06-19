@@ -342,4 +342,19 @@ public class Entropy {
 		return hxy - mutInf;
 	}
 
+	public static double variationOfInformation(String coli, String colj) {
+		if (coli.length() != colj.length()) throw new RuntimeException("Lengths do not match!");
+
+		// Convert string to byte codes
+		int numAligns = coli.length();
+		byte codei[] = new byte[numAligns];
+		byte codej[] = new byte[numAligns];
+		for (int i = 0; i < numAligns; i++) {
+			codei[i] = GprSeq.aa2Code(coli.charAt(i));
+			codej[i] = GprSeq.aa2Code(colj.charAt(i));
+		}
+
+		return variationOfInformation(codei, codej);
+	}
+
 }

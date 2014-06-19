@@ -270,10 +270,10 @@ public class Epistasis implements CommandLine {
 				.forEach( //
 						d -> countFirstAa.addScore( //
 								d.getAaPair() //
-								, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2) //
+								, Entropy.variationOfInformation(d.aaSeq1, d.aaSeq2) //
 								) //
 				);
-		System.err.println("Count fist AA (non-fully conserved):\n" + countFirstAa.toStringSort());
+		System.err.println("Count fist AA (non-fully conserved) variation of information:\n" + countFirstAa.toStringSort());
 
 		//---
 		// Count first 'AA' with annotations (all)
@@ -296,11 +296,11 @@ public class Epistasis implements CommandLine {
 				.filter(d -> MsaSimilarity.conservation(d.aaSeq1) < 1.0 && MsaSimilarity.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
-								ap -> countFirstAaAnn.addScore(ap, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2)) //
+								ap -> countFirstAaAnn.addScore(ap, Entropy.variationOfInformation(d.aaSeq1, d.aaSeq2)) //
 								) //
 				) //
 		;
-		System.err.println("Count fist AA with annotations (non-fully conserved):\n" + countFirstAaAnn.toStringSort());
+		System.err.println("Count fist AA with annotations (non-fully conserved), variation of information:\n" + countFirstAaAnn.toStringSort());
 
 	}
 
