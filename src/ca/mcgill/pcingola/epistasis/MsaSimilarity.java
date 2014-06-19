@@ -82,7 +82,7 @@ public class MsaSimilarity {
 			// Calculate
 			double calc = calc(msai, msaj, posi, posj);
 			if (debug) System.err.println(calc + "\t" + showSeqs(msai, msaj, posi, posj));
-			else if (verbose) System.out.println(calc);
+			else if (verbose) System.out.printf("%.6e\n", calc);
 			else Gpr.showMark(count++, SHOW_EVERY);
 			return;
 		}
