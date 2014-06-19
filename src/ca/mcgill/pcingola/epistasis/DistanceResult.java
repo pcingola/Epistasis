@@ -60,18 +60,22 @@ public class DistanceResult {
 		// Optional fields
 		if (fields.length > n) {
 			String chrPos1 = fields[n++];
-			String f[] = chrPos1.split(":");
-			chr1 = f[0];
-			pos1 = Gpr.parseIntSafe(f[1]);
-			chr1Num = Chromosome.number(chr1);
+			if (!chrPos1.isEmpty()) {
+				String f[] = chrPos1.split(":");
+				chr1 = f[0];
+				pos1 = Gpr.parseIntSafe(f[1]);
+				chr1Num = Chromosome.number(chr1);
+			}
 		}
 
 		if (fields.length > n) {
 			String chrPos2 = fields[n++];
-			String f[] = chrPos2.split(":");
-			chr2 = f[0];
-			pos2 = Gpr.parseIntSafe(f[1]);
-			chr2Num = Chromosome.number(chr1);
+			if (!chrPos2.isEmpty()) {
+				String f[] = chrPos2.split(":");
+				chr2 = f[0];
+				pos2 = Gpr.parseIntSafe(f[1]);
+				chr2Num = Chromosome.number(chr1);
+			}
 		}
 
 		if (fields.length > n) transcriptId = fields[n++];
@@ -118,7 +122,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-				;
+		;
 	}
 
 	/**
@@ -137,13 +141,13 @@ public class DistanceResult {
 
 		List<String> anns = new ArrayList<>();
 		Arrays.stream(annotations1.split(";")) //
-		.forEach( //
-				ann1 -> Arrays.stream(annotations2.split(";")) //
 				.forEach( //
-						ann2 -> anns.add(aaPair + "\t" //
-								+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+						ann1 -> Arrays.stream(annotations2.split(";")) //
+								.forEach( //
+										ann2 -> anns.add(aaPair + "\t" //
+												+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+										) //
 								) //
-						) //
 				);
 
 		return anns;
@@ -183,7 +187,7 @@ public class DistanceResult {
 				+ "\t" + aaSeq2 //
 				+ "\t" + annotations1 //
 				+ "\t" + annotations2 //
-				;
+		;
 	}
 
 	/**
@@ -193,6 +197,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-				;
+		;
 	}
 }
