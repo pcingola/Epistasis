@@ -82,6 +82,7 @@ wait
 # Background distribution
 bg := "$dir/db/pdb/bg.txt"
 bgNum := 10 * 1000 * 1000
+print("\nCalculating background distribution ($bgNum iterations): '$bg'\n")
 task( bg <- [tree, msa] ) sys $cmdEpistasis background 1 $bgNum $tree $msa | tee $bg
 
 # Done

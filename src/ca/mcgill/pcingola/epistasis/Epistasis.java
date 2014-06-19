@@ -333,7 +333,8 @@ public class Epistasis implements CommandLine {
 
 		// Run MI
 		// MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
-		MsaSimilarity sim = new MsaDistanceVarInf(msas);
+		// MsaSimilarity sim = new MsaDistanceVarInf(msas);
+		MsaSimilarity sim = new MsaSimilarityMutInf(msas);
 		sim.backgroundDistribution(numSamples);
 
 		// Show scores distribution
