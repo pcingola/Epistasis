@@ -43,6 +43,7 @@ public class MsaSimilarity {
 	protected int minCount = 0;
 	protected double threshold = 0;
 	protected boolean debug = false;
+	protected boolean verbose = true;
 	protected int numBases;
 	protected double max = 0.0;
 	double minScore, maxScore;
@@ -56,20 +57,6 @@ public class MsaSimilarity {
 		maxScore = 1.0;
 		countScore = new int[SCORE_BINS];
 		numBases = 1;
-	}
-
-	/**
-	 * Measure similarity between all alignments
-	 */
-	public void backgroundDistribution(int numberOfSamples) {
-		// Pre-calculate skip on all msas
-		msas.calcSkip();
-
-		// Calculate in parallel
-		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
-		IntStream.range(1, numberOfSamples) //
-				.parallel() //
-				.forEach(i -> backgroundDistribution());
 	}
 
 	/**
@@ -95,9 +82,24 @@ public class MsaSimilarity {
 			// Calculate
 			double calc = calc(msai, msaj, posi, posj);
 			if (debug) System.err.println(calc + "\t" + showSeqs(msai, msaj, posi, posj));
+			else if (verbose) System.out.println(calc);
 			else Gpr.showMark(count++, SHOW_EVERY);
 			return;
 		}
+	}
+
+	/**
+	 * Measure similarity between all alignments
+	 */
+	public void backgroundDistribution(int numberOfSamples) {
+		// Pre-calculate skip on all msas
+		msas.calcSkip();
+
+		// Calculate in parallel
+		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
+		IntStream.range(1, numberOfSamples) //
+				.parallel() //
+				.forEach(i -> backgroundDistribution());
 	}
 
 	/**
