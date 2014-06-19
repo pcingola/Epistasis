@@ -90,8 +90,6 @@ public class MsaSimilarityMutInf extends MsaSimilarity {
 		return mutInf;
 	}
 
-	protected double threshold = 1.5;
-
 	public MsaSimilarityMutInf(MultipleSequenceAlignmentSet msas) {
 		super(msas);
 		maxScore = 4.0;

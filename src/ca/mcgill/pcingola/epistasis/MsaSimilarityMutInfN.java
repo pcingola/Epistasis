@@ -81,7 +81,6 @@ class MICalc {
 public class MsaSimilarityMutInfN extends MsaSimilarity {
 
 	public static final double LOG_2 = Math.log(2.0);
-	protected double threshold = 2.5;
 
 	public MsaSimilarityMutInfN(MultipleSequenceAlignmentSet msas, int numBases) {
 		super(msas);

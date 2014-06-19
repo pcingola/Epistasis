@@ -359,11 +359,12 @@ public class Epistasis implements CommandLine {
 	void runMsaMi(int numBases) {
 		load();
 
-		// Run similarity
+		// Run MI
 		MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
 		sim.similarity();
 
-		System.out.println("Score statistics:\n" + sim);
+		// Show scores distribution
+		System.out.println(sim);
 	}
 
 	void runNextProt() {
