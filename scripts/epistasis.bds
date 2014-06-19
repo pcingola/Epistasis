@@ -83,8 +83,8 @@ for( string type : ['mi', 'varInf'] ) {
 	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
 	wait
 
-	bg := "$dir/db/pdb/bg_$type.txt"
-	bgDetails := "$dir/db/pdb/bg_$type.details.txt"
+	bg := "$dir/db/pdb/bg.$type.summary.txt"
+	bgDetails := "$dir/db/pdb/bg.$type.details.txt"
 	print("\nCalculating background distribution ($bgNum iterations): '$bg'\n")
 	task( bg <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa 2>$bg >$bgDetails
 	wait
