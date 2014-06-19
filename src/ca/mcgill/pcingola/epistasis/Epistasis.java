@@ -153,7 +153,7 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			if (numBases <= 0) usage("number of bases must be positive number");
 			if (numSamples <= 0) usage("number of samples must be positive number");
-			runMsaMi(numBases, numSamples);
+			runBackground(numBases, numSamples);
 			break;
 
 		case "mappdbgenome":
@@ -259,6 +259,7 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAa = new CountByType();
 		aaContactsUniq.stream() //
+				.filter(d -> MsaSimilarity.conservation(d.aaSeq1) < 1.0 && MsaSimilarity.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach( //
 						d -> countFirstAa.addScore( //
 								d.getAaPair() //
@@ -273,6 +274,7 @@ public class Epistasis implements CommandLine {
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
 				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+				.filter(d -> MsaSimilarity.conservation(d.aaSeq1) < 1.0 && MsaSimilarity.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
 								ap -> countFirstAaAnn.addScore(ap, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2)) //
@@ -301,6 +303,20 @@ public class Epistasis implements CommandLine {
 
 		System.err.println("Mapped AA sequences:\n");
 		aaContacts.stream().filter(d -> d.aaSeq1 != null).forEach(System.out::println);
+	}
+
+	/**
+	 * Run Mutual Information
+	 */
+	void runBackground(int numBases, int numSamples) {
+		load();
+
+		// Run MI
+		MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
+		sim.backgroundDistribution(numSamples);
+
+		// Show scores distribution
+		System.out.println(sim);
 	}
 
 	void runBayes() {
@@ -338,20 +354,6 @@ public class Epistasis implements CommandLine {
 	void runMapPdbGenome() {
 		load();
 		pdbGenome.checkSequencePdbTr();
-	}
-
-	/**
-	 * Run Mutual Information
-	 */
-	void runMsaMi(int numBases, int numSamples) {
-		load();
-
-		// Run MI
-		MsaSimilarity sim = numBases > 1 ? new MsaSimilarityMutInfN(msas, numBases) : new MsaSimilarityMutInf(msas);
-		sim.backgroundDistribution(numSamples);
-
-		// Show scores distribution
-		System.out.println(sim);
 	}
 
 	void runNextProt() {

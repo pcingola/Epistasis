@@ -5,6 +5,7 @@ import java.util.Random;
 import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
  * Implement a 'similarity' by correlation
@@ -63,6 +64,7 @@ public class MsaSimilarity {
 		msas.calcSkip();
 
 		// Calculate in parallel
+		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
 				.parallel() //
 				.forEach(i -> backgroundDistribution());
