@@ -3,7 +3,6 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.Random;
 
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
@@ -243,9 +242,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @return
 	 */
 	public synchronized boolean isSkip(int pos) {
-		if (getId().equals("NM_001277444_1:144823812-144823984") && pos == 44) //
-			Gpr.debug("DEBUG!");
-
 		if (skip == null) skip = new Boolean[getSeqLen()];
 		if (skip[pos] != null) return skip[pos];
 

@@ -80,7 +80,7 @@ public class MsaDistanceVarInf extends MsaSimilarity {
 		// Results
 		double varInf = hxy - mutInf;
 
-		if (varInf == 0.0) {
+		if (debug) {
 			Gpr.debug("Zero!\th(x,y):" + hxy + "\tmi: " + mutInf //
 					+ "\n\t" + msai.getId() + "[" + posi + "]:\t" + msai.getColumnString(posi) + "\t" + msai.isSkip(posi) //
 					+ "\n\t" + msaj.getId() + "[" + posj + "]:\t" + msaj.getColumnString(posj) + "\t" + msaj.isSkip(posj) //
