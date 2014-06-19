@@ -25,6 +25,7 @@ pdbDir			:= "$dir/db/pdb/pdb_hires_human"
 qhat			:= "$dir/db/multiz100way/Qhat.txt"
 tree			:= "$dir/db/multiz100way/hg19.100way.nh"
 snpeffConfig	:= "$dir/snpEff.config"
+bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
 #cmdEpistasis	:= "java -Xmx4G -jar Epistasis.jar"
@@ -36,6 +37,7 @@ if( debug ) {
 	genome = "testHg19Chr1"
 	msa  = "$dir/db/multiz100way/head.fa"
 	qhat = "$dir/db/multiz100way/Qhat_head.txt"
+	bgNum = 1000
 }
 
 #-------------------------------------------------------------------------------
@@ -72,21 +74,19 @@ print("\nAnnotating with NextProt: '$aaNextProt'\n")
 task( aaNextProt <- aaContactSeq )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapConfirmed $aaContactSeq > $aaNextProt
 wait
 
-# Claculate MI, conservation, etc.
-aaMi := "$dir/db/pdb/aa.contact.mi.txt"
-aaMiSummary := "$dir/db/pdb/aa.contact.mi.summary.txt"
-print("\nCalculating MI and conservation:\n\t'$aaMi'\n\t'$aaMiSummary'\n")
-task( aaMi <- aaNextProt )	sys $cmdEpistasis aaContactMi $aaNextProt > $aaMi 2> $aaMiSummary
-wait
-
-# Background distribution
-bgNum := 10 * 1000 * 1000
-if( debug )	bgNum = 1000
+# Calculate values (MI, varInf, etc.)
+# Calculate background distribution
 for( string type : ['mi', 'varInf'] ) {
+	aaStats := "$dir/db/pdb/aa.contact.$type.txt"
+	aaStatsSummary := "$dir/db/pdb/aa.contact.$type.summary.txt"
+	print("\nCalculating MI and conservation:\n\t'$aaStats'\n\t'$aaStatsSummary'\n")
+	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
+	wait
+
 	bg := "$dir/db/pdb/bg_$type.txt"
 	bgDetails := "$dir/db/pdb/bg_$type.details.txt"
 	print("\nCalculating background distribution ($bgNum iterations): '$bg'\n")
-	task( bg <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa | tee $bg
+	task( bg <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa 2>$bg >$bgDetails
 }
 
 # Done
