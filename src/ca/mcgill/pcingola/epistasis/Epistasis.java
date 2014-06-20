@@ -193,6 +193,13 @@ public class Epistasis implements CommandLine {
 			runQhat();
 			break;
 
+		case "test":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			runTest();
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -433,6 +440,21 @@ public class Epistasis implements CommandLine {
 		load();
 		sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
 		qHat(qMatrixFile); // Calculate Qhat
+	}
+
+	/**
+	 * Estimate Q matrix from MSA and Phylogenetic-Tree
+	 */
+	void runTest() {
+		load();
+
+		aaContacts.stream()//
+				.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
+				.peek(d -> System.out.println(d + "\n" + msas.getMsa(d.msa1))) //
+				.map(d -> msas.findColSequences(d.msa1, d.msaIdx1, 1)) //
+				.forEach(s -> System.out.println(s == null ? "" : "\n\t" + s[0] + "\n\t" + s[1] + "\n\t" + s[2])) //
+		;
+
 	}
 
 	/**

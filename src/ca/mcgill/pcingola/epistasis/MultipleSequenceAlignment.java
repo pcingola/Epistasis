@@ -36,7 +36,7 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	@Override
 	public int compareTo(MultipleSequenceAlignment msa) {
-		int comp = chromo.compareTo(msa.chromo);
+		int comp = Chromosome.compare(chromo, msa.chromo);
 		if (comp > 0) return Integer.MAX_VALUE;
 		if (comp < 0) return Integer.MIN_VALUE;
 
@@ -190,6 +190,9 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		return transcriptId + "_" + chromo + ":" + start + "-" + end;
 	}
 
+	/**
+	 * Number of sequences (i.e. number of species aligned)
+	 */
 	public int getNumSeqs() {
 		return align.length;
 	}
@@ -207,6 +210,9 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		return new String(row);
 	}
 
+	/**
+	 * Sequence length (i.e. number of columns)
+	 */
 	public int getSeqLen() {
 		return align[0].length;
 	}
@@ -265,6 +271,9 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		return !strandNegative;
 	}
 
+	/**
+	 * Length = Sequence length (i.e. number of columns)
+	 */
 	public int length() {
 		return getSeqLen();
 	}
@@ -323,6 +332,9 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		this.strandNegative = strandNegative;
 	}
 
+	/**
+	 * Size = Number of sequences (i.e. number of species aligned)
+	 */
 	public int size() {
 		return getNumSeqs();
 	}

@@ -2,6 +2,8 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
@@ -27,7 +29,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	public final int MIN_SECOND_TOP_BASE_COUNT = 5;
 
 	ArrayList<MultipleSequenceAlignment> msas;
-	AutoHashMap<String, List<MultipleSequenceAlignment>> msasById;
+	AutoHashMap<String, List<MultipleSequenceAlignment>> msasByTrId;
+	HashMap<String, MultipleSequenceAlignment> msaById;
 	int numAligns;
 	String sequenceAlignmentFile;
 	String species[];
@@ -37,7 +40,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		this.sequenceAlignmentFile = sequenceAlignmentFile;
 		species = new String[numAligns];
 		msas = new ArrayList<MultipleSequenceAlignment>();
-		msasById = new AutoHashMap<String, List<MultipleSequenceAlignment>>(new ArrayList<MultipleSequenceAlignment>());
+		msasByTrId = new AutoHashMap<String, List<MultipleSequenceAlignment>>(new ArrayList<MultipleSequenceAlignment>());
+		msaById = new HashMap<String, MultipleSequenceAlignment>();
 	}
 
 	public void calcSkip() {
@@ -67,14 +71,61 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 	/**
 	 * Count number of transitions between two sequences
-	 * @param seqNum1
-	 * @param seqNum2
-	 * @return
 	 */
 	public int[][] countTransitions(int seqNum1, int seqNum2) {
 		int counts[][] = new int[GprSeq.AMINO_ACIDS.length][GprSeq.AMINO_ACIDS.length];
 		forEach(m -> m.countTransitions(seqNum1, seqNum2, counts));
 		return counts;
+	}
+
+	/**
+	 * Return '2 * numBases + 1' string representing the column sequences
+	 * at position msaId:pos and the surrounding 'numBases' columns
+	 */
+	public String[] findColSequences(String msaId, int pos, int numBases) {
+		if (numBases < 1) throw new RuntimeException("Number of bases should be at least one.");
+
+		// Initialize
+		String seqs[] = new String[2 * pos + 1];
+
+		// Find positions 'pos' and after
+		MultipleSequenceAlignment msa = getMsa(msaId);
+		int maxj = 2 * numBases + 1;
+		for (int i = pos, j = numBases; j < maxj; i++, j++) {
+			if (i >= msa.length()) {
+				msa = msaTranscriptNext(msa);
+				if (msa == null) break;
+				i = 0;
+			}
+			seqs[j] = msa.getColumnString(i);
+		}
+
+		// Find positions before 'pos' 
+		msa = getMsa(msaId);
+		for (int i = pos - 1, j = numBases - 1; j >= 0; i--, j--) {
+			if (i < 0) {
+				msa = msaTranscriptPrev(msa);
+				if (msa == null) break;
+				i = msa.length() - 1;
+			}
+			seqs[j] = msa.getColumnString(i);
+		}
+
+		return seqs;
+	}
+
+	/**
+	 * Obtain next MSA (for the same transcript)
+	 */
+	MultipleSequenceAlignment msaTranscriptNext(MultipleSequenceAlignment msa) {
+		return null;
+	}
+
+	/**
+	 * Obtain previous MSA (for the same transcript)
+	 */
+	MultipleSequenceAlignment msaTranscriptPrev(MultipleSequenceAlignment msa) {
+		return null;
 	}
 
 	/**
@@ -85,7 +136,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 */
 	public String findRowSequence(String trid, String chr) {
 		// Find all MSA
-		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
+		List<MultipleSequenceAlignment> msaList = msasByTrId.get(trid);
 		if (msaList == null) return null;
 
 		// Get all msas for this 'trid'
@@ -109,32 +160,16 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		return sb.toString();
 	}
 
-	/**
-	 * Return '2 * numBases + 1' strig representing the column sequences 
-	 * at position msaId:pos and the surrounding 'numBases' columns
-	 */
-	public String[] findColSequences(String msaId, int pos, int numBases) {
-		if (numBases < 1) throw new RuntimeException("Number of bases should be at least one.");
-
-		String seqs[] = new String[2 * pos + 1];
-		for (int i = pos - numBases, j = 0; i > (pos + numBases); i++, j++) {
-			// TODO: Make sure 'pos' lies within msaID
-			//       Otherwise get previous / next MSA (for the same transcript)
-			seqs[j] = findColSequence(msaId, pos);
-		}
-		return seqs;
-	}
-
-	public String findColSequence(String msaId, int pos) {
-		throw new RuntimeException("Unimplemented!");
+	public MultipleSequenceAlignment getMsa(String msaId) {
+		return msaById.get(msaId);
 	}
 
 	public ArrayList<MultipleSequenceAlignment> getMsas() {
 		return msas;
 	}
 
-	public List<MultipleSequenceAlignment> getMsas(String trid) {
-		return msasById.get(trid);
+	public List<MultipleSequenceAlignment> getMsas(String trId) {
+		return msasByTrId.get(trId);
 	}
 
 	public int getNumAligns() {
@@ -227,7 +262,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 			if (msa != null) {
 				msas.add(msa);
-				msasById.getOrCreate(msa.getTranscriptId()).add(msa);
+				msasByTrId.getOrCreate(msa.getTranscriptId()).add(msa);
+				msaById.put(msa.getId(), msa);
 				if (verbose) System.out.println(msa.getId());
 			}
 
@@ -235,6 +271,9 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			String emptyLine = lif.next();
 			if (emptyLine != null && !emptyLine.isEmpty()) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting an empty line!");
 		}
+
+		// Sort lists
+		sortTranscriptLists();
 
 		Timer.showStdErr("Done. Total number of alignments: " + msas.size());
 	}
@@ -248,6 +287,20 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 	public int size() {
 		return msas.size();
+	}
+
+	/**
+	 * Get all transcript lists sorted by strand
+	 */
+	void sortTranscriptLists() {
+		for (List<MultipleSequenceAlignment> l : msasByTrId.values()) {
+			if (l.isEmpty()) continue;
+			MultipleSequenceAlignment msa = l.get(0); // First msa in the list
+
+			// Sort by strand
+			if (msa.isStrandPositive()) Collections.sort(l);
+			else Collections.sort(l, Comparator.reverseOrder());
+		}
 	}
 
 }
