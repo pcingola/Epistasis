@@ -41,8 +41,6 @@ public class Epistasis implements CommandLine {
 
 	public Epistasis(String[] args) {
 		this.args = args;
-		// genome = debug ? "testHg19Chr1" : "hg19";
-		// configFile = Gpr.HOME + "/snpEff/" + Config.DEFAULT_CONFIG_FILE;
 	}
 
 	@Override

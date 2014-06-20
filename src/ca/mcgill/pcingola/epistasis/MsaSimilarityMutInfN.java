@@ -2,10 +2,11 @@ package ca.mcgill.pcingola.epistasis;
 
 import gnu.trove.map.hash.TLongShortHashMap;
 import gnu.trove.procedure.TLongShortProcedure;
+import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
  * Calculate Mutual Information
- * 
+ *
  * @author pcingola
  */
 class MICalc {
@@ -75,15 +76,17 @@ class MICalc {
 
 /**
  * Implement a 'similarity' by mutual information using N bases around the target
- * 
+ *
  * @author pcingola
  */
 public class MsaSimilarityMutInfN extends MsaSimilarity {
 
 	public MsaSimilarityMutInfN(MultipleSequenceAlignmentSet msas, int numBases) {
 		super(msas);
-		maxScore = 5.0;
 		this.numBases = numBases;
+		double n = GprSeq.AMINO_ACIDS.length;
+		double p = Math.pow(1.0 / n, numBases);
+		maxScore = -Math.log(p) / Math.log(2.0); // Maximum possible entropy
 	}
 
 	/**
@@ -124,6 +127,11 @@ public class MsaSimilarityMutInfN extends MsaSimilarity {
 		// Results
 		incScore(mutInf);
 		if (mutInf > threshold) return mutInf;
+		return Double.NaN;
+	}
+
+	public double calc(String trId1, String trId2, int pos1, int pos2) {
+
 		return Double.NaN;
 	}
 }

@@ -8,8 +8,6 @@ import java.util.Random;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
-import ca.mcgill.mcb.pcingola.interval.Exon;
-import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -80,39 +78,12 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	}
 
 	/**
-	 * Find a multiple sequence alignment
+	 * Find a row sequence
+	 * @param trid : Transcript ID
+	 * @param chr : Chromosome name (to check that matches the MSA). It can be null, in which case, checking is skipped.
+	 * @return
 	 */
-	public Triplet<String, String, Integer> findColumnSequence(Transcript tr, String trid, int pos) {
-		// Find all MSA
-		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
-		if (msaList == null) return null;
-
-		// Check all MSA
-		for (MultipleSequenceAlignment msa : msaList) {
-			// Different chromosome or position? Skip
-			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
-			if (pos < msa.getStart() || msa.getEnd() < pos) continue;
-
-			// Find exon
-			Exon exon = tr.findExon(pos);
-			if (exon == null) {
-				Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
-				return null;
-			}
-
-			// Find index
-			int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
-			int idxAa = idxBase / 3;
-			if (exon.getFrame() == 1) idxAa++; // If exon frame is 1, the MSA has one additional AA (from the previous exon). I don't know why they do it this way...
-
-			// Return column sequence
-			return new Triplet<String, String, Integer>(msa.getColumnString(idxAa), msa.getId(), idxAa);
-		}
-
-		return null;
-	}
-
-	public String findRowSequence(Transcript tr, String trid) {
+	public String findRowSequence(String trid, String chr) {
 		// Find all MSA
 		List<MultipleSequenceAlignment> msaList = msasById.get(trid);
 		if (msaList == null) return null;
@@ -122,7 +93,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		boolean reverse = false;
 		for (MultipleSequenceAlignment msa : msaList) {
 			// Different chromosome or position? Skip
-			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
+			if (chr != null && !msa.getChromo().equals(chr)) continue;
 			msasTr.add(msa);
 			reverse |= msa.isStrandNegative();
 		}
@@ -136,6 +107,26 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			sb.append(msa.getRowString(0));
 
 		return sb.toString();
+	}
+
+	/**
+	 * Return '2 * numBases + 1' strig representing the column sequences 
+	 * at position msaId:pos and the surrounding 'numBases' columns
+	 */
+	public String[] findColSequences(String msaId, int pos, int numBases) {
+		if (numBases < 1) throw new RuntimeException("Number of bases should be at least one.");
+
+		String seqs[] = new String[2 * pos + 1];
+		for (int i = pos - numBases, j = 0; i > (pos + numBases); i++, j++) {
+			// TODO: Make sure 'pos' lies within msaID
+			//       Otherwise get previous / next MSA (for the same transcript)
+			seqs[j] = findColSequence(msaId, pos);
+		}
+		return seqs;
+	}
+
+	public String findColSequence(String msaId, int pos) {
+		throw new RuntimeException("Unimplemented!");
 	}
 
 	public ArrayList<MultipleSequenceAlignment> getMsas() {

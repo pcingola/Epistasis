@@ -24,6 +24,7 @@ import ca.mcgill.mcb.pcingola.interval.NextProt;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 
@@ -80,7 +81,7 @@ public class PdbGenome extends SnpEff {
 
 		// Get protein sequences
 		String proteinTr = removeAaStop(tr.protein());
-		String proteinMsa = removeAaStop(msas.findRowSequence(tr, trid));
+		String proteinMsa = removeAaStop(msas.findRowSequence(trid, tr.getChromosomeName()));
 
 		if (!proteinTr.isEmpty() && proteinMsa != null) {
 			boolean match = proteinTr.equals(proteinMsa);
@@ -226,6 +227,41 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
+	 * Find a multiple sequence alignment
+	 */
+	public Triplet<String, String, Integer> findColumnSequence(String trid, int pos) {
+		// Find all MSA
+		List<MultipleSequenceAlignment> msaList = msas.getMsas(trid);
+		if (msaList == null) return null;
+
+		Transcript tr = trancriptById.get(trid);
+
+		// Check all MSA
+		for (MultipleSequenceAlignment msa : msaList) {
+			// Different chromosome or position? Skip
+			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
+			if (pos < msa.getStart() || msa.getEnd() < pos) continue;
+
+			// Find exon
+			Exon exon = tr.findExon(pos);
+			if (exon == null) {
+				Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
+				return null;
+			}
+
+			// Find index
+			int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
+			int idxAa = idxBase / 3;
+			if (exon.getFrame() == 1) idxAa++; // If exon frame is 1, the MSA has one additional AA (from the previous exon). I don't know why they do it this way...
+
+			// Return column sequence
+			return new Triplet<String, String, Integer>(msa.getColumnString(idxAa), msa.getId(), idxAa);
+		}
+
+		return null;
+	}
+
+	/**
 	 * Load all data
 	 */
 	void initialize() {
@@ -299,8 +335,8 @@ public class PdbGenome extends SnpEff {
 			int pos2 = aa2pos[dres.aaPos2];
 
 			// Find sequences
-			Triplet<String, String, Integer> res1 = msas.findColumnSequence(tr, trid, pos1);
-			Triplet<String, String, Integer> res2 = msas.findColumnSequence(tr, trid, pos2);
+			Triplet<String, String, Integer> res1 = findColumnSequence(trid, pos1);
+			Triplet<String, String, Integer> res2 = findColumnSequence(trid, pos2);
 
 			// Both sequences are available?
 			if ((res1 != null) && (res2 != null)) {
