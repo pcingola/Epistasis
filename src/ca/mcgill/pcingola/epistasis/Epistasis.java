@@ -61,6 +61,7 @@ public class Epistasis implements CommandLine {
 			char base = seq.charAt(i);
 			if (base == '-') continue;
 			if (prevBase != '-' && prevBase != base) return false;
+			prevBase = base;
 		}
 		return true;
 	}
