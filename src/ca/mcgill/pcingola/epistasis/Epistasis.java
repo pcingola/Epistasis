@@ -537,12 +537,6 @@ public class Epistasis implements CommandLine {
 				.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, n), msas.findColSequences(d.msa2, d.msaIdx2, n))) //
 				.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
 				.peek(d -> conserved.inc()) //
-		//				.forEach(p -> System.out.println( //
-		//						(p.getFirst() == null ? "" : "\n\t" + p.getFirst()[0] + "\n\t" + p.getFirst()[1] + "\n\t" + p.getFirst()[2]) //
-		//								+ "\n" //
-		//								+ (p.getSecond() == null ? "" : "\n\t" + p.getSecond()[0] + "\n\t" + p.getSecond()[1] + "\n\t" + p.getSecond()[2]) //
-		//						) //
-		//				) //
 		;
 
 	}

@@ -1,78 +1,10 @@
 package ca.mcgill.pcingola.epistasis;
 
-import gnu.trove.map.hash.TLongShortHashMap;
-import gnu.trove.procedure.TLongShortProcedure;
+import java.util.List;
+
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
-
-/**
- * Calculate Mutual Information
- *
- * @author pcingola
- */
-class MICalc {
-
-	public static final double LOG_2 = Math.log(2.0);
-	final short ONE = 1;
-
-	int count = 0;
-	int num, rot;
-	double mi;
-	TLongShortHashMap countIJ = new TLongShortHashMap();
-	TLongShortHashMap countI = new TLongShortHashMap();
-	TLongShortHashMap countJ = new TLongShortHashMap();
-
-	public MICalc(int num) {
-		this.num = num;
-		rot = MultipleSequenceAlignment.ROTATE_BITS * num;
-	}
-
-	void inc(long basesI, long basesJ) {
-		long basesIJ = (basesI << rot) | basesJ;
-
-		countI.adjustOrPutValue(basesI, ONE, ONE);
-		countJ.adjustOrPutValue(basesJ, ONE, ONE);
-		countIJ.adjustOrPutValue(basesIJ, ONE, ONE);
-		count++;
-	}
-
-	double mi() {
-		if (count <= 0) return 0.0;
-		mi = 0.0;
-
-		countI.forEachEntry(new TLongShortProcedure() {
-
-			@Override
-			public boolean execute(long basesI, short countBasesI) {
-				if (countBasesI <= 0) return true; // Nothing to do
-
-				countJ.forEachEntry(new TLongShortProcedure() {
-
-					@Override
-					public boolean execute(long basesJ, short countBasesJ) {
-						if (countBasesJ == 0) return true; // Nothing to do
-
-						long basesIJ = (basesI << rot) | basesJ;
-						int countBasesIJ = countIJ.get(basesIJ);
-
-						if (countBasesIJ == 0) return true; // Nothing to do
-						// System.err.println("basesI: " + basesI + "\tcountBasesI: " + countBasesI + "\tbasesJ: " + basesJ + "\tcountBasesJ: " + countBasesJ + "\tcountBasesIJ: " + countBasesIJ);
-
-						double pij = ((double) countBasesIJ) / (count);
-						double pi = ((double) countBasesI) / (count);
-						double pj = ((double) countBasesJ) / (count);
-						mi += pij * Math.log(pij / (pi * pj)) / LOG_2;
-
-						return true;
-					}
-				});
-
-				return true;
-			}
-		});
-
-		return mi;
-	}
-}
+import ca.mcgill.pcingola.epistasis.entropy.Entropy;
 
 /**
  * Implement a 'similarity' by mutual information using N bases around the target
@@ -90,48 +22,89 @@ public class MsaSimilarityMutInfN extends MsaSimilarity {
 	}
 
 	/**
-	 * Measure similarity: Correlation between two loci
+	 * Calculate one sample of a random distribution
 	 */
 	@Override
-	public double calc(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
-		// Sanity check
-		if ((posi + numBases) >= msai.getSeqLen()) return Double.NaN;
-		if ((posj + numBases) >= msaj.getSeqLen()) return Double.NaN;
+	void backgroundDistribution() {
+		while (true) {
+			// Select one MSA and position randomly
+			MultipleSequenceAlignment msai = msas.rand(random);
+			int posi = msai.randomColumnNumber(random);
+			if (msai.isSkip(posi)) continue;
 
-		int numAligns = msas.getNumAligns();
+			// Select another MSA and position randomly
+			String trId = msai.getTranscriptId();
+			List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
+			MultipleSequenceAlignment msaj = msasTr.get(random.nextInt(msasTr.size()));
+			int posj = msaj.randomColumnNumber(random);
+			if (msaj.isSkip(posj)) continue;
 
-		//---
-		// Initialize counters
-		//---
-		MICalc miCalc = new MICalc(numBases);
+			// Same MSA and position? Find another random
+			if (posi == posj && msai.getId().equals(msaj.getId())) continue;
 
-		//---
-		// Count matching bases
-		//---
-		for (int i = 0; i < numAligns; i++) {
-			long basesI = msai.getCodeLong(i, posi, numBases);
-			if (basesI == ALIGN_GAP) continue;
-
-			long basesJ = msaj.getCodeInt(i, posj, numBases);
-			if (basesJ == ALIGN_GAP) continue;
-
-			// Count
-			miCalc.inc(basesI, basesJ);
+			// Calculate
+			double calc = calc(msai.getId(), msaj.getId(), posi, posj);
+			if (debug) System.err.println(calc + "\t" + showSeqs(msai, msaj, posi, posj));
+			else if (verbose) System.out.printf("%.6e\n", calc);
+			else Gpr.showMark(count++, SHOW_EVERY);
+			return;
 		}
-
-		// Only a few organisms align? Filter out
-		if (miCalc.count < minCount) return Double.NaN;
-
-		double mutInf = miCalc.mi();
-
-		// Results
-		incScore(mutInf);
-		if (mutInf > threshold) return mutInf;
-		return Double.NaN;
 	}
 
-	public double calc(String trId1, String trId2, int pos1, int pos2) {
-
-		return Double.NaN;
+	@Override
+	public double calc(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
+		throw new RuntimeException("Do not use this calc method!");
 	}
+
+	public double calc(String msaiId, String msajId, int posi, int posj) {
+		// Find column sequences
+		String seqsi[] = msas.findColSequences(msaiId, posi, numBases);
+		String seqsj[] = msas.findColSequences(msajId, posj, numBases);
+
+		Entropy entropy = new Entropy(numBases);
+
+		return 0;
+	}
+
+	//	/**
+	//	 * Measure similarity: Correlation between two loci
+	//	 */
+	//	@Override
+	//	public double calc(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
+	//		// Sanity check
+	//		if ((posi + numBases) >= msai.getSeqLen()) return Double.NaN;
+	//		if ((posj + numBases) >= msaj.getSeqLen()) return Double.NaN;
+	//
+	//		int numAligns = msas.getNumAligns();
+	//
+	//		//---
+	//		// Initialize counters
+	//		//---
+	//		Entropy entropy = new Entropy(numBases);
+	//
+	//		//---
+	//		// Count matching bases
+	//		//---
+	//		for (int i = 0; i < numAligns; i++) {
+	//			long basesI = msai.getCodeLong(i, posi, numBases);
+	//			if (basesI == ALIGN_GAP) continue;
+	//
+	//			long basesJ = msaj.getCodeInt(i, posj, numBases);
+	//			if (basesJ == ALIGN_GAP) continue;
+	//
+	//			// Count
+	//			entropy.inc(basesI, basesJ);
+	//		}
+	//
+	//		// Only a few organisms align? Filter out
+	//		if (entropy.getCount() < minCount) return Double.NaN;
+	//
+	//		double mutInf = entropy.mi();
+	//
+	//		// Results
+	//		incScore(mutInf);
+	//		if (mutInf > threshold) return mutInf;
+	//		return Double.NaN;
+	//	}
+
 }
