@@ -2,9 +2,11 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
+import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.entropy.Entropy;
@@ -157,6 +159,12 @@ public class Epistasis implements CommandLine {
 			if (numBases <= 0) usage("number of bases must be positive number");
 			if (numSamples <= 0) usage("number of samples must be positive number");
 			runBackground(type, numBases, numSamples);
+			break;
+
+		case "conservation":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			runConservation();
 			break;
 
 		case "mappdbgenome":
@@ -443,7 +451,7 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Estimate Q matrix from MSA and Phylogenetic-Tree
+	 * Test
 	 */
 	void runTest() {
 		load();
@@ -455,6 +463,28 @@ public class Epistasis implements CommandLine {
 				.forEach(s -> System.out.println(s == null ? "" : "\n\t" + s[0] + "\n\t" + s[1] + "\n\t" + s[2])) //
 		;
 
+	}
+
+	/**
+	 * Conservation statistics
+	 */
+	void runConservation() {
+		load();
+
+		Counter total = new Counter();
+		Counter conserved = new Counter();
+
+		msas.getMsas().stream() //
+				.peek(msa -> System.out.println(msa.getId())) //
+				.forEach(msa -> IntStream.range(0, msa.length()) //
+						.peek(i -> total.inc()) //
+						.filter(i -> msa.isFullyConserved(i)) //
+						.forEach(i -> conserved.inc()) //
+				);
+
+		System.out.println("\n----------------------");
+		System.out.println("Conserved : " + conserved + "\t" + (100.0 * conserved.get()) / total.get() + " %");
+		System.out.println("Total     : " + total);
 	}
 
 	/**
@@ -497,6 +527,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'aaContactStats' : " + this.getClass().getSimpleName() + " aaContactStats type aa_contact.nextprot.txt ");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'background'     : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
+		System.err.println("Command 'conservation'   : " + this.getClass().getSimpleName() + " conservation phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");

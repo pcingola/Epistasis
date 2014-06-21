@@ -117,7 +117,7 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		int gaps = 0;
 		for (int i = 0; i < getNumSeqs(); i++) {
 			byte base = getCode(i, pos);
-			if (base == GprSeq.GAP_CODE) gaps++;
+			if (base < 0) gaps++;
 		}
 		return ((double) gaps) / ((double) getNumSeqs());
 	}
@@ -235,7 +235,7 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		for (int i = 0; i < getNumSeqs(); i++) {
 			byte base = getCode(i, pos);
 			if (base < 0) continue;
-			if (prevBase != base && prevBase != ' ') return false;
+			if (prevBase != base && prevBase >= 0) return false;
 			prevBase = base;
 		}
 
@@ -257,7 +257,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 		if (getCode(0, pos) < 0) skipThis = true; // Is it a GAP in the first alignment (human). Skip, because we only care about human
 		if (!skipThis) skipThis = (gapPercent(pos) >= MAX_GAP_PERCENT);
 		if (!skipThis) skipThis = isFullyConserved(pos);
-		if (!skipThis) skipThis = (secondMostCommonBaseCount(pos) <= 1);
 		skip[pos] = skipThis;
 
 		return skip[pos];
@@ -283,30 +282,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 */
 	public int randomColumnNumber(Random random) {
 		return random.nextInt(getSeqLen());
-	}
-
-	/**
-	 * What is the count for the second most common base
-	 * @param pos
-	 * @return
-	 */
-	public int secondMostCommonBaseCount(int pos) {
-		int count[] = new int[256];
-		for (int i = 0; i < count.length; i++)
-			count[i] = 0;
-
-		for (int i = 0; i < getNumSeqs(); i++) {
-			byte base = getCode(i, pos);
-			if (base >= 0) count[base]++;
-		}
-
-		int max = 0, second = 0;
-		for (int i = 0; i < count.length; i++) {
-			if (count[i] > max) max = count[i];
-			else if (count[i] > second) second = count[i];
-		}
-
-		return second;
 	}
 
 	/**
