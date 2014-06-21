@@ -69,8 +69,15 @@ public class Epistasis implements CommandLine {
 	 * Are all sequences fully conserved?
 	 */
 	boolean isFullyConserved(String[] seqs) {
-		for (int i = 0; i < seqs.length; i++)
-			if (seqs[i] != null && !isFullyConserved(seqs[i])) return false;
+		System.out.println("");
+		for (int i = 0; i < seqs.length; i++) {
+			System.out.println("\t\t" + seqs[i]);
+			if (seqs[i] != null && !isFullyConserved(seqs[i])) {
+				System.out.println("\t\tFALSE");
+				return false;
+			}
+		}
+		System.out.println("\t\tTRUE");
 		return true;
 	}
 
@@ -445,6 +452,7 @@ public class Epistasis implements CommandLine {
 		// N bases
 		System.out.println("Window\tTotal_bases\tConserved\tConserved%");
 		for (int n = 1; n < 10; n++) {
+			System.out.println("Bases: " + n);
 			int num = n;
 			Counter total = new Counter();
 			Counter conserved = new Counter();
@@ -463,7 +471,10 @@ public class Epistasis implements CommandLine {
 			Counter conservedIc = new Counter();
 			aaContacts.stream() //
 					.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
-					.peek(d -> totalIc.inc()) //
+					.peek(d -> {
+						System.out.println("\t" + d);
+						totalIc.inc();
+					}) //
 					.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
 					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
 					.forEach(d -> conservedIc.inc()) //
