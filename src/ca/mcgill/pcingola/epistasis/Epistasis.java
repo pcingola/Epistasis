@@ -411,6 +411,32 @@ public class Epistasis implements CommandLine {
 		//	}
 	}
 
+	/**
+	 * Conservation statistics
+	 */
+	void runConservation() {
+		load();
+
+		// N bases
+		System.out.println("Window\tTotal_bases\tConserved\tConserved%");
+		for (int n = 1; n < 10; n++) {
+			int num = n;
+			Counter total = new Counter();
+			Counter conserved = new Counter();
+
+			msas.getMsas().stream() //
+					.filter(msa -> msa.length() > num) //
+					.forEach(msa -> IntStream.range(0, msa.length() - num) //
+							.peek(i -> total.inc()) //
+							.filter(i -> msa.isFullyConserved(i, num)) //
+							.forEach(i -> conserved.inc()) //
+					);
+
+			System.out.println(num + "\t" + total + "\t" + conserved + "\t" + (100.0 * conserved.get()) / total.get() + " %");
+		}
+
+	}
+
 	void runMapPdbGenome() {
 		load();
 		pdbGenome.checkSequencePdbTr();
@@ -463,28 +489,6 @@ public class Epistasis implements CommandLine {
 				.forEach(s -> System.out.println(s == null ? "" : "\n\t" + s[0] + "\n\t" + s[1] + "\n\t" + s[2])) //
 		;
 
-	}
-
-	/**
-	 * Conservation statistics
-	 */
-	void runConservation() {
-		load();
-
-		Counter total = new Counter();
-		Counter conserved = new Counter();
-
-		msas.getMsas().stream() //
-				.peek(msa -> System.out.println(msa.getId())) //
-				.forEach(msa -> IntStream.range(0, msa.length()) //
-						.peek(i -> total.inc()) //
-						.filter(i -> msa.isFullyConserved(i)) //
-						.forEach(i -> conserved.inc()) //
-				);
-
-		System.out.println("\n----------------------");
-		System.out.println("Conserved : " + conserved + "\t" + (100.0 * conserved.get()) / total.get() + " %");
-		System.out.println("Total     : " + total);
 	}
 
 	/**

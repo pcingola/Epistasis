@@ -227,8 +227,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	/**
 	 * Is position 'pos' fully conserved?
-	 * @param pos
-	 * @return
 	 */
 	public boolean isFullyConserved(int pos) {
 		byte prevBase = -1;
@@ -239,6 +237,15 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 			prevBase = base;
 		}
 
+		return true;
+	}
+
+	/**
+	 * Are the 'n' bases at position 'pos' fully conserved?
+	 */
+	public boolean isFullyConserved(int pos, int n) {
+		for (int i = pos; i < (pos + n); i++)
+			if (!isFullyConserved(i)) return false;
 		return true;
 	}
 
