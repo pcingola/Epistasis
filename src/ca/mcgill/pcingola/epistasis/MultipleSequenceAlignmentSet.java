@@ -86,7 +86,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		if (numBases < 1) throw new RuntimeException("Number of bases should be at least one.");
 
 		// Initialize
-		String seqs[] = new String[2 * pos + 1];
+		String seqs[] = new String[2 * numBases + 1];
 
 		// Find positions 'pos' and after
 		MultipleSequenceAlignment msa = getMsa(msaId);
@@ -100,7 +100,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			seqs[j] = msa.getColumnString(i);
 		}
 
-		// Find positions before 'pos' 
+		// Find positions before 'pos'
 		msa = getMsa(msaId);
 		for (int i = pos - 1, j = numBases - 1; j >= 0; i--, j--) {
 			if (i < 0) {
@@ -112,20 +112,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		}
 
 		return seqs;
-	}
-
-	/**
-	 * Obtain next MSA (for the same transcript)
-	 */
-	MultipleSequenceAlignment msaTranscriptNext(MultipleSequenceAlignment msa) {
-		return null;
-	}
-
-	/**
-	 * Obtain previous MSA (for the same transcript)
-	 */
-	MultipleSequenceAlignment msaTranscriptPrev(MultipleSequenceAlignment msa) {
-		return null;
 	}
 
 	/**
@@ -276,6 +262,20 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		sortTranscriptLists();
 
 		Timer.showStdErr("Done. Total number of alignments: " + msas.size());
+	}
+
+	/**
+	 * Obtain next MSA (for the same transcript)
+	 */
+	MultipleSequenceAlignment msaTranscriptNext(MultipleSequenceAlignment msa) {
+		return null;
+	}
+
+	/**
+	 * Obtain previous MSA (for the same transcript)
+	 */
+	MultipleSequenceAlignment msaTranscriptPrev(MultipleSequenceAlignment msa) {
+		return null;
 	}
 
 	/**

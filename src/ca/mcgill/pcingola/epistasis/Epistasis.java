@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
+import org.apache.commons.math3.util.Pair;
+
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.stats.Counter;
@@ -48,6 +50,28 @@ public class Epistasis implements CommandLine {
 	@Override
 	public String[] getArgs() {
 		return args;
+	}
+
+	/**
+	 * Is this sequence fully conserved?
+	 */
+	boolean isFullyConserved(String seq) {
+		char prevBase = '-';
+		for (int i = 0; i < seq.length(); i++) {
+			char base = seq.charAt(i);
+			if (base == '-') continue;
+			if (prevBase != '-' && prevBase != base) return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Are all sequences fully conserved?
+	 */
+	boolean isFullyConserved(String[] seqs) {
+		for (int i = 0; i < seqs.length; i++)
+			if (seqs[i] != null && !isFullyConserved(seqs[i])) return false;
+		return true;
 	}
 
 	/**
@@ -164,6 +188,7 @@ public class Epistasis implements CommandLine {
 		case "conservation":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			aaContactFile = args[argNum++];
 			runConservation();
 			break;
 
@@ -424,6 +449,7 @@ public class Epistasis implements CommandLine {
 			Counter total = new Counter();
 			Counter conserved = new Counter();
 
+			// Count for all MSAs
 			msas.getMsas().stream() //
 					.filter(msa -> msa.length() > num) //
 					.forEach(msa -> IntStream.range(0, msa.length() - num) //
@@ -432,7 +458,24 @@ public class Epistasis implements CommandLine {
 							.forEach(i -> conserved.inc()) //
 					);
 
-			System.out.println(num + "\t" + total + "\t" + conserved + "\t" + (100.0 * conserved.get()) / total.get() + " %");
+			// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact' 
+			Counter totalIc = new Counter();
+			Counter conservedIc = new Counter();
+			aaContacts.stream() //
+					.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
+					.peek(d -> totalIc.inc()) //
+					.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
+					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
+					.forEach(d -> conservedIc.inc()) //
+			;
+
+			System.out.println(num //
+					+ "\t" + total //
+					+ "\t" + conserved //
+					+ "\t" + (100.0 * conserved.get()) / total.get() + " %" //
+					+ "\t" + totalIc //
+					+ "\t" + conservedIc //
+			);
 		}
 
 	}
@@ -482,11 +525,23 @@ public class Epistasis implements CommandLine {
 	void runTest() {
 		load();
 
+		// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact' 
+		Counter total = new Counter();
+		Counter conserved = new Counter();
+		int n = 1; // Number of surrounding columns
 		aaContacts.stream()//
 				.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
-				.peek(d -> System.out.println(d + "\n" + msas.getMsa(d.msa1))) //
-				.map(d -> msas.findColSequences(d.msa1, d.msaIdx1, 1)) //
-				.forEach(s -> System.out.println(s == null ? "" : "\n\t" + s[0] + "\n\t" + s[1] + "\n\t" + s[2])) //
+				.peek(System.out::println) //
+				.peek(d -> total.inc()) //
+				.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, n), msas.findColSequences(d.msa2, d.msaIdx2, n))) //
+				.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
+				.peek(d -> conserved.inc()) //
+		//				.forEach(p -> System.out.println( //
+		//						(p.getFirst() == null ? "" : "\n\t" + p.getFirst()[0] + "\n\t" + p.getFirst()[1] + "\n\t" + p.getFirst()[2]) //
+		//								+ "\n" //
+		//								+ (p.getSecond() == null ? "" : "\n\t" + p.getSecond()[0] + "\n\t" + p.getSecond()[1] + "\n\t" + p.getSecond()[2]) //
+		//						) //
+		//				) //
 		;
 
 	}
