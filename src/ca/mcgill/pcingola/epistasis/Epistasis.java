@@ -70,15 +70,15 @@ public class Epistasis implements CommandLine {
 	 * Are all sequences fully conserved?
 	 */
 	boolean isFullyConserved(String[] seqs) {
-		System.out.println("");
+		if (debug) System.out.println("");
 		for (int i = 0; i < seqs.length; i++) {
-			System.out.println("\t\t" + seqs[i]);
+			if (debug) System.out.println("\t\t" + seqs[i]);
 			if (seqs[i] != null && !isFullyConserved(seqs[i])) {
-				System.out.println("\t\tFALSE");
+				if (debug) System.out.println("\t\tFALSE");
 				return false;
 			}
 		}
-		System.out.println("\t\tTRUE");
+		if (debug) System.out.println("\t\tTRUE");
 		return true;
 	}
 
