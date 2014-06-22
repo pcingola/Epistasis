@@ -637,7 +637,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
 
 		System.err.println("Command 'aaContactStats' : " + this.getClass().getSimpleName() + " aaContactStats type aa_contact.nextprot.txt ");
-		System.err.println("Command 'aaContactStatsN': " + this.getClass().getSimpleName() + " aaContactStatsN number_of_bases phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt");
+		System.err.println("Command 'aaContactStatsN': " + this.getClass().getSimpleName() + " aaContactStatsN type number_of_bases phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'background'     : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'conservation'   : " + this.getClass().getSimpleName() + " conservation phylo.nh multiple_alignment_file.fa");
