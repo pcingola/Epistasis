@@ -7,7 +7,7 @@ import org.junit.Assert;
 import ca.mcgill.pcingola.epistasis.MsaSimilarityMutInf;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
-import ca.mcgill.pcingola.epistasis.entropy.Entropy;
+import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 
 /**
  * Implement a 'similarity' by mutual information and conditional entropy
@@ -24,9 +24,9 @@ public class TestCaseMutualInformation extends TestCase {
 	 * Measure similarity: Correlation between two loci
 	 */
 	public static double z(String coli, String colj) {
-		double hxy = Entropy.entropy(coli, colj);
-		double hcondXY = Entropy.condEntropy(coli, colj);
-		double hcondYX = Entropy.condEntropy(colj, coli);
+		double hxy = EntropySeq.entropy(coli, colj);
+		double hcondXY = EntropySeq.condEntropy(coli, colj);
+		double hcondYX = EntropySeq.condEntropy(colj, coli);
 
 		System.out.println("h(x,y): " + hxy + "\th(x|y): " + hcondXY + "\th(y|x): " + hcondYX);
 		// Results
@@ -41,26 +41,26 @@ public class TestCaseMutualInformation extends TestCase {
 	}
 
 	public void checkEntropy(String colsi[], String colsj[]) {
-		Entropy entropy = new Entropy();
+		EntropySeq entropy = new EntropySeq();
 		entropy.calc(colsi, colsj);
 
 		System.out.println(colsi[0] + "\n" + colsj[0] //
-				+ "\n\tH(X)        = " + Entropy.entropy(colsi[0]) + "\t" + entropy.getHx() //
-				+ "\n\tH(Y)        = " + Entropy.entropy(colsj[0]) + "\t" + entropy.getHy() //
-				+ "\n\tH(X,Y)      = " + Entropy.entropy(colsi[0], colsj[0]) + "\t" + entropy.getHxy() //
-				+ "\n\tH(X|Y)      = " + Entropy.condEntropy(colsi[0], colsj[0]) + "\t" + entropy.getHcondXY() //
-				+ "\n\tH(Y|X)      = " + Entropy.condEntropy(colsj[0], colsi[0]) + "\t" + entropy.getHcondYX() //
-				+ "\n\tMI          = " + Entropy.mutualInformation(colsi[0], colsj[0]) + "\t" + entropy.getMi() //
-				+ "\n\tVarInf(X,Y) = " + Entropy.variationOfInformation(colsj[0], colsi[0]) + "\t" + entropy.getVarInf() //
+				+ "\n\tH(X)        = " + EntropySeq.entropy(colsi[0]) + "\t" + entropy.getHx() //
+				+ "\n\tH(Y)        = " + EntropySeq.entropy(colsj[0]) + "\t" + entropy.getHy() //
+				+ "\n\tH(X,Y)      = " + EntropySeq.entropy(colsi[0], colsj[0]) + "\t" + entropy.getHxy() //
+				+ "\n\tH(X|Y)      = " + EntropySeq.condEntropy(colsi[0], colsj[0]) + "\t" + entropy.getHcondXY() //
+				+ "\n\tH(Y|X)      = " + EntropySeq.condEntropy(colsj[0], colsi[0]) + "\t" + entropy.getHcondYX() //
+				+ "\n\tMI          = " + EntropySeq.mutualInformation(colsi[0], colsj[0]) + "\t" + entropy.getMi() //
+				+ "\n\tVarInf(X,Y) = " + EntropySeq.variationOfInformation(colsj[0], colsi[0]) + "\t" + entropy.getVarInf() //
 				);
 
-		Assert.assertEquals(Entropy.mutualInformation(colsi[0], colsj[0]), entropy.getMi(), 1E-6);
-		Assert.assertEquals(Entropy.entropy(colsi[0]), entropy.getHx(), 1E-6);
-		Assert.assertEquals(Entropy.entropy(colsj[0]), entropy.getHy(), 1E-6);
-		Assert.assertEquals(Entropy.entropy(colsi[0], colsj[0]), entropy.getHxy(), 1E-6);
-		Assert.assertEquals(Entropy.condEntropy(colsi[0], colsj[0]), entropy.getHcondXY(), 1E-6);
-		Assert.assertEquals(Entropy.condEntropy(colsj[0], colsi[0]), entropy.getHcondYX(), 1E-6);
-		Assert.assertEquals(Entropy.variationOfInformation(colsj[0], colsi[0]), entropy.getVarInf(), 1E-6);
+		Assert.assertEquals(EntropySeq.mutualInformation(colsi[0], colsj[0]), entropy.getMi(), 1E-6);
+		Assert.assertEquals(EntropySeq.entropy(colsi[0]), entropy.getHx(), 1E-6);
+		Assert.assertEquals(EntropySeq.entropy(colsj[0]), entropy.getHy(), 1E-6);
+		Assert.assertEquals(EntropySeq.entropy(colsi[0], colsj[0]), entropy.getHxy(), 1E-6);
+		Assert.assertEquals(EntropySeq.condEntropy(colsi[0], colsj[0]), entropy.getHcondXY(), 1E-6);
+		Assert.assertEquals(EntropySeq.condEntropy(colsj[0], colsi[0]), entropy.getHcondYX(), 1E-6);
+		Assert.assertEquals(EntropySeq.variationOfInformation(colsj[0], colsi[0]), entropy.getVarInf(), 1E-6);
 	}
 
 	public void checkEntropyMultiple(String seqi, String seqj) {
@@ -74,7 +74,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String coli = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD";
 		String colj = "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL";
 
-		double mi = Entropy.mutualInformation(coli, colj);
+		double mi = EntropySeq.mutualInformation(coli, colj);
 		double hsum = z(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(1.0, mi, 1E-6);
@@ -84,7 +84,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String coli = "AAAAAAAAAAAAAAAAAAAADDDDDDDDDDDDDDDDDDDDCCCCCCCCCCCCCCCCCCCC";
 		String colj = "KKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPPP";
 
-		double mi = Entropy.mutualInformation(coli, colj);
+		double mi = EntropySeq.mutualInformation(coli, colj);
 		double hsum = z(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(1.584962500721156, mi, 1E-6);
@@ -94,7 +94,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String coli = "ARNDCEQGHILKMFPSTWYV";
 		String colj = "RNDCEQGHILKMFPSTWYVA";
 
-		double mi = Entropy.mutualInformation(coli, colj);
+		double mi = EntropySeq.mutualInformation(coli, colj);
 		double hsum = z(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(4.321928094887363, mi, 1E-6);
@@ -104,7 +104,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String coli = "ARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYV";
 		String colj = "RNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVA";
 
-		double mi = Entropy.mutualInformation(coli, colj);
+		double mi = EntropySeq.mutualInformation(coli, colj);
 		double hsum = z(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(4.321928094887363, mi, 1E-6);
@@ -114,7 +114,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String coli = "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDAA";
 		String colj = "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLKK";
 
-		double mi = Entropy.mutualInformation(coli, colj);
+		double mi = EntropySeq.mutualInformation(coli, colj);
 		double hsum = z(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(1.0, mi, 1E-6);
@@ -134,7 +134,7 @@ public class TestCaseMutualInformation extends TestCase {
 				String seqj = msa.getColumnString(j);
 
 				// Calculate MI both ways and compare
-				double mi = Entropy.mutualInformation(seqi, seqj);
+				double mi = EntropySeq.mutualInformation(seqi, seqj);
 				double mi2 = simMi.calc(msa, msa, i, j);
 
 				if (debug) System.out.println("sequences: " + i + " , " + j + "\tmi: " + mi + "\tmi2: " + mi2 + "\n\t" + seqi + "\n\t" + seqj + "\n");

@@ -3,6 +3,7 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.Arrays;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
+import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 
 /**
  * Implement a 'similarity' by conditional entropy
@@ -12,8 +13,10 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
 public class MsaSimilarityCondEntropy extends MsaSimilarity {
 
 	public MsaSimilarityCondEntropy(MultipleSequenceAlignmentSet msas) {
-		super(msas);
-		maxScore = 4.0;
+		super(msas, InformationFunction.HCONDXY);
+		double n = GprSeq.AMINO_ACIDS.length;
+		double p = 1.0 / n;
+		maxScore = -Math.log(p) / Math.log(2.0); // Maximum possible entropy
 	}
 
 	/**

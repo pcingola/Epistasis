@@ -9,11 +9,20 @@ import ca.mcgill.mcb.pcingola.stats.BooleanMutable;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MsaSimilarity;
 
-public class Entropy {
+/**
+ * Entropy and other functions for sequences
+ *
+ * @author pcingola
+ */
+public class EntropySeq {
+
+	public enum InformationFunction {
+		HXY, HCONDXY, MI, VARINF
+	}
 
 	public static final String SEPARATOR = "-";
 	public static boolean debug = false;
-	public static final double LOG_2 = Math.log(2.0);
+	public static final double LOG_2 = Math.log(2.0);;
 
 	/**
 	 * Conditional entropy
@@ -89,6 +98,58 @@ public class Entropy {
 		}
 
 		return condEntropy(codei, codej);
+	}
+
+	/**
+	 * Ratio: number of AA equal the the first / number of non-gap
+	 */
+	public static double conservation(String seq) {
+		if (seq == null || seq.isEmpty()) return 0;
+
+		char fisrt = seq.charAt(0);
+		int countEq = 0, count = 0;
+		for (int i = 1; i < seq.length(); i++) {
+			if (seq.charAt(i) != '-') count++;
+			if (seq.charAt(i) == fisrt) countEq++;
+
+		}
+		return ((double) countEq) / ((double) count);
+	}
+
+	public static double corr(byte codei[], byte codej[]) {
+		int count = 0, sum = 0;
+		int len = codei.length;
+
+		// Count matching bases
+		for (int i = 0; i < len; i++) {
+			byte basei = codei[i];
+			byte basej = codej[i];
+
+			// TODO: Take gaps into account?
+			if ((basei < 0) || (basej < 0)) continue;
+
+			count++;
+			if (basei == basej) sum++;
+		}
+
+		return ((double) sum) / ((double) count);
+	}
+
+	/**
+	 * Correlation between two sequences
+	 */
+	public static double corr(String seqi, String seqj) {
+		// Convert string to byte codes
+		int numAligns = seqi.length();
+		byte codei[] = new byte[numAligns];
+		byte codej[] = new byte[numAligns];
+		for (int i = 0; i < numAligns; i++) {
+			codei[i] = GprSeq.aa2Code(seqi.charAt(i));
+			codej[i] = GprSeq.aa2Code(seqj.charAt(i));
+		}
+
+		return corr(codei, codej);
+
 	}
 
 	/**
@@ -344,7 +405,8 @@ public class Entropy {
 		}
 
 		// Results
-		return hxy - mutInf;
+		double varInf = hxy - mutInf;
+		return varInf >= 0 ? varInf : 0.0;
 	}
 
 	public static double variationOfInformation(String coli, String colj) {
@@ -369,7 +431,7 @@ public class Entropy {
 	TObjectIntHashMap<String> countJ = new TObjectIntHashMap<>();
 	TObjectIntHashMap<String> countIJ = new TObjectIntHashMap<>();
 
-	public Entropy() {
+	public EntropySeq() {
 	}
 
 	/**
@@ -417,6 +479,7 @@ public class Entropy {
 		});
 
 		varInf = hxy - mi;
+		if (varInf < 0) varInf = 0;
 	}
 
 	/**

@@ -4,6 +4,7 @@ import java.util.Arrays;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
+import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 
 /**
  * Implement a 'distance' by variation of information
@@ -13,7 +14,7 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
 public class MsaDistanceVarInf extends MsaSimilarity {
 
 	public MsaDistanceVarInf(MultipleSequenceAlignmentSet msas) {
-		super(msas);
+		super(msas, InformationFunction.VARINF);
 		double n = GprSeq.AMINO_ACIDS.length;
 		double p = 1.0 / n;
 		maxScore = 2.0 * -Math.log(p) / Math.log(2.0); // Twice the maximum entropy?

@@ -11,7 +11,8 @@ import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
-import ca.mcgill.pcingola.epistasis.entropy.Entropy;
+import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
+import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 import ca.mcgill.pcingola.epistasis.phylotree.MaxLikelihoodTm;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
@@ -155,7 +156,7 @@ public class Epistasis implements CommandLine {
 		if (args.length < 1) usage("Missing command");
 		cmd = args[0];
 
-		int argNum = 1;
+		int argNum = 1, numBases, numSamples;
 		String type = "";
 
 		switch (cmd.toLowerCase()) {
@@ -175,25 +176,25 @@ public class Epistasis implements CommandLine {
 			runAaContactStats(type);
 			break;
 
-		case "background":
+		case "aacontactstatsn":
 			type = args[argNum++];
-			int numBases = Gpr.parseIntSafe(args[argNum++]);
-			int numSamples = Gpr.parseIntSafe(args[argNum++]);
+			numBases = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			aaContactFile = args[argNum++];
 			if (numBases <= 0) usage("Number of bases must be positive number");
-			if (numSamples <= 0) usage("Number of samples must be positive number");
-			runBackground(type, numBases, numSamples);
+			runAaContactStatsN(type, numBases);
 			break;
 
-		case "mi":
+		case "background":
+			type = args[argNum++];
 			numBases = Gpr.parseIntSafe(args[argNum++]);
 			numSamples = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			if (numBases <= 0) usage("Number of bases must be positive number");
 			if (numSamples <= 0) usage("Number of samples must be positive number");
-			runMi(numBases, numSamples);
+			runBackground(type, numBases, numSamples);
 			break;
 
 		case "conservation":
@@ -303,15 +304,15 @@ public class Epistasis implements CommandLine {
 				.forEach( //
 						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
 								, d //
-								, Entropy.mutualInformation(d.aaSeq1, d.aaSeq2) //
-								, Entropy.entropy(d.aaSeq1, d.aaSeq2) //
-								, Entropy.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-								, Entropy.condEntropy(d.aaSeq1, d.aaSeq2) //
-								, Entropy.condEntropy(d.aaSeq2, d.aaSeq1) //
-								, Entropy.entropy(d.aaSeq1) //
-								, Entropy.entropy(d.aaSeq2) //
-								, MsaSimilarity.conservation(d.aaSeq1) //
-								, MsaSimilarity.conservation(d.aaSeq2) //
+								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+								, EntropySeq.entropy(d.aaSeq1) //
+								, EntropySeq.entropy(d.aaSeq2) //
+								, EntropySeq.conservation(d.aaSeq1) //
+								, EntropySeq.conservation(d.aaSeq2) //
 								) //
 				);
 
@@ -327,7 +328,7 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAa = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> MsaSimilarity.conservation(d.aaSeq1) < 1.0 && MsaSimilarity.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
 		;
 		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + countFirstAa.toStringSort());
@@ -350,7 +351,7 @@ public class Epistasis implements CommandLine {
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
 				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-				.filter(d -> MsaSimilarity.conservation(d.aaSeq1) < 1.0 && MsaSimilarity.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
 								ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
@@ -359,6 +360,53 @@ public class Epistasis implements CommandLine {
 		;
 		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + countFirstAaAnn.toStringSort());
 
+	}
+
+	/**
+	 * Run Mutual Information
+	 */
+	void runAaContactStatsN(String type, int numBases) {
+		if (numBases <= 0) throw new RuntimeException("Parameter numBases must be positive!");
+
+		// Load
+		load();
+
+		// Select which function to use
+		MsaSimilarity sim = null;
+		switch (type) {
+		case "mi":
+			sim = numBases == 0 ? new MsaSimilarityMutInf(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.MI);
+			break;
+
+		case "varinf":
+			sim = numBases == 0 ? new MsaDistanceVarInf(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.VARINF);
+			break;
+
+		case "hcondxy":
+			sim = numBases == 0 ? new MsaSimilarityCondEntropy(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.HCONDXY);
+			break;
+
+		default:
+			throw new RuntimeException("Unknown type '" + type + "'");
+		}
+
+		// Run
+		Timer.showStdErr("Sort by position");
+		DistanceResults aaContactsUniq = new DistanceResults();
+		aaContacts.stream() //
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
+				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		aaContactsUniq.addMins(); // Move 'best' results from hash to list
+
+		//---
+		// Show MI and conservation
+		//---
+		MsaSimilarity simfin = sim;
+		aaContactsUniq.stream().forEach(d -> System.out.printf("%s\t%.6e\n", d, simfin.calc(d)));
+
+		// Show distribution
+		System.err.println(sim);
 	}
 
 	/**
@@ -393,34 +441,20 @@ public class Epistasis implements CommandLine {
 		MsaSimilarity sim = null;
 		switch (type) {
 		case "mi":
-			sim = new MsaSimilarityMutInf(msas);
+			sim = numBases == 0 ? new MsaSimilarityMutInf(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.MI);
 			break;
 
-		case "miN":
-			sim = new MsaSimilarityMutInfN(msas, numBases);
+		case "varinf":
+			sim = numBases == 0 ? new MsaDistanceVarInf(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.VARINF);
 			break;
 
-		case "varInf":
-			sim = new MsaDistanceVarInf(msas);
+		case "hcondxy":
+			sim = numBases == 0 ? new MsaSimilarityCondEntropy(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.HCONDXY);
 			break;
 
 		default:
 			throw new RuntimeException("Unknown type '" + type + "'");
 		}
-
-		// Run
-		sim.backgroundDistribution(numSamples);
-
-		// Show distribution
-		System.err.println(sim);
-	}
-
-	void runMi(int numBases, int numSamples) {
-		// Load
-		load();
-
-		// Select which function to use
-		MsaSimilarity sim = new MsaSimilarityMutInfN(msas, numBases);
 
 		// Run
 		sim.backgroundDistribution(numSamples);
@@ -483,7 +517,7 @@ public class Epistasis implements CommandLine {
 							.forEach(i -> conserved.inc()) //
 					);
 
-			// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact' 
+			// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact'
 			Counter totalIc = new Counter();
 			Counter conservedIc = new Counter();
 			aaContacts.stream() //
@@ -550,7 +584,7 @@ public class Epistasis implements CommandLine {
 	void runTest() {
 		load();
 
-		// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact' 
+		// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact'
 		Counter total = new Counter();
 		Counter conserved = new Counter();
 		int n = 1; // Number of surrounding columns
@@ -587,10 +621,10 @@ public class Epistasis implements CommandLine {
 	Function<DistanceResult, Double> selectFunction(String type) {
 		switch (type) {
 		case "mi":
-			return d -> Entropy.variationOfInformation(d.aaSeq1, d.aaSeq2);
+			return d -> EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2);
 
 		case "varInf":
-			return d -> Entropy.mutualInformation(d.aaSeq1, d.aaSeq2);
+			return d -> EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2);
 
 		default:
 			throw new RuntimeException("Unknown type '" + type + "'");
@@ -603,6 +637,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
 
 		System.err.println("Command 'aaContactStats' : " + this.getClass().getSimpleName() + " aaContactStats type aa_contact.nextprot.txt ");
+		System.err.println("Command 'aaContactStatsN': " + this.getClass().getSimpleName() + " aaContactStatsN number_of_bases phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'background'     : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'conservation'   : " + this.getClass().getSimpleName() + " conservation phylo.nh multiple_alignment_file.fa");
