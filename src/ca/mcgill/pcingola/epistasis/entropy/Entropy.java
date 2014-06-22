@@ -1,15 +1,17 @@
 package ca.mcgill.pcingola.epistasis.entropy;
 
-import gnu.trove.map.hash.TLongShortHashMap;
-import gnu.trove.procedure.TLongShortProcedure;
+import gnu.trove.map.hash.TObjectIntHashMap;
+import gnu.trove.procedure.TObjectIntProcedure;
 
 import java.util.Arrays;
 
+import ca.mcgill.mcb.pcingola.stats.BooleanMutable;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MsaSimilarity;
 
 public class Entropy {
 
+	public static final String SEPARATOR = "-";
 	public static boolean debug = false;
 	public static final double LOG_2 = Math.log(2.0);
 
@@ -361,65 +363,132 @@ public class Entropy {
 	}
 
 	final short ONE = 1;
-
 	int count = 0;
-	double mi;
-	TLongShortHashMap countIJ = new TLongShortHashMap();
-	TLongShortHashMap countI = new TLongShortHashMap();
-	TLongShortHashMap countJ = new TLongShortHashMap();
+	double mi, varInf, hxy, hx, hy, hcondXY, hcondYX;
+	TObjectIntHashMap<String> countI = new TObjectIntHashMap<>();
+	TObjectIntHashMap<String> countJ = new TObjectIntHashMap<>();
+	TObjectIntHashMap<String> countIJ = new TObjectIntHashMap<>();
 
 	public Entropy() {
+	}
+
+	/**
+	 * Calculate
+	 */
+	protected void calc() {
+		hx = hy = hxy = hcondXY = hcondYX = mi = varInf = 0.0;
+		BooleanMutable firstIteration = new BooleanMutable(true);
+		if (count <= 0) return;
+
+		countI.forEachEntry(new TObjectIntProcedure<String>() {
+
+			@Override
+			public boolean execute(String basesI, int countBasesI) {
+				if (countBasesI <= 0) return true; // Nothing to do
+				double pi = ((double) countBasesI) / (count);
+
+				countJ.forEachEntry(new TObjectIntProcedure<String>() {
+
+					@Override
+					public boolean execute(String basesJ, int countBasesJ) {
+						if (countBasesJ == 0) return true; // Nothing to do
+						double pj = ((double) countBasesJ) / (count);
+						if (firstIteration.is()) hy -= pj * Math.log(pj) / LOG_2;
+
+						String basesIJ = basesI + SEPARATOR + basesJ;
+						int countBasesIJ = countIJ.get(basesIJ);
+						if (countBasesIJ == 0) return true; // Nothing to do
+
+						double pij = ((double) countBasesIJ) / (count);
+						mi += pij * Math.log(pij / (pi * pj)) / LOG_2;
+						hxy -= pij * Math.log(pij) / LOG_2;
+						hcondXY += pij * Math.log(pj / pij) / LOG_2;
+						hcondYX += pij * Math.log(pi / pij) / LOG_2;
+
+						return true;
+					}
+				});
+
+				hx -= pi * Math.log(pi) / LOG_2;
+				firstIteration.setFalse();
+
+				return true;
+			}
+		});
+
+		varInf = hxy - mi;
+	}
+
+	/**
+	 * Calculate using sequences 'seqsi' and 'seqsj'
+	 */
+	public void calc(String[] seqsi, String[] seqsj) {
+		// String length (all are assumed to be equal
+		int len = 0;
+		for (int i = 0; i < seqsi.length; i++)
+			if (seqsi[i] != null) {
+				len = seqsi[i].length();
+				break;
+			}
+
+		// Count each alignment
+		for (int i = 0; i < len; i++) {
+			String basesi = seq(seqsi, i);
+			String basesj = seq(seqsj, i);
+			inc(basesi, basesj);
+		}
+
+		calc();
 	}
 
 	public long getCount() {
 		return count;
 	}
 
-	public void inc(long basesI, long basesJ) {
-		long basesIJ = (basesI << rot) | basesJ;
+	public double getHcondXY() {
+		return hcondXY;
+	}
 
+	public double getHcondYX() {
+		return hcondYX;
+	}
+
+	public double getHx() {
+		return hx;
+	}
+
+	public double getHxy() {
+		return hxy;
+	}
+
+	public double getHy() {
+		return hy;
+	}
+
+	public double getMi() {
+		return mi;
+	}
+
+	public double getVarInf() {
+		return varInf;
+	}
+
+	public void inc(String basesI, String basesJ) {
 		countI.adjustOrPutValue(basesI, ONE, ONE);
 		countJ.adjustOrPutValue(basesJ, ONE, ONE);
-		countIJ.adjustOrPutValue(basesIJ, ONE, ONE);
+		countIJ.adjustOrPutValue(basesI + SEPARATOR + basesJ, ONE, ONE);
 		count++;
 	}
 
-	public double mi() {
-		if (count <= 0) return 0.0;
-		mi = 0.0;
+	/**
+	 * Create a string from bases at position 'idx'
+	 */
+	String seq(String seqs[], int idx) {
+		char bases[] = new char[seqs.length];
+		for (int i = 0; i < seqs.length; i++)
+			bases[i] = seqs[i] != null ? seqs[i].charAt(idx) : ' ';
 
-		countI.forEachEntry(new TLongShortProcedure() {
-
-			@Override
-			public boolean execute(long basesI, short countBasesI) {
-				if (countBasesI <= 0) return true; // Nothing to do
-
-				countJ.forEachEntry(new TLongShortProcedure() {
-
-					@Override
-					public boolean execute(long basesJ, short countBasesJ) {
-						if (countBasesJ == 0) return true; // Nothing to do
-
-						long basesIJ = (basesI << rot) | basesJ;
-						int countBasesIJ = countIJ.get(basesIJ);
-
-						if (countBasesIJ == 0) return true; // Nothing to do
-						// System.err.println("basesI: " + basesI + "\tcountBasesI: " + countBasesI + "\tbasesJ: " + basesJ + "\tcountBasesJ: " + countBasesJ + "\tcountBasesIJ: " + countBasesIJ);
-
-						double pij = ((double) countBasesIJ) / (count);
-						double pi = ((double) countBasesI) / (count);
-						double pj = ((double) countBasesJ) / (count);
-						mi += pij * Math.log(pij / (pi * pj)) / LOG_2;
-
-						return true;
-					}
-				});
-
-				return true;
-			}
-		});
-
-		return mi;
+		return new String(bases);
 	}
 
 }

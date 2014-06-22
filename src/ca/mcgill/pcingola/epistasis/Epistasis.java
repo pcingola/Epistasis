@@ -181,8 +181,8 @@ public class Epistasis implements CommandLine {
 			int numSamples = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
-			if (numBases <= 0) usage("number of bases must be positive number");
-			if (numSamples <= 0) usage("number of samples must be positive number");
+			if (numBases <= 0) usage("Number of bases must be positive number");
+			if (numSamples <= 0) usage("Number of samples must be positive number");
 			runBackground(type, numBases, numSamples);
 			break;
 
