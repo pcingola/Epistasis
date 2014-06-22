@@ -80,13 +80,13 @@ for( string type : ['mi', 'varInf'] ) {
 	# Single base
 	aaStats := "$dir/db/pdb/aa.contact.$type.txt"
 	aaStatsSummary := "$dir/db/pdb/aa.contact.$type.summary.txt"
-	print("\nCalculating MI and conservation:\n\t'$aaStats'\n\t'$aaStatsSummary'\n")
+	print("\nCalculating $type:\n\t'$aaStats'\n\t'$aaStatsSummary'\n")
 	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
 
 	# Three bases
 	aaStats3 := "$dir/db/pdb/aa.contact.$type.3.txt"
 	aaStatsSummary3 := "$dir/db/pdb/aa.contact.$type.3.summary.txt"
-	print("\nCalculating MI and conservation:\n\t'$aaStats'\n\t'$aaStatsSummary'\n")
+	print("\nCalculating $type (3 bases):\n\t'$aaStats3'\n\t'$aaStatsSummary3'\n")
 	task( aaStats3 <- aaNextProt )	sys $cmdEpistasis aaContactStatsN $type 1 $tree $msa $aaNextProt > $aaStats3 2> $aaStatsSummary3
 }
 wait
@@ -102,7 +102,7 @@ for( string type : ['mi', 'varInf'] ) {
 	# Three bases background model
 	bg3 := "$dir/db/pdb/bg.$type.3.summary.txt"
 	bg3Details := "$dir/db/pdb/bg.$type.3.details.txt"
-	print("\nCalculating background distribution ($bgNum iterations): '$bg'\n")
+	print("\nCalculating background distribution ($bgNum iterations): '$bg3'\n")
 	task( bg3 <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa 2>$bg3 >$bg3Details
 	wait
 }
