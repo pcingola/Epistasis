@@ -61,10 +61,17 @@ public class MsaSimilarityMutInfN extends MsaSimilarity {
 		String seqsi[] = msas.findColSequences(msaiId, posi, numBases);
 		String seqsj[] = msas.findColSequences(msajId, posj, numBases);
 
+		System.out.println(msaiId + "\t" + posi);
+		for (int i = 0; i < seqsi.length; i++)
+			System.out.println("\t" + (seqsi[i] != null ? seqsi[i] : ""));
+
+		System.out.println(msajId + "\t" + posj);
+		for (int i = 0; i < seqsi.length; i++)
+			System.out.println("\t" + (seqsj[i] != null ? seqsj[i] : ""));
+
 		Entropy entropy = new Entropy();
 		entropy.calc(seqsi, seqsj);
-
-		return 0;
+		return entropy.getMi();
 	}
 
 	//	/**

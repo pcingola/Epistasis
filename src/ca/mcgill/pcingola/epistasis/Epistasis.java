@@ -186,6 +186,16 @@ public class Epistasis implements CommandLine {
 			runBackground(type, numBases, numSamples);
 			break;
 
+		case "mi":
+			numBases = Gpr.parseIntSafe(args[argNum++]);
+			numSamples = Gpr.parseIntSafe(args[argNum++]);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			if (numBases <= 0) usage("Number of bases must be positive number");
+			if (numSamples <= 0) usage("Number of samples must be positive number");
+			runMi(numBases, numSamples);
+			break;
+
 		case "conservation":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
@@ -397,6 +407,20 @@ public class Epistasis implements CommandLine {
 		default:
 			throw new RuntimeException("Unknown type '" + type + "'");
 		}
+
+		// Run
+		sim.backgroundDistribution(numSamples);
+
+		// Show distribution
+		System.err.println(sim);
+	}
+
+	void runMi(int numBases, int numSamples) {
+		// Load
+		load();
+
+		// Select which function to use
+		MsaSimilarity sim = new MsaSimilarityMutInfN(msas, numBases);
 
 		// Run
 		sim.backgroundDistribution(numSamples);
