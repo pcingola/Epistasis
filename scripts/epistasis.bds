@@ -84,10 +84,10 @@ for( string type : ['mi', 'varInf'] ) {
 	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
 
 	# Three bases
-	aaStats = "$dir/db/pdb/aa.contact.$type.txt"
-	aaStatsSummary = "$dir/db/pdb/aa.contact.$type.summary.txt"
+	aaStats3 := "$dir/db/pdb/aa.contact.$type.3.txt"
+	aaStatsSummary3 := "$dir/db/pdb/aa.contact.$type.3.summary.txt"
 	print("\nCalculating MI and conservation:\n\t'$aaStats'\n\t'$aaStatsSummary'\n")
-	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStatsN $type 1 $tree $msa $aaNextProt > $aaStats 2> $aaStatsSummary
+	task( aaStats3 <- aaNextProt )	sys $cmdEpistasis aaContactStatsN $type 1 $tree $msa $aaNextProt > $aaStats3 2> $aaStatsSummary3
 }
 wait
 
