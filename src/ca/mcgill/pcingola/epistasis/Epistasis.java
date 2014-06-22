@@ -373,7 +373,7 @@ public class Epistasis implements CommandLine {
 
 		// Select which function to use
 		MsaSimilarity sim = null;
-		switch (type) {
+		switch (type.toLowerCase()) {
 		case "mi":
 			sim = numBases == 0 ? new MsaSimilarityMutInf(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.MI);
 			break;
@@ -439,7 +439,7 @@ public class Epistasis implements CommandLine {
 
 		// Select which function to use
 		MsaSimilarity sim = null;
-		switch (type) {
+		switch (type.toLowerCase()) {
 		case "mi":
 			sim = numBases == 0 ? new MsaSimilarityMutInf(msas) : new MsaSimilarityN(msas, numBases, InformationFunction.MI);
 			break;
@@ -619,11 +619,11 @@ public class Epistasis implements CommandLine {
 
 	// Select which function to use
 	Function<DistanceResult, Double> selectFunction(String type) {
-		switch (type) {
+		switch (type.toLowerCase()) {
 		case "mi":
 			return d -> EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2);
 
-		case "varInf":
+		case "varinf":
 			return d -> EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2);
 
 		default:
