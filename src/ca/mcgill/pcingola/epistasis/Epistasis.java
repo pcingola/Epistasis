@@ -503,7 +503,7 @@ public class Epistasis implements CommandLine {
 
 		// N bases
 		System.out.println("Window\tTotal_bases\tConserved\tConserved%");
-		for (int n = 1; n < 10; n++) {
+		for (int n = 0; n < 10; n++) {
 			int num = n;
 			Counter total = new Counter();
 			Counter conserved = new Counter();
@@ -528,12 +528,16 @@ public class Epistasis implements CommandLine {
 					.forEach(d -> conservedIc.inc()) //
 			;
 
-			System.out.println(num //
+			int winSize = 2 * num + 1;
+			double consPerc = (100.0 * conserved.get()) / total.get();
+			double consIcPerc = (100.0 * conservedIc.get()) / totalIc.get();
+			System.out.println(winSize //
 					+ "\t" + total //
 					+ "\t" + conserved //
-					+ "\t" + (100.0 * conserved.get()) / total.get() + " %" //
+					+ "\t" + String.format("%.2f%%", consPerc) //
 					+ "\t" + totalIc //
 					+ "\t" + conservedIc //
+					+ "\t" + String.format("%.2f%%", consIcPerc) //
 			);
 		}
 

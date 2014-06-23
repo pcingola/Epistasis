@@ -83,8 +83,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 * at position msaId:pos and the surrounding 'numBases' columns
 	 */
 	public String[] findColSequences(String msaId, int pos, int numBases) {
-		if (numBases < 1) throw new RuntimeException("Number of bases should be at least one.");
-
 		// Initialize
 		String seqs[] = new String[2 * numBases + 1];
 
