@@ -2,6 +2,11 @@ package ca.mcgill.pcingola.epistasis;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
+/**
+ * Count transision pairs (i.e. 400x400 matrix of AA pairs)
+ *
+ * @author pcingola
+ */
 public class Transitions {
 
 	String seq[];
@@ -20,14 +25,10 @@ public class Transitions {
 	}
 
 	/**
-	 * Count sequences transitions
-	 * @param d
+	 * Count sequences transitions (AA pairs)
 	 */
-	public void count(DistanceResult d) {
+	public void count(byte[] codes1, byte[] codes2) {
 		int n = GprSeq.AMINO_ACIDS.length;
-		byte[] codes1 = GprSeq.aa2Code(d.aaSeq1);
-		byte[] codes2 = GprSeq.aa2Code(d.aaSeq2);
-
 		boolean ord = (codes1[0] <= codes2[0]);
 
 		for (int i = 0; i < codes1.length; i++) {
@@ -46,6 +47,14 @@ public class Transitions {
 		}
 	}
 
+	/**
+	 * Count sequences transitions (AA pairs)
+	 */
+	public void count(DistanceResult d) {
+		count(GprSeq.aa2Code(d.aaSeq1), GprSeq.aa2Code(d.aaSeq2));
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 

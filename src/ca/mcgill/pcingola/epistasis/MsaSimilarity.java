@@ -86,8 +86,8 @@ public class MsaSimilarity {
 		// Calculate in parallel
 		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
-		.parallel() //
-		.forEach(i -> backgroundDistribution());
+				.parallel() //
+				.forEach(i -> backgroundDistribution());
 	}
 
 	public double calc(DistanceResult d) {

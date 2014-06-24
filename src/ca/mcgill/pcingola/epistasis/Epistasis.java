@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.List;
+import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
@@ -239,6 +240,9 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "transitions":
+			numSamples = Gpr.parseIntSafe(args[argNum++]);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
 			aaContactFile = args[argNum++];
 			runTransitions();
 			break;
@@ -588,22 +592,6 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Transition
-	 */
-	void runTransitions() {
-		load();
-
-		Transitions trans = new Transitions();
-
-		aaContacts.stream()//
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-				.forEach(d -> trans.count(d)) //
-		;
-
-		System.out.println(trans);
-	}
-
-	/**
 	 * Test
 	 */
 	void runTest() {
@@ -622,6 +610,64 @@ public class Epistasis implements CommandLine {
 				.peek(d -> conserved.inc()) //
 		;
 
+	}
+
+	/**
+	 * Transition
+	 */
+	void runTransitions() {
+		load();
+
+		// Calculate transitions: AA in contact
+		Transitions trans = new Transitions();
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> trans.count(d)) //
+		;
+		System.out.println("Transitions 'AA in contact':\n" + trans);
+
+		// Calculate transitions: Background
+		runTransitionsBg();
+	}
+
+	/**
+	 * Calculate transitions: Background
+	 */
+	void runTransitionsBg() {
+		Transitions trans = new Transitions();
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> trans.count(d)) //
+		;
+
+		// Initialize
+		Random random = new Random();
+		int numberOfSamples = 1000;
+		msas.calcSkip(); // Pre-calculate skip on all msas
+
+		// Count transitions
+		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
+		IntStream.range(1, numberOfSamples) //
+				.forEach(i -> runTransitionsBg(trans, random));
+
+		System.out.println("Transitions 'background':\n" + trans);
+	}
+
+	/**
+	 * Calculate transitions background (one iteration
+	 */
+	void runTransitionsBg(Transitions trans, Random random) {
+		// Random msa and positions
+		MultipleSequenceAlignment msa = null;
+		int idx1 = 0, idx2 = 0;
+		while (msa == null || idx1 == idx2) {
+			msa = msas.rand(random);
+			idx1 = random.nextInt(msa.length());
+			idx2 = random.nextInt(msa.length());
+		}
+
+		// Calculate transitions
+		trans.count(msa.getColumn(idx2), msa.getColumn(idx2));
 	}
 
 	/**
@@ -670,7 +716,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
 		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
-		System.err.println("Command 'transitions'    : " + this.getClass().getSimpleName() + " transitions aa_contact.nextprot.txt ");
+		System.err.println("Command 'transitions'    : " + this.getClass().getSimpleName() + " transitions num_samples phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt ");
 		System.exit(-1);
 	}
 
