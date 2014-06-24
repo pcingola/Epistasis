@@ -107,6 +107,11 @@ for( string type : ['mi', 'varInf'] ) {
 	wait
 }
 
+# Transitions
+trM := "$dir/db/pdb/transitions.txt"
+print("\nCalculating transitions: '$trM'\n")
+task( trM <- [tree, msa, aaNextProt] )	sys $cmdEpistasis transitions $bgNum $tree $msa $aaNextProt > $trM 
+
 # Done
 wait
 print("\nDone!\n")
