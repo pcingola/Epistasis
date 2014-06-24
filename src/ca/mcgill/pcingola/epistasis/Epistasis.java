@@ -545,7 +545,9 @@ public class Epistasis implements CommandLine {
 			Counter total = new Counter();
 			Counter conserved = new Counter();
 
+			//---
 			// Count for all MSAs
+			//---
 			msas.getMsas().stream() //
 					.filter(msa -> msa.length() > num) //
 					.forEach(msa -> IntStream.range(0, msa.length() - num) //
@@ -554,7 +556,9 @@ public class Epistasis implements CommandLine {
 							.forEach(i -> conserved.inc()) //
 					);
 
+			//---
 			// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact'
+			//---
 			Counter totalIc = new Counter();
 			Counter conservedIc = new Counter();
 			aaContacts.stream() //
@@ -565,6 +569,9 @@ public class Epistasis implements CommandLine {
 					.forEach(d -> conservedIc.inc()) //
 			;
 
+			//---
+			// Show results
+			//---
 			int winSize = 2 * num + 1;
 			double consPerc = (100.0 * conserved.get()) / total.get();
 			double consIcPerc = (100.0 * conservedIc.get()) / totalIc.get();

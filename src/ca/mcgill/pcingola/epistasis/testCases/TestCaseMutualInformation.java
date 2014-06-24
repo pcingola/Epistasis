@@ -1,5 +1,7 @@
 package ca.mcgill.pcingola.epistasis.testCases;
 
+import java.util.Random;
+
 import junit.framework.TestCase;
 
 import org.junit.Assert;
@@ -21,16 +23,31 @@ public class TestCaseMutualInformation extends TestCase {
 	public static boolean debug = false;
 
 	/**
-	 * Measure similarity: Correlation between two loci
+	 * Calculate entropies
 	 */
-	public static double z(String coli, String colj) {
+	public static double calcH(String coli, String colj) {
 		double hxy = EntropySeq.entropy(coli, colj);
+		double hx = EntropySeq.entropy(coli);
+		double hy = EntropySeq.entropy(colj);
 		double hcondXY = EntropySeq.condEntropy(coli, colj);
 		double hcondYX = EntropySeq.condEntropy(colj, coli);
 
-		System.out.println("h(x,y): " + hxy + "\th(x|y): " + hcondXY + "\th(y|x): " + hcondYX);
+		System.out.println("h(x,y): " + hxy //
+				+ "\th(x): " + hx //
+				+ "\th(y): " + hy //
+				+ "\th(x|y): " + hcondXY //
+				+ "\th(y|x): " + hcondYX //
+		);
+
 		// Results
 		return hxy + (hcondXY + hcondYX);
+	}
+
+	public static String randSeq(int len, Random rand) {
+		String s = "";
+		while (s.length() < len)
+			s += rand.nextBoolean() ? "A" : "C";
+		return s;
 	}
 
 	public void checkEntropy(String seqi, String seqj) {
@@ -75,7 +92,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String colj = "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
-		double hsum = z(coli, colj);
+		double hsum = calcH(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(1.0, mi, 1E-6);
 	}
@@ -85,7 +102,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String colj = "KKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLPPPPPPPPPPPPPPPPPPPP";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
-		double hsum = z(coli, colj);
+		double hsum = calcH(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(1.584962500721156, mi, 1E-6);
 	}
@@ -95,7 +112,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String colj = "RNDCEQGHILKMFPSTWYVA";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
-		double hsum = z(coli, colj);
+		double hsum = calcH(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(4.321928094887363, mi, 1E-6);
 	}
@@ -105,7 +122,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String colj = "RNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVA";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
-		double hsum = z(coli, colj);
+		double hsum = calcH(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(4.321928094887363, mi, 1E-6);
 	}
@@ -115,7 +132,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String colj = "RNDCEQGHILKMFPSTWYVA";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
-		double hsum = z(coli, colj);
+		double hsum = calcH(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(4.321928094887363, mi, 1E-6);
 	}
@@ -125,7 +142,7 @@ public class TestCaseMutualInformation extends TestCase {
 		String colj = "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLKK";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
-		double hsum = z(coli, colj);
+		double hsum = calcH(coli, colj);
 		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
 		Assert.assertEquals(1.0, mi, 1E-6);
 	}
@@ -151,6 +168,18 @@ public class TestCaseMutualInformation extends TestCase {
 				Assert.assertEquals(mi, mi2, EPSILON);
 			}
 		}
+	}
+
+	public void test_07() {
+		int len = 40;
+		Random r = new Random(20140624);
+		String coli = randSeq(len, r);
+		String colj = randSeq(len, r);
+
+		double mi = EntropySeq.mutualInformation(coli, colj);
+		double hsum = calcH(coli, colj);
+		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
+		Assert.assertEquals(0.02935319930615858, mi, 1E-6);
 	}
 
 	public void test_11() {
