@@ -266,7 +266,7 @@ public class Epistasis implements CommandLine {
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
 
-		Timer.showStdErr("Done!");
+		Timer.showStdErr("Done command: '" + cmd + "'");
 	}
 
 	/**
