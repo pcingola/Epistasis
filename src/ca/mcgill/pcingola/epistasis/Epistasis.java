@@ -11,6 +11,7 @@ import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
@@ -185,6 +186,12 @@ public class Epistasis implements CommandLine {
 			aaContactFile = args[argNum++];
 			if (numBases <= 0) usage("Number of bases must be positive number");
 			runAaContactStatsN(type, numBases);
+			break;
+
+		case "aafreqs":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			runAaFrequencies();
 			break;
 
 		case "background":
@@ -418,6 +425,27 @@ public class Epistasis implements CommandLine {
 		System.err.println(sim);
 	}
 
+	void runAaFrequencies() {
+		load();
+
+		// Calculate AA frequencies
+		long aaCount[] = new long[GprSeq.AMINO_ACIDS.length];
+		msas.stream() //
+				.forEach( // Count all AA in this MSA
+						msa -> {
+							for (int col = 0; col < msa.length(); col++)
+								for (int row = 0; row < msa.size(); row++) {
+									byte aa = msa.getCode(row, col);
+									if (aa >= 0) aaCount[aa]++;
+								}
+						});
+
+		// Show results
+		System.out.println("AA frequencies:");
+		for (byte aa = 0; aa < aaCount.length; aa++)
+			System.out.println(GprSeq.code2aa(aa) + "\t" + aa + "\t" + aaCount[aa]);
+	}
+
 	/**
 	 * Add MSA sequences to 'AA contact' data
 	 */
@@ -618,16 +646,17 @@ public class Epistasis implements CommandLine {
 	void runTransitions() {
 		load();
 
-		// Calculate transitions: AA in contact
-		Transitions trans = new Transitions();
-		aaContacts.stream()//
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-				.forEach(d -> trans.count(d)) //
-		;
-		System.out.println("Transitions 'AA in contact':\n" + trans);
+		//		// Calculate transitions: AA in contact
+		//		Transitions trans = new Transitions();
+		//		aaContacts.stream()//
+		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+		//				.forEach(d -> trans.count(d)) //
+		//		;
+		//		System.out.println("Transitions 'AA in contact':\n" + trans);
+		//
+		//		// Calculate transitions: Background
+		//		runTransitionsBg();
 
-		// Calculate transitions: Background
-		runTransitionsBg();
 	}
 
 	/**
@@ -709,6 +738,7 @@ public class Epistasis implements CommandLine {
 
 		System.err.println("Command 'aaContactStats' : " + this.getClass().getSimpleName() + " aaContactStats type aa_contact.nextprot.txt ");
 		System.err.println("Command 'aaContactStatsN': " + this.getClass().getSimpleName() + " aaContactStatsN type number_of_bases phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt");
+		System.err.println("Command 'aaFreqs'        : " + this.getClass().getSimpleName() + " aaFreqs phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
 		System.err.println("Command 'background'     : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
 		System.err.println("Command 'conservation'   : " + this.getClass().getSimpleName() + " conservation phylo.nh multiple_alignment_file.fa");

@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
@@ -299,6 +301,10 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			if (msa.isStrandPositive()) Collections.sort(l);
 			else Collections.sort(l, Comparator.reverseOrder());
 		}
+	}
+
+	public Stream<MultipleSequenceAlignment> stream() {
+		return StreamSupport.stream(spliterator(), false);
 	}
 
 }
