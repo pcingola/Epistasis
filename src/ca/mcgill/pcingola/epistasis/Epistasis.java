@@ -238,6 +238,11 @@ public class Epistasis implements CommandLine {
 			runQhat();
 			break;
 
+		case "transitions":
+			aaContactFile = args[argNum++];
+			runTransitions();
+			break;
+
 		case "test":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
@@ -583,6 +588,22 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Transition
+	 */
+	void runTransitions() {
+		load();
+
+		Transitions trans = new Transitions();
+
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> trans.count(d)) //
+		;
+
+		System.out.println(trans);
+	}
+
+	/**
 	 * Test
 	 */
 	void runTest() {
@@ -649,6 +670,7 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
 		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
 		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
+		System.err.println("Command 'transitions'    : " + this.getClass().getSimpleName() + " transitions aa_contact.nextprot.txt ");
 		System.exit(-1);
 	}
 

@@ -52,7 +52,7 @@ public class TestCaseMutualInformation extends TestCase {
 				+ "\n\tH(Y|X)      = " + EntropySeq.condEntropy(colsj[0], colsi[0]) + "\t" + entropy.getHcondYX() //
 				+ "\n\tMI          = " + EntropySeq.mutualInformation(colsi[0], colsj[0]) + "\t" + entropy.getMi() //
 				+ "\n\tVarInf(X,Y) = " + EntropySeq.variationOfInformation(colsj[0], colsi[0]) + "\t" + entropy.getVarInf() //
-				);
+		);
 
 		Assert.assertEquals(EntropySeq.mutualInformation(colsi[0], colsj[0]), entropy.getMi(), 1E-6);
 		Assert.assertEquals(EntropySeq.entropy(colsi[0]), entropy.getHx(), 1E-6);
@@ -103,6 +103,16 @@ public class TestCaseMutualInformation extends TestCase {
 	public void test_04() {
 		String coli = "ARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYV";
 		String colj = "RNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVARNDCEQGHILKMFPSTWYVA";
+
+		double mi = EntropySeq.mutualInformation(coli, colj);
+		double hsum = z(coli, colj);
+		System.out.println("MI: " + mi + "\th_sum: " + hsum + "\n\t" + coli + "\n\t" + colj + "\n");
+		Assert.assertEquals(4.321928094887363, mi, 1E-6);
+	}
+
+	public void test_04_1() {
+		String coli = "ARNDCEQGHILKMFPSTWYV";
+		String colj = "RNDCEQGHILKMFPSTWYVA";
 
 		double mi = EntropySeq.mutualInformation(coli, colj);
 		double hsum = z(coli, colj);
