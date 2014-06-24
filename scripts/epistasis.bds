@@ -110,7 +110,7 @@ for( string type : ['mi', 'varInf'] ) {
 # Transitions
 aaCons := "$dir/db/pdb/aa.conservation.txt"
 print("\nCalculating conservation: '$aaCons'\n")
-task( aaCons <- [tree, msa, aaNextProt] )	sys $cmdEpistasis conservation $tree $msa $aaNextProt > $aaCons
+task( aaCons <- [tree, msa, aaNextProt] )	sys $cmdEpistasis conservation $tree $msa $aaNextProt | tee $aaCons
 
 # Transitions
 trM := "$dir/db/pdb/transitions.txt"
