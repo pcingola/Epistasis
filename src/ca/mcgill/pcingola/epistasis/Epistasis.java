@@ -157,6 +157,7 @@ public class Epistasis implements CommandLine {
 	public void parseArgs(String[] args) {
 		if (args.length < 1) usage("Missing command");
 		cmd = args[0];
+		Timer.showStdErr("Start command: '" + cmd + "'");
 
 		int argNum = 1, numBases, numSamples;
 		String type = "";
@@ -289,9 +290,7 @@ public class Epistasis implements CommandLine {
 	 */
 	@Override
 	public boolean run() {
-		Timer.showStdErr("Start");
 		parseArgs(args);
-		Timer.showStdErr("End");
 		return true;
 	}
 
