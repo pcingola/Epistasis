@@ -417,7 +417,7 @@ public class PdbGenome extends SnpEff {
 		Arrays.stream(trIdsStr.split(",")).forEach(id -> trIds.add(id));
 
 		// Find all nextprot entries matching any transcript ID
-		Marker m = new Marker(config.getGenome().getChromosome(chr), pos, pos, 1, "");
+		Marker m = new Marker(config.getGenome().getChromosome(chr), pos, pos, false, "");
 		Markers results = config.getSnpEffectPredictor().query(m);
 
 		return results.stream() //
