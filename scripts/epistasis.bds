@@ -118,7 +118,7 @@ print("\nCalculating transitions ($bgNum iterations): '$trM'\n")
 task( trM <- [tree, msa, aaNextProt] )	sys $cmdEpistasis transitions $bgNum $tree $msa $aaNextProt > $trM 
 
 # AA frequencies
-aaFreqs := "$dir/db/pdb/aafrequencies.txt"
+aaFreqs := "$dir/db/pdb/aa.frequencies.txt"
 print("\nCalculating AA frequencies: '$aaFreqs'\n")
 task( aaFreqs <- [tree, msa] )	sys $cmdEpistasis aaFreqs $tree $msa > $aaFreqs
 
