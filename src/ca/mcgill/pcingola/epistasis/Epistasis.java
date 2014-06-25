@@ -711,7 +711,7 @@ public class Epistasis implements CommandLine {
 		}
 
 		// Calculate transitions
-		trans.count(msa.getColumn(idx2), msa.getColumn(idx2));
+		trans.count(msa.getColumn(idx1), msa.getColumn(idx2));
 	}
 
 	/**
