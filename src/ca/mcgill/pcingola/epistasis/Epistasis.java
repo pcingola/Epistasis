@@ -669,11 +669,12 @@ public class Epistasis implements CommandLine {
 		long countBg[][] = transBg.getCount();
 		int n = count.length;
 		double r[][] = new double[n][n];
-		for (int i = 0; i < n; i++)
+		for (int i = 0; i < n; i++) {
 			for (int j = 0; j < n; j++) {
 				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
 				else r[i][j] = 0.0;
 			}
+		}
 
 		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
 	}
