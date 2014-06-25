@@ -252,7 +252,7 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			aaContactFile = args[argNum++];
-			runTransitions();
+			runTransitions(numSamples);
 			break;
 
 		case "test":
@@ -308,27 +308,27 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.stream() //
-		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-		.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
 		// Show MI and conservation
 		//---
 		aaContactsUniq.stream() //
-		.forEach( //
-				d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
-						, d //
-						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-						, EntropySeq.entropy(d.aaSeq1) //
-						, EntropySeq.entropy(d.aaSeq2) //
-						, EntropySeq.conservation(d.aaSeq1) //
-						, EntropySeq.conservation(d.aaSeq2) //
-						) //
+				.forEach( //
+						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+								, d //
+								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+								, EntropySeq.entropy(d.aaSeq1) //
+								, EntropySeq.entropy(d.aaSeq2) //
+								, EntropySeq.conservation(d.aaSeq1) //
+								, EntropySeq.conservation(d.aaSeq2) //
+								) //
 				);
 
 		//---
@@ -343,8 +343,8 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAa = new CountByType();
 		aaContactsUniq.stream() //
-		.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
-		.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
+				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
 		;
 		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + countFirstAa.toStringSort());
 
@@ -353,11 +353,11 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnnAll = new CountByType();
 		aaContactsUniq.stream() //
-		.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-		.forEach( //
-				d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
+				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+				.forEach( //
+						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
 				) //
-				;
+		;
 		System.err.println("Count fist AA with annotations (all):\n" + countFirstAaAnnAll.toStringSort());
 
 		//---
@@ -365,14 +365,14 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
-		.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-		.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
-		.forEach( //
-				d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
-						ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
-						) //
+				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+				.forEach( //
+						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
+								ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
+								) //
 				) //
-				;
+		;
 		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + countFirstAaAnn.toStringSort());
 
 	}
@@ -409,9 +409,9 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.stream() //
-		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
-		.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
+				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
@@ -430,14 +430,14 @@ public class Epistasis implements CommandLine {
 		// Calculate AA frequencies
 		long aaCount[] = new long[GprSeq.AMINO_ACIDS.length];
 		msas.stream() //
-		.forEach( // Count all AA in this MSA
-				msa -> {
-					for (int col = 0; col < msa.length(); col++)
-						for (int row = 0; row < msa.size(); row++) {
-							byte aa = msa.getCode(row, col);
-							if (aa >= 0) aaCount[aa]++;
-						}
-				});
+				.forEach( // Count all AA in this MSA
+						msa -> {
+							for (int col = 0; col < msa.length(); col++)
+								for (int row = 0; row < msa.size(); row++) {
+									byte aa = msa.getCode(row, col);
+									if (aa >= 0) aaCount[aa]++;
+								}
+						});
 
 		// Show results
 		System.out.println("AA frequencies:");
@@ -548,11 +548,11 @@ public class Epistasis implements CommandLine {
 			// Count for all MSAs
 			//---
 			msas.getMsas().stream() //
-			.filter(msa -> msa.length() > num) //
-			.forEach(msa -> IntStream.range(0, msa.length() - num) //
-					.peek(i -> total.inc()) //
-					.filter(i -> msa.isFullyConserved(i, num)) //
-					.forEach(i -> conserved.inc()) //
+					.filter(msa -> msa.length() > num) //
+					.forEach(msa -> IntStream.range(0, msa.length() - num) //
+							.peek(i -> total.inc()) //
+							.filter(i -> msa.isFullyConserved(i, num)) //
+							.forEach(i -> conserved.inc()) //
 					);
 
 			//---
@@ -561,11 +561,11 @@ public class Epistasis implements CommandLine {
 			Counter totalIc = new Counter();
 			Counter conservedIc = new Counter();
 			aaContacts.stream() //
-			.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
-			.peek(d -> totalIc.inc()) //
-			.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
-			.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
-			.forEach(d -> conservedIc.inc()) //
+					.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
+					.peek(d -> totalIc.inc()) //
+					.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
+					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
+					.forEach(d -> conservedIc.inc()) //
 			;
 
 			//---
@@ -581,7 +581,7 @@ public class Epistasis implements CommandLine {
 					+ "\t" + totalIc //
 					+ "\t" + conservedIc //
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
-					);
+			);
 		}
 
 	}
@@ -636,12 +636,12 @@ public class Epistasis implements CommandLine {
 		Counter conserved = new Counter();
 		int n = 1; // Number of surrounding columns
 		aaContacts.stream()//
-		.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
-		.peek(System.out::println) //
-		.peek(d -> total.inc()) //
-		.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, n), msas.findColSequences(d.msa2, d.msaIdx2, n))) //
-		.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
-		.peek(d -> conserved.inc()) //
+				.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
+				.peek(System.out::println) //
+				.peek(d -> total.inc()) //
+				.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, n), msas.findColSequences(d.msa2, d.msaIdx2, n))) //
+				.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
+				.peek(d -> conserved.inc()) //
 		;
 
 	}
@@ -649,43 +649,50 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Transition
 	 */
-	void runTransitions() {
+	void runTransitions(int numSamples) {
 		load();
 
-		//		// Calculate transitions: AA in contact
-		//		Transitions trans = new Transitions();
-		//		aaContacts.stream()//
-		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-		//				.forEach(d -> trans.count(d)) //
-		//		;
-		//		System.out.println("Transitions 'AA in contact':\n" + trans);
-		//
-		//		// Calculate transitions: Background
-		//		runTransitionsBg();
+		// Calculate transitions: AA in contact
+		Transitions trans = new Transitions();
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> trans.count(d)) //
+		;
+		System.out.println("Transitions 'AA in contact':\n" + trans);
 
+		// Calculate transitions: Background
+		Transitions transBg = runTransitionsBg(numSamples);
+		System.out.println("Transitions 'null':\n" + trans);
+
+		// Ratio
+		long count[][] = trans.getCount();
+		long countBg[][] = transBg.getCount();
+		int n = count.length;
+		double r[][] = new double[n][n];
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++) {
+				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
+				else r[i][j] = 0.0;
+			}
+
+		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
 	}
 
 	/**
 	 * Calculate transitions: Background
 	 */
-	void runTransitionsBg() {
-		Transitions trans = new Transitions();
-		aaContacts.stream()//
-		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-		.forEach(d -> trans.count(d)) //
-		;
-
+	Transitions runTransitionsBg(int numberOfSamples) {
 		// Initialize
+		Transitions trans = new Transitions();
 		Random random = new Random();
-		int numberOfSamples = 1000;
 		msas.calcSkip(); // Pre-calculate skip on all msas
 
 		// Count transitions
 		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
-		.forEach(i -> runTransitionsBg(trans, random));
+				.forEach(i -> runTransitionsBg(trans, random));
 
-		System.out.println("Transitions 'background':\n" + trans);
+		return trans;
 	}
 
 	/**
