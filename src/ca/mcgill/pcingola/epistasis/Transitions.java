@@ -109,19 +109,19 @@ public class Transitions {
 		StringBuilder sb = new StringBuilder();
 
 		// Title
-		for (int i = 0; i < count.length; i++)
+		for (int i = 0; i < f.length; i++)
 			sb.append("\t" + seq[i]);
 		sb.append("\n");
 
 		// Values
-		long sum = 0;
+		double sum = 0;
 		for (int i = 0; i < f.length; i++) {
 			sb.append(seq[i]);
 			for (int j = 0; j < f.length; j++) {
 				if (f[i][j] == 0.0) sb.append("\t0");
 				else if (f[i][j] == 1.0) sb.append("\t1");
 				else sb.append(String.format("\t%.3e", f[i][j]));
-				sum += count[i][j];
+				sum += f[i][j];
 			}
 			sb.append("\n");
 		}

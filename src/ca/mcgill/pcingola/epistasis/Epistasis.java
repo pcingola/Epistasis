@@ -662,7 +662,7 @@ public class Epistasis implements CommandLine {
 
 		// Calculate transitions: Background
 		Transitions transBg = runTransitionsBg(numSamples);
-		System.out.println("Transitions 'null':\n" + trans);
+		System.out.println("Transitions 'null':\n" + transBg);
 
 		// Ratio
 		long count[][] = trans.getCount();
@@ -691,6 +691,7 @@ public class Epistasis implements CommandLine {
 		// Count transitions
 		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
+				.peek(i -> Gpr.showMark(i, 1000)) //
 				.forEach(i -> runTransitionsBg(trans, random));
 
 		return trans;
