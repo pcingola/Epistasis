@@ -62,7 +62,7 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Check that 'protein' sequences match (MSA vs Genome)
+	 * Check that 'protein' sequences match (MSA / Genome)
 	 */
 	public void checkSequenceMsaTr() {
 		trancriptById.keySet().stream().forEach(trid -> checkSequenceMsaTr(trid));
@@ -137,7 +137,7 @@ public class PdbGenome extends SnpEff {
 
 		String pdbId = pdbStruct.getPDBCode();
 
-		// Get trancsript IDs
+		// Get transcript IDs
 		List<IdMapperEntry> idEntries = idMapper.getByPdbId(pdbId);
 		String trIdsStr = IdMapper.ids(idEntries, IdMapperEntry.IDME_TO_REFSEQ);
 
@@ -212,10 +212,14 @@ public class PdbGenome extends SnpEff {
 				if (err < MAX_MISMATCH_RATE) {
 					if (debug) System.err.println("\t\tMapping OK    :\t" + trId + "\terror: " + err);
 
+					int trAaLen = tr.protein().length();
+					int pdbAaLen = chain.getAtomGroups("amino").size();
+					Gpr.debug("pdb AA len: " + pdbAaLen + "\ttr AA len: " + trAaLen);
+
 					idmapsOri.stream() //
 							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
 							.findFirst() //
-							.ifPresent(i -> idmapsNew.add(i.cloneAndSetChainId(chain.getChainID())));
+							.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
@@ -416,7 +420,7 @@ public class PdbGenome extends SnpEff {
 		HashSet<String> trIds = new HashSet<String>();
 		Arrays.stream(trIdsStr.split(",")).forEach(id -> trIds.add(id));
 
-		// Find all nextprot entries matching any transcript ID
+		// Find all NextProt entries matching any transcript ID
 		Marker m = new Marker(config.getGenome().getChromosome(chr), pos, pos, false, "");
 		Markers results = config.getSnpEffectPredictor().query(m);
 
@@ -452,7 +456,6 @@ public class PdbGenome extends SnpEff {
 
 	public void setNextProt(boolean nextProt) {
 		this.nextProt = nextProt;
-		// nextProtKeepAllTrs = true;
 	}
 
 	public void setTree(LikelihoodTree tree) {
