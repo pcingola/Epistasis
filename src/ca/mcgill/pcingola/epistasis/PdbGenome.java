@@ -147,7 +147,7 @@ public class PdbGenome extends SnpEff {
 				idEntries.forEach(le -> System.err.println("\t\t" + le));
 				System.err.println("\tTranscripts:\t" + trIdsStr);
 			}
-		} else System.err.print(pdbId + " ");
+		}
 
 		ArrayList<IdMapperEntry> list = new ArrayList<IdMapperEntry>();
 		if (trIdsStr == null) return list;
@@ -166,7 +166,7 @@ public class PdbGenome extends SnpEff {
 	 * Note: Only part of the sequence usually matches
 	 */
 	List<IdMapperEntry> checkSequencePdbTr(String pdbId, Structure pdbStruct, String trId) {
-		System.err.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
+		if (debug) System.err.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
 		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
 		List<IdMapperEntry> idmapsNew = new ArrayList<>();
 
