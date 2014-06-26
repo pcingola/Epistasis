@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.stream.Collectors;
 
+import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
@@ -14,6 +15,7 @@ public class DistanceResults extends ArrayList<DistanceResult> {
 	private static final long serialVersionUID = 1L;
 
 	HashMap<String, DistanceResult> byKey;
+	CountByType contactsByPdbId;
 
 	DistanceResults() {
 		super();
@@ -48,6 +50,19 @@ public class DistanceResults extends ArrayList<DistanceResult> {
 			if (dold.equalPos(d) && d.compareByPos(dold) < 0) // Same position? Keep smallest one
 				byKey.put(key, d);
 		}
+	}
+
+	/**
+	 * Number of contacts by pdbID and chain
+	 */
+	public int contacts(String pdbId, String pdbChainId) {
+		// Create?
+		if (contactsByPdbId == null) {
+			contactsByPdbId = new CountByType();
+			this.forEach(d -> contactsByPdbId.inc(d.pdbId + "\t" + d.pdbChainId));
+		}
+
+		return (int) contactsByPdbId.get(pdbId + "\t" + pdbChainId);
 	}
 
 	/**

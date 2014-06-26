@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
@@ -219,6 +220,12 @@ public class Epistasis implements CommandLine {
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
 			runMapPdbGene();
+			break;
+
+		case "mappdbgenomebest":
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			runMapPdbGeneBest();
 			break;
 
 		case "nextprot":
@@ -593,6 +600,15 @@ public class Epistasis implements CommandLine {
 		pdbGenome.checkSequencePdbTr();
 	}
 
+	/**
+	 * Map PDB entries to GeneID & TranscriptID keeping only the "best" mapping
+	 */
+	void runMapPdbGeneBest() {
+		load();
+		Collection<IdMapperEntry> best = idMapper.best(aaContacts);
+		System.out.println(best);
+	}
+
 	void runNextProt() {
 		nextProt = true;
 		load();
@@ -753,17 +769,18 @@ public class Epistasis implements CommandLine {
 		if (message != null) System.err.println("Error: " + message + "\n");
 		System.err.println("Usage: " + this.getClass().getSimpleName() + " cmd options");
 
-		System.err.println("Command 'aaContactStats' : " + this.getClass().getSimpleName() + " aaContactStats type aa_contact.nextprot.txt ");
-		System.err.println("Command 'aaContactStatsN': " + this.getClass().getSimpleName() + " aaContactStatsN type number_of_bases phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt");
-		System.err.println("Command 'aaFreqs'        : " + this.getClass().getSimpleName() + " aaFreqs phylo.nh multiple_alignment_file.fa");
-		System.err.println("Command 'addMsaSeqs'     : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
-		System.err.println("Command 'background'     : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
-		System.err.println("Command 'conservation'   : " + this.getClass().getSimpleName() + " conservation phylo.nh multiple_alignment_file.fa");
-		System.err.println("Command 'corr'           : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
-		System.err.println("Command 'mapPdbGenome'   : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
-		System.err.println("Command 'pdbdist'        : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
-		System.err.println("Command 'qhat'           : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
-		System.err.println("Command 'transitions'    : " + this.getClass().getSimpleName() + " transitions num_samples phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt ");
+		System.err.println("Command 'aaContactStats'   : " + this.getClass().getSimpleName() + " aaContactStats type aa_contact.nextprot.txt ");
+		System.err.println("Command 'aaContactStatsN'  : " + this.getClass().getSimpleName() + " aaContactStatsN type number_of_bases phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt");
+		System.err.println("Command 'aaFreqs'          : " + this.getClass().getSimpleName() + " aaFreqs phylo.nh multiple_alignment_file.fa");
+		System.err.println("Command 'addMsaSeqs'       : " + this.getClass().getSimpleName() + " addMsaSeqs snpeff.config genome phylo.nh multiple_alignment_file.fa id_map.txt aa_contact.txt ");
+		System.err.println("Command 'background'       : " + this.getClass().getSimpleName() + " background number_of_bases number_of_samples phylo.nh multiple_alignment_file.fa");
+		System.err.println("Command 'conservation'     : " + this.getClass().getSimpleName() + " conservation phylo.nh multiple_alignment_file.fa");
+		System.err.println("Command 'corr'             : " + this.getClass().getSimpleName() + " corr phylo.nh multiple_alignment_file.fa");
+		System.err.println("Command 'mapPdbGenome'     : " + this.getClass().getSimpleName() + " mapPdbGenome snpeff.config genome pdbDir idMapFile");
+		System.err.println("Command 'mapPdbGenomeBest' : " + this.getClass().getSimpleName() + " mapPdbGenomeBest idMapFile aa_contact.txt");
+		System.err.println("Command 'pdbdist'          : " + this.getClass().getSimpleName() + " pdbdist distanceThreshold aaMinSeparation path/to/pdb/dir id_map.txt");
+		System.err.println("Command 'qhat'             : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
+		System.err.println("Command 'transitions'      : " + this.getClass().getSimpleName() + " transitions num_samples phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt ");
 		System.exit(-1);
 	}
 

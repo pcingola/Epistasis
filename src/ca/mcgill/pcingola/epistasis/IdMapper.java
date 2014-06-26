@@ -82,10 +82,10 @@ public class IdMapper {
 	/**
 	 * Pick "best" entries
 	 */
-	public Collection<IdMapperEntry> best() {
+	public Collection<IdMapperEntry> best(DistanceResults distanceResults) {
 		// Sort best entries by geneId
 		Map<String, List<IdMapperEntry>> map = entries.stream() //
-				.sorted((im1, im2) -> im1.compareToBetterMap(im2)) //
+				.sorted((im1, im2) -> compareToBetterMap(distanceResults, im1, im2)) //
 				.collect(Collectors.groupingBy(im -> im.geneId)) //
 		;
 
@@ -99,6 +99,39 @@ public class IdMapper {
 		);
 
 		return best;
+	}
+
+	/**
+	 * Comparator: Get "best" mappings first
+	 */
+	public int compareToBetterMap(DistanceResults distanceResults, IdMapperEntry im1, IdMapperEntry im2) {
+		int cmp = im1.geneId.compareTo(im2.geneId);
+		if (cmp != 0) return cmp;
+
+		cmp = contacts(distanceResults, im2) - contacts(distanceResults, im1); // Compare number of AA 'in contact' (more is better)
+		if (cmp != 0) return cmp;
+
+		cmp = im2.pdbAaLen - im1.pdbAaLen; // Longer PDB AA sequence first
+		if (cmp != 0) return cmp;
+
+		cmp = im2.trAaLen - im1.trAaLen; // Longer transcript AA sequence first
+		if (cmp != 0) return cmp;
+
+		cmp = im1.trId.compareTo(im2.trId);
+		if (cmp != 0) return cmp;
+
+		cmp = im1.pdbId.compareTo(im2.pdbId);
+		if (cmp != 0) return cmp;
+
+		cmp = im1.pdbChainId.compareTo(im2.pdbChainId);
+		return cmp;
+	}
+
+	/**
+	 * Number of AA in contact
+	 */
+	int contacts(DistanceResults distanceResults, IdMapperEntry ime) {
+		return distanceResults.contacts(ime.pdbId, ime.pdbChainId);
 	}
 
 	public List<IdMapperEntry> getByGeneId(String id) {
