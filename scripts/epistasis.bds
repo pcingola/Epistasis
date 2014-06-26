@@ -7,7 +7,8 @@
 #-------------------------------------------------------------------------------
 
 debug			:= false
-dir				:= "$HOME/snpEff"
+snpEffDir		:= "$HOME/snpEff"
+dir				:= "$snpEffDir/epistasis"
 
 # Parameters
 aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
@@ -16,15 +17,15 @@ genome			:= "hg19"
 genomeEnsembl	:= "GRCh37.75"
 
 # Data files
-aaContact		:= "$dir/db/pdb/aa.contact.txt"
-aaContactSeq	:= "$dir/db/pdb/aa.contact.sequence.txt"
-idMap			:= "$dir/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt"
-idMapConfirmed	:= "$dir/db/multiz100way/idMap_ensemblId_refseq_pdbId.confirmed.txt"
-msa				:= "$dir/db/multiz100way/refGene.exonAA.fa"
-pdbDir			:= "$dir/db/pdb/pdb_hires_human"
-qhat			:= "$dir/db/multiz100way/Qhat.txt"
-tree			:= "$dir/db/multiz100way/hg19.100way.nh"
-snpeffConfig	:= "$dir/snpEff.config"
+aaContact		:= "$dir/aa.contact.txt"
+aaContactSeq	:= "$dir/aa.contact.sequence.txt"
+idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
+idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
+msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
+pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
+qhat			:= "$dir/Qhat.txt"
+tree			:= "$snpEffDir/db/multiz100way/hg19.100way.nh"
+snpeffConfig	:= "$snpEffDir/snpEff.config"
 bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
@@ -35,8 +36,8 @@ cmdEpistasis	:= "java -Xmx20G -jar Epistasis.jar"
 if( debug ) {
 	print("DEBUG MODE: Setting 'debug' paths\n")
 	genome = "testHg19Chr1"
-	msa  = "$dir/db/multiz100way/head.fa"
-	qhat = "$dir/db/multiz100way/Qhat_head.txt"
+	msa  = "$dir/head.fa"
+	qhat = "$dir/Qhat_head.txt"
 	bgNum = 1000
 }
 
@@ -44,7 +45,7 @@ if( debug ) {
 # Main
 #-------------------------------------------------------------------------------
 
-# # Estimate matrix Q from sequence alignment and tree
+# Estimate matrix Q from sequence alignment and tree
 print("\nEstimate Q: '$qhat'\n")
 task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
 wait
@@ -121,6 +122,10 @@ task( trM <- [tree, msa, aaNextProt] )	sys $cmdEpistasis transitions $bgNum $tre
 aaFreqs := "$dir/db/pdb/aa.frequencies.txt"
 print("\nCalculating AA frequencies: '$aaFreqs'\n")
 task( aaFreqs <- [tree, msa] )	sys $cmdEpistasis aaFreqs $tree $msa > $aaFreqs
+
+# MSA coverage (BED file)
+msaBed := "$dir/" + msa.swapExt(".fa", ".bed")
+task( msaBed <- msa )	sys cat $msa | grep _hg19 | cut -f 5 -d " " | tr -d "+" | sed "s/-$//" | tr ":-" "\t\t" > $msaBed
 
 # Done
 wait
