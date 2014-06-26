@@ -223,7 +223,7 @@ public class PdbGenome extends SnpEff {
 		}
 
 		// Show all confirmed mappings
-		idmapsNew.stream().forEach(i -> System.err.println("Confirmed:\t" + i));
+		idmapsNew.stream().forEach(i -> System.out.println(i));
 
 		return idmapsNew;
 	}
