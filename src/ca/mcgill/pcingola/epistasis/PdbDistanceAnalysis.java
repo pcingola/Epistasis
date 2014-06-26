@@ -3,6 +3,7 @@ package ca.mcgill.pcingola.epistasis;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Atom;
@@ -26,6 +27,7 @@ public class PdbDistanceAnalysis {
 	public static final int MAX_AA_LEN = 10000;
 	public static final boolean debug = false;
 	public static final boolean verbose = true || debug;
+	public static final ArrayList<DistanceResult> EMPTY_DISTANCES = new ArrayList<>();
 
 	String pdbDir;
 	double distanceThreshold;
@@ -90,6 +92,29 @@ public class PdbDistanceAnalysis {
 	}
 
 	/**
+	 * Distances associated with this entry
+	 */
+	List<DistanceResult> distance(String pdbId) {
+		try {
+			PdbFile pdbreader = new PdbFile();
+			String pdbFileName = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
+
+			if (verbose) System.err.println("Distance: " + pdbFileName);
+			Structure pdbStruct = pdbreader.getStructure(pdbFileName);
+
+			// Does it have associated transcripts?
+			String id = pdbStruct.getPDBCode();
+			if (idMapper.getByPdbId(id) == null) return EMPTY_DISTANCES;
+
+			// Distance
+			return distance(pdbStruct);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return EMPTY_DISTANCES;
+	}
+
+	/**
 	 * Distances within all chains in a structure
 	 * @param chain
 	 */
@@ -129,28 +154,16 @@ public class PdbDistanceAnalysis {
 	 * Run
 	 */
 	public List<DistanceResult> run() {
-		PdbFile pdbreader = new PdbFile();
-		ArrayList<DistanceResult> results = new ArrayList<>();
+		// Calculate distances for each one
+		List<DistanceResult> res = idMapper.getEntries().stream() //
+				.map(ime -> ime.pdbId) //
+				.sorted() //
+				.distinct() //
+				.flatMap(pid -> distance(pid).stream()) //
+				.collect(Collectors.toList()) //
+				;
 
-		for (IdMapperEntry ime : idMapper.getEntries()) {
-			try {
-				String pdbFileName = pdbDir + "/" + ime.pdbId.toLowerCase() + ".pdb";
-
-				if (verbose) System.err.println("Distance: " + pdbFileName);
-				Structure pdbStruct = pdbreader.getStructure(pdbFileName);
-
-				// Does it have associated transcripts?
-				String pdbId = pdbStruct.getPDBCode();
-				if (idMapper.getByPdbId(pdbId) == null) continue;
-
-				// Distance
-				results.addAll(distance(pdbStruct));
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		}
-
-		return results;
+		return res;
 	}
 
 	@Override
