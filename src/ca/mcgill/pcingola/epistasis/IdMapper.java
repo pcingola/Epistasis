@@ -9,6 +9,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -78,6 +79,28 @@ public class IdMapper {
 		imes.stream().forEach(ime -> add(ime));
 	}
 
+	/**
+	 * Pick "best" entries
+	 */
+	public Collection<IdMapperEntry> best() {
+		// Sort best entries by geneId
+		Map<String, List<IdMapperEntry>> map = entries.stream() //
+				.sorted((im1, im2) -> im1.compareToBetterMap(im2)) //
+				.collect(Collectors.groupingBy(im -> im.geneId)) //
+		;
+
+		// Show
+		ArrayList<IdMapperEntry> best = new ArrayList<>();
+		map.keySet().forEach(k -> {
+			best.add(map.get(k).get(0)); // Add first entry to 'best'
+				System.err.println("map\t" + k);
+				map.get(k).forEach(im -> System.err.println("\t\t" + im));
+			} //
+		);
+
+		return best;
+	}
+
 	public List<IdMapperEntry> getByGeneId(String id) {
 		return byGeneId.get(id);
 	}
@@ -131,5 +154,10 @@ public class IdMapper {
 		IdMapperEntry ime = new IdMapperEntry(line);
 		add(ime);
 		count++;
+	}
+
+	@Override
+	public String toString() {
+		return entries.stream().sorted().map(im -> im.toString()).collect(Collectors.joining("\n"));
 	}
 }

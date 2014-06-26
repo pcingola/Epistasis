@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
@@ -588,14 +589,21 @@ public class Epistasis implements CommandLine {
 
 	void runMapPdbGenome() {
 		load();
-		pdbGenome.checkSequencePdbTr();
+		IdMapper idMapperConfirmed = pdbGenome.checkSequencePdbTr();
+
+		System.err.println("\n\nConfirmed:");
+		System.err.println(idMapperConfirmed);
+
+		Collection<IdMapperEntry> best = idMapperConfirmed.best();
+		System.err.println("\n\nBest:");
+		best.forEach(System.out::println);
 	}
 
 	void runNextProt() {
 		nextProt = true;
 		load();
 
-		// Add nextprot annotations
+		// Add NextProt annotations
 		aaContacts.forEach(d -> pdbGenome.nextProt(d));
 	}
 

@@ -9,7 +9,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *
  * @author pcingola
  */
-public class IdMapperEntry implements Cloneable {
+public class IdMapperEntry implements Cloneable, Comparable<IdMapperEntry> {
 
 	// Select ID function
 	public static final Function<IdMapperEntry, String> IDME_TO_REFSEQ = ime -> ime.refSeqId;
@@ -37,6 +37,44 @@ public class IdMapperEntry implements Cloneable {
 		} catch (CloneNotSupportedException e) {
 			throw new RuntimeException(e);
 		}
+	}
+
+	@Override
+	public int compareTo(IdMapperEntry o) {
+		int cmp = geneId.compareTo(o.geneId);
+		if (cmp != 0) return cmp;
+
+		cmp = trId.compareTo(o.trId);
+		if (cmp != 0) return cmp;
+
+		cmp = pdbId.compareTo(o.pdbId);
+		if (cmp != 0) return cmp;
+
+		cmp = pdbChainId.compareTo(o.pdbChainId);
+		return cmp;
+	}
+
+	/**
+	 * Comparator: Get "best" mappings first
+	 */
+	public int compareToBetterMap(IdMapperEntry o) {
+		int cmp = geneId.compareTo(o.geneId);
+		if (cmp != 0) return cmp;
+
+		cmp = o.pdbAaLen - pdbAaLen; // Longer PDB AA sequence first
+		if (cmp != 0) return cmp;
+
+		cmp = o.trAaLen - trAaLen; // Longer transcript AA sequence first
+		if (cmp != 0) return cmp;
+
+		cmp = trId.compareTo(o.trId);
+		if (cmp != 0) return cmp;
+
+		cmp = pdbId.compareTo(o.pdbId);
+		if (cmp != 0) return cmp;
+
+		cmp = pdbChainId.compareTo(o.pdbChainId);
+		return cmp;
 	}
 
 	/**

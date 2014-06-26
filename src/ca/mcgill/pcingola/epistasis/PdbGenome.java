@@ -214,7 +214,6 @@ public class PdbGenome extends SnpEff {
 
 					int trAaLen = tr.protein().length();
 					int pdbAaLen = chain.getAtomGroups("amino").size();
-					Gpr.debug("pdb AA len: " + pdbAaLen + "\ttr AA len: " + trAaLen);
 
 					idmapsOri.stream() //
 							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
@@ -225,7 +224,7 @@ public class PdbGenome extends SnpEff {
 		}
 
 		// Show all confirmed mappings
-		idmapsNew.stream().forEach(i -> System.out.println(i));
+		idmapsNew.stream().forEach(i -> System.err.println("Confirmed:\t" + i));
 
 		return idmapsNew;
 	}
