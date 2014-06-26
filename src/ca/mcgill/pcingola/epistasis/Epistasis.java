@@ -28,7 +28,7 @@ import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
 public class Epistasis implements CommandLine {
 
 	public static int MIN_DISTANCE = 1000000;
-	public static boolean debug = true;
+	public static boolean debug = false;
 
 	public static void main(String[] args) {
 		Epistasis epistasis = new Epistasis(args);
@@ -584,7 +584,6 @@ public class Epistasis implements CommandLine {
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
 			);
 		}
-
 	}
 
 	void runMapPdbGenome() {

@@ -25,7 +25,6 @@ import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
 
 /**
@@ -106,7 +105,7 @@ public class PdbGenome extends SnpEff {
 	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
 	IdMapper checkSequencePdbTr() {
-		Timer.showStdErr("Checking PDB <-> Transcript sequences\tdebug:" + debug);
+		if (debug) System.err.println("Checking PDB <-> Transcript sequences\tdebug:" + debug);
 
 		// Create a new IdMapper using only confirmed entries
 		IdMapper idMapperConfirmed = new IdMapper();
