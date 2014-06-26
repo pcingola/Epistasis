@@ -1,15 +1,13 @@
 #!/bin/sh
 
-distance="5.0"
+echo Rmoving old files
+rm nohup.out
+rm -rvf epistasis.bds.*
 
-java -Xmx4G -jar Epistasis.jar \
-		checkPdbGenome \
-		/home/pcingola/snpEff/snpEff.config  \
-		hg19 \
-		/home/pcingola/snpEff/db/pdb/pdb_hires_human/ \
-		/home/pcingola/snpEff/db/multiz100way/hg19.100way.nh \
-		/home/pcingola/snpEff/db/multiz100way/head.fa \
-		/home/pcingola/snpEff/db/multiz100way/idMap_ensemblId_refseq_pdbId.txt \
-		5.0 \
-	> epistasis.out 2>&1
+echo Process is run as nohup
+nohup ./epistasis.bds &
+
+echo Tailing nohup.out, you can Ctrl-C
+sleep 1
+tail -f nohup.out 
 

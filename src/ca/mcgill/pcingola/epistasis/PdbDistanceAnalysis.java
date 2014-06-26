@@ -159,9 +159,10 @@ public class PdbDistanceAnalysis {
 				.map(ime -> ime.pdbId) //
 				.sorted() //
 				.distinct() //
+				.parallel() //
 				.flatMap(pid -> distance(pid).stream()) //
 				.collect(Collectors.toList()) //
-				;
+		;
 
 		return res;
 	}
