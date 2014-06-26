@@ -86,7 +86,7 @@ public class PdbGenome extends SnpEff {
 			boolean match = proteinTr.equals(proteinMsa);
 
 			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
-			if (verbose && !match) {
+			if (debug && !match) {
 				System.err.println(trid + "\t" //
 						+ (proteinTr.equals(proteinMsa) ? "OK" : "ERROR") //
 						+ "\n\tPortein Tr  :\t" + proteinTr //
@@ -382,7 +382,7 @@ public class PdbGenome extends SnpEff {
 						dres.msaIdx2 = res2.c;
 					} else {
 						// Show mapping errors
-						System.err.println(ok1Str + " " + ok2Str //
+						if (debug) System.err.println(ok1Str + " " + ok2Str //
 								+ "\t" + dres.pdbId //
 								+ "\t" + tr.getId() //
 								+ "\t" + dres.distance //
