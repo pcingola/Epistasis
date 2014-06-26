@@ -45,14 +45,14 @@ if( debug ) {
 # Main
 #-------------------------------------------------------------------------------
 
-# Estimate matrix Q from sequence alignment and tree
-print("\nEstimate Q: '$qhat'\n")
-task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
-wait
-
 # Map Pdb <-> Genome
 print("\nMap Pdb entries to transcripts: '$idMapConfirmed'\n")
 task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
+wait
+
+# Estimate matrix Q from sequence alignment and tree
+print("\nEstimate Q: '$qhat'\n")
+task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
 wait
 
 # Calculate amino acids "in contact" within the same protein
