@@ -6,7 +6,7 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
-debug			:= true
+debug			:= false
 snpEffDir		:= "$HOME/snpEff"
 dir				:= "$snpEffDir/epistasis"
 
