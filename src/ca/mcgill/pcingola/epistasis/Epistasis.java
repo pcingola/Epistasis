@@ -133,7 +133,6 @@ public class Epistasis implements CommandLine {
 			MultipleSequenceAlignmentSet msasNew = new MultipleSequenceAlignmentSet(multAlign, numAligns);
 			msas.stream() //
 					.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
-					.peek(m -> System.out.println("OK: " + m.getId())) //
 					.forEach(m -> msasNew.add(m));
 
 			// Replace with filtered version
