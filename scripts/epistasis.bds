@@ -146,6 +146,7 @@ wait
 
 # Create a BED file from MSA coordinates. To show coverage, load this BED file in IGV.
 msaBed := "$dir/" + msa.baseName().swapExt(".fa", ".bed")
+print("\nCreatig BED file: '$msaBed'\n")
 task( msaBed <- msa )	sys cat $msa | grep _hg19 | cut -f 5 -d " " | tr -d "+" | sed "s/-$//" | tr ":-" "\t\t" > $msaBed
 wait
 
