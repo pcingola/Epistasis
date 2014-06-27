@@ -46,6 +46,16 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		msaById = new HashMap<String, MultipleSequenceAlignment>();
 	}
 
+	/**
+	 * Add entry
+	 */
+	public boolean add(MultipleSequenceAlignment msa) {
+		boolean ok = msas.add(msa);
+		msasByTrId.getOrCreate(msa.getTranscriptId()).add(msa);
+		msaById.put(msa.getId(), msa);
+		return ok;
+	}
+
 	public void calcSkip() {
 		Timer.showStdErr("Pre-calculating skips.");
 		getMsas().parallelStream().forEach(MultipleSequenceAlignment::calcSkip);
@@ -246,12 +256,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 				msa.set(i, sequence);
 			}
 
-			if (msa != null) {
-				msas.add(msa);
-				msasByTrId.getOrCreate(msa.getTranscriptId()).add(msa);
-				msaById.put(msa.getId(), msa);
-				if (verbose) System.out.println(msa.getId());
-			}
+			if (msa != null) msas.add(msa);
 
 			// Empty line separator
 			String emptyLine = lif.next();

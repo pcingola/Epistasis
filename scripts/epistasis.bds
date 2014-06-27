@@ -19,6 +19,7 @@ genomeEnsembl	:= "GRCh37.75"
 # Data files
 aaContact		:= "$dir/aa.contact.txt"
 aaContactSeq	:= "$dir/aa.contact.sequence.txt"
+aaContactBest	:= "$dir/aa.contact.best.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
@@ -46,17 +47,14 @@ if( debug ) {
 # Main
 #-------------------------------------------------------------------------------
 
-# Map Pdb <-> Genome
+# Confirm mappings between Pdb <-> Genome by making sure that 
+# protein sequences match (within cerain error rate)
 print("\nMap Pdb entries to transcripts: '$idMapConfirmed'\n")
 task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
 wait
 
-# Estimate matrix Q from sequence alignment and tree
-print("\nEstimate Q: '$qhat'\n")
-task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $qhat
-wait
-
 # Calculate amino acids "in contact" within the same protein
+# using PDB atomic positions
 print("\nCalculate AA in contact within proteins: '$aaContact'\n")
 tmp := "$aaContact.tmp"
 task( aaContact <- [pdbDir, idMapConfirmed] ) {
@@ -65,14 +63,28 @@ task( aaContact <- [pdbDir, idMapConfirmed] ) {
 }
 wait
 
-# Add MSA sequences
+# Add MSA sequences to the previously calculated 'Aa in contact' file
 print("\nAdd MSA information to AA in contact: '$aaContactSeq'\n")
 task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 wait
 
-# Best ID Mappings (taking into account PDB entries with best 'AA in contact')
+# Find "best ID Mappings": For each gene, select one transcript and one PDB entry 
+# that has longer Aa sequences (for PDB and transcript), as well as the 
+# most 'AA in contact'
 print("\nCalculate 'best' mapping: '$idMapBest'\n")
 task( idMapBest <- [aaContactSeq, idMapConfirmed] )	sys $cmdEpistasis mapPdbGenomeBest $idMapConfirmed $aaContactSeq > $idMapBest
+wait
+
+# Filter AA in contact' file according to 'ID best map'
+print("\nCalculate 'best' mapping: '$idMapBest'\n")
+task( aaContactBest <- [aaContactSeq, idMapBest] )	sys $cmdEpistasis aaFilterIdMap $idMapBest $aaContactSeq > $aaContactBest
+wait
+
+
+# Estimate transition matrix Q from sequence alignment 
+# and phylegenetic tree
+print("\nEstimate Q: '$qhat'\n")
+task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $idMapBest > $qhat
 wait
 
 # # Annotations of amino acids "in contact" (e.g. NextProt annotations)
@@ -114,22 +126,23 @@ wait
 # 	wait
 # }
 
-# Transitions
+# Calculate conservation statistics for many AA windows sizes
 aaCons := "$dir/aa.conservation.txt"
 print("\nCalculating conservation: '$aaCons'\n")
 task( aaCons <- [tree, msa, aaContactSeq] )	sys $cmdEpistasis conservation $tree $msa $aaContactSeq | tee $aaCons
 
-# Transitions
+# Calculate AA-pairs transitions for 'AA in contact'. Also calculate 'null' distribution
+# Note: These are 400x400 matrices 
 trM := "$dir/transitions.txt"
 print("\nCalculating transitions ($bgNum iterations): '$trM'\n")
 task( trM <- [tree, msa, aaContactSeq] )	sys $cmdEpistasis transitions $bgNum $tree $msa $aaContactSeq > $trM 
 
-# AA frequencies
+# Calculate AA frequencies
 aaFreqs := "$dir/aa.frequencies.txt"
 print("\nCalculating AA frequencies: '$aaFreqs'\n")
 task( aaFreqs <- [tree, msa] )	sys $cmdEpistasis aaFreqs $tree $msa > $aaFreqs
 
-# MSA coverage (BED file)
+# Create a BED file from MSA coordinates. To show coverage, load this BED file in IGV.
 msaBed := "$dir/" + msa.swapExt(".fa", ".bed")
 task( msaBed <- msa )	sys cat $msa | grep _hg19 | cut -f 5 -d " " | tr -d "+" | sed "s/-$//" | tr ":-" "\t\t" > $msaBed
 

@@ -87,16 +87,16 @@ public class IdMapper {
 		Map<String, List<IdMapperEntry>> map = entries.stream() //
 				.sorted((im1, im2) -> compareToBetterMap(distanceResults, im1, im2)) //
 				.collect(Collectors.groupingBy(im -> im.geneId)) //
-		;
+				;
 
 		// Show
 		ArrayList<IdMapperEntry> best = new ArrayList<>();
 		map.keySet().forEach(k -> {
 			best.add(map.get(k).get(0)); // Add first entry to 'best'
-				System.err.println("map\t" + k);
-				map.get(k).forEach(im -> System.err.println("\t\t" + im + "\tAA_contacts: " + contacts(distanceResults, im)));
-			} //
-		);
+			System.err.println("map\t" + k);
+			map.get(k).forEach(im -> System.err.println("\t\t" + im + "\tAA_contacts: " + contacts(distanceResults, im)));
+		} //
+				);
 
 		return best;
 	}
@@ -164,6 +164,20 @@ public class IdMapper {
 
 	public Collection<IdMapperEntry> getEntries() {
 		return entries;
+	}
+
+	/**
+	 * Is there an entry matching all these conditions?
+	 */
+	public boolean hasEntry(String refSeqId, String pdbId, String pdbChain) {
+		List<IdMapperEntry> res = getByRefSeqId(refSeqId);
+		if (res == null) return false;
+
+		return res.stream() //
+				.filter(ime -> ime.pdbId.equals(pdbId) && ime.pdbChainId.equalsIgnoreCase(pdbChain)) //
+				.findAny() //
+				.isPresent() //
+				;
 	}
 
 	void load(String fileName) {

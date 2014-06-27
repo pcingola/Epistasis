@@ -123,7 +123,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-		;
+				;
 	}
 
 	/**
@@ -142,16 +142,25 @@ public class DistanceResult {
 
 		List<String> anns = new ArrayList<>();
 		Arrays.stream(annotations1.split(";")) //
+		.forEach( //
+				ann1 -> Arrays.stream(annotations2.split(";")) //
 				.forEach( //
-						ann1 -> Arrays.stream(annotations2.split(";")) //
-								.forEach( //
-										ann2 -> anns.add(aaPair + "\t" //
-												+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
-										) //
+						ann2 -> anns.add(aaPair + "\t" //
+								+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
 								) //
+						) //
 				);
 
 		return anns;
+	}
+
+	/**
+	 * Return transcript ID without sub-version
+	 * E.g.  If trId is 'NM_176795.3'  => return 'NM_176795'
+	 */
+	public String getTrIdNoSub() {
+		int n = transcriptId.indexOf('.');
+		return n > 0 ? transcriptId.substring(0, n) : transcriptId;
 	}
 
 	public void setAa1(AminoAcid aa) {
@@ -188,7 +197,7 @@ public class DistanceResult {
 				+ "\t" + aaSeq2 //
 				+ "\t" + annotations1 //
 				+ "\t" + annotations2 //
-		;
+				;
 	}
 
 	/**
@@ -198,6 +207,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-		;
+				;
 	}
 }

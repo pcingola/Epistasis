@@ -130,7 +130,14 @@ public class Epistasis implements CommandLine {
 
 		// Filter by idMap?
 		if (filterMsaByIdMap) {
-			Gpr.debug("FILTER BY IDMAP!!!\n");
+			MultipleSequenceAlignmentSet msasNew = new MultipleSequenceAlignmentSet(multAlign, numAligns);
+			msas.stream() //
+					.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
+					.peek(m -> System.out.println("OK: " + m.getId())) //
+					.forEach(m -> msasNew.add(m));
+
+			// Replace with filtered version
+			msas = msasNew;
 		}
 	}
 
@@ -177,7 +184,14 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			filterMsaByIdMap = false;
 			runAddMsaSeqs();
+			break;
+
+		case "aafilteridmap":
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			runAaFilterIdMap();
 			break;
 
 		case "aacontactstats":
@@ -191,8 +205,10 @@ public class Epistasis implements CommandLine {
 			numBases = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
 			if (numBases <= 0) usage("Number of bases must be positive number");
+			filterMsaByIdMap = true;
 			runAaContactStatsN(type, numBases);
 			break;
 
@@ -256,7 +272,9 @@ public class Epistasis implements CommandLine {
 			if (args.length < 4) usage("Missing arguments for command '" + cmd + "'");
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
 			qMatrixFile = args[argNum++];
+			filterMsaByIdMap = true;
 			runQhat();
 			break;
 
@@ -596,6 +614,16 @@ public class Epistasis implements CommandLine {
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
 			);
 		}
+	}
+
+	/**
+	 * Show AA in contact that have an entry in idMapper
+	 */
+	void runAaFilterIdMap() {
+		load();
+		aaContacts.stream() //
+				.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
+				.forEach(System.out::println);
 	}
 
 	/**
