@@ -137,6 +137,7 @@ public class Epistasis implements CommandLine {
 					.forEach(m -> msasNew.add(m));
 
 			// Replace with filtered version
+			Timer.showStdErr("Filtered MSAS by IdMap. Number of entries before: " + msas.size() + ", after: " + msasNew.size());
 			msas = msasNew;
 		}
 	}
