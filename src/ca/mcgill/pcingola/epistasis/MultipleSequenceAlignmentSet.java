@@ -185,7 +185,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 * @param args
 	 */
 	public void load() {
-		Timer.showStdErr("Loading file '" + sequenceAlignmentFile + "'");
 		LineFileIterator lif = new LineFileIterator(sequenceAlignmentFile);
 
 		while (lif.hasNext()) {
@@ -265,8 +264,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 		// Sort lists
 		sortTranscriptLists();
-
-		Timer.showStdErr("Done. Total number of alignments: " + msas.size());
 	}
 
 	/**
