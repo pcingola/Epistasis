@@ -76,7 +76,7 @@ task( idMapBest <- [aaContactSeq, idMapConfirmed] )	sys $cmdEpistasis mapPdbGeno
 wait
 
 # Annotations of amino acids "in contact" (e.g. NextProt annotations)
-aaNextProt := "$dir/db/pdb/aa.contact.nextProt.txt"
+aaNextProt := "$dir/aa.contact.nextProt.txt"
 print("\nAnnotating with NextProt: '$aaNextProt'\n")
 task( aaNextProt <- aaContactSeq )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapBest $aaContactSeq > $aaNextProt
 wait
@@ -85,14 +85,14 @@ wait
 # Calculate background distribution
 for( string type : ['mi', 'varInf'] ) {
 	# Single base
-	aaStats := "$dir/db/pdb/aa.contact.$type.txt"
-	aaStatsSummary := "$dir/db/pdb/aa.contact.$type.summary.txt"
+	aaStats := "$dir/aa.contact.$type.txt"
+	aaStatsSummary := "$dir/aa.contact.$type.summary.txt"
 	print("\nCalculating $type:\n\t'$aaStats'\n\t'$aaStatsSummary'\n")
 	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
 
 	# Three bases
-	aaStats3 := "$dir/db/pdb/aa.contact.$type.3.txt"
-	aaStatsSummary3 := "$dir/db/pdb/aa.contact.$type.3.summary.txt"
+	aaStats3 := "$dir/aa.contact.$type.3.txt"
+	aaStatsSummary3 := "$dir/aa.contact.$type.3.summary.txt"
 	print("\nCalculating $type (3 bases):\n\t'$aaStats3'\n\t'$aaStatsSummary3'\n")
 	task( aaStats3 <- aaNextProt )	sys $cmdEpistasis aaContactStatsN $type 1 $tree $msa $aaNextProt > $aaStats3 2> $aaStatsSummary3
 }
@@ -100,32 +100,32 @@ wait
 
 for( string type : ['mi', 'varInf'] ) {
 	# Single base background model
-	bg := "$dir/db/pdb/bg.$type.summary.txt"
-	bgDetails := "$dir/db/pdb/bg.$type.details.txt"
+	bg := "$dir/bg.$type.summary.txt"
+	bgDetails := "$dir/bg.$type.details.txt"
 	print("\nCalculating background distribution ($bgNum iterations): '$bg'\n")
 	task( bg <- [tree, msa] ) sys $cmdEpistasis background $type 0 $bgNum $tree $msa 2>$bg >$bgDetails
 	wait
 
 	# Three bases background model
-	bg3 := "$dir/db/pdb/bg.$type.3.summary.txt"
-	bg3Details := "$dir/db/pdb/bg.$type.3.details.txt"
+	bg3 := "$dir/bg.$type.3.summary.txt"
+	bg3Details := "$dir/bg.$type.3.details.txt"
 	print("\nCalculating background distribution ($bgNum iterations): '$bg3'\n")
 	task( bg3 <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa 2>$bg3 >$bg3Details
 	wait
 }
 
 # Transitions
-aaCons := "$dir/db/pdb/aa.conservation.txt"
+aaCons := "$dir/aa.conservation.txt"
 print("\nCalculating conservation: '$aaCons'\n")
 task( aaCons <- [tree, msa, aaNextProt] )	sys $cmdEpistasis conservation $tree $msa $aaNextProt | tee $aaCons
 
 # Transitions
-trM := "$dir/db/pdb/transitions.txt"
+trM := "$dir/transitions.txt"
 print("\nCalculating transitions ($bgNum iterations): '$trM'\n")
 task( trM <- [tree, msa, aaNextProt] )	sys $cmdEpistasis transitions $bgNum $tree $msa $aaNextProt > $trM 
 
 # AA frequencies
-aaFreqs := "$dir/db/pdb/aa.frequencies.txt"
+aaFreqs := "$dir/aa.frequencies.txt"
 print("\nCalculating AA frequencies: '$aaFreqs'\n")
 task( aaFreqs <- [tree, msa] )	sys $cmdEpistasis aaFreqs $tree $msa > $aaFreqs
 
