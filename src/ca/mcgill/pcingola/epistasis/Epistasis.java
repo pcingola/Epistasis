@@ -215,6 +215,8 @@ public class Epistasis implements CommandLine {
 		case "aafreqs":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			filterMsaByIdMap = true;
 			runAaFrequencies();
 			break;
 
@@ -224,6 +226,8 @@ public class Epistasis implements CommandLine {
 			numSamples = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			filterMsaByIdMap = true;
 			if (numBases <= 0) usage("Number of bases must be positive number");
 			if (numSamples <= 0) usage("Number of samples must be positive number");
 			runBackground(type, numBases, numSamples);
@@ -232,7 +236,9 @@ public class Epistasis implements CommandLine {
 		case "conservation":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			filterMsaByIdMap = true;
 			runConservation();
 			break;
 
@@ -282,7 +288,9 @@ public class Epistasis implements CommandLine {
 			numSamples = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			filterMsaByIdMap = true;
 			runTransitions(numSamples);
 			break;
 
