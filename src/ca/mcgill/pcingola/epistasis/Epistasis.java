@@ -228,7 +228,7 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			filterMsaByIdMap = true;
-			if (numBases <= 0) usage("Number of bases must be positive number");
+			if (numBases < 0) usage("Number of bases must be non-negative number");
 			if (numSamples <= 0) usage("Number of samples must be positive number");
 			runBackground(type, numBases, numSamples);
 			break;
