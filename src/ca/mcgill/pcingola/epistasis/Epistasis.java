@@ -312,7 +312,10 @@ public class Epistasis implements CommandLine {
 	 * Prepend a message to each line
 	 */
 	String prependEachLine(String prepend, String lines) {
-		return String.join(prepend, lines.split("\n"));
+		StringBuilder sb = new StringBuilder();
+		for (String line : lines.split("\n"))
+			sb.append(prepend + line + "\n");
+		return sb.toString();
 	}
 
 	/**
