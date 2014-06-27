@@ -168,7 +168,7 @@ wait
 aaContactMISumm := "$dir/aa.contact.mi.summary.txt"
 aaCount := "$dir/aa.count.txt"
 aaCountMatrix := "$dir/aa.count.matrix.txt"
-task( aaCount <- $aaContactMISumm ) {
+task( aaCount <- aaContactMISumm ) {
 	sys head -n 214 $aaContactMISumm | tail -n 210 | tr "-" "\t" > $aaCount
 	sys cat $aaCount | ~/workspace/Epistasis/scripts/aaTable2Matrix.pl | tee $aaCountMatrix
 }
