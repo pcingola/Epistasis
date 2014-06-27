@@ -309,6 +309,13 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Prepend a message to each line
+	 */
+	String prependEachLine(String prepend, String lines) {
+		return String.join(prepend, lines.split("\n"));
+	}
+
+	/**
 	 * Calculate or load transition matrix
 	 */
 	TransitionMatrix qHat(String qMatrixFile) {
@@ -375,7 +382,7 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAll = new CountByType();
 		aaContactsUniq.stream().forEach(d -> countFirstAaAll.inc(d.getAaPair()));
-		System.err.println("Count fist AA (all):\n" + countFirstAaAll.toStringSort());
+		System.err.println("Count fist AA (all):\n" + prependEachLine("COUNT_AA\t", countFirstAaAll.toStringSort()));
 
 		//---
 		// Count first 'AA' (not-fully conserved)
@@ -385,7 +392,7 @@ public class Epistasis implements CommandLine {
 				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
 		;
-		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + countFirstAa.toStringSort());
+		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + prependEachLine("COUNT_AA_NON_FULL_CONS_" + type + "\t", countFirstAa.toStringSort()));
 
 		//---
 		// Count first 'AA' with annotations (all)
@@ -397,7 +404,7 @@ public class Epistasis implements CommandLine {
 						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
 				) //
 		;
-		System.err.println("Count fist AA with annotations (all):\n" + countFirstAaAnnAll.toStringSort());
+		System.err.println("Count fist AA with annotations (all):\n" + prependEachLine("COUNT_AA_NEXTPROT_" + type + "\t", countFirstAaAnnAll.toStringSort()));
 
 		//---
 		// Count first 'AA' with annotations (not-fully conserved)
@@ -412,7 +419,7 @@ public class Epistasis implements CommandLine {
 								) //
 				) //
 		;
-		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + countFirstAaAnn.toStringSort());
+		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + prependEachLine("COUNT_AA_NON_FULL_CONS_NEXTPROT_" + type + "\t", countFirstAaAnn.toStringSort()));
 
 	}
 
@@ -461,6 +468,16 @@ public class Epistasis implements CommandLine {
 
 		// Show distribution
 		System.err.println(sim);
+	}
+
+	/**
+	 * Show AA in contact that have an entry in idMapper
+	 */
+	void runAaFilterIdMap() {
+		load();
+		aaContacts.stream() //
+				.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
+				.forEach(System.out::println);
 	}
 
 	void runAaFrequencies() {
@@ -622,16 +639,6 @@ public class Epistasis implements CommandLine {
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
 			);
 		}
-	}
-
-	/**
-	 * Show AA in contact that have an entry in idMapper
-	 */
-	void runAaFilterIdMap() {
-		load();
-		aaContacts.stream() //
-				.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
-				.forEach(System.out::println);
 	}
 
 	/**
