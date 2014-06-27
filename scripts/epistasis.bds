@@ -108,6 +108,15 @@ for( string type : ['mi', 'varInf'] ) {
 }
 wait
 
+# Create files for R
+print("Create R files\n")
+aaStats := "$dir/aa.contact.mi.txt"
+aaStatsR := "$dir/aa.contact.stats.txt";
+task( aaStatsR <- aaStats ) {
+	sys echo -e "mi\thxy\tvarinf\thcond.xy\thcond.yx\thx\thy\tcons.x\tcons.y" > $aaStatsR
+	sys cat aa.contact.mi.txt | cut -f 19- >> $aaStatsR
+}
+
 # Create R data files
 for( string type : ['mi', 'varInf'] ) {
 	aaStats3 := "$dir/aa.contact.$type.3.txt"
@@ -136,14 +145,6 @@ for( string type : ['mi', 'varInf'] ) {
 	print("\nCalculating background distribution ($bgNum iterations): '$bg3'\n")
 	task( bg3Details <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa $idMapBest 2>$bg3 >$bg3Details
 	wait
-}
-
-# Create files for R
-print("Create R files\n")
-aaStatsR := "$dir/aa.contact.stats.txt";
-task( aaStats <- aNextProt ) {
-	sys echo -e "mi\thxy\tvarinf\thcond.xy\thcond.yx\thx\thy\tcons.x\tcons.y" > $aaStatsR
-	sys cat aa.contact.mi.txt | cut -f 19- >> $aaStatsR
 }
 
 # Calculate conservation statistics for many AA windows sizes
