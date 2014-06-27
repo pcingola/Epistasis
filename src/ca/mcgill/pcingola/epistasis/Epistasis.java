@@ -36,6 +36,7 @@ public class Epistasis implements CommandLine {
 	}
 
 	boolean nextProt;
+	boolean filterMsaByIdMap = true;
 	String[] args;
 	String cmd;
 	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
@@ -83,12 +84,9 @@ public class Epistasis implements CommandLine {
 	 * Load files
 	 */
 	void load() {
-		if (treeFile != null) loadTree(treeFile);
-		if (multAlignFile != null) {
-			if (Math.random() < 2) throw new RuntimeException("Flag to only keep transcripts in 'idMapFile'");
-			loadMsas(multAlignFile);
-		}
 		if (idMapFile != null) loadIdMap(idMapFile);
+		if (treeFile != null) loadTree(treeFile);
+		if (multAlignFile != null) loadMsas(multAlignFile);
 		if (aaContactFile != null) loadAaContact(aaContactFile);
 
 		if (genome != null) {
@@ -129,6 +127,11 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Loading " + numAligns + " way multiple alignment from " + multAlign);
 		msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
 		msas.load();
+
+		// Filter by idMap?
+		if (filterMsaByIdMap) {
+			Gpr.debug("FILTER BY IDMAP!!!\n");
+		}
 	}
 
 	/**
