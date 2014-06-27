@@ -114,7 +114,7 @@ aaStats := "$dir/aa.contact.mi.txt"
 aaStatsR := "$dir/aa.contact.stats.txt";
 task( aaStatsR <- aaStats ) {
 	sys echo -e "mi\thxy\tvarinf\thcond.xy\thcond.yx\thx\thy\tcons.x\tcons.y" > $aaStatsR
-	sys cat aa.contact.mi.txt | cut -f 19- >> $aaStatsR
+	sys cat $aaStats | cut -f 19- >> $aaStatsR
 }
 
 # Create R data files
