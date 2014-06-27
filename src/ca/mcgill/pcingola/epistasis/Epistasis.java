@@ -84,7 +84,10 @@ public class Epistasis implements CommandLine {
 	 */
 	void load() {
 		if (treeFile != null) loadTree(treeFile);
-		if (multAlignFile != null) loadMsas(multAlignFile);
+		if (multAlignFile != null) {
+			if (Math.random() < 2) throw new RuntimeException("Flag to only keep transcripts in 'idMapFile'");
+			loadMsas(multAlignFile);
+		}
 		if (idMapFile != null) loadIdMap(idMapFile);
 		if (aaContactFile != null) loadAaContact(aaContactFile);
 
