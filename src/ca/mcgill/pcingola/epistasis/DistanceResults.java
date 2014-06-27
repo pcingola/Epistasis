@@ -59,10 +59,10 @@ public class DistanceResults extends ArrayList<DistanceResult> {
 		// Create?
 		if (contactsByPdbId == null) {
 			contactsByPdbId = new CountByType();
-			this.forEach(d -> contactsByPdbId.inc(d.pdbId + "\t" + d.pdbChainId));
+			this.forEach(d -> contactsByPdbId.inc(d.pdbId + ":" + d.pdbChainId));
 		}
 
-		return (int) contactsByPdbId.get(pdbId + "\t" + pdbChainId);
+		return (int) contactsByPdbId.get(pdbId + ":" + pdbChainId);
 	}
 
 	/**

@@ -94,7 +94,7 @@ public class IdMapper {
 		map.keySet().forEach(k -> {
 			best.add(map.get(k).get(0)); // Add first entry to 'best'
 				System.err.println("map\t" + k);
-				map.get(k).forEach(im -> System.err.println("\t\t" + im));
+				map.get(k).forEach(im -> System.err.println("\t\t" + im + "\tAA_contacts: " + contacts(distanceResults, im)));
 			} //
 		);
 
@@ -108,10 +108,10 @@ public class IdMapper {
 		int cmp = im1.geneId.compareTo(im2.geneId);
 		if (cmp != 0) return cmp;
 
-		cmp = contacts(distanceResults, im2) - contacts(distanceResults, im1); // Compare number of AA 'in contact' (more is better)
+		cmp = im2.pdbAaLen - im1.pdbAaLen; // Longer PDB AA sequence first
 		if (cmp != 0) return cmp;
 
-		cmp = im2.pdbAaLen - im1.pdbAaLen; // Longer PDB AA sequence first
+		cmp = contacts(distanceResults, im2) - contacts(distanceResults, im1); // Compare number of AA 'in contact' (more is better)
 		if (cmp != 0) return cmp;
 
 		cmp = im2.trAaLen - im1.trAaLen; // Longer transcript AA sequence first

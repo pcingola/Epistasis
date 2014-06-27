@@ -606,7 +606,7 @@ public class Epistasis implements CommandLine {
 	void runMapPdbGeneBest() {
 		load();
 		Collection<IdMapperEntry> best = idMapper.best(aaContacts);
-		System.out.println(best);
+		best.stream().sorted().forEach(System.out::println);
 	}
 
 	void runNextProt() {
