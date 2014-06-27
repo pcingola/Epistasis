@@ -55,10 +55,6 @@ if( ! exists('bg.varinf3') ) {
 
 # Values for AA in contact
 if( ! exists('aacont') ) {
-	# How to create the file:
-	# 	$ echo -e "mi\thxy\tvarinf\thcond.xy\thcond.yx\thx\thy\tcons.x\tcons.y" > aa.contact.stats.txt
-	# 	$ cat aa.contact.mi.txt | cut -f 19- >> aa.contact.stats.txt
-
 	cat("Loading contact MI & VarInf\n")
 	aacont <- read.csv("aa.contact.stats.txt", sep="\t")
 }
@@ -68,9 +64,14 @@ if( ! exists('aacont.mi3') ) {
 	aacont.mi3 <- read.csv("aa.contact.mi.3.vals.txt", sep="\t")
 }
 
-if( ! exists('aacont.mi3') ) {
+if( ! exists('aacont.vi3') ) {
 	cat("Loading contact VarInf 3\n")
 	aacont.vi3 <- read.csv("aa.contact.varInf.3.vals.txt", sep="\t")
+}
+
+if( ! exists('aacount') ) {
+	cat("Loading AA count matrix\n")
+	aacount <- read.csv("aa.count.matrix.txt", header = TRUE, sep="\t")
 }
 
 if( savePlot ) { png( width=800, height=800 ) }
@@ -81,59 +82,58 @@ if( savePlot ) { png( width=800, height=800 ) }
 
 par( mfcol=c(2,1) )
 
-# cat("MI\n")
-# bm <- bg.mi[[1]]
-# bm <- bm[ ! is.na(bm) ]
-# aami <- aacont$mi
-# histDens( bm, title="Mutual Information: 'null' distribution (non-zero)", xlim=c(0,2) )
-# histDens( aami[ aami > 0 ], title="Mutual Information: AA 'in contact' (non-zero)", xlim=c(0,2) )
-# 
-# cat("MI 3\n")
-# bm <- bg.mi3[[1]]
-# bm <- bm[ ! is.na(bm) ]
-# aami <- aacont.mi3[[1]]
-# histDens( bm, title="Mutual Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,2) )
-# histDens( aami[ aami > 0 ], title="Mutual Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,2) )
-# 
-# cat("VarInf\n")
-# bv <- bg.varinf[[1]]
-# bv <- bv[ ! is.na(bv) ]
-# aavi <- aacont$varinf
-# histDens( bv, title="Variation of Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,4) )
-# histDens( aavi[ aavi > 0 ] , title="Variation of Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,4) )
-# 
-# cat("VarInf 3\n")
-# bv <- bg.varinf3[[1]]
-# bv <- bv[ ! is.na(bv) ]
-# aavi <- aacont.vi3[[1]]
-# histDens( bv, title="Variation of Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,4) )
-# histDens( aavi[ aavi > 0 ] , title="Variation of Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,4) )
-# 
-# cat("H(X)\n")
-# h <- c(aacont$hx, aacont$hy)
-# histDens( h, title="H(X)", xlim=c(0,2) )
-# histDens( h[ h > 0 ] , title="H(X) non-zero", xlim=c(0,2) )
-# 
+cat("MI\n")
+bm <- bg.mi[[1]]
+bm <- bm[ ! is.na(bm) ]
+aami <- aacont$mi
+histDens( bm, title="Mutual Information: 'null' distribution (non-zero)", xlim=c(0,2) )
+histDens( aami[ aami > 0 ], title="Mutual Information: AA 'in contact' (non-zero)", xlim=c(0,2) )
+
+cat("MI 3\n")
+bm <- bg.mi3[[1]]
+bm <- bm[ ! is.na(bm) ]
+aami <- aacont.mi3[[1]]
+histDens( bm, title="Mutual Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,2) )
+histDens( aami[ aami > 0 ], title="Mutual Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,2) )
+
+cat("VarInf\n")
+bv <- bg.varinf[[1]]
+bv <- bv[ ! is.na(bv) ]
+aavi <- aacont$varinf
+histDens( bv, title="Variation of Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,4) )
+histDens( aavi[ aavi > 0 ] , title="Variation of Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,4) )
+
+cat("VarInf 3\n")
+bv <- bg.varinf3[[1]]
+bv <- bv[ ! is.na(bv) ]
+aavi <- aacont.vi3[[1]]
+histDens( bv, title="Variation of Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,4) )
+histDens( aavi[ aavi > 0 ] , title="Variation of Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,4) )
+
+cat("H(X)\n")
+h <- c(aacont$hx, aacont$hy)
+histDens( h, title="H(X)", xlim=c(0,2) )
+histDens( h[ h > 0 ] , title="H(X) non-zero", xlim=c(0,2) )
+
 #---
 # Heatmaps
 #---
 
-# par( mfcol=c(1,1) )
-# 
-# aacount <- read.csv("aa.count.matrix.txt", header = TRUE, sep="\t")
-# aac <- as.matrix(aacount)
-# aac[ aac == 0 ] <- NA
-# heatmap(aac, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
-# 
-# aami <- read.csv("aa.mi.matrix.txt", header = TRUE, sep="\t")
-# aam <- as.matrix(aami)
-# aam[ aam == 0 ] <- NA
-# heatmap(aam, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
-# 
-# aavi <- read.csv("aa.vi.matrix.txt", header = TRUE, sep="\t")
-# aav <- as.matrix(aavi)
-# aav[ aav == 0 ] <- NA
-# heatmap(aav, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
+par( mfcol=c(1,1) )
+
+aac <- as.matrix(aacount)
+aac[ aac == 0 ] <- NA
+heatmap(aac, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
+
+aami <- read.csv("aa.mi.matrix.txt", header = TRUE, sep="\t")
+aam <- as.matrix(aami)
+aam[ aam == 0 ] <- NA
+heatmap(aam, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
+
+aavi <- read.csv("aa.vi.matrix.txt", header = TRUE, sep="\t")
+aav <- as.matrix(aavi)
+aav[ aav == 0 ] <- NA
+heatmap(aav, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
 
 #---
 # Heatmaps by entropy
