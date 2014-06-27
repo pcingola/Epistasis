@@ -80,7 +80,6 @@ print("\nFilter 'AA in contact' using 'best' mapping: '$aaContactBest'\n")
 task( aaContactBest <- [aaContactSeq, idMapBest] )	sys $cmdEpistasis aaFilterIdMap $idMapBest $aaContactSeq > $aaContactBest
 wait
 
-
 # Estimate transition matrix Q from sequence alignment 
 # and phylegenetic tree
 print("\nEstimate Q: '$qhat'\n")
@@ -130,21 +129,25 @@ wait
 aaCons := "$dir/aa.conservation.txt"
 print("\nCalculating conservation: '$aaCons'\n")
 task( aaCons <- [tree, msa, aaContactBest] )	sys $cmdEpistasis conservation $tree $msa $idMapBest $aaContactBest | tee $aaCons
+wait
 
 # Calculate AA-pairs transitions for 'AA in contact'. Also calculate 'null' distribution
 # Note: These are 400x400 matrices 
 trM := "$dir/transitions.txt"
 print("\nCalculating transitions ($bgNum iterations): '$trM'\n")
 task( trM <- [tree, msa, aaContactBest] )	sys $cmdEpistasis transitions $bgNum $tree $msa $idMapBest $aaContactBest > $trM 
+wait
 
 # Calculate AA frequencies
 aaFreqs := "$dir/aa.frequencies.txt"
 print("\nCalculating AA frequencies: '$aaFreqs'\n")
 task( aaFreqs <- [tree, msa] )	sys $cmdEpistasis aaFreqs $tree $msa $idMapBest > $aaFreqs
+wait
 
 # Create a BED file from MSA coordinates. To show coverage, load this BED file in IGV.
 msaBed := "$dir/" + msa.swapExt(".fa", ".bed")
 task( msaBed <- msa )	sys cat $msa | grep _hg19 | cut -f 5 -d " " | tr -d "+" | sed "s/-$//" | tr ":-" "\t\t" > $msaBed
+wait
 
 # Done
 wait
