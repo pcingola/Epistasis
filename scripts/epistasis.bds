@@ -114,14 +114,14 @@ for( string type : ['mi', 'varInf'] ) {
 	bg := "$dir/bg.$type.summary.txt"
 	bgDetails := "$dir/bg.$type.details.txt"
 	print("\nCalculating background distribution ($bgNum iterations): '$bg'\n")
-	task( bg <- [tree, msa] ) sys $cmdEpistasis background $type 0 $bgNum $tree $msa $idMapBest 2>$bg >$bgDetails
+	task( bgDetails <- [tree, msa] ) sys $cmdEpistasis background $type 0 $bgNum $tree $msa $idMapBest 2>$bg >$bgDetails
 	wait
 
 	# Three bases background model
 	bg3 := "$dir/bg.$type.3.summary.txt"
 	bg3Details := "$dir/bg.$type.3.details.txt"
 	print("\nCalculating background distribution ($bgNum iterations): '$bg3'\n")
-	task( bg3 <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa $idMapBest 2>$bg3 >$bg3Details
+	task( bg3Details <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa $idMapBest 2>$bg3 >$bg3Details
 	wait
 }
 
