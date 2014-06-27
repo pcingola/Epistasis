@@ -166,11 +166,14 @@ wait
 #---
 
 aaContactMISumm := "$dir/aa.contact.mi.summary.txt"
-aaCount := "$dir/aa.count.txt"
+aaContactVISumm := "$dir/aa.contact.varInf.summary.txt"
 aaCountMatrix := "$dir/aa.count.matrix.txt"
-task( aaCount <- aaContactMISumm ) {
-	sys head -n 214 $aaContactMISumm | tail -n 210 | tr "-" "\t" > $aaCount
-	sys cat $aaCount | ~/workspace/Epistasis/scripts/aaTable2Matrix.pl | tee $aaCountMatrix
+aaMiMatrix := "$dir/aa.mi.matrix.txt"
+aaViMatrix := "$dir/aa.vi.matrix.txt"
+task( aaCountMatrix <- aaContactMISumm ) {
+	sys cat $aaContactMISumm | grep -w COUNT_AA                      | cut -f 2-  | tr "-" "\t" | $aaTable2Matrix | tee $aaCountMatrix
+	sys cat $aaContactMISumm | grep -w COUNT_AA_NON_FULL_CONS_mi     | cut -f 2,5 | tr "-" "\t" | $aaTable2Matrix | tee $aaMiMatrix
+	sys cat $aaContactVISumm | grep -w COUNT_AA_NON_FULL_CONS_varInf | cut -f 2,5 | tr "-" "\t" | $aaTable2Matrix | tee $aaViMatrix
 }
 
 # Calculate AA-pairs transitions for 'AA in contact'. Also calculate 'null' distribution
