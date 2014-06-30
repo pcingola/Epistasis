@@ -25,6 +25,18 @@ public class Transitions {
 	}
 
 	/**
+	 * Add a transition matrix
+	 */
+	public synchronized Transitions add(Transitions t) {
+		int n = count.length;
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				count[i][j] += t.count[i][j];
+
+		return this;
+	}
+
+	/**
 	 * Count sequences transitions (AA pairs)
 	 */
 	public void count(byte[] codes1, byte[] codes2) {

@@ -772,15 +772,44 @@ public class Epistasis implements CommandLine {
 		// Count transitions
 		Timer.showStdErr("Calculating 'null' distribution");
 
-		msas.stream() //
-				.forEach(msa -> {
-					int len = msa.length();
-					System.err.println("\t" + msa.getId() + "\tlen: " + len); //
-						for (int i = 0; i < len; i++)
-							for (int j = i + 1; j < len; j++)
-								trans.count(msa.getColumn(i), msa.getColumn(j));
-					} //
-				);
+		msas.getTrIDs().parallelStream() //
+				.map(id -> runTransitionsBg(id)) //
+				.reduce(trans, (t1, t2) -> t1.add(t2)) //
+		;
+
+		return trans;
+	}
+
+	/**
+	 * Calculate background distribution of transitions using all "within protein" pairs
+	 */
+	Transitions runTransitionsBg(String trId) {
+		Transitions trans = new Transitions();
+		List<MultipleSequenceAlignment> msastr = msas.getMsas(trId);
+
+		int totalLen = msastr.stream().mapToInt(m -> m.length()).sum();
+		System.err.println("\t" + trId + "\t" + totalLen);
+		msastr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.length()));
+
+		// Iterate though all sequence alignment on this transcript
+		for (int mi = 0; mi < msastr.size(); mi++) {
+			MultipleSequenceAlignment msai = msastr.get(mi);
+			int maxi = msai.length();
+
+			for (int mj = mi; mi < msastr.size(); mj++) {
+				MultipleSequenceAlignment msaj = msastr.get(mj);
+				int maxj = msaj.length();
+
+				// Compare all rows
+				for (int i = 0; i < maxi; mi++) {
+					int minj = 0;
+					if (msai.getId().equals(msaj.getId())) minj = i + 1;
+
+					for (int j = minj; j < maxj; j++)
+						trans.count(msai.getColumn(i), msaj.getColumn(j));
+				}
+			}
+		}
 
 		return trans;
 	}
