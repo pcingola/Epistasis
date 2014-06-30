@@ -311,9 +311,9 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Prepend a message to each line
 	 */
-	String prependEachLine(String prepend, String lines) {
+	String prependEachLine(String prepend, Object lines) {
 		StringBuilder sb = new StringBuilder();
-		for (String line : lines.split("\n"))
+		for (String line : lines.toString().split("\n"))
 			sb.append(prepend + line + "\n");
 		return sb.toString();
 	}
@@ -722,47 +722,65 @@ public class Epistasis implements CommandLine {
 	void runTransitions(int numSamples) {
 		load();
 
+		//---
 		// Calculate transitions: AA in contact
+		//---
 		Transitions trans = new Transitions();
 		aaContacts.stream()//
 				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
 				.forEach(d -> trans.count(d)) //
 		;
-		System.out.println("Transitions 'AA in contact':\n" + trans);
+		System.out.println("Transitions 'AA in contact':\n" + prependEachLine("AA_IN_CONTACT\t", trans));
 
-		// Calculate transitions: Background
-		Transitions transBg = runTransitionsBg(numSamples);
-		System.out.println("Transitions 'null':\n" + transBg);
+		//---
+		// Calculate transitions: Background using random sampling
+		//---
+		Transitions transBgRand = runTransitionsBgRand(numSamples);
+		System.out.println("Transitions 'null' (rand):\n" + prependEachLine("BG_RAND\t", transBgRand));
 
-		// Ratio
-		long count[][] = trans.getCount();
-		long countBg[][] = transBg.getCount();
-		int n = count.length;
-		double r[][] = new double[n][n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
-				else r[i][j] = 0.0;
-			}
-		}
+		//---
+		// Calculate transitions: Background using all pairs within protein
+		//---
+		Transitions transBg = runTransitionsBg();
+		System.out.println("Transitions 'null' (all pairs within protein):\n" + prependEachLine("BG_WITHIN_PROT\t", transBg));
 
-		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
+		//		//---
+		//		// Ratio
+		//		//---
+		//		long count[][] = trans.getCount();
+		//		long countBg[][] = trtransBgRandtCount();
+		//		int n = count.length;
+		//		double r[][] = new double[n][n];
+		//		for (int i = 0; i < n; i++) {
+		//			for (int j = 0; j < n; j++) {
+		//				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
+		//				else r[i][j] = 0.0;
+		//			}
+		//		}
+		//
+		//		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
 	}
 
 	/**
 	 * Calculate transitions: Background
 	 */
-	Transitions runTransitionsBg(int numberOfSamples) {
+	Transitions runTransitionsBg() {
 		// Initialize
 		Transitions trans = new Transitions();
-		Random random = new Random();
-		msas.calcSkip(); // Pre-calculate skip on all msas
+		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
 		// Count transitions
-		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
-		IntStream.range(1, numberOfSamples) //
-				.peek(i -> Gpr.showMark(i, 1000)) //
-				.forEach(i -> runTransitionsBg(trans, random));
+		Timer.showStdErr("Calculating 'null' distribution");
+
+		msas.stream() //
+				.forEach(msa -> {
+					int len = msa.length();
+					System.err.println("\t" + msa.getId() + "\tlen: " + len); //
+						for (int i = 0; i < len; i++)
+							for (int j = i + 1; j < len; j++)
+								trans.count(msa.getColumn(i), msa.getColumn(j));
+					} //
+				);
 
 		return trans;
 	}
@@ -782,6 +800,24 @@ public class Epistasis implements CommandLine {
 
 		// Calculate transitions
 		trans.count(msa.getColumn(idx1), msa.getColumn(idx2));
+	}
+
+	/**
+	 * Calculate transitions: Background
+	 */
+	Transitions runTransitionsBgRand(int numberOfSamples) {
+		// Initialize
+		Transitions trans = new Transitions();
+		Random random = new Random();
+		msas.calcSkip(); // Pre-calculate skip on all MSAs
+
+		// Count transitions
+		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
+		IntStream.range(1, numberOfSamples) //
+				.peek(i -> Gpr.showMark(i, 1000)) //
+				.forEach(i -> runTransitionsBg(trans, random));
+
+		return trans;
 	}
 
 	/**
