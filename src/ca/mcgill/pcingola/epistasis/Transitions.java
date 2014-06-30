@@ -87,7 +87,7 @@ public class Transitions {
 
 		// Title
 		for (int i = 0; i < count.length; i++)
-			sb.append("\t" + seq[i]);
+			sb.append((i > 0 ? "\t" : "") + seq[i]);
 		sb.append("\n");
 
 		// Values
