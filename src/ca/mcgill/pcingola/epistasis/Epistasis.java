@@ -797,8 +797,8 @@ public class Epistasis implements CommandLine {
 			int maxi = msai.length();
 
 			for (int mj = mi; mi < msastr.size(); mj++) {
-				System.err.println("\t\t" + trId + "\t" + msai.getId() + "\t" + msaj.getId());
 				MultipleSequenceAlignment msaj = msastr.get(mj);
+				System.err.println("\t\t" + trId + "\t" + msai.getId() + "\t" + msaj.getId());
 				int maxj = msaj.length();
 
 				// Compare all rows
