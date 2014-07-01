@@ -20,8 +20,20 @@ public class Transitions {
 		seq = new String[nn];
 		for (int i = 0, l = 0; i < n; i++)
 			for (int j = 0; j < n; j++, l++)
-				seq[l] = "" + GprSeq.code2aa((byte) i) + GprSeq.code2aa((byte) j);
+				seq[l] = GprSeq.code2aa((byte) i) + "_" + GprSeq.code2aa((byte) j);
 
+	}
+
+	/**
+	 * Add a transition matrix
+	 */
+	public synchronized Transitions add(Transitions t) {
+		int n = count.length;
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				count[i][j] += t.count[i][j];
+
+		return this;
 	}
 
 	/**
@@ -87,7 +99,7 @@ public class Transitions {
 
 		// Title
 		for (int i = 0; i < count.length; i++)
-			sb.append("\t" + seq[i]);
+			sb.append((i > 0 ? "\t" : "") + seq[i]);
 		sb.append("\n");
 
 		// Values

@@ -311,9 +311,9 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Prepend a message to each line
 	 */
-	String prependEachLine(String prepend, String lines) {
+	String prependEachLine(String prepend, Object lines) {
 		StringBuilder sb = new StringBuilder();
-		for (String line : lines.split("\n"))
+		for (String line : lines.toString().split("\n"))
 			sb.append(prepend + line + "\n");
 		return sb.toString();
 	}
@@ -722,47 +722,94 @@ public class Epistasis implements CommandLine {
 	void runTransitions(int numSamples) {
 		load();
 
+		//---
 		// Calculate transitions: AA in contact
+		//---
 		Transitions trans = new Transitions();
 		aaContacts.stream()//
 				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
 				.forEach(d -> trans.count(d)) //
 		;
-		System.out.println("Transitions 'AA in contact':\n" + trans);
+		System.out.println("Transitions 'AA in contact':\n" + prependEachLine("AA_IN_CONTACT\t", trans));
 
-		// Calculate transitions: Background
-		Transitions transBg = runTransitionsBg(numSamples);
-		System.out.println("Transitions 'null':\n" + transBg);
+		//---
+		// Calculate transitions: Background using random sampling
+		//---
+		Transitions transBgRand = runTransitionsBgRand(numSamples);
+		System.out.println("Transitions 'null' (rand):\n" + prependEachLine("BG_RAND\t", transBgRand));
 
-		// Ratio
-		long count[][] = trans.getCount();
-		long countBg[][] = transBg.getCount();
-		int n = count.length;
-		double r[][] = new double[n][n];
-		for (int i = 0; i < n; i++) {
-			for (int j = 0; j < n; j++) {
-				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
-				else r[i][j] = 0.0;
-			}
-		}
+		//---
+		// Calculate transitions: Background using all pairs within protein
+		//---
+		Transitions transBg = runTransitionsBg();
+		System.out.println("Transitions 'null' (all pairs within protein):\n" + prependEachLine("BG_WITHIN_PROT\t", transBg));
 
-		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
+		//		//---
+		//		// Ratio
+		//		//---
+		//		long count[][] = trans.getCount();
+		//		long countBg[][] = trtransBgRandtCount();
+		//		int n = count.length;
+		//		double r[][] = new double[n][n];
+		//		for (int i = 0; i < n; i++) {
+		//			for (int j = 0; j < n; j++) {
+		//				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
+		//				else r[i][j] = 0.0;
+		//			}
+		//		}
+		//
+		//		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
 	}
 
 	/**
 	 * Calculate transitions: Background
 	 */
-	Transitions runTransitionsBg(int numberOfSamples) {
+	Transitions runTransitionsBg() {
 		// Initialize
 		Transitions trans = new Transitions();
-		Random random = new Random();
-		msas.calcSkip(); // Pre-calculate skip on all msas
+		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
 		// Count transitions
-		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
-		IntStream.range(1, numberOfSamples) //
-				.peek(i -> Gpr.showMark(i, 1000)) //
-				.forEach(i -> runTransitionsBg(trans, random));
+		Timer.showStdErr("Calculating 'null' distribution");
+
+		msas.getTrIDs().parallelStream() //
+				.map(id -> runTransitionsBg(id)) //
+				.reduce(trans, (t1, t2) -> t1.add(t2)) //
+		;
+
+		return trans;
+	}
+
+	/**
+	 * Calculate background distribution of transitions using all "within protein" pairs
+	 */
+	Transitions runTransitionsBg(String trId) {
+		Transitions trans = new Transitions();
+		List<MultipleSequenceAlignment> msastr = msas.getMsas(trId);
+
+		int totalLen = msastr.stream().mapToInt(m -> m.length()).sum();
+		System.err.println("\t" + trId + "\t" + totalLen);
+		msastr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.length()));
+
+		// Iterate though all sequence alignment on this transcript
+		for (int mi = 0; mi < msastr.size(); mi++) {
+			MultipleSequenceAlignment msai = msastr.get(mi);
+			int maxi = msai.length();
+
+			for (int mj = mi; mi < msastr.size(); mj++) {
+				MultipleSequenceAlignment msaj = msastr.get(mj);
+				int maxj = msaj.length();
+
+				// Compare all rows
+				for (int i = 0; i < maxi; mi++) {
+					int minj = 0;
+					if (msai.getId().equals(msaj.getId())) minj = i + 1;
+
+					for (int j = minj; j < maxj; j++)
+						trans.count(msai.getColumn(i), msaj.getColumn(j));
+				}
+			}
+		}
 
 		return trans;
 	}
@@ -782,6 +829,24 @@ public class Epistasis implements CommandLine {
 
 		// Calculate transitions
 		trans.count(msa.getColumn(idx1), msa.getColumn(idx2));
+	}
+
+	/**
+	 * Calculate transitions: Background
+	 */
+	Transitions runTransitionsBgRand(int numberOfSamples) {
+		// Initialize
+		Transitions trans = new Transitions();
+		Random random = new Random();
+		msas.calcSkip(); // Pre-calculate skip on all MSAs
+
+		// Count transitions
+		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
+		IntStream.range(1, numberOfSamples) //
+				.peek(i -> Gpr.showMark(i, 1000)) //
+				.forEach(i -> runTransitionsBg(trans, random));
+
+		return trans;
 	}
 
 	/**

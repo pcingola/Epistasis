@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
@@ -102,22 +103,14 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		MultipleSequenceAlignment msa = getMsa(msaId);
 		int maxj = 2 * numBases + 1;
 		for (int i = pos, j = numBases; j < maxj; i++, j++) {
-			if (i >= msa.length()) {
-				msa = msaTranscriptNext(msa);
-				if (msa == null) break;
-				i = 0;
-			}
+			if (i >= msa.length()) break;
 			seqs[j] = msa.getColumnString(i);
 		}
 
 		// Find positions before 'pos'
 		msa = getMsa(msaId);
 		for (int i = pos - 1, j = numBases - 1; j >= 0; i--, j--) {
-			if (i < 0) {
-				msa = msaTranscriptPrev(msa);
-				if (msa == null) break;
-				i = msa.length() - 1;
-			}
+			if (i < 0) break;
 			seqs[j] = msa.getColumnString(i);
 		}
 
@@ -174,6 +167,17 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 	public String[] getSpecies() {
 		return species;
+	}
+
+	/**
+	 * Return a list of (sorted) transcript IDs
+	 */
+	public Collection<String> getTrIDs() {
+		ArrayList<String> trids = new ArrayList<>();
+		trids.addAll(msasByTrId.keySet());
+		Collections.sort(trids);
+		return trids;
+
 	}
 
 	@Override
@@ -264,20 +268,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 		// Sort lists
 		sortTranscriptLists();
-	}
-
-	/**
-	 * Obtain next MSA (for the same transcript)
-	 */
-	MultipleSequenceAlignment msaTranscriptNext(MultipleSequenceAlignment msa) {
-		return null;
-	}
-
-	/**
-	 * Obtain previous MSA (for the same transcript)
-	 */
-	MultipleSequenceAlignment msaTranscriptPrev(MultipleSequenceAlignment msa) {
-		return null;
 	}
 
 	/**
