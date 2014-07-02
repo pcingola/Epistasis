@@ -722,21 +722,21 @@ public class Epistasis implements CommandLine {
 	void runTransitions(int numSamples) {
 		load();
 
-		//---
-		// Calculate transitions: AA in contact
-		//---
-		Transitions trans = new Transitions();
-		aaContacts.stream()//
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-				.forEach(d -> trans.count(d)) //
-		;
-		System.out.println("Transitions 'AA in contact':\n" + prependEachLine("AA_IN_CONTACT\t", trans));
-
-		//---
-		// Calculate transitions: Background using random sampling
-		//---
-		Transitions transBgRand = runTransitionsBgRand(numSamples);
-		System.out.println("Transitions 'null' (rand):\n" + prependEachLine("BG_RAND\t", transBgRand));
+		//		//---
+		//		// Calculate transitions: AA in contact
+		//		//---
+		//		Transitions trans = new Transitions();
+		//		aaContacts.stream()//
+		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+		//				.forEach(d -> trans.count(d)) //
+		//		;
+		//		System.out.println("Transitions 'AA in contact':\n" + prependEachLine("AA_IN_CONTACT\t", trans));
+		//
+		//		//---
+		//		// Calculate transitions: Background using random sampling
+		//		//---
+		//		Transitions transBgRand = runTransitionsBgRand(numSamples);
+		//		System.out.println("Transitions 'null' (rand):\n" + prependEachLine("BG_RAND\t", transBgRand));
 
 		//---
 		// Calculate transitions: Background using all pairs within protein
@@ -744,21 +744,6 @@ public class Epistasis implements CommandLine {
 		Transitions transBg = runTransitionsBg();
 		System.out.println("Transitions 'null' (all pairs within protein):\n" + prependEachLine("BG_WITHIN_PROT\t", transBg));
 
-		//		//---
-		//		// Ratio
-		//		//---
-		//		long count[][] = trans.getCount();
-		//		long countBg[][] = trtransBgRandtCount();
-		//		int n = count.length;
-		//		double r[][] = new double[n][n];
-		//		for (int i = 0; i < n; i++) {
-		//			for (int j = 0; j < n; j++) {
-		//				if (countBg[i][j] > 0) r[i][j] = ((double) count[i][j]) / ((double) countBg[i][j]);
-		//				else r[i][j] = 0.0;
-		//			}
-		//		}
-		//
-		//		System.out.println("Ratio transitions 'in contact' / transitions 'null':\n" + trans.toString(r));
 	}
 
 	/**
@@ -772,7 +757,7 @@ public class Epistasis implements CommandLine {
 		// Count transitions
 		Timer.showStdErr("Calculating 'null' distribution");
 
-		msas.getTrIDs().parallelStream() //
+		trans = msas.getTrIDs().parallelStream() //
 				.map(id -> runTransitionsBg(id)) //
 				.reduce(trans, (t1, t2) -> t1.add(t2)) //
 		;
@@ -785,24 +770,23 @@ public class Epistasis implements CommandLine {
 	 */
 	Transitions runTransitionsBg(String trId) {
 		Transitions trans = new Transitions();
-		List<MultipleSequenceAlignment> msastr = msas.getMsas(trId);
+		List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
 
-		int totalLen = msastr.stream().mapToInt(m -> m.length()).sum();
-		System.err.println("\t" + trId + "\t" + totalLen);
-		msastr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.length()));
+		int totalLen = msasTr.stream().mapToInt(m -> m.length()).sum();
+		System.err.println("\t" + trId + "\tNum. MSAs: " + msasTr.size() + "\tTotal len: " + totalLen);
+		msasTr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.length()));
 
 		// Iterate though all sequence alignment on this transcript
-		for (int mi = 0; mi < msastr.size(); mi++) {
-			MultipleSequenceAlignment msai = msastr.get(mi);
+		for (int mi = 0; mi < msasTr.size(); mi++) {
+			MultipleSequenceAlignment msai = msasTr.get(mi);
 			int maxi = msai.length();
 
-			for (int mj = mi; mi < msastr.size(); mj++) {
-				MultipleSequenceAlignment msaj = msastr.get(mj);
-				System.err.println("\t\t" + trId + "\t" + msai.getId() + "\t" + msaj.getId());
+			for (int mj = mi; mj < msasTr.size(); mj++) {
+				MultipleSequenceAlignment msaj = msasTr.get(mj);
 				int maxj = msaj.length();
 
 				// Compare all rows
-				for (int i = 0; i < maxi; mi++) {
+				for (int i = 0; i < maxi; i++) {
 					int minj = 0;
 					if (msai.getId().equals(msaj.getId())) minj = i + 1;
 
