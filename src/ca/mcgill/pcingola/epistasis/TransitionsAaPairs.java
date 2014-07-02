@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
@@ -7,12 +8,12 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
  *
  * @author pcingola
  */
-public class Transitions {
+public class TransitionsAaPairs {
 
 	String seq[];
 	long count[][];
 
-	public Transitions() {
+	public TransitionsAaPairs() {
 		int n = GprSeq.AMINO_ACIDS.length;
 		int nn = n * n;
 		count = new long[nn][nn];
@@ -23,19 +24,27 @@ public class Transitions {
 				seq[l] = GprSeq.code2aa((byte) i) + "_" + GprSeq.code2aa((byte) j);
 
 		n = count.length;
-		for (int i = 0, l = 0; i < n; i++)
-			for (int j = 0; j < n; j++, l++)
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
 				count[i][j] = 0;
 	}
 
 	/**
 	 * Add a transition matrix
 	 */
-	public synchronized Transitions add(Transitions t) {
+	public synchronized TransitionsAaPairs add(TransitionsAaPairs t) {
+		Gpr.debug("ADD: Start");
+
 		int n = count.length;
+		long sumThis = 0, sumT = 0;
 		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++)
+			for (int j = 0; j < n; j++) {
+				sumThis += t.count[i][j];
+				sumT = t.count[i][j];
 				count[i][j] += t.count[i][j];
+			}
+
+		Gpr.debug("ADD: End.\tsum(this): " + sumThis + "\tsum(t): " + sumT);
 
 		return this;
 	}

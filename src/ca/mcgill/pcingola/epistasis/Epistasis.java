@@ -741,7 +741,7 @@ public class Epistasis implements CommandLine {
 		//---
 		// Calculate transitions: Background using all pairs within protein
 		//---
-		Transitions transBg = runTransitionsBg();
+		TransitionsAaPairs transBg = runTransitionsBg();
 		System.out.println("Transitions 'null' (all pairs within protein):\n" + prependEachLine("BG_WITHIN_PROT\t", transBg));
 
 	}
@@ -749,9 +749,9 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate transitions: Background
 	 */
-	Transitions runTransitionsBg() {
+	TransitionsAaPairs runTransitionsBg() {
 		// Initialize
-		Transitions trans = new Transitions();
+		TransitionsAaPairs trans = new TransitionsAaPairs();
 		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
 		// Count transitions
@@ -768,8 +768,8 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate background distribution of transitions using all "within protein" pairs
 	 */
-	Transitions runTransitionsBg(String trId) {
-		Transitions trans = new Transitions();
+	TransitionsAaPairs runTransitionsBg(String trId) {
+		TransitionsAaPairs trans = new TransitionsAaPairs();
 		List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
 
 		int totalLen = msasTr.stream().mapToInt(m -> m.length()).sum();
@@ -802,7 +802,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate transitions background (one iteration
 	 */
-	void runTransitionsBg(Transitions trans, Random random) {
+	void runTransitionsBg(TransitionsAaPairs trans, Random random) {
 		// Random msa and positions
 		MultipleSequenceAlignment msa = null;
 		int idx1 = 0, idx2 = 0;
@@ -819,9 +819,9 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate transitions: Background
 	 */
-	Transitions runTransitionsBgRand(int numberOfSamples) {
+	TransitionsAaPairs runTransitionsBgRand(int numberOfSamples) {
 		// Initialize
-		Transitions trans = new Transitions();
+		TransitionsAaPairs trans = new TransitionsAaPairs();
 		Random random = new Random();
 		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
