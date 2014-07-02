@@ -751,18 +751,18 @@ public class Epistasis implements CommandLine {
 	 */
 	TransitionsAaPairs runTransitionsBg() {
 		// Initialize
-		TransitionsAaPairs trans = new TransitionsAaPairs();
 		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
 		// Count transitions
 		Timer.showStdErr("Calculating 'null' distribution");
 
-		trans = msas.getTrIDs().parallelStream() //
+		TransitionsAaPairs zero = new TransitionsAaPairs(); // Identity
+		TransitionsAaPairs sum = msas.getTrIDs().parallelStream() //
 				.map(id -> runTransitionsBg(id)) //
-				.reduce(trans, (t1, t2) -> t1.add(t2)) //
+				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
 		;
 
-		return trans;
+		return sum;
 	}
 
 	/**
