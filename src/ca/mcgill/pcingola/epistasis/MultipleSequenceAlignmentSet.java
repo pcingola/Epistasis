@@ -277,6 +277,10 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		return msas.get(random.nextInt(msas.size()));
 	}
 
+	public void setSpecies(String[] species) {
+		this.species = species;
+	}
+
 	public int size() {
 		return msas.size();
 	}

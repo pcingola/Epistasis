@@ -134,6 +134,8 @@ public class Epistasis implements CommandLine {
 		// Filter by idMap?
 		if (filterMsaByIdMap) {
 			MultipleSequenceAlignmentSet msasNew = new MultipleSequenceAlignmentSet(multAlign, numAligns);
+			msasNew.setSpecies(msas.getSpecies());
+
 			msas.stream() //
 					.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
 					.forEach(m -> msasNew.add(m));
