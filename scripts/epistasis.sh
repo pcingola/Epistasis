@@ -7,7 +7,7 @@ rm -rvf epistasis.bds.*
 echo Process is run as nohup
 nohup ./epistasis.bds &
 
-echo Tailing nohup.out, you can Ctrl-C
-sleep 1
-tail -f nohup.out 
+#echo Tailing nohup.out, you can Ctrl-C
+#sleep 1
+#tail -f nohup.out 
 
