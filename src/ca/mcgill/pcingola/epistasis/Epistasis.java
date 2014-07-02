@@ -86,7 +86,10 @@ public class Epistasis implements CommandLine {
 	void load() {
 		if (idMapFile != null) loadIdMap(idMapFile);
 		if (treeFile != null) loadTree(treeFile);
-		if (multAlignFile != null) loadMsas(multAlignFile);
+		if (multAlignFile != null) {
+			loadMsas(multAlignFile);
+			sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
+		}
 		if (aaContactFile != null) loadAaContact(aaContactFile);
 
 		if (genome != null) {
@@ -279,7 +282,6 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
-			qMatrixFile = args[argNum++];
 			filterMsaByIdMap = true;
 			runQhat();
 			break;
@@ -306,16 +308,6 @@ public class Epistasis implements CommandLine {
 		}
 
 		Timer.showStdErr("Done command: '" + cmd + "'");
-	}
-
-	/**
-	 * Prepend a message to each line
-	 */
-	String prependEachLine(String prepend, Object lines) {
-		StringBuilder sb = new StringBuilder();
-		for (String line : lines.toString().split("\n"))
-			sb.append(prepend + line + "\n");
-		return sb.toString();
 	}
 
 	/**
@@ -385,7 +377,7 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAll = new CountByType();
 		aaContactsUniq.stream().forEach(d -> countFirstAaAll.inc(d.getAaPair()));
-		System.err.println("Count fist AA (all):\n" + prependEachLine("COUNT_AA\t", countFirstAaAll.toStringSort()));
+		System.err.println("Count fist AA (all):\n" + Gpr.prependEachLine("COUNT_AA\t", countFirstAaAll.toStringSort()));
 
 		//---
 		// Count first 'AA' (not-fully conserved)
@@ -395,7 +387,7 @@ public class Epistasis implements CommandLine {
 				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
 		;
-		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + prependEachLine("COUNT_AA_NON_FULL_CONS_" + type + "\t", countFirstAa.toStringSort()));
+		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_" + type + "\t", countFirstAa.toStringSort()));
 
 		//---
 		// Count first 'AA' with annotations (all)
@@ -407,7 +399,7 @@ public class Epistasis implements CommandLine {
 						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
 				) //
 		;
-		System.err.println("Count fist AA with annotations (all):\n" + prependEachLine("COUNT_AA_NEXTPROT_" + type + "\t", countFirstAaAnnAll.toStringSort()));
+		System.err.println("Count fist AA with annotations (all):\n" + Gpr.prependEachLine("COUNT_AA_NEXTPROT_" + type + "\t", countFirstAaAnnAll.toStringSort()));
 
 		//---
 		// Count first 'AA' with annotations (not-fully conserved)
@@ -422,7 +414,7 @@ public class Epistasis implements CommandLine {
 								) //
 				) //
 		;
-		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + prependEachLine("COUNT_AA_NON_FULL_CONS_NEXTPROT_" + type + "\t", countFirstAaAnn.toStringSort()));
+		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_NEXTPROT_" + type + "\t", countFirstAaAnn.toStringSort()));
 
 	}
 
@@ -691,7 +683,6 @@ public class Epistasis implements CommandLine {
 	 */
 	void runQhat() {
 		load();
-		sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
 		qHat(qMatrixFile); // Calculate Qhat
 	}
 
@@ -742,7 +733,7 @@ public class Epistasis implements CommandLine {
 		// Calculate transitions: Background using all pairs within protein
 		//---
 		TransitionsAaPairs transBg = runTransitionsBg();
-		System.out.println("Transitions 'null' (all pairs within protein):\n" + prependEachLine("BG_WITHIN_PROT\t", transBg));
+		System.out.println("Transitions 'null' (all pairs within protein):\n" + Gpr.prependEachLine("BG_WITHIN_PROT\t", transBg));
 
 	}
 
@@ -839,17 +830,12 @@ public class Epistasis implements CommandLine {
 	 */
 	void sanityCheck(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
 		// Sanity check: Make sure that the alignment and the tree match
-		StringBuilder sbMsa = new StringBuilder();
-		for (String sp : msas.getSpecies())
-			sbMsa.append(sp + " ");
+		String speciesMsa = String.join("\t", msas.getSpecies());
+		String speciesTree = String.join("\t", tree.childNames());
 
-		StringBuilder sbTree = new StringBuilder();
-		for (String sp : tree.childNames())
-			sbTree.append(sp + " ");
+		if (!speciesTree.equals(speciesMsa)) throw new RuntimeException("Species form MSA and Tree do not match:\n\tMSA : " + speciesMsa + "\n\tTree: " + speciesTree);
 
-		if (!sbTree.toString().equals(sbMsa.toString())) throw new RuntimeException("Species form MSA and Tree do not match:\n\tMSA : " + sbMsa + "\n\tTree: " + sbTree);
-
-		System.out.println("\nSpecies [" + tree.childNames().size() + "]: " + sbTree);
+		System.out.println("\nSpecies [" + tree.childNames().size() + "]: " + speciesTree);
 	}
 
 	// Select which function to use

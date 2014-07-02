@@ -10,6 +10,7 @@ import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
@@ -105,7 +106,7 @@ public class MaxLikelihoodTm {
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count));
-		System.out.println("Qhat: " + count + " estimations\n" + Q);
+		System.err.println("Qhat: " + count + " estimations\n" + Q);
 
 		return Q;
 	}
@@ -119,7 +120,7 @@ public class MaxLikelihoodTm {
 		String seqName1 = msas.getSpecies()[seqNum1];
 		String seqName2 = msas.getSpecies()[seqNum2];
 		double t = time(seqNum1, seqNum2);
-		System.out.println("\t" + seqName1 + "\t" + seqName2 + "\ttime: " + t);
+		System.err.println("\t" + seqName1 + "\t" + seqName2 + "\ttime: " + t);
 
 		// Count all transitions
 		int count[][] = msas.countTransitions(seqNum1, seqNum2);
@@ -154,6 +155,7 @@ public class MaxLikelihoodTm {
 				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
 
 		Qhat = new TransitionMatrixMarkov(dqhat);
+		System.err.println(Gpr.prependEachLine(seqName1 + "_" + seqName2 + "_" + t + "\t", dqhat));
 		return Qhat;
 	}
 
