@@ -710,21 +710,21 @@ public class Epistasis implements CommandLine {
 	void runTransitions(int numSamples) {
 		load();
 
-		//		//---
-		//		// Calculate transitions: AA in contact
-		//		//---
-		//		Transitions trans = new Transitions();
-		//		aaContacts.stream()//
-		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-		//				.forEach(d -> trans.count(d)) //
-		//		;
-		//		System.out.println("Transitions 'AA in contact':\n" + prependEachLine("AA_IN_CONTACT\t", trans));
-		//
-		//		//---
-		//		// Calculate transitions: Background using random sampling
-		//		//---
-		//		Transitions transBgRand = runTransitionsBgRand(numSamples);
-		//		System.out.println("Transitions 'null' (rand):\n" + prependEachLine("BG_RAND\t", transBgRand));
+		//---
+		// Calculate transitions: AA in contact
+		//---
+		TransitionsAaPairs trans = new TransitionsAaPairs();
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> trans.count(d)) //
+		;
+		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_IN_CONTACT\t", trans));
+
+		//---
+		// Calculate transitions: Background using random sampling
+		//---
+		TransitionsAaPairs transBgRand = runTransitionsBgRand(numSamples);
+		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("BG_RAND\t", transBgRand));
 
 		//---
 		// Calculate transitions: Background using all pairs within protein

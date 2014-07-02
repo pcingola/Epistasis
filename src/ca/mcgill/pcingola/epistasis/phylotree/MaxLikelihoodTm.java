@@ -149,8 +149,8 @@ public class MaxLikelihoodTm {
 		double n = sum;
 		for (int i = 0; i < phat.length; i++)
 			for (int j = 0; j < phat.length; j++) {
-				// phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // Note: We use symmetry
-				phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i]; // Note: We use symmetry
+				phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // Note: We use symmetry
+				// phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i]; // Note: We use symmetry
 			}
 
 		// Create matrix
@@ -167,7 +167,7 @@ public class MaxLikelihoodTm {
 		Qhat = new TransitionMatrixMarkov(dqhat);
 		Qhat.setColNames(names);
 		Qhat.setRowNames(names);
-		System.err.println(Gpr.prependEachLine(String.format("\t%s_%s_%.4f\t", seqName1, seqName2, t), Qhat));
+		if (verbose) System.err.println(Gpr.prependEachLine(String.format("\t%s_%s_%.4f\t", seqName1, seqName2, t), Qhat));
 		return Qhat;
 	}
 
