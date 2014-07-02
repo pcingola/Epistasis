@@ -3,7 +3,7 @@ package ca.mcgill.pcingola.epistasis;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
- * Count transision pairs (i.e. 400x400 matrix of AA pairs)
+ * Count transition pairs (i.e. 400x400 matrix of AA pairs)
  *
  * @author pcingola
  */
@@ -28,11 +28,13 @@ public class Transitions {
 	 * Add a transition matrix
 	 */
 	public synchronized Transitions add(Transitions t) {
+		System.err.println("Adding: Start");
 		int n = count.length;
 		for (int i = 0; i < n; i++)
 			for (int j = 0; j < n; j++)
 				count[i][j] += t.count[i][j];
 
+		System.err.println("Adding: End");
 		return this;
 	}
 
