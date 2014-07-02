@@ -100,8 +100,8 @@ cat("VarInf\n")
 bv <- bg.varinf[[1]]
 bv <- bv[ ! is.na(bv) ]
 aavi <- aacont$varinf
-histDens( bv, title="Variation of Information: 'null' distribution, 3 AAs (non-zero)", xlim=c(0,4) )
-histDens( aavi[ aavi > 0 ] , title="Variation of Information: AA 'in contact', 3 AAs (non-zero)", xlim=c(0,4) )
+histDens( bv, title="Variation of Information: 'null' distribution (non-zero)", xlim=c(0,4) )
+histDens( aavi[ aavi > 0 ] , title="Variation of Information: AA 'in contact' (non-zero)", xlim=c(0,4) )
 
 cat("VarInf 3\n")
 bv <- bg.varinf3[[1]]
@@ -123,17 +123,17 @@ par( mfcol=c(1,1) )
 
 aac <- as.matrix(aacount)
 aac[ aac == 0 ] <- NA
-heatmap(aac, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
+heatmap(aac, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10), main='AA count (in contact)')
 
 aami <- read.csv("aa.mi.matrix.txt", header = TRUE, sep="\t")
 aam <- as.matrix(aami)
 aam[ aam == 0 ] <- NA
-heatmap(aam, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
+heatmap(aam, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10), main='AA MI (in contact)')
 
 aavi <- read.csv("aa.vi.matrix.txt", header = TRUE, sep="\t")
 aav <- as.matrix(aavi)
 aav[ aav == 0 ] <- NA
-heatmap(aav, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10))
+heatmap(aav, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10), main='AA VarInf (in contact)')
 
 #---
 # Heatmaps by entropy
