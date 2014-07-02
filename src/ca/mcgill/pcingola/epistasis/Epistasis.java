@@ -747,9 +747,11 @@ public class Epistasis implements CommandLine {
 		// Count transitions
 		Timer.showStdErr("Calculating 'null' distribution");
 
-		TransitionsAaPairs zero = new TransitionsAaPairs(); // Identity
+		int maxCount = msas.getTrIDs().size();
+		Counter count = new Counter();
+		TransitionsAaPairs zero = new TransitionsAaPairs(); // Identity		
 		TransitionsAaPairs sum = msas.getTrIDs().parallelStream() //
-				.map(id -> runTransitionsBg(id)) //
+				.map(id -> runTransitionsBg(id, (int) count.inc(), maxCount)) //
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
 		;
 
@@ -759,12 +761,12 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate background distribution of transitions using all "within protein" pairs
 	 */
-	TransitionsAaPairs runTransitionsBg(String trId) {
+	TransitionsAaPairs runTransitionsBg(String trId, int count, int maxCount) {
 		TransitionsAaPairs trans = new TransitionsAaPairs();
 		List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
 
 		int totalLen = msasTr.stream().mapToInt(m -> m.length()).sum();
-		System.err.println("\t" + trId + "\tNum. MSAs: " + msasTr.size() + "\tTotal len: " + totalLen);
+		System.err.println("\t" + trId + "\tNum. MSAs: " + msasTr.size() + "\tTotal len: " + totalLen + "\t" + count + "/" + maxCount);
 		msasTr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.length()));
 
 		// Iterate though all sequence alignment on this transcript
