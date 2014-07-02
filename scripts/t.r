@@ -3,13 +3,15 @@ revaa <- function(a) {
 	return( paste( rev( substring( a, 1:nchar(a), 1:nchar(a) ) ), collapse="") );
 }
 
-tr <- read.table("t.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
-tr <- as.matrix(tr)
+cat('Reading transitions for AA in contact\n')
+tr.aa <- read.table("transitions.aa_in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+tr.aa <- as.matrix(tr.aa)
 
-trn <- read.table("tnull.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
-trn <- as.matrix(tr)
+cat('Reading transitions null model \n')
+tr.bg <- read.table("transitions.aa_in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+tr.bg <- as.matrix(tr.bg)
 
-cn <- colnames(tr)
+cn <- colnames(tr.aa)
 len <- length(cn)
 for( i in 1:(len-1) ) {
 	for( j in (i+1):len ) {
@@ -18,7 +20,7 @@ for( i in 1:(len-1) ) {
 		ri <- revaa( cn[i] )
 		rj <- revaa( cn[j] )
 
-		m <- c( tr[ ni, nj ], tr[ni, rj], tr[ri, nj], tr[ri, rj] )
+		m <- c( tr.aa[ ni, nj ], tr.aa[ni, rj], tr.aa[ri, nj], tr.aa[ri, rj] )
 		cat( cn[i] , "\t", cn[j], '\t', ri, '\t', rj, '\t', m, "\n")
 	}
 }

@@ -181,7 +181,13 @@ task( aaCountMatrix <- aaContactMISumm ) {
 # Note: These are 400x400 matrices 
 trM := "$dir/transitions.txt"
 print("\nCalculating transitions ($bgNum iterations): '$trM'\n")
-task( trM <- [tree, msa, aaContactBest] )	sys $cmdEpistasis transitions $bgNum $tree $msa $idMapBest $aaContactBest > $trM 
+task( trM <- [tree, msa, aaContactBest] )	{
+	sys $cmdEpistasis transitions $bgNum $tree $msa $idMapBest $aaContactBest > $trM 
+	sys grep AA_IN_CONTACT $trM		| cut -f 2- > transitions.aa_in_contact.txt
+	sys grep BG_RAND $trM			| cut -f 2- > transitions.bg_rand.txt
+	sys grep BG_WITHIN_PROT $trM	| cut -f 2- > transitions.bg_within_prot.txt
+}
+
 wait
 
 # Calculate AA frequencies
