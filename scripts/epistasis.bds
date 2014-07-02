@@ -33,6 +33,7 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 # Commands
 #cmdEpistasis	:= "java -Xmx4G -jar Epistasis.jar"
 cmdEpistasis	:= "java -Xmx20G -jar Epistasis.jar"
+cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
 # Change parameters if we are debugging (smaller datasets)
 if( debug ) {
@@ -171,9 +172,9 @@ aaCountMatrix := "$dir/aa.count.matrix.txt"
 aaMiMatrix := "$dir/aa.mi.matrix.txt"
 aaViMatrix := "$dir/aa.vi.matrix.txt"
 task( aaCountMatrix <- aaContactMISumm ) {
-	sys cat $aaContactMISumm | grep -w COUNT_AA                      | cut -f 2-  | tr "-" "\t" | tee $aaCountMatrix
-	sys cat $aaContactMISumm | grep -w COUNT_AA_NON_FULL_CONS_mi     | cut -f 2,5 | tr "-" "\t" | tee $aaMiMatrix
-	sys cat $aaContactVISumm | grep -w COUNT_AA_NON_FULL_CONS_varInf | cut -f 2,5 | tr "-" "\t" | tee $aaViMatrix
+	sys cat $aaContactMISumm | grep -w COUNT_AA                      | cut -f 2-  | tr "-" "\t" | $cmdTable2Matrix | tee $aaCountMatrix
+	sys cat $aaContactMISumm | grep -w COUNT_AA_NON_FULL_CONS_mi     | cut -f 2,5 | tr "-" "\t" | $cmdTable2Matrix | tee $aaMiMatrix
+	sys cat $aaContactVISumm | grep -w COUNT_AA_NON_FULL_CONS_varInf | cut -f 2,5 | tr "-" "\t" | $cmdTable2Matrix | tee $aaViMatrix
 }
 
 # Calculate AA-pairs transitions for 'AA in contact'. Also calculate 'null' distribution
