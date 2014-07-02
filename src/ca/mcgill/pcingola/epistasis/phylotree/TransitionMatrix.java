@@ -15,10 +15,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 public class TransitionMatrix extends Array2DRowRealMatrix {
 
 	private static final long serialVersionUID = 1L;
-	protected EigenDecomposition eigen;
-
 	public static final double ACCEPTED_ERROR = 1e-4;
-	boolean checkNegativeLambda;
 
 	/**
 	 * Load from file
@@ -42,6 +39,12 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		return d;
 	}
+
+	protected EigenDecomposition eigen;
+	protected boolean checkNegativeLambda;
+	protected String colNames[];
+
+	protected String rowNames[];
 
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
@@ -78,6 +81,14 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		// Perform matrix exponential
 		return eigen.getV().multiply(D).multiply(eigen.getVT());
+	}
+
+	public String[] getColNames() {
+		return colNames;
+	}
+
+	public String[] getRowNames() {
+		return rowNames;
 	}
 
 	/**
@@ -123,11 +134,32 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		Gpr.toFile(fileName, sb.toString());
 	}
 
+	public void setColNames(String[] colNames) {
+		this.colNames = colNames;
+	}
+
+	public void setRowNames(String[] rowNames) {
+		this.rowNames = rowNames;
+	}
+
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+
+		// Column title
+		if (colNames != null) {
+			sb.append("        | ");
+			for (int i = 0; i < colNames.length; i++)
+				sb.append((i > 0 ? ", " : "") + String.format("%10s", colNames[i]));
+			sb.append(" |\n");
+		}
+
+		// Data
 		for (int i = 0; i < getRowDimension(); i++) {
-			sb.append("| ");
+
+			if (rowNames != null) sb.append(String.format("%8s| ", rowNames[i]));
+			else sb.append("| ");
+
 			for (int j = 0; j < getColumnDimension(); j++) {
 				if (j > 0) sb.append(", ");
 				double val = getEntry(i, j);
@@ -150,5 +182,4 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		return sb.toString();
 	}
-
 }

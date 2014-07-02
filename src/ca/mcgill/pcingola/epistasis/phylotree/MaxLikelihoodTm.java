@@ -91,6 +91,15 @@ public class MaxLikelihoodTm {
 	public TransitionMatrix estimateTransitionMatrix() {
 		calcPi(); // Calculate 'stable' AA distributions
 
+		// Column and row names
+		String names[] = new String[GprSeq.AMINO_ACIDS.length];
+		for (int i = 0; i < names.length; i++)
+			names[i] = GprSeq.code2aa((byte) i) + "";
+
+		//----
+		// Estimate matrix
+		//---
+
 		// For each pair of species, estimate Q
 		System.out.println("Estimate transition matrix");
 		int N = GprSeq.AMINO_ACIDS.length;
@@ -98,7 +107,7 @@ public class MaxLikelihoodTm {
 		int count = 0;
 		for (int i = 0; i < msas.getNumAligns(); i++) {
 			for (int j = i + 1; j < msas.getNumAligns(); j++) {
-				TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j);
+				TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j, names);
 				QhatSum = QhatSum.add(QhatTmp);
 				count++;
 			}
@@ -106,7 +115,8 @@ public class MaxLikelihoodTm {
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count));
-		System.err.println("Qhat: " + count + " estimations\n" + Q);
+		Q.setColNames(names);
+		Q.setRowNames(names);
 
 		return Q;
 	}
@@ -116,7 +126,7 @@ public class MaxLikelihoodTm {
 	 * @param seqNum1
 	 * @param seqNum2
 	 */
-	public TransitionMatrix estimateTransitionMatrix(int seqNum1, int seqNum2) {
+	public TransitionMatrix estimateTransitionMatrix(int seqNum1, int seqNum2, String names[]) {
 		String seqName1 = msas.getSpecies()[seqNum1];
 		String seqName2 = msas.getSpecies()[seqNum2];
 		double t = time(seqNum1, seqNum2);
@@ -155,7 +165,9 @@ public class MaxLikelihoodTm {
 				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
 
 		Qhat = new TransitionMatrixMarkov(dqhat);
-		System.err.println(Gpr.prependEachLine("\t" + seqName1 + "_" + seqName2 + "_" + t + "\t", Qhat));
+		Qhat.setColNames(names);
+		Qhat.setRowNames(names);
+		System.err.println(Gpr.prependEachLine(String.format("\t%s_%s_%.4f\t", seqName1, seqName2, t), Qhat));
 		return Qhat;
 	}
 
