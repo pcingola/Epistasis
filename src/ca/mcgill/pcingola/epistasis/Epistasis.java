@@ -741,6 +741,8 @@ public class Epistasis implements CommandLine {
 	 * Calculate transitions: Background
 	 */
 	TransitionsAaPairs runTransitionsBg() {
+		Gpr.debug("runTransitionsBg: Start");
+
 		// Initialize
 		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
@@ -755,6 +757,7 @@ public class Epistasis implements CommandLine {
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
 		;
 
+		Gpr.debug("runTransitionsBg: Done");
 		return sum;
 	}
 
