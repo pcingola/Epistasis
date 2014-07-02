@@ -149,8 +149,12 @@ public class MaxLikelihoodTm {
 		double n = sum;
 		for (int i = 0; i < phat.length; i++)
 			for (int j = 0; j < phat.length; j++) {
-				phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // Note: We use symmetry
-				// phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i]; // Note: We use symmetry
+				// phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i];  // OK
+				// phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // BAD
+
+				double freq = (count[i][j] + count[j][i]) / n; // Note: We use symmetry
+				double piAvg = (pi[i] + pi[j]) / 2.0;
+				phat[i][j] = freq * piAvg; // WARNING: Should we be dividing by piAvg here!?!?! Why?
 			}
 
 		// Create matrix

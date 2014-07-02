@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.DiagonalMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 
@@ -69,18 +70,19 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD().copy();
-		double maxLambda = Double.NEGATIVE_INFINITY;
 		int dim = D.getColumnDimension();
+		RealMatrix expD = new DiagonalMatrix(dim);
+		double maxLambda = Double.NEGATIVE_INFINITY;
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
 			maxLambda = Math.max(maxLambda, lambda);
-			D.setEntry(i, i, Math.exp(lambda * time));
+			expD.setEntry(i, i, Math.exp(lambda * time));
 		}
 
 		if (checkNegativeLambda && maxLambda > ACCEPTED_ERROR) throw new RuntimeException("All eigenvalues should be negative: max(lambda) = " + maxLambda);
 
 		// Perform matrix exponential
-		return eigen.getV().multiply(D).multiply(eigen.getVT());
+		return eigen.getV().multiply(expD).multiply(eigen.getVT());
 	}
 
 	public String[] getColNames() {
@@ -101,15 +103,16 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		if (eigen == null) eigen = new EigenDecomposition(this);
 
 		// Exponentiate the diagonal
-		RealMatrix D = eigen.getD().copy();
+		RealMatrix D = eigen.getD();
 		int dim = D.getColumnDimension();
+		RealMatrix logD = new DiagonalMatrix(dim);
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
-			D.setEntry(i, i, Math.log(lambda));
+			logD.setEntry(i, i, Math.log(lambda));
 		}
 
 		// Perform matrix exponential
-		return eigen.getV().multiply(D).multiply(eigen.getVT());
+		return eigen.getV().multiply(logD).multiply(eigen.getVT());
 	}
 
 	public RealMatrix matrix(double time) {
