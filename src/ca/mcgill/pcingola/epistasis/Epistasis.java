@@ -4,7 +4,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.math3.util.Pair;
@@ -711,21 +710,21 @@ public class Epistasis implements CommandLine {
 	void runTransitions(int numSamples) {
 		load();
 
-		//		//---
-		//		// Calculate transitions: AA in contact
-		//		//---
-		//		TransitionsAaPairs trans = new TransitionsAaPairs();
-		//		aaContacts.stream()//
-		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-		//				.forEach(d -> trans.count(d)) //
-		//		;
-		//		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_IN_CONTACT\t", trans));
-		//
-		//		//---
-		//		// Calculate transitions: Background using random sampling
-		//		//---
-		//		TransitionsAaPairs transBgRand = runTransitionsBgRand(numSamples);
-		//		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("BG_RAND\t", transBgRand));
+		//---
+		// Calculate transitions: AA in contact
+		//---
+		TransitionsAaPairs trans = new TransitionsAaPairs();
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> trans.count(d)) //
+		;
+		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_IN_CONTACT\t", trans));
+
+		//---
+		// Calculate transitions: Background using random sampling
+		//---
+		TransitionsAaPairs transBgRand = runTransitionsBgRand(numSamples);
+		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("BG_RAND\t", transBgRand));
 
 		//---
 		// Calculate transitions: Background using all pairs within protein
@@ -749,19 +748,11 @@ public class Epistasis implements CommandLine {
 		int maxCount = msas.getTrIDs().size();
 		Counter count = new Counter();
 		TransitionsAaPairs zero = new TransitionsAaPairs(); // Identity
-		List<TransitionsAaPairs> listTr = msas.getTrIDs().parallelStream() //
+		TransitionsAaPairs sum = msas.getTrIDs() //
+				.parallelStream() //
 				.map(id -> runTransitionsBg(id, (int) count.inc(), maxCount)) //
-				.collect(Collectors.toList()) //
-		// .reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
+				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
 		;
-
-		Timer.showStdErr("Finished calculating: Now reduce");
-
-		TransitionsAaPairs sum = zero;
-		for (TransitionsAaPairs tp : listTr)
-			sum = sum.add(tp);
-
-		Timer.showStdErr("Finished sum");
 
 		return sum;
 	}
