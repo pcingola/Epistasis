@@ -1,6 +1,5 @@
 package ca.mcgill.pcingola.epistasis;
 
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
 /**
@@ -39,7 +38,6 @@ public class TransitionsAaPairs {
 	 * Add a transition matrix
 	 */
 	public synchronized TransitionsAaPairs add(TransitionsAaPairs t) {
-		Gpr.debug("add: Start");
 		TransitionsAaPairs sum = new TransitionsAaPairs(false);
 
 		int n = count.length;
@@ -47,7 +45,6 @@ public class TransitionsAaPairs {
 			for (int j = 0; j < n; j++)
 				sum.count[i][j] = count[i][j] + t.count[i][j];
 
-		Gpr.debug("add: End");
 		return sum;
 	}
 
