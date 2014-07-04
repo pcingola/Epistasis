@@ -1,7 +1,7 @@
 
 library( 'gplots')
 
-savePlot <- T
+savePlot <- F
 
 #-------------------------------------------------------------------------------
 # Reverse an amino acid string
@@ -9,6 +9,19 @@ savePlot <- T
 
 revaa <- function(a) {
 	return( paste( rev( substring( a, 1:nchar(a), 1:nchar(a) ) ), collapse="") );
+}
+
+#-------------------------------------------------------------------------------
+# Scale by column or row
+#-------------------------------------------------------------------------------
+
+scaleCol <- function(x) {
+	return( scale( x, center=F, scale=colSums(x) ) )
+}
+
+scaleRow <- function(x) {
+	tx <- t(x)
+	return( t( scale( tx, center=F, scale=colSums(tx) ) ) )
 }
 
 #-------------------------------------------------------------------------------
@@ -37,23 +50,38 @@ histDens <- function( x, title, xlim, q=1.0, breaks = 50 ) {
 }
 
 #-------------------------------------------------------------------------------
+# Chech that names match
+#-------------------------------------------------------------------------------
+checkNames <- function(a, b) {
+	if( any( colnames(a) != colnames(b) ) ) {
+		stop('Column names do not match!')
+	}
+
+	if( any( rownames(a) != rownames(b) ) ) {
+		stop('Row names do not match!')
+	}
+}
+
+#-------------------------------------------------------------------------------
 # Compare heatmaps
 #-------------------------------------------------------------------------------
 heatComp <- function( tr.aa, tr.bg ) {
 	taa <- tr.aa
+	taa <- scaleRow( taa )
 	diag(taa) <- 0
-	taa <- scale( taa, center=F, scale=colSums( taa ) )
-	heatmap.2(taa, main = "Transitions: in contact", sub='Note: Column scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+	heatmap.2(taa, main = "Transitions: in contact", sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
 
 	tbg <- tr.bg
+	tbg <- scaleRow( tbg )
 	diag(tbg) <- 0
-	tbg <- scale( tbg, center=F, scale=colSums( tbg ) )
-	heatmap.2(tbg, main = "Transitions: 'null'", sub='Note: Column scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+	heatmap.2(tbg, main = "Transitions: 'null'", sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
 
-	t <- tr.aa / tr.bg
+	ta <- tr.aa / sum( as.numeric( tr.aa) )
+	tg <- tr.bg / sum( as.numeric( tr.bg) )
+	t <- ta / tg
 	t[ is.na(t) ] <- 0
-	t <- scale( t, center=F, scale=colSums( t ) )
-	heatmap.2(t, main = "Transitions Ratio: 'in contact' / 'null'", sub='Note: Column scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+	t <- scaleRow(t)
+	heatmap.2(t, main = "Transitions Ratio: 'in contact' / 'null'", sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
 	return(t)
 }
 
@@ -62,6 +90,10 @@ heatComp <- function( tr.aa, tr.bg ) {
 #-------------------------------------------------------------------------------
 
 if( savePlot ) { png( width=800, height=800 ) }
+
+#---
+# Load data
+#---
 
 if( ! exists('tr.aa2') ) {
 	cat('Reading transitions for AA in contact\n')
@@ -87,44 +119,133 @@ if( ! exists('tr.bg') ) {
 	tr.bg <- as.matrix(tr.bg)
 }
 
+checkNames(tr.aa, tr.bg)
+checkNames(tr.aa2, tr.bg2)
+
+if( T ) {
+	par( mfcol=c(2,1) )
+	xlim <- c(0,20)
+	histDens( log2(as.numeric(tr.aa2)), "Log2[ transition count 'in contact']", xlim )
+	histDens( log2(as.numeric(tr.bg2)), "Log2[ transition count 'null']", xlim )
+}
+
+#---
 # Transition reversal ratios
+#---
 if( F ) {
+	min.count <- 20
+
 	cn <- colnames(tr.aa2)
 	len <- length(cn)
 	h <- 1
 	r.aa <- ( 1:(len*(len-1)/2) ) * 0
 	r.bg <- r.aa
 	for( i in 1:(len-1) ) {
+		ni <- cn[i]
+		ri <- revaa( cn[i] )
+		cat( ni , "\n")
+
 		for( j in (i+1):len ) {
-			ni <- cn[i]
 			nj <- cn[j]
-			ri <- revaa( cn[i] )
 			rj <- revaa( cn[j] )
 
-			m.aa <- c( tr.aa2[ ni, nj ], tr.aa2[ni, rj], tr.aa2[ri, nj], tr.aa2[ri, rj] )
-			m.bg <- c( tr.bg2[ ni, nj ], tr.bg2[ni, rj], tr.bg2[ri, nj], tr.bg2[ri, rj] )
-			r.aa[h] <-  tr.aa2[ ni, nj ] / tr.aa2[ri, rj]
-			r.bg[h] <-  tr.bg2[ ni, nj ] / tr.bg2[ri, rj]
-			# cat( ni , "\t", nj, '\t', ri, '\t', rj, '\t', m.aa, '\t', m.bg, "\t", r.aa[h], '\t', r.bg[h], "\n")
-			cat( ni , "\t", nj, "\n")
+			#m.aa <- c( tr.aa2[ ni, nj ], tr.aa2[ni, rj], tr.aa2[ri, nj], tr.aa2[ri, rj] )
+			#m.bg <- c( tr.bg2[ ni, nj ], tr.bg2[ni, rj], tr.bg2[ri, nj], tr.bg2[ri, rj] )
+
+			if((tr.aa2[ ni, nj ] > min.count) && (tr.aa2[ri, rj] > min.count)) {
+				r.aa[h] <- tr.aa2[ ni, nj ] / tr.aa2[ri, rj]
+			} else {
+				r.aa[h] <- NA
+			}
+
+			if((tr.bg2[ ni, nj ] > min.count) && (tr.bg2[ri, rj] > min.count)) {
+				r.bg[h] <- tr.bg2[ ni, nj ] / tr.bg2[ri, rj]
+			} else {
+				r.bg[h] <- NA
+			}
 
 			h <- h+1
 		}
 	}
 
-	r.aa <- r.aa[ !is.infinite(r.aa) & !is.nan(r.aa) ]
-	r.bg <- r.bg[ !is.infinite(r.bg) & !is.nan(r.bg) ]
+	# Filter
+	r.aa <- r.aa[ !is.infinite(r.aa) & !is.nan(r.aa) & !is.na(r.aa) & (r.aa > 0) ]
+	r.bg <- r.bg[ !is.infinite(r.bg) & !is.nan(r.bg) & !is.na(r.bg) & (r.bg > 0)  ]
 
+	# Show histograms
 	par( mfcol=c(2,1) )
-
 	xlim <- c(0,5)
-	histDens(r.aa[ r.aa > 0 ], 'Transition reversal ratios AA in contact', xlim )
-	histDens(r.bg, 'Transition reversal ratios null distribution', xlim )
+	histDens(r.aa, 'Transition reversal ratios AA in contact', xlim)
+	histDens(r.bg, 'Transition reversal ratios null distribution', xlim)
+	xlim <- c(-4,4)
+	histDens(log2(r.aa), 'Log2[ Transition reversal ratios AA in contact ] ', xlim)
+	histDens(log2(r.bg), 'Log2[ Transition reversal ratios null distribution ]', xlim)
+}
+
+#---
+# Transition heatmaps
+#---
+if( F ) {
+	t <- heatComp( tr.aa, tr.bg )
+	t <- heatComp( tr.aa2, tr.bg2 )
+}
+
+#---
+# Transitions ratio histograms
+#---
+if( F ) {
+	ta <- as.numeric( tr.aa )
+	tg <- as.numeric( tr.bg )
+	t <- as.vector( (ta/sum(ta)) / (tg / sum(tg)) )
+	histDens( t, 'Normalized counts ratio: AA in contact / null', c(0,2), breaks=10  )
+
+	ta <- as.numeric( tr.aa2 )
+	tg <- as.numeric( tr.bg2 )
+	t <- as.vector( (ta/sum(ta)) / (tg / sum(tg)) )
+	t <- t[ ! is.na(t) ]
+	histDens( t, 'Normalized counts ratio: AA-Pairs in contact / null', c(0,2)  )
 }
 
 
-t <- heatComp( tr.aa, tr.bg )
-t <- heatComp( tr.aa2, tr.bg2 )
+if( F ) {
+	pa <- scaleRow( tr.aa )
+	pg <- scaleRow( tr.bg )
+
+	pg2 <- matrix( 0 , nrow=400, ncol=400 )
+	colnames( pg2 ) <- colnames( tr.bg2 )
+	rownames( pg2 ) <- rownames( tr.bg2 )
+	pa2 <- pg2
+
+	cn <- colnames(pg)
+	len <- length(cn)
+	for( i1 in cn ) {
+		cat(i1, '\n')
+		for( i2 in cn ) {
+			i = paste(i1, '_', i2, sep='')
+			for( j1 in cn ) {
+				for( j2 in cn ) {
+					j = paste(j1, '_', j2, sep='')
+					pa2[i,j] <- pa[i1,j1] * pa[i2,j2]
+					pg2[i,j] <- pg[i1,j1] * pg[i2,j2]
+				}
+			}
+		}
+	}
+
+	ta2 <- scaleRow( tr.aa2 )
+	ra <- ta2 / pa2
+	lra <- log2( ra )
+
+	tg2 <- scaleRow( tr.bg2 )
+	rg <- tg2 / pg2
+	lrg <- log2( rg )
+
+	par( mfcol=c(2,1) )
+	xlim <-c(-5, 5)
+	histDens( lra, "Log2[ P(AB -> XY) / ( P(A -> X) * P(B -> Y) ) ] 'in contact'", xlim )
+	histDens( lrg, "Log2[ P(AB -> XY) / ( P(A -> X) * P(B -> Y) ) ] 'null'", xlim )
+}
+
 
 if( savePlot )	{ dev.off() } 
 
