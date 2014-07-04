@@ -715,7 +715,21 @@ public class Epistasis implements CommandLine {
 		// Calculate 'AA in contact' transitions: Single AA
 		//---
 		System.err.println("Calculating transitions (sinlge AA) 'null':");
-		!!!!!!!!!!!!!!!!!
+
+		TransitionsAa transAa = new TransitionsAa();
+		aaContacts.stream() //
+				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+				.forEach(d -> {
+					transAa.count(msas.getMsa(d.msa1).getColumn(d.msaIdx1));
+					transAa.count(msas.getMsa(d.msa2).getColumn(d.msaIdx2));
+				});
+
+		System.out.println("Transitions (sinlge AA) 'null':\n" + Gpr.prependEachLine("AA_SINGLE_IN_CONTACT\t", transAa));
+
+		//---
+		// Calculate 'null' transitions: Single AA
+		//---
+		System.err.println("Calculating transitions (sinlge AA) 'null':");
 		TransitionsAa zero = new TransitionsAa(); // Identity
 		TransitionsAa sum = msas.stream() //
 				.map(msa -> transitions(msa)) // Calculate transitions
@@ -723,38 +737,27 @@ public class Epistasis implements CommandLine {
 		;
 		System.out.println("Transitions (sinlge AA) 'null':\n" + Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
 
-		//		//---
-		//		// Calculate 'null' transitions: Single AA
-		//		//---
-		//		System.err.println("Calculating transitions (sinlge AA) 'null':");
-		//		TransitionsAa zero = new TransitionsAa(); // Identity
-		//		TransitionsAa sum = msas.stream() //
-		//				.map(msa -> transitions(msa)) // Calculate transitions
-		//				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		//		;
-		//		System.out.println("Transitions (sinlge AA) 'null':\n" + Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
-		//
-		//		//---
-		//		// Calculate transitions pairs: AA in contact
-		//		//---
-		//		TransitionsAaPairs transPairs = new TransitionsAaPairs();
-		//		aaContacts.stream()//
-		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-		//				.forEach(d -> transPairs.count(d)) //
-		//		;
-		//		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_PAIRS_IN_CONTACT\t", transPairs));
-		//
-		//		//---
-		//		// Calculate transition pairs: Background using random sampling
-		//		//---
-		//		TransitionsAaPairs transPairsBgRand = transitionPairsBgRand(numSamples);
-		//		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("AA_PAIRS_BG_RAND\t", transPairsBgRand));
-		//
-		//		//---
-		//		// Calculate transition pairs: Background using all pairs within protein
-		//		//---
-		//		TransitionsAaPairs transPairsBg = transitionPairsBg();
-		//		System.out.println("Transitions 'null' (all pairs within protein):\n" + Gpr.prependEachLine("AA_PAIRS_BG_WITHIN_PROT\t", transPairsBg));
+		//---
+		// Calculate transitions pairs: AA in contact
+		//---
+		TransitionsAaPairs transPairs = new TransitionsAaPairs();
+		aaContacts.stream()//
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> transPairs.count(d)) //
+		;
+		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_PAIRS_IN_CONTACT\t", transPairs));
+
+		//---
+		// Calculate transition pairs: Background using random sampling
+		//---
+		TransitionsAaPairs transPairsBgRand = transitionPairsBgRand(numSamples);
+		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("AA_PAIRS_BG_RAND\t", transPairsBgRand));
+
+		//---
+		// Calculate transition pairs: Background using all pairs within protein
+		//---
+		TransitionsAaPairs transPairsBg = transitionPairsBg();
+		System.out.println("Transitions 'null' (all pairs within protein):\n" + Gpr.prependEachLine("AA_PAIRS_BG_WITHIN_PROT\t", transPairsBg));
 
 	}
 
