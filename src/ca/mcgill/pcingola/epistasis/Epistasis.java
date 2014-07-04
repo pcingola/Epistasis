@@ -30,12 +30,8 @@ public class Epistasis implements CommandLine {
 	public static int MIN_DISTANCE = 1000000;
 	public static boolean debug = false;
 
-	public static void main(String[] args) {
-		Epistasis epistasis = new Epistasis(args);
-		epistasis.run();
-	}
-
 	boolean nextProt;
+
 	boolean filterMsaByIdMap = true;
 	String[] args;
 	String cmd;
@@ -47,6 +43,11 @@ public class Epistasis implements CommandLine {
 	MaxLikelihoodTm mltm;
 	IdMapper idMapper;
 	PdbGenome pdbGenome;
+
+	public static void main(String[] args) {
+		Epistasis epistasis = new Epistasis(args);
+		epistasis.run();
+	}
 
 	public Epistasis(String[] args) {
 		this.args = args;
@@ -711,46 +712,94 @@ public class Epistasis implements CommandLine {
 		load();
 
 		//---
-		// Calculate transitions: AA in contact
+		// Calculate 'AA in contact' transitions: Single AA
 		//---
-		TransitionsAaPairs trans = new TransitionsAaPairs();
-		aaContacts.stream()//
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-				.forEach(d -> trans.count(d)) //
+		System.err.println("Calculating transitions (sinlge AA) 'null':");
+		!!!!!!!!!!!!!!!!!
+		TransitionsAa zero = new TransitionsAa(); // Identity
+		TransitionsAa sum = msas.stream() //
+				.map(msa -> transitions(msa)) // Calculate transitions
+				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
 		;
-		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_IN_CONTACT\t", trans));
+		System.out.println("Transitions (sinlge AA) 'null':\n" + Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
 
-		//---
-		// Calculate transitions: Background using random sampling
-		//---
-		TransitionsAaPairs transBgRand = runTransitionsBgRand(numSamples);
-		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("BG_RAND\t", transBgRand));
+		//		//---
+		//		// Calculate 'null' transitions: Single AA
+		//		//---
+		//		System.err.println("Calculating transitions (sinlge AA) 'null':");
+		//		TransitionsAa zero = new TransitionsAa(); // Identity
+		//		TransitionsAa sum = msas.stream() //
+		//				.map(msa -> transitions(msa)) // Calculate transitions
+		//				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
+		//		;
+		//		System.out.println("Transitions (sinlge AA) 'null':\n" + Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
+		//
+		//		//---
+		//		// Calculate transitions pairs: AA in contact
+		//		//---
+		//		TransitionsAaPairs transPairs = new TransitionsAaPairs();
+		//		aaContacts.stream()//
+		//				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+		//				.forEach(d -> transPairs.count(d)) //
+		//		;
+		//		System.out.println("Transitions 'AA in contact':\n" + Gpr.prependEachLine("AA_PAIRS_IN_CONTACT\t", transPairs));
+		//
+		//		//---
+		//		// Calculate transition pairs: Background using random sampling
+		//		//---
+		//		TransitionsAaPairs transPairsBgRand = transitionPairsBgRand(numSamples);
+		//		System.out.println("Transitions 'null' (rand):\n" + Gpr.prependEachLine("AA_PAIRS_BG_RAND\t", transPairsBgRand));
+		//
+		//		//---
+		//		// Calculate transition pairs: Background using all pairs within protein
+		//		//---
+		//		TransitionsAaPairs transPairsBg = transitionPairsBg();
+		//		System.out.println("Transitions 'null' (all pairs within protein):\n" + Gpr.prependEachLine("AA_PAIRS_BG_WITHIN_PROT\t", transPairsBg));
 
-		//---
-		// Calculate transitions: Background using all pairs within protein
-		//---
-		TransitionsAaPairs transBg = runTransitionsBg();
-		System.out.println("Transitions 'null' (all pairs within protein):\n" + Gpr.prependEachLine("BG_WITHIN_PROT\t", transBg));
+	}
+
+	/**
+	 * Check consistency between MSA and tree
+	 */
+	void sanityCheck(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
+		// Sanity check: Make sure that the alignment and the tree match
+		String speciesMsa = String.join("\t", msas.getSpecies());
+		String speciesTree = String.join("\t", tree.childNames());
+
+		if (!speciesTree.equals(speciesMsa)) throw new RuntimeException("Species form MSA and Tree do not match:\n\tMSA : " + speciesMsa + "\n\tTree: " + speciesTree);
+
+		System.err.println("\nSpecies [" + tree.childNames().size() + "]: " + speciesTree);
+	}
+
+	// Select which function to use
+	Function<DistanceResult, Double> selectFunction(String type) {
+		switch (type.toLowerCase()) {
+		case "mi":
+			return d -> EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2);
+
+		case "varinf":
+			return d -> EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2);
+
+		default:
+			throw new RuntimeException("Unknown type '" + type + "'");
+		}
 	}
 
 	/**
 	 * Calculate transitions: Background
 	 */
-	TransitionsAaPairs runTransitionsBg() {
-		Gpr.debug("runTransitionsBg: Start");
+	TransitionsAaPairs transitionPairsBg() {
+		Timer.showStdErr("Calculating transition pairs 'null' distribution: All pairs within protein");
 
-		// Initialize
 		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
 		// Count transitions
-		Timer.showStdErr("Calculating 'null' distribution");
-
 		int maxCount = msas.getTrIDs().size();
 		Counter count = new Counter();
 		TransitionsAaPairs zero = new TransitionsAaPairs(); // Identity
 		TransitionsAaPairs sum = msas.getTrIDs() //
 				.parallelStream() //
-				.map(id -> runTransitionsBg(id, (int) count.inc(), maxCount)) //
+				.map(id -> transitionPairsBg(id, (int) count.inc(), maxCount)) //
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
 		;
 
@@ -760,7 +809,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate background distribution of transitions using all "within protein" pairs
 	 */
-	TransitionsAaPairs runTransitionsBg(String trId, int count, int maxCount) {
+	TransitionsAaPairs transitionPairsBg(String trId, int count, int maxCount) {
 		TransitionsAaPairs trans = new TransitionsAaPairs();
 		List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
 
@@ -794,7 +843,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate transitions background (one iteration
 	 */
-	void runTransitionsBg(TransitionsAaPairs trans, Random random) {
+	void transitionPairsBg(TransitionsAaPairs trans, Random random) {
 		// Random msa and positions
 		MultipleSequenceAlignment msa = null;
 		int idx1 = 0, idx2 = 0;
@@ -811,46 +860,34 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate transitions: Background
 	 */
-	TransitionsAaPairs runTransitionsBgRand(int numberOfSamples) {
+	TransitionsAaPairs transitionPairsBgRand(int numberOfSamples) {
 		// Initialize
 		TransitionsAaPairs trans = new TransitionsAaPairs();
 		Random random = new Random();
 		msas.calcSkip(); // Pre-calculate skip on all MSAs
 
 		// Count transitions
-		Timer.showStdErr("Calculating " + numberOfSamples + " iterations");
+		Timer.showStdErr("Calculating transition pairs 'null' distribution: " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
 				.peek(i -> Gpr.showMark(i, 1000)) //
-				.forEach(i -> runTransitionsBg(trans, random));
+				.forEach(i -> transitionPairsBg(trans, random));
 
 		return trans;
 	}
 
 	/**
-	 * Check consistency between MSA and tree
+	 * Calculate AA transitions
 	 */
-	void sanityCheck(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
-		// Sanity check: Make sure that the alignment and the tree match
-		String speciesMsa = String.join("\t", msas.getSpecies());
-		String speciesTree = String.join("\t", tree.childNames());
+	TransitionsAa transitions(MultipleSequenceAlignment msa) {
+		int max = msa.length();
+		TransitionsAa trans = new TransitionsAa();
+		System.err.println("\t" + msa.getId() + "\tlen: " + max);
 
-		if (!speciesTree.equals(speciesMsa)) throw new RuntimeException("Species form MSA and Tree do not match:\n\tMSA : " + speciesMsa + "\n\tTree: " + speciesTree);
+		// Compare all rows
+		for (int i = 0; i < max; i++)
+			trans.count(msa.getColumn(i));
 
-		System.err.println("\nSpecies [" + tree.childNames().size() + "]: " + speciesTree);
-	}
-
-	// Select which function to use
-	Function<DistanceResult, Double> selectFunction(String type) {
-		switch (type.toLowerCase()) {
-		case "mi":
-			return d -> EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2);
-
-		case "varinf":
-			return d -> EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2);
-
-		default:
-			throw new RuntimeException("Unknown type '" + type + "'");
-		}
+		return trans;
 	}
 
 	@Override
