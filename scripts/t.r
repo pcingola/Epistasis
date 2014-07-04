@@ -1,4 +1,6 @@
 
+library( 'gplots')
+
 savePlot <- T
 
 #-------------------------------------------------------------------------------
@@ -35,26 +37,59 @@ histDens <- function( x, title, xlim, q=1.0, breaks = 50 ) {
 }
 
 #-------------------------------------------------------------------------------
+# Compare heatmaps
+#-------------------------------------------------------------------------------
+heatComp <- function( tr.aa, tr.bg ) {
+	taa <- tr.aa
+	diag(taa) <- 0
+	taa <- scale( taa, center=F, scale=colSums( taa ) )
+	heatmap.2(taa, main = "Transitions: in contact", sub='Note: Column scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+
+	tbg <- tr.bg
+	diag(tbg) <- 0
+	tbg <- scale( tbg, center=F, scale=colSums( tbg ) )
+	heatmap.2(tbg, main = "Transitions: 'null'", sub='Note: Column scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+
+	t <- tr.aa / tr.bg
+	t[ is.na(t) ] <- 0
+	t <- scale( t, center=F, scale=colSums( t ) )
+	heatmap.2(t, main = "Transitions Ratio: 'in contact' / 'null'", sub='Note: Column scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+	return(t)
+}
+
+#-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
 
 if( savePlot ) { png( width=800, height=800 ) }
 
+if( ! exists('tr.aa2') ) {
+	cat('Reading transitions for AA in contact\n')
+	tr.aa2 <- read.table("transitions.aa_pairs.in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.aa2 <- as.matrix(tr.aa2)
+}
+
+if( ! exists('tr.bg2') ) {
+	cat('Reading transitions null model \n')
+	tr.bg2 <- read.table("transitions.aa_pairs.bg_rand.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.bg2 <- as.matrix(tr.bg2)
+}
+
 if( ! exists('tr.aa') ) {
 	cat('Reading transitions for AA in contact\n')
-	tr.aa <- read.table("transitions.aa_in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.aa <- read.table("transitions.aa_single.in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	tr.aa <- as.matrix(tr.aa)
 }
 
 if( ! exists('tr.bg') ) {
 	cat('Reading transitions null model \n')
-	tr.bg <- read.table("transitions.bg_rand.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.bg <- read.table("transitions.aa_single.bg.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	tr.bg <- as.matrix(tr.bg)
 }
 
 # Transition reversal ratios
 if( F ) {
-	cn <- colnames(tr.aa)
+	cn <- colnames(tr.aa2)
 	len <- length(cn)
 	h <- 1
 	r.aa <- ( 1:(len*(len-1)/2) ) * 0
@@ -66,10 +101,10 @@ if( F ) {
 			ri <- revaa( cn[i] )
 			rj <- revaa( cn[j] )
 
-			m.aa <- c( tr.aa[ ni, nj ], tr.aa[ni, rj], tr.aa[ri, nj], tr.aa[ri, rj] )
-			m.bg <- c( tr.bg[ ni, nj ], tr.bg[ni, rj], tr.bg[ri, nj], tr.bg[ri, rj] )
-			r.aa[h] <-  tr.aa[ ni, nj ] / tr.aa[ri, rj]
-			r.bg[h] <-  tr.bg[ ni, nj ] / tr.bg[ri, rj]
+			m.aa <- c( tr.aa2[ ni, nj ], tr.aa2[ni, rj], tr.aa2[ri, nj], tr.aa2[ri, rj] )
+			m.bg <- c( tr.bg2[ ni, nj ], tr.bg2[ni, rj], tr.bg2[ri, nj], tr.bg2[ri, rj] )
+			r.aa[h] <-  tr.aa2[ ni, nj ] / tr.aa2[ri, rj]
+			r.bg[h] <-  tr.bg2[ ni, nj ] / tr.bg2[ri, rj]
 			# cat( ni , "\t", nj, '\t', ri, '\t', rj, '\t', m.aa, '\t', m.bg, "\t", r.aa[h], '\t', r.bg[h], "\n")
 			cat( ni , "\t", nj, "\n")
 
@@ -88,16 +123,8 @@ if( F ) {
 }
 
 
-taa <- scale( tr.aa, center=F, scale=colSums( tr.aa ) )
-diag(taa) <- 0
-heatmap(taa, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10), main="Transitions AA in contact")
-
-tbg <- scale( tr.bg, center=F, scale=colSums( tr.bg ) )
-diag(tbg) <- 0
-heatmap(tbg, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10), main="Transitions 'null'")
-
-t <- taa / tbg
-diag(t) <- 0
-heatmap(t, Rowv=NA, Colv=NA, col = cm.colors(256), scale="row", margins=c(5,10), main="Transitions ratio")
+t <- heatComp( tr.aa, tr.bg )
+t <- heatComp( tr.aa2, tr.bg2 )
 
 if( savePlot )	{ dev.off() } 
+
