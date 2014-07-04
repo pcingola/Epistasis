@@ -103,17 +103,12 @@ public class TransitionsAa {
 		sb.append("\n");
 
 		// Values
-		long sum = 0;
 		for (int i = 0; i < count.length; i++) {
 			sb.append(seq[i]);
-			for (int j = 0; j < count.length; j++) {
+			for (int j = 0; j < count.length; j++)
 				sb.append("\t" + count[i][j]);
-				sum += count[i][j];
-			}
 			sb.append("\n");
 		}
-
-		sb.append("Sum: " + sum);
 		return sb.toString();
 	}
 
