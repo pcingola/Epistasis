@@ -1,7 +1,7 @@
 
 library( 'gplots')
 
-savePlot <- F
+savePlot <- T
 
 #-------------------------------------------------------------------------------
 # Reverse an amino acid string
@@ -24,6 +24,11 @@ scaleRow <- function(x) {
 	return( t( scale( tx, center=F, scale=colSums(tx) ) ) )
 }
 
+# Keep numbers: remove NA, Inf and NaN
+nums <- function(x) {
+	k <- !is.na(x) & !is.nan(x) & !is.infinite(x)
+	return( x[k] )
+}
 #-------------------------------------------------------------------------------
 # Histogram & density
 #-------------------------------------------------------------------------------
@@ -36,7 +41,8 @@ histDens <- function( x, title, xlim, q=1.0, breaks = 50 ) {
 
     dens <- density(data)
 
-    h <- hist(data, main=title, xlim=xlim, xlab = "data", ylab = "Frequency", freq = T, breaks=breaks);
+	xlab = paste('mean:', mean(x), ',    median:', median(x), ',    stdev:', sd(x))
+    h <- hist(data, main=title, xlim=xlim, xlab = xlab, ylab = "Frequency", freq = T, breaks=breaks);
 
     # Adjust density height to 'frecuency'
     dens$y <- max(h$counts) * dens$y/max(dens$y)
@@ -104,6 +110,7 @@ if( ! exists('tr.aa2') ) {
 if( ! exists('tr.bg2') ) {
 	cat('Reading transitions null model \n')
 	tr.bg2 <- read.table("transitions.aa_pairs.bg_rand.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.bg2 <- read.table("transitions.aa_pairs.bg_within_prot.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	tr.bg2 <- as.matrix(tr.bg2)
 }
 
@@ -123,18 +130,27 @@ checkNames(tr.aa, tr.bg)
 checkNames(tr.aa2, tr.bg2)
 
 if( T ) {
-	par( mfcol=c(2,1) )
-	xlim <- c(0,20)
-	histDens( log2(as.numeric(tr.aa2)), "Log2[ transition count 'in contact']", xlim )
-	histDens( log2(as.numeric(tr.bg2)), "Log2[ transition count 'null']", xlim )
+	par( mfcol=c(3,1) )
+	xlim <- c(0,15)
+
+	ta <- as.numeric(tr.aa2)
+	l <- log2(ta)
+	histDens( nums( log2(ta) ), "Log2[ transition count 'in contact' ]", xlim )
+
+	ta <- ta[ ta > 20 ]
+	histDens( nums( log2(as.numeric(ta)) ), "Log2[ transition count 'in contact' ], only count > 20", xlim )
+
+	xlim <- c(-4,4)
+	histDens( scale(nums( log2(as.numeric(tr.bg2)))), "Scale[ Log2( transition count 'null' ) ]", xlim )
 }
 
 #---
 # Transition reversal ratios
 #---
-if( F ) {
+if( T ) {
 	min.count <- 20
 
+	cat("Transition reversal ratios\n")
 	cn <- colnames(tr.aa2)
 	len <- length(cn)
 	h <- 1
@@ -143,14 +159,11 @@ if( F ) {
 	for( i in 1:(len-1) ) {
 		ni <- cn[i]
 		ri <- revaa( cn[i] )
-		cat( ni , "\n")
+		cat("\t", ni , "\n")
 
 		for( j in (i+1):len ) {
 			nj <- cn[j]
 			rj <- revaa( cn[j] )
-
-			#m.aa <- c( tr.aa2[ ni, nj ], tr.aa2[ni, rj], tr.aa2[ri, nj], tr.aa2[ri, rj] )
-			#m.bg <- c( tr.bg2[ ni, nj ], tr.bg2[ni, rj], tr.bg2[ri, nj], tr.bg2[ri, rj] )
 
 			if((tr.aa2[ ni, nj ] > min.count) && (tr.aa2[ri, rj] > min.count)) {
 				r.aa[h] <- tr.aa2[ ni, nj ] / tr.aa2[ri, rj]
@@ -185,7 +198,7 @@ if( F ) {
 #---
 # Transition heatmaps
 #---
-if( F ) {
+if( T ) {
 	t <- heatComp( tr.aa, tr.bg )
 	t <- heatComp( tr.aa2, tr.bg2 )
 }
@@ -193,21 +206,28 @@ if( F ) {
 #---
 # Transitions ratio histograms
 #---
-if( F ) {
+if( T ) {
+	par( mfcol=c(2,1) )
+
+	# Single AA 
 	ta <- as.numeric( tr.aa )
 	tg <- as.numeric( tr.bg )
 	t <- as.vector( (ta/sum(ta)) / (tg / sum(tg)) )
-	histDens( t, 'Normalized counts ratio: AA in contact / null', c(0,2), breaks=10  )
+	t <- nums( t )
+	histDens( t, 'Normalized counts ratio: SINGLE AA in contact / null', c(0,2), breaks=15  )
+	histDens( t[ ta > 20 & tg > 20 ], 'Normalized counts ratio: SINGLE AA in contact / null (counts > 20)', c(0,2), breaks=15  )
 
+	# AA-Pairs
 	ta <- as.numeric( tr.aa2 )
 	tg <- as.numeric( tr.bg2 )
 	t <- as.vector( (ta/sum(ta)) / (tg / sum(tg)) )
-	t <- t[ ! is.na(t) ]
-	histDens( t, 'Normalized counts ratio: AA-Pairs in contact / null', c(0,2)  )
+	histDens( t, 'Normalized counts ratio: AA-PAIRS in contact / null', c(0,2)  )
+	histDens( t[ ta > 20 & tg > 20 ], 'Normalized counts ratio: AA-PAIRS in contact / null (counts > 20)', c(0,2)  )
 }
 
 
-if( F ) {
+if( T ) {
+	cat("Transition AA-Pairs background probability from single AA transition:\n")
 	pa <- scaleRow( tr.aa )
 	pg <- scaleRow( tr.bg )
 
@@ -219,7 +239,7 @@ if( F ) {
 	cn <- colnames(pg)
 	len <- length(cn)
 	for( i1 in cn ) {
-		cat(i1, '\n')
+		cat('\t', i1, '\n')
 		for( i2 in cn ) {
 			i = paste(i1, '_', i2, sep='')
 			for( j1 in cn ) {
