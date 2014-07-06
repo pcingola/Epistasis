@@ -675,7 +675,7 @@ public class Epistasis implements CommandLine {
 			System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
 
 			RealVector z = Q.operate(mltm.calcPi());
-			System.err.println("METHOD_" + method + "\tNorm( Q * pi ) = " + z.getNorm());
+			System.out.println("METHOD_" + method + "\tNorm( Q * pi ) = " + z.getNorm());
 			mltm.showEienQ();
 		}
 	}
