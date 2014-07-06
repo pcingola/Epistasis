@@ -6,7 +6,6 @@ import java.util.Random;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
@@ -284,33 +283,6 @@ public class MaxLikelihoodTm {
 
 		// Max likelihoood from all lambdas
 		return 0;
-	}
-
-	/**
-	 * Show matrix's eigenvalues
-	 */
-	public boolean showEienQ() {
-		// Did we already perform eigendecomposition?
-		EigenDecomposition eigen = new EigenDecomposition(Q);
-
-		// Exponentiate the diagonal
-		System.out.println("Q's Eigenvalues: ");
-		RealMatrix D = eigen.getD().copy();
-		double maxLambda = Double.NEGATIVE_INFINITY;
-		int dim = D.getColumnDimension();
-		for (int i = 0; i < dim; i++) {
-			double lambda = D.getEntry(i, i);
-			maxLambda = Math.max(maxLambda, lambda);
-			System.out.println("\tlambda_" + i + ":\t" + lambda);
-		}
-
-		System.out.println("\tlambda_max:\t" + maxLambda);
-		if (maxLambda > 0) {
-			Gpr.debug("All Q's eigenvalues should be non-positive!");
-			return false;
-		}
-
-		return true;
 	}
 
 	/**

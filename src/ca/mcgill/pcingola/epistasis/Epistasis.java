@@ -672,11 +672,18 @@ public class Epistasis implements CommandLine {
 
 			MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
 			Q = mltm.estimateTransitionMatrix();
-			System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
-
 			RealVector z = Q.operate(mltm.calcPi());
+			System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
 			System.out.println("METHOD_" + method + "\tNorm( Q * pi ) = " + z.getNorm());
-			mltm.showEienQ();
+			System.out.println("Q's Eigenvalues: ");
+			Q.checkEien(true);
+
+			TransitionMatrix Qprime = Q.reateMatrixCorrection();
+			z = Qprime.operate(mltm.calcPi());
+			System.out.println("Qprime matrix:\n" + Gpr.prependEachLine("Q_PRIME_HAT_METHOD_" + method + "\t", Qprime));
+			System.out.println("METHOD_" + method + "\tNorm( Qprime * pi ) = " + z.getNorm());
+			System.out.println("Qprime's Eigenvalues: ");
+			Qprime.checkEien(true);
 		}
 	}
 

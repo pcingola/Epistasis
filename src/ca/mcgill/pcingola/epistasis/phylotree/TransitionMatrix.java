@@ -25,7 +25,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 	/**
 	 * Load from file
-	 * @param fileName
 	 */
 	public static double[][] load(String fileName) {
 		String file = Gpr.readFile(fileName);
@@ -59,9 +58,33 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	}
 
 	/**
+	 * Show matrix's eigenvalues
+	 */
+	public boolean checkEien(boolean verbose) {
+		// Did we already perform eigendecomposition?
+		if (eigen == null) eigen = new EigenDecomposition(this);
+
+		// Exponentiate the diagonal
+		RealMatrix D = eigen.getD().copy();
+		double maxLambda = Double.NEGATIVE_INFINITY;
+		int dim = D.getColumnDimension();
+		for (int i = 0; i < dim; i++) {
+			double lambda = D.getEntry(i, i);
+			maxLambda = Math.max(maxLambda, lambda);
+			if (verbose) System.out.println("\tlambda_" + i + ":\t" + lambda);
+		}
+
+		if (verbose) System.out.println("\tlambda_max:\t" + maxLambda);
+		if (maxLambda > 0) {
+			Gpr.debug("All Q's eigenvalues should be non-positive!");
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Matrix exponentiation
-	 * @param time
-	 * @return
 	 */
 	public RealMatrix exp(double time) {
 		// Did we already perform Eigen-decomposition?
@@ -94,8 +117,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 	/**
 	 * Matrix log (natural log) times 1/time
-	 * @param time
-	 * @return
 	 */
 	public RealMatrix log() {
 		// Did we already perform eigendecomposition?
@@ -119,9 +140,24 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	}
 
 	/**
+	 * Create a new matrix whose rows sum zero
+	 */
+	public TransitionMatrix reateMatrixCorrection() {
+		double d[][] = getData();
+		int dim = d.length;
+
+		for (int i = 0; i < dim; i++) {
+			double sum = 0;
+			for (int j = 0; j < dim; j++)
+				if (i != j) sum += d[i][j];
+			d[i][i] = -sum;
+		}
+
+		return new TransitionMatrix(d);
+	}
+
+	/**
 	 * Save data to file
-	 * @param fileName
-	 * @return
 	 */
 	public void save(String fileName) {
 		StringBuilder sb = new StringBuilder();
@@ -184,4 +220,5 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		return sb.toString();
 	}
+
 }
