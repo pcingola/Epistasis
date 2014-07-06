@@ -18,6 +18,11 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	private static final long serialVersionUID = 1L;
 	public static final double ACCEPTED_ERROR = 1e-4;
 
+	protected EigenDecomposition eigen;
+	protected boolean checkNegativeLambda;
+	protected String colNames[];
+	protected String rowNames[];
+
 	/**
 	 * Load from file
 	 * @param fileName
@@ -41,12 +46,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return d;
 	}
 
-	protected EigenDecomposition eigen;
-	protected boolean checkNegativeLambda;
-	protected String colNames[];
-
-	protected String rowNames[];
-
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
 	}
@@ -65,7 +64,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	 * @return
 	 */
 	public RealMatrix exp(double time) {
-		// Did we already perform eigendecomposition?
+		// Did we already perform Eigen-decomposition?
 		if (eigen == null) eigen = new EigenDecomposition(this);
 
 		// Exponentiate the diagonal

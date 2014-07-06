@@ -25,6 +25,8 @@ public class MaxLikelihoodTm {
 	public static final int NUM_AA = GprSeq.AMINO_ACIDS.length;
 	public static final int NUM_AA_SQUARE = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
 
+	public static int METHOD = 0;
+
 	boolean verbose = false;
 	boolean debug = false;
 
@@ -57,22 +59,17 @@ public class MaxLikelihoodTm {
 
 		System.out.println("Counting amino acids: ");
 		int countAa[] = msas.countAa();
-		int countAaFirst[] = msas.countAa(0); // Count AA only using the first sequence
-		int tot = 0, totFirst = 0;
-		for (int aa = 0; aa < countAa.length; aa++) {
+		int tot = 0;
+		for (int aa = 0; aa < countAa.length; aa++)
 			tot += countAa[aa];
-			totFirst += countAaFirst[aa];
-		}
 
 		// Calculate for all AA
-		double piAll[], piFirst[];
+		double piAll[];
 		piAll = new double[countAa.length];
-		piFirst = new double[countAa.length];
 		if (verbose) System.out.println("AAcode\tAA\tcount_all\tcount_first\tp_all\tp_first");
 		for (int aa = 0; aa < countAa.length; aa++) {
 			piAll[aa] = countAa[aa] / ((double) tot);
-			piFirst[aa] = countAaFirst[aa] / ((double) totFirst);
-			if (verbose) System.out.println(aa + "\t" + GprSeq.code2aa((byte) aa) + "\t" + countAa[aa] + "\t" + countAaFirst[aa] + "\t" + piAll[aa] + "\t" + piFirst[aa]);
+			if (verbose) System.out.println(aa + "\t" + GprSeq.code2aa((byte) aa) + "\t" + countAa[aa] + "\t" + piAll[aa]);
 		}
 
 		// Create vector
@@ -149,12 +146,25 @@ public class MaxLikelihoodTm {
 		double n = sum;
 		for (int i = 0; i < phat.length; i++)
 			for (int j = 0; j < phat.length; j++) {
-				// phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i];  // OK
-				// phat[i][j] = (count[i][j] + count[j][i]) / (n * pi[i]); // BAD
+				// phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i];  // WARNING: Should we be dividing by piAvg here!?!?! Why?
 
-				double freq = (count[i][j] + count[j][i]) / n; // Note: We use symmetry
-				double piAvg = (pi[i] + pi[j]) / 2.0;
-				phat[i][j] = freq * piAvg; // WARNING: Should we be dividing by piAvg here!?!?! Why?
+				switch (METHOD) {
+				case 0:
+					double freq = count[i][j] / n;
+					phat[i][j] = freq / pi[i];
+					break;
+
+				case 1:
+					freq = (count[i][j] + count[j][i]) / (2.0 * n);
+					phat[i][j] = freq / pi[i];
+					break;
+
+				case 2:
+					freq = (count[i][j] + count[j][i]) / (2.0 * n);
+					double piAvg = (pi[i] + pi[j]) / 2.0;
+					phat[i][j] = freq / piAvg;
+					break;
+				}
 			}
 
 		// Create matrix
@@ -239,9 +249,6 @@ public class MaxLikelihoodTm {
 
 	/**
 	 * Calculate log likelihood for an msa:pos
-	 * @param msa
-	 * @param pos
-	 * @return
 	 */
 	public double logLikelyhood(MultipleSequenceAlignment msa1, int pos1, MultipleSequenceAlignment msa2, int pos2) {
 		// Get codes
@@ -280,79 +287,9 @@ public class MaxLikelihoodTm {
 	}
 
 	/**
-	 * Create a random transition matrix
-	 *
-	 * Note: We make sure the matrix satisfies symmetry, detailed balance
-	 * and stability (the latter is implied by Gershgorin's theorem from
-	 * Markov's detailed balance condition)
-	 */
-	public TransitionMatrix randQ() {
-		int N = GprSeq.AMINO_ACIDS.length;
-		double r[][] = new double[N][N];
-
-		if (pi == null) calcPi();
-
-		//---
-		// Random symmetric probability matrix
-		//---
-
-		// Diagonal
-		for (int i = 0; i < N; i++)
-			r[i][i] = 0 * random.nextDouble();
-
-		// Only one side
-		for (int i = 0; i < N; i++)
-			for (int j = i + 1; j < N; j++)
-				r[i][j] = random.nextDouble();
-
-		// Apply symmetry
-		for (int i = 0; i < N; i++)
-			for (int j = 0; j < i; j++)
-				r[i][j] = r[j][i];
-
-		// Normalize
-		for (int i = 0; i < N; i++) {
-			double sum = 0;
-			for (int j = 0; j < N; j++)
-				sum += r[i][j];
-
-			r[i][i] = -sum;
-		}
-
-		// We assume that the matrix is P(1) = exp( 1.0 * Q )
-		// TransitionMatrixMarkov P = new TransitionMatrixMarkov(r);
-		// Gpr.debug("P (1):\n" + P);
-		Q = new TransitionMatrixMarkov(r);
-
-		//---
-		// Matrix log
-		///---
-		//		// Did we already perform eigendecomposition?
-		//		EigenDecomposition eigen = new EigenDecomposition(P);
-		//
-		//		// Exponentiate the diagonal
-		//		RealMatrix D = eigen.getD().copy();
-		//		double maxLambda = Double.NEGATIVE_INFINITY;
-		//		int dim = D.getColumnDimension();
-		//		for (int i = 0; i < dim; i++) {
-		//			double lambda = D.getEntry(i, i);
-		//			maxLambda = Math.max(maxLambda, lambda);
-		//			Gpr.debug("\tLambda: " + lambda + "\tMax lambda: " + maxLambda);
-		//			// D.setEntry(i, i, Math.log(lambda));
-		//		}
-		//		Gpr.debug("Max lambda: " + maxLambda);
-		//
-		//		// Perform matrix exponential
-		//		RealMatrix qmatrix = eigen.getV().multiply(D).multiply(eigen.getVT());
-		//
-		//		Q = new TransitionMatrixMarkov(qmatrix.getData());
-		return Q;
-	}
-
-	/**
 	 * Show matrix's eigenvalues
 	 */
-	public void showEienQ() {
+	public boolean showEienQ() {
 		// Did we already perform eigendecomposition?
 		EigenDecomposition eigen = new EigenDecomposition(Q);
 
@@ -368,7 +305,12 @@ public class MaxLikelihoodTm {
 		}
 
 		System.out.println("\tlambda_max:\t" + maxLambda);
-		if (maxLambda > 0) throw new RuntimeException("All Q's eigenvalues should be non-positive!");
+		if (maxLambda > 0) {
+			Gpr.debug("All Q's eigenvalues should be non-positive!");
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

@@ -6,6 +6,7 @@ import java.util.Random;
 import java.util.function.Function;
 import java.util.stream.IntStream;
 
+import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.util.Pair;
 
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
@@ -311,17 +312,6 @@ public class Epistasis implements CommandLine {
 		}
 
 		Timer.showStdErr("Done command: '" + cmd + "'");
-	}
-
-	/**
-	 * Calculate or load transition matrix
-	 */
-	TransitionMatrix qHat() {
-		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
-		Q = mltm.estimateTransitionMatrix();
-		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT\t", Q));
-		mltm.showEienQ();
-		return Q;
 	}
 
 	/**
@@ -676,7 +666,18 @@ public class Epistasis implements CommandLine {
 	 */
 	void runQhat() {
 		load();
-		qHat(); // Calculate Qhat
+
+		for (int method = 0; method < 3; method++) {
+			MaxLikelihoodTm.METHOD = method;
+
+			MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+			Q = mltm.estimateTransitionMatrix();
+			System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
+
+			RealVector z = Q.operate(mltm.calcPi());
+			System.err.println("METHOD_" + method + "\tNorm( Q * pi ) = " + z.getNorm());
+			mltm.showEienQ();
+		}
 	}
 
 	/**
