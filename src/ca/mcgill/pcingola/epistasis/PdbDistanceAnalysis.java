@@ -13,6 +13,7 @@ import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.StructureException;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.epistasis.pdb.PdbFile;
 
 /**
@@ -83,7 +84,7 @@ public class PdbDistanceAnalysis {
 					countTh[aadist]++;
 					DistanceResult dres = new DistanceResult(aa1, aa2, d);
 					results.add(dres);
-					System.out.println("Contact:\t" + dres);
+					System.out.println("AA_IN_CONTACT\t" + dres);
 				}
 			}
 		}
@@ -96,9 +97,15 @@ public class PdbDistanceAnalysis {
 	 */
 	List<DistanceResult> distance(String pdbId) {
 		try {
-			PdbFile pdbreader = new PdbFile();
+			// Does file exists?
 			String pdbFileName = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
+			if (!Gpr.exists(pdbFileName)) {
+				Gpr.debug("Cannot open file '" + pdbFileName + "'");
+				return EMPTY_DISTANCES;
+			}
 
+			// Read structure form file
+			PdbFile pdbreader = new PdbFile();
 			if (verbose) System.err.println("Distance: " + pdbFileName);
 			Structure pdbStruct = pdbreader.getStructure(pdbFileName);
 

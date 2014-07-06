@@ -666,14 +666,9 @@ public class Epistasis implements CommandLine {
 		load();
 
 		// Run analysis
-		PdbDistanceAnalysis pdban = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
-		pdban.run();
-		System.out.println(pdban);
-
-		// Write results
-		String outFile = "pdb_distance_by_AA_pos.txt";
-		Gpr.toFile(outFile, pdban);
-		System.err.println("Distance metrics file written to: " + outFile);
+		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
+		pdDist.run();
+		System.out.println(Gpr.prependEachLine("DISTANCE_AA_HISTO\t", pdDist));
 	}
 
 	/**
