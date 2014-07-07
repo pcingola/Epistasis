@@ -1,7 +1,7 @@
 
 library( 'gplots')
 
-savePlot <- T
+savePlot <- F
 
 #-------------------------------------------------------------------------------
 # Reverse an amino acid string
@@ -79,7 +79,7 @@ checkNames <- function(a, b) {
 #-------------------------------------------------------------------------------
 # Compare heatmaps
 #-------------------------------------------------------------------------------
-heatComp <- function( m1, m2, name1='in contact', name2='null', minCount = -1 ) {
+heatCompLog <- function( m1, m2, name1='in contact', name2='null', minCount = -1 ) {
 	taa <- scaleRow( m1 )
 	diag(taa) <- 0
 	heatmap.2(taa, main = paste("Transitions:", name1), sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
@@ -92,20 +92,75 @@ heatComp <- function( m1, m2, name1='in contact', name2='null', minCount = -1 ) 
 	ta <- scaleRow( m1 )
 	tb <- scaleRow( m2 )
 	t <- ta / tb
-	lt <- log2(t)
-	lt[ is.na(lt) ] <- 0
-	lt[ is.nan(lt) ] <- 0
-	lt[ is.infinite(lt) ] <- 0
-	lt[ m1 < minCount ] <- 0
-	lt[ m2 < minCount ] <- 0
+	t <- log2(t) 
+	t[ is.na(t) ] <- 0
+	t[ is.nan(t) ] <- 0
+	t[ is.infinite(t) ] <- 0
+	t[ m1 < minCount ] <- 0
+	t[ m2 < minCount ] <- 0
 
 	if( minCount > 0 )	{ sub <- paste( 'Note: Row scaled. Min. count: ', minCount ) }
 	else 				{ sub <- 'Note: Row scaled.' }
 
-	heatmap.2(lt, main = paste("Transitions: Log2[ ", name1, " / ", name2, " ]"), sub=sub, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+	heatmap.2(t, main = paste("Transitions: Log2[ ", name1, " / ", name2, " ]"), sub=sub, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
 
 	return(t)
 }
+
+#-------------------------------------------------------------------------------
+# Compare heatmaps
+#-------------------------------------------------------------------------------
+heatComp <- function( m1, m2, name1='in contact', name2='null', minCount = -1) {
+	taa <- scaleRow( m1 )
+	diag(taa) <- 0
+	heatmap.2(taa, main = paste("Transitions:", name1), sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+
+	tbg <- scaleRow( m2 )
+	diag(tbg) <- 0
+	heatmap.2(tbg, main = paste("Transitions:", name2), sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+
+	# Ratio
+	t <- m1 / m2
+
+	if( minCount > 0 )	{ sub <- paste( 'Note: Row scaled. Min. count: ', minCount ) }
+	else 				{ sub <- 'Note: Row scaled.' }
+
+	heatmap.2(t, main = paste("Transitions: ", name1, " / ", name2), sub=sub, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+
+	return(t)
+}
+
+#-------------------------------------------------------------------------------
+# Compare heatmaps
+#-------------------------------------------------------------------------------
+heatCompLog <- function( m1, m2, name1='in contact', name2='null', minCount = -1) {
+	taa <- scaleRow( m1 )
+	diag(taa) <- 0
+	heatmap.2(taa, main = paste("Transitions:", name1), sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+
+	tbg <- scaleRow( m2 )
+	diag(tbg) <- 0
+	heatmap.2(tbg, main = paste("Transitions:", name2), sub='Note: Row scaled. Main diagonal set to 0', Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+
+	# Log2[ Ratio ]
+	ta <- scaleRow( m1 )
+	tb <- scaleRow( m2 )
+	t <- ta / tb
+	t <- log2(t) 
+	t[ is.na(t) ] <- 0
+	t[ is.nan(t) ] <- 0
+	t[ is.infinite(t) ] <- 0
+	t[ m1 < minCount ] <- 0
+	t[ m2 < minCount ] <- 0
+
+	if( minCount > 0 )	{ sub <- paste( 'Note: Row scaled. Min. count: ', minCount ) }
+	else 				{ sub <- 'Note: Row scaled.' }
+
+	heatmap.2(t, main = paste("Transitions: Log2[ ", name1, " / ", name2, " ]"), sub=sub, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+
+	return(t)
+}
+
 
 #-------------------------------------------------------------------------------
 # Main
@@ -215,9 +270,9 @@ if( F ) {
 # Transition heatmaps
 #---
 if( F ) {
-	t <- heatComp( tr.aa, tr.bg )
-	t <- heatComp( tr.aa2, tr.bg2 )
-	t <- heatComp( tr.aa2, tr.bg2, minCount = 20 )
+	t <- heatCompLog( tr.aa, tr.bg )
+	t <- heatCompLog( tr.aa2, tr.bg2 )
+	t <- heatCompLog( tr.aa2, tr.bg2, minCount = 20 )
 }
 
 #---
@@ -242,7 +297,7 @@ if( F ) {
 	histDens( t[ ta > 20 & tg > 20 ], 'Normalized counts ratio: AA-PAIRS in contact / null (counts > 20)', c(0,2)  )
 }
 
-if( T ) {
+if( F ) {
 	cat("Transition AA-Pairs background probability from single AA transition:\n")
 	pa <- scaleRow( tr.aa )
 	pg <- scaleRow( tr.bg )
@@ -269,12 +324,12 @@ if( T ) {
 	}
 
 	ta2 <- scaleRow( tr.aa2 )
-	t <- heatComp( ta2, pa2, 'P[AB => XY] in contact', 'P[A => X] P[B => Y] in contact')
+	t <- heatCompLog( ta2, pa2, 'P[AB => XY] in contact', 'P[A => X] P[B => Y] in contact')
 	ra <- ta2 / pa2
 	lra <- log2( ra )
 
 	tg2 <- scaleRow( tr.bg2 )
-	t <- heatComp( tg2, pg2, 'P[AB => XY] null', 'P[A => X] P[B => Y] null')
+	t <- heatCompLog( tg2, pg2, 'P[AB => XY] null', 'P[A => X] P[B => Y] null')
 	rg <- tg2 / pg2
 	lrg <- log2( rg )
 
@@ -284,13 +339,22 @@ if( T ) {
 	histDens( nums(lrg), "Log2[ P(AB -> XY) / ( P(A -> X) * P(B -> Y) ) ] 'null'", xlim )
 }
 
-if( F ) {
+if( T ) {
 	files <- c('Q_HAT_METHOD_0.txt', 'Q_PRIME_HAT_METHOD_0.txt', 'Q_HAT_METHOD_1.txt', 'Q_PRIME_HAT_METHOD_1.txt')
 	for( file in files ) {
 		Qhat <- read.table(file, header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 		Qhat <- as.matrix(Qhat)
 		heatmap.2(Qhat, main = "Qhat", sub=file, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
 	}
+
+	Qhat.1 <- read.table('Q_PRIME_HAT_METHOD_0.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat.1 <- as.matrix(Qhat.1)
+
+	Qhat.2 <- read.table('Q_PRIME_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat.2 <- as.matrix(Qhat.2)
+
+	heatComp(Qhat.2, Qhat.1, 'Qhat.1', 'Qhat.2')
+	heatComp(Qhat.1, Qhat.2, 'Qhat.1', 'Qhat.2')
 }
 
 if( savePlot )	{ dev.off() } 

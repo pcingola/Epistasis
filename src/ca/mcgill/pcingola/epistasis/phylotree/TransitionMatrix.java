@@ -15,14 +15,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  */
 public class TransitionMatrix extends Array2DRowRealMatrix {
 
-	private static final long serialVersionUID = 1L;
-	public static final double ACCEPTED_ERROR = 1e-4;
-
-	protected EigenDecomposition eigen;
-	protected boolean checkNegativeLambda;
-	protected String colNames[];
-	protected String rowNames[];
-
 	/**
 	 * Load from file
 	 */
@@ -44,6 +36,15 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		return d;
 	}
+
+	private static final long serialVersionUID = 1L;
+
+	public static final double ACCEPTED_ERROR = 1e-4;
+	protected EigenDecomposition eigen;
+	protected boolean checkNegativeLambda;
+	protected String colNames[];
+
+	protected String rowNames[];
 
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
@@ -187,6 +188,31 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 	@Override
 	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		// Column title
+		if (colNames != null) {
+			for (int i = 0; i < colNames.length; i++)
+				sb.append((i > 0 ? "\t" : "") + colNames[i]);
+			sb.append("\n");
+		}
+
+		// Data
+		for (int i = 0; i < getRowDimension(); i++) {
+			if (rowNames != null) sb.append(rowNames[i] + '\t');
+			for (int j = 0; j < getColumnDimension(); j++) {
+				if (j > 0) sb.append("\t");
+				double val = getEntry(i, j);
+				// sb.append(String.format("%1.6e", val));
+				sb.append(val);
+			}
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
+	public String toStringice() {
 		StringBuilder sb = new StringBuilder();
 
 		// Column title
