@@ -84,7 +84,7 @@ public class MaxLikelihoodTm {
 	 * Inference of a transition matrix Q
 	 */
 	public TransitionMatrix estimateTransitionMatrix() {
-		calcPi(); // Calculate 'stable' AA distributions
+		calcPi();
 
 		// Column and row names
 		String names[] = new String[GprSeq.AMINO_ACIDS.length];
@@ -103,6 +103,8 @@ public class MaxLikelihoodTm {
 		for (int i = 0; i < msas.getNumAligns(); i++) {
 			for (int j = i + 1; j < msas.getNumAligns(); j++) {
 				TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j, names);
+
+				// Add all transition matrix estimates
 				QhatSum = QhatSum.add(QhatTmp);
 				count++;
 			}
@@ -176,15 +178,22 @@ public class MaxLikelihoodTm {
 			for (int j = 0; j < dqhat.length; j++)
 				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
 
+		// Create matrix
 		Qhat = new TransitionMatrixMarkov(dqhat);
 		Qhat.setColNames(names);
 		Qhat.setRowNames(names);
-		return Qhat;
 
-		//		TransitionMatrix Qhatprime = Qhat.reateMatrixCorrection();
-		//		Qhatprime.setColNames(names);
-		//		Qhatprime.setRowNames(names);
-		//		return Qhatprime;
+		// Force sum of rows to be zero
+		TransitionMatrix Qhatprime = Qhat.reateMatrixCorrection();
+		Qhatprime.setColNames(names);
+		Qhatprime.setRowNames(names);
+		Qhat = Qhatprime;
+
+		// Check
+		RealVector z = Qhat.operate(calcPi());
+		System.err.println("Norm(Qhat * pi)\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
+
+		return Qhat;
 	}
 
 	public RealVector getPi() {
