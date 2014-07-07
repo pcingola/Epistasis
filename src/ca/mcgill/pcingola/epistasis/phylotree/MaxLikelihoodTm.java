@@ -191,7 +191,7 @@ public class MaxLikelihoodTm {
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());
-		System.err.println("Norm(Qhat * pi)\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
+		System.err.println("NORM_QHAT_PI\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
 
 		return Qhat;
 	}
