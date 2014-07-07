@@ -205,7 +205,7 @@ task( qhat <- [tree, msa] )	sys $cmdEpistasis Qhat $tree $msa $idMapBest > $qhat
 wait
 
 # Split matrices into separate files
-for(string qhatId in ['Q_HAT_METHOD_0', 'Q_PRIME_HAT_METHOD_0', 'Q_HAT_METHOD_1', 'Q_PRIME_HAT_METHOD_1'] ) {
+for(string qhatId : ['Q_HAT_METHOD_0', 'Q_PRIME_HAT_METHOD_0', 'Q_HAT_METHOD_1', 'Q_PRIME_HAT_METHOD_1'] ) {
 	string qhatIdOut = "$dir/$qhatId.txt"
     if( qhatIdOut <- qhat ) sys cat Qhat.txt | grep $qhatId | cut -f 2- | tee $qhatIdOut
 }
