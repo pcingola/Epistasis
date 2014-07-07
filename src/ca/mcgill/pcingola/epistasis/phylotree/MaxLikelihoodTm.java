@@ -9,7 +9,6 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
@@ -180,8 +179,12 @@ public class MaxLikelihoodTm {
 		Qhat = new TransitionMatrixMarkov(dqhat);
 		Qhat.setColNames(names);
 		Qhat.setRowNames(names);
-		if (verbose) System.err.println(Gpr.prependEachLine(String.format("\t%s_%s_%.4f\t", seqName1, seqName2, t), Qhat));
 		return Qhat;
+
+		//		TransitionMatrix Qhatprime = Qhat.reateMatrixCorrection();
+		//		Qhatprime.setColNames(names);
+		//		Qhatprime.setRowNames(names);
+		//		return Qhatprime;
 	}
 
 	public RealVector getPi() {

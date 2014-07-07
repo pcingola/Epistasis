@@ -679,6 +679,7 @@ public class Epistasis implements CommandLine {
 			Q.checkEien(true);
 
 			TransitionMatrix Qprime = Q.reateMatrixCorrection();
+			Qprime.setNames(Q);
 			z = Qprime.operate(mltm.calcPi());
 			System.out.println("Qprime matrix:\n" + Gpr.prependEachLine("Q_PRIME_HAT_METHOD_" + method + "\t", Qprime));
 			System.out.println("METHOD_" + method + "\tNorm( Qprime * pi ) = " + z.getNorm());

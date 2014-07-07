@@ -176,6 +176,11 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		this.colNames = colNames;
 	}
 
+	public void setNames(TransitionMatrix m) {
+		colNames = m.colNames;
+		rowNames = m.rowNames;
+	}
+
 	public void setRowNames(String[] rowNames) {
 		this.rowNames = rowNames;
 	}
