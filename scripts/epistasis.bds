@@ -207,7 +207,7 @@ wait
 # Split matrices into separate files
 for(string qhatId in ['Q_HAT_METHOD_0', 'Q_PRIME_HAT_METHOD_0', 'Q_HAT_METHOD_1', 'Q_PRIME_HAT_METHOD_1'] ) {
 	string qhatIdOut = "$dir/$qhatId.txt"
-    if( qhatIdOut <- qhat ) sys cat Qhat.txt | grep $qhatId | cut -f 2- | tr "|" "\t" | tr "," "\t" | tr -d " " | sed "s/\\tA/A/" | | sed "s/\t$//" | tee $qhatIdOut
+    if( qhatIdOut <- qhat ) sys cat Qhat.txt | grep $qhatId | cut -f 2- | tee $qhatIdOut
 }
 
 
