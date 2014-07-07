@@ -183,12 +183,12 @@ trM := "$dir/transitions.txt"
 print("\nCalculating transitions ($bgNum iterations): '$trM'\n")
 task( trM <- [tree, msa, aaContactBest] )	{
 	sys $cmdEpistasis transitions $bgNum $tree $msa $idMapBest $aaContactBest > $trM 
+}
 	sys grep AA_SINGLE_IN_CONTACT $trM		| cut -f 2- > transitions.aa_single.in_contact.txt
 	sys grep AA_SINGLE_BG $trM				| cut -f 2- > transitions.aa_single.bg.txt
 	sys grep AA_PAIRS_IN_CONTACT $trM		| cut -f 2- > transitions.aa_pairs.in_contact.txt
 	sys grep AA_PAIRS_BG_RAND $trM			| cut -f 2- > transitions.aa_pairs.bg_rand.txt
 	sys grep AA_PAIRS_BG_WITHIN_PROT $trM	| cut -f 2- > transitions.aa_pairs.bg_within_prot.txt
-}
 
 wait
 
