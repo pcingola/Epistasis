@@ -339,7 +339,7 @@ if( F ) {
 	histDens( nums(lrg), "Log2[ P(AB -> XY) / ( P(A -> X) * P(B -> Y) ) ] 'null'", xlim )
 }
 
-if( T ) {
+if( F ) {
 	files <- c('Q_HAT_METHOD_0.txt', 'Q_PRIME_HAT_METHOD_0.txt', 'Q_HAT_METHOD_1.txt', 'Q_PRIME_HAT_METHOD_1.txt')
 	for( file in files ) {
 		Qhat <- read.table(file, header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
@@ -353,8 +353,32 @@ if( T ) {
 	Qhat.2 <- read.table('Q_PRIME_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	Qhat.2 <- as.matrix(Qhat.2)
 
-	heatComp(Qhat.2, Qhat.1, 'Qhat.1', 'Qhat.2')
 	heatComp(Qhat.1, Qhat.2, 'Qhat.1', 'Qhat.2')
+	heatComp(Qhat.2, Qhat.1, 'Qhat.2', 'Qhat.1')
+}
+
+if( T ) {
+	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	pam <- as.matrix(pam)
+
+	Qhat <- read.table('Q_PRIME_HAT_METHOD_0.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat <- as.matrix(Qhat)
+
+	p <- pam * 0
+	colnames(p) <- colnames(Qhat)
+	rownames(p) <- rownames(Qhat)
+	
+	# Create a new matrix using same row and column order as Qhat
+	for( rn  in rownames(pam) ) {
+		for( cn  in colnames(pam) ) {
+			p[ rn, cn ] <- pam[ rn, cn ]
+		}
+	}
+	pam <- p
+
+	p <- scaleRow(p)
+
+	heatComp(pam, Qhat, 'PAM_1', 'Qhat')
 }
 
 if( savePlot )	{ dev.off() } 
