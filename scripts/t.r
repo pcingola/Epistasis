@@ -129,7 +129,7 @@ if( ! exists('tr.bg') ) {
 checkNames(tr.aa, tr.bg)
 checkNames(tr.aa2, tr.bg2)
 
-if( T ) {
+if( F ) {
 	par( mfcol=c(3,1) )
 	xlim <- c(0,15)
 
@@ -147,7 +147,7 @@ if( T ) {
 #---
 # Transition reversal ratios
 #---
-if( T ) {
+if( F ) {
 	min.count <- 20
 
 	cat("Transition reversal ratios\n")
@@ -198,7 +198,7 @@ if( T ) {
 #---
 # Transition heatmaps
 #---
-if( T ) {
+if( F ) {
 	t <- heatComp( tr.aa, tr.bg )
 	t <- heatComp( tr.aa2, tr.bg2 )
 }
@@ -206,7 +206,7 @@ if( T ) {
 #---
 # Transitions ratio histograms
 #---
-if( T ) {
+if( F ) {
 	par( mfcol=c(2,1) )
 
 	# Single AA 
@@ -226,7 +226,7 @@ if( T ) {
 }
 
 
-if( T ) {
+if( F ) {
 	cat("Transition AA-Pairs background probability from single AA transition:\n")
 	pa <- scaleRow( tr.aa )
 	pg <- scaleRow( tr.bg )
@@ -266,6 +266,14 @@ if( T ) {
 	histDens( lrg, "Log2[ P(AB -> XY) / ( P(A -> X) * P(B -> Y) ) ] 'null'", xlim )
 }
 
+if( T ) {
+	files <- c('Q_HAT_METHOD_0.txt', 'Q_PRIME_HAT_METHOD_0.txt', 'Q_HAT_METHOD_1.txt', 'Q_PRIME_HAT_METHOD_1.txt')
+	for( file in files ) {
+		Qhat <- read.table(file, header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+		Qhat <- as.matrix(Qhat)
+		heatmap.2(Qhat, main = "Qhat", sub=file, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
+	}
+}
 
 if( savePlot )	{ dev.off() } 
 
