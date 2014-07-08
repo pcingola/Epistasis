@@ -188,6 +188,7 @@ public class Epistasis implements CommandLine {
 		case "aacontactstats":
 			type = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAaContactStats(type);
 			break;
 
@@ -200,12 +201,14 @@ public class Epistasis implements CommandLine {
 			aaContactFile = args[argNum++];
 			if (numBases <= 0) usage("Number of bases must be positive number");
 			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAaContactStatsN(type, numBases);
 			break;
 
 		case "aafilteridmap":
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAaFilterIdMap();
 			break;
 
@@ -214,6 +217,7 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAaFrequencies();
 			break;
 
@@ -225,6 +229,7 @@ public class Epistasis implements CommandLine {
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
 			filterMsaByIdMap = false;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAddMsaSeqs();
 			break;
 
@@ -236,6 +241,7 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			if (numBases < 0) usage("Number of bases must be non-negative number");
 			if (numSamples <= 0) usage("Number of samples must be positive number");
 			runBackground(type, numBases, numSamples);
@@ -247,6 +253,7 @@ public class Epistasis implements CommandLine {
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
 			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runConservation();
 			break;
 
@@ -255,12 +262,14 @@ public class Epistasis implements CommandLine {
 			genome = args[argNum++];
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runMapPdbGene();
 			break;
 
 		case "mappdbgenomebest":
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runMapPdbGeneBest();
 			break;
 
@@ -269,6 +278,7 @@ public class Epistasis implements CommandLine {
 			genome = args[argNum++];
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runNextProt();
 			break;
 
@@ -279,6 +289,7 @@ public class Epistasis implements CommandLine {
 			int aaMinSeparation = Gpr.parseIntSafe(args[argNum++]);
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runPdbDist(distThreshold, aaMinSeparation);
 			break;
 
@@ -287,16 +298,17 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runQhat();
 			break;
 
 		case "qhat2":
-			if (args.length < 5) usage("Missing arguments for command '" + cmd + "'");
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runQhat2();
 			break;
@@ -307,6 +319,7 @@ public class Epistasis implements CommandLine {
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runTransitions(numSamples);
 			break;
@@ -315,6 +328,7 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runTest();
 			break;
 
