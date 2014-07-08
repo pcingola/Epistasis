@@ -114,7 +114,7 @@ public class EstimateTransitionMatrix {
 				.map(t -> (Tuple<Integer,Integer>)t) //
 				.parallel() //
 				.map( t -> estimateTransitionMatrix(t.first, t.second) ) //
-				.filter( m -> m.isZero() ) //
+				.filter( m -> !m.isZero() ) //
 				.peek( t -> count.inc() ) //
 				.reduce( zero, (a,b) -> a.add(b) );
 		;
