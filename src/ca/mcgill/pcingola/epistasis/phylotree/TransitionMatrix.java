@@ -73,6 +73,12 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
 	}
+
+	public TransitionMatrix(int matrix[][]) {
+		super(matrix.length, matrix[0].length);
+		for(int i=0 ; i < matrix.length; i++ )
+			for(int j=0 ; j < matrix.length; j++ ) setEntry(i, j, matrix[i][j]);
+	}
 	public TransitionMatrix(int N) {
 		super(new double[N][N]);
 	}

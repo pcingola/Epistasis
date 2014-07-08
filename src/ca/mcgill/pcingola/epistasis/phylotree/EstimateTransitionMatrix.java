@@ -150,9 +150,14 @@ public class EstimateTransitionMatrix {
 		int count[][] = countTransitions(seqNum1, seqNum2);
 
 		// Add pseudo-counts
-		for (int i = 0; i < count.length; i++)
-			for (int j = 0; j < count.length; j++)
+		for (int i = 0; i < count.length; i++) {
+			long sumRow=0;
+			for (int j = 0; j < count.length; j++) {
+				sumRow += count[i][j];
 				count[i][j] += pseudoCount;
+			}
+			if( sumRow==0) Gpr.debug("Row sum is zero! Species " + seqName1 + ", " + seqName2 + ", row "+i);
+		}
 
 		// Calculate total counts
 		int sum = Arrays.stream(count).flatMapToInt(x -> Arrays.stream(x)).sum();
@@ -196,8 +201,9 @@ public class EstimateTransitionMatrix {
 		for (int i = 0; i < dqhat.length; i++)
 			for (int j = 0; j < dqhat.length; j++) {
 				if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) {
-					Gpr.toFile("Phat_" + seqName1 + "_" + seqName2 + ".txt", Phat.toString());
-					Gpr.toFile("Qhat_" + seqName1 + "_" + seqName2 + ".txt", Qhat.toString());
+					Gpr.toFile("Count." + seqName1 + "_" + seqName2 + ".txt", new TransitionMatrix(count));
+					Gpr.toFile("Phat." + seqName1 + "_" + seqName2 + ".txt", Phat.toString());
+					Gpr.toFile("Qhat." + seqName1 + "_" + seqName2 + ".txt", Qhat.toString());
 					throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values: " + seqName1 + ", " + seqName2);
 				}
 				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
