@@ -7,6 +7,7 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
 
@@ -25,10 +26,12 @@ public class EstimateTransitionMatrix {
 	boolean verbose = false;
 	boolean debug = false;
 
+	int N;
 	int pseudoCount = 1;
 	int numSpecies;
 	double pi[];
 	double time[][];
+	String names[];
 	LikelihoodTree tree;
 	MultipleSequenceAlignmentSet msas;
 	TransitionMatrixMarkov Q;
@@ -41,6 +44,8 @@ public class EstimateTransitionMatrix {
 		cacheLogLikelihood = new HashMap<String, Double>();
 		numSpecies = tree.childNames().size();
 		time = new double[numSpecies][numSpecies];
+		N = GprSeq.AMINO_ACIDS.length;
+		initNames();
 	}
 
 	/**
@@ -51,7 +56,7 @@ public class EstimateTransitionMatrix {
 		if (pi != null && piVect != null) return piVect;
 
 		System.out.println("Counting amino acids: ");
-		int countAa[] = msas.countAa();
+		int countAa[] = countAa();
 		int tot = 0;
 		for (int aa = 0; aa < countAa.length; aa++)
 			tot += countAa[aa];
@@ -60,9 +65,9 @@ public class EstimateTransitionMatrix {
 		double piAll[];
 		piAll = new double[countAa.length];
 		if (verbose) System.out.println("AAcode\tAA\tcount_all\tcount_first\tp_all\tp_first");
-		for (int aa = 0; aa < countAa.length; aa++) {
-			piAll[aa] = countAa[aa] / ((double) tot);
-			if (verbose) System.out.println(aa + "\t" + GprSeq.code2aa((byte) aa) + "\t" + countAa[aa] + "\t" + piAll[aa]);
+		for (int i = 0; i < countAa.length; i++) {
+			piAll[i] = countAa[i] / ((double) tot);
+			if (verbose) System.out.println(i + "\t" + names[i] + "\t" + countAa[i] + "\t" + piAll[i]);
 		}
 
 		// Create vector
@@ -72,15 +77,24 @@ public class EstimateTransitionMatrix {
 	}
 
 	/**
+	 * Count occurrences
+	 */
+	protected int[] countAa() {
+		return msas.countAa();
+	}
+
+	/**
+	 *  Count all transitions
+	 */
+	protected int[][] countTransitions(int seqNum1, int seqNum2) {
+		return msas.countTransitions(seqNum1, seqNum2);
+	}
+
+	/**
 	 * Inference of a transition matrix Q
 	 */
 	public TransitionMatrix estimateTransitionMatrix() {
 		calcPi();
-
-		// Column and row names
-		String names[] = new String[GprSeq.AMINO_ACIDS.length];
-		for (int i = 0; i < names.length; i++)
-			names[i] = GprSeq.code2aa((byte) i) + "";
 
 		//----
 		// Estimate matrix
@@ -88,12 +102,12 @@ public class EstimateTransitionMatrix {
 
 		// For each pair of species, estimate Q
 		System.out.println("Estimate transition matrix");
-		int N = GprSeq.AMINO_ACIDS.length;
 		Array2DRowRealMatrix QhatSum = new Array2DRowRealMatrix(N, N);
 		int count = 0;
+		// TODO: Convert to parallel stream()
 		for (int i = 0; i < msas.getNumAligns(); i++) {
 			for (int j = i + 1; j < msas.getNumAligns(); j++) {
-				TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j, names);
+				TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j);
 
 				// Add all transition matrix estimates
 				QhatSum = QhatSum.add(QhatTmp);
@@ -111,17 +125,15 @@ public class EstimateTransitionMatrix {
 
 	/**
 	 * Calculate transition matrix from data
-	 * @param seqNum1
-	 * @param seqNum2
 	 */
-	public TransitionMatrix estimateTransitionMatrix(int seqNum1, int seqNum2, String names[]) {
+	public TransitionMatrix estimateTransitionMatrix(int seqNum1, int seqNum2) {
 		String seqName1 = msas.getSpecies()[seqNum1];
 		String seqName2 = msas.getSpecies()[seqNum2];
 		double t = time(seqNum1, seqNum2);
 		System.err.println(seqName1 + "\t" + seqName2 + "\ttime: " + t);
 
 		// Count all transitions
-		int count[][] = msas.countTransitions(seqNum1, seqNum2);
+		int count[][] = countTransitions(seqNum1, seqNum2);
 
 		// Add pseudo-counts
 		for (int i = 0; i < count.length; i++)
@@ -133,42 +145,47 @@ public class EstimateTransitionMatrix {
 
 		// Convert to transition frequencies
 		// Estimate matrix P
-		double phat[][] = new double[NUM_AA][NUM_AA];
+		double phat[][] = new double[N][N];
 		double n = sum;
-		for (int i = 0; i < phat.length; i++)
-			for (int j = 0; j < phat.length; j++) {
-				// phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i];  // WARNING: Should we be dividing by piAvg here!?!?! Why?
+		for (int i = 0; i < phat.length; i++) {
+			if (pi[i] != 0) {
+				for (int j = 0; j < phat.length; j++) {
+					switch (METHOD) {
+					case 0:
+						double freq = count[i][j] / n;
+						phat[i][j] = freq / pi[i];
+						break;
 
-				switch (METHOD) {
-				case 0:
-					double freq = count[i][j] / n;
-					phat[i][j] = freq / pi[i];
-					break;
+					case 1:
+						// We normally use this one
+						freq = (count[i][j] + count[j][i]) / (2.0 * n);
+						phat[i][j] = freq / pi[i];
+						break;
 
-				case 1:
-					// We normally use this one
-					freq = (count[i][j] + count[j][i]) / (2.0 * n);
-					phat[i][j] = freq / pi[i];
-					break;
-
-				case 2:
-					freq = (count[i][j] + count[j][i]) / (2.0 * n);
-					double piAvg = (pi[i] + pi[j]) / 2.0;
-					phat[i][j] = freq / piAvg;
-					break;
+					case 2:
+						freq = (count[i][j] + count[j][i]) / (2.0 * n);
+						double piAvg = (pi[i] + pi[j]) / 2.0;
+						phat[i][j] = freq / piAvg;
+						break;
+					}
 				}
 			}
+		}
 
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
+		Gpr.debug("Phat:\n" + Phat.toStringice());
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
+		Gpr.debug("Qhat:\n" + Qhat.toStringice());
 
 		// Remove negative entries from matrix
 		double dqhat[][] = Qhat.getData();
 		for (int i = 0; i < dqhat.length; i++)
-			for (int j = 0; j < dqhat.length; j++)
+			for (int j = 0; j < dqhat.length; j++) {
+				if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values!");
 				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
+			}
 
 		// Create matrix
 		Qhat = new TransitionMatrixMarkov(dqhat);
@@ -188,6 +205,13 @@ public class EstimateTransitionMatrix {
 
 	public TransitionMatrix getQ() {
 		return Q;
+	}
+
+	protected void initNames() {
+		// Column and row names
+		names = new String[GprSeq.AMINO_ACIDS.length];
+		for (int i = 0; i < names.length; i++)
+			names[i] = GprSeq.code2aa((byte) i) + "";
 	}
 
 	/**

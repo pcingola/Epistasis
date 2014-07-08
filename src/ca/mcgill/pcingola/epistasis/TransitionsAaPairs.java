@@ -51,12 +51,12 @@ public class TransitionsAaPairs extends TransitionsAa {
 		for (int i = 0; i < codes1.length; i++) {
 			byte c1i = codes1[i], c2i = codes2[i];
 			if (c1i < 0 || c2i < 0) continue;
-			int idxi = c1i * n + c2i;
+			int idxi = GprSeq.aaPairCode(c1i, c2i);
 
 			for (int j = i + 1; j < codes1.length; j++) {
 				byte c1j = codes1[j], c2j = codes2[j];
 				if (c1j < 0 || c2j < 0) continue;
-				int idxj = c1j * n + c2j;
+				int idxj = GprSeq.aaPairCode(c1j, c2j);
 
 				// Symmetric count
 				count[idxi][idxj]++;

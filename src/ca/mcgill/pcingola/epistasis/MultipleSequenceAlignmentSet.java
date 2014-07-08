@@ -64,7 +64,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 	/**
 	 * Count number of amino acids
-	 * @param countAa
 	 */
 	public int[] countAa() {
 		int counts[] = new int[GprSeq.AMINO_ACIDS.length];
@@ -74,12 +73,39 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 	/**
 	 * Count number of amino acids for a specific alignment
-	 * @param countAa
 	 */
 	public int[] countAa(int alignNum) {
 		int counts[] = new int[GprSeq.AMINO_ACIDS.length];
 		forEach(m -> m.countAa(alignNum, counts));
 		return counts;
+	}
+
+	/**
+	 * Count number of amino acids
+	 */
+	public int[] countAaPairs(DistanceResults aaContacts) {
+		int counts[] = new int[GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length];
+
+		aaContacts.stream() //
+				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+				.forEach(d -> countAaPairs(counts, d)) //
+		;
+
+		return counts;
+	}
+
+	/**
+	 * Count AA pairs
+	 */
+	void countAaPairs(int counts[], DistanceResult d) {
+		MultipleSequenceAlignment msa1 = getMsa(d.msa1);
+		MultipleSequenceAlignment msa2 = getMsa(d.msa2);
+		int numSeqs = msa1.getNumSeqs();
+
+		for (int i = 0; i < numSeqs; i++) {
+			int code = GprSeq.aaPairCode(msa1.getCode(i, d.msaIdx1), msa2.getCode(i, d.msaIdx2));
+			if (code >= 0) counts[code]++;
+		}
 	}
 
 	/**
@@ -89,6 +115,36 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[][] = new int[GprSeq.AMINO_ACIDS.length][GprSeq.AMINO_ACIDS.length];
 		forEach(m -> m.countTransitions(seqNum1, seqNum2, counts));
 		return counts;
+	}
+
+	/**
+	 * Count AA-Pair transitions from seqNum1 to seqNum2 in all distanceResults
+	 */
+	public int[][] countTransitionsPairs(int seqNum1, int seqNum2, DistanceResults aaContacts) {
+		int n = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
+		int counts[][] = new int[n][n];
+
+		aaContacts.stream() //
+				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+				.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
+
+		return counts;
+	}
+
+	/**
+	 * Count AA-Pair transitions from seqNum1 to seqNum2 in distanceResult 'd'
+	 */
+	void countTransitionsPairs(int counts[][], int seqNum1, int seqNum2, DistanceResult d) {
+		MultipleSequenceAlignment msa1 = getMsa(d.msa1);
+		MultipleSequenceAlignment msa2 = getMsa(d.msa2);
+
+		int code1 = GprSeq.aaPairCode(msa1.getCode(seqNum1, d.msaIdx1), msa2.getCode(seqNum1, d.msaIdx2));
+		if (code1 < 0) return;
+
+		int code2 = GprSeq.aaPairCode(msa1.getCode(seqNum2, d.msaIdx1), msa2.getCode(seqNum2, d.msaIdx2));
+		if (code2 < 0) return;
+
+		counts[code1][code2]++;
 	}
 
 	/**
