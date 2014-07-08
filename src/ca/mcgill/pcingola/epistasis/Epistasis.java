@@ -17,8 +17,9 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrix;
+import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrixPairs;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
-import ca.mcgill.pcingola.epistasis.phylotree.MaxLikelihoodTm;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
 
 /**
@@ -41,7 +42,7 @@ public class Epistasis implements CommandLine {
 	DistanceResults aaContacts;
 	TransitionMatrix Q, Q2;
 	MultipleSequenceAlignmentSet msas;
-	MaxLikelihoodTm mltm;
+	EstimateTransitionMatrix mltm;
 	IdMapper idMapper;
 	PdbGenome pdbGenome;
 
@@ -158,7 +159,7 @@ public class Epistasis implements CommandLine {
 			return;
 		}
 
-		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
 		Q = mltm.loadTransitionMatrix(qMatrixFile);
 	}
 
@@ -681,9 +682,9 @@ public class Epistasis implements CommandLine {
 		load();
 
 		int method = 1;
-		MaxLikelihoodTm.METHOD = method;
+		EstimateTransitionMatrix.METHOD = method;
 
-		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
 		Q = mltm.estimateTransitionMatrix();
 		RealVector z = Q.operate(mltm.calcPi());
 		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
@@ -698,9 +699,9 @@ public class Epistasis implements CommandLine {
 	void runQhat2() {
 		load();
 
-		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		EstimateTransitionMatrixPairs mltm = new EstimateTransitionMatrixPairs(tree, msas, aaContacts);
 		Q2 = mltm.estimateTransitionMatrix();
-		RealVector z = Q2.operate(mltm.calcPi2());
+		RealVector z = Q2.operate(mltm.calcPi());
 		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2\t", Q2));
 		System.out.println("Norm( Q * pi ) = " + z.getNorm());
 		System.out.println("Q's Eigenvalues: ");

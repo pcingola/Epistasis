@@ -2,15 +2,12 @@ package ca.mcgill.pcingola.epistasis.phylotree;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Random;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealMatrix;
 import org.apache.commons.math3.linear.RealVector;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
-import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
 
 /**
@@ -18,7 +15,7 @@ import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
  *
  * @author pcingola
  */
-public class MaxLikelihoodTm {
+public class EstimateTransitionMatrix {
 
 	public static final int NUM_AA = GprSeq.AMINO_ACIDS.length;
 	public static final int NUM_AA_SQUARE = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
@@ -36,13 +33,11 @@ public class MaxLikelihoodTm {
 	MultipleSequenceAlignmentSet msas;
 	TransitionMatrixMarkov Q;
 	ArrayRealVector piVect;
-	Random random;
 	HashMap<String, Double> cacheLogLikelihood;
 
-	public MaxLikelihoodTm(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
+	public EstimateTransitionMatrix(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
 		this.tree = tree;
 		this.msas = msas;
-		random = new Random(20140426);
 		cacheLogLikelihood = new HashMap<String, Double>();
 		numSpecies = tree.childNames().size();
 		time = new double[numSpecies][numSpecies];
@@ -74,38 +69,6 @@ public class MaxLikelihoodTm {
 		pi = piAll;
 		piVect = new ArrayRealVector(pi);
 		return piVect;
-	}
-
-	/**
-	 * Calculate 'stable' probability for each amino acid
-	 * Note: We calculate using 'all' alignments and the first alignment
-	 */
-	public ArrayRealVector calcPi2() {
-		if (pi != null && piVect != null) return piVect;
-
-		System.out.println("Counting amino acids: ");
-		int countAa[] = msas.countAa();
-		int tot = 0;
-		for (int aa = 0; aa < countAa.length; aa++)
-			tot += countAa[aa];
-
-		// Calculate for all AA
-		double piAll[];
-		piAll = new double[countAa.length];
-		if (verbose) System.out.println("AAcode\tAA\tcount_all\tcount_first\tp_all\tp_first");
-		for (int aa = 0; aa < countAa.length; aa++) {
-			piAll[aa] = countAa[aa] / ((double) tot);
-			if (verbose) System.out.println(aa + "\t" + GprSeq.code2aa((byte) aa) + "\t" + countAa[aa] + "\t" + piAll[aa]);
-		}
-
-		// Create vector
-		pi = piAll;
-		piVect = new ArrayRealVector(pi);
-		return piVect;
-	}
-
-	public RealMatrix calcQ(int seqNum1, int seqNum2) {
-		return null;
 	}
 
 	/**
@@ -235,89 +198,6 @@ public class MaxLikelihoodTm {
 	public TransitionMatrix loadTransitionMatrix(String fileName) {
 		Q = new TransitionMatrixMarkov(TransitionMatrix.load(fileName));
 		return Q;
-	}
-
-	/**
-	 * Calculate the likelihood (sum all MSAS and pos)
-	 */
-	public double logLikelyhood() {
-		double logLik = 0.0;
-		calcPi();
-
-		// Calculate likelihood for each MSA & each base
-		for (MultipleSequenceAlignment msa : msas) {
-			for (int pos = 0; pos < msa.length(); pos++) {
-				if (msa.isSkip(pos)) continue;
-				double like = logLikelyhood(msa, pos);
-				logLik += -Math.log(like);
-			}
-			if (verbose) System.out.println("MSA: " + msa.getId() + "\t" + logLik);
-		}
-
-		return logLik;
-	}
-
-	/**
-	 * Calculate log likelihood for an msa:pos
-	 * @param msa
-	 * @param pos
-	 * @return
-	 */
-	public double logLikelyhood(MultipleSequenceAlignment msa, int pos) {
-		// Check cache
-		String key = msa.getId() + ":" + pos;
-		Double logLik = cacheLogLikelihood.get(key);
-		if (logLik != null) return logLik;
-
-		// Set sequence and calculate likelihood
-		String seqCol = msa.getColumnString(pos);
-		tree.setLeafSequence(seqCol);
-		double like = tree.likelihood(Q, pi);
-		logLik = -Math.log(like);
-
-		// Cache result
-		cacheLogLikelihood.put(key, logLik);
-
-		return logLik;
-	}
-
-	/**
-	 * Calculate log likelihood for an msa:pos
-	 */
-	public double logLikelyhood(MultipleSequenceAlignment msa1, int pos1, MultipleSequenceAlignment msa2, int pos2) {
-		// Get codes
-		byte code1[] = msa1.getColumn(pos1);
-		byte code2[] = msa2.getColumn(pos2);
-
-		// Initialize
-		int codes[] = new int[code1.length];
-		double count[][] = new double[NUM_AA_SQUARE][NUM_AA_SQUARE];
-		for (int i = 0; i < code1.length; i++) {
-			codes[i] = code1[i] * NUM_AA + code2[i];
-			Arrays.fill(count[i], pseudoCount);
-		}
-
-		// Count entries
-		for (int i = 0; i < code1.length; i++)
-			for (int j = i + 1; j < code1.length; j++)
-				count[codes[j]][codes[j]] += 1.0;
-
-		// Phat estimation
-		// TODO: WRONG!!!
-		//		double phat[][] = new double[NUM_AA_SQUARE][NUM_AA_SQUARE];
-		//		for (int i = 0; i < count.length; i++)
-		//			for (int j = i + 1; j < count.length; j++)
-		//				phat[i][j] = (count[i][j] + count[j][i]) / n * pi[i] * pi[i]; // Note: We use symmetry
-		//
-		//		// Create matrix
-		//		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
-		//		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
-		//		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
-
-		// Calculate likelihood for each lambda
-
-		// Max likelihoood from all lambdas
-		return 0;
 	}
 
 	/**
