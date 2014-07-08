@@ -141,23 +141,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	}
 
 	/**
-	 * Create a new matrix whose rows sum zero
-	 */
-	public TransitionMatrix reateMatrixCorrection() {
-		double d[][] = getData();
-		int dim = d.length;
-
-		for (int i = 0; i < dim; i++) {
-			double sum = 0;
-			for (int j = 0; j < dim; j++)
-				if (i != j) sum += d[i][j];
-			d[i][i] = -sum;
-		}
-
-		return new TransitionMatrix(d);
-	}
-
-	/**
 	 * Save data to file
 	 */
 	public void save(String fileName) {
