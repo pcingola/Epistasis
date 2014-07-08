@@ -3,6 +3,8 @@ package ca.mcgill.pcingola.epistasis.phylotree;
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.DiagonalMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
+import org.apache.commons.math3.linear.MatrixDimensionMismatchException;
+import org.apache.commons.math3.linear.MatrixUtils;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -46,8 +48,36 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return d;
 	}
 
+    public TransitionMatrix add(final TransitionMatrix m)
+            throws MatrixDimensionMismatchException {
+            // Safety check.
+            MatrixUtils.checkAdditionCompatible(this, m);
+
+            final int rowCount    = getRowDimension();
+            final int columnCount = getColumnDimension();
+            final double[][] data = getData();
+            final double[][] mdata = m.getData();
+            final double[][] outData = new double[rowCount][columnCount];
+            for (int row = 0; row < rowCount; row++) {
+                final double[] dataRow    = data[row];
+                final double[] mRow       = mdata[row];
+                final double[] outDataRow = outData[row];
+                for (int col = 0; col < columnCount; col++) {
+                    outDataRow[col] = dataRow[col] + mRow[col];
+                }
+            }
+
+            return new TransitionMatrix(outData);
+        }
+
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
+	}
+	public TransitionMatrix(int N) {
+		super(new double[N][N]);
+	}
+	public TransitionMatrix(int rows, int cols) {
+		super(rows,cols);
 	}
 
 	public TransitionMatrix(RealMatrix m) {

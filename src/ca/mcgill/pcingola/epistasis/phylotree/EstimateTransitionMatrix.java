@@ -8,6 +8,7 @@ import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
+import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Tuple;
@@ -95,6 +96,7 @@ public class EstimateTransitionMatrix {
 	/**
 	 * Inference of a transition matrix Q
 	 */
+	@SuppressWarnings("unchecked")
 	public TransitionMatrix estimateTransitionMatrix() {
 		calcPi();
 
@@ -104,26 +106,31 @@ public class EstimateTransitionMatrix {
 
 		// For each pair of species, estimate Q
 		System.out.println("Estimate transition matrix");
-		Array2DRowRealMatrix QhatSum = new Array2DRowRealMatrix(N, N);
-		int count = 0;
-		// TODO: Convert to parallel stream()
-		IntStream.range(0, msas.getNumAligns()) //
-				.flatMap(i -> IntStream.range(i + 1, msas.getNumAligns()).map(j -> new Tuple<Integer, Integer>(i, j))) //
-				.map(t -> estimateTransitionMatrix(t.first, t.second)) //
+		Counter count = new Counter();
+		TransitionMatrix zero = new TransitionMatrix(N, N);
+		TransitionMatrix QhatSum = IntStream.range(0, msas.getNumAligns()) //
+				.mapToObj(i -> IntStream.range(i + 1, msas.getNumAligns()).mapToObj(j -> new Tuple<Integer,Integer>(i,j))) //
+				.flatMap(s -> s) //
+				.map(t -> (Tuple<Integer,Integer>)t) //
+				.parallel() //
+				.map( t -> estimateTransitionMatrix(t.first, t.second) ) //
+				.peek( t-> count.inc() ) //
+				.reduce( zero, (a,b) -> a.add(b) );
 		;
 
-		//		for (int i = 0; i < msas.getNumAligns(); i++) {
-		//			for (int j = i + 1; j < msas.getNumAligns(); j++) {
-		//				TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j);
-		//
-		//				// Add all transition matrix estimates
-		//				QhatSum = QhatSum.add(QhatTmp);
-		//				count++;
-		//			}
-		//		}
+//		Array2DRowRealMatrix QhatSum = new Array2DRowRealMatrix(N, N);
+//				for (int i = 0; i < msas.getNumAligns(); i++) {
+//					for (int j = i + 1; j < msas.getNumAligns(); j++) {
+//						TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j);
+//		
+//						// Add all transition matrix estimates
+//						QhatSum = QhatSum.add(QhatTmp);
+//						count++;
+//					}
+//				}
 
 		// Calculate the average of all estimators
-		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count));
+		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count.getCount()));
 		Q.setColNames(names);
 		Q.setRowNames(names);
 
