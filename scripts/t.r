@@ -374,6 +374,7 @@ if( T ) {
 
 	# Load AA frequencies
 	aa.freq <- read.table('aa.frequencies.txt', header = F, row.names = 1, sep="\t", na.strings = 'null')
+	aa.freq <- as.vector(aa.freq)
 	aa.freq <- aa.freq / sum(aa.freq)
 
 	# Create a function to calculate the probability of amino acid mutation, based on Qhat and time
