@@ -144,7 +144,7 @@ public class EstimateTransitionMatrix {
 		String seqName1 = msas.getSpecies()[seqNum1];
 		String seqName2 = msas.getSpecies()[seqNum2];
 		double t = time(seqNum1, seqNum2);
-		System.err.println(seqName1 + "\t" + seqName2 + "\ttime: " + t);
+		if(debug) System.err.println(seqName1 + "\t" + seqName2 + "\ttime: " + t);
 
 		// Count all transitions
 		int count[][] = countTransitions(seqNum1, seqNum2);
