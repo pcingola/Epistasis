@@ -152,6 +152,19 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return rowNames;
 	}
 
+	public boolean isZero() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+		
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if( getEntry(i, j)!=0) return false;
+			}			
+		}		
+		
+		return true;
+	}
+	
 	/**
 	 * Matrix log (natural log) times 1/time
 	 */
@@ -167,7 +180,10 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
 			if( lambda>0) logD.setEntry(i, i, Math.log(lambda));
-			else Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
+			else {
+				Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
+				return new TransitionMatrix(dim);
+			}
 		}
 
 		// Perform matrix exponential

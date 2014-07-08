@@ -58,7 +58,7 @@ public class EstimateTransitionMatrix {
 	public ArrayRealVector calcPi() {
 		if (pi != null && piVect != null) return piVect;
 
-		System.out.println("Counting amino acids: ");
+		System.err.println("Counting amino acids: ");
 		int countAa[] = countAa();
 		int tot = 0;
 		for (int aa = 0; aa < countAa.length; aa++)
@@ -67,7 +67,7 @@ public class EstimateTransitionMatrix {
 		// Calculate for all AA
 		double piAll[];
 		piAll = new double[countAa.length];
-		if (verbose) System.out.println("AAcode\tAA\tcount_all\tcount_first\tp_all\tp_first");
+		if (verbose) System.out.println("AAcode\tAA\tcount\tp");
 		for (int i = 0; i < countAa.length; i++) {
 			piAll[i] = countAa[i] / ((double) tot);
 			if (verbose) System.out.println(i + "\t" + names[i] + "\t" + countAa[i] + "\t" + piAll[i]);
@@ -114,20 +114,10 @@ public class EstimateTransitionMatrix {
 				.map(t -> (Tuple<Integer,Integer>)t) //
 				.parallel() //
 				.map( t -> estimateTransitionMatrix(t.first, t.second) ) //
-				.peek( t-> count.inc() ) //
+				.filter( m -> m.isZero() ) //
+				.peek( t -> count.inc() ) //
 				.reduce( zero, (a,b) -> a.add(b) );
 		;
-
-//		Array2DRowRealMatrix QhatSum = new Array2DRowRealMatrix(N, N);
-//				for (int i = 0; i < msas.getNumAligns(); i++) {
-//					for (int j = i + 1; j < msas.getNumAligns(); j++) {
-//						TransitionMatrix QhatTmp = estimateTransitionMatrix(i, j);
-//		
-//						// Add all transition matrix estimates
-//						QhatSum = QhatSum.add(QhatTmp);
-//						count++;
-//					}
-//				}
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count.getCount()));
@@ -188,7 +178,7 @@ public class EstimateTransitionMatrix {
 						break;
 					}
 				}
-			}
+			} else Gpr.debug("WARNING: pi["+i+"] is zero!");
 		}
 
 		// Create matrix

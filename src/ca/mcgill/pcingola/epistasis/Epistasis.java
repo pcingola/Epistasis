@@ -714,7 +714,6 @@ public class Epistasis implements CommandLine {
 		load();
 
 		EstimateTransitionMatrixPairs etm = new EstimateTransitionMatrixPairs(tree, msas, aaContacts);
-		System.out.println("Pi:\n" + etm.calcPi());
 		Q2 = etm.estimateTransitionMatrix();
 		RealVector z = Q2.operate(etm.calcPi());
 		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2\t", Q2));
