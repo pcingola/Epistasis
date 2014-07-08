@@ -162,10 +162,12 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD();
 		int dim = D.getColumnDimension();
+		
 		RealMatrix logD = new DiagonalMatrix(dim);
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
-			logD.setEntry(i, i, Math.log(lambda));
+			if( lambda>0) logD.setEntry(i, i, Math.log(lambda));
+			else Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
 		}
 
 		// Perform matrix exponential
