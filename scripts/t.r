@@ -1,7 +1,8 @@
 
-library( 'gplots')
+library('gplots')
+library('expm')
 
-savePlot <- F
+savePlot <- T
 
 #-------------------------------------------------------------------------------
 # Reverse an amino acid string
@@ -359,6 +360,8 @@ if( F ) {
 
 if( T ) {
 	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+
+	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	pam <- as.matrix(pam)
 
 	Qhat <- read.table('Q_PRIME_HAT_METHOD_0.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
@@ -374,11 +377,17 @@ if( T ) {
 			p[ rn, cn ] <- pam[ rn, cn ]
 		}
 	}
+
 	pam <- p
 
+	diag(p) <- 0
 	p <- scaleRow(p)
 
-	heatComp(pam, Qhat, 'PAM_1', 'Qhat')
+	q <- Qhat
+	diag(q) <- 0
+	q <- scaleRow(q)
+
+	#heatCompLog(p, q, 'PAM_1', 'Qhat')
 }
 
 if( savePlot )	{ dev.off() } 

@@ -184,23 +184,6 @@ public class Epistasis implements CommandLine {
 		String type = "";
 
 		switch (cmd.toLowerCase()) {
-		case "addmsaseqs":
-			configFile = args[argNum++];
-			genome = args[argNum++];
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
-			filterMsaByIdMap = false;
-			runAddMsaSeqs();
-			break;
-
-		case "aafilteridmap":
-			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
-			runAaFilterIdMap();
-			break;
-
 		case "aacontactstats":
 			type = args[argNum++];
 			aaContactFile = args[argNum++];
@@ -219,12 +202,29 @@ public class Epistasis implements CommandLine {
 			runAaContactStatsN(type, numBases);
 			break;
 
+		case "aafilteridmap":
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			runAaFilterIdMap();
+			break;
+
 		case "aafreqs":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
 			filterMsaByIdMap = true;
 			runAaFrequencies();
+			break;
+
+		case "addmsaseqs":
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			filterMsaByIdMap = false;
+			runAddMsaSeqs();
 			break;
 
 		case "background":
@@ -479,9 +479,12 @@ public class Epistasis implements CommandLine {
 						});
 
 		// Show results
-		System.out.println("AA frequencies:");
+		double sum = 0;
 		for (byte aa = 0; aa < aaCount.length; aa++)
-			System.out.println(GprSeq.code2aa(aa) + "\t" + aa + "\t" + aaCount[aa]);
+			sum += aaCount[aa];
+
+		for (byte aa = 0; aa < aaCount.length; aa++)
+			System.out.println(GprSeq.code2aa(aa) + "\t" + aaCount[aa] / sum);
 	}
 
 	/**
