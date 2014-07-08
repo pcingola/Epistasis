@@ -298,6 +298,9 @@ if( F ) {
 	histDens( t[ ta > 20 & tg > 20 ], 'Normalized counts ratio: AA-PAIRS in contact / null (counts > 20)', c(0,2)  )
 }
 
+#---
+# Transition of AA-pairs compared to Single-AA probabilities
+#---
 if( F ) {
 	cat("Transition AA-Pairs background probability from single AA transition:\n")
 	pa <- scaleRow( tr.aa )
@@ -340,6 +343,9 @@ if( F ) {
 	histDens( nums(lrg), "Log2[ P(AB -> XY) / ( P(A -> X) * P(B -> Y) ) ] 'null'", xlim )
 }
 
+#---
+# Compare Qhat calculation methods
+#---
 if( F ) {
 	files <- c('Q_HAT_METHOD_0.txt', 'Q_PRIME_HAT_METHOD_0.txt', 'Q_HAT_METHOD_1.txt', 'Q_PRIME_HAT_METHOD_1.txt')
 	for( file in files ) {
@@ -358,36 +364,55 @@ if( F ) {
 	heatComp(Qhat.2, Qhat.1, 'Qhat.2', 'Qhat.1')
 }
 
+#---
+# Compare to Qhat to PAM1
+#---
 if( T ) {
-	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	# Load Qhat
+	Qhat <- read.table('Q_PRIME_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat <- as.matrix(Qhat)
 
+	# Load AA frequencies
+	aa.freq <- read.table('aa.frequencies.txt', header = F, row.names = 1, sep="\t", na.strings = 'null')
+	aa.freq <- aa.freq / sum(aa.freq)
+
+	# Create a function to calculate the probability of aminoacid mutation, based on Qhat and time
+	Pt <- function(t) { expm(t * Qhat); }
+	Mut <- function(t) { sum( diag( Pt(t) ) * aa.freq ); }
+	Mut.PAM1 <- function(t)	{ Mut(t) - 0.99; }
+
+	# Solve for PAM (i.e. 't' such that there is 1% probability of mutation
+	res <- uniroot( Mut.PAM1, c(0,1) )
+	t0 <- res$root
+	cat('PAM 1:\tt0 =', t0, '\tMutation(t0): ', Mut(t0), '\n')
+
+	# Load PAM1 matrix
 	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	pam <- as.matrix(pam)
 
-	Qhat <- read.table('Q_PRIME_HAT_METHOD_0.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
-	Qhat <- as.matrix(Qhat)
-
+	# Re-organize PAM1 matrix to have the same order than Qhat
 	p <- pam * 0
 	colnames(p) <- colnames(Qhat)
 	rownames(p) <- rownames(Qhat)
-	
-	# Create a new matrix using same row and column order as Qhat
 	for( rn  in rownames(pam) ) {
 		for( cn  in colnames(pam) ) {
 			p[ rn, cn ] <- pam[ rn, cn ]
 		}
 	}
-
 	pam <- p
 
-	diag(p) <- 0
-	p <- scaleRow(p)
+	Pt0 <- round( 10000 * Pt(t0) )
 
-	q <- Qhat
-	diag(q) <- 0
-	q <- scaleRow(q)
+	d <- max(dim(pam))
+	err <- pam * 0
+	for( i in 1:d ) {
+		for( j in 1:d ) {
+			err[i,j] <- abs(pam[i,j] - Pt0[i,j]) / max(pam[i,j], Pt0[i,j])
+		}
+	}
+	err[ is.nan(err) ] <- 0
 
-	#heatCompLog(p, q, 'PAM_1', 'Qhat')
+	heatmap.2(err, main = "PAM1", sub="", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
 }
 
 if( savePlot )	{ dev.off() } 
