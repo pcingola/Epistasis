@@ -15,6 +15,15 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  */
 public class TransitionMatrix extends Array2DRowRealMatrix {
 
+	private static final long serialVersionUID = 1L;
+
+	public static final double ACCEPTED_ERROR = 1e-4;
+
+	protected EigenDecomposition eigen;
+	protected boolean checkNegativeLambda;
+	protected String colNames[];
+	protected String rowNames[];
+
 	/**
 	 * Load from file
 	 */
@@ -36,15 +45,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		return d;
 	}
-
-	private static final long serialVersionUID = 1L;
-
-	public static final double ACCEPTED_ERROR = 1e-4;
-	protected EigenDecomposition eigen;
-	protected boolean checkNegativeLambda;
-	protected String colNames[];
-
-	protected String rowNames[];
 
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
@@ -72,7 +72,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
 			maxLambda = Math.max(maxLambda, lambda);
-			if (verbose) System.out.println("\tlambda_" + i + ":\t" + lambda);
+			if (verbose) System.out.println("\tlambda_" + i + "\t" + lambda + "\t" + eigen.getEigenvector(i));
 		}
 
 		if (verbose) System.out.println("\tlambda_max:\t" + maxLambda);

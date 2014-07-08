@@ -23,7 +23,7 @@ public class MaxLikelihoodTm {
 	public static final int NUM_AA = GprSeq.AMINO_ACIDS.length;
 	public static final int NUM_AA_SQUARE = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
 
-	public static int METHOD = 0;
+	public static int METHOD = 1;
 
 	boolean verbose = false;
 	boolean debug = false;
@@ -53,6 +53,34 @@ public class MaxLikelihoodTm {
 	 * Note: We calculate using 'all' alignments and the first alignment
 	 */
 	public ArrayRealVector calcPi() {
+		if (pi != null && piVect != null) return piVect;
+
+		System.out.println("Counting amino acids: ");
+		int countAa[] = msas.countAa();
+		int tot = 0;
+		for (int aa = 0; aa < countAa.length; aa++)
+			tot += countAa[aa];
+
+		// Calculate for all AA
+		double piAll[];
+		piAll = new double[countAa.length];
+		if (verbose) System.out.println("AAcode\tAA\tcount_all\tcount_first\tp_all\tp_first");
+		for (int aa = 0; aa < countAa.length; aa++) {
+			piAll[aa] = countAa[aa] / ((double) tot);
+			if (verbose) System.out.println(aa + "\t" + GprSeq.code2aa((byte) aa) + "\t" + countAa[aa] + "\t" + piAll[aa]);
+		}
+
+		// Create vector
+		pi = piAll;
+		piVect = new ArrayRealVector(pi);
+		return piVect;
+	}
+
+	/**
+	 * Calculate 'stable' probability for each amino acid
+	 * Note: We calculate using 'all' alignments and the first alignment
+	 */
+	public ArrayRealVector calcPi2() {
 		if (pi != null && piVect != null) return piVect;
 
 		System.out.println("Counting amino acids: ");
@@ -155,6 +183,7 @@ public class MaxLikelihoodTm {
 					break;
 
 				case 1:
+					// We normally use this one
 					freq = (count[i][j] + count[j][i]) / (2.0 * n);
 					phat[i][j] = freq / pi[i];
 					break;
@@ -182,12 +211,6 @@ public class MaxLikelihoodTm {
 		Qhat = new TransitionMatrixMarkov(dqhat);
 		Qhat.setColNames(names);
 		Qhat.setRowNames(names);
-
-		// Force sum of rows to be zero
-		TransitionMatrix Qhatprime = Qhat.reateMatrixCorrection();
-		Qhatprime.setColNames(names);
-		Qhatprime.setRowNames(names);
-		Qhat = Qhatprime;
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());

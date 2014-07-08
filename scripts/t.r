@@ -2,7 +2,7 @@
 library('gplots')
 library('expm')
 
-savePlot <- T
+savePlot <- F
 
 #-------------------------------------------------------------------------------
 # Reverse an amino acid string
@@ -369,14 +369,14 @@ if( F ) {
 #---
 if( T ) {
 	# Load Qhat
-	Qhat <- read.table('Q_PRIME_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat <- read.table('Q_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	Qhat <- as.matrix(Qhat)
 
 	# Load AA frequencies
 	aa.freq <- read.table('aa.frequencies.txt', header = F, row.names = 1, sep="\t", na.strings = 'null')
 	aa.freq <- aa.freq / sum(aa.freq)
 
-	# Create a function to calculate the probability of aminoacid mutation, based on Qhat and time
+	# Create a function to calculate the probability of amino acid mutation, based on Qhat and time
 	Pt <- function(t) { expm(t * Qhat); }
 	Mut <- function(t) { sum( diag( Pt(t) ) * aa.freq ); }
 	Mut.PAM1 <- function(t)	{ Mut(t) - 0.99; }

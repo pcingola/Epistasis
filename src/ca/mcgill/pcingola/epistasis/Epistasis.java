@@ -39,7 +39,7 @@ public class Epistasis implements CommandLine {
 	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
 	LikelihoodTree tree;
 	DistanceResults aaContacts;
-	TransitionMatrix Q;
+	TransitionMatrix Q, Q2;
 	MultipleSequenceAlignmentSet msas;
 	MaxLikelihoodTm mltm;
 	IdMapper idMapper;
@@ -288,6 +288,16 @@ public class Epistasis implements CommandLine {
 			idMapFile = args[argNum++];
 			filterMsaByIdMap = true;
 			runQhat();
+			break;
+
+		case "qhat2":
+			if (args.length < 5) usage("Missing arguments for command '" + cmd + "'");
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			filterMsaByIdMap = true;
+			runQhat2();
 			break;
 
 		case "transitions":
@@ -670,25 +680,31 @@ public class Epistasis implements CommandLine {
 	void runQhat() {
 		load();
 
-		for (int method = 0; method < 3; method++) {
-			MaxLikelihoodTm.METHOD = method;
+		int method = 1;
+		MaxLikelihoodTm.METHOD = method;
 
-			MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
-			Q = mltm.estimateTransitionMatrix();
-			RealVector z = Q.operate(mltm.calcPi());
-			System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
-			System.out.println("METHOD_" + method + "\tNorm( Q * pi ) = " + z.getNorm());
-			System.out.println("Q's Eigenvalues: ");
-			Q.checkEien(true);
+		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		Q = mltm.estimateTransitionMatrix();
+		RealVector z = Q.operate(mltm.calcPi());
+		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_METHOD_" + method + "\t", Q));
+		System.out.println("METHOD_" + method + "\tNorm( Q * pi ) = " + z.getNorm());
+		System.out.println("Q's Eigenvalues: ");
+		Q.checkEien(true);
+	}
 
-			TransitionMatrix Qprime = Q.reateMatrixCorrection();
-			Qprime.setNames(Q);
-			z = Qprime.operate(mltm.calcPi());
-			System.out.println("Qprime matrix:\n" + Gpr.prependEachLine("Q_PRIME_HAT_METHOD_" + method + "\t", Qprime));
-			System.out.println("METHOD_" + method + "\tNorm( Qprime * pi ) = " + z.getNorm());
-			System.out.println("Qprime's Eigenvalues: ");
-			Qprime.checkEien(true);
-		}
+	/**
+	 * Calculate Qhat2 (400x400 AA-Pairs transition matrix)
+	 */
+	void runQhat2() {
+		load();
+
+		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
+		Q2 = mltm.estimateTransitionMatrix();
+		RealVector z = Q2.operate(mltm.calcPi2());
+		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2\t", Q2));
+		System.out.println("Norm( Q * pi ) = " + z.getNorm());
+		System.out.println("Q's Eigenvalues: ");
+		Q2.checkEien(true);
 	}
 
 	/**
