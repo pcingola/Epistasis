@@ -175,15 +175,17 @@ public class EstimateTransitionMatrix {
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
-		Gpr.debug("Phat:\n" + Phat.toStringice());
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
-		Gpr.debug("Qhat:\n" + Qhat.toStringice());
 
 		// Remove negative entries from matrix
 		double dqhat[][] = Qhat.getData();
 		for (int i = 0; i < dqhat.length; i++)
 			for (int j = 0; j < dqhat.length; j++) {
-				if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values!");
+				if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) {
+					Gpr.toFile("Phat_" + seqName1 + "_" + seqName2 + ".txt", Phat.toString());
+					Gpr.toFile("Qhat_" + seqName1 + "_" + seqName2 + ".txt", Qhat.toString());
+					throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values: " + seqName1 + ", " + seqName2);
+				}
 				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
 			}
 
