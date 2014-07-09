@@ -118,7 +118,7 @@ public class EstimateTransitionMatrix {
 				.mapToObj(i -> IntStream.range(i + 1, msas.getNumAligns()).mapToObj(j -> new Tuple<Integer, Integer>(i, j))) // Create [i,j] pairs
 				.flatMap(s -> s) //
 				.map(t -> (Tuple<Integer, Integer>) t) // Cast Object to Tuple
-				.parallel() //
+				// .parallel() //
 				.map(t -> estimateTransitionMatrix(t.first, t.second)) // Estimate transition matrix (can be zero matrix)
 				.filter(m -> !m.isZero()) // Remove zero matrices
 				.peek(t -> count.inc()) // Count
@@ -164,24 +164,35 @@ public class EstimateTransitionMatrix {
 		double n = sum;
 		for (int i = 0; i < phat.length; i++) {
 			if (pi[i] != 0) {
+				long sumRow = 0;
+				for (int j = 0; j < phat.length; j++)
+					sumRow += count[i][j];
+
 				for (int j = 0; j < phat.length; j++) {
 					switch (METHOD) {
 					case 0:
+						phat[i][j] = count[i][j] / ((double) sumRow);
+						break;
+
+					case 1:
 						double freq = count[i][j] / n;
 						phat[i][j] = freq / pi[i];
 						break;
 
-					case 1:
+					case 2:
 						// We normally use this one
 						freq = (count[i][j] + count[j][i]) / (2.0 * n);
 						phat[i][j] = freq / pi[i];
 						break;
 
-					case 2:
+					case 3:
 						freq = (count[i][j] + count[j][i]) / (2.0 * n);
 						double piAvg = (pi[i] + pi[j]) / 2.0;
 						phat[i][j] = freq / piAvg;
 						break;
+
+					default:
+						throw new RuntimeException("Unimplemented method");
 					}
 				}
 			} else Gpr.debug("WARNING: pi[" + i + "] is zero!");
@@ -190,7 +201,26 @@ public class EstimateTransitionMatrix {
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
+		if (Phat.isSymmetric()) {
+			Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
+			return Phat.zero();
+		}
+		if (Phat.hasComplexEigenvalues()) {
+			Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] has complex eigenvalues.");
+			return Phat.zero();
+		}
+		if (!Phat.isProbabilityMatrix()) {
+			Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is NOT a probability matrix.");
+			return Phat.zero();
+		}
+
+		// Create matrix
+		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
+		if (!Qhat.isZero() && Qhat.isSymmetric()) {
+			Gpr.debug("Qhat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
+			return Qhat.zero();
+		}
 
 		// Remove negative entries from matrix
 		if (REMOVE_NEGATIVES > 0) {
@@ -214,7 +244,7 @@ public class EstimateTransitionMatrix {
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());
-		System.err.println("NORM_QHAT_PI_" + methods() + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
+		if (verbose) System.err.println("NORM_QHAT_PI_" + methods() + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
 
 		return Qhat;
 	}

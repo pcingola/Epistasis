@@ -32,6 +32,15 @@ public class TransitionsAa {
 		}
 	}
 
+	public TransitionsAa(int count[][]) {
+		this(true);
+
+		int n = GprSeq.AMINO_ACIDS.length;
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++)
+				this.count[i][j] = count[i][j];
+	}
+
 	/**
 	 * Add a transition matrix
 	 */
@@ -91,6 +100,20 @@ public class TransitionsAa {
 		}
 
 		return f;
+	}
+
+	/**
+	 * Is this matrix symmetric?
+	 */
+	public boolean isSymmetric() {
+		int rows = count.length;
+		int cols = count[0].length;
+
+		for (int i = 0; i < rows; i++)
+			for (int j = i + 1; j < cols; j++)
+				if (count[i][j] != count[j][i]) return false;
+
+		return true;
 	}
 
 	@Override

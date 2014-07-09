@@ -102,8 +102,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	 * Show matrix's eigenvalues
 	 */
 	public double checkEien(boolean verbose) {
-		// Did we already perform eigendecomposition?
-		if (eigen == null) eigen = new EigenDecomposition(this);
+		eigen();
 
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD().copy();
@@ -122,11 +121,49 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	}
 
 	/**
+	 * Perform eigen-decomposition and some sanity checks
+	 */
+	protected void eigen() {
+		if (eigen == null) {
+			// Decomposition
+			eigen = new EigenDecomposition(this);
+
+			//			String error = "";
+			//
+			//			if (eigen.hasComplexEigenvalues()) error += "\n\tComplex eigenvalues";
+			//
+			//			// Check that the matrix is
+			//			RealMatrix m = eigen.getV().multiply(eigen.getD()).multiply(eigen.getVT());
+			//			TransitionMatrix zero = new TransitionMatrix(this.subtract(m));
+			//			if (!zero.isZero()) error += "\n\tM != V * D * V^T";
+			//
+			//			// Check that eigenvector matrices are inverse
+			//			TransitionMatrix eye = new TransitionMatrix(eigen.getV().multiply(eigen.getVT()));
+			//			if (!eye.isIdentity()) error += "\n\tV * V^T != I ";
+			//
+			//			// Any error?
+			//			if (!error.isEmpty()) {
+			//				String eigenVals = "";
+			//
+			//				for (int h = 0; h < getColumnDimension(); h++)
+			//					eigenVals += "\t" + eigen.getRealEigenvalue(h) + (Math.abs(eigen.getImagEigenvalue(h)) > EPSILON ? "+ i" + eigen.getImagEigenvalue(h) : "") + "\n";
+			//
+			//				Gpr.debug("ERROR: " + error);
+			//				//				Gpr.debug("ERROR: " + error //
+			//				//						+ "\nV * V^-1:\n" + eye.toStringice() //
+			//				//						+ "\nPhat:\n" + this //
+			//				//						+ "\nEigenvals:\n" + eigenVals //
+			//				//						);
+			//			}
+		}
+	}
+
+	/**
 	 * Matrix exponentiation
 	 */
 	public RealMatrix exp(double time) {
 		// Did we already perform Eigen-decomposition?
-		if (eigen == null) eigen = new EigenDecomposition(this);
+		eigen();
 
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD().copy();
@@ -153,11 +190,17 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return rowNames;
 	}
 
+	/**
+	 * Does this matrix have complex eigenvalues?
+	 */
 	public boolean hasComplexEigenvalues() {
-		if (eigen == null) eigen = new EigenDecomposition(this);
+		eigen();
 		return eigen.hasComplexEigenvalues();
 	}
 
+	/**
+	 * Does this matrix have any negative element off diagonal?
+	 */
 	public boolean hasNegativeOffDiagonalEntries() {
 		int rows = getRowDimension();
 		int cols = getColumnDimension();
@@ -170,6 +213,60 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return false;
 	}
 
+	/**
+	 * Is this matrix diagonal?
+	 */
+	public boolean isDiagonal() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+
+		for (int i = 0; i < rows; i++)
+			for (int j = 0; j < cols; j++)
+				if (i != j && Math.abs(getEntry(i, j)) > EPSILON) return false;
+
+		return true;
+	}
+
+	/**
+	 * Is this matrix an identity matrix
+	 */
+	public boolean isIdentity() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+
+		for (int i = 0; i < rows; i++)
+			for (int j = 0; j < cols; j++) {
+				if (i != j && Math.abs(getEntry(i, j)) > EPSILON) return false;
+				if (i == j && Math.abs(getEntry(i, j) - 1.0) > EPSILON) return false;
+			}
+
+		return true;
+	}
+
+	/**
+	 * Is this a probability matrix?
+	 */
+	public boolean isProbabilityMatrix() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+
+		for (int i = 0; i < rows; i++) {
+			double sum = 0;
+			for (int j = 0; j < cols; j++) {
+				double d = getEntry(i, j);
+				if ((d < 0) || (d > 1)) return false;
+				sum += d;
+			}
+
+			if (Math.abs(sum - 1) > EPSILON) return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Is this matrix symmetric?
+	 */
 	public boolean isSymmetric() {
 		int rows = getRowDimension();
 		int cols = getColumnDimension();
@@ -190,6 +287,9 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return true;
 	}
 
+	/**
+	 * Is this matrix zero?
+	 */
 	public boolean isZero() {
 		int rows = getRowDimension();
 		int cols = getColumnDimension();
@@ -207,8 +307,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	 * Matrix log (natural log) times 1/time
 	 */
 	public RealMatrix log() {
-		// Did we already perform eigendecomposition?
-		if (eigen == null) eigen = new EigenDecomposition(this);
+		eigen();
 
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD();
@@ -239,7 +338,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 			}
 		}
 
-		// Perform matrix exponential
 		return eigen.getV().multiply(logD).multiply(eigen.getVT());
 	}
 
@@ -340,6 +438,15 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * Create a new (zero) matrix, same size as this one
+	 */
+	public TransitionMatrix zero() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+		return new TransitionMatrix(rows, cols);
 	}
 
 }
