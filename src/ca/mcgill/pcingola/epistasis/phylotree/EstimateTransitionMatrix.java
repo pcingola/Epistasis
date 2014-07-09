@@ -123,7 +123,7 @@ public class EstimateTransitionMatrix {
 				.filter(m -> !m.isZero()) // Remove zero matrices
 				.peek(t -> count.inc()) // Count
 				.reduce(zero, (a, b) -> a.add(b)) // Add results
-		;
+				;
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count.getCount()));
@@ -147,16 +147,11 @@ public class EstimateTransitionMatrix {
 		//---
 		int count[][] = countTransitions(seqNum1, seqNum2);
 
+		// Add pseudo-counts
 		if (PSEUDO_COUNTS > 0) {
-			// Add pseudo-counts
-			for (int i = 0; i < count.length; i++) {
-				long sumRow = 0;
-				for (int j = 0; j < count.length; j++) {
-					sumRow += count[i][j];
+			for (int i = 0; i < count.length; i++)
+				for (int j = 0; j < count.length; j++)
 					count[i][j] += pseudoCount;
-				}
-				if (sumRow == 0) Gpr.debug("Row sum is zero! Species " + seqName1 + ", " + seqName2 + ", row " + i);
-			}
 		}
 
 		// Calculate total counts
@@ -197,8 +192,8 @@ public class EstimateTransitionMatrix {
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
 
+		// Remove negative entries from matrix
 		if (REMOVE_NEGATIVES > 0) {
-			// Remove negative entries from matrix
 			double dqhat[][] = Qhat.getData();
 			for (int i = 0; i < dqhat.length; i++)
 				for (int j = 0; j < dqhat.length; j++) {

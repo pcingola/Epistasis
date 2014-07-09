@@ -20,10 +20,10 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	public static int LOG_METHOD = 0;
 
 	private static final long serialVersionUID = 1L;
-
 	public static final double ACCEPTED_ERROR = 1e-4;
-	protected EigenDecomposition eigen;
+	public static final double EPSILON = 1e-6;
 
+	protected EigenDecomposition eigen;
 	protected boolean checkNegativeLambda;
 	protected String colNames[];
 	protected String rowNames[];
@@ -101,7 +101,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	/**
 	 * Show matrix's eigenvalues
 	 */
-	public boolean checkEien(boolean verbose) {
+	public double checkEien(boolean verbose) {
 		// Did we already perform eigendecomposition?
 		if (eigen == null) eigen = new EigenDecomposition(this);
 
@@ -116,12 +116,9 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		}
 
 		if (verbose) System.out.println("\tlambda_max:\t" + maxLambda);
-		if (maxLambda > 0) {
-			Gpr.debug("All Q's eigenvalues should be non-positive!");
-			return false;
-		}
+		if (maxLambda > 0) Gpr.debug("All Q's eigenvalues should be non-positive!");
 
-		return true;
+		return maxLambda;
 	}
 
 	/**
@@ -156,6 +153,43 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return rowNames;
 	}
 
+	public boolean hasComplexEigenvalues() {
+		if (eigen == null) eigen = new EigenDecomposition(this);
+		return eigen.hasComplexEigenvalues();
+	}
+
+	public boolean hasNegativeEntries() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < cols; j++) {
+				if (getEntry(i, j) < 0) return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean isSymmetric() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = i + 1; j < cols; j++) {
+				double dij = getEntry(i, j);
+				double dji = getEntry(j, i);
+				double maxAbs = Math.max(Math.abs(dij), Math.abs(dji));
+
+				if (maxAbs > 0) {
+					double diff = Math.abs(dij - dji) / maxAbs;
+					if (diff > EPSILON) return false;
+				}
+			}
+		}
+
+		return true;
+	}
+
 	public boolean isZero() {
 		int rows = getRowDimension();
 		int cols = getColumnDimension();
@@ -175,9 +209,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	public RealMatrix log() {
 		// Did we already perform eigendecomposition?
 		if (eigen == null) eigen = new EigenDecomposition(this);
-
-		// Sanity check
-		if (eigen.hasComplexEigenvalues()) Gpr.debug("WARNING:\tMatrix has complex eigenvalues.\tMethods: " + EstimateTransitionMatrix.methods());
 
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD();
