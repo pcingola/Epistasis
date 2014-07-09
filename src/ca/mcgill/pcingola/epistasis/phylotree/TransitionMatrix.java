@@ -17,6 +17,17 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  */
 public class TransitionMatrix extends Array2DRowRealMatrix {
 
+	public static int LOG_METHOD = 0;
+
+	private static final long serialVersionUID = 1L;
+
+	public static final double ACCEPTED_ERROR = 1e-4;
+	protected EigenDecomposition eigen;
+
+	protected boolean checkNegativeLambda;
+	protected String colNames[];
+	protected String rowNames[];
+
 	/**
 	 * Load from file
 	 */
@@ -38,15 +49,6 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 		return d;
 	}
-
-	private static final long serialVersionUID = 1L;
-
-	public static final double ACCEPTED_ERROR = 1e-4;
-	protected EigenDecomposition eigen;
-	protected boolean checkNegativeLambda;
-	protected String colNames[];
-
-	protected String rowNames[];
 
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
@@ -182,19 +184,25 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		double min = Double.MAX_VALUE;
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
+
 			if (lambda > 0) logD.setEntry(i, i, Math.log(lambda));
+			else {
+				if (LOG_METHOD == 0) {
+					Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
+					return new TransitionMatrix(dim);
+				}
+			}
+
 			min = Math.min(min, lambda);
-			//			else {
-			//				Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
-			//				return new TransitionMatrix(dim);
-			//			}
 		}
 
 		// Strategy 1: Replace negative entries by 'lambdaMin'
-		double lambdaMin = min / 2;
-		for (int i = 0; i < dim; i++) {
-			double lambda = D.getEntry(i, i);
-			if (lambda < 0) logD.setEntry(i, i, Math.log(lambdaMin));
+		if (LOG_METHOD == 1) {
+			double lambdaMin = min / 2;
+			for (int i = 0; i < dim; i++) {
+				double lambda = D.getEntry(i, i);
+				if (lambda < 0) logD.setEntry(i, i, Math.log(lambdaMin));
+			}
 		}
 
 		// Perform matrix exponential
