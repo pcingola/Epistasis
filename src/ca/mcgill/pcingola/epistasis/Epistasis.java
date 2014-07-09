@@ -695,21 +695,24 @@ public class Epistasis implements CommandLine {
 	void runQhat() {
 		load();
 
-		for (int logMethod = 0; logMethod < 2; logMethod++) {
-			TransitionMatrix.LOG_METHOD = logMethod;
-			for (int rmNegs = 0; rmNegs < 2; rmNegs++) {
-				EstimateTransitionMatrix.REMOVE_NEGATIVES = rmNegs;
-				for (int psCount = 0; psCount < 2; psCount++) {
-					EstimateTransitionMatrix.PSEUDO_COUNTS = psCount;
-					String methods = "LOG:" + TransitionMatrix.LOG_METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS;
+		for (int method = 0; method < 2; method++) {
+			EstimateTransitionMatrix.METHOD = method;
+			for (int logMethod = 0; logMethod < 2; logMethod++) {
+				TransitionMatrix.LOG_METHOD = logMethod;
+				for (int rmNegs = 0; rmNegs < 2; rmNegs++) {
+					EstimateTransitionMatrix.REMOVE_NEGATIVES = rmNegs;
+					for (int psCount = 0; psCount < 2; psCount++) {
+						EstimateTransitionMatrix.PSEUDO_COUNTS = psCount;
+						String methods = "METHOD:" + EstimateTransitionMatrix.METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS + "_LOG:" + TransitionMatrix.LOG_METHOD;
 
-					EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
-					Q = mltm.estimateTransitionMatrix();
-					RealVector z = Q.operate(mltm.calcPi());
-					System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_" + methods + "\t", Q));
-					System.out.println("METHOD_" + methods + "\tNorm( Q * pi ) = " + z.getNorm());
-					System.out.println("Q's Eigenvalues " + methods + " : ");
-					Q.checkEien(true);
+						EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
+						Q = mltm.estimateTransitionMatrix();
+						RealVector z = Q.operate(mltm.calcPi());
+						System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_" + methods + "\t", Q));
+						System.out.println("METHOD_" + methods + "\tNorm( Q * pi ) = " + z.getNorm());
+						System.out.println("Q's Eigenvalues " + methods + " : ");
+						Q.checkEien(true);
+					}
 				}
 			}
 		}

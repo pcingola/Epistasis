@@ -119,7 +119,7 @@ public class EstimateTransitionMatrix {
 				.filter(m -> !m.isZero()) // Remove zero matrices
 				.peek(t -> count.inc()) // Count
 				.reduce(zero, (a, b) -> a.add(b)) // Add results
-				;
+		;
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count.getCount()));
@@ -215,7 +215,7 @@ public class EstimateTransitionMatrix {
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());
-		String methods = "LOG:" + TransitionMatrix.LOG_METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS;
+		String methods = "METHOD:" + EstimateTransitionMatrix.METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS + "_LOG:" + TransitionMatrix.LOG_METHOD;
 		System.err.println("NORM_QHAT_PI_" + methods + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
 
 		return Qhat;
