@@ -17,15 +17,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  */
 public class TransitionMatrix extends Array2DRowRealMatrix {
 
-	private static final long serialVersionUID = 1L;
-
-	public static final double ACCEPTED_ERROR = 1e-4;
-
-	protected EigenDecomposition eigen;
-	protected boolean checkNegativeLambda;
-	protected String colNames[];
-	protected String rowNames[];
-
 	/**
 	 * Load from file
 	 */
@@ -48,27 +39,14 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return d;
 	}
 
-    public TransitionMatrix add(final TransitionMatrix m)
-            throws MatrixDimensionMismatchException {
-            // Safety check.
-            MatrixUtils.checkAdditionCompatible(this, m);
+	private static final long serialVersionUID = 1L;
 
-            final int rowCount    = getRowDimension();
-            final int columnCount = getColumnDimension();
-            final double[][] data = getData();
-            final double[][] mdata = m.getData();
-            final double[][] outData = new double[rowCount][columnCount];
-            for (int row = 0; row < rowCount; row++) {
-                final double[] dataRow    = data[row];
-                final double[] mRow       = mdata[row];
-                final double[] outDataRow = outData[row];
-                for (int col = 0; col < columnCount; col++) {
-                    outDataRow[col] = dataRow[col] + mRow[col];
-                }
-            }
+	public static final double ACCEPTED_ERROR = 1e-4;
+	protected EigenDecomposition eigen;
+	protected boolean checkNegativeLambda;
+	protected String colNames[];
 
-            return new TransitionMatrix(outData);
-        }
+	protected String rowNames[];
 
 	public TransitionMatrix(double matrix[][]) {
 		super(matrix);
@@ -76,14 +54,17 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 	public TransitionMatrix(int matrix[][]) {
 		super(matrix.length, matrix[0].length);
-		for(int i=0 ; i < matrix.length; i++ )
-			for(int j=0 ; j < matrix.length; j++ ) setEntry(i, j, matrix[i][j]);
+		for (int i = 0; i < matrix.length; i++)
+			for (int j = 0; j < matrix.length; j++)
+				setEntry(i, j, matrix[i][j]);
 	}
+
 	public TransitionMatrix(int N) {
 		super(new double[N][N]);
 	}
+
 	public TransitionMatrix(int rows, int cols) {
-		super(rows,cols);
+		super(rows, cols);
 	}
 
 	public TransitionMatrix(RealMatrix m) {
@@ -92,6 +73,27 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 	public TransitionMatrix(String fileName) {
 		super(load(fileName));
+	}
+
+	public TransitionMatrix add(final TransitionMatrix m) throws MatrixDimensionMismatchException {
+		// Safety check.
+		MatrixUtils.checkAdditionCompatible(this, m);
+
+		final int rowCount = getRowDimension();
+		final int columnCount = getColumnDimension();
+		final double[][] data = getData();
+		final double[][] mdata = m.getData();
+		final double[][] outData = new double[rowCount][columnCount];
+		for (int row = 0; row < rowCount; row++) {
+			final double[] dataRow = data[row];
+			final double[] mRow = mdata[row];
+			final double[] outDataRow = outData[row];
+			for (int col = 0; col < columnCount; col++) {
+				outDataRow[col] = dataRow[col] + mRow[col];
+			}
+		}
+
+		return new TransitionMatrix(outData);
 	}
 
 	/**
@@ -155,16 +157,16 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	public boolean isZero() {
 		int rows = getRowDimension();
 		int cols = getColumnDimension();
-		
+
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				if( getEntry(i, j)!=0) return false;
-			}			
-		}		
-		
+				if (getEntry(i, j) != 0) return false;
+			}
+		}
+
 		return true;
 	}
-	
+
 	/**
 	 * Matrix log (natural log) times 1/time
 	 */
@@ -175,15 +177,24 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD();
 		int dim = D.getColumnDimension();
-		
+
 		RealMatrix logD = new DiagonalMatrix(dim);
+		double min = Double.MAX_VALUE;
 		for (int i = 0; i < dim; i++) {
 			double lambda = D.getEntry(i, i);
-			if( lambda>0) logD.setEntry(i, i, Math.log(lambda));
-			else {
-				Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
-				return new TransitionMatrix(dim);
-			}
+			if (lambda > 0) logD.setEntry(i, i, Math.log(lambda));
+			min = Math.min(min, lambda);
+			//			else {
+			//				Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
+			//				return new TransitionMatrix(dim);
+			//			}
+		}
+
+		// Strategy 1: Replace negative entries by 'lambdaMin'
+		double lambdaMin = min / 2;
+		for (int i = 0; i < dim; i++) {
+			double lambda = D.getEntry(i, i);
+			if (lambda < 0) logD.setEntry(i, i, Math.log(lambdaMin));
 		}
 
 		// Perform matrix exponential

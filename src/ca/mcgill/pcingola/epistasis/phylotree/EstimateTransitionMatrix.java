@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.stream.IntStream;
 
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
@@ -108,15 +107,16 @@ public class EstimateTransitionMatrix {
 		System.out.println("Estimate transition matrix");
 		Counter count = new Counter();
 		TransitionMatrix zero = new TransitionMatrix(N, N);
+
 		TransitionMatrix QhatSum = IntStream.range(0, msas.getNumAligns()) //
-				.mapToObj(i -> IntStream.range(i + 1, msas.getNumAligns()).mapToObj(j -> new Tuple<Integer,Integer>(i,j))) //
+				.mapToObj(i -> IntStream.range(i + 1, msas.getNumAligns()).mapToObj(j -> new Tuple<Integer, Integer>(i, j))) // Create [i,j] pairs
 				.flatMap(s -> s) //
-				.map(t -> (Tuple<Integer,Integer>)t) //
+				.map(t -> (Tuple<Integer, Integer>) t) // Cast Object to Tuple
 				.parallel() //
-				.map( t -> estimateTransitionMatrix(t.first, t.second) ) //
-				.filter( m -> !m.isZero() ) //
-				.peek( t -> count.inc() ) //
-				.reduce( zero, (a,b) -> a.add(b) );
+				.map(t -> estimateTransitionMatrix(t.first, t.second)) // Estimate transition matrix (can be zero matrix)
+				.filter(m -> !m.isZero()) // Remove zero matrices
+				.peek(t -> count.inc()) // Count
+				.reduce(zero, (a, b) -> a.add(b)) // Add results
 		;
 
 		// Calculate the average of all estimators
@@ -134,26 +134,29 @@ public class EstimateTransitionMatrix {
 		String seqName1 = msas.getSpecies()[seqNum1];
 		String seqName2 = msas.getSpecies()[seqNum2];
 		double t = time(seqNum1, seqNum2);
-		if(debug) System.err.println(seqName1 + "\t" + seqName2 + "\ttime: " + t);
+		if (debug) System.err.println(seqName1 + "\t" + seqName2 + "\ttime: " + t);
 
+		//---
 		// Count all transitions
+		//---
 		int count[][] = countTransitions(seqNum1, seqNum2);
 
-		// Add pseudo-counts
-		for (int i = 0; i < count.length; i++) {
-			long sumRow=0;
-			for (int j = 0; j < count.length; j++) {
-				sumRow += count[i][j];
-				count[i][j] += pseudoCount;
-			}
-			if( sumRow==0) Gpr.debug("Row sum is zero! Species " + seqName1 + ", " + seqName2 + ", row "+i);
-		}
+		//		// Add pseudo-counts
+		//		for (int i = 0; i < count.length; i++) {
+		//			long sumRow = 0;
+		//			for (int j = 0; j < count.length; j++) {
+		//				sumRow += count[i][j];
+		//				count[i][j] += pseudoCount;
+		//			}
+		//			if (sumRow == 0) Gpr.debug("Row sum is zero! Species " + seqName1 + ", " + seqName2 + ", row " + i);
+		//		}
 
 		// Calculate total counts
 		int sum = Arrays.stream(count).flatMapToInt(x -> Arrays.stream(x)).sum();
 
-		// Convert to transition frequencies
-		// Estimate matrix P
+		//---
+		// Estimate matrix P: Convert to transition frequencies
+		//---
 		double phat[][] = new double[N][N];
 		double n = sum;
 		for (int i = 0; i < phat.length; i++) {
@@ -178,7 +181,7 @@ public class EstimateTransitionMatrix {
 						break;
 					}
 				}
-			} else Gpr.debug("WARNING: pi["+i+"] is zero!");
+			} else Gpr.debug("WARNING: pi[" + i + "] is zero!");
 		}
 
 		// Create matrix
@@ -186,21 +189,21 @@ public class EstimateTransitionMatrix {
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
 
-		// Remove negative entries from matrix
-		double dqhat[][] = Qhat.getData();
-		for (int i = 0; i < dqhat.length; i++)
-			for (int j = 0; j < dqhat.length; j++) {
-				if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) {
-					Gpr.toFile("Count." + seqName1 + "_" + seqName2 + ".txt", new TransitionMatrix(count));
-					Gpr.toFile("Phat." + seqName1 + "_" + seqName2 + ".txt", Phat.toString());
-					Gpr.toFile("Qhat." + seqName1 + "_" + seqName2 + ".txt", Qhat.toString());
-					throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values: " + seqName1 + ", " + seqName2);
-				}
-				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
-			}
-
-		// Create matrix
-		Qhat = new TransitionMatrixMarkov(dqhat);
+		//		// Remove negative entries from matrix
+		//		double dqhat[][] = Qhat.getData();
+		//		for (int i = 0; i < dqhat.length; i++)
+		//			for (int j = 0; j < dqhat.length; j++) {
+		//				if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) {
+		//					Gpr.toFile("Count." + seqName1 + "_" + seqName2 + ".txt", new TransitionMatrix(count));
+		//					Gpr.toFile("Phat." + seqName1 + "_" + seqName2 + ".txt", Phat.toString());
+		//					Gpr.toFile("Qhat." + seqName1 + "_" + seqName2 + ".txt", Qhat.toString());
+		//					throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values: " + seqName1 + ", " + seqName2);
+		//				}
+		//				if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
+		//			}
+		//
+		//		// Create matrix
+		//		Qhat = new TransitionMatrixMarkov(dqhat);
 		Qhat.setColNames(names);
 		Qhat.setRowNames(names);
 
