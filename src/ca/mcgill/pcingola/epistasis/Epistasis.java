@@ -701,7 +701,7 @@ public class Epistasis implements CommandLine {
 				EstimateTransitionMatrix.REMOVE_NEGATIVES = rmNegs;
 				for (int psCount = 0; psCount < 2; psCount++) {
 					EstimateTransitionMatrix.PSEUDO_COUNTS = psCount;
-					String methods = "LOG" + logMethod + "_RMNEGS" + rmNegs + "_PSCOUNT" + psCount;
+					String methods = "LOG:" + TransitionMatrix.LOG_METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS;
 
 					EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
 					Q = mltm.estimateTransitionMatrix();

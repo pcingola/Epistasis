@@ -215,7 +215,8 @@ public class EstimateTransitionMatrix {
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());
-		// System.err.println("NORM_QHAT_PI\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
+		String methods = "LOG:" + TransitionMatrix.LOG_METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS;
+		System.err.println("NORM_QHAT_PI_" + methods + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
 
 		return Qhat;
 	}
