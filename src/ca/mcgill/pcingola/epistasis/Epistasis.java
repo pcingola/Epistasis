@@ -717,7 +717,7 @@ public class Epistasis implements CommandLine {
 								+ "\tNorm( Q * pi ):\t" + z.getNorm() //
 								+ "\tmax_lambda:\t" + maxLambda //
 								+ "\thas_complex_eigenvalues:\t" + Q.hasComplexEigenvalues() //
-								+ "\thas_negative_entries:\t" + Q.hasNegativeEntries() //
+								+ "\thas_negative__off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
 								+ "\tis_zero:\t" + Q.isZero() //
 								+ "\tis_symmetric:\t" + Q.isSymmetric() //
 						);

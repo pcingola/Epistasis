@@ -158,13 +158,13 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return eigen.hasComplexEigenvalues();
 	}
 
-	public boolean hasNegativeEntries() {
+	public boolean hasNegativeOffDiagonalEntries() {
 		int rows = getRowDimension();
 		int cols = getColumnDimension();
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < cols; j++) {
-				if (getEntry(i, j) < 0) return true;
+				if (i != j && getEntry(i, j) < 0) return true;
 			}
 		}
 		return false;
