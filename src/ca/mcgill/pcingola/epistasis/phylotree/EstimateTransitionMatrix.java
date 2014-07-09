@@ -42,6 +42,10 @@ public class EstimateTransitionMatrix {
 	ArrayRealVector piVect;
 	HashMap<String, Double> cacheLogLikelihood;
 
+	public static String methods() {
+		return "METHOD:" + EstimateTransitionMatrix.METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS + "_LOG:" + TransitionMatrix.LOG_METHOD;
+	}
+
 	public EstimateTransitionMatrix(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
 		this.tree = tree;
 		this.msas = msas;
@@ -215,8 +219,7 @@ public class EstimateTransitionMatrix {
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());
-		String methods = "METHOD:" + EstimateTransitionMatrix.METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS + "_LOG:" + TransitionMatrix.LOG_METHOD;
-		System.err.println("NORM_QHAT_PI_" + methods + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
+		System.err.println("NORM_QHAT_PI_" + methods() + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
 
 		return Qhat;
 	}

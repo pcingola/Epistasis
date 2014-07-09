@@ -176,6 +176,9 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		// Did we already perform eigendecomposition?
 		if (eigen == null) eigen = new EigenDecomposition(this);
 
+		// Sanity check
+		if (eigen.hasComplexEigenvalues()) Gpr.debug("WARNING:\tMatrix has complex eigenvalues.\tMethods: " + EstimateTransitionMatrix.methods());
+
 		// Exponentiate the diagonal
 		RealMatrix D = eigen.getD();
 		int dim = D.getColumnDimension();
