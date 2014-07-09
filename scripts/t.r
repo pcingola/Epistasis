@@ -367,7 +367,7 @@ if( F ) {
 #---
 # Compare to Qhat to PAM1
 #---
-if( F ) {
+if( T ) {
 	# Load Qhat
 	Qhat <- read.table('Q_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
 	Qhat <- as.matrix(Qhat)
@@ -416,13 +416,16 @@ if( F ) {
 	heatmap.2(err, main = "PAM1", sub="", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
 }
 
-Qhat2 <- read.table('Q_HAT2.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
-Qhat2<- as.matrix(Qhat2)
-q2 <- Qhat2
-
-diag(q2) <- 0
-heatmap.2(q2, main = "Qhat2", sub="Diagonal set to zero", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
-
+#---
+# Qhat2
+#---
+if( F ) {
+	Qhat2 <- read.table('Q_HAT2.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat2<- as.matrix(Qhat2)
+	q2 <- Qhat2
+	diag(q2) <- 0
+	heatmap.2(q2, main = "Qhat2", sub="Diagonal set to zero", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+}
 
 if( savePlot )	{ dev.off() } 
 
