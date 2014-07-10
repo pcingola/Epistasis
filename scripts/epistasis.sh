@@ -2,4 +2,4 @@
 
 LIB=$HOME/workspace/Epistasis/lib/
 
-java -Xmx10G -Djava.library.path=$LIB -jar Epistasis.jar
+java -Xmx10G -Djava.library.path=$LIB -jar $HOME/snpEff/Epistasis.jar $*
