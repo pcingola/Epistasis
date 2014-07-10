@@ -43,6 +43,8 @@
             <zipfileset excludes="META-INF/*.SF" src="lib/biojava3-core-3.0.7.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="lib/biojava3-structure-3.0.7.jar"/>
             <zipfileset excludes="META-INF/*.SF" src="lib/trove4j-3.0.2.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/Jeigen.jar"/>
+            <zipfileset excludes="META-INF/*.SF" src="lib/jna-4.0.0.jar"/>
             <fileset dir="${user.home}/workspace/SnpSift/target/classes"/>
         </jar>
     </target>

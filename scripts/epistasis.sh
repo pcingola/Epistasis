@@ -1,13 +1,5 @@
 #!/bin/sh
 
-echo Rmoving old files
-rm nohup.out
-rm -rvf epistasis.bds.*
+LIB=$HOME/workspace/Epistasis/lib/
 
-echo Process is run as nohup
-nohup ./epistasis.bds &
-
-#echo Tailing nohup.out, you can Ctrl-C
-#sleep 1
-#tail -f nohup.out 
-
+java -Xmx10G -Djava.library.path=$LIB -jar Epistasis.jar

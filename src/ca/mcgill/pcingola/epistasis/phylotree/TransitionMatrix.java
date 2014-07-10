@@ -448,8 +448,4 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		int cols = getColumnDimension();
 		return new TransitionMatrix(rows, cols);
 	}
-
-	public void zzz() {
-		eigen();
-	}
 }
