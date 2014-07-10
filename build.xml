@@ -13,7 +13,7 @@
 			source="8"
 			target="8"
 			includeantruntime="false" 
-			classpath="lib/biojava3-core-3.0.7.jar:lib/biojava3-structure-3.0.7.jar:lib/commons-math3-3.2.jar:lib/trove4j-3.0.2.jar:${user.home}/workspace/SnpEff/target/classes:${user.home}/workspace/SnpSift/target/classes:${user.home}/.m2/repository/junit/junit/4.4/junit-4.4.jar"
+			classpath="lib/Jeigen.jar:lib/jna-4.0.0.jar:lib/biojava3-core-3.0.7.jar:lib/biojava3-structure-3.0.7.jar:lib/commons-math3-3.2.jar:lib/trove4j-3.0.2.jar:${user.home}/workspace/SnpEff/target/classes:${user.home}/workspace/SnpSift/target/classes:${user.home}/.m2/repository/junit/junit/4.4/junit-4.4.jar"
 		/>
 	</target>
 
