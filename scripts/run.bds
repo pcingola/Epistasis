@@ -33,7 +33,7 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
 javaNativeLibs  := "$HOME/workspace/Epistasis/lib"
-cmdEpistasis	:= "java -Xmx20G -Djava.library.path=$javaNativeLibs -jar Epistasis.jar"
+cmdEpistasis	:= "java -Xmx20G -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
 cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
 # Change parameters if we are debugging (smaller datasets)
