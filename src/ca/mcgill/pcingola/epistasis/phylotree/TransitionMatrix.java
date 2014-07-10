@@ -1,7 +1,8 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
+import jeigen.DenseMatrix;
+
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.DiagonalMatrix;
 import org.apache.commons.math3.linear.EigenDecomposition;
 import org.apache.commons.math3.linear.MatrixDimensionMismatchException;
 import org.apache.commons.math3.linear.MatrixUtils;
@@ -10,8 +11,17 @@ import org.apache.commons.math3.linear.RealMatrix;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
- * Calculate transition matrix
- * This trivial implementation simply returns exactly the same matrix for any 'time'
+ * Calculate transition matrix.
+ *
+ * Based on two different libraries:
+ * 		- Apache math commons
+ * 		- JEigen: https://github.com/hughperkins/jeigen
+ *
+ * Note: We use JEigen for matrix exponential and log functions because Apache commons
+ *       simply cannot do it (it cannot even decompose matrices with complex
+ *       eigenvalues).
+ *       I compared JEigen's results to R and they match withing 10^-15 (at least
+ *       for the simple 20x20 examples I used).
  *
  * @author pcingola
  */
@@ -124,62 +134,26 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	 * Perform eigen-decomposition and some sanity checks
 	 */
 	protected void eigen() {
-		if (eigen == null) {
-			// Decomposition
-			eigen = new EigenDecomposition(this);
-
-			//			String error = "";
-			//
-			//			if (eigen.hasComplexEigenvalues()) error += "\n\tComplex eigenvalues";
-			//
-			//			// Check that the matrix is
-			//			RealMatrix m = eigen.getV().multiply(eigen.getD()).multiply(eigen.getVT());
-			//			TransitionMatrix zero = new TransitionMatrix(this.subtract(m));
-			//			if (!zero.isZero()) error += "\n\tM != V * D * V^T";
-			//
-			//			// Check that eigenvector matrices are inverse
-			//			TransitionMatrix eye = new TransitionMatrix(eigen.getV().multiply(eigen.getVT()));
-			//			if (!eye.isIdentity()) error += "\n\tV * V^T != I ";
-			//
-			//			// Any error?
-			//			if (!error.isEmpty()) {
-			//				String eigenVals = "";
-			//
-			//				for (int h = 0; h < getColumnDimension(); h++)
-			//					eigenVals += "\t" + eigen.getRealEigenvalue(h) + (Math.abs(eigen.getImagEigenvalue(h)) > EPSILON ? "+ i" + eigen.getImagEigenvalue(h) : "") + "\n";
-			//
-			//				Gpr.debug("ERROR: " + error);
-			//				//				Gpr.debug("ERROR: " + error //
-			//				//						+ "\nV * V^-1:\n" + eye.toStringice() //
-			//				//						+ "\nPhat:\n" + this //
-			//				//						+ "\nEigenvals:\n" + eigenVals //
-			//				//						);
-			//			}
-		}
+		if (eigen == null) eigen = new EigenDecomposition(this);
 	}
 
 	/**
 	 * Matrix exponentiation
 	 */
 	public RealMatrix exp(double time) {
-		// Did we already perform Eigen-decomposition?
-		eigen();
+		// Use Jeigen to calculate matrix log (using native methods)
+		DenseMatrix m = new DenseMatrix(getData());
+		DenseMatrix res = m.mexp();
 
-		// Exponentiate the diagonal
-		RealMatrix D = eigen.getD().copy();
-		int dim = D.getColumnDimension();
-		RealMatrix expD = new DiagonalMatrix(dim);
-		double maxLambda = Double.NEGATIVE_INFINITY;
-		for (int i = 0; i < dim; i++) {
-			double lambda = D.getEntry(i, i);
-			maxLambda = Math.max(maxLambda, lambda);
-			expD.setEntry(i, i, Math.exp(lambda * time));
-		}
+		// Copy results from Jeigen
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+		double d[][] = new double[rows][cols];
+		for (int i = 0; i < getRowDimension(); i++)
+			for (int j = 0; j < getColumnDimension(); j++)
+				d[i][j] = res.get(i, j);
 
-		if (checkNegativeLambda && maxLambda > ACCEPTED_ERROR) throw new RuntimeException("All eigenvalues should be negative: max(lambda) = " + maxLambda);
-
-		// Perform matrix exponential
-		return eigen.getV().multiply(expD).multiply(eigen.getVT());
+		return new TransitionMatrix(d);
 	}
 
 	public String[] getColNames() {
@@ -307,38 +281,19 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	 * Matrix log (natural log) times 1/time
 	 */
 	public RealMatrix log() {
-		eigen();
+		// Use Jeigen to calculate matrix log (using naitive methods)
+		DenseMatrix m = new DenseMatrix(getData());
+		DenseMatrix res = m.mlog();
 
-		// Exponentiate the diagonal
-		RealMatrix D = eigen.getD();
-		int dim = D.getColumnDimension();
+		// Copy results from Jeigen
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+		double d[][] = new double[rows][cols];
+		for (int i = 0; i < getRowDimension(); i++)
+			for (int j = 0; j < getColumnDimension(); j++)
+				d[i][j] = res.get(i, j);
 
-		RealMatrix logD = new DiagonalMatrix(dim);
-		double min = Double.MAX_VALUE;
-		for (int i = 0; i < dim; i++) {
-			double lambda = D.getEntry(i, i);
-
-			if (lambda > 0) logD.setEntry(i, i, Math.log(lambda));
-			else {
-				if (LOG_METHOD == 0) {
-					Gpr.debug("Negative eigenvalue when calculating log: lambda = " + lambda);
-					return new TransitionMatrix(dim);
-				}
-			}
-
-			min = Math.min(min, lambda);
-		}
-
-		// Strategy 1: Replace negative entries by 'lambdaMin'
-		if (LOG_METHOD == 1) {
-			double lambdaMin = min / 2;
-			for (int i = 0; i < dim; i++) {
-				double lambda = D.getEntry(i, i);
-				if (lambda < 0) logD.setEntry(i, i, Math.log(lambdaMin));
-			}
-		}
-
-		return eigen.getV().multiply(logD).multiply(eigen.getVT());
+		return new TransitionMatrix(d);
 	}
 
 	public RealMatrix matrix(double time) {

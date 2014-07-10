@@ -15,5 +15,9 @@ public class Zzz {
 	public static void main(String[] args) {
 		TransitionMatrix qhat = new TransitionMatrix(Gpr.HOME + "/snpEff/z.txt");
 		System.out.println(qhat);
+
+		System.out.println("\n\nLOG:\n" + qhat.log());
+
+		System.out.println("\n\nEXP:\n" + qhat.exp(1));
 	}
 }
