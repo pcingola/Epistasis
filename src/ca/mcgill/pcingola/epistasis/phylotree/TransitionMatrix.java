@@ -449,4 +449,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return new TransitionMatrix(rows, cols);
 	}
 
+	public void zzz() {
+		eigen();
+	}
 }

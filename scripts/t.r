@@ -175,26 +175,26 @@ if( savePlot ) { png( width=800, height=800 ) }
 
 if( ! exists('tr.aa2') ) {
 	cat('Reading transitions for AA in contact\n')
-	tr.aa2 <- read.table("transitions.aa_pairs.in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.aa2 <- read.table("transitions.aa_pairs.in_contact.txt", header = TRUE, row.names = 1, sep="\t")
 	tr.aa2 <- as.matrix(tr.aa2)
 }
 
 if( ! exists('tr.bg2') ) {
 	cat('Reading transitions null model \n')
-	tr.bg2 <- read.table("transitions.aa_pairs.bg_rand.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
-	tr.bg2 <- read.table("transitions.aa_pairs.bg_within_prot.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.bg2 <- read.table("transitions.aa_pairs.bg_rand.txt", header = TRUE, row.names = 1, sep="\t")
+	tr.bg2 <- read.table("transitions.aa_pairs.bg_within_prot.txt", header = TRUE, row.names = 1, sep="\t")
 	tr.bg2 <- as.matrix(tr.bg2)
 }
 
 if( ! exists('tr.aa') ) {
 	cat('Reading transitions for AA in contact\n')
-	tr.aa <- read.table("transitions.aa_single.in_contact.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.aa <- read.table("transitions.aa_single.in_contact.txt", header = TRUE, row.names = 1, sep="\t")
 	tr.aa <- as.matrix(tr.aa)
 }
 
 if( ! exists('tr.bg') ) {
 	cat('Reading transitions null model \n')
-	tr.bg <- read.table("transitions.aa_single.bg.txt", header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	tr.bg <- read.table("transitions.aa_single.bg.txt", header = TRUE, row.names = 1, sep="\t")
 	tr.bg <- as.matrix(tr.bg)
 }
 
@@ -349,15 +349,15 @@ if( F ) {
 if( F ) {
 	files <- c('Q_HAT_METHOD_0.txt', 'Q_PRIME_HAT_METHOD_0.txt', 'Q_HAT_METHOD_1.txt', 'Q_PRIME_HAT_METHOD_1.txt')
 	for( file in files ) {
-		Qhat <- read.table(file, header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+		Qhat <- read.table(file, header = TRUE, row.names = 1, sep="\t")
 		Qhat <- as.matrix(Qhat)
 		heatmap.2(Qhat, main = "Qhat", sub=file, Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none"); 
 	}
 
-	Qhat.1 <- read.table('Q_PRIME_HAT_METHOD_0.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat.1 <- read.table('Q_PRIME_HAT_METHOD_0.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat.1 <- as.matrix(Qhat.1)
 
-	Qhat.2 <- read.table('Q_PRIME_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat.2 <- read.table('Q_PRIME_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat.2 <- as.matrix(Qhat.2)
 
 	heatComp(Qhat.1, Qhat.2, 'Qhat.1', 'Qhat.2')
@@ -369,11 +369,11 @@ if( F ) {
 #---
 if( T ) {
 	# Load Qhat
-	Qhat <- read.table('Q_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat <- read.table('Q_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat <- as.matrix(Qhat)
 
 	# Load AA frequencies
-	aa.freq <- read.table('aa.frequencies.txt', header = F, row.names = 1, sep="\t", na.strings = 'null')
+	aa.freq <- read.table('aa.frequencies.txt', header = F, row.names = 1, sep="\t")
 	aa.freq <- as.vector(aa.freq)
 	aa.freq <- aa.freq / sum(aa.freq)
 
@@ -388,7 +388,7 @@ if( T ) {
 	cat('PAM 1:\tt0 =', t0, '\tMutation(t0): ', Mut(t0), '\n')
 
 	# Load PAM1 matrix
-	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t")
 	pam <- as.matrix(pam)
 
 	# Re-organize PAM1 matrix to have the same order than Qhat
@@ -420,7 +420,7 @@ if( T ) {
 # Qhat2
 #---
 if( F ) {
-	Qhat2 <- read.table('Q_HAT2.txt', header = TRUE, row.names = 1, sep="\t", na.strings = 'null')
+	Qhat2 <- read.table('Q_HAT2.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat2<- as.matrix(Qhat2)
 	q2 <- Qhat2
 	diag(q2) <- 0

@@ -123,7 +123,7 @@ public class EstimateTransitionMatrix {
 				.filter(m -> !m.isZero()) // Remove zero matrices
 				.peek(t -> count.inc()) // Count
 				.reduce(zero, (a, b) -> a.add(b)) // Add results
-				;
+		;
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count.getCount()));
@@ -201,38 +201,21 @@ public class EstimateTransitionMatrix {
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
-		if (Phat.isSymmetric()) {
-			Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
-			return Phat.zero();
-		}
-		if (Phat.hasComplexEigenvalues()) {
-			Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] has complex eigenvalues.");
-			return Phat.zero();
-		}
-		if (!Phat.isProbabilityMatrix()) {
-			Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is NOT a probability matrix.");
-			return Phat.zero();
-		}
+		if (Phat.isSymmetric()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
+		if (Phat.hasComplexEigenvalues()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] has complex eigenvalues.");
+		if (!Phat.isProbabilityMatrix()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is NOT a probability matrix.");
 
 		// Create matrix
 		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
-		if (!Qhat.isZero() && Qhat.isSymmetric()) {
-			Gpr.debug("Qhat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
-			return Qhat.zero();
-		}
+		if (!Qhat.isZero() && Qhat.isSymmetric()) Gpr.debug("Qhat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
 
 		// Remove negative entries from matrix
 		if (REMOVE_NEGATIVES > 0) {
 			double dqhat[][] = Qhat.getData();
 			for (int i = 0; i < dqhat.length; i++)
 				for (int j = 0; j < dqhat.length; j++) {
-					if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) {
-						Gpr.toFile("Count." + seqName1 + "_" + seqName2 + ".txt", new TransitionMatrix(count));
-						Gpr.toFile("Phat." + seqName1 + "_" + seqName2 + ".txt", Phat.toString());
-						Gpr.toFile("Qhat." + seqName1 + "_" + seqName2 + ".txt", Qhat.toString());
-						throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values: " + seqName1 + ", " + seqName2);
-					}
+					if (Double.isInfinite(dqhat[i][j]) || Double.isNaN(dqhat[i][j])) throw new RuntimeException("Matrix Qhat contains either NaN or Infinite values: " + seqName1 + ", " + seqName2);
 					if (i != j && dqhat[i][j] < 0) dqhat[i][j] = 0;
 				}
 
