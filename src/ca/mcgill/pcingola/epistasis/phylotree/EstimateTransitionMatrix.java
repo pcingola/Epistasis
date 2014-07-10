@@ -120,7 +120,7 @@ public class EstimateTransitionMatrix {
 				.mapToObj(i -> IntStream.range(i + 1, msas.getNumAligns()).mapToObj(j -> new Tuple<Integer, Integer>(i, j))) // Create [i,j] pairs
 				.flatMap(s -> s) //
 				.map(t -> (Tuple<Integer, Integer>) t) // Cast Object to Tuple
-				// .parallel() //
+				.parallel() //
 				.map(t -> estimateTransitionMatrix(t.first, t.second)) // Estimate transition matrix (can be zero matrix)
 				.filter(m -> !m.isZero()) // Remove zero matrices
 				.peek(t -> count.inc()) // Count
