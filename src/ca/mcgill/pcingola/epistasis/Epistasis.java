@@ -695,60 +695,31 @@ public class Epistasis implements CommandLine {
 	void runQhat() {
 		load();
 
-		//		for (int method = 0; method < 3; method++) {
-		//			EstimateTransitionMatrix.METHOD = method;
-		//			for (int logMethod = 0; logMethod < 2; logMethod++) {
-		//				TransitionMatrix.LOG_METHOD = logMethod;
-		//				for (int rmNegs = 0; rmNegs < 2; rmNegs++) {
-		//					EstimateTransitionMatrix.REMOVE_NEGATIVES = rmNegs;
-		//					for (int psCount = 0; psCount < 2; psCount++) {
-		//						EstimateTransitionMatrix.PSEUDO_COUNTS = psCount;
-		//						String methods = EstimateTransitionMatrix.methods();
-		//
-		//						EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
-		//						Q = mltm.estimateTransitionMatrix();
-		//						RealVector z = Q.operate(mltm.calcPi());
-		//						System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_" + methods + "\t", Q));
-		//						System.out.println("Q's Eigenvalues " + methods + " : ");
-		//						double maxLambda = Q.checkEien(true);
-		//
-		//						System.out.println("QHAT_SUMMARY" //
-		//								+ "\tmethods:\t" + methods //
-		//								+ "\tNorm( Q * pi ):\t" + z.getNorm() //
-		//								+ "\tmax_lambda:\t" + maxLambda //
-		//								+ "\thas_complex_eigenvalues:\t" + Q.hasComplexEigenvalues() //
-		//								+ "\thas_negative_off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
-		//								+ "\tis_zero:\t" + Q.isZero() //
-		//								+ "\tis_symmetric:\t" + Q.isSymmetric() //
-		//								);
-		//					}
-		//				}
-		//			}
-		//		}
+		for (int rmnegs = 0; rmnegs < 2; rmnegs++) {
+			for (int pscount = 0; pscount < 2; pscount++) {
+				EstimateTransitionMatrix.METHOD = 0;
+				EstimateTransitionMatrix.REMOVE_NEGATIVES = rmnegs;
+				EstimateTransitionMatrix.PSEUDO_COUNTS = pscount;
+				String methods = EstimateTransitionMatrix.methods();
 
-		EstimateTransitionMatrix.METHOD = 0;
-		TransitionMatrix.LOG_METHOD = 1;
-		EstimateTransitionMatrix.REMOVE_NEGATIVES = 1;
-		EstimateTransitionMatrix.PSEUDO_COUNTS = 1;
-		String methods = EstimateTransitionMatrix.methods();
+				EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
+				Q = mltm.estimateTransitionMatrix();
+				RealVector z = Q.operate(mltm.calcPi());
+				System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_" + methods + "\t", Q));
+				System.out.println("Q's Eigenvalues " + methods + " : ");
+				double maxLambda = Q.checkEien(true);
 
-		EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
-		Q = mltm.estimateTransitionMatrix();
-		RealVector z = Q.operate(mltm.calcPi());
-		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_" + methods + "\t", Q));
-		System.out.println("Q's Eigenvalues " + methods + " : ");
-		double maxLambda = Q.checkEien(true);
-
-		System.out.println("QHAT_SUMMARY" //
-				+ "\tmethods:\t" + methods //
-				+ "\tNorm( Q * pi ):\t" + z.getNorm() //
-				+ "\tmax_lambda:\t" + maxLambda //
-				+ "\thas_complex_eigenvalues:\t" + Q.hasComplexEigenvalues() //
-				+ "\thas_negative_off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
-				+ "\tis_zero:\t" + Q.isZero() //
-				+ "\tis_symmetric:\t" + Q.isSymmetric() //
+				System.out.println("QHAT_SUMMARY" //
+						+ "\tmethods:\t" + methods //
+						+ "\tNorm( Q * pi ):\t" + z.getNorm() //
+						+ "\tmax_lambda:\t" + maxLambda //
+						+ "\thas_complex_eigenvalues:\t" + Q.hasComplexEigenvalues() //
+						+ "\thas_negative_off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
+						+ "\tis_zero:\t" + Q.isZero() //
+						+ "\tis_symmetric:\t" + Q.isSymmetric() //
 				);
-
+			}
+		}
 	}
 
 	/**
@@ -758,6 +729,7 @@ public class Epistasis implements CommandLine {
 		load();
 
 		EstimateTransitionMatrixPairs etm = new EstimateTransitionMatrixPairs(tree, msas, aaContacts);
+		etm.setVerbose(true);
 		Q2 = etm.estimateTransitionMatrix();
 		RealVector z = Q2.operate(etm.calcPi());
 		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2\t", Q2));

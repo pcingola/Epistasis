@@ -23,13 +23,12 @@ public class EstimateTransitionMatrix {
 	public static final int NUM_AA = GprSeq.AMINO_ACIDS.length;
 	public static final int NUM_AA_SQUARE = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
 
-	public static int METHOD = 1;
-	public static int REMOVE_NEGATIVES = 0;
+	public static int METHOD = 0;
+	public static int REMOVE_NEGATIVES = 1;
 	public static int PSEUDO_COUNTS = 0;
 
 	boolean verbose = false;
 	boolean debug = false;
-
 	int N;
 	int pseudoCount = 1;
 	int numSpecies;
@@ -43,7 +42,10 @@ public class EstimateTransitionMatrix {
 	HashMap<String, Double> cacheLogLikelihood;
 
 	public static String methods() {
-		return "METHOD:" + EstimateTransitionMatrix.METHOD + "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES + "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS + "_LOG:" + TransitionMatrix.LOG_METHOD;
+		return "METHOD:" + EstimateTransitionMatrix.METHOD //
+				+ "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES //
+				+ "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS //
+		;
 	}
 
 	public EstimateTransitionMatrix(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
@@ -198,17 +200,15 @@ public class EstimateTransitionMatrix {
 			} else Gpr.debug("WARNING: pi[" + i + "] is zero!");
 		}
 
-		// Create matrix
-		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
+		// Create transition matrix
+		// 		P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrixMarkov Phat = new TransitionMatrixMarkov(phat);
-		if (Phat.isSymmetric()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
-		if (Phat.hasComplexEigenvalues()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] has complex eigenvalues.");
-		if (!Phat.isProbabilityMatrix()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is NOT a probability matrix.");
-
-		// Create matrix
-		// P(t) = exp(t * Q) = V^T exp(t * D) V  => Q = 1/t log[ P(t) ]
 		TransitionMatrix Qhat = new TransitionMatrixMarkov(Phat.log().scalarMultiply(1 / t));
-		if (!Qhat.isZero() && Qhat.isSymmetric()) Gpr.debug("Qhat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
+
+		// Some sanity checks
+		if (Phat.isSymmetric()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
+		if (!Phat.isProbabilityMatrix()) Gpr.debug("Phat[" + seqName1 + " , " + seqName2 + "] is NOT a probability matrix.");
+		if (Qhat.isSymmetric()) Gpr.debug("Qhat[" + seqName1 + " , " + seqName2 + "] is symmetric.");
 
 		// Remove negative entries from matrix
 		if (REMOVE_NEGATIVES > 0) {
@@ -227,7 +227,7 @@ public class EstimateTransitionMatrix {
 
 		// Check
 		RealVector z = Qhat.operate(calcPi());
-		if (verbose) System.err.println("NORM_QHAT_PI_" + methods() + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
+		System.err.println("NORM_QHAT_PI_" + methods() + "\t" + seqName1 + "\t" + seqName2 + "\t" + t + "\t" + z.getNorm());
 
 		return Qhat;
 	}
@@ -255,6 +255,14 @@ public class EstimateTransitionMatrix {
 	public TransitionMatrix loadTransitionMatrix(String fileName) {
 		Q = new TransitionMatrixMarkov(TransitionMatrix.load(fileName));
 		return Q;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
 	}
 
 	/**

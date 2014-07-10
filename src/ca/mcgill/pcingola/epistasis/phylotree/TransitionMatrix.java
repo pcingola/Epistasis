@@ -20,14 +20,12 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  * Note: We use JEigen for matrix exponential and log functions because Apache commons
  *       simply cannot do it (it cannot even decompose matrices with complex
  *       eigenvalues).
- *       I compared JEigen's results to R and they match withing 10^-15 (at least
+ *       I compared JEigen's results to R and they match within 10^-15 (at least
  *       for the simple 20x20 examples I used).
  *
  * @author pcingola
  */
 public class TransitionMatrix extends Array2DRowRealMatrix {
-
-	public static int LOG_METHOD = 0;
 
 	private static final long serialVersionUID = 1L;
 	public static final double ACCEPTED_ERROR = 1e-4;
