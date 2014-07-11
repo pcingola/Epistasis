@@ -693,14 +693,19 @@ public class Epistasis implements CommandLine {
 	void runQhat() {
 		load();
 
+		// Estimate
 		EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
+		mltm.setVerbose(true);
 		Q = mltm.estimateTransitionMatrix();
+
+		// Sanity checks
 		RealVector z = Q.operate(mltm.calcPi());
 		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT" + "\t", Q));
+
 		System.out.println("Q's Eigenvalues: ");
 		double maxLambda = Q.checkEien(true);
 
-		System.out.println("QHAT_SUMMARY" //
+		System.out.println("Q_HAT_SUMMARY" //
 				+ "\tNorm( Q * pi ):\t" + z.getNorm() //
 				+ "\tmax_lambda:\t" + maxLambda //
 				+ "\thas_complex_eigenvalues:\t" + Q.hasComplexEigenvalues() //
@@ -716,14 +721,27 @@ public class Epistasis implements CommandLine {
 	void runQhat2() {
 		load();
 
+		// Estimate
 		EstimateTransitionMatrixPairs etm = new EstimateTransitionMatrixPairs(tree, msas, aaContacts);
 		etm.setVerbose(true);
 		Q2 = etm.estimateTransitionMatrix();
+
+		// Sanity checks
 		RealVector z = Q2.operate(etm.calcPi());
 		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2\t", Q2));
-		System.out.println("Norm( Q * pi ) = " + z.getNorm());
+
 		System.out.println("Q's Eigenvalues: ");
-		Q2.checkEien(true);
+		double maxLambda = Q2.checkEien(true);
+
+		System.out.println("Q_HAT2_SUMMARY" //
+				+ "\tNorm( Q2 * pi ):\t" + z.getNorm() //
+				+ "\tmax_lambda:\t" + maxLambda //
+				+ "\thas_complex_eigenvalues:\t" + Q2.hasComplexEigenvalues() //
+				+ "\thas_negative_off_diagonal_entries:\t" + Q2.hasNegativeOffDiagonalEntries() //
+				+ "\tis_zero:\t" + Q2.isZero() //
+				+ "\tis_symmetric:\t" + Q2.isSymmetric() //
+		);
+
 	}
 
 	/**
