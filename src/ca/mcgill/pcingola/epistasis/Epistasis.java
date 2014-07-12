@@ -1,6 +1,8 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.function.Function;
@@ -47,6 +49,7 @@ public class Epistasis implements CommandLine {
 	EstimateTransitionMatrix mltm;
 	IdMapper idMapper;
 	PdbGenome pdbGenome;
+	HashMap<Thread, LikelihoodTreeAa> treeByThread = new HashMap<Thread, LikelihoodTreeAa>();
 
 	public static void main(String[] args) {
 		Epistasis epistasis = new Epistasis(args);
@@ -60,6 +63,23 @@ public class Epistasis implements CommandLine {
 	@Override
 	public String[] getArgs() {
 		return args;
+	}
+
+	/**
+	 * Get a tree for the current thread
+	 */
+	LikelihoodTreeAa getTree() {
+		LikelihoodTreeAa currentTree = treeByThread.get(Thread.currentThread());
+
+		if (currentTree == null) {
+			// No tree? load one
+			Timer.showStdErr("Loading phylogenetic tree from " + treeFile);
+			currentTree = new LikelihoodTreeAa();
+			currentTree.load(treeFile);
+			treeByThread.put(Thread.currentThread(), currentTree);
+		}
+
+		return currentTree;
 	}
 
 	/**
@@ -85,11 +105,22 @@ public class Epistasis implements CommandLine {
 		return true;
 	}
 
-	double likelihood(DistanceResult dist) {
-		return likelihood(dist.msa1, dist.msaIdx1, dist.msa2, dist.msaIdx2);
+	/**
+	 * Calculate likelihood for the 'alternative' model
+	 */
+	double likelihoodAlt(LikelihoodTreeAa tree, String msa1, int idx1, String msa2, int idx2) {
+		// Set sequence and calculate likelihood
+		String seq1 = msas.getMsa(msa1).getColumnString(idx1);
+		String seq2 = msas.getMsa(msa2).getColumnString(idx2);
+		tree.setLeafSequenceAaPair(seq1, seq2);
+		double lik = tree.likelihood(Q2, aaFreqsContact);
+		return lik;
 	}
 
-	double likelihood(String msa1, int idx1, String msa2, int idx2) {
+	/**
+	 * Calculate likelihood for the 'null' model
+	 */
+	double likelihoodNull(LikelihoodTreeAa tree, String msa1, int idx1, String msa2, int idx2) {
 		// Set sequence and calculate likelihood
 		String seq1 = msas.getMsa(msa1).getColumnString(idx1);
 		tree.setLeafSequence(seq1);
@@ -104,17 +135,28 @@ public class Epistasis implements CommandLine {
 		return lik;
 	}
 
-	double likelihood2(DistanceResult dist) {
-		return likelihood2(dist.msa1, dist.msaIdx1, dist.msa2, dist.msaIdx2);
-	}
+	/**
+	 * Calculate likelihood ratio
+	 */
+	String likelihoodRatio(String msa1, int msaIdx1, String msa2, int msaIdx2) {
+		// Since we execute in parallel, we need one tree per thread
+		LikelihoodTreeAa tree = getTree();
 
-	double likelihood2(String msa1, int idx1, String msa2, int idx2) {
-		// Set sequence and calculate likelihood
-		String seq1 = msas.getMsa(msa1).getColumnString(idx1);
-		String seq2 = msas.getMsa(msa2).getColumnString(idx2);
-		tree.setLeafSequenceAaPair(seq1, seq2);
-		double lik = tree.likelihood(Q2, aaFreqsContact);
-		return lik;
+		// Calculate likelihoods for the null and alternative model
+		double likNull = likelihoodNull(tree, msa1, msaIdx1, msa2, msaIdx2);
+		double likAlt = likelihoodAlt(tree, msa1, msaIdx1, msa2, msaIdx2);
+		double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
+
+		// Return results
+		String seq1 = msas.getMsa(msa1).getColumnString(msaIdx1);
+		String seq2 = msas.getMsa(msa2).getColumnString(msaIdx2);
+		return msa1 + " [" + msaIdx1 + "]\t" + msa2 + " [" + msaIdx2 + "]"//
+				+ "\tlikelihood_ratio: " + llr //
+				+ "\tlikelihood_null: " + likNull //
+				+ "\tlikelihood_alt: " + likAlt //
+				+ "\tseq_1: " + seq1 //
+				+ "\tseq_2: " + seq2 //
+		;
 	}
 
 	/**
@@ -417,6 +459,28 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Pre-calculate matrix exponential
+	 */
+	void precalcExps() {
+
+		// Find all times in the tree
+		HashSet<Double> times = new HashSet<>();
+		tree.times(times);
+
+		// Pre-calculate Q's exponentials
+		times.parallelStream() //
+				.peek(t -> System.out.println("Matrix\tdim:" + Q.getRowDimension() + "\tExp(" + t + ")")) //
+				.forEach(t -> Q.matrix(t)) //
+		;
+
+		// Pre-calculate Q2's exponentials
+		times.parallelStream() //
+				.peek(t -> System.out.println("Matrix\tdim:" + Q2.getRowDimension() + "\tExp(" + t + ")")) //
+				.forEach(t -> Q2.matrix(t)) //
+		;
+	}
+
+	/**
 	 * Parse and Dispatch to right command
 	 */
 	@Override
@@ -704,29 +768,14 @@ public class Epistasis implements CommandLine {
 		load();
 
 		// Pre-calculate matrix exponentials
-		tree.precalculateExpm(Q);
-		tree.precalculateExpm(Q2);
+		precalcExps();
 
 		// Calculate likelihoods
-		for (DistanceResult dist : aaContacts) {
-			if (msas.getMsa(dist.msa1) != null) {
-				double likNull = likelihood(dist);
-				double likAlt = likelihood2(dist);
-				double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
-
-				String seq1 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx1);
-				String seq2 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx2);
-
-				System.out.println(dist.msa1 + " [" + dist.msaIdx1 + "]\t" + dist.msa2 + " [" + dist.msaIdx2 + "]"//
-						+ "\tlikelihood_ratio: " + llr //
-						+ "\tlikelihood_null: " + likNull //
-						+ "\tlikelihood_alt: " + likAlt //
-						+ "\tseq_1: " + seq1 //
-						+ "\tseq_2: " + seq2 //
-				);
-
-			}
-		}
+		aaContacts.parallelStream() //
+				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+				.map(d -> likelihoodRatio(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2)) //
+				.forEach(System.out::println) //
+		;
 
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 	}

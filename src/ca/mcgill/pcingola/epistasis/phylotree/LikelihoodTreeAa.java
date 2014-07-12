@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
 import java.util.Arrays;
+import java.util.Set;
 
 import org.apache.commons.math3.linear.RealMatrix;
 
@@ -142,6 +143,19 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 
 		if (left != null) left.resetNode(size);
 		if (right != null) right.resetNode(size);
+	}
+
+	/**
+	 * Pre-calculate matrix exponentials
+	 */
+	public void times(Set<Double> times) {
+		if (isLeaf()) return;
+
+		times.add(distanceLeft);
+		((LikelihoodTreeAa) left).times(times);
+
+		times.add(distanceRight);
+		((LikelihoodTreeAa) right).times(times);
 	}
 
 	public String toStringP() {
