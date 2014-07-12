@@ -700,7 +700,7 @@ public class Epistasis implements CommandLine {
 
 		// Sanity checks
 		RealVector z = Q.operate(mltm.calcPi());
-		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT" + "\t", Q));
+		System.out.println("Q matrix:\n" + Gpr.prependEachLine("Q_HAT_MATRIX" + "\t", Q));
 
 		System.out.println("Q's Eigenvalues: ");
 		double maxLambda = Q.checkEien(true);
@@ -728,7 +728,7 @@ public class Epistasis implements CommandLine {
 
 		// Sanity checks
 		RealVector z = Q2.operate(etm.calcPi());
-		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2\t", Q2));
+		System.out.println("Q2 matrix:\n" + Gpr.prependEachLine("Q_HAT2_MATRIX\t", Q2));
 
 		System.out.println("Q's Eigenvalues: ");
 		double maxLambda = Q2.checkEien(true);
