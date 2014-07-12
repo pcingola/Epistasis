@@ -39,7 +39,7 @@ public class Epistasis implements CommandLine {
 	double aaFreqs[], aaFreqsContact[];
 	String[] args;
 	String cmd;
-	String aaContactFile, aaFreqsFile, aaFreqsContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
+	String aaContactFile, aaFreqsFile, aaFreqsContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, q2MatrixFile, treeFile;
 	LikelihoodTreeAa tree;
 	DistanceResults aaContacts;
 	TransitionMatrix Q, Q2;
@@ -93,11 +93,14 @@ public class Epistasis implements CommandLine {
 		if (aaFreqsContactFile != null) aaFreqsContact = loadAaFreqs(aaFreqsContactFile);
 		if (idMapFile != null) loadIdMap(idMapFile);
 		if (treeFile != null) loadTree(treeFile);
+		if (aaContactFile != null) loadAaContact(aaContactFile);
+		if (qMatrixFile != null) loadQ(qMatrixFile);
+		if (q2MatrixFile != null) loadQ2(q2MatrixFile);
+
 		if (multAlignFile != null) {
 			loadMsas(multAlignFile);
 			sanityCheck(tree, msas); // Sanity check: Make sure that the alignment and the tree match
 		}
-		if (aaContactFile != null) loadAaContact(aaContactFile);
 
 		if (genome != null) {
 			pdbGenome = new PdbGenome(configFile, genome, pdbDir);
@@ -109,7 +112,6 @@ public class Epistasis implements CommandLine {
 			pdbGenome.initialize();
 		}
 
-		if (qMatrixFile != null) loadQ(qMatrixFile);
 	}
 
 	/**
@@ -186,6 +188,18 @@ public class Epistasis implements CommandLine {
 		}
 
 		Q = TransitionMatrixMarkov.load(qMatrixFile);
+		if (!Q.isRateMatrix()) throw new RuntimeException("Q is not a reate matrix!");
+	}
+
+	void loadQ2(String fileName) {
+		Timer.showStdErr("Loading Q2 matrix  from file '" + fileName);
+		if (!Gpr.exists(fileName)) {
+			System.err.println("Matrix file doesn't exists, nothing done");
+			return;
+		}
+
+		Q2 = TransitionMatrixMarkov.load(fileName);
+		if (!Q2.isRateMatrix()) throw new RuntimeException("Q2 is not a reate matrix!");
 	}
 
 	/**
@@ -356,6 +370,7 @@ public class Epistasis implements CommandLine {
 			aaContactFile = args[argNum++];
 			qMatrixFile = args[argNum++];
 			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
 			aaFreqsContactFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runTest();
@@ -749,10 +764,31 @@ public class Epistasis implements CommandLine {
 	void runTest() {
 		load();
 
-		String seq = "";
-		tree.reset();
-		tree.setLeafSequence(seq);
-		tree.likelihood(Q, aaFreqs);
+		for (DistanceResult dist : aaContacts) {
+			if (msas.getMsa(dist.msa1) != null) {
+				// Set sequence and calculate likelihood
+				String seq1 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx1);
+				tree.reset();
+				tree.setLeafSequence(seq1);
+				double lik1 = tree.likelihood(Q, aaFreqs);
+
+				// Set sequence and calculate likelihood
+				String seq2 = msas.getMsa(dist.msa2).getColumnString(dist.msaIdx2);
+				tree.reset();
+				tree.setLeafSequence(seq2);
+				double lik2 = tree.likelihood(Q, aaFreqs);
+
+				double lik = lik1 * lik2;
+
+				System.out.println(dist //
+						+ "\n\tsequence 1 : " + seq1 //
+						+ "\n\tsequence 2 : " + seq2 //
+						+ "\n\tlikelihood 1 : " + lik1 //
+						+ "\n\tlikelihood 2 : " + lik2 //
+						+ "\n\tlikelihood   : " + lik //
+				);
+			}
+		}
 
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 	}

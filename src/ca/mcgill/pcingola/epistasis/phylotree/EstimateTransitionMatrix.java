@@ -24,7 +24,7 @@ public class EstimateTransitionMatrix {
 	public static final int NUM_AA_SQUARE = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;
 
 	public static int METHOD = 0;
-	public static int REMOVE_NEGATIVES = 0;
+	public static int REMOVE_NEGATIVES = 1;
 	public static int PSEUDO_COUNTS = 0;
 
 	boolean verbose = false;

@@ -237,6 +237,29 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	}
 
 	/**
+	 * Is this a 'subsitution rate' matrix?
+	 * I.e.: Off diagonal are in [0,1] and rows add to zero.
+	 */
+	public boolean isRateMatrix() {
+		int rows = getRowDimension();
+		int cols = getColumnDimension();
+
+		for (int i = 0; i < rows; i++) {
+			double sum = 0;
+			for (int j = 0; j < cols; j++) {
+				double d = getEntry(i, j);
+				if ((i != j) && (d < 0) || (d > 1)) return false;
+				if ((i == j) && (d > 0)) return false;
+				sum += d;
+			}
+
+			if (Math.abs(sum) > EPSILON) return false;
+		}
+
+		return true;
+	}
+
+	/**
 	 * Is this matrix symmetric?
 	 */
 	public boolean isSymmetric() {
