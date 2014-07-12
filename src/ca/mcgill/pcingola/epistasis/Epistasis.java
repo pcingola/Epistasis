@@ -717,7 +717,7 @@ public class Epistasis implements CommandLine {
 				String seq1 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx1);
 				String seq2 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx2);
 
-				System.out.println(dist.msa1 + " [" + dist.msaIdx1 + "]\t" + dist.msa2 + " [" + dist.msaIdx2 + "]\t"//
+				System.out.println(dist.msa1 + " [" + dist.msaIdx1 + "]\t" + dist.msa2 + " [" + dist.msaIdx2 + "]"//
 						+ "\tlikelihood_ratio: " + llr //
 						+ "\tlikelihood_null: " + likNull //
 						+ "\tlikelihood_alt: " + likAlt //
