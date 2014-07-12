@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
+import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
  * A phylogenetic tree that can be used to calculate likelihoods
@@ -25,22 +26,18 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 	 */
 	public LikelihoodTreeAa() {
 		super();
-		resetNode();
 	}
 
 	public LikelihoodTreeAa(PhylogeneticTree parent, String phyloStr) {
 		super(parent, phyloStr);
-		resetNode();
 	}
 
 	public LikelihoodTreeAa(String name) {
 		super(name);
-		resetNode();
 	}
 
 	public LikelihoodTreeAa(String name, PhylogeneticTree left, double distanceLeft, PhylogeneticTree right, double distanceRight) {
 		super(name, left, distanceLeft, right, distanceRight);
-		resetNode();
 	}
 
 	public double[] getP() {
@@ -56,7 +53,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 	 */
 	public double likelihood(TransitionMatrix tmatrix, double pi[]) {
 		double likelihood = 0.0;
-		reset();
+		resetNode(pi.length);
 
 		for (int aaCode = 0; aaCode < p.length; aaCode++) {
 			p[aaCode] = likelihood(tmatrix, aaCode);
@@ -123,10 +120,28 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		return new LikelihoodTreeAa(parent, phyloStr);
 	}
 
+	/**
+	 * Pre-calculate matrix exponentials
+	 */
+	public void precalculateExpm(TransitionMatrix tmatrix) {
+		if (isLeaf()) return;
+
+		Timer.showStdErr("Dim(Q): " + tmatrix.getRowDimension() + "\tExp(" + distanceLeft + ")");
+		tmatrix.matrix(distanceLeft);
+		((LikelihoodTreeAa) left).precalculateExpm(tmatrix);
+
+		Timer.showStdErr("Dim(Q): " + tmatrix.getRowDimension() + "\tExp(" + distanceRight + ")");
+		tmatrix.matrix(distanceRight);
+		((LikelihoodTreeAa) right).precalculateExpm(tmatrix);
+	}
+
 	@Override
-	protected void resetNode() {
-		if (p == null) p = new double[GprSeq.AMINO_ACIDS.length];
+	protected void resetNode(int size) {
+		if (p == null) p = new double[size];
 		Arrays.fill(p, Double.NaN);
+
+		if (left != null) left.resetNode(size);
+		if (right != null) right.resetNode(size);
 	}
 
 	public String toStringP() {

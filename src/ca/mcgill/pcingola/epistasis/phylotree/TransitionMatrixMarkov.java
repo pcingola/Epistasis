@@ -101,6 +101,6 @@ public class TransitionMatrixMarkov extends TransitionMatrix {
 	}
 
 	public void setCheck(boolean check) {
-		this.checkNegativeLambda = check;
+		checkNegativeLambda = check;
 	}
 }

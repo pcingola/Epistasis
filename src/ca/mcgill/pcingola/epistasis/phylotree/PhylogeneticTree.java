@@ -15,7 +15,8 @@ public class PhylogeneticTree {
 
 	public static boolean debug = false;
 
-	byte sequenceCode = -1;
+	int sequenceCode = -1;
+	int level = -1;
 	String name; // Leaf nodes only have 'name'
 	PhylogeneticTree parent, left, right;
 	List<PhylogeneticTree> leafNodes;
@@ -181,6 +182,14 @@ public class PhylogeneticTree {
 		return left;
 	}
 
+	public int getLevel() {
+		if (level < 0) {
+			if (parent != null) level = parent.getLevel() + 1;
+			else level = 0;
+		}
+		return level;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -195,7 +204,12 @@ public class PhylogeneticTree {
 
 	public char getSequence() {
 		if (sequenceCode < 0) return ' ';
-		return GprSeq.code2aa(sequenceCode);
+		return GprSeq.code2aa((byte) sequenceCode);
+	}
+
+	public String getSequenceAaPair() {
+		if (sequenceCode < 0) return "  ";
+		return GprSeq.code2aaPair(sequenceCode);
 	}
 
 	/**
@@ -279,13 +293,7 @@ public class PhylogeneticTree {
 		right = newNode(this, rightStr);
 	}
 
-	public void reset() {
-		resetNode();
-		if (left != null) left.reset();
-		if (right != null) right.reset();
-	}
-
-	protected void resetNode() {
+	protected void resetNode(int size) {
 	}
 
 	public void setDistanceLeft(double distanceLeft) {
@@ -312,6 +320,21 @@ public class PhylogeneticTree {
 			leafNodes.get(i).setSequence(sequence.charAt(i));
 	}
 
+	public void setLeafSequenceAaPair(String seq1, String seq2) {
+		if (seq1.length() != seq2.length()) throw new RuntimeException("Sequence lengths do not match: " + seq1.length() + " != " + seq2.length());
+
+		// Get all leafs and set each one
+		if (leafNodes == null) leafNodes = child(true);
+
+		// Sanity check
+		if (leafNodes.size() != seq1.length()) throw new RuntimeException("Incompatible lengths:\n\tTree leaf nodes: " + leafNodes.size() + "\n\t" + seq1.length());
+
+		// Set sequence
+		for (int i = 0; i < seq1.length(); i++)
+			leafNodes.get(i).setSequence(seq1.charAt(i), seq2.charAt(i));
+
+	}
+
 	public void setLeft(PhylogeneticTree left) {
 		this.left = left;
 	}
@@ -326,6 +349,10 @@ public class PhylogeneticTree {
 
 	public void setSequence(char aa) {
 		sequenceCode = GprSeq.aa2Code(aa);
+	}
+
+	public void setSequence(char aa1, char aa2) {
+		sequenceCode = GprSeq.aaPairCode(aa1, aa2);
 	}
 
 	@Override
