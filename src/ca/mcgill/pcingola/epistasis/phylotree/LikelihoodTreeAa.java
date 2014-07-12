@@ -91,9 +91,9 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		RealMatrix P = tmatrix.matrix(distanceLeft);
 		double pleft = 0;
 		if (left != null) {
-			for (int sc = 0; sc < p.length; sc++) {
-				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, sc);
-				double pij = P.getEntry(aaCode, sc);
+			for (int aa2 = 0; aa2 < p.length; aa2++) {
+				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
+				double pij = P.getEntry(aaCode, aa2);
 				pleft += lleft * pij;
 			}
 		} else pleft = 1.0; // No node
@@ -102,9 +102,9 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		P = tmatrix.matrix(distanceRight);
 		double pright = 0;
 		if (right != null) {
-			for (int sc = 0; sc < p.length; sc++) {
-				double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, sc);
-				double pij = P.getEntry(aaCode, sc);
+			for (int aa2 = 0; aa2 < p.length; aa2++) {
+				double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
+				double pij = P.getEntry(aaCode, aa2);
 				pright += lright * pij;
 			}
 		} else pright = 1.0; // No node
@@ -137,7 +137,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 
 	@Override
 	protected void resetNode(int size) {
-		if (p == null) p = new double[size];
+		if (p == null || p.length != size) p = new double[size];
 		Arrays.fill(p, Double.NaN);
 
 		if (left != null) left.resetNode(size);

@@ -101,15 +101,6 @@ public class Epistasis implements CommandLine {
 		double lik2 = tree.likelihood(Q, aaFreqs);
 
 		double lik = lik1 * lik2;
-
-		System.out.println(msa1 + " [" + idx1 + "]\t" + msa2 + " [" + idx2 + "]\t"//
-				+ "\n\tsequence 1 : " + seq1 //
-				+ "\n\tsequence 2 : " + seq2 //
-				+ "\n\tlikelihood 1 : " + lik1 //
-				+ "\n\tlikelihood 2 : " + lik2 //
-				+ "\n\tlikelihood   : " + lik //
-		);
-
 		return lik;
 	}
 
@@ -121,16 +112,8 @@ public class Epistasis implements CommandLine {
 		// Set sequence and calculate likelihood
 		String seq1 = msas.getMsa(msa1).getColumnString(idx1);
 		String seq2 = msas.getMsa(msa2).getColumnString(idx2);
-		Gpr.debug("Sequences:\n\t" + seq1 + "\n\t" + seq2);
 		tree.setLeafSequenceAaPair(seq1, seq2);
 		double lik = tree.likelihood(Q2, aaFreqsContact);
-
-		System.out.println(msa1 + " [" + idx1 + "]\t" + msa2 + " [" + idx2 + "]\t"//
-				+ "\n\tsequence 1 : " + seq1 //
-				+ "\n\tsequence 2 : " + seq2 //
-				+ "\n\tlikelihood   : " + lik //
-		);
-
 		return lik;
 	}
 
@@ -177,7 +160,7 @@ public class Epistasis implements CommandLine {
 	 * Load a vector of doubles in the second column of the file (first column is assumed to be labels)
 	 */
 	double[] loadAaFreqs(String fileName) {
-		Timer.show("Loading amino acid frequencies from '" + fileName + "'");
+		Timer.showStdErr("Loading amino acid frequencies from '" + fileName + "'");
 		String file = Gpr.readFile(fileName);
 		String lines[] = file.split("\n");
 		double d[] = new double[lines.length];
@@ -250,7 +233,7 @@ public class Epistasis implements CommandLine {
 		Q2 = TransitionMatrixMarkov.load(fileName);
 
 		Gpr.debug("\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHECK SKIPPPED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n");
-		// if (!Q2.isRateMatrix()) throw new RuntimeException("Q2 is not a reate matrix!");
+		//		if (!Q2.isRateMatrix()) throw new RuntimeException("Q2 is not a reate matrix!");
 	}
 
 	/**
@@ -822,11 +805,21 @@ public class Epistasis implements CommandLine {
 		// Calculate likelihoods
 		for (DistanceResult dist : aaContacts) {
 			if (msas.getMsa(dist.msa1) != null) {
-				double lik = likelihood(dist);
-				double lik2 = likelihood2(dist);
+				double likNull = likelihood(dist);
+				double likAlt = likelihood2(dist);
+				double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
 
-				double llr = -2.0 * (Math.log(lik) - Math.log(lik2));
-				System.out.println("Likelihood ratio:\t" + lik + "\t" + lik2 + "\t" + llr + "\n\n\n");
+				String seq1 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx1);
+				String seq2 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx2);
+
+				System.out.println(dist.msa1 + " [" + dist.msaIdx1 + "]\t" + dist.msa2 + " [" + dist.msaIdx2 + "]\t"//
+						+ "\tlikelihood_ratio: " + llr //
+						+ "\tlikelihood_null: " + likNull //
+						+ "\tlikelihood: " + likAlt //
+						+ "\tseq_1: " + seq1 //
+						+ "\tseq_2: " + seq2 //
+				);
+
 			}
 		}
 

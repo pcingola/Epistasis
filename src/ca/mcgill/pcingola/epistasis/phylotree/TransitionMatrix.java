@@ -30,6 +30,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	private static final long serialVersionUID = 1L;
 	public static final double ACCEPTED_ERROR = 1e-4;
 	public static final double EPSILON = 1e-6;
+	public static final double EPSILON2 = 1e-4;
 
 	protected EigenDecomposition eigen;
 	protected boolean checkNegativeLambda;
@@ -253,7 +254,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 				sum += d;
 			}
 
-			if (Math.abs(sum) > EPSILON) return false;
+			if (Math.abs(sum) > EPSILON2) return false;
 		}
 
 		return true;
