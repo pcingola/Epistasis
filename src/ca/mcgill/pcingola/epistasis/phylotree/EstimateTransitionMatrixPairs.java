@@ -11,7 +11,7 @@ public class EstimateTransitionMatrixPairs extends EstimateTransitionMatrix {
 
 	DistanceResults aaContacts;
 
-	public EstimateTransitionMatrixPairs(LikelihoodTree tree, MultipleSequenceAlignmentSet msas, DistanceResults aaContacts) {
+	public EstimateTransitionMatrixPairs(LikelihoodTreeAa tree, MultipleSequenceAlignmentSet msas, DistanceResults aaContacts) {
 		super(tree, msas);
 		this.aaContacts = aaContacts;
 		N = GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length;

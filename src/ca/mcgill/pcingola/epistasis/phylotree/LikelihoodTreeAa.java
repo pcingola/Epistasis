@@ -15,7 +15,7 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
  *
  * @author pcingola
  */
-public class LikelihoodTree extends PhylogeneticTree {
+public class LikelihoodTreeAa extends PhylogeneticTree {
 
 	public static final double GEP_PROB = 1.0 / (GprSeq.AMINO_ACIDS.length);
 	double p[];
@@ -23,22 +23,22 @@ public class LikelihoodTree extends PhylogeneticTree {
 	/**
 	 * Create root node
 	 */
-	public LikelihoodTree() {
+	public LikelihoodTreeAa() {
 		super();
 		resetNode();
 	}
 
-	public LikelihoodTree(PhylogeneticTree parent, String phyloStr) {
+	public LikelihoodTreeAa(PhylogeneticTree parent, String phyloStr) {
 		super(parent, phyloStr);
 		resetNode();
 	}
 
-	public LikelihoodTree(String name) {
+	public LikelihoodTreeAa(String name) {
 		super(name);
 		resetNode();
 	}
 
-	public LikelihoodTree(String name, PhylogeneticTree left, double distanceLeft, PhylogeneticTree right, double distanceRight) {
+	public LikelihoodTreeAa(String name, PhylogeneticTree left, double distanceLeft, PhylogeneticTree right, double distanceRight) {
 		super(name, left, distanceLeft, right, distanceRight);
 		resetNode();
 	}
@@ -53,8 +53,6 @@ public class LikelihoodTree extends PhylogeneticTree {
 
 	/**
 	 * Calculate likelihood
-	 * @param tmatrix : Transition matrix
-	 * @return
 	 */
 	public double likelihood(TransitionMatrix tmatrix, double pi[]) {
 		double likelihood = 0.0;
@@ -70,9 +68,6 @@ public class LikelihoodTree extends PhylogeneticTree {
 
 	/**
 	 * Calculate likelihood for this seqCode
-	 * @param tmatrix
-	 * @param seqCode
-	 * @return
 	 */
 	protected double likelihood(TransitionMatrix tmatrix, int seqCode) {
 		// Already calculated?
@@ -100,7 +95,7 @@ public class LikelihoodTree extends PhylogeneticTree {
 		double pleft = 0;
 		if (left != null) {
 			for (int sc = 0; sc < p.length; sc++) {
-				double lleft = ((LikelihoodTree) left).likelihood(tmatrix, sc);
+				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, sc);
 				double pij = P.getEntry(seqCode, sc);
 				pleft += lleft * pij;
 			}
@@ -111,7 +106,7 @@ public class LikelihoodTree extends PhylogeneticTree {
 		double pright = 0;
 		if (right != null) {
 			for (int sc = 0; sc < p.length; sc++) {
-				double lright = ((LikelihoodTree) right).likelihood(tmatrix, sc);
+				double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, sc);
 				double pij = P.getEntry(seqCode, sc);
 				pright += lright * pij;
 			}
@@ -125,7 +120,7 @@ public class LikelihoodTree extends PhylogeneticTree {
 
 	@Override
 	protected PhylogeneticTree newNode(PhylogeneticTree parent, String phyloStr) {
-		return new LikelihoodTree(parent, phyloStr);
+		return new LikelihoodTreeAa(parent, phyloStr);
 	}
 
 	@Override

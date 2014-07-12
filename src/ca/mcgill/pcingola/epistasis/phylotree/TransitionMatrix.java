@@ -39,7 +39,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	/**
 	 * Load from file
 	 */
-	public static double[][] load(String fileName) {
+	public static double[][] loadValues(String fileName) {
 		String file = Gpr.readFile(fileName);
 		String lines[] = file.split("\n");
 
@@ -82,7 +82,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	}
 
 	public TransitionMatrix(String fileName) {
-		super(load(fileName));
+		super(loadValues(fileName));
 	}
 
 	public TransitionMatrix add(final TransitionMatrix m) throws MatrixDimensionMismatchException {
@@ -353,7 +353,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 		return sb.toString();
 	}
 
-	public String toStringice() {
+	public String toStringNice() {
 		StringBuilder sb = new StringBuilder();
 
 		// Column title

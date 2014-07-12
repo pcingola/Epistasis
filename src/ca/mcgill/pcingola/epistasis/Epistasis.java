@@ -19,8 +19,9 @@ import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrix;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrixPairs;
-import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
+import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
+import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
 
 /**
  * Main command line
@@ -38,7 +39,7 @@ public class Epistasis implements CommandLine {
 	String[] args;
 	String cmd;
 	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
-	LikelihoodTree tree;
+	LikelihoodTreeAa tree;
 	DistanceResults aaContacts;
 	TransitionMatrix Q, Q2;
 	MultipleSequenceAlignmentSet msas;
@@ -159,8 +160,7 @@ public class Epistasis implements CommandLine {
 			return;
 		}
 
-		EstimateTransitionMatrix mltm = new EstimateTransitionMatrix(tree, msas);
-		Q = mltm.loadTransitionMatrix(qMatrixFile);
+		Q = TransitionMatrixMarkov.load(qMatrixFile);
 	}
 
 	/**
@@ -168,7 +168,7 @@ public class Epistasis implements CommandLine {
 	 */
 	void loadTree(String phyloFileName) {
 		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
-		tree = new LikelihoodTree();
+		tree = new LikelihoodTreeAa();
 		tree.load(phyloFileName);
 	}
 
@@ -216,6 +216,7 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
 			filterMsaByIdMap = true;
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAaFrequencies();
@@ -325,9 +326,13 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "test":
-			String fileName = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			qMatrixFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			runTest(fileName);
+			runTest();
 			break;
 
 		default:
@@ -507,7 +512,7 @@ public class Epistasis implements CommandLine {
 			sum += aaCount[aa];
 
 		for (byte aa = 0; aa < aaCount.length; aa++)
-			System.out.println(GprSeq.code2aa(aa) + "\t" + aaCount[aa] / sum);
+			System.out.println("AA_FREQS\t" + GprSeq.code2aa(aa) + "\t" + aaCount[aa] / sum);
 	}
 
 	/**
@@ -562,38 +567,6 @@ public class Epistasis implements CommandLine {
 
 		// Show distribution
 		System.err.println(sim);
-	}
-
-	void runBayes() {
-		//	// Calculate Bayes Factor
-		//
-		//	// For each MSA...
-		//	mltm.calcPi();
-		//	for (MultipleSequenceAlignment msa1 : msas) {
-		//		for (MultipleSequenceAlignment msa2 : msas) {
-		//			// Make sure the MSAs are far away from each other
-		//			if (msa2.compareTo(msa1) < MIN_DISTANCE) continue;
-		//
-		//			// All pair of positions
-		//			for (int pos1 = 0; pos1 < msa1.length(); pos1++) {
-		//				if (msa1.isSkip(pos1)) continue;
-		//
-		//				// Log likelihood at position 1
-		//				double loklik1 = mltm.logLikelyhood(msa1, pos1);
-		//
-		//				for (int pos2 = 0; pos2 < msa2.length(); pos2++) {
-		//					if (msa2.isSkip(pos2)) continue;
-		//
-		//					// Log likelihood at position 2
-		//					double loklik2 = mltm.logLikelyhood(msa2, pos2);
-		//					System.out.println(msa1.getId() + "\t" + msa2.getId() + "\t" + pos1 + "\t" + pos2 + "\t" + loklik1 + "\t" + loklik2);
-		//
-		//					// Combined log likelihood
-		//					mltm.logLikelyhood(msa1, pos1, msa2, pos2);
-		//				}
-		//			}
-		//		}
-		//	}
 	}
 
 	/**
@@ -747,11 +720,10 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Test
 	 */
-	void runTest(String fileName) {
-		TransitionMatrix qhat = new TransitionMatrix(fileName);
-		System.out.println("\n\nMATRIX :\n" + qhat);
-		System.out.println("\n\nLOG    :\n" + qhat.log());
-		System.out.println("\n\nEXP    :\n" + qhat.exp(1));
+	void runTest() {
+		load();
+
+		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 	}
 
 	/**
@@ -812,7 +784,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Check consistency between MSA and tree
 	 */
-	void sanityCheck(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
+	void sanityCheck(LikelihoodTreeAa tree, MultipleSequenceAlignmentSet msas) {
 		// Sanity check: Make sure that the alignment and the tree match
 		String speciesMsa = String.join("\t", msas.getSpecies());
 		String speciesTree = String.join("\t", tree.childNames());

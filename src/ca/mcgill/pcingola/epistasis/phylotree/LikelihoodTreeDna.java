@@ -13,7 +13,7 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
  *
  * @author pcingola
  */
-public class LikelihoodTreeDna extends LikelihoodTree {
+public class LikelihoodTreeDna extends LikelihoodTreeAa {
 
 	/**
 	 * Create root node

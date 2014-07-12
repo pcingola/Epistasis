@@ -32,8 +32,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Create and parse descendant nodes
-	 * @param parent
-	 * @param phyloStr
 	 */
 	public PhylogeneticTree(PhylogeneticTree parent, String phyloStr) {
 		this.parent = parent;

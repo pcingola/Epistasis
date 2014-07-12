@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 import org.apache.commons.math3.linear.RealMatrix;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
+
 /**
  * Calculate transition matrix
  *
@@ -16,6 +18,44 @@ public class TransitionMatrixMarkov extends TransitionMatrix {
 	private static final long serialVersionUID = 1L;
 
 	HashMap<Double, RealMatrix> matrixByTime; // Cache matrices
+
+	/***
+	 * Load from file
+	 */
+	public static TransitionMatrixMarkov load(String fileName) {
+		String file = Gpr.readFile(fileName);
+		if (file == null || file.isEmpty()) throw new RuntimeException("Cannot read data from file '" + fileName + "'");
+
+		String lines[] = file.split("\n");
+
+		int numRows = lines.length - 1;
+		int numCols = lines[0].split("\t").length;
+		double d[][] = new double[numRows][numCols];
+		String colNames[] = null;
+		String rowNames[] = new String[numRows];
+
+		int row = 0;
+		for (String line : lines) {
+			String recs[] = line.split("\t");
+
+			if (row == 0) {
+				// Title row
+				colNames = recs;
+			} else {
+				for (int col = 0; col < recs.length; col++) {
+					if (col == 0) rowNames[row - 1] = recs[col];
+					else d[row - 1][col - 1] = Gpr.parseDoubleSafe(recs[col]);
+				}
+			}
+
+			row++;
+		}
+
+		TransitionMatrixMarkov m = new TransitionMatrixMarkov(d);
+		m.setColNames(colNames);
+		m.setRowNames(rowNames);
+		return m;
+	}
 
 	public TransitionMatrixMarkov(double matrix[][]) {
 		super(matrix);

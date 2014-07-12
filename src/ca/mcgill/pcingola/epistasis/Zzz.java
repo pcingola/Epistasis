@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
+import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
 
 /**
  * Test
@@ -13,11 +14,7 @@ public class Zzz {
 	public static final boolean debug = false;
 
 	public static void main(String[] args) {
-		TransitionMatrix qhat = new TransitionMatrix(Gpr.HOME + "/snpEff/z.txt");
-		System.out.println(qhat);
-
-		System.out.println("\n\nLOG:\n" + qhat.log());
-
-		System.out.println("\n\nEXP:\n" + qhat.exp(1));
+		TransitionMatrix qhat = TransitionMatrixMarkov.load(Gpr.HOME + "/snpEff/epistasis/Qhat.txt");
+		System.out.println(qhat.toStringNice());
 	}
 }

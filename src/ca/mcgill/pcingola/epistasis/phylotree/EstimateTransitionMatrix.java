@@ -35,7 +35,7 @@ public class EstimateTransitionMatrix {
 	double pi[];
 	double time[][];
 	String names[];
-	LikelihoodTree tree;
+	LikelihoodTreeAa tree;
 	MultipleSequenceAlignmentSet msas;
 	TransitionMatrixMarkov Q;
 	ArrayRealVector piVect;
@@ -48,7 +48,7 @@ public class EstimateTransitionMatrix {
 		;
 	}
 
-	public EstimateTransitionMatrix(LikelihoodTree tree, MultipleSequenceAlignmentSet msas) {
+	public EstimateTransitionMatrix(LikelihoodTreeAa tree, MultipleSequenceAlignmentSet msas) {
 		this.tree = tree;
 		this.msas = msas;
 		cacheLogLikelihood = new HashMap<String, Double>();
@@ -71,13 +71,17 @@ public class EstimateTransitionMatrix {
 		for (int aa = 0; aa < countAa.length; aa++)
 			tot += countAa[aa];
 
+		// Label to show results
+		String label = "PI_AA";
+		if (countAa.length >= 400) label = "PI_AA_PAIR";
+
 		// Calculate for all AA
 		double piAll[];
 		piAll = new double[countAa.length];
-		if (verbose) System.out.println("AAcode\tAA\tcount\tp");
+		if (verbose) System.out.println(label + "\tAAcode\tAA\tcount\tp");
 		for (int i = 0; i < countAa.length; i++) {
 			piAll[i] = countAa[i] / ((double) tot);
-			if (verbose) System.out.println(i + "\t" + names[i] + "\t" + countAa[i] + "\t" + piAll[i]);
+			System.out.println(label + "\t" + i + "\t" + names[i] + "\t" + countAa[i] + "\t" + piAll[i]);
 		}
 
 		// Create vector
@@ -245,16 +249,6 @@ public class EstimateTransitionMatrix {
 		names = new String[GprSeq.AMINO_ACIDS.length];
 		for (int i = 0; i < names.length; i++)
 			names[i] = GprSeq.code2aa((byte) i) + "";
-	}
-
-	/**
-	 * Load a transition matrix
-	 * @param fileName
-	 * @return
-	 */
-	public TransitionMatrix loadTransitionMatrix(String fileName) {
-		Q = new TransitionMatrixMarkov(TransitionMatrix.load(fileName));
-		return Q;
 	}
 
 	public void setDebug(boolean debug) {

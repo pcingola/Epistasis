@@ -25,7 +25,7 @@ import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTree;
+import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
 /**
  * This class has information from
@@ -49,7 +49,7 @@ public class PdbGenome extends SnpEff {
 	String genomeVer, pdbDir;
 	HashMap<String, Transcript> trancriptById;
 	IdMapper idMapper;
-	LikelihoodTree tree;
+	LikelihoodTreeAa tree;
 	MultipleSequenceAlignmentSet msas;
 	PDBFileReader pdbreader;
 
@@ -456,7 +456,7 @@ public class PdbGenome extends SnpEff {
 		this.nextProt = nextProt;
 	}
 
-	public void setTree(LikelihoodTree tree) {
+	public void setTree(LikelihoodTreeAa tree) {
 		this.tree = tree;
 	}
 
