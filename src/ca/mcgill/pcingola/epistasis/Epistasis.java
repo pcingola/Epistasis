@@ -406,7 +406,7 @@ public class Epistasis implements CommandLine {
 			q2MatrixFile = args[argNum++];
 			aaFreqsContactFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			runTest();
+			runLikelihood();
 			break;
 
 		default:
@@ -698,6 +698,40 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Likelihhod
+	 */
+	void runLikelihood() {
+		load();
+
+		// Pre-calculate matrix exponentials
+		tree.precalculateExpm(Q);
+		tree.precalculateExpm(Q2);
+
+		// Calculate likelihoods
+		for (DistanceResult dist : aaContacts) {
+			if (msas.getMsa(dist.msa1) != null) {
+				double likNull = likelihood(dist);
+				double likAlt = likelihood2(dist);
+				double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
+
+				String seq1 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx1);
+				String seq2 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx2);
+
+				System.out.println(dist.msa1 + " [" + dist.msaIdx1 + "]\t" + dist.msa2 + " [" + dist.msaIdx2 + "]\t"//
+						+ "\tlikelihood_ratio: " + llr //
+						+ "\tlikelihood_null: " + likNull //
+						+ "\tlikelihood_alt: " + likAlt //
+						+ "\tseq_1: " + seq1 //
+						+ "\tseq_2: " + seq2 //
+				);
+
+			}
+		}
+
+		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
+	}
+
+	/**
 	 * Map PDB entries to GeneID & TranscriptID
 	 */
 	void runMapPdbGene() {
@@ -789,40 +823,6 @@ public class Epistasis implements CommandLine {
 				+ "\tis_symmetric:\t" + Q2.isSymmetric() //
 		);
 
-	}
-
-	/**
-	 * Test
-	 */
-	void runTest() {
-		load();
-
-		// Pre-calculate matrix exponentials
-		tree.precalculateExpm(Q);
-		tree.precalculateExpm(Q2);
-
-		// Calculate likelihoods
-		for (DistanceResult dist : aaContacts) {
-			if (msas.getMsa(dist.msa1) != null) {
-				double likNull = likelihood(dist);
-				double likAlt = likelihood2(dist);
-				double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
-
-				String seq1 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx1);
-				String seq2 = msas.getMsa(dist.msa1).getColumnString(dist.msaIdx2);
-
-				System.out.println(dist.msa1 + " [" + dist.msaIdx1 + "]\t" + dist.msa2 + " [" + dist.msaIdx2 + "]\t"//
-						+ "\tlikelihood_ratio: " + llr //
-						+ "\tlikelihood_null: " + likNull //
-						+ "\tlikelihood: " + likAlt //
-						+ "\tseq_1: " + seq1 //
-						+ "\tseq_2: " + seq2 //
-				);
-
-			}
-		}
-
-		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 	}
 
 	/**
