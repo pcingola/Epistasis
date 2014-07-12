@@ -14,13 +14,16 @@ import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
  */
 public class TestTransitionMatrix extends TestCase {
 
-	void matrixExpTest(double d[][], double time, double expectedResult[][]) {
-		TransitionMatrixMarkov m = new TransitionMatrixMarkov(d);
-		TransitionMatrixMarkov expectedExpM = new TransitionMatrixMarkov(expectedResult);
+	void matrixExpTest(double q[][], double time, double expectedResult[][]) {
+		TransitionMatrixMarkov Q = new TransitionMatrixMarkov(q);
+		TransitionMatrixMarkov expectedExpQ = new TransitionMatrixMarkov(expectedResult);
 
-		m.setCheck(false);
-		RealMatrix expm = m.matrix(time);
-		RealMatrix diff = expm.subtract(expectedExpM);
+		Q.setCheck(false);
+
+		System.out.println("M:\n" + Q.toStringNice());
+		RealMatrix expm = Q.matrix(time);
+		System.out.println("exp( " + time + " * Q):\n" + (new TransitionMatrixMarkov(expm)).toStringNice());
+		RealMatrix diff = expm.subtract(expectedExpQ);
 
 		double norm = diff.getNorm();
 		System.out.println("Norm: " + norm);
@@ -64,54 +67,5 @@ public class TestTransitionMatrix extends TestCase {
 
 		matrixExpTest(d, 1.23, dexpM);
 	}
-
-	//	public void test_03() {
-	//		String phyloFileName = "test/hg19.100way.nh";
-	//		String multAlign = "test/msa.small.fa";
-	//		int numAligns = 100;
-	//
-	//		// Load tree and MSA
-	//		LikelihoodTree tree = new LikelihoodTree();
-	//		tree.load(phyloFileName);
-	//
-	//		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
-	//		msas.load();
-	//
-	//		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
-	//
-	//		//---
-	//		// Test that Q * pi = 0
-	//		//---
-	//		RealMatrix Q = mltm.randQ();
-	//		RealVector pi = mltm.getPi();
-	//		RealVector res = Q.operate(pi);
-	//		System.out.println("res=" + res);
-	//		Assert.assertTrue(res.getL1Norm() < 1e-6); // Result should be zero
-	//	}
-	//
-	//	public void test_04() {
-	//		String phyloFileName = "test/hg19.100way.nh";
-	//		String multAlign = "test/msa.small.fa";
-	//		int numAligns = 100;
-	//
-	//		// Load tree and MSA
-	//		LikelihoodTree tree = new LikelihoodTree();
-	//		tree.load(phyloFileName);
-	//
-	//		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(multAlign, numAligns);
-	//		msas.load();
-	//
-	//		MaxLikelihoodTm mltm = new MaxLikelihoodTm(tree, msas);
-	//
-	//		//---
-	//		// Test that P(t) * pi = pi
-	//		//---
-	//		double time = 1.0;
-	//		TransitionMatrix Q = mltm.randQ();
-	//		RealMatrix P = Q.matrix(time); // P(t)
-	//		RealVector pi = mltm.getPi();
-	//		double diff = P.operate(pi).getL1Distance(pi); // Calculate | P(t) * pi - pi |
-	//		Assert.assertEquals(0.0, diff, 1e-6); // Result should be zero
-	//	}
 
 }

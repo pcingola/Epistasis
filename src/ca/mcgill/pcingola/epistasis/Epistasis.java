@@ -36,9 +36,10 @@ public class Epistasis implements CommandLine {
 	boolean nextProt;
 
 	boolean filterMsaByIdMap = true;
+	double aaFreqs[], aaFreqsContact[];
 	String[] args;
 	String cmd;
-	String aaContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
+	String aaContactFile, aaFreqsFile, aaFreqsContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, treeFile;
 	LikelihoodTreeAa tree;
 	DistanceResults aaContacts;
 	TransitionMatrix Q, Q2;
@@ -88,6 +89,8 @@ public class Epistasis implements CommandLine {
 	 * Load files
 	 */
 	void load() {
+		if (aaFreqsFile != null) aaFreqs = loadAaFreqs(aaFreqsFile);
+		if (aaFreqsContactFile != null) aaFreqsContact = loadAaFreqs(aaFreqsContactFile);
 		if (idMapFile != null) loadIdMap(idMapFile);
 		if (treeFile != null) loadTree(treeFile);
 		if (multAlignFile != null) {
@@ -117,6 +120,28 @@ public class Epistasis implements CommandLine {
 		aaContacts = new DistanceResults();
 		aaContacts.load(aaContactFile);
 		return aaContacts;
+	}
+
+	/**
+	 * Load a vector of doubles in the second column of the file (first column is assumed to be labels)
+	 */
+	double[] loadAaFreqs(String fileName) {
+		Timer.show("Loading amino acid frequencies from '" + fileName + "'");
+		String file = Gpr.readFile(fileName);
+		String lines[] = file.split("\n");
+		double d[] = new double[lines.length];
+
+		double sum = 0;
+		for (int i = 0; i < lines.length; i++) {
+			String fields[] = lines[i].split("\t");
+			d[i] = Gpr.parseDoubleSafe(fields[1]);
+			sum += d[i];
+		}
+
+		// Sanity check
+		if (Math.abs(sum - 1.0) > TransitionMatrix.EPSILON) throw new RuntimeException("AA frequencies do not add to 1.0! (sum = " + sum + " )");
+
+		return d;
 	}
 
 	void loadIdMap(String idMapFile) {
@@ -216,7 +241,6 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
 			filterMsaByIdMap = true;
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runAaFrequencies();
@@ -331,6 +355,8 @@ public class Epistasis implements CommandLine {
 			idMapFile = args[argNum++];
 			aaContactFile = args[argNum++];
 			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runTest();
 			break;
@@ -722,6 +748,11 @@ public class Epistasis implements CommandLine {
 	 */
 	void runTest() {
 		load();
+
+		String seq = "";
+		tree.reset();
+		tree.setLeafSequence(seq);
+		tree.likelihood(Q, aaFreqs);
 
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 	}

@@ -140,7 +140,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 	 */
 	public RealMatrix exp(double time) {
 		// Use Jeigen to calculate matrix log (using native methods)
-		DenseMatrix m = new DenseMatrix(getData());
+		DenseMatrix m = new DenseMatrix(scalarMultiply(time).getData());
 		DenseMatrix res = m.mexp();
 
 		// Copy results from Jeigen

@@ -17,7 +17,7 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
  */
 public class LikelihoodTreeAa extends PhylogeneticTree {
 
-	public static final double GEP_PROB = 1.0 / (GprSeq.AMINO_ACIDS.length);
+	public static final double GAP_PROB = 1.0 / (GprSeq.AMINO_ACIDS.length);
 	double p[];
 
 	/**
@@ -58,9 +58,9 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		double likelihood = 0.0;
 		reset();
 
-		for (int scode = 0; scode < p.length; scode++) {
-			p[scode] = likelihood(tmatrix, scode);
-			likelihood += p[scode] * pi[scode];
+		for (int aaCode = 0; aaCode < p.length; aaCode++) {
+			p[aaCode] = likelihood(tmatrix, aaCode);
+			likelihood += p[aaCode] * pi[aaCode];
 		}
 
 		return likelihood;
@@ -69,21 +69,21 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 	/**
 	 * Calculate likelihood for this seqCode
 	 */
-	protected double likelihood(TransitionMatrix tmatrix, int seqCode) {
+	protected double likelihood(TransitionMatrix tmatrix, int aaCode) {
 		// Already calculated?
-		if (!Double.isNaN(p[seqCode])) return p[seqCode];
+		if (!Double.isNaN(p[aaCode])) return p[aaCode];
 
 		//---
 		// Leaf node?
 		//---
 		if (isLeaf()) {
-			if (seqCode < 0) return GEP_PROB; // Uniform probability for GAPs
+			if (aaCode < 0) return GAP_PROB; // Uniform probability for GAPs
 
 			// Probability is 1 for that sequence, 0 for others
-			if (sequenceCode < 0) p[seqCode] = GEP_PROB; // Uniform probability for GAPs
-			else if (sequenceCode == seqCode) p[seqCode] = 1.0;
-			else p[seqCode] = 0.0;
-			return p[seqCode];
+			if (sequenceCode < 0) p[aaCode] = GAP_PROB; // Uniform probability for GAPs
+			else if (sequenceCode == aaCode) p[aaCode] = 1.0;
+			else p[aaCode] = 0.0;
+			return p[aaCode];
 		}
 
 		//---
@@ -96,7 +96,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		if (left != null) {
 			for (int sc = 0; sc < p.length; sc++) {
 				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, sc);
-				double pij = P.getEntry(seqCode, sc);
+				double pij = P.getEntry(aaCode, sc);
 				pleft += lleft * pij;
 			}
 		} else pleft = 1.0; // No node
@@ -107,15 +107,15 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		if (right != null) {
 			for (int sc = 0; sc < p.length; sc++) {
 				double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, sc);
-				double pij = P.getEntry(seqCode, sc);
+				double pij = P.getEntry(aaCode, sc);
 				pright += lright * pij;
 			}
 		} else pright = 1.0; // No node
 
 		// Set code
-		p[seqCode] = pleft * pright;
+		p[aaCode] = pleft * pright;
 
-		return p[seqCode];
+		return p[aaCode];
 	}
 
 	@Override
