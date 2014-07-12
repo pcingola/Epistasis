@@ -397,7 +397,7 @@ public class Epistasis implements CommandLine {
 			runTransitions(numSamples);
 			break;
 
-		case "test":
+		case "likelihood":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
