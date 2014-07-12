@@ -232,7 +232,6 @@ public class Epistasis implements CommandLine {
 
 		Q2 = TransitionMatrixMarkov.load(fileName);
 
-		Gpr.debug("\n\n\n!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! CHECK SKIPPPED!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!\n\n\n");
 		//		if (!Q2.isRateMatrix()) throw new RuntimeException("Q2 is not a reate matrix!");
 	}
 

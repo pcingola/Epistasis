@@ -224,7 +224,7 @@ wait
 # Part 5: Likelihood
 #---
 
-task( lik <- [tree, msa] ) sys $cmdEpistasis likelihood $tree $msa $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs > $lik
+task( lik <- [tree, msa] ) sys $cmdEpistasis likelihood $tree $msa $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
 
 # Done
 wait
