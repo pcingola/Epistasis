@@ -5,7 +5,7 @@ rm nohup.out
 rm -rvf epistasis.bds.* run.bds.* 
 
 echo Process is run as nohup
-nohup ./scripts/run.bds &
+nohup `dirname $0`/run.bds &
 
 echo
 echo
