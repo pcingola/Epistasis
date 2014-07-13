@@ -170,12 +170,12 @@ public class Epistasis implements CommandLine {
 		// Return results
 		String seq1 = msas.getMsa(msa1).getColumnString(msaIdx1);
 		String seq2 = msas.getMsa(msa2).getColumnString(msaIdx2);
-		return msa1 + " [" + msaIdx1 + "]\t" + msa2 + " [" + msaIdx2 + "]"//
-				+ "\tlikelihood_ratio: " + llr //
-				+ "\tlikelihood_null: " + likNull //
-				+ "\tlikelihood_alt: " + likAlt //
-				+ "\tseq_1: " + seq1 //
-				+ "\tseq_2: " + seq2 //
+		return msa1 + "[" + msaIdx1 + "]\t" + msa2 + "[" + msaIdx2 + "]"//
+				+ "\t" + llr //
+				+ "\t" + likNull //
+				+ "\t" + likAlt //
+				+ "\t" + seq1 //
+				+ "\t" + seq2 //
 		;
 	}
 
@@ -501,13 +501,13 @@ public class Epistasis implements CommandLine {
 
 		// Pre-calculate Q's exponentials
 		times.parallelStream() //
-				.peek(t -> System.out.println("Matrix\tdim:" + Q.getRowDimension() + "\tExp(" + t + ")")) //
+				.peek(t -> System.err.println("Matrix\tdim:" + Q.getRowDimension() + "\tExp(" + t + ")")) //
 				.forEach(t -> Q.matrix(t)) //
 		;
 
 		// Pre-calculate Q2's exponentials
 		times.parallelStream() //
-				.peek(t -> System.out.println("Matrix\tdim:" + Q2.getRowDimension() + "\tExp(" + t + ")")) //
+				.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "\tExp(" + t + ")")) //
 				.forEach(t -> Q2.matrix(t)) //
 		;
 	}
