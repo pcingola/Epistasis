@@ -479,6 +479,7 @@ public class Epistasis implements CommandLine {
 			aaFreqsFile = args[argNum++];
 			q2MatrixFile = args[argNum++];
 			aaFreqsContactFile = args[argNum++];
+			filterMsaByIdMap = true;
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			runLikelihoodAll();
 			break;
@@ -828,11 +829,10 @@ public class Epistasis implements CommandLine {
 		msas.getMsas().parallelStream() //
 				.flatMap(m1 -> msas.stream().map(m2 -> new Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>(m1, m2))) // Create pairs
 				.map(t -> (Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>) t) // Cast
-				.filter(t -> t.first.compareTo(t.second) < 0) // Avoid calculating twice
+				.filter(t -> t.first.compareTo(t.second) < 0 && t.first.getTranscriptId().compareTo(t.second.getTranscriptId()) != 0) // Avoid calculating twice (don't calculate over the same transcript)
 				.map(t -> likelihoodRatio(t.first, t.second)) // Calculate likelihood
 				.forEach(System.out::println) // Show results
 		;
-
 	}
 
 	/**
