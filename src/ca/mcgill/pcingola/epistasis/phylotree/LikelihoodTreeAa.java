@@ -74,10 +74,8 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		// Leaf node?
 		//---
 		if (isLeaf()) {
-			if (aaCode < 0) return GAP_PROB; // GAP probability
-
 			// Probability is 1 for that sequence, 0 for others
-			if (sequenceCode < 0) p[aaCode] = GAP_PROB; // GAP probability
+			if (sequenceCode < 0) p[aaCode] = GAP_PROB;// GAP probability
 			else if (sequenceCode == aaCode) p[aaCode] = 1.0;
 			else p[aaCode] = 0.0;
 			return p[aaCode];
