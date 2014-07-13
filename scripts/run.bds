@@ -23,7 +23,8 @@ aaContactBest	:= "$dir/aa.contact.best.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
-lik				:= "$dir/likelihood.txt"
+lik				:= "$dir/likelihood.contact.txt"
+likAll			:= "$dir/likelihood.all.txt"
 msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
 pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
 qhat			:= "$dir/Qhat.txt"
@@ -225,6 +226,10 @@ wait
 #---
 
 task( lik <- [tree, msa] ) sys $cmdEpistasis likelihood $tree $msa $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
+wait
+
+task( likAll <- [tree, msa] ) sys $cmdEpistasis likelihoodAll $tree $msa $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $likAll
+wait
 
 # Done
 wait
