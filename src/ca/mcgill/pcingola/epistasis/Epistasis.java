@@ -17,6 +17,7 @@ import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.mcb.pcingola.util.Tuple;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrix;
@@ -133,6 +134,25 @@ public class Epistasis implements CommandLine {
 
 		double lik = lik1 * lik2;
 		return lik;
+	}
+
+	/**
+	 * Calculate likelihood for all possible AA pairs within these two MSAs
+	 */
+	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2) {
+		String msa1Id = msa1.getId();
+		String msa2Id = msa2.getId();
+
+		StringBuilder sb = new StringBuilder();
+		for (int i1 = 0; i1 < msa1.length(); i1++) {
+			for (int i2 = 0; i2 < msa2.length(); i2++) {
+				String res = likelihoodRatio(msa1Id, i1, msa2Id, i2);
+				System.err.println(res);
+				sb.append(res + "\n");
+			}
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -451,6 +471,18 @@ public class Epistasis implements CommandLine {
 			runLikelihood();
 			break;
 
+		case "likelihoodall":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			runLikelihoodAll();
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -762,22 +794,45 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Likelihhod
+	 * Likelihhod for all possible pairs
 	 */
 	void runLikelihood() {
 		load();
 
 		// Pre-calculate matrix exponentials
+		Timer.showStdErr("Pre-calculating matrix exponentials");
 		precalcExps();
 
 		// Calculate likelihoods
+		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
 				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
 				.map(d -> likelihoodRatio(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2)) //
 				.forEach(System.out::println) //
 		;
+	}
 
+	/**
+	 * Likelihhod for AA in contact
+	 */
+	@SuppressWarnings("unchecked")
+	void runLikelihoodAll() {
+		load();
+
+		// Pre-calculate matrix exponentials
+		Timer.showStdErr("Pre-calculating matrix exponentials");
+		precalcExps();
+
+		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
+		msas.getMsas().parallelStream() //
+				.flatMap(m1 -> msas.stream().map(m2 -> new Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>(m1, m2))) // Create pairs
+				.map(t -> (Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>) t) // Cast
+				.filter(t -> t.first.compareTo(t.second) < 0) // Avoid calculating twice
+				.map(t -> likelihoodRatio(t.first, t.second)) // Calculate likelihood
+				.forEach(System.out::println) // Show results
+		;
+
 	}
 
 	/**
