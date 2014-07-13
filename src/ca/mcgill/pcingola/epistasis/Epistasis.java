@@ -165,7 +165,7 @@ public class Epistasis implements CommandLine {
 		// Calculate likelihoods for the null and alternative model
 		double likNull = likelihoodNull(tree, msa1, msaIdx1, msa2, msaIdx2);
 		double likAlt = likelihoodAlt(tree, msa1, msaIdx1, msa2, msaIdx2);
-		double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
+		double llr = -2.0 * Math.log(likNull) + 2.0 * Math.log(likAlt);
 
 		// Return results
 		String seq1 = msas.getMsa(msa1).getColumnString(msaIdx1);
