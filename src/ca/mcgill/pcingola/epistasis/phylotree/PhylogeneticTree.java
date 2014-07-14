@@ -213,8 +213,14 @@ public class PhylogeneticTree {
 	}
 
 	/**
+	 * Is this a GAP? (a leaf node assigned a GAP as sequence)
+	 */
+	public boolean isGap() {
+		return isLeaf() && sequenceCode < 0;
+	}
+
+	/**
 	 * Is this a leaf node?
-	 * @return
 	 */
 	public boolean isLeaf() {
 		return left == null && right == null;

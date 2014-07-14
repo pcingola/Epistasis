@@ -75,7 +75,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		//---
 		if (isLeaf()) {
 			// Probability is 1 for that sequence, 0 for others
-			if (sequenceCode < 0) p[aaCode] = GAP_PROB;// GAP probability
+			if (isGap()) p[aaCode] = GAP_PROB;// GAP probability
 			else if (sequenceCode == aaCode) p[aaCode] = 1.0;
 			else p[aaCode] = 0.0;
 			return p[aaCode];
@@ -88,7 +88,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		// Likelihood from the left sub-tree
 		RealMatrix P = tmatrix.matrix(distanceLeft);
 		double pleft = 0;
-		if (left != null) {
+		if (left != null && !left.isGap()) {
 			for (int aa2 = 0; aa2 < p.length; aa2++) {
 				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
 				double pij = P.getEntry(aaCode, aa2);
@@ -99,7 +99,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		// Likelihood from the right sub-tree
 		P = tmatrix.matrix(distanceRight);
 		double pright = 0;
-		if (right != null) {
+		if (right != null && !right.isGap()) {
 			for (int aa2 = 0; aa2 < p.length; aa2++) {
 				double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
 				double pij = P.getEntry(aaCode, aa2);
