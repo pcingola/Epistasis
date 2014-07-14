@@ -17,16 +17,20 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	public static final double MAX_GAP_PERCENT = 0.3;
 	public static final int ROTATE_BITS = 5;
 
+	MultipleSequenceAlignmentSet msas;
 	String transcriptId;
 	String chromo;
 	int start, end;
 	boolean strandNegative;
 	byte[][] align;
 	Boolean skip[];
+	String headers[];
 
-	public MultipleSequenceAlignment(String id, int numAlign, int length) {
+	public MultipleSequenceAlignment(MultipleSequenceAlignmentSet msas, String id, int numAlign, int length) {
 		transcriptId = id;
 		align = new byte[numAlign][length];
+		this.msas = msas;
+		headers = new String[numAlign];
 	}
 
 	public synchronized void calcSkip() {
@@ -297,7 +301,9 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * @param seqNum
 	 * @param seq
 	 */
-	public void set(int seqNum, String seq) {
+	public void set(int seqNum, String seq, String header) {
+		headers[seqNum] = header;
+
 		for (int i = 0; i < seq.length(); i++)
 			align[seqNum][i] = GprSeq.aa2Code(seq.charAt(i));
 	}
@@ -325,13 +331,10 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(getId() + "\n");
 
 		for (int i = 0; i < align.length; i++) {
-			sb.append("\t");
-			for (int j = 0; j < align[i].length; j++)
-				sb.append(GprSeq.code2aa(align[i][j]));
-			sb.append("\t" + i + "\n");
+			sb.append(headers[i] + "\n");
+			sb.append(getRowString(i) + "\n");
 		}
 
 		return sb.toString();

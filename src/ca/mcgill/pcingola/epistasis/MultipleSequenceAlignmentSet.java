@@ -291,7 +291,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 					int end = Gpr.parseIntSafe(posEnd) - 1;
 
 					if (debug) System.out.println(transcriptId + " " + chr + ":" + start + "-" + end);
-					msa = new MultipleSequenceAlignment(transcriptId, numAligns, seqLen);
+					msa = new MultipleSequenceAlignment(this, transcriptId, numAligns, seqLen);
 					msa.set(chr, start, end, strand);
 				} else if (sequence.length() != seqLen) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting sequence of length " + seqLen);
 
@@ -312,7 +312,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 				sequence = sequence.replace('*', '-');
 
 				// Set sequence
-				msa.set(i, sequence);
+				msa.set(i, sequence, header);
 			}
 
 			if (msa != null) msas.add(msa);

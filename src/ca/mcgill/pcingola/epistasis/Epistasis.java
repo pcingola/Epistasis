@@ -484,6 +484,15 @@ public class Epistasis implements CommandLine {
 			runLikelihoodAll();
 			break;
 
+		case "filtermsa":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			filterMsaByIdMap = true;
+			runFilterMsa();
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -792,6 +801,13 @@ public class Epistasis implements CommandLine {
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
 			);
 		}
+	}
+
+	void runFilterMsa() {
+		// Load
+		load();
+
+		msas.stream().forEach(m -> System.out.println(m + "\n"));
 	}
 
 	/**
