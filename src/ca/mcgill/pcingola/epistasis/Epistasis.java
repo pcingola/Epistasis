@@ -151,13 +151,13 @@ public class Epistasis implements CommandLine {
 		// Return results
 		String seq1 = msa1.getColumnString(msaIdx1);
 		String seq2 = msa2.getColumnString(msaIdx2);
-		return msa1 + "[" + msaIdx1 + "]\t" + msa2 + "[" + msaIdx2 + "]"//
+		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
 				+ "\t" + llr //
 				+ "\t" + likNull //
 				+ "\t" + likAlt //
 				+ "\t" + seq1 //
 				+ "\t" + seq2 //
-		;
+				;
 	}
 
 	/**
@@ -272,8 +272,8 @@ public class Epistasis implements CommandLine {
 			msasNew.setSpecies(msas.getSpecies());
 
 			msas.stream() //
-					.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
-					.forEach(m -> msasNew.add(m));
+			.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
+			.forEach(m -> msasNew.add(m));
 
 			// Replace with filtered version
 			Timer.showStdErr("Done. Filtered MSAS by IdMap. Number of entries before: " + msas.size() + ", after: " + msasNew.size());
@@ -546,14 +546,14 @@ public class Epistasis implements CommandLine {
 
 		// Pre-calculate Q's exponentials
 		times.parallelStream() //
-				.peek(t -> System.err.println("Matrix\tdim:" + Q.getRowDimension() + "\tExp(" + t + ")")) //
-				.forEach(t -> Q.matrix(t)) //
+		.peek(t -> System.err.println("Matrix\tdim:" + Q.getRowDimension() + "\tExp(" + t + ")")) //
+		.forEach(t -> Q.matrix(t)) //
 		;
 
 		// Pre-calculate Q2's exponentials
 		times.parallelStream() //
-				.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "\tExp(" + t + ")")) //
-				.forEach(t -> Q2.matrix(t)) //
+		.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "\tExp(" + t + ")")) //
+		.forEach(t -> Q2.matrix(t)) //
 		;
 	}
 
@@ -580,27 +580,27 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.stream() //
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+		.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
 		// Show MI and conservation
 		//---
 		aaContactsUniq.stream() //
-				.forEach( //
-						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
-								, d //
-								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-								, EntropySeq.entropy(d.aaSeq1) //
-								, EntropySeq.entropy(d.aaSeq2) //
-								, EntropySeq.conservation(d.aaSeq1) //
-								, EntropySeq.conservation(d.aaSeq2) //
-								) //
+		.forEach( //
+				d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+						, d //
+						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq2) //
+						, EntropySeq.conservation(d.aaSeq1) //
+						, EntropySeq.conservation(d.aaSeq2) //
+						) //
 				);
 
 		//---
@@ -615,8 +615,8 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAa = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
-				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
+		.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+		.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
 		;
 		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_" + type + "\t", countFirstAa.toStringSort()));
 
@@ -625,11 +625,11 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnnAll = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-				.forEach( //
-						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
+		.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+		.forEach( //
+				d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
 				) //
-		;
+				;
 		System.err.println("Count fist AA with annotations (all):\n" + Gpr.prependEachLine("COUNT_AA_NEXTPROT_" + type + "\t", countFirstAaAnnAll.toStringSort()));
 
 		//---
@@ -637,14 +637,14 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
-				.forEach( //
-						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
-								ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
-								) //
+		.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+		.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+		.forEach( //
+				d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
+						ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
+						) //
 				) //
-		;
+				;
 		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_NEXTPROT_" + type + "\t", countFirstAaAnn.toStringSort()));
 
 	}
@@ -681,9 +681,9 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.stream() //
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
-				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
+		.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
@@ -702,8 +702,8 @@ public class Epistasis implements CommandLine {
 	void runAaFilterIdMap() {
 		load();
 		aaContacts.stream() //
-				.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
-				.forEach(System.out::println);
+		.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
+		.forEach(System.out::println);
 	}
 
 	void runAaFrequencies() {
@@ -712,14 +712,14 @@ public class Epistasis implements CommandLine {
 		// Calculate AA frequencies
 		long aaCount[] = new long[GprSeq.AMINO_ACIDS.length];
 		msas.stream() //
-				.forEach( // Count all AA in this MSA
-						msa -> {
-							for (int col = 0; col < msa.length(); col++)
-								for (int row = 0; row < msa.size(); row++) {
-									byte aa = msa.getCode(row, col);
-									if (aa >= 0) aaCount[aa]++;
-								}
-						});
+		.forEach( // Count all AA in this MSA
+				msa -> {
+					for (int col = 0; col < msa.length(); col++)
+						for (int row = 0; row < msa.size(); row++) {
+							byte aa = msa.getCode(row, col);
+							if (aa >= 0) aaCount[aa]++;
+						}
+				});
 
 		// Show results
 		double sum = 0;
@@ -801,11 +801,11 @@ public class Epistasis implements CommandLine {
 			// Count for all MSAs
 			//---
 			msas.getMsas().stream() //
-					.filter(msa -> msa.length() > num) //
-					.forEach(msa -> IntStream.range(0, msa.length() - num) //
-							.peek(i -> total.inc()) //
-							.filter(i -> msa.isFullyConserved(i, num)) //
-							.forEach(i -> conserved.inc()) //
+			.filter(msa -> msa.length() > num) //
+			.forEach(msa -> IntStream.range(0, msa.length() - num) //
+					.peek(i -> total.inc()) //
+					.filter(i -> msa.isFullyConserved(i, num)) //
+					.forEach(i -> conserved.inc()) //
 					);
 
 			//---
@@ -814,11 +814,11 @@ public class Epistasis implements CommandLine {
 			Counter totalIc = new Counter();
 			Counter conservedIc = new Counter();
 			aaContacts.stream() //
-					.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
-					.peek(d -> totalIc.inc()) //
-					.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
-					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
-					.forEach(d -> conservedIc.inc()) //
+			.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
+			.peek(d -> totalIc.inc()) //
+			.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
+			.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
+			.forEach(d -> conservedIc.inc()) //
 			;
 
 			//---
@@ -834,7 +834,7 @@ public class Epistasis implements CommandLine {
 					+ "\t" + totalIc //
 					+ "\t" + conservedIc //
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
-			);
+					);
 		}
 	}
 
@@ -858,9 +858,9 @@ public class Epistasis implements CommandLine {
 		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
-				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.map(d -> likelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2)) //
-				.forEach(System.out::println) //
+		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+		.map(d -> likelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2)) //
+		.forEach(System.out::println) //
 		;
 	}
 
@@ -878,11 +878,11 @@ public class Epistasis implements CommandLine {
 		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 		msas.getMsas().parallelStream() //
-				.flatMap(m1 -> msas.stream().map(m2 -> new Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>(m1, m2))) // Create pairs
-				.map(t -> (Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>) t) // Cast
-				.filter(t -> t.first.compareTo(t.second) < 0 && t.first.getTranscriptId().compareTo(t.second.getTranscriptId()) != 0) // Avoid calculating twice (don't calculate over the same transcript)
-				.map(t -> likelihoodRatio(t.first, t.second)) // Calculate likelihood
-				.forEach(System.out::println) // Show results
+		.flatMap(m1 -> msas.stream().map(m2 -> new Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>(m1, m2))) // Create pairs
+		.map(t -> (Tuple<MultipleSequenceAlignment, MultipleSequenceAlignment>) t) // Cast
+		.filter(t -> t.first.compareTo(t.second) < 0 && t.first.getTranscriptId().compareTo(t.second.getTranscriptId()) != 0) // Avoid calculating twice (don't calculate over the same transcript)
+		.map(t -> likelihoodRatio(t.first, t.second)) // Calculate likelihood
+		.forEach(System.out::println) // Show results
 		;
 	}
 
@@ -899,8 +899,8 @@ public class Epistasis implements CommandLine {
 		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 		IntStream.range(0, numSamples).parallel() //
-				.forEach(i -> likelihoodRatioRand()) // Calculate likelihood
-		;
+		.mapToObj(i -> likelihoodRatioRand()) // Calculate likelihood
+		.forEach(System.out::println);
 	}
 
 	/**
@@ -977,7 +977,7 @@ public class Epistasis implements CommandLine {
 				+ "\thas_negative_off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
 				+ "\tis_zero:\t" + Q.isZero() //
 				+ "\tis_symmetric:\t" + Q.isSymmetric() //
-		);
+				);
 	}
 
 	/**
@@ -1005,7 +1005,7 @@ public class Epistasis implements CommandLine {
 				+ "\thas_negative_off_diagonal_entries:\t" + Q2.hasNegativeOffDiagonalEntries() //
 				+ "\tis_zero:\t" + Q2.isZero() //
 				+ "\tis_symmetric:\t" + Q2.isSymmetric() //
-		);
+				);
 
 	}
 
@@ -1022,11 +1022,11 @@ public class Epistasis implements CommandLine {
 
 		TransitionsAa transAa = new TransitionsAa();
 		aaContacts.stream() //
-				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.forEach(d -> {
-					transAa.count(msas.getMsa(d.msa1).getColumn(d.msaIdx1));
-					transAa.count(msas.getMsa(d.msa2).getColumn(d.msaIdx2));
-				});
+		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+		.forEach(d -> {
+			transAa.count(msas.getMsa(d.msa1).getColumn(d.msaIdx1));
+			transAa.count(msas.getMsa(d.msa2).getColumn(d.msaIdx2));
+		});
 
 		System.out.println(Gpr.prependEachLine("AA_SINGLE_IN_CONTACT\t", transAa));
 
@@ -1038,7 +1038,7 @@ public class Epistasis implements CommandLine {
 		TransitionsAa sum = msas.stream() //
 				.map(msa -> transitions(msa)) // Calculate transitions
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		;
+				;
 		System.out.println(Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
 
 		//---
@@ -1046,8 +1046,8 @@ public class Epistasis implements CommandLine {
 		//---
 		TransitionsAaPairs transPairs = new TransitionsAaPairs();
 		aaContacts.stream()//
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-				.forEach(d -> transPairs.count(d)) //
+		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+		.forEach(d -> transPairs.count(d)) //
 		;
 		System.out.println(Gpr.prependEachLine("AA_PAIRS_IN_CONTACT\t", transPairs));
 
@@ -1107,7 +1107,7 @@ public class Epistasis implements CommandLine {
 				.parallelStream() //
 				.map(id -> transitionPairsBg(id, (int) count.inc(), maxCount)) //
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		;
+				;
 
 		return sum;
 	}
@@ -1175,8 +1175,8 @@ public class Epistasis implements CommandLine {
 		// Count transitions
 		Timer.showStdErr("Calculating transition pairs 'null' distribution: " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
-				.peek(i -> Gpr.showMark(i, 1000)) //
-				.forEach(i -> transitionPairsBg(trans, random));
+		.peek(i -> Gpr.showMark(i, 1000)) //
+		.forEach(i -> transitionPairsBg(trans, random));
 
 		return trans;
 	}
