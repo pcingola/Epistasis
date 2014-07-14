@@ -37,12 +37,12 @@ public class Epistasis implements CommandLine {
 	public static boolean debug = false;
 
 	boolean nextProt;
-
 	boolean filterMsaByIdMap = true;
 	double aaFreqs[], aaFreqsContact[];
 	String[] args;
 	String cmd;
 	String aaContactFile, aaFreqsFile, aaFreqsContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, q2MatrixFile, treeFile;
+	Random random = new Random(20140716);
 	LikelihoodTreeAa tree;
 	DistanceResults aaContacts;
 	TransitionMatrix Q, Q2;
@@ -109,10 +109,10 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate likelihood for the 'alternative' model
 	 */
-	double likelihoodAlt(LikelihoodTreeAa tree, String msa1, int idx1, String msa2, int idx2) {
+	double likelihoodAlt(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Set sequence and calculate likelihood
-		String seq1 = msas.getMsa(msa1).getColumnString(idx1);
-		String seq2 = msas.getMsa(msa2).getColumnString(idx2);
+		String seq1 = msa1.getColumnString(idx1);
+		String seq2 = msa2.getColumnString(idx2);
 		tree.setLeafSequenceAaPair(seq1, seq2);
 		double lik = tree.likelihood(Q2, aaFreqsContact);
 		return lik;
@@ -121,14 +121,14 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate likelihood for the 'null' model
 	 */
-	double likelihoodNull(LikelihoodTreeAa tree, String msa1, int idx1, String msa2, int idx2) {
+	double likelihoodNull(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Set sequence and calculate likelihood
-		String seq1 = msas.getMsa(msa1).getColumnString(idx1);
+		String seq1 = msa1.getColumnString(idx1);
 		tree.setLeafSequence(seq1);
 		double lik1 = tree.likelihood(Q, aaFreqs);
 
 		// Set sequence and calculate likelihood
-		String seq2 = msas.getMsa(msa2).getColumnString(idx2);
+		String seq2 = msa2.getColumnString(idx2);
 		tree.setLeafSequence(seq2);
 		double lik2 = tree.likelihood(Q, aaFreqs);
 
@@ -137,28 +137,9 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Calculate likelihood for all possible AA pairs within these two MSAs
-	 */
-	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2) {
-		String msa1Id = msa1.getId();
-		String msa2Id = msa2.getId();
-
-		StringBuilder sb = new StringBuilder();
-		for (int i1 = 0; i1 < msa1.length(); i1++) {
-			for (int i2 = 0; i2 < msa2.length(); i2++) {
-				String res = likelihoodRatio(msa1Id, i1, msa2Id, i2);
-				System.err.println(res);
-				sb.append(res + "\n");
-			}
-		}
-
-		return sb.toString();
-	}
-
-	/**
 	 * Calculate likelihood ratio
 	 */
-	String likelihoodRatio(String msa1, int msaIdx1, String msa2, int msaIdx2) {
+	String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2) {
 		// Since we execute in parallel, we need one tree per thread
 		LikelihoodTreeAa tree = getTree();
 
@@ -168,8 +149,8 @@ public class Epistasis implements CommandLine {
 		double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
 
 		// Return results
-		String seq1 = msas.getMsa(msa1).getColumnString(msaIdx1);
-		String seq2 = msas.getMsa(msa2).getColumnString(msaIdx2);
+		String seq1 = msa1.getColumnString(msaIdx1);
+		String seq2 = msa2.getColumnString(msaIdx2);
 		return msa1 + "[" + msaIdx1 + "]\t" + msa2 + "[" + msaIdx2 + "]"//
 				+ "\t" + llr //
 				+ "\t" + likNull //
@@ -177,6 +158,35 @@ public class Epistasis implements CommandLine {
 				+ "\t" + seq1 //
 				+ "\t" + seq2 //
 		;
+	}
+
+	/**
+	 * Calculate likelihood for all possible AA pairs within these two MSAs
+	 */
+	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2) {
+		StringBuilder sb = new StringBuilder();
+		for (int i1 = 0; i1 < msa1.length(); i1++) {
+			for (int i2 = 0; i2 < msa2.length(); i2++) {
+				String res = likelihoodRatio(msa1, i1, msa2, i2);
+				System.err.println(res);
+				sb.append(res + "\n");
+			}
+		}
+
+		return sb.toString();
+	}
+
+	String likelihoodRatioRand() {
+		// Pick different transcripts
+		MultipleSequenceAlignment msa1, msa2;
+		do {
+			msa1 = msas.rand(random);
+			msa2 = msas.rand(random);
+		} while (msa1.getTranscriptId().equals(msa2.getTranscriptId()));
+
+		int msaIdx1 = random.nextInt(msa1.length());
+		int msaIdx2 = random.nextInt(msa2.length());
+		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2);
 	}
 
 	/**
@@ -391,6 +401,55 @@ public class Epistasis implements CommandLine {
 			runConservation();
 			break;
 
+		case "filtermsa":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			filterMsaByIdMap = true;
+			runFilterMsa();
+			break;
+
+		case "likelihood":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			runLikelihood();
+			break;
+
+		case "likelihoodall":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			runLikelihoodAll();
+			break;
+
+		case "likelihoodnull":
+			numSamples = Gpr.parseIntSafe(args[argNum++]);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			runLikelihoodNull(numSamples);
+			break;
+
 		case "mappdbgenome":
 			configFile = args[argNum++];
 			genome = args[argNum++];
@@ -427,6 +486,17 @@ public class Epistasis implements CommandLine {
 			runPdbDist(distThreshold, aaMinSeparation);
 			break;
 
+		case "pdbdistfar":
+			// Parse command line
+			distThreshold = Gpr.parseDoubleSafe(args[argNum++]);
+			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[argNum - 1] + "'");
+			aaMinSeparation = Gpr.parseIntSafe(args[argNum++]);
+			pdbDir = args[argNum++];
+			idMapFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			runPdbDistFar(distThreshold, aaMinSeparation);
+			break;
+
 		case "qhat":
 			if (args.length < 4) usage("Missing arguments for command '" + cmd + "'");
 			treeFile = args[argNum++];
@@ -456,41 +526,6 @@ public class Epistasis implements CommandLine {
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runTransitions(numSamples);
-			break;
-
-		case "likelihood":
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
-			qMatrixFile = args[argNum++];
-			aaFreqsFile = args[argNum++];
-			q2MatrixFile = args[argNum++];
-			aaFreqsContactFile = args[argNum++];
-			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			runLikelihood();
-			break;
-
-		case "likelihoodall":
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			idMapFile = args[argNum++];
-			qMatrixFile = args[argNum++];
-			aaFreqsFile = args[argNum++];
-			q2MatrixFile = args[argNum++];
-			aaFreqsContactFile = args[argNum++];
-			filterMsaByIdMap = true;
-			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			runLikelihoodAll();
-			break;
-
-		case "filtermsa":
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			idMapFile = args[argNum++];
-			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			filterMsaByIdMap = true;
-			runFilterMsa();
 			break;
 
 		default:
@@ -811,7 +846,7 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Likelihhod for all possible pairs
+	 * Likelihhod for all AA 'in contact' pairs
 	 */
 	void runLikelihood() {
 		load();
@@ -824,13 +859,13 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
 				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.map(d -> likelihoodRatio(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2)) //
+				.map(d -> likelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2)) //
 				.forEach(System.out::println) //
 		;
 	}
 
 	/**
-	 * Likelihhod for AA in contact
+	 * Likelihood for AA in contact
 	 */
 	@SuppressWarnings("unchecked")
 	void runLikelihoodAll() {
@@ -848,6 +883,23 @@ public class Epistasis implements CommandLine {
 				.filter(t -> t.first.compareTo(t.second) < 0 && t.first.getTranscriptId().compareTo(t.second.getTranscriptId()) != 0) // Avoid calculating twice (don't calculate over the same transcript)
 				.map(t -> likelihoodRatio(t.first, t.second)) // Calculate likelihood
 				.forEach(System.out::println) // Show results
+		;
+	}
+
+	/**
+	 * Likelihood 'null distribution
+	 */
+	void runLikelihoodNull(int numSamples) {
+		load();
+
+		// Pre-calculate matrix exponentials
+		Timer.showStdErr("Pre-calculating matrix exponentials");
+		precalcExps();
+
+		// Calculate likelihoods
+		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
+		IntStream.range(0, numSamples).parallel() //
+				.forEach(i -> likelihoodRatioRand()) // Calculate likelihood
 		;
 	}
 
@@ -886,6 +938,18 @@ public class Epistasis implements CommandLine {
 		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
 		pdDist.run();
 		System.out.println(Gpr.prependEachLine("DISTANCE_AA_HISTO\t", pdDist));
+	}
+
+	/**
+	 * Run Pdb distance
+	 */
+	void runPdbDistFar(double distThreshold, int aaMinSeparation) {
+		load();
+
+		// Run analysis
+		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
+		pdDist.setFar(true);
+		pdDist.run();
 	}
 
 	/**

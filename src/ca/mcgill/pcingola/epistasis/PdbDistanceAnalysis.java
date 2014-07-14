@@ -30,6 +30,7 @@ public class PdbDistanceAnalysis {
 	public static final boolean verbose = true || debug;
 	public static final ArrayList<DistanceResult> EMPTY_DISTANCES = new ArrayList<>();
 
+	boolean far = false;
 	String pdbDir;
 	double distanceThreshold;
 	double sumDist[];
@@ -80,11 +81,11 @@ public class PdbDistanceAnalysis {
 				sumDist[aadist] += d;
 				count[aadist]++;
 
-				if (d <= distanceThreshold) {
+				if ((!far && d <= distanceThreshold) || (far && d > distanceThreshold)) {
 					countTh[aadist]++;
 					DistanceResult dres = new DistanceResult(aa1, aa2, d);
 					results.add(dres);
-					System.out.println("AA_IN_CONTACT\t" + dres);
+					System.out.println((far ? "AA_NOT_IN_CONTACT\t" : "AA_IN_CONTACT\t") + dres);
 				}
 			}
 		}
@@ -172,6 +173,10 @@ public class PdbDistanceAnalysis {
 		;
 
 		return res;
+	}
+
+	public void setFar(boolean far) {
+		this.far = far;
 	}
 
 	@Override

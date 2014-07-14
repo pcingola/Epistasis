@@ -25,6 +25,7 @@ idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
 lik				:= "$dir/likelihood.contact.txt"
 likAll			:= "$dir/likelihood.all.txt"
+likNull			:= "$dir/likelihood.null.txt"
 msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
 msaBest			:= "$dir/msas.best.fa"
 pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
@@ -232,7 +233,8 @@ wait
 task( lik <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) sys $cmdEpistasis likelihood $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
 wait
 
-task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) sys $cmdEpistasis likelihoodAll $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likAll
+# task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) sys $cmdEpistasis likelihoodAll $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likAll
+task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
 wait
 
 # Done
