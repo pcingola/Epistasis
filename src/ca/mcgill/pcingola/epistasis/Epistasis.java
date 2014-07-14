@@ -807,7 +807,7 @@ public class Epistasis implements CommandLine {
 		// Load
 		load();
 
-		msas.stream().forEach(m -> System.out.println(m + "\n"));
+		msas.stream().forEach(m -> System.out.println(m));
 	}
 
 	/**
