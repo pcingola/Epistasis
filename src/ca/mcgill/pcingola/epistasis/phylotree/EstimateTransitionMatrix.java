@@ -45,7 +45,7 @@ public class EstimateTransitionMatrix {
 		return "METHOD:" + EstimateTransitionMatrix.METHOD //
 				+ "_RMNEGS:" + EstimateTransitionMatrix.REMOVE_NEGATIVES //
 				+ "_PSCOUNT:" + EstimateTransitionMatrix.PSEUDO_COUNTS //
-		;
+				;
 	}
 
 	public EstimateTransitionMatrix(LikelihoodTreeAa tree, MultipleSequenceAlignmentSet msas) {
@@ -78,7 +78,6 @@ public class EstimateTransitionMatrix {
 		// Calculate for all AA
 		double piAll[];
 		piAll = new double[countAa.length];
-		if (verbose) System.out.println(label + "\tAAcode\tAA\tcount\tp");
 		for (int i = 0; i < countAa.length; i++) {
 			piAll[i] = countAa[i] / ((double) tot);
 			System.out.println(label + "\t" + i + "\t" + names[i] + "\t" + countAa[i] + "\t" + piAll[i]);
@@ -129,7 +128,7 @@ public class EstimateTransitionMatrix {
 				.filter(m -> !m.isZero()) // Remove zero matrices
 				.peek(t -> count.inc()) // Count
 				.reduce(zero, (a, b) -> a.add(b)) // Add results
-		;
+				;
 
 		// Calculate the average of all estimators
 		Q = new TransitionMatrixMarkov(QhatSum.scalarMultiply(1.0 / count.getCount()));
