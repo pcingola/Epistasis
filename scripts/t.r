@@ -369,7 +369,7 @@ if( F ) {
 #---
 if( T ) {
 	# Load Qhat
-	Qhat <- read.table('Q_HAT_METHOD_1.txt', header = TRUE, row.names = 1, sep="\t")
+	Qhat <- read.table('Qhat.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat <- as.matrix(Qhat)
 
 	# Load AA frequencies
@@ -407,20 +407,23 @@ if( T ) {
 	d <- max(dim(pam))
 	err <- pam * 0
 	for( i in 1:d ) {
+		s <- sum(pam[i,]) - pam[i, i]
+		cat('Rowsum:[', i ,']', s, '\n')
 		for( j in 1:d ) {
-			err[i,j] <- abs(pam[i,j] - Pt0[i,j]) / max(pam[i,j], Pt0[i,j])
+			err[i,j] <- abs(pam[i,j] - Pt0[i,j]) / s
 		}
 	}
 	err[ is.nan(err) ] <- 0
 
-	heatmap.2(err, main = "PAM1", sub="", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+	heatmap.2(Qhat, main = "Qhat", sub="Normalized by row", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "row", na.rm=T); 
+	heatmap.2(err, main = "PAM1 vs Qhat", sub="Error normalized by row", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
 }
 
 #---
 # Qhat2
 #---
-if( F ) {
-	Qhat2 <- read.table('Q_HAT2.txt', header = TRUE, row.names = 1, sep="\t")
+if( T ) {
+	Qhat2 <- read.table('Qhat2.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat2<- as.matrix(Qhat2)
 	q2 <- Qhat2
 	diag(q2) <- 0
