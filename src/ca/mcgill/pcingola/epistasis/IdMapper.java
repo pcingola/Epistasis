@@ -24,6 +24,11 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  */
 public class IdMapper {
 
+	int count;
+
+	AutoHashMap<String, ArrayList<IdMapperEntry>> byGeneId, byTrId, byGeneName, byRefSeqId, byPdbId;
+	HashSet<IdMapperEntry> entries;
+
 	public static String ids(List<IdMapperEntry> ids, Function<IdMapperEntry, String> ime2id) {
 		if (ids == null) return null;
 
@@ -45,10 +50,6 @@ public class IdMapper {
 
 		return sb.toString();
 	}
-
-	int count;
-	AutoHashMap<String, ArrayList<IdMapperEntry>> byGeneId, byTrId, byGeneName, byRefSeqId, byPdbId;
-	HashSet<IdMapperEntry> entries;
 
 	public IdMapper() {
 		this(null);

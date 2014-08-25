@@ -213,7 +213,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		return msas;
 	}
 
-	public List<MultipleSequenceAlignment> getMsas(String trId) {
+	public List<MultipleSequenceAlignment> getMsasByTrId(String trId) {
 		return msasByTrId.get(trId);
 	}
 

@@ -59,7 +59,7 @@ public class MsaSimilarity {
 
 			// Select another MSA and position randomly
 			String trId = msai.getTranscriptId();
-			List<MultipleSequenceAlignment> msasTr = msas.getMsas(trId);
+			List<MultipleSequenceAlignment> msasTr = msas.getMsasByTrId(trId);
 			MultipleSequenceAlignment msaj = msasTr.get(random.nextInt(msasTr.size()));
 			int posj = msaj.randomColumnNumber(random);
 			if (msaj.isSkip(posj)) continue;

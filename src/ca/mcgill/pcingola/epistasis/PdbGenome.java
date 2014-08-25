@@ -233,7 +233,7 @@ public class PdbGenome extends SnpEff {
 	 */
 	public Triplet<String, String, Integer> findColumnSequence(String trid, int pos) {
 		// Find all MSA
-		List<MultipleSequenceAlignment> msaList = msas.getMsas(trid);
+		List<MultipleSequenceAlignment> msaList = msas.getMsasByTrId(trid);
 		if (msaList == null) return null;
 
 		Transcript tr = trancriptById.get(trid);
