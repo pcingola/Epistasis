@@ -236,10 +236,15 @@ task( lik <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2
 }
 wait
 
-# 
 println "\nEstimate log-Likelyhood null distribution: $likNull"
 task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 	sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
+}
+wait
+
+println "\nEstimate log-Likelyhood for all gene-gene combinations: $likAll"
+task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+	sys $cmdEpistasis likelihoodAll $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likAll
 }
 wait
 
