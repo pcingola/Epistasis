@@ -149,8 +149,7 @@ public class Epistasis implements CommandLine {
 				if (!done.contains(key)) {
 					done.add(key);
 					String lout = likelihoodRatio(msa1, msa2, true);
-					Timer.showStdErr("Finished calculating: " + key);
-					System.out.println(lout);
+					if (!lout.isEmpty()) System.out.println(lout);
 				}
 			}
 	}
@@ -219,6 +218,8 @@ public class Epistasis implements CommandLine {
 				sb.append(res + "\n");
 			}
 		}
+
+		Timer.showStdErr("Finished calculating: " + msa1.getId() + "\t" + msa2.getId());
 
 		return sb.toString();
 	}
