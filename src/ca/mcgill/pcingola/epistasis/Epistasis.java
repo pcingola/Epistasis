@@ -148,7 +148,8 @@ public class Epistasis implements CommandLine {
 				// Already calculated? Ignore
 				if (!done.contains(key)) {
 					done.add(key);
-					likelihoodRatio(msa1, msa2, true);
+					String lout = likelihoodRatio(msa1, msa2, true);
+					System.out.println(lout);
 				}
 			}
 	}
