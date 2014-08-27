@@ -70,12 +70,13 @@ public class Epistasis implements CommandLine {
 		List<IdMapperEntry> list = idMapper.getByGeneName(gene);
 		if (list == null || list.isEmpty()) return null;
 
-		return list.stream() //
-				.map(ime -> ime.trId) //
+		Set<MultipleSequenceAlignment> set = list.stream() //
+				.map(ime -> ime.refSeqId) //
 				.filter(tid -> msas.getMsasByTrId(tid) != null) //
 				.flatMap(tid -> msas.getMsasByTrId(tid).stream()) //
 				.collect(Collectors.toSet()) //
 		;
+		return set;
 	}
 
 	@Override
@@ -140,7 +141,6 @@ public class Epistasis implements CommandLine {
 	 */
 	void likelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2) {
 		// Compare all combinations
-		Gpr.debug("GENES:\t" + gene1 + "\t" + gene2 + "\t" + msasGene1.size() + "\t" + msasGene2.size());
 		for (MultipleSequenceAlignment msa1 : msasGene1)
 			for (MultipleSequenceAlignment msa2 : msasGene2) {
 				String key = msa1.getId() + "\t" + msa2.getId();
@@ -148,7 +148,7 @@ public class Epistasis implements CommandLine {
 				// Already calculated? Ignore
 				if (!done.contains(key)) {
 					done.add(key);
-					System.out.println("LIKELIHOOD_GENES\t" + gene1 + "\t" + gene2 + "\t" + msa1.getId() + "\t" + msa2.getId() + "\t" + likelihoodRatio(msa1, msa2));
+					likelihoodRatio(msa1, msa2, true);
 				}
 			}
 	}
@@ -176,7 +176,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate likelihood ratio for these entries
 	 */
-	String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2) {
+	String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
 		// Since we execute in parallel, we need one tree per thread
 		LikelihoodTreeAa tree = getTree();
 
@@ -192,19 +192,22 @@ public class Epistasis implements CommandLine {
 				+ "\t" + llr //
 				+ "\t" + likNull //
 				+ "\t" + likAlt //
-				+ "\t" + seq1 //
-				+ "\t" + seq2 //
+				+ (brief ? "" : "\t" + seq1 + "\t" + seq2)//
 		;
 	}
 
 	/**
 	 * Calculate likelihood for all possible AA pairs within these two MSAs
 	 */
-	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2) {
+	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
 		StringBuilder sb = new StringBuilder();
 		for (int i1 = 0; i1 < msa1.length(); i1++) {
+			if (msa1.isSkip(i1)) continue;
+
 			for (int i2 = 0; i2 < msa2.length(); i2++) {
-				String res = likelihoodRatio(msa1, i1, msa2, i2);
+				if (msa2.isSkip(i2)) continue;
+
+				String res = likelihoodRatio(msa1, i1, msa2, i2, brief);
 				System.err.println(res);
 				sb.append(res + "\n");
 			}
@@ -226,7 +229,7 @@ public class Epistasis implements CommandLine {
 
 		int msaIdx1 = random.nextInt(msa1.length());
 		int msaIdx2 = random.nextInt(msa2.length());
-		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2);
+		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
 	/**
@@ -902,7 +905,7 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
 				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.map(d -> likelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2)) //
+				.map(d -> likelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
 				.forEach(System.out::println) //
 		;
 	}
@@ -917,7 +920,7 @@ public class Epistasis implements CommandLine {
 
 		// Pre-calculate matrix exponentials
 		Timer.showStdErr("Pre-calculating matrix exponentials");
-		// precalcExps();
+		precalcExps();
 
 		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihood on all pairs");
@@ -927,10 +930,7 @@ public class Epistasis implements CommandLine {
 		HashMap<String, Set<MultipleSequenceAlignment>> msasByGeneName = new HashMap<>();
 		for (String gene : genes) {
 			Set<MultipleSequenceAlignment> msas = findMsasGene(gene);
-			if (msas != null && !msas.isEmpty()) {
-				msasByGeneName.put(gene, msas);
-				Gpr.debug("Adding MSAs for gene '" + gene + "', msas.size: " + msas.size());
-			}
+			if (msas != null && !msas.isEmpty()) msasByGeneName.put(gene, msas);
 		}
 
 		// Only genes with entries
@@ -942,8 +942,8 @@ public class Epistasis implements CommandLine {
 			Set<MultipleSequenceAlignment> msas1 = msasByGeneName.get(g1);
 
 			genes.parallelStream() //
-			.filter(g2 -> g1.compareTo(g2) <= 0) //
-			.forEach(g2 -> likelihoodGenes(g1, g2, msas1, msasByGeneName.get(g2)))//
+					.filter(g2 -> g1.compareTo(g2) <= 0) //
+					.forEach(g2 -> likelihoodGenes(g1, g2, msas1, msasByGeneName.get(g2)))//
 			;
 		}
 	}

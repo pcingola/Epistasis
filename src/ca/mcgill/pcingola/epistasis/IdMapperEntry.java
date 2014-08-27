@@ -80,7 +80,7 @@ public class IdMapperEntry implements Cloneable, Comparable<IdMapperEntry> {
 				+ "\t" + pdbChainId //
 				+ "\t" + pdbAaLen //
 				+ "\t" + trAaLen //
-				;
+		;
 	}
 
 }
