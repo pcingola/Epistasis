@@ -186,13 +186,18 @@ public class Epistasis implements CommandLine {
 		double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
 
 		// Return results
-		String seq1 = msa1.getColumnString(msaIdx1);
-		String seq2 = msa2.getColumnString(msaIdx2);
+		String seqsStr = "";
+		if (!brief) {
+			String seq1 = msa1.getColumnString(msaIdx1);
+			String seq2 = msa2.getColumnString(msaIdx2);
+			seqsStr = "\t" + seq1 + "\t" + seq2;
+		}
+
 		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
 				+ "\t" + llr //
 				+ "\t" + likNull //
 				+ "\t" + likAlt //
-				+ (brief ? "" : "\t" + seq1 + "\t" + seq2)//
+				+ seqsStr //
 		;
 	}
 
