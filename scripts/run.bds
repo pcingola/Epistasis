@@ -23,6 +23,7 @@ aaContactBest	:= "$dir/aa.contact.best.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
+interactions    := "$dir/biogrid.human.uniq.txt"
 lik				:= "$dir/likelihood.contact.txt"
 likAll			:= "$dir/likelihood.all.txt"
 likNull			:= "$dir/likelihood.null.txt"
@@ -244,7 +245,7 @@ wait
 
 println "\nEstimate log-Likelyhood for all gene-gene combinations: $likAll"
 task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihoodAll $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likAll
+	sys $cmdEpistasis likelihoodAll $interactions $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likAll
 }
 wait
 
