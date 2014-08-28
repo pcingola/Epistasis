@@ -38,6 +38,8 @@ public class Epistasis implements CommandLine {
 	public static int MIN_DISTANCE = 1000000;
 	public static boolean debug = false;
 
+	public static int MAX_RAND_ITER = 1000;
+
 	boolean nextProt;
 	boolean filterMsaByIdMap = true;
 	double aaFreqs[], aaFreqsContact[];
@@ -215,8 +217,10 @@ public class Epistasis implements CommandLine {
 				if (msa2.isSkip(i2)) continue;
 
 				String res = likelihoodRatio(msa1, i1, msa2, i2, brief);
-				System.err.println(res);
-				sb.append(res + "\n");
+				if (res != null) {
+					System.err.println(res);
+					sb.append(res + "\n");
+				}
 			}
 		}
 
@@ -236,8 +240,12 @@ public class Epistasis implements CommandLine {
 			msa2 = msas.rand(random);
 		} while (msa1.getTranscriptId().equals(msa2.getTranscriptId()));
 
-		int msaIdx1 = random.nextInt(msa1.length());
-		int msaIdx2 = random.nextInt(msa2.length());
+		int msaIdx1 = -1, msaIdx2 = -1;
+		for (int i = 0; (msaIdx1 < 0 || msaIdx2 < 0 || msa1.isSkip(msaIdx1) || msa2.isSkip(msaIdx2)) && i < MAX_RAND_ITER; i++) {
+			msaIdx1 = random.nextInt(msa1.length());
+			msaIdx2 = random.nextInt(msa2.length());
+		}
+
 		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
