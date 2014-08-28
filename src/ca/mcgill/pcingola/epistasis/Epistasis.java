@@ -225,9 +225,6 @@ public class Epistasis implements CommandLine {
 				}
 			}
 		}
-
-		Timer.showStdErr("Finished calculating: " + msa1.getId() + "\t" + msa2.getId());
-
 		return sb.toString();
 	}
 
