@@ -192,29 +192,7 @@ public class Epistasis implements CommandLine {
 		if (!brief) {
 			String seq1 = msa1.getColumnString(msaIdx1);
 			String seq2 = msa2.getColumnString(msaIdx2);
-			seqsStr = "\t" + seq1 + "\t" + seq2;
-		} else {
-			String seq1 = msa1.getColumnString(msaIdx1);
-			String seq2 = msa2.getColumnString(msaIdx2);
-
-			char s1[] = seq1.toCharArray();
-			char s2[] = seq2.toCharArray();
-			int len = s1.length;
-			char s[] = new char[len];
-
-			CountByType cbt = new CountByType();
-			for (int i = 0; i < len; i++)
-				cbt.inc("" + s1[i] + s2[i]);
-
-			Map<String, Integer> ranks = cbt.ranks(true);
-			for (int i = 0; i < len; i++) {
-				String key = "" + s1[i] + s2[i];
-				int rank = ranks.get(key);
-				if (rank < 10) s[i] = (char) ('0' + rank);
-				else s[i] = (char) ('A' + rank);
-			}
-
-			seqsStr = "\t" + seq1 + "\t" + seq2 + "\t" + (String.valueOf(s));
+			seqsStr = "\t" + seq1 + "\t" + seq2 + "\t" + rankedSequence(seq1, seq2);
 		}
 
 		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
@@ -632,6 +610,32 @@ public class Epistasis implements CommandLine {
 				.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "x" + Q2.getColumnDimension() + "\tExp(" + t + ")")) //
 				.forEach(t -> Q2.matrix(t)) //
 		;
+	}
+
+	/**
+	 * Return a sequence of 'ranked' charaters
+	 * I.e.: The most common pair is represented by '0', the next one '1', etc.
+	 *       (ranks over 10 use letters 'A', 'B', etc.)
+	 */
+	String rankedSequence(String seq1, String seq2) {
+		char s1[] = seq1.toCharArray();
+		char s2[] = seq2.toCharArray();
+		int len = s1.length;
+		char s[] = new char[len];
+
+		CountByType cbt = new CountByType();
+		for (int i = 0; i < len; i++)
+			cbt.inc("" + s1[i] + s2[i]);
+
+		Map<String, Integer> ranks = cbt.ranks(true);
+		for (int i = 0; i < len; i++) {
+			String key = "" + s1[i] + s2[i];
+			int rank = ranks.get(key);
+			if (rank < 10) s[i] = (char) ('0' + rank);
+			else s[i] = (char) ('A' + rank);
+		}
+
+		return String.valueOf(s);
 	}
 
 	/**
