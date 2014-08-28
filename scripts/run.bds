@@ -245,7 +245,7 @@ wait
 
 println "\nEstimate log-Likelyhood for all gene-gene combinations: $likAll"
 task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihoodAll $interactions $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likAll
+	sys $cmdEpistasis likelihoodAll $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
 }
 wait
 
