@@ -42,6 +42,7 @@ public class Epistasis implements CommandLine {
 
 	boolean nextProt;
 	boolean filterMsaByIdMap = true;
+	int cpus = -1; // Limit the number of parallel threads?
 	double aaFreqs[], aaFreqsContact[];
 	String[] args;
 	String cmd;
@@ -275,6 +276,11 @@ public class Epistasis implements CommandLine {
 			pdbGenome.initialize();
 		}
 
+		// Set number of cores to use
+		if (cpus > 0) {
+			Timer.showStdErr("Setting thread pool size to " + cpus);
+			System.setProperty("java.util.concurrent.ForkJoinPool.common.parallelism", "" + cpus);
+		}
 	}
 
 	/**
@@ -484,6 +490,7 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "likelihoodall":
+			cpus = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
