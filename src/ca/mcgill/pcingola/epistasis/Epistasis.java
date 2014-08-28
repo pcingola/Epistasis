@@ -154,7 +154,7 @@ public class Epistasis implements CommandLine {
 				if (!done.contains(key)) {
 					done.add(key);
 					String lout = likelihoodRatio(msa1, msa2, true);
-					if (!lout.isEmpty()) System.out.println(lout);
+					if (!lout.isEmpty()) System.out.println(Gpr.prependEachLine("LIKELIHOOD_GENES\t" + gene1 + "\t" + gene2 + "\t", lout));
 				}
 			}
 	}
