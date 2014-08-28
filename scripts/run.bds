@@ -8,6 +8,7 @@
 
 debug			:= false
 timeout			:= 7 * day
+cpus			:= 8
 
 snpEffDir		:= "$HOME/snpEff"
 dir				:= "$snpEffDir/epistasis"
@@ -247,7 +248,7 @@ wait
 
 println "\nEstimate log-Likelyhood for all gene-gene combinations: $likAll"
 task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihoodAll $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+	sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
 }
 wait
 
