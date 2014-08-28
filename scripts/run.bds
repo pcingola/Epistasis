@@ -7,6 +7,8 @@
 #-------------------------------------------------------------------------------
 
 debug			:= false
+timeout			:= 7 * day
+
 snpEffDir		:= "$HOME/snpEff"
 dir				:= "$snpEffDir/epistasis"
 
