@@ -143,6 +143,8 @@ public class Epistasis implements CommandLine {
 	 * calculate likelihood for all MSAs matching gene names
 	 */
 	void likelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2) {
+		if (msasGene1 == null || msasGene2 == null) return;
+
 		// Compare all combinations
 		for (MultipleSequenceAlignment msa1 : msasGene1)
 			for (MultipleSequenceAlignment msa2 : msasGene2) {
@@ -194,7 +196,7 @@ public class Epistasis implements CommandLine {
 		if (!brief) {
 			String seq1 = msa1.getColumnString(msaIdx1);
 			String seq2 = msa2.getColumnString(msaIdx2);
-			seqsStr = "\t" + seq1 + "\t" + seq2 + "\t" + rankedSequence(seq1, seq2);
+			seqsStr = "\t" + seq1 + "\t" + seq2;
 		}
 
 		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
@@ -492,11 +494,10 @@ public class Epistasis implements CommandLine {
 			aaFreqsFile = args[argNum++];
 			q2MatrixFile = args[argNum++];
 			aaFreqsContactFile = args[argNum++];
-			// String geneNamePairsFile = args[argNum++];
+			String geneNamePairsFile = args[argNum++];
 			filterMsaByIdMap = true;
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			// runLikelihoodAll(geneNamePairsFile);
-			runLikelihoodAll();
+			runLikelihoodAll(geneNamePairsFile);
 			break;
 
 		case "likelihoodnull":
@@ -955,11 +956,28 @@ public class Epistasis implements CommandLine {
 
 	/**
 	 * Likelihood for all AA in geneName Pairs pairs in 'geneNamePairsFile'
-	 * File format: "trId1 \t trId2 \n" (spaces added for legibility)
+	 * File format: "gene1 \t gene2 \n" (spaces added for legibility)
 	 */
-	//void runLikelihoodAll(String geneNamePairsFile) {
-	void runLikelihoodAll() {
+	void runLikelihoodAll(String genesFile) {
 		load();
+
+		// Load gene names
+		Set<String> geneLines = new HashSet<String>();
+		for (String line : Gpr.readFile(genesFile).split("\n")) {
+			String f[] = line.split("\t");
+			String gene1 = f[0].trim();
+			String gene2 = f[1].trim();
+
+			// Swap?
+			if (gene1.compareTo(gene2) > 0) {
+				String t = gene1;
+				gene1 = gene2;
+				gene2 = t;
+			}
+
+			geneLines.add(gene1 + "\t" + gene2);
+		}
+		Timer.showStdErr("Total number of unique pairs: " + geneLines.size());
 
 		// Pre-calculate matrix exponentials
 		Timer.showStdErr("Pre-calculating matrix exponentials");
@@ -976,19 +994,15 @@ public class Epistasis implements CommandLine {
 			if (msas != null && !msas.isEmpty()) msasByGeneName.put(gene, msas);
 		}
 
-		// Only genes with entries
-		genes = new HashSet<String>();
-		genes.addAll(msasByGeneName.keySet());
+		// Calculate likelihoods
+		geneLines.parallelStream() //
+				.forEach(str -> {
+					String f[] = str.split("\t");
+					String g1 = f[0], g2 = f[1];
+					likelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2)); //
+					} //
+				);
 
-		// Try all pairs
-		for (String g1 : genes) {
-			Set<MultipleSequenceAlignment> msas1 = msasByGeneName.get(g1);
-
-			genes.parallelStream() //
-					.filter(g2 -> g1.compareTo(g2) <= 0) //
-					.forEach(g2 -> likelihoodGenes(g1, g2, msas1, msasByGeneName.get(g2)))//
-			;
-		}
 	}
 
 	/**
