@@ -7,7 +7,8 @@
 #-------------------------------------------------------------------------------
 
 debug			:= false
-timeout			:= 7 * day
+timeout			:= 3 * day
+system			:= "cluster"
 cpus			:= 8
 
 snpEffDir		:= "$HOME/snpEff"
@@ -41,7 +42,8 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
 javaNativeLibs  := "$dir/lib"
-cmdEpistasis	:= "java -Xmx20G -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+java			:= "java -XX:ParallelGCThreads=2 "
+cmdEpistasis	:= "$java -Xmx10G -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
 cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
 # Change parameters if we are debugging (smaller datasets)
@@ -234,21 +236,37 @@ wait
 # Part 5: Likelihood
 #---
 
-println "\nEstimate log-Likelyhood: '$lik'"
+println "\nEstimate log-Likelihood: '$lik'"
 task( lik <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 	sys $cmdEpistasis likelihood $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
 }
 wait
 
-println "\nEstimate log-Likelyhood null distribution: $likNull"
+println "\nEstimate log-Likelihood null distribution: $likNull"
 task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 	sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
 }
 wait
 
-println "\nEstimate log-Likelyhood for all gene-gene combinations: $likAll"
-task( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
+if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
+	# Split file
+	sys rm -f $dir/genes.list.* 
+	sys split -l 300 $interactions $dir/genes.list.
+
+	# Get split file names
+	files := dir.dirPath(".*/genes.list.*")
+
+	# Launch a task for eah file
+	for( string genes : files ) {
+		bg := genes.baseName()
+		println "\tbg"
+		task $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $likAll.$bg
+	}
+
+	# Merge results
+	wait
+	sys cat $likAll.genes.list.* > $likAll
 }
 wait
 
