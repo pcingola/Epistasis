@@ -8,8 +8,8 @@
 
 debug			:= false
 timeout			:= 3 * day
-system			:= "cluster"
-cpus			:= ( system != 'local' ? 24 : 8 )
+system			:= 'cluster'
+cpus			:= ( system == 'local' ? 24 : 8 )
 
 snpEffDir		:= "$HOME/snpEff"
 dir				:= "$snpEffDir/epistasis"
