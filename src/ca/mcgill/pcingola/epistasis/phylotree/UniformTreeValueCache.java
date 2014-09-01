@@ -6,7 +6,7 @@ public class UniformTreeValueCache {
 
 	HashMap<String, Double> cache = new HashMap<String, Double>();
 
-	public void add(String key, double value) {
+	public synchronized void add(String key, double value) {
 		cache.put(key, value);
 	}
 
