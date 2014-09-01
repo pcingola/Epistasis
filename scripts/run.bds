@@ -253,7 +253,9 @@ println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
 if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
 	if( system == 'local' ) {
 		# Launch one process
-		task $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+		task( likAll <- interactions ) {
+			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+		}
 	} else {
 		# Split file
 		sys rm -f $dir/genes.list.* 
