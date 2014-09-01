@@ -1,21 +1,39 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class UniformTreeValueCache {
 
-	HashMap<String, Double> cache = new HashMap<String, Double>();
+	HashMap<String, double[]> cache = new HashMap<String, double[]>();
+	int size;
 
-	public synchronized void add(String key, double value) {
-		cache.put(key, value);
+	public UniformTreeValueCache(int size) {
+		this.size = size;
 	}
 
-	public String key(PhylogeneticTree tree, int aaCode) {
-		return tree.getId() + "\t" + aaCode + "\t" + tree.getUniformCode();
+	public synchronized void add(PhylogeneticTree tree, int aaCode, double value) {
+		String key = key(tree);
+		double vals[] = cache.get(key);
+
+		if (vals == null) {
+			vals = new double[size];
+			Arrays.fill(vals, Double.NaN);
+			cache.put(key, vals);
+		}
+
+		vals[aaCode] = value;
 	}
 
-	public Double value(String key) {
-		return cache.get(key);
+	String key(PhylogeneticTree tree) {
+		return tree.getId() + "\t" + tree.getUniformCode();
+	}
+
+	public Double value(PhylogeneticTree tree, int aaCode) {
+		String key = key(tree);
+		double vals[] = cache.get(key);
+		if (vals == null) return null;
+		return vals[aaCode];
 	}
 
 }
