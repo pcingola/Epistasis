@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis.testCases;
 
 import junit.framework.TestCase;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.Epistasis;
 
 /**
@@ -17,6 +18,7 @@ public class TestCaseLikelihoodRatio extends TestCase {
 	public static final double MAX_LL_ERROR = 0.0001;
 
 	public void test_01() {
+
 		String treeFile = "test/hg19.100way.nh";
 		String multAlignFile = "test/msas.best.head.fa.gz";
 		String idMapFile = "test/idMap_ensemblId_refseq_pdbId.best.txt";
@@ -39,6 +41,7 @@ public class TestCaseLikelihoodRatio extends TestCase {
 		ep.load();
 		ep.precalcExps();
 
+		Timer timer = new Timer();
 		int lineNum = 1;
 		for (String line : Gpr.readFile(tests).split("\n")) {
 			// Parse line
@@ -66,5 +69,7 @@ public class TestCaseLikelihoodRatio extends TestCase {
 			lineNum++;
 		}
 
+		timer.end();
+		System.out.println("Elapsed: " + timer);
 	}
 }

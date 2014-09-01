@@ -136,8 +136,6 @@ public class Epistasis implements CommandLine {
 	 */
 	public double likelihoodAltModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Set sequence and calculate likelihood
-		//		String seq1 = msa1.getColumnString(idx1);
-		//		String seq2 = msa2.getColumnString(idx2);
 		byte seq1[] = msa1.getColumn(idx1);
 		byte seq2[] = msa2.getColumn(idx2);
 		tree.setLeafSequenceAaPair(seq1, seq2);

@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.commons.math3.linear.RealMatrix;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -85,6 +86,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		}
 
 		// TODO: Do we get any 'aaCode' == GAP at this stage? (we should not)
+		if (aaCode < 0) Gpr.debug("GAP!");
 
 		//---
 		// Non-leaf node
