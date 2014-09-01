@@ -91,11 +91,11 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		//---
 		String unifKey = null;
 		Double punif = null;
-		//		if (uniformCode != NO_UNIFORM_CODE) {
-		//			unifKey = lcache.key(this, aaCode);
-		//			punif = lcache.value(unifKey);
-		//			if (punif != null) return punif;
-		//		}
+		if (uniformCode != NO_UNIFORM_CODE) {
+			unifKey = lcache.key(this, aaCode);
+			punif = lcache.value(unifKey);
+			if (punif != null) return punif;
+		}
 
 		// Likelihood from the left sub-tree
 		RealMatrix P = tmatrix.matrix(distanceLeft);
