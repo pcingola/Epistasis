@@ -5,7 +5,6 @@ import java.util.Set;
 
 import org.apache.commons.math3.linear.RealMatrix;
 
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -75,18 +74,17 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		// Leaf node?
 		//---
 		if (isLeaf()) {
-
-			// TODO: Calculate all p[] instead of only the one in 'aaCode'
+			if (isGap()) p[aaCode] = GAP_PROB;// GAP probability
 
 			// Probability is 1 for that sequence, 0 for others
-			if (isGap()) p[aaCode] = GAP_PROB;// GAP probability
-			else if (sequenceCode == aaCode) p[aaCode] = 1.0;
-			else p[aaCode] = 0.0;
+			Arrays.fill(p, 0.0);
+			p[sequenceCode] = 1.0;
+
 			return p[aaCode];
 		}
 
 		// TODO: Do we get any 'aaCode' == GAP at this stage? (we should not)
-		if (aaCode < 0) Gpr.debug("GAP!");
+		if (aaCode < 0) throw new RuntimeException("Gap here!?");
 
 		//---
 		// Non-leaf node
