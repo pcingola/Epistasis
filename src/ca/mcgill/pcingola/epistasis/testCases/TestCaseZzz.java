@@ -14,6 +14,7 @@ public class TestCaseZzz extends TestCase {
 	public static boolean debug = false;
 	public static boolean verbose = true;
 	public static final double EPSILON = 1E-6;
+	public static final double MAX_LL_ERROR = 0.0001;
 
 	public void test_01() {
 		String treeFile = "test/hg19.100way.nh";
@@ -61,7 +62,7 @@ public class TestCaseZzz extends TestCase {
 				System.out.println("\t\tResult: " + llres + "\t" + fieldsRes[2] + "\n");
 			}
 
-			assertEquals(ll, llres, 0.001);
+			assertEquals(ll, llres, MAX_LL_ERROR);
 			lineNum++;
 		}
 
