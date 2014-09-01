@@ -321,6 +321,21 @@ public class PhylogeneticTree {
 			leafNodes.get(i).setSequence(sequence.charAt(i));
 	}
 
+	public void setLeafSequenceAaPair(byte seq1[], byte seq2[]) {
+		if (seq1.length != seq2.length) throw new RuntimeException("Sequence lengths do not match: " + seq1.length + " != " + seq2.length);
+
+		// Get all leafs and set each one
+		if (leafNodes == null) leafNodes = child(true);
+
+		// Sanity check
+		if (leafNodes.size() != seq1.length) throw new RuntimeException("Incompatible lengths:\n\tTree leaf nodes: " + leafNodes.size() + "\n\t" + seq1.length);
+
+		// Set sequence
+		for (int i = 0; i < seq1.length; i++)
+			leafNodes.get(i).setSequence(seq1[i], seq2[i]);
+
+	}
+
 	public void setLeafSequenceAaPair(String seq1, String seq2) {
 		if (seq1.length() != seq2.length()) throw new RuntimeException("Sequence lengths do not match: " + seq1.length() + " != " + seq2.length());
 
@@ -336,6 +351,21 @@ public class PhylogeneticTree {
 
 	}
 
+	/**
+	 * Set a string as leaf node sequences
+	 */
+	public void setLeafSequenceCode(int sequenceCode[]) {
+		// Get all leafs and set each one
+		if (leafNodes == null) leafNodes = child(true);
+
+		// Sanity check
+		if (leafNodes.size() != sequenceCode.length) throw new RuntimeException("Incompatible lengths:\n\tTree leaf nodes: " + leafNodes.size() + "\n\t" + sequenceCode.length);
+
+		// Set sequence
+		for (int i = 0; i < sequenceCode.length; i++)
+			leafNodes.get(i).setSequenceCode(sequenceCode[i]);
+	}
+
 	public void setLeft(PhylogeneticTree left) {
 		this.left = left;
 	}
@@ -348,16 +378,20 @@ public class PhylogeneticTree {
 		this.right = right;
 	}
 
+	public void setSequence(byte aa1, byte aa2) {
+		sequenceCode = GprSeq.aaCodePairCode(aa1, aa2);
+	}
+
 	public void setSequence(char aa) {
 		sequenceCode = GprSeq.aa2Code(aa);
 	}
 
-	public void setSequenceCode(int seqCode) {
-		sequenceCode = seqCode;
-	}
-
 	public void setSequence(char aa1, char aa2) {
 		sequenceCode = GprSeq.aaPairCode(aa1, aa2);
+	}
+
+	public void setSequenceCode(int seqCode) {
+		sequenceCode = seqCode;
 	}
 
 	@Override

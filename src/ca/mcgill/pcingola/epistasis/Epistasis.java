@@ -136,8 +136,10 @@ public class Epistasis implements CommandLine {
 	 */
 	public double likelihoodAltModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Set sequence and calculate likelihood
-		String seq1 = msa1.getColumnString(idx1);
-		String seq2 = msa2.getColumnString(idx2);
+		//		String seq1 = msa1.getColumnString(idx1);
+		//		String seq2 = msa2.getColumnString(idx2);
+		byte seq1[] = msa1.getColumn(idx1);
+		byte seq2[] = msa2.getColumn(idx2);
 		tree.setLeafSequenceAaPair(seq1, seq2);
 		double lik = tree.likelihood(Q2, aaFreqsContact);
 		return lik;
@@ -168,15 +170,15 @@ public class Epistasis implements CommandLine {
 	 */
 	public double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Get sequences
-		String seq1 = msa1.getColumnString(idx1);
-		String seq2 = msa2.getColumnString(idx2);
+		byte seq1b[] = msa1.getColumn(idx1);
+		byte seq2b[] = msa2.getColumn(idx2);
 
 		// Set sequence and calculate likelihood
-		tree.setLeafSequence(sequenceGaps(seq1, seq2));
+		tree.setLeafSequenceCode(sequenceGaps(seq1b, seq2b));
 		double lik1 = tree.likelihood(Q, aaFreqs);
 
 		// Set sequence and calculate likelihood
-		tree.setLeafSequence(sequenceGaps(seq2, seq1));
+		tree.setLeafSequenceCode(sequenceGaps(seq2b, seq1b));
 		double lik2 = tree.likelihood(Q, aaFreqs);
 
 		double lik = lik1 * lik2;
@@ -1224,6 +1226,16 @@ public class Epistasis implements CommandLine {
 		default:
 			throw new RuntimeException("Unknown type '" + type + "'");
 		}
+	}
+
+	int[] sequenceGaps(byte seq1[], byte seq2[]) {
+		int c[] = new int[seq1.length];
+
+		for (int i = 0; i < seq1.length; i++)
+			if (seq1[i] < 0 || seq2[i] < 0) c[i] = -1;
+			else c[i] = seq1[i];
+
+		return c;
 	}
 
 	/**

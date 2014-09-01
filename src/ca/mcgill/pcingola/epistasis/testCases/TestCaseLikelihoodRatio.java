@@ -5,13 +5,13 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.epistasis.Epistasis;
 
 /**
- * Test case
+ * Test case likelihood ratio
  *
  * @author pcingola
  */
-public class TestCaseZzz extends TestCase {
+public class TestCaseLikelihoodRatio extends TestCase {
 
-	public static boolean debug = false;
+	public static boolean debug = true;
 	public static boolean verbose = true;
 	public static final double EPSILON = 1E-6;
 	public static final double MAX_LL_ERROR = 0.0001;
@@ -58,7 +58,7 @@ public class TestCaseZzz extends TestCase {
 			double llres = Gpr.parseDoubleSafe(fieldsRes[2]);
 
 			if (debug) {
-				System.out.println(res);
+				System.out.println("\t" + res);
 				System.out.println("\t\tResult: " + llres + "\t" + fieldsRes[2] + "\n");
 			}
 

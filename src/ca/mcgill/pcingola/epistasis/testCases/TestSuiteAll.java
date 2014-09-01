@@ -23,6 +23,7 @@ public class TestSuiteAll {
 		suite.addTestSuite(TestCasesPhylo.class);
 		suite.addTestSuite(TestCasesPhyloLikelihood.class);
 		suite.addTestSuite(TestTransitionMatrix.class);
+		suite.addTestSuite(TestCaseLikelihoodRatio.class);
 
 		return suite;
 	}
