@@ -63,6 +63,9 @@ public class Epistasis implements CommandLine {
 		epistasis.run();
 	}
 
+	public Epistasis() {
+	}
+
 	public Epistasis(String[] args) {
 		this.args = args;
 	}
@@ -131,7 +134,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate likelihood for the 'alternative model' (H1, i.e. using Qhat2)
 	 */
-	double likelihoodAltModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
+	public double likelihoodAltModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Set sequence and calculate likelihood
 		String seq1 = msa1.getColumnString(idx1);
 		String seq2 = msa2.getColumnString(idx2);
@@ -163,7 +166,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate likelihood for the 'null model' (H0, i.e. using Qhat)
 	 */
-	double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
+	public double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Get sequences
 		String seq1 = msa1.getColumnString(idx1);
 		String seq2 = msa2.getColumnString(idx2);
@@ -183,7 +186,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Calculate likelihood ratio for these entries
 	 */
-	String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
+	public String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
 		// Since we execute in parallel, we need one tree per thread
 		LikelihoodTreeAa tree = getTree();
 
@@ -229,6 +232,16 @@ public class Epistasis implements CommandLine {
 		return sb.toString();
 	}
 
+	public String likelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
+		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
+		if (msa1 == null) return null;
+
+		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
+		if (msa2 == null) return null;
+
+		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
+	}
+
 	/**
 	 * Pick two random columns from MSA and calculate likelihood ratio
 	 */
@@ -252,7 +265,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Load files
 	 */
-	void load() {
+	public void load() {
 		if (aaFreqsFile != null) aaFreqs = loadAaFreqs(aaFreqsFile);
 		if (aaFreqsContactFile != null) aaFreqsContact = loadAaFreqs(aaFreqsContactFile);
 		if (idMapFile != null) loadIdMap(idMapFile);
@@ -606,7 +619,7 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Pre-calculate matrix exponential
 	 */
-	void precalcExps() {
+	public void precalcExps() {
 
 		// Find all times in the tree
 		HashSet<Double> times = new HashSet<>();
@@ -1006,7 +1019,6 @@ public class Epistasis implements CommandLine {
 					likelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2)); //
 					} //
 				);
-
 	}
 
 	/**
@@ -1227,6 +1239,54 @@ public class Epistasis implements CommandLine {
 			else c[i] = c1[i];
 
 		return new String(c);
+	}
+
+	public void setAaContactFile(String aaContactFile) {
+		this.aaContactFile = aaContactFile;
+	}
+
+	public void setAaContacts(DistanceResults aaContacts) {
+		this.aaContacts = aaContacts;
+	}
+
+	public void setAaFreqsContact(double[] aaFreqsContact) {
+		this.aaFreqsContact = aaFreqsContact;
+	}
+
+	public void setAaFreqsContactFile(String aaFreqsContactFile) {
+		this.aaFreqsContactFile = aaFreqsContactFile;
+	}
+
+	public void setAaFreqsFile(String aaFreqsFile) {
+		this.aaFreqsFile = aaFreqsFile;
+	}
+
+	public void setFilterMsaByIdMap(boolean filterMsaByIdMap) {
+		this.filterMsaByIdMap = filterMsaByIdMap;
+	}
+
+	public void setIdMapFile(String idMapFile) {
+		this.idMapFile = idMapFile;
+	}
+
+	public void setMultAlignFile(String multAlignFile) {
+		this.multAlignFile = multAlignFile;
+	}
+
+	public void setPdbDir(String pdbDir) {
+		this.pdbDir = pdbDir;
+	}
+
+	public void setQ2MatrixFile(String q2MatrixFile) {
+		this.q2MatrixFile = q2MatrixFile;
+	}
+
+	public void setqMatrixFile(String qMatrixFile) {
+		this.qMatrixFile = qMatrixFile;
+	}
+
+	public void setTreeFile(String treeFile) {
+		this.treeFile = treeFile;
 	}
 
 	/**
