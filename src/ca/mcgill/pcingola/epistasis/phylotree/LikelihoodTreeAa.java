@@ -91,7 +91,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		//---
 		String unifKey = null;
 		Double punif = null;
-		if (uniformCode != NO_UNIFORM_CODE) {
+		if (uniformCode >= 0) {
 			unifKey = lcache.key(this, aaCode);
 			punif = lcache.value(unifKey);
 			if (punif != null) return punif;
