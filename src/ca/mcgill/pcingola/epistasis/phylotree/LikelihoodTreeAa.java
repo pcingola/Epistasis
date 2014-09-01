@@ -6,7 +6,6 @@ import java.util.Set;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import ca.mcgill.mcb.pcingola.stats.Counter;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -92,11 +91,11 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		//---
 		String unifKey = null;
 		Double punif = null;
-		if (uniformCode != NO_UNIFORM_CODE) {
-			unifKey = lcache.key(this, aaCode);
-			punif = lcache.value(unifKey);
-			if (punif != null) return punif;
-		}
+		//		if (uniformCode != NO_UNIFORM_CODE) {
+		//			unifKey = lcache.key(this, aaCode);
+		//			punif = lcache.value(unifKey);
+		//			if (punif != null) return punif;
+		//		}
 
 		// Likelihood from the left sub-tree
 		RealMatrix P = tmatrix.matrix(distanceLeft);
@@ -122,10 +121,6 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 
 		// Set code
 		p[aaCode] = pleft * pright;
-
-		if (uniformCode == -1) {
-			Gpr.debug("Uniform gap [" + aaCode + "]: " + p[aaCode]);
-		}
 
 		// Update cache
 		if (unifKey != null) lcache.add(unifKey, p[aaCode]);

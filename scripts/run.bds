@@ -42,7 +42,8 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
 javaNativeLibs  := "$dir/lib"
-java			:= "java -XX:ParallelGCThreads=2 "
+javaGC          := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
+java            := "java $javaGC "
 cmdEpistasis	:= "$java -Xmx10G -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
 cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
