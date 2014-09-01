@@ -27,6 +27,7 @@ import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrixPairs;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrixMarkov;
+import ca.mcgill.pcingola.epistasis.phylotree.UniformTreeValueCache;
 
 /**
  * Main command line
@@ -55,7 +56,10 @@ public class Epistasis implements CommandLine {
 	EstimateTransitionMatrix mltm;
 	IdMapper idMapper;
 	PdbGenome pdbGenome;
-	HashMap<Thread, LikelihoodTreeAa> treeByThread = new HashMap<Thread, LikelihoodTreeAa>();
+	HashMap<Thread, LikelihoodTreeAa> treeNullByThread = new HashMap<Thread, LikelihoodTreeAa>();
+	HashMap<Thread, LikelihoodTreeAa> treeAltByThread = new HashMap<Thread, LikelihoodTreeAa>();
+	UniformTreeValueCache lcacheNull = new UniformTreeValueCache();
+	UniformTreeValueCache lcacheAlt = new UniformTreeValueCache();
 	Set<String> done = new HashSet<>();
 
 	public static void main(String[] args) {
@@ -92,17 +96,36 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Get a tree for the current thread
+	 * Get a tree for the current thread (alt model)
 	 */
-	LikelihoodTreeAa getTree() {
-		LikelihoodTreeAa currentTree = treeByThread.get(Thread.currentThread());
+	LikelihoodTreeAa getTreeAlt() {
+		LikelihoodTreeAa currentTree = treeAltByThread.get(Thread.currentThread());
 
 		if (currentTree == null) {
 			// No tree? load one
 			Timer.showStdErr("Loading phylogenetic tree from " + treeFile);
 			currentTree = new LikelihoodTreeAa();
 			currentTree.load(treeFile);
-			treeByThread.put(Thread.currentThread(), currentTree);
+			currentTree.setLcache(lcacheAlt);
+			treeAltByThread.put(Thread.currentThread(), currentTree);
+		}
+
+		return currentTree;
+	}
+
+	/**
+	 * Get a tree for the current thread (null model)
+	 */
+	LikelihoodTreeAa getTreeNull() {
+		LikelihoodTreeAa currentTree = treeNullByThread.get(Thread.currentThread());
+
+		if (currentTree == null) {
+			// No tree? load one
+			Timer.showStdErr("Loading phylogenetic tree from " + treeFile);
+			currentTree = new LikelihoodTreeAa();
+			currentTree.load(treeFile);
+			currentTree.setLcache(lcacheNull);
+			treeNullByThread.put(Thread.currentThread(), currentTree);
 		}
 
 		return currentTree;
@@ -188,11 +211,12 @@ public class Epistasis implements CommandLine {
 	 */
 	public String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
 		// Since we execute in parallel, we need one tree per thread
-		LikelihoodTreeAa tree = getTree();
+		LikelihoodTreeAa treeNull = getTreeNull();
+		LikelihoodTreeAa treeAlt = getTreeAlt();
 
 		// Calculate likelihoods for the null and alternative model
-		double likNull = likelihoodNullModel(tree, msa1, msaIdx1, msa2, msaIdx2);
-		double likAlt = likelihoodAltModel(tree, msa1, msaIdx1, msa2, msaIdx2);
+		double likNull = likelihoodNullModel(treeNull, msa1, msaIdx1, msa2, msaIdx2);
+		double likAlt = likelihoodAltModel(treeAlt, msa1, msaIdx1, msa2, msaIdx2);
 		double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
 
 		// Return results

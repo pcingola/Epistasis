@@ -3,6 +3,7 @@ package ca.mcgill.pcingola.epistasis.phylotree;
 import java.util.ArrayList;
 import java.util.List;
 
+import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 
@@ -21,9 +22,10 @@ public class PhylogeneticTree {
 	int uniformCode = NO_UNIFORM_CODE; // Do all leaf nodes have the same code?
 	int level = -1;
 	String name; // Leaf nodes only have 'name'
-	String id; // All nodes have 'id'
+	int id; // All nodes have 'id'
 	PhylogeneticTree parent, left, right;
 	List<PhylogeneticTree> leafNodes;
+	UniformTreeValueCache lcache;
 	double distanceLeft, distanceRight;
 
 	/**
@@ -38,12 +40,12 @@ public class PhylogeneticTree {
 	/**
 	 * Create and parse descendant nodes
 	 */
-	public PhylogeneticTree(PhylogeneticTree parent, String phyloStr) {
+	public PhylogeneticTree(PhylogeneticTree parent, String phyloStr, Counter ids) {
 		this.parent = parent;
 		left = right = null;
 		distanceLeft = distanceRight = 0;
 		sequenceCode = -1;
-		parse(phyloStr);
+		parse(phyloStr, ids);
 	}
 
 	public PhylogeneticTree(String name) {
@@ -172,8 +174,12 @@ public class PhylogeneticTree {
 		return distanceRight;
 	}
 
-	public String getId() {
+	public int getId() {
 		return id;
+	}
+
+	public UniformTreeValueCache getLcache() {
+		return lcache;
 	}
 
 	public PhylogeneticTree getLeft() {
@@ -210,6 +216,10 @@ public class PhylogeneticTree {
 		return GprSeq.code2aaPair(sequenceCode);
 	}
 
+	public int getUniformCode() {
+		return uniformCode;
+	}
+
 	/**
 	 * Is this a GAP? (a leaf node assigned a GAP as sequence)
 	 */
@@ -230,11 +240,11 @@ public class PhylogeneticTree {
 	public void load(String phyloFile) {
 		String phylo = Gpr.readFile(phyloFile);
 		phylo = Gpr.noSpaces(phylo.replace('\n', ' ').replace('\r', ' ').replace('\t', ' ').replace(';', ' ')); // Remove unwanted characters
-		parse(phylo);
+		parse(phylo, new Counter());
 	}
 
-	protected PhylogeneticTree newNode(PhylogeneticTree parent, String phyloStr) {
-		return new PhylogeneticTree(parent, phyloStr);
+	protected PhylogeneticTree newNode(PhylogeneticTree parent, String phyloStr, Counter ids) {
+		return new PhylogeneticTree(parent, phyloStr, ids);
 	}
 
 	/**
@@ -254,7 +264,7 @@ public class PhylogeneticTree {
 	/**
 	 * Parse a phylogenetic string (from an 'NH' file)
 	 */
-	void parse(String phylo) {
+	void parse(String phylo, Counter ids) {
 		if (debug) System.out.println(phylo);
 
 		if (phylo.charAt(0) == '(' && phylo.charAt(phylo.length() - 1) == ')') phylo = phylo.substring(1, phylo.length() - 1); // Remove first and last parenthesis
@@ -289,10 +299,10 @@ public class PhylogeneticTree {
 		String rightDistStr = phylo.substring(rightIdx + 2, rightNum);
 		distanceRight = Gpr.parseDoubleSafe(rightDistStr);
 
-		left = newNode(this, leftStr);
-		right = newNode(this, rightStr);
+		this.id = (int) ids.inc();
+		left = newNode(this, leftStr, ids);
+		right = newNode(this, rightStr, ids);
 
-		if (id == null) id = toString();
 	}
 
 	protected void resetNode(int size) {
@@ -304,6 +314,12 @@ public class PhylogeneticTree {
 
 	public void setDistanceRight(double distanceRight) {
 		this.distanceRight = distanceRight;
+	}
+
+	public void setLcache(UniformTreeValueCache lcache) {
+		this.lcache = lcache;
+		if (left != null) left.setLcache(lcache);
+		if (right != null) right.setLcache(lcache);
 	}
 
 	/**

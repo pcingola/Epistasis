@@ -1,11 +1,11 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.commons.math3.linear.RealMatrix;
 
+import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
@@ -20,8 +20,6 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  */
 public class LikelihoodTreeAa extends PhylogeneticTree {
 
-	static HashMap<String, Double> uniformPById = new HashMap<String, Double>();
-
 	public static final double GAP_PROB = 1.0;
 	double p[];
 
@@ -32,8 +30,8 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		super();
 	}
 
-	public LikelihoodTreeAa(PhylogeneticTree parent, String phyloStr) {
-		super(parent, phyloStr);
+	public LikelihoodTreeAa(PhylogeneticTree parent, String phyloStr, Counter ids) {
+		super(parent, phyloStr, ids);
 	}
 
 	public LikelihoodTreeAa(String name) {
@@ -94,9 +92,9 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		String unifKey = null;
 		Double punif = null;
 		if (uniformCode != NO_UNIFORM_CODE) {
-			unifKey = id + "\tAacode:" + aaCode + "\tUnifCode:" + uniformCode;
-			punif = uniformPById.get(unifKey);
-			// if (punif != null) return punif;
+			unifKey = lcache.key(this, aaCode);
+			punif = lcache.value(unifKey);
+			if (punif != null) return punif;
 		}
 
 		// Likelihood from the left sub-tree
@@ -124,19 +122,19 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		// Set code
 		p[aaCode] = pleft * pright;
 
-		// Update cache
-		if (punif != null && punif != p[aaCode]) {
-			Gpr.debug("DIFF\tUnifKey: " + unifKey + "\n\t" + p[aaCode] + "\t" + punif);
-			throw new RuntimeException("WTF!?");
+		if (uniformCode == -1) {
+			Gpr.debug("Uniform gap [" + aaCode + "]: " + p[aaCode]);
 		}
-		if (unifKey != null) uniformPById.put(unifKey, p[aaCode]);
+
+		// Update cache
+		if (unifKey != null) lcache.add(unifKey, p[aaCode]);
 
 		return p[aaCode];
 	}
 
 	@Override
-	protected PhylogeneticTree newNode(PhylogeneticTree parent, String phyloStr) {
-		return new LikelihoodTreeAa(parent, phyloStr);
+	protected PhylogeneticTree newNode(PhylogeneticTree parent, String phyloStr, Counter ids) {
+		return new LikelihoodTreeAa(parent, phyloStr, ids);
 	}
 
 	/**
@@ -156,7 +154,9 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 
 	@Override
 	protected void resetNode(int size) {
-		if (p == null || p.length != size) p = new double[size];
+		if (p == null) p = new double[size];
+		if (p.length != size) throw new RuntimeException("Calculating for different size not allowed!");
+
 		Arrays.fill(p, Double.NaN);
 
 		if (left != null) left.resetNode(size);
