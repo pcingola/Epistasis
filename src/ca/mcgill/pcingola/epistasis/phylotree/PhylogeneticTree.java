@@ -81,19 +81,17 @@ public class PhylogeneticTree {
 
 	/**
 	 * Names for all child nodes
-	 * @return
 	 */
 	public List<PhylogeneticTree> child(boolean onlyLeaf) {
-		ArrayList<PhylogeneticTree> names = new ArrayList<PhylogeneticTree>();
-		if (left != null) names.addAll(left.child(onlyLeaf));
-		if (!onlyLeaf || isLeaf()) names.add(this);
-		if (right != null) names.addAll(right.child(onlyLeaf));
-		return names;
+		ArrayList<PhylogeneticTree> nodes = new ArrayList<PhylogeneticTree>();
+		if (left != null) nodes.addAll(left.child(onlyLeaf));
+		if (!onlyLeaf || isLeaf()) nodes.add(this);
+		if (right != null) nodes.addAll(right.child(onlyLeaf));
+		return nodes;
 	}
 
 	/**
 	 * Names for all child nodes
-	 * @return
 	 */
 	public List<String> childNames() {
 		ArrayList<String> names = new ArrayList<String>();
@@ -105,8 +103,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Find distance to node recursing down
-	 * @param name
-	 * @return
 	 */
 	public double distance(String name) {
 		if (name.equals(this.name)) return 0;
@@ -312,7 +308,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Set a string as leaf node sequences
-	 * @param sequence
 	 */
 	public void setLeafSequence(String sequence) {
 		// Get all leafs and set each one
@@ -355,6 +350,10 @@ public class PhylogeneticTree {
 
 	public void setSequence(char aa) {
 		sequenceCode = GprSeq.aa2Code(aa);
+	}
+
+	public void setSequenceCode(int seqCode) {
+		sequenceCode = seqCode;
 	}
 
 	public void setSequence(char aa1, char aa2) {
