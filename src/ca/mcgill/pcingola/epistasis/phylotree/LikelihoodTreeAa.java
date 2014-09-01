@@ -71,6 +71,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 	 */
 	protected double likelihood(TransitionMatrix tmatrix, int aaCode) {
 		// Already calculated?
+		if (uniformCode == -1) return GAP_PROB;
 		if (!Double.isNaN(p[aaCode])) return p[aaCode];
 
 		//---
