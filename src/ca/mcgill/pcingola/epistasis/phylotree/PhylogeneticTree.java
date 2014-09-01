@@ -15,9 +15,13 @@ public class PhylogeneticTree {
 
 	public static boolean debug = false;
 
+	public static final int NO_UNIFORM_CODE = -2;
+
 	int sequenceCode = -1;
+	int uniformCode = NO_UNIFORM_CODE; // Do all leaf nodes have the same code?
 	int level = -1;
 	String name; // Leaf nodes only have 'name'
+	String id; // All nodes have 'id'
 	PhylogeneticTree parent, left, right;
 	List<PhylogeneticTree> leafNodes;
 	double distanceLeft, distanceRight;
@@ -60,8 +64,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Get a balanced parenthesis string
-	 * @param phylo
-	 * @return
 	 */
 	int balancedIdx(String phylo, int start) {
 		if (phylo.charAt(start) != '(') return phylo.indexOf(':', start) - 1; // Must be a leaf node, return index right before ':'
@@ -119,8 +121,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Find distance to node
-	 * @param name
-	 * @return
 	 */
 	public double distance(String name1, String name2) {
 		if (name1.equals(name2)) return 0;
@@ -153,8 +153,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Find node by name
-	 * @param name
-	 * @return
 	 */
 	public PhylogeneticTree find(String name) {
 		if (name.equals(this.name)) return this;
@@ -172,6 +170,10 @@ public class PhylogeneticTree {
 
 	public double getDistanceRight() {
 		return distanceRight;
+	}
+
+	public String getId() {
+		return id;
 	}
 
 	public PhylogeneticTree getLeft() {
@@ -224,7 +226,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Load from file
-	 * @param phyloFile
 	 */
 	public void load(String phyloFile) {
 		String phylo = Gpr.readFile(phyloFile);
@@ -238,8 +239,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Get a balanced parenthesis string
-	 * @param phylo
-	 * @return
 	 */
 	int numIdx(String phylo, int start) {
 		if (phylo.charAt(start) != ':') return -1;
@@ -254,7 +253,6 @@ public class PhylogeneticTree {
 
 	/**
 	 * Parse a phylogenetic string (from an 'NH' file)
-	 * @param phylo
 	 */
 	void parse(String phylo) {
 		if (debug) System.out.println(phylo);
@@ -293,6 +291,8 @@ public class PhylogeneticTree {
 
 		left = newNode(this, leftStr);
 		right = newNode(this, rightStr);
+
+		if (id == null) id = toString();
 	}
 
 	protected void resetNode(int size) {
@@ -348,7 +348,6 @@ public class PhylogeneticTree {
 		// Set sequence
 		for (int i = 0; i < seq1.length(); i++)
 			leafNodes.get(i).setSequence(seq1.charAt(i), seq2.charAt(i));
-
 	}
 
 	/**
@@ -409,5 +408,26 @@ public class PhylogeneticTree {
 		}
 
 		return sb.toString();
+	}
+
+	/**
+	 * Do all leaf nodes have the same code?
+	 */
+	public int uniformCode() {
+		if (isLeaf()) {
+			uniformCode = sequenceCode;
+			return sequenceCode;
+		}
+
+		int codeLeft = left.uniformCode();
+		int codeRight = right.uniformCode();
+
+		if (codeLeft != codeRight //
+				|| codeLeft == NO_UNIFORM_CODE //
+				|| codeRight == NO_UNIFORM_CODE //
+		) uniformCode = NO_UNIFORM_CODE;
+		else uniformCode = codeLeft;
+
+		return uniformCode;
 	}
 }

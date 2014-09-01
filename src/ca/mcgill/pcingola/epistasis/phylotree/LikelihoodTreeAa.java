@@ -1,10 +1,12 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Set;
 
 import org.apache.commons.math3.linear.RealMatrix;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -17,6 +19,8 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  * @author pcingola
  */
 public class LikelihoodTreeAa extends PhylogeneticTree {
+
+	static HashMap<String, Double> uniformPById = new HashMap<String, Double>();
 
 	public static final double GAP_PROB = 1.0;
 	double p[];
@@ -54,6 +58,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 	public double likelihood(TransitionMatrix tmatrix, double pi[]) {
 		double likelihood = 0.0;
 		resetNode(pi.length);
+		uniformCode();
 
 		for (int aaCode = 0; aaCode < p.length; aaCode++) {
 			p[aaCode] = likelihood(tmatrix, aaCode);
@@ -83,12 +88,16 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 			return p[aaCode];
 		}
 
-		// TODO: Do we get any 'aaCode' == GAP at this stage? (we should not)
-		if (aaCode < 0) throw new RuntimeException("Gap here!?");
-
 		//---
 		// Non-leaf node
 		//---
+		String unifKey = null;
+		Double punif = null;
+		if (uniformCode != NO_UNIFORM_CODE) {
+			unifKey = id + "\tAacode:" + aaCode + "\tUnifCode:" + uniformCode;
+			punif = uniformPById.get(unifKey);
+			// if (punif != null) return punif;
+		}
 
 		// Likelihood from the left sub-tree
 		RealMatrix P = tmatrix.matrix(distanceLeft);
@@ -114,6 +123,13 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 
 		// Set code
 		p[aaCode] = pleft * pright;
+
+		// Update cache
+		if (punif != null && punif != p[aaCode]) {
+			Gpr.debug("DIFF\tUnifKey: " + unifKey + "\n\t" + p[aaCode] + "\t" + punif);
+			throw new RuntimeException("WTF!?");
+		}
+		if (unifKey != null) uniformPById.put(unifKey, p[aaCode]);
 
 		return p[aaCode];
 	}
