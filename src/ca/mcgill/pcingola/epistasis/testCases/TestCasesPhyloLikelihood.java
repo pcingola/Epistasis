@@ -9,6 +9,7 @@ import org.junit.Assert;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeDna;
 import ca.mcgill.pcingola.epistasis.phylotree.PhylogeneticTree;
 import ca.mcgill.pcingola.epistasis.phylotree.TransitionMatrix2Times;
+import ca.mcgill.pcingola.epistasis.phylotree.UniformTreeValueCache;
 
 /**
  * Phylogenetic trees
@@ -52,7 +53,7 @@ public class TestCasesPhyloLikelihood extends TestCase {
 		// Note: In the book the bases are sorted "T C A G" instead of "A C G T"
 		double v1 = 0.906563, v2 = 0.045855, v3 = 0.023791;
 		double matrix1[][] = { //
-				{ v1, v3, v2, v3 } // A
+		{ v1, v3, v2, v3 } // A
 				, { v3, v1, v3, v2 } // C
 				, { v2, v3, v1, v3 } // G
 				, { v3, v2, v3, v1 } // T
@@ -64,7 +65,7 @@ public class TestCasesPhyloLikelihood extends TestCase {
 		v2 = 0.084274;
 		v3 = 0.045317;
 		double matrix2[][] = { //
-				{ v1, v3, v2, v3 } // A
+		{ v1, v3, v2, v3 } // A
 				, { v3, v1, v3, v2 } // C
 				, { v2, v3, v1, v3 } // G
 				, { v3, v2, v3, v1 } // T
@@ -76,6 +77,7 @@ public class TestCasesPhyloLikelihood extends TestCase {
 
 		// Calculate likelihood
 		double pi[] = { 0.25, 0.25, 0.25, 0.25 };
+		lt0.setLcache(new UniformTreeValueCache(pi.length));
 		double likelihood = lt0.likelihood(m2, pi);
 
 		// Show probabilities
