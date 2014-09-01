@@ -58,8 +58,8 @@ public class Epistasis implements CommandLine {
 	PdbGenome pdbGenome;
 	HashMap<Thread, LikelihoodTreeAa> treeNullByThread = new HashMap<Thread, LikelihoodTreeAa>();
 	HashMap<Thread, LikelihoodTreeAa> treeAltByThread = new HashMap<Thread, LikelihoodTreeAa>();
-	UniformTreeValueCache lcacheNull = new UniformTreeValueCache();
-	UniformTreeValueCache lcacheAlt = new UniformTreeValueCache();
+	UniformTreeValueCache lcacheNull = new UniformTreeValueCache(GprSeq.AMINO_ACIDS.length);
+	UniformTreeValueCache lcacheAlt = new UniformTreeValueCache(GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length);
 	Set<String> done = new HashSet<>();
 
 	public static void main(String[] args) {

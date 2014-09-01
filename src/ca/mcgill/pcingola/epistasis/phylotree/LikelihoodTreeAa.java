@@ -89,11 +89,8 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		//---
 		// Non-leaf node
 		//---
-		String unifKey = null;
-		Double punif = null;
 		if (uniformCode >= 0) {
-			unifKey = lcache.key(this, aaCode);
-			punif = lcache.value(unifKey);
+			Double punif = lcache.get(this, aaCode);
 			if (punif != null) return punif;
 		}
 
@@ -123,7 +120,7 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		p[aaCode] = pleft * pright;
 
 		// Update cache
-		if (unifKey != null) lcache.add(unifKey, p[aaCode]);
+		if (uniformCode >= 0) lcache.set(this, aaCode, p[aaCode]);
 
 		return p[aaCode];
 	}

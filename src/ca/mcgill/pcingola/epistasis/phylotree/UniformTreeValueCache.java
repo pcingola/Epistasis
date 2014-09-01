@@ -12,7 +12,30 @@ public class UniformTreeValueCache {
 		this.size = size;
 	}
 
-	public synchronized void add(PhylogeneticTree tree, int aaCode, double value) {
+	/**
+	 * Get a cached value
+	 */
+	public Double get(PhylogeneticTree tree, int aaCode) {
+		String key = key(tree);
+
+		double vals[] = cache.get(key);
+		if (vals == null) return null;
+
+		double v = vals[aaCode];
+		return Double.isNaN(v) ? null : v;
+	}
+
+	/**
+	 * Create a hash 'key'
+	 */
+	String key(PhylogeneticTree tree) {
+		return tree.getId() + "\t" + tree.getUniformCode();
+	}
+
+	/**
+	 * Set a value in the cache
+	 */
+	public synchronized void set(PhylogeneticTree tree, int aaCode, double value) {
 		String key = key(tree);
 		double vals[] = cache.get(key);
 
@@ -23,17 +46,6 @@ public class UniformTreeValueCache {
 		}
 
 		vals[aaCode] = value;
-	}
-
-	String key(PhylogeneticTree tree) {
-		return tree.getId() + "\t" + tree.getUniformCode();
-	}
-
-	public Double value(PhylogeneticTree tree, int aaCode) {
-		String key = key(tree);
-		double vals[] = cache.get(key);
-		if (vals == null) return null;
-		return vals[aaCode];
 	}
 
 }
