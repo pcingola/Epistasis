@@ -7,9 +7,9 @@
 #-------------------------------------------------------------------------------
 
 debug			:= false
-timeout			:= 3 * day
-system			:= "cluster"
-cpus			:= 8
+timeout			:= 0 * day
+#system			:= "cluster"
+cpus			:= 24
 
 snpEffDir		:= "$HOME/snpEff"
 dir				:= "$snpEffDir/epistasis"
@@ -42,8 +42,8 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
 javaNativeLibs  := "$dir/lib"
-javaGC          := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
-java            := "java $javaGC "
+javaGC			:= ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
+java			:= "java $javaGC "
 cmdEpistasis	:= "$java -Xmx10G -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
 cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
@@ -251,17 +251,24 @@ wait
 
 println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
 if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
-	# Split file
-	sys rm -f $dir/genes.list.* 
-	sys split -l 300 $interactions $dir/genes.list.
+	if( system == 'local' ) {
+		# Launch one process
+		task $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+	} else {
+		# Split file
+		sys rm -f $dir/genes.list.* 
+		sys split -l 300 $interactions $dir/genes.list.
 
-	# Get split file names
-	files := dir.dirPath(".*/genes.list.*")
+		# Get split file names
+		files := dir.dirPath(".*/genes.list.*")
 
-	# Launch a task for eah file
-	for( string genes : files ) {
-		bg := genes.baseName()
-		task $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $likAll.$bg
+		# Launch a task for eah file
+		for( string genes : files ) {
+			out := likAll.baseName() + '.' + genes.baseName()
+			task( out <- genes ) {
+				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $out
+			}
+		}
 	}
 
 	# Merge results
