@@ -261,7 +261,6 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 	# Launch a task for eah file
 	for( string genes : files ) {
 		bg := genes.baseName()
-		println "\tbg"
 		task $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $likAll.$bg
 	}
 
