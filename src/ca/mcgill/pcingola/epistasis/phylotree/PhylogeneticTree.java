@@ -441,7 +441,7 @@ public class PhylogeneticTree {
 		if (codeLeft != codeRight //
 				|| codeLeft == NO_UNIFORM_CODE //
 				|| codeRight == NO_UNIFORM_CODE //
-		) uniformCode = NO_UNIFORM_CODE;
+				) uniformCode = NO_UNIFORM_CODE;
 		else uniformCode = codeLeft;
 
 		return uniformCode;

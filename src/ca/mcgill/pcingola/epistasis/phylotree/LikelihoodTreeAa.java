@@ -6,6 +6,7 @@ import java.util.Set;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import ca.mcgill.mcb.pcingola.stats.Counter;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -98,11 +99,24 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		RealMatrix P = tmatrix.matrix(distanceLeft);
 		double pleft = 0;
 		if (left != null && !left.isGap()) {
+			double ps[] = new double[p.length];
 			for (int aa2 = 0; aa2 < p.length; aa2++) {
 				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
 				double pij = P.getEntry(aaCode, aa2);
+
+				ps[aa2] = lleft * pij;
 				pleft += lleft * pij;
 			}
+
+			if (getLevel() < 2) {
+				int N = 10;
+				Arrays.sort(ps);
+				StringBuilder sb = new StringBuilder();
+				for (int i = ps.length - 1, j = 1; i >= 0 && j <= N; i--, j++)
+					sb.append("\t\t" + j + "\t" + ps[i] + "\n");
+				Gpr.debug("Level: " + getLevel() + "\tTop " + N + "\tSize: " + ps.length + "\n" + sb);
+			}
+
 		} else pleft = 1.0; // No node
 
 		// Likelihood from the right sub-tree

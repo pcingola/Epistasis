@@ -655,8 +655,8 @@ public class Epistasis implements CommandLine {
 				.forEach(t -> Q.matrix(t)) //
 		;
 
-		// Pre-calculate Q2's exponentials
-		times.parallelStream() //
+		// Calculate all gene-gene
+		(cpus == 1 ? times.stream() : times.parallelStream()) //
 				.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "x" + Q2.getColumnDimension() + "\tExp(" + t + ")")) //
 				.forEach(t -> Q2.matrix(t)) //
 		;
