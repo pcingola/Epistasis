@@ -51,10 +51,6 @@ L3 <- c(0,0,1,0)	# A
 L4 <- c(0,1,0,0)	# C
 L5 <- c(0,1,0,0)	# C
 
-L0 <- c(0,0,0,0)
-L2 <- L3 <- L4 <- L5 <- L0
-
-
 #---
 # Calculate likelihoods
 #---
@@ -64,7 +60,23 @@ L7 <- (P1 %*% L1) * (P2 %*% L2)
 L6 <- (P7 %*% L7) * (P3 %*% L3)
 L0 <- (P6 %*% L6) * (P8 %*% L8)
 
-# Now in one equation
+#---
+# Calculate likelihood using one equation
+#---
+
+Z0 <- (P6 %*% ((P7 %*% ((P1 %*% L1) * (P2 %*% L2))) * (P3 %*% L3))) * (P8 %*% ((P4 %*% L4) * (P5 %*% L5)))
+
+
+#---
+# Expand equation Z0
+#---
+
+
+
+
+
+
+
 Qt1 <- matrixSqrt(Pt1)
 Qt2 <- matrixSqrt(Pt2)
 
@@ -76,4 +88,3 @@ if( (check1 + check2) > 0.001 )	stop("Matrix square root did not work!")
 Q6 <- Q7 <- Q8 <- Qt1
 Q1 <- Q2 <- Q3 <- Q4 <- Q5 <- Qt2
 
-Z0 <- (Q6 %*% Q7 %*% P1 %*% L1) # * (Q6 %*% Q7 %*% P2 %*% L2) * (Q6 %*% P3 %*% L3) * (Q8 %*% P4 %*% L4) * (Q8 %*% P5 %*% L5)
