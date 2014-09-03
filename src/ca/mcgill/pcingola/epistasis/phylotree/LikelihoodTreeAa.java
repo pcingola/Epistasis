@@ -6,7 +6,6 @@ import java.util.Set;
 import org.apache.commons.math3.linear.RealMatrix;
 
 import ca.mcgill.mcb.pcingola.stats.Counter;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 
 /**
@@ -97,38 +96,39 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 
 		// Likelihood from the left sub-tree
 		RealMatrix P = tmatrix.matrix(distanceLeft);
-		double pleft = 0;
-		if (left != null && !left.isGap()) {
-			double ps[] = new double[p.length];
-			for (int aa2 = 0; aa2 < p.length; aa2++) {
-				double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
-				double pij = P.getEntry(aaCode, aa2);
-
-				ps[aa2] = lleft * pij;
-				pleft += lleft * pij;
+		double pleft = 0.0;
+		if (left != null) {
+			if (left.isLeaf()) {
+				// Leaf node likelihoods are zero for all elements except 'sequenceCode' (which has a likelihood of 1.0)
+				if (left.isGap()) pleft = 1.0;
+				else pleft = P.getEntry(aaCode, left.sequenceCode);
+			} else {
+				// Sum likelihoods over all possible 'aa'
+				for (int aa2 = 0; aa2 < p.length; aa2++) {
+					double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
+					double pij = P.getEntry(aaCode, aa2);
+					pleft += lleft * pij;
+				}
 			}
-
-			if (getLevel() < 2) {
-				int N = 10;
-				Arrays.sort(ps);
-				StringBuilder sb = new StringBuilder();
-				for (int i = ps.length - 1, j = 1; i >= 0 && j <= N; i--, j++)
-					sb.append("\t\t" + j + "\t" + ps[i] + "\n");
-				Gpr.debug("Level: " + getLevel() + "\tTop " + N + "\tSize: " + ps.length + "\n" + sb);
-			}
-
-		} else pleft = 1.0; // No node
+		} else pleft = 1.0;
 
 		// Likelihood from the right sub-tree
 		P = tmatrix.matrix(distanceRight);
-		double pright = 0;
-		if (right != null && !right.isGap()) {
-			for (int aa2 = 0; aa2 < p.length; aa2++) {
-				double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
-				double pij = P.getEntry(aaCode, aa2);
-				pright += lright * pij;
+		double pright = 0.0;
+		if (right != null) {
+			if (right.isLeaf()) {
+				// Leaf node likelihoods are zero for all elements except 'sequenceCode' (which has a likelihood of 1.0)
+				if (right.isGap()) pright = 1.0;
+				else pright = P.getEntry(aaCode, right.sequenceCode);
+			} else {
+				// Sum likelihoods over all possible 'aa'
+				for (int aa2 = 0; aa2 < p.length; aa2++) {
+					double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
+					double pij = P.getEntry(aaCode, aa2);
+					pright += lright * pij;
+				}
 			}
-		} else pright = 1.0; // No node
+		} else pright = 1.0;
 
 		// Set code
 		p[aaCode] = pleft * pright;
