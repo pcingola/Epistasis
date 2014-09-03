@@ -64,18 +64,11 @@ L0 <- (P6 %*% L6) * (P8 %*% L8)
 # Calculate likelihood using one equation
 #---
 
-Z0 <- (P6 %*% ((P7 %*% ((P1 %*% L1) * (P2 %*% L2))) * (P3 %*% L3))) * (P8 %*% ((P4 %*% L4) * (P5 %*% L5)))
-
+LL0 <- (P6 %*% ((P7 %*% ((P1 %*% L1) * (P2 %*% L2))) * (P3 %*% L3))) * (P8 %*% ((P4 %*% L4) * (P5 %*% L5)))
 
 #---
 # Expand equation Z0
 #---
-
-
-
-
-
-
 
 Qt1 <- matrixSqrt(Pt1)
 Qt2 <- matrixSqrt(Pt2)
@@ -88,3 +81,13 @@ if( (check1 + check2) > 0.001 )	stop("Matrix square root did not work!")
 Q6 <- Q7 <- Q8 <- Qt1
 Q1 <- Q2 <- Q3 <- Q4 <- Q5 <- Qt2
 
+#Z0 <- (P6 %*% ((P7 %*% ((P1 %*% L1) * (P2 %*% L2))) * (P3 %*% L3))) * (P8 %*% ((P4 %*% L4) * (P5 %*% L5)))
+Z0 <- (P6 %*% ((P7 %*% ((P1 %*% L1) * (P2 %*% L2))) * (P3 %*% L3))) * ( (Q8 %*% Q8) %*% ((P4 %*% L4) * (P5 %*% L5)))
+
+
+if( norm(L0 - Z0) > 0.001 ) {
+	cat('ERROR!!!!\nDifference: \n')
+	print( L0 - Z0 )
+} else {
+	cat("OK:", norm(L0 - Z0), '\n')
+}
