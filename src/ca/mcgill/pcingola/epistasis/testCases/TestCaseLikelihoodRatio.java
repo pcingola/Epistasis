@@ -15,8 +15,7 @@ public class TestCaseLikelihoodRatio extends TestCase {
 	public static boolean debug = true;
 	public static boolean verbose = true;
 	public static final double EPSILON = 1E-6;
-	// public static final double MAX_LL_ERROR = 0.2;
-	public static final double MAX_LL_ERROR = 5.0;
+	public static final double MAX_LL_ERROR = 0.2;
 
 	public void test_01() {
 
