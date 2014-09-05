@@ -49,22 +49,6 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		return p[seqCode];
 	}
 
-	/**
-	 * Calculate likelihood
-	 */
-	public double likelihood(TransitionMatrix tmatrix, double pi[]) {
-		double likelihood = 0.0;
-		resetNode(pi.length);
-		uniformCode();
-
-		for (int aaCode = 0; aaCode < p.length; aaCode++) {
-			p[aaCode] = likelihood(tmatrix, aaCode);
-			likelihood += p[aaCode] * pi[aaCode];
-		}
-
-		return likelihood;
-	}
-
 	protected double[] likelihood(TransitionMatrix tmatrix) {
 		// Already calculated?
 		if (!Double.isNaN(p[0])) return p;
@@ -81,6 +65,22 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		}
 
 		return p;
+	}
+
+	/**
+	 * Calculate likelihood
+	 */
+	public double likelihood(TransitionMatrix tmatrix, double pi[]) {
+		double likelihood = 0.0;
+		resetNode(pi.length);
+		uniformCode();
+
+		for (int aaCode = 0; aaCode < p.length; aaCode++) {
+			p[aaCode] = likelihood(tmatrix, aaCode);
+			likelihood += p[aaCode] * pi[aaCode];
+		}
+
+		return likelihood;
 	}
 
 	/**
@@ -121,13 +121,14 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 				if (left.isGap()) pleft = 1.0;
 				else pleft = P.getEntry(aaCode, left.sequenceCode);
 			} else {
-				double llefts[] = ((LikelihoodTreeAa) left).likelihood(tmatrix);
+				// double llefts[] = ((LikelihoodTreeAa) left).likelihood(tmatrix);
 
 				// Sum likelihoods over all possible 'aa'
 				for (int aa2 = 0; aa2 < p.length; aa2++) {
-					// double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
+					double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
 					double pij = P.getEntry(aaCode, aa2);
-					pleft += llefts[aa2] * pij;
+					// pleft += llefts[aa2] * pij;
+					pleft += lleft * pij;
 				}
 			}
 		} else pleft = 1.0;
@@ -141,13 +142,14 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 				if (right.isGap()) pright = 1.0;
 				else pright = P.getEntry(aaCode, right.sequenceCode);
 			} else {
-				double lrights[] = ((LikelihoodTreeAa) left).likelihood(tmatrix);
+				// double lrights[] = ((LikelihoodTreeAa) left).likelihood(tmatrix);
 
 				// Sum likelihoods over all possible 'aa'
 				for (int aa2 = 0; aa2 < p.length; aa2++) {
-					// double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
+					double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
 					double pij = P.getEntry(aaCode, aa2);
-					pright += lrights[aa2] * pij;
+					// pright += lrights[aa2] * pij;
+					pright += lright * pij;
 				}
 			}
 		} else pright = 1.0;
