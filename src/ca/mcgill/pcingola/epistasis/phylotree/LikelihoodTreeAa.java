@@ -65,6 +65,24 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 		return likelihood;
 	}
 
+	protected double[] likelihood(TransitionMatrix tmatrix) {
+		// Already calculated?
+		if (!Double.isNaN(p[0])) return p;
+
+		if (uniformCode == -1) {
+			// Gap
+			for (int i = 0; i < p.length; i++)
+				p[i] = GAP_PROB;
+
+		} else {
+			// Calculate left side
+			for (int i = 0; i < p.length; i++)
+				p[i] = likelihood(tmatrix, i);
+		}
+
+		return p;
+	}
+
 	/**
 	 * Calculate likelihood for this seqCode
 	 */
@@ -103,11 +121,13 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 				if (left.isGap()) pleft = 1.0;
 				else pleft = P.getEntry(aaCode, left.sequenceCode);
 			} else {
+				double llefts[] = ((LikelihoodTreeAa) left).likelihood(tmatrix);
+
 				// Sum likelihoods over all possible 'aa'
 				for (int aa2 = 0; aa2 < p.length; aa2++) {
-					double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
+					// double lleft = ((LikelihoodTreeAa) left).likelihood(tmatrix, aa2);
 					double pij = P.getEntry(aaCode, aa2);
-					pleft += lleft * pij;
+					pleft += llefts[aa2] * pij;
 				}
 			}
 		} else pleft = 1.0;
@@ -121,11 +141,13 @@ public class LikelihoodTreeAa extends PhylogeneticTree {
 				if (right.isGap()) pright = 1.0;
 				else pright = P.getEntry(aaCode, right.sequenceCode);
 			} else {
+				double lrights[] = ((LikelihoodTreeAa) left).likelihood(tmatrix);
+
 				// Sum likelihoods over all possible 'aa'
 				for (int aa2 = 0; aa2 < p.length; aa2++) {
-					double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
+					// double lright = ((LikelihoodTreeAa) right).likelihood(tmatrix, aa2);
 					double pij = P.getEntry(aaCode, aa2);
-					pright += lright * pij;
+					pright += lrights[aa2] * pij;
 				}
 			}
 		} else pright = 1.0;
