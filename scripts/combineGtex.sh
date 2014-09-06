@@ -1,5 +1,10 @@
 #!/bin/sh
 
+DIR=$HOME/snpEff/epistasis
+DIR_SCRIPTS=$HOME/snpEff/epistasis/scripts
+DIR_GTEX=$HOME/snpEff/db/GRCh37/GTEx
+DIR_REACTOME=$HOME/snpEff/db/reactome
+
 # # Create geneID-geneName map file
 # zcat $HOME/snpEff/data/GRCh37.75/genes.gtf.gz \
 # 	| cut -f 3- \
@@ -12,22 +17,26 @@
 # 	> geneId_geneName.txt
 
 # # Select interations from Reactome (only direct_complex interactions)
-# cat ../reactome/interactions/homo_sapiens.interactions.txt \
+# cat $DIR_REACTOME/interactions/homo_sapiens.interactions.txt \
 # 	| grep -P "\tdirect_complex" \
 # 	| cut -f 2,5 \
 # 	| sed "s/ENSEMBL://g" \
 # 	| sort \
 # 	| uniq \
-# 	> reactome.homo_sapiens.interactions.txt
+# 	> $DIR_REACTOME/reactome.homo_sapiens.interactions.txt
 
-# Select GTEx IDs that are related to pancreas
-cat gtex_tissue.txt | grep Pancreas | cut -f 1 | tr "\n" "," > pancreas_ids.txt
+# # Select GTEx IDs that are related to pancreas
+# cat $DIR_GTEX/gtex_tissue.txt | grep Pancreas | cut -f 1 | tr "\n" "," > $DIR_GTEX/pancreas_ids.txt
 
 # Combine GTEX + Reactome + BioGrid
-./combineGtex.py \
-	reactome.homo_sapiens.interactions.txt \
-	$HOME/snpEff/epistasis/biogrid.human.uniq.txt \
-	`cat pancreas_ids.txt` \
-	gtex_norm.txt \
+$DIR_SCRIPTS/combineGtex.py \
+	$DIR/geneId_geneName.txt \
+	$DIR_REACTOME/reactome.homo_sapiens.interactions.txt \
+	$DIR_GTEX/epistasis/biogrid.human.uniq.txt \
+	$DIR_GTEX/gtex_norm.txt \
+	GTEX-N7MT-1626-SM-3LK71,GTEX-NFK9-1626-SM-3LK5J,GTEX-NPJ8-2126-SM-3MJGK,GTEX-O5YT-1026-SM-3MJGF,GTEX-OHPL-1026-SM-3MJGI,GTEX-OHPM-1026-SM-3LK74,GTEX-OIZF-1026-SM-3MJGW,GTEX-OOBJ-1026-SM-3NB2L,GTEX-OOBK-1026-SM-48TC2,GTEX-P4PP-1026-SM-3NM9O,GTEX-P4PQ-1026-SM-3NMCN,GTEX-P4QS-1026-SM-3NMCW,GTEX-PLZ6-0726-SM-3P619,GTEX-PSDG-1526-SM-48TCY,GTEX-PW2O-0826-SM-48TC5,GTEX-PWOO-0626-SM-48TZH,GTEX-PX3G-1026-SM-48TZW,GTEX-Q2AH-0926-SM-48TZK,GTEX-Q2AI-0426-SM-48U13,GTEX-Q734-0426-SM-48TZX,GTEX-QCQG-0426-SM-48U29,GTEX-QDVJ-1226-SM-48U1V,GTEX-QDVN-0926-SM-2I5GL,GTEX-QEL4-1326-SM-447AD,GTEX-QESD-0226-SM-447BH,GTEX-QLQW-0326-SM-447A8,GTEX-QV31-0226-SM-447BO,GTEX-R53T-0426-SM-48FEM,GTEX-R55D-1426-SM-48FEN,GTEX-R55G-0326-SM-48FDM,GTEX-RM2N-0326-SM-48FD8,GTEX-RWS6-1126-SM-47JXC,GTEX-S32W-0826-SM-4AD5Z,GTEX-S33H-1226-SM-4AD69,GTEX-S3XE-0526-SM-4AD4G,GTEX-S4P3-0626-SM-4AD59,GTEX-S95S-0726-SM-4B64H,GTEX-SE5C-0326-SM-4BRWX,GTEX-SIU7-0926-SM-4BRX1,GTEX-SNOS-0926-SM-4DM7A,GTEX-SUCS-1426-SM-4DM5W,GTEX-T5JW-0226-SM-4DM7I,GTEX-T8EM-0826-SM-4DM76,GTEX-TKQ2-0426-SM-4DXUO,GTEX-TML8-0526-SM-32QOQ,GTEX-TMMY-1326-SM-4DXU9,GTEX-U4B1-0726-SM-4DXUA,GTEX-U8XE-2026-SM-3DB8S,GTEX-UJHI-0626-SM-3DB8T,GTEX-UJMC-1126-SM-3GADP,GTEX-UPIC-0726-SM-3GADW,GTEX-V1D1-0726-SM-4JBH7,GTEX-V955-0326-SM-4JBGV,GTEX-VJYA-0826-SM-4KL1M,GTEX-VUSG-0326-SM-3GIJ7,GTEX-WFG7-0426-SM-4LMK5,GTEX-WFG8-0326-SM-4LVN4,GTEX-WFJO-0626-SM-4LVMC,GTEX-WFON-0626-SM-4LVLX,GTEX-WH7G-0826-SM-4LVMR,GTEX-X3Y1-0726-SM-3P5YU,GTEX-X5EB-0526-SM-46MVP,GTEX-XBED-0226-SM-47JY8,GTEX-XGQ4-0226-SM-4GIDS,GTEX-XMK1-0326-SM-4B652,GTEX-XPVG-0326-SM-4B653,GTEX-XQ8I-1926-SM-4BOOK,GTEX-XUW1-1726-SM-4BOOZ,GTEX-XV7Q-0926-SM-4BRVQ,GTEX-XXEK-1726-SM-4BRVB,GTEX-XYKS-1226-SM-4BRVI, \
+	5 \
+	0 \
+	inf \
 
 	

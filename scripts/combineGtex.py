@@ -15,6 +15,39 @@ debug = False
 # Value threshold
 minValue = float("-inf")
 maxValue = float("inf")
+interactions = dict()
+geneId2Name = dict()
+
+#------------------------------------------------------------------------------
+# Load gene ID <-> name mapping
+#------------------------------------------------------------------------------
+def loadBioGrid(biogridFile):
+	print >> sys.stderr, "Loading BioGrid interactions from '{}'".format( biogridFile )
+
+	for line in open(biogridFile) :
+		fields = line.rstrip().split("\t")
+		if len(fields) == 2:
+			(g1, g2) = fields
+
+			# Convert gene IDs to gene names
+			if g1 and g2:
+				# Add to set
+				if g1 in interactions:
+					interactions[g1].add(g2)
+				else:
+					interactions[g1] = set(g2)
+
+#------------------------------------------------------------------------------
+# Load gene ID <-> name mapping
+#------------------------------------------------------------------------------
+def loadGeneIds(geneFile):
+	print >> sys.stderr, "Loading gene ID <-> Name mapping '{}'".format( geneFile )
+
+	for line in open(geneFile) :
+		fields = line.rstrip().split("\t")
+		if len(fields) == 2:
+			(geneId, geneName) = fields
+			geneId2Name[ geneId ] = geneName
 
 #------------------------------------------------------------------------------
 # Load MSigDb file
@@ -29,9 +62,37 @@ def loadMsigDb(msigFile):
 	return geneSet
 
 #------------------------------------------------------------------------------
+# Load Reactome interactions file
+#------------------------------------------------------------------------------
+def loadReactomInt(rintFile):
+	print >> sys.stderr, "Loading interactions from '{}'".format( rintFile )
+
+	for line in open(rintFile) :
+		fields = line.rstrip().split("\t")
+		if len(fields) == 2:
+			(genes1, genes2) = fields
+
+			# Multiple interactions are separated by '|'
+			for g1 in genes1.split('|'):
+				for g2 in genes2.split('|'):
+					
+					# Convert gene IDs to gene names
+					if g1 and g2 and (g1 in geneId2Name) and (g2 in geneId2Name):
+						g1 = geneId2Name[g1]
+						g2 = geneId2Name[g2]
+
+						# Add to set
+						if g1 in interactions:
+							interactions[g1].add(g2)
+						else:
+							interactions[g1] = set(g2)
+
+#------------------------------------------------------------------------------
 # Process normalized GTEx file
 #------------------------------------------------------------------------------
 def readGtex(gtexFile, minValCount, minValue, maxValue):
+	print >> sys.stderr, "Reading GTEx file '{}'\n\tmin count: {}\n\tmin value: {}\n\tmax value: {}".format( gtexFile, minValCount, minValue, maxValue )
+
 	columnIdx = []
 	header = []
 	countOk = 0
@@ -97,38 +158,36 @@ if len(sys.argv) < 4 :
 	print >> sys.stderr, "Usage: " + sys.argv[0] + " msigDb.gmt gtex_normalized.txt gtexExperimentId_1,gtexExperimentId_2,...,gtexExperimentId_N minCount minValue maxValue minGeneSetSize"
 	sys.exit(1)
 
-interactionsFile = sys.argv[1]
-gtexFile = sys.argv[2]
-gtexExperimentIds = sys.argv[3]
-minValCount = int( sys.argv[4] ) if len(sys.argv) > 4 else 1
-minValue = float( sys.argv[5] ) if len(sys.argv) > 5 else float("-inf")
-maxValue = float( sys.argv[6] ) if len(sys.argv) > 6 else float("inf")
-minGeneSetSize = int( sys.argv[7] ) if len(sys.argv) > 7 else 1
-addId = sys.argv[8] if len(sys.argv) > 8 else ''
+argNum=1
+geneId2NameFile = sys.argv[argNum]
 
-# Create a hash of IDs
-ids = dict( (id,0) for id in gtexExperimentIds.split(",") if id )
-if debug:
-	print >> sys.stderr, "GTEx IDs:"
-	for id in ids:
-		print >> sys.stderr, "\t", id
+argNum += 1
+reactomeIntFile = sys.argv[argNum]
 
-# Read files
-geneSets = loadMsigDb(msigFile)
+argNum += 1
+bioGridFile = sys.argv[argNum]
+
+argNum += 1
+gtexFile = sys.argv[argNum]
+
+argNum += 1
+gtexExperimentIds = sys.argv[argNum]
+
+argNum += 1
+minValCount = int( sys.argv[argNum] )
+
+argNum += 1
+minValue = float( sys.argv[argNum] ) # Can be '-inf'
+
+argNum += 1
+maxValue = float( sys.argv[argNum] ) # Can be 'inf'
+
+#---
+# Load data
+#---
+loadGeneIds(geneId2NameFile)
+loadReactomInt(reactomeIntFile)
+loadBioGrid(reactomeIntFile)
+
 gtexGenes = readGtex(gtexFile, minValCount, minValue, maxValue)
-
-# Create new gene sets
-for gsName in geneSets:
-	# Add only genes that have a non-zero value in 'gtexGenes'
-	out = "{}{}\t{}".format(gsName, addId, gsName)
-	geneSet = geneSets[gsName]
-	count = 0 
-	for gene in geneSet:
-		if gtexGenes.get(gene,0):
-			out += "\t" + gene
-			count += 1
-
-	# Show results
-	if debug: print "{} / {}\t{}".format( count, len(geneSet), out)
-	elif count > minGeneSetSize: print out
 
