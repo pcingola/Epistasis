@@ -26,6 +26,20 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| uniq \
 # 	> $DIR_REACTOME/reactome.homo_sapiens.interactions.txt
 
+# Select interactios from BioGrid
+# Note: We filter out RPS/RPL robosomal complexes interactions
+cat $DIR_BIOGRID/BIOGRID-ALL-3.2.115.tab2.txt \
+	| cut -f 8,9,16,17 \
+	| grep -P "\t9606\t9606" \
+	| cut -f 1,2 \
+	| sort \
+	| uniq \
+	| grep -v "^RPS" \
+	| grep -v "^RPL" \
+	| grep -vP "\tRPS" \
+	| grep -vP "\tRPL" \
+	> $DIR_BIOGRID/biogrid.human.uniq.txt
+
 # # Get ID -> tissue mapping
 # cut -f 1,7 $DIR_GTEX/gtex_ids.txt \
 # 	| tr "-" "." \
