@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.io.File;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -169,10 +170,11 @@ public class Epistasis implements CommandLine {
 	/**
 	 * calculate likelihood for all MSAs matching gene names
 	 */
-	void likelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2) {
+	void likelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String genesDir) {
 		if (msasGene1 == null || msasGene2 == null) return;
 
 		// Compare all combinations
+		StringBuilder sb = new StringBuilder();
 		for (MultipleSequenceAlignment msa1 : msasGene1)
 			for (MultipleSequenceAlignment msa2 : msasGene2) {
 				String key = msa1.getId() + "\t" + msa2.getId();
@@ -181,9 +183,20 @@ public class Epistasis implements CommandLine {
 				if (!done.contains(key)) {
 					done.add(key);
 					String lout = likelihoodRatio(msa1, msa2, false);
-					if (!lout.isEmpty()) System.out.println(Gpr.prependEachLine("LIKELIHOOD_GENES\t" + gene1 + "\t" + gene2 + "\t", lout));
+					if (!lout.isEmpty()) {
+						System.out.println(Gpr.prependEachLine("LIKELIHOOD_GENES\t" + gene1 + "\t" + gene2 + "\t", lout));
+						sb.append(lout + "\n");
+					}
 				}
 			}
+
+		if (sb.length() > 0) {
+			String dir = genesDir + "/" + gene1;
+			(new File(dir)).mkdir();
+			String outFile = dir + "/" + gene2 + ".txt";
+			Timer.showStdErr("Writing output to file '" + outFile + "'");
+			Gpr.toFile(outFile, sb);
+		}
 	}
 
 	/**
@@ -1004,6 +1017,7 @@ public class Epistasis implements CommandLine {
 
 		// Load gene names
 		Set<String> geneLines = new HashSet<String>();
+		String genesDir = Gpr.dirName(genesFile);
 		for (String line : Gpr.readFile(genesFile).split("\n")) {
 			String f[] = line.split("\t");
 			String gene1 = f[0].trim();
@@ -1040,7 +1054,7 @@ public class Epistasis implements CommandLine {
 				.forEach(str -> {
 					String f[] = str.split("\t");
 					String g1 = f[0], g2 = f[1];
-					likelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2)); //
+					likelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
 					} //
 				);
 	}

@@ -127,9 +127,6 @@ def readGtex(gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue,
 			if missing > maxMissingIds: sys.exit(1)
 			if debug: print >> sys.stderr, "OK, All required IDs found."
 
-			# We require at least these number of values
-			print >> sys.stderr, "Filter:\n\tMinimum number of values: {}\n\tMinimum value: {}\n\tMaximum value: {}\n".format(minMatchCount, minMatchValue, maxMatchValue)
-
 		else :
 			geneId, geneName = fields[0], fields[1]
 
