@@ -13,10 +13,14 @@ import sys
 debug = False
 
 # Value threshold
-minValue = float("-inf")
-maxValue = float("inf")
-interactions = dict()
+minMatchValue = float("-inf")
+maxMatchValue = float("inf")
+biogrid = dict()
+reactome = dict()
 geneId2Name = dict()
+
+# Max number of missing IDs
+maxMissingIds = 10
 
 #------------------------------------------------------------------------------
 # Load gene ID <-> name mapping
@@ -32,10 +36,12 @@ def loadBioGrid(biogridFile):
 			# Convert gene IDs to gene names
 			if g1 and g2:
 				# Add to set
-				if g1 in interactions:
-					interactions[g1].add(g2)
+				if g1 in biogrid:
+					biogrid[g1].add(g2)
 				else:
-					interactions[g1] = set(g2)
+					biogrid[g1] = set( [g2] )
+
+				if debug: print >> sys.stderr, "BIOGRID: ", g1, '\t', g2, "\t", biogrid[g1]
 
 #------------------------------------------------------------------------------
 # Load gene ID <-> name mapping
@@ -58,7 +64,7 @@ def loadMsigDb(msigFile):
 		fields = line.rstrip().split("\t")
 		geneSetName = fields[0]
 		geneSet[ geneSetName ] = fields[2:]
-		if debug : print geneSetName, " => ", geneSet[ geneSetName ]
+		if debug : print >> sys.stderr, geneSetName, " => ", geneSet[ geneSetName ]
 	return geneSet
 
 #------------------------------------------------------------------------------
@@ -82,67 +88,75 @@ def loadReactomInt(rintFile):
 						g2 = geneId2Name[g2]
 
 						# Add to set
-						if g1 in interactions:
-							interactions[g1].add(g2)
+						if g1 in reactome:
+							reactome[g1].add(g2)
 						else:
-							interactions[g1] = set(g2)
+							reactome[g1] = set( [g2] )
 
 #------------------------------------------------------------------------------
 # Process normalized GTEx file
 #------------------------------------------------------------------------------
-def readGtex(gtexFile, minValCount, minValue, maxValue):
-	print >> sys.stderr, "Reading GTEx file '{}'\n\tmin count: {}\n\tmin value: {}\n\tmax value: {}".format( gtexFile, minValCount, minValue, maxValue )
+def readGtex(gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue):
+	print >> sys.stderr, "Reading GTEx file '{}'\n\tmin match: {}\n\tmin value: {}\n\tmax value: {}\n\tmin avg  : {}\n\tmax avg  : {}".format( gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue )
 
 	columnIdx = []
 	header = []
 	countOk = 0
 	countNo = 0
-	gtexGenes = {}
+	gtexGenes = set()
 	for line in open(gtexFile) :
 		fields = line.rstrip().split("\t")
 
 		if not columnIdx : 
 			header = fields[:]
 			# Read header and add all columnIdx numbers that we are looking for
+			foundIds = set()
 			for i in range(len(fields)):
 				if fields[i] in ids:
 					columnIdx.append(i)
-					ids[ fields[i] ] = 1
+					foundIds.add( fields[i] )
 
 			# Sanity check
-			ok = True
+			missing = 0
 			for id in ids:
-				if not ids[id]:
+				if id not in foundIds:
 					print >> sys.stderr, "Missing GTEx ID '{}'.".format( id )
-					ok = False
+					missing += 1
 
-			if not ok: sys.exit(1)
+			# Stop if too many are missing
+			if missing > maxMissingIds: sys.exit(1)
 			if debug: print >> sys.stderr, "OK, All required IDs found."
 
 			# We require at least these number of values
-			print >> sys.stderr, "Filter:\n\tMinimum number of values: {}\n\tMinimum value: {}\n\tMaximum value: {}\n".format(minValCount, minValue, maxValue)
+			print >> sys.stderr, "Filter:\n\tMinimum number of values: {}\n\tMinimum value: {}\n\tMaximum value: {}\n".format(minMatchCount, minMatchValue, maxMatchValue)
 
 		else :
 			geneId, geneName = fields[0], fields[1]
 
 			# Collect values for requested IDs
+			avg = 0
+			count = 0
+			missing = 0 
 			vals = []
 			for idx in columnIdx :
 				val = fields[idx]
 				if val != "NA":
-					 v = float(val)
-					 if (v >= minValue) and (v <= maxValue): vals.append( v )
+					v = float(val)
+					avg += v
+					count += 1
+					if (v >= minMatchValue) and (v <= maxMatchValue): vals.append( v )
+				else:
+					missing += 1
 
 			# Show results
-			if len(vals) >= minValCount:
-				avg = reduce(lambda x,y : x+y, vals) / len(vals)
+			if count > 0:	avg = avg / count
+			if len(vals) >= minMatchCount and (minAvgValue <= avg) and (avg <= maxAvgValue):
 				countOk += 1
-				gtexGenes[geneName] = 1
-				if debug: print "OK\t{}\t{}\t{} / {}\t{}\t{}".format(geneId, geneName, len(vals), len(columnIdx), avg, vals)
+				gtexGenes.add( geneName )
+				if debug: print >> sys.stderr, "OK\t{}\t{}\tmatch: {}\tmissing: {}\ttotal: {}\tavg: {}\tvalues: {}".format(geneId, geneName, len(vals), missing, len(columnIdx), avg, vals)
 			else:
 				countNo += 1
-				gtexGenes[geneName] = 0
-				if debug: print "NO\t{}\t{}\t{} / {}\t{}".format(geneId, geneName, len(vals), len(columnIdx), vals)
+				if debug: print >> sys.stderr, "NO\t{}\t{}\tmatch: {}\tmissing: {}\ttotal: {}\tavg: {}\tvalues: {}".format(geneId, geneName, len(vals), missing, len(columnIdx), avg, vals)
 
 	print >> sys.stderr, "\tNumber of genes that passed  : {}\n\tNumber of genes filtered out : {}\n".format( countOk, countNo)
 	return gtexGenes
@@ -155,7 +169,7 @@ def readGtex(gtexFile, minValCount, minValue, maxValue):
 # Command line parameters
 #---
 if len(sys.argv) < 4 :
-	print >> sys.stderr, "Usage: " + sys.argv[0] + " msigDb.gmt gtex_normalized.txt gtexExperimentId_1,gtexExperimentId_2,...,gtexExperimentId_N minCount minValue maxValue minGeneSetSize"
+	print >> sys.stderr, "Usage: " + sys.argv[0] + " msigDb.gmt gtex_normalized.txt gtexExperimentId_1,gtexExperimentId_2,...,gtexExperimentId_N minCount minMatchValue maxMatchValue minGeneSetSize"
 	sys.exit(1)
 
 argNum=1
@@ -174,20 +188,47 @@ argNum += 1
 gtexExperimentIds = sys.argv[argNum]
 
 argNum += 1
-minValCount = int( sys.argv[argNum] )
+minMatchCount = int( sys.argv[argNum] )
 
 argNum += 1
-minValue = float( sys.argv[argNum] ) # Can be '-inf'
+minMatchValue = float( sys.argv[argNum] ) # Can be '-inf'
 
 argNum += 1
-maxValue = float( sys.argv[argNum] ) # Can be 'inf'
+maxMatchValue = float( sys.argv[argNum] ) # Can be 'inf'
+
+argNum += 1
+minAvgValue = float( sys.argv[argNum] ) # Can be '-inf'
+
+argNum += 1
+maxAvgValue = float( sys.argv[argNum] ) # Can be 'inf'
 
 #---
 # Load data
 #---
 loadGeneIds(geneId2NameFile)
 loadReactomInt(reactomeIntFile)
-loadBioGrid(reactomeIntFile)
+loadBioGrid(bioGridFile)
 
-gtexGenes = readGtex(gtexFile, minValCount, minValue, maxValue)
+# Parse IDs
+ids = set( id for id in gtexExperimentIds.split(',') if id )	# Filter out empty IDs
 
+# Read normalized GTEx file
+gtexGenes = readGtex(gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue)
+
+# Select interactions for genes passing all filters
+interactions = set()
+for g1 in biogrid :
+	if (g1 in reactome) and (g1 in gtexGenes):
+		for g2 in biogrid[g1]:
+			if (g2 in reactome) and (g2 in gtexGenes):
+				if debug: print >> sys.stderr, "PASS:\t{}\t{}".format(g1, g2)
+
+				if g1 < g2:
+					interactions.add( "{}\t{}".format(g1, g2) )
+				else:
+					interactions.add( "{}\t{}".format(g2, g1) )
+
+# Show results
+for line in sorted( interactions ):
+	print line
+print >> sys.stderr, "Total number of pairs:", len( interactions )
