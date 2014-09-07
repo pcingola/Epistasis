@@ -7,9 +7,9 @@
 #-------------------------------------------------------------------------------
 
 debug			:= false
-timeout			:= 3 * day
-#system			:= 'cluster'
-cpus			:= ( system == 'local' ? 24 : 8 )
+timeout			:= 5 * day
+system			:= 'cluster'
+cpus			:= ( system == 'local' ? 24 : 4 )
 
 snpEffDir		:= "$HOME/snpEff"
 dir				:= "$snpEffDir/epistasis"
@@ -19,6 +19,7 @@ aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
 aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
 genome			:= "hg19"
 genomeEnsembl	:= "GRCh37.75"
+llGeneLines		:=	5
 
 # Data files
 aaContact		:= "$dir/aa.contact.txt"
@@ -27,7 +28,7 @@ aaContactBest	:= "$dir/aa.contact.best.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
-interactions    := "$dir/interactions.Pancreas.txt"
+interactions    := "$dir/interactions.txt"
 lik				:= "$dir/likelihood.contact.txt"
 likAll			:= "$dir/likelihood.all.txt"
 likNull			:= "$dir/likelihood.null.txt"
@@ -258,11 +259,13 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 		}
 	} else {
 		# Split file
-		sys rm -f $dir/genes.list.* 
-		sys split -l 300 $interactions $dir/genes.list.
+		dirSplit := "$dir/interactions"
+		sys rm -rvf $dirSplit || true
+		dirSplit.mkdir()
+		sys split -a 4 -l $llGeneLines $interactions $dirSplit/genes_pairs_list.
 
 		# Get split file names
-		files := dir.dirPath(".*/genes.list.*")
+		files := dirSplit.dirPath(".*/genes_pairs_list.*")
 
 		# Launch a task for eah file
 		for( string genes : files ) {
