@@ -192,7 +192,7 @@ public class Epistasis implements CommandLine {
 
 		if (sb.length() > 0) {
 			String dir = genesDir + "/likelihood_genes/" + gene1;
-			(new File(dir)).mkdir();
+			(new File(dir)).mkdirs();
 			String outFile = dir + "/" + gene2 + ".txt";
 			Timer.showStdErr("Writing output to file '" + outFile + "'");
 			Gpr.toFile(outFile, sb);
