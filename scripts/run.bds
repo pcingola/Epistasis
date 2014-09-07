@@ -44,8 +44,9 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 # Commands
 javaNativeLibs  := "$dir/lib"
 javaGC			:= ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
-java			:= "java $javaGC "
-cmdEpistasis	:= "$java -Xmx10G -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+javaMem			:= "4G"
+java			:= "java -Xmx$javaMem $javaGC "
+cmdEpistasis	:= "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
 cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
 # Change parameters if we are debugging (smaller datasets)
@@ -269,7 +270,7 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 
 		# Launch a task for eah file
 		for( string genes : files ) {
-			out := likAll.dirName() + '/' + likAll.baseName() + '.' + genes.baseName()
+			out := "$dirSplit/likelihood." + genes.baseName()
 			task( out <- genes ) {
 				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $out
 			}
