@@ -220,7 +220,9 @@ for g1 in biogrid :
 			if (g2 in reactome) and (g2 in gtexGenes):
 				if debug: print >> sys.stderr, "PASS:\t{}\t{}".format(g1, g2)
 
-				if g1 < g2:
+				if g1 == g2:
+					print >> sys.stderr, "Skipping:\t{}\t{}".format(g1, g2)
+				elif g1 < g2:
 					interactions.add( "{}\t{}".format(g1, g2) )
 				else:
 					interactions.add( "{}\t{}".format(g2, g1) )
