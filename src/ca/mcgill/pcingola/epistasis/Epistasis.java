@@ -173,6 +173,10 @@ public class Epistasis implements CommandLine {
 	void likelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String genesDir) {
 		if (msasGene1 == null || msasGene2 == null) return;
 
+		String dir = genesDir + "/likelihood_genes/" + gene1;
+		String outFile = dir + "/" + gene2 + ".txt";
+		System.err.println("Output file: '" + outFile + "'");
+
 		// Compare all combinations
 		StringBuilder sb = new StringBuilder();
 		for (MultipleSequenceAlignment msa1 : msasGene1)
@@ -191,10 +195,8 @@ public class Epistasis implements CommandLine {
 			}
 
 		if (sb.length() > 0) {
-			String dir = genesDir + "/likelihood_genes/" + gene1;
-			(new File(dir)).mkdirs();
-			String outFile = dir + "/" + gene2 + ".txt";
 			Timer.showStdErr("Writing output to file '" + outFile + "'");
+			(new File(dir)).mkdirs();
 			Gpr.toFile(outFile, sb);
 		}
 	}
