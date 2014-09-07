@@ -66,7 +66,7 @@ do
 		$DIR_BIOGRID/biogrid.human.uniq.txt \
 		$DIR_GTEX/gtex_norm.txt \
 		`cat $DIR_GTEX/$TIS.ids.txt` \
-		5 \
+		0.25 \
 		0 \
 		inf \
 		0.3 \

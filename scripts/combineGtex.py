@@ -20,7 +20,7 @@ reactome = dict()
 geneId2Name = dict()
 
 # Max number of missing IDs
-maxMissingIds = 10
+maxMissingIdsFactor = 0.5
 
 #------------------------------------------------------------------------------
 # Load gene ID <-> name mapping
@@ -41,7 +41,7 @@ def loadBioGrid(biogridFile):
 				else:
 					biogrid[g1] = set( [g2] )
 
-				if debug: print >> sys.stderr, "BIOGRID: ", g1, '\t', g2, "\t", biogrid[g1]
+				# if debug: print >> sys.stderr, "BIOGRID: ", g1, '\t', g2, "\t", biogrid[g1]
 
 #------------------------------------------------------------------------------
 # Load gene ID <-> name mapping
@@ -64,7 +64,7 @@ def loadMsigDb(msigFile):
 		fields = line.rstrip().split("\t")
 		geneSetName = fields[0]
 		geneSet[ geneSetName ] = fields[2:]
-		if debug : print >> sys.stderr, geneSetName, " => ", geneSet[ geneSetName ]
+		if debug : print >> sys.stderr, "MSIGDB:\t", geneSetName, " => ", geneSet[ geneSetName ]
 	return geneSet
 
 #------------------------------------------------------------------------------
@@ -96,8 +96,9 @@ def loadReactomInt(rintFile):
 #------------------------------------------------------------------------------
 # Process normalized GTEx file
 #------------------------------------------------------------------------------
-def readGtex(gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue):
-	print >> sys.stderr, "Reading GTEx file '{}'\n\tmin match: {}\n\tmin value: {}\n\tmax value: {}\n\tmin avg  : {}\n\tmax avg  : {}".format( gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue )
+def readGtex(gtexFile, minMatchPercent, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue):
+	minMatchCount = minMatchPercent * len(ids)
+	print >> sys.stderr, "Reading GTEx file '{}'\n\tmin match: {}% ( {} )\n\tmin value: {}\n\tmax value: {}\n\tmin avg  : {}\n\tmax avg  : {}".format( gtexFile, 100 * minMatchPercent, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue )
 
 	columnIdx = []
 	header = []
@@ -124,7 +125,8 @@ def readGtex(gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue,
 					missing += 1
 
 			# Stop if too many are missing
-			if missing > maxMissingIds: sys.exit(1)
+			print >> sys.stderr, 'Missing samples: ', missing, ' / ', len(ids)
+			if missing > (maxMissingIdsFactor * len(ids)): sys.exit(1)
 			if debug: print >> sys.stderr, "OK, All required IDs found."
 
 		else :
@@ -185,7 +187,7 @@ argNum += 1
 gtexExperimentIds = sys.argv[argNum]
 
 argNum += 1
-minMatchCount = int( sys.argv[argNum] )
+minMatchPercent = float( sys.argv[argNum] )
 
 argNum += 1
 minMatchValue = float( sys.argv[argNum] ) # Can be '-inf'
@@ -210,7 +212,7 @@ loadBioGrid(bioGridFile)
 ids = set( id for id in gtexExperimentIds.split(',') if id )	# Filter out empty IDs
 
 # Read normalized GTEx file
-gtexGenes = readGtex(gtexFile, minMatchCount, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue)
+gtexGenes = readGtex(gtexFile, minMatchPercent, minMatchValue, maxMatchValue, minAvgValue, maxAvgValue)
 
 # Select interactions for genes passing all filters
 interactions = set()
