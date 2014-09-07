@@ -46,6 +46,8 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| sed "s/ . / - /" \
 # 	> $DIR_GTEX/gtex_tissue.txt 
 
+# Calculate combined interaction pairs
+rm -rvf $DIR/interactions.*.txt
 for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
 do
 
@@ -74,4 +76,6 @@ do
 		| tee $DIR/interactions.$TIS.txt
 
 done
+
+cat $DIR/interactions.*.txt | sort | uniq > $DIR/interactions.txt
 
