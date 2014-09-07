@@ -1,6 +1,5 @@
 #!/bin/sh
 
-TISSUE="Pancreas"
 DIR=$HOME/snpEff/epistasis
 DIR_SCRIPTS=$HOME/snpEff/epistasis/scripts
 DIR_GTEX=$HOME/snpEff/db/GRCh37/GTEx
@@ -47,25 +46,32 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| sed "s/ . / - /" \
 # 	> $DIR_GTEX/gtex_tissue.txt 
 
-# # Select GTEx IDs that are related to pancreas
-# cat $DIR_GTEX/gtex_tissue.txt \
-# 	| grep $TISSUE \
-# 	| cut -f 1 \
-# 	| tr "\n" "," \
-# 	> $DIR_GTEX/pancreas_ids.txt
+for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
+do
 
-# Combine GTEX + Reactome + BioGrid
-$DIR_SCRIPTS/combineGtex.py \
-	$DIR/geneId_geneName.txt \
-	$DIR_REACTOME/reactome.homo_sapiens.interactions.txt \
-	$DIR_BIOGRID/biogrid.human.uniq.txt \
-	$DIR_GTEX/gtex_norm.txt \
-	`cat $DIR_GTEX/pancreas_ids.txt` \
-	5 \
-	0 \
-	inf \
-	0.3 \
-	inf \
-	| tee interactions.$TISSUE.txt
+	TIS=`echo $TISSUE | tr -d "\n-" | tr " " "_" | tr -s "_"`
+	echo Tissue: $TISSUE $TIS
 
-	
+	# Select GTEx IDs that are related to pancreas
+	cat $DIR_GTEX/gtex_tissue.txt \
+		| grep "$TISSUE" \
+		| cut -f 1 \
+		| tr "\n" "," \
+		> $DIR_GTEX/$TIS.ids.txt
+
+	# Combine GTEX + Reactome + BioGrid
+	$DIR_SCRIPTS/combineGtex.py \
+		$DIR/geneId_geneName.txt \
+		$DIR_REACTOME/reactome.homo_sapiens.interactions.txt \
+		$DIR_BIOGRID/biogrid.human.uniq.txt \
+		$DIR_GTEX/gtex_norm.txt \
+		`cat $DIR_GTEX/$TIS.ids.txt` \
+		5 \
+		0 \
+		inf \
+		0.3 \
+		inf \
+		| tee $DIR/interactions.$TIS.txt
+
+done
+
