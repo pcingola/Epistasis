@@ -82,6 +82,7 @@ string[] readInteractions(string intFile, string dirGenesLike) {
 # Return file names
 #-------------------------------------------------------------------------------
 string[] splitToFile( string[] list, string baseName, int linesPerFile) {
+	println "Splitting into $linesPerFile line per file:"
 	string[] fileNames
 	string[] thisFileLines
 
@@ -318,7 +319,7 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 
 		# Split into small lists
 		dirGenesList := "$dirInter/genes_pairs_list"
-		sys rm -rf $dirGenesList || true
+		sys rm -rvf $dirGenesList || true
 		dirGenesList.mkdir()
 		filesPairs := pairs.splitToFile( "$dirGenesList/list.", llGeneLines )
 
@@ -326,9 +327,9 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 		for( string filePairs : filesPairs ) {
 			out := "$dirGenesLike/likelihood." + filePairs.baseName()
 			println "\t$out"
-#			task( out <- genes ) {
-#				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $out
-#			}
+			task( out <- filePairs ) {
+				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $filePairs > $out
+			}
 		}
 	}
 
