@@ -46,9 +46,13 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| sed "s/ . / - /" \
 # 	> $DIR_GTEX/gtex_tissue.txt 
 
+# # Gene names in MSAs
+# cut -f 3 $DIR/idMap_ensemblId_refseq_pdbId.best.txt | sort | uniq > $DIR/genes.msas.txt
+
 # Calculate combined interaction pairs
 rm -rvf $DIR/interactions.*.txt
-for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
+#for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
+for TISSUE in "Pancreas"
 do
 
 	TIS=`echo $TISSUE | tr -d "\n-" | tr " " "_" | tr -s "_"`
@@ -66,6 +70,7 @@ do
 		$DIR/geneId_geneName.txt \
 		$DIR_REACTOME/reactome.homo_sapiens.interactions.txt \
 		$DIR_BIOGRID/biogrid.human.uniq.txt \
+		$DIR/genes.msas.txt \
 		$DIR_GTEX/gtex_norm.txt \
 		`cat $DIR_GTEX/$TIS.ids.txt` \
 		0.25 \

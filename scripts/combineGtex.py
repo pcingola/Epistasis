@@ -67,6 +67,7 @@ def loadMsigDb(msigFile):
 		if debug : print >> sys.stderr, "MSIGDB:\t", geneSetName, " => ", geneSet[ geneSetName ]
 	return geneSet
 
+
 #------------------------------------------------------------------------------
 # Load Reactome interactions file
 #------------------------------------------------------------------------------
@@ -181,6 +182,9 @@ argNum += 1
 bioGridFile = sys.argv[argNum]
 
 argNum += 1
+genesMsasFile = sys.argv[argNum]
+
+argNum += 1
 gtexFile = sys.argv[argNum]
 
 argNum += 1
@@ -207,6 +211,9 @@ maxAvgValue = float( sys.argv[argNum] ) # Can be 'inf'
 loadGeneIds(geneId2NameFile)
 loadReactomInt(reactomeIntFile)
 loadBioGrid(bioGridFile)
+genesMsas = set( [ line.rstrip() for line in open(genesMsasFile) ] )
+print >> sys.stderr, "Loaded genes (MSAs) from ", genesMsasFile, ". Genes loadded: ", len(genesMsas)
+
 
 # Parse IDs
 ids = set( id for id in gtexExperimentIds.split(',') if id )	# Filter out empty IDs
@@ -217,9 +224,9 @@ gtexGenes = readGtex(gtexFile, minMatchPercent, minMatchValue, maxMatchValue, mi
 # Select interactions for genes passing all filters
 interactions = set()
 for g1 in biogrid :
-	if (g1 in reactome) and (g1 in gtexGenes):
+	if (g1 in reactome) and (g1 in gtexGenes) and (g1 in genesMsas):
 		for g2 in biogrid[g1]:
-			if (g2 in reactome) and (g2 in gtexGenes):
+			if (g2 in reactome) and (g2 in gtexGenes) and (g2 in genesMsas):
 				if debug: print >> sys.stderr, "PASS:\t{}\t{}".format(g1, g2)
 
 				if g1 == g2:
@@ -233,3 +240,4 @@ for g1 in biogrid :
 for line in sorted( interactions ):
 	print line
 print >> sys.stderr, "Total number of pairs:", len( interactions )
+

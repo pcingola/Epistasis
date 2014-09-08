@@ -59,6 +59,56 @@ if( debug ) {
 }
 
 #-------------------------------------------------------------------------------
+# Read gene-gene interactions
+#-------------------------------------------------------------------------------
+string[] readInteractions(string intFile, string dirGenesLike) {
+	string[] pairs
+	string gene1, gene2
+
+	# Keep interactions that haven't been calculated so far
+	for( string gg : intFile.read().lines() ) {
+		(gene1, gene2) = gg.split('\t')
+		if( gene2 < gene1 )		(gene1, gene2) = [gene2, gene1]
+
+		# Does 'gene likelihood' file exist?
+		if( ! "$dirGenesLike/$gene1/$gene2.txt".exists() )	pairs += "$gene1\t$gene2"
+	}
+
+	return pairs
+}
+
+#-------------------------------------------------------------------------------
+# Split a list into small files
+# Return file names
+#-------------------------------------------------------------------------------
+string[] splitToFile( string[] list, string baseName, int linesPerFile) {
+	string[] fileNames
+	string[] thisFileLines
+
+	# Split liens
+	for( string line : list ) {
+		# Enough lines to create a new file?
+		if( thisFileLines.size() >= linesPerFile ) {
+		 	fileName := baseName + fileNames.size()
+			fileName.write( thisFileLines.join("\n") )
+			fileNames += fileName
+			thisFileLines = []
+		}
+
+		thisFileLines += line
+	}
+
+	# Write last list
+	if( ! thisFileLines.isEmpty() ) {
+	 	fileName := baseName + fileNames.size()
+		fileName.write( thisFileLines.join("\n") )
+		fileNames += fileName
+	}
+
+	return fileNames
+}
+
+#-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
 
@@ -260,26 +310,31 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 		}
 	} else {
 		# Split file
-		dirSplit := "$dir/interactions"
-		sys rm -rvf $dirSplit || true
-		dirSplit.mkdir()
-		sys split -a 4 -l $llGeneLines $interactions $dirSplit/genes_pairs_list.
+		dirInter := "$dir/interactions"
+		dirGenesLike := "$dirInter/likelihood_genes"
 
-		# Get split file names
-		files := dirSplit.dirPath(".*/genes_pairs_list.*")
+		# Read interactions and split into small files
+		pairs := readInteractions( interactions, dirGenesLike )
+
+		# Split into small lists
+		dirGenesList := "$dirInter/genes_pairs_list"
+		sys rm -rf $dirGenesList || true
+		dirGenesList.mkdir()
+		filesPairs := pairs.splitToFile( "$dirGenesList/list.", llGeneLines )
 
 		# Launch a task for eah file
-		for( string genes : files ) {
-			out := "$dirSplit/likelihood." + genes.baseName()
-			task( out <- genes ) {
-				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $out
-			}
+		for( string filePairs : filesPairs ) {
+			out := "$dirGenesLike/likelihood." + filePairs.baseName()
+			println "\t$out"
+#			task( out <- genes ) {
+#				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $genes > $out
+#			}
 		}
 	}
 
-	# Merge results
-	wait
-	sys cat $likAll.genes.list.* > $likAll
+#	# Merge results
+#	wait
+#	sys cat $likAll.genes.list.* > $likAll
 }
 wait
 
