@@ -75,7 +75,7 @@ do
 		0.25 \
 		0 \
 		inf \
-		0.3 \
+		0.1 \
 		inf \
 		| tee $DIR/interactions.$TIS.txt
 
