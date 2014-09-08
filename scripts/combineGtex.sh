@@ -51,8 +51,7 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 
 # Calculate combined interaction pairs
 rm -rvf $DIR/interactions.*.txt
-#for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
-for TISSUE in "Pancreas"
+for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
 do
 
 	TIS=`echo $TISSUE | tr -d "\n-" | tr " " "_" | tr -s "_"`
