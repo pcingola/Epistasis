@@ -38,7 +38,7 @@ string snpsift = "java -Xmx10g -jar $HOME/snpEff/SnpSift.jar"
 #-------------------------------------------------------------------------------
 
 #---
-# Run for both models
+# Run all models
 #---
 for( string model : models ) {
 
