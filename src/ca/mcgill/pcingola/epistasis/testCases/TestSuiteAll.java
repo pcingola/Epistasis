@@ -24,6 +24,7 @@ public class TestSuiteAll {
 		suite.addTestSuite(TestCasesPhyloLikelihood.class);
 		suite.addTestSuite(TestTransitionMatrix.class);
 		suite.addTestSuite(TestCaseLikelihoodRatio.class);
+		suite.addTestSuite(TestCaseLogisticRegression.class);
 
 		return suite;
 	}
