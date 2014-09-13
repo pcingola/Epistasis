@@ -2,6 +2,12 @@ package ca.mcgill.pcingola.regression;
 
 import java.util.Arrays;
 
+/**
+ * Logistic regression
+ * Model fitting by gradient descent
+ *
+ * @author pcingola
+ */
 public class LogisticRegression extends Regression {
 
 	double minGradient = 0.0001;

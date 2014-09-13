@@ -4,8 +4,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 /**
- * Performs a regression
- * Single output value
+ * Generic regression for single values output
  */
 public abstract class Regression {
 
