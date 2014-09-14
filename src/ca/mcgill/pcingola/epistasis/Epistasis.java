@@ -283,6 +283,8 @@ public class Epistasis implements CommandLine {
 	 * Calculate likelihood for all possible AA pairs within these two MSAs
 	 */
 	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
+		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
+
 		return IntStream.range(0, msa1.length()) //
 				.filter(i1 -> !msa1.isSkip(i1)) //
 				.parallel() //
