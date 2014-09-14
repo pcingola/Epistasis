@@ -285,12 +285,21 @@ public class Epistasis implements CommandLine {
 	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
 		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
 
-		return IntStream.range(0, msa1.length()) //
-				.filter(i1 -> !msa1.isSkip(i1)) //
-				.parallel() //
-				.mapToObj(i1 -> likelihoodRatio(msa1, i1, msa2, brief)) // Calculate all likelihoods for this entry
-				.collect(Collectors.joining("\n")) //
-		;
+		StringBuilder sb = new StringBuilder();
+
+		for (int i1 = 0; i1 < msa1.length(); i1++) {
+			if (msa1.isSkip(i1)) continue;
+			sb.append(likelihoodRatio(msa1, i1, msa2, brief) + "\n");
+		}
+
+		//		return IntStream.range(0, msa1.length()) //
+		//				.filter(i1 -> !msa1.isSkip(i1)) //
+		//				.parallel() //
+		//				.mapToObj(i1 -> likelihoodRatio(msa1, i1, msa2, brief)) // Calculate all likelihoods for this entry
+		//				.collect(Collectors.joining("\n")) //
+		//		;
+
+		return sb.toString();
 	}
 
 	public String likelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
@@ -1072,7 +1081,7 @@ public class Epistasis implements CommandLine {
 		}
 
 		// Calculate likelihoods
-		geneLines.stream() //
+		geneLines.parallelStream() //
 				.forEach(str -> {
 					String f[] = str.split("\t");
 					String g1 = f[0], g2 = f[1];
