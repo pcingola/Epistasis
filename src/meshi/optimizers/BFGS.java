@@ -1,6 +1,8 @@
 package meshi.optimizers;
 
-import meshi.energy.TotalEnergy;
+import meshi.energy.Energy;
+import meshi.optimizers.exceptions.LineSearchException;
+import meshi.optimizers.exceptions.OptimizerException;
 
 /**
  *This class implements a BFGS minimizer according to the scheme in: Numerical Optimization by J. Nocendal &
@@ -118,6 +120,7 @@ import meshi.energy.TotalEnergy;
  **/
 
 public class BFGS extends Minimizer {
+
 	private SteepestDecent steepestDecent;
 	private WolfConditionLineSearch lineSearch;
 	private int n; // number of variables
@@ -166,12 +169,12 @@ public class BFGS extends Minimizer {
 		return a;
 	}
 
-	public BFGS(TotalEnergy energy, double tolerance, int maxSteps, int reportEvery) {
+	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
 		this(energy, tolerance, maxSteps, reportEvery, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.coordinates().length, DEFAULT_MAX_NUM_KICK_STARTS, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH, DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
 	}
 
 	//Full constructor
-	public BFGS(TotalEnergy energy, double tolerance, int maxIterations, int reportEvery, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
+	public BFGS(Energy energy, double tolerance, int maxIterations, int reportEvery, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
 		super(energy, maxIterations, reportEvery, tolerance);
 		if (maxIterations <= numStepsSteepestDecent) throw new RuntimeException(" numStepsSteepestDecent " + numStepsSteepestDecent + " >= maxIterations " + maxIterations + "\n" + " please use SteepstDecent class instead.");
 		getParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);

@@ -1,5 +1,6 @@
 package meshi.optimizers;
 import meshi.energy.*;
+import meshi.optimizers.exceptions.LineSearchException;
 
 /**
  *This class implements a line search that satisfies the Wolf conditions according to the scheme in: Numerical Optimization
@@ -64,7 +65,7 @@ public class WolfConditionLineSearch extends LineSearch {
     private int i;
     
 	
-	public WolfConditionLineSearch(TotalEnergy energy,
+	public WolfConditionLineSearch(Energy energy,
 				       double c1, double c2,
 				       double extendAlphaFactor,
 				       int maxNumEvaluations) {
@@ -96,7 +97,7 @@ public class WolfConditionLineSearch extends LineSearch {
 					      " as the 'coordinate' array in energy. \n" +
 					      "It should be a different array.\n");
 		//Initializing the run
-		newE = energy.getLastEnergy();
+		newE = energy.getEnergy();
 		grad0 = 0; // calculating the gradient at a=0
         for (i=0 ; i<n ; i++)
 	        grad0 -= inputCoordinates[i][1]*coordinates[i][1];

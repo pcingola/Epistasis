@@ -1,5 +1,6 @@
 package meshi.optimizers;
 import meshi.energy.*;
+import meshi.optimizers.exceptions.LineSearchException;
 
 /**
  * This class provide a simple way to find the step length. It start with a certain length and check if
@@ -30,7 +31,7 @@ public class SimpleStepLength extends LineSearch {
     int i;
 	
 
-    public SimpleStepLength(TotalEnergy energy,  
+    public SimpleStepLength(Energy energy,  
 			    double stepSize1, 
 			    double stepSizeReduction,
 			    double stepSizeExpansion) {
@@ -59,7 +60,7 @@ public class SimpleStepLength extends LineSearch {
 		for (i = 0; i < coordinates.length; i++) {
 			coordinates[i][0] = inputCoordinates[i][0];
 		}
-		old_e = energy.getLastEnergy();			
+		old_e = energy.getEnergy();			
 		new_e = old_e;	
 		// If no energy reduction is achieved for a specific step size it is reduced 		
 		// until a step that produce reduction in energy is found.

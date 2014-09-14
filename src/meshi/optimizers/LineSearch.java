@@ -1,5 +1,6 @@
 package meshi.optimizers;
 import meshi.energy.*;
+import meshi.optimizers.exceptions.LineSearchException;
 /**
  *An abstract class of the common function calls in all the Line-Search procedure.
  * 
@@ -11,9 +12,9 @@ import meshi.energy.*;
 
 public abstract class  LineSearch {
 	
-    protected TotalEnergy energy;
+    protected Energy energy;
 
-	public LineSearch(TotalEnergy energy){
+	public LineSearch(Energy energy){
 		this.energy = energy;
 	}
 		

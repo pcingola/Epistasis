@@ -1,7 +1,7 @@
 package meshi.optimizers;
 
-import meshi.energy.TotalEnergy;
-import meshi.util.Terminator;
+import meshi.energy.Energy;
+import meshi.optimizers.exceptions.OptimizerException;
 
 /**
  * Minimize energy according to a given set of coordinates and an energy function
@@ -14,12 +14,19 @@ public abstract class Minimizer extends Optimizer {
 	public final double tolerance;
 	private double forceMagnitude;
 	private int numberOfKickStrarts;
-	public static final Terminator terminator = new Terminator();
+	public static final OptimizationTerminator terminator = new OptimizationTerminator();
 
-	public Minimizer(TotalEnergy energy, int maxSteps, int reportEvery, double tolerance) {
+	public Minimizer(Energy energy, int maxSteps, int reportEvery, double tolerance) {
 		super(energy, maxSteps, reportEvery);
 		this.tolerance = tolerance;
 		energy.evaluate();
+	}
+
+	/**
+	 * Finds the maximal component (in magnitude) of the gradient vector in coordinates ( coordinates[][1] ).
+	 */
+	double getGradMagnitude() {
+		throw new RuntimeException("Gradient magnitude: Unimplemented!");
 	}
 
 	protected abstract void init() throws OptimizerException;
@@ -46,20 +53,18 @@ public abstract class Minimizer extends Optimizer {
 					kickStart();
 					System.out.println("kickstart # " + numberOfKickStrarts + " done");
 				} catch (OptimizerException oe) {
-					if (testFlag) energy.test();
 					throw oe;
 				}
 				numberOfKickStrarts++;
 			}
-
-			if (step % reportEvery == 0) System.out.println(energy().report(step));
 		}
+
 		return status(step);
 	}
 
 	private OptimizerStatus status(int step) {
 		if (terminator.dead()) { return OptimizerStatus.KILLED; }
-		forceMagnitude = energy.getGradMagnitude();
+		forceMagnitude = getGradMagnitude();
 		if (forceMagnitude < tolerance) return OptimizerStatus.CONVERGED;
 		if (step <= maxSteps) return OptimizerStatus.RUNNING;
 		return OptimizerStatus.UNCONVERGED;
