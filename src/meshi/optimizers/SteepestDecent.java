@@ -8,7 +8,7 @@ import meshi.optimizers.exceptions.OptimizerException;
  * This class implements a simple steepest descent minimizer, using a simple back tracking line search.
  * The search direction is given by the gradient of the energy function, at the minimizer position.
  * The step length first tried is the previous iteration step length, multiplied by some expansion factor.
- * If it leads to energy reduction it is choosen, otherwise it is shortened by some factor and tried again. This repeats
+ * If it leads to energy reduction it is chosen, otherwise it is shortened by some factor and tried again. This repeats
  * until energy reduction is achieved.
  *
  *To run this minimizer:
@@ -20,7 +20,7 @@ import meshi.optimizers.exceptions.OptimizerException;
  *
  * Parameters in the full constructor:
  * ----------------------------------
- * - energy - pointer to a TotalEnergy object, where the energy function is.
+ * - energy - Energy object, where the energy function is.
  * - tolerance - Minimization stops when the magnitude of the maximal gradient component drops below tolerance.
  * - maxIteration - The maximal number of iteration steps allowed
  * - reoprtEvery - The frequency of the minimization reports.
