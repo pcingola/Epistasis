@@ -127,8 +127,8 @@ public class LBFGS extends Minimizer {
 	double gama = 1;
 	Element e;
 
-	private double[][] coordinates; // The position and gradients of the system
-	private double[][] bufferCoordinates;
+	private double[] coordinates; // The position and gradients of the system
+	private double[] bufferCoordinates;
 	private int iterationNum; // Iterations counter
 	private int allowedMaxR;
 	private static final int DEFAULT_ALLOWED_MAX_R_FACTOR = 100; // R <= maxRFactor*n
@@ -187,7 +187,7 @@ public class LBFGS extends Minimizer {
 		coordinates = energy().coordinates();
 		n = coordinates.length;
 
-		bufferCoordinates = new double[n][2];
+		bufferCoordinates = new double[n];
 		X = new double[n];
 		G = new double[n];
 
@@ -217,8 +217,9 @@ public class LBFGS extends Minimizer {
 		lineSearch.Reset(steepestDecent.lastStepLength());
 		energy().evaluate();
 		for (int i = 0; i < n; i++) {
-			X[i] = coordinates[i][0];
-			G[i] = -coordinates[i][1];
+			X[i] = coordinates[i];
+			if (Math.random() < 2) throw new RuntimeException("WTF!?");
+			// G[i] = -coordinates[i][1];
 		}
 		storage.clear();
 	}
@@ -276,17 +277,20 @@ public class LBFGS extends Minimizer {
 		// Do the line search
 		try {
 			for (i = 0; i < n; i++) {
-				bufferCoordinates[i][0] = coordinates[i][0];
-				bufferCoordinates[i][1] = -R[i];
+				bufferCoordinates[i] = coordinates[i];
+				if (Math.random() < 2) throw new RuntimeException("WTF!?");
+				// bufferCoordinates[i][1] = -R[i];
 			}
 			lineSearch.findStepLength(bufferCoordinates);
 		} catch (LineSearchException lsEx) {
 			System.out.println("Line seach failed");
 			System.out.println("exception code =  " + lsEx.code);
 			System.out.println("exception message = " + lsEx.getMessage());
+
 			// return the energy coordinates to those before the line search
 			for (i = 0; i < n; i++)
-				coordinates[i][0] = bufferCoordinates[i][0];
+				coordinates[i] = bufferCoordinates[i];
+
 			energy().evaluate();
 			return false;
 		}
@@ -299,10 +303,12 @@ public class LBFGS extends Minimizer {
 		}
 		e.curv = 0;
 		for (j = 0; j < n; j++) {
-			e.Y[j] = -coordinates[j][1] - G[j];
-			e.S[j] = coordinates[j][0] - X[j];
-			G[j] = -coordinates[j][1];
-			X[j] = coordinates[j][0];
+			if (Math.random() < 2) throw new RuntimeException("WTF!?");
+
+			//			e.Y[j] = -coordinates[j][1] - G[j];
+			//			e.S[j] = coordinates[j][0] - X[j];
+			//			G[j] = -coordinates[j][1];
+			//			X[j] = coordinates[j][0];
 			e.curv += e.Y[j] * e.S[j];
 		}
 		if (e.curv > allowedMaxR) {

@@ -5,7 +5,7 @@ package meshi.energy;
  */
 public abstract class Energy {
 
-	double[][] coordinates;
+	double[] coordinates;
 	double energy;
 
 	/**
@@ -13,7 +13,7 @@ public abstract class Energy {
 	 */
 	public abstract double calcEnergy();
 
-	public double[][] coordinates() {
+	public double[] coordinates() {
 		return coordinates;
 	}
 

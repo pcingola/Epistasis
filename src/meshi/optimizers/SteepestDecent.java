@@ -25,7 +25,7 @@ import meshi.optimizers.exceptions.OptimizerException;
  * - maxIteration - The maximal number of iteration steps allowed
  * - reoprtEvery - The frequency of the minimization reports.
  * - initialStepLength - parameter of the line search. The first step length to be tried after the calculation of the
- *                       first gradient. This parameter should normally be 1 unless very large gradients (such as clashhing
+ *                       first gradient. This parameter should normally be 1 unless very large gradients (such as clashing
  *                       of VDW atoms) are expected in the first steps. In that case it should be a much smaller number.
  * - stepSizeReduction - parameter of the line search. The step length is multiplied by this factor if no reduction
  *                       in energy is achieved.
@@ -37,8 +37,8 @@ import meshi.optimizers.exceptions.OptimizerException;
 public class SteepestDecent extends Minimizer {
 
 	private SimpleStepLength lineSearch;
-	private double[][] coordinates;
-	private double[][] bufferCoordinates;
+	private double[] coordinates;
+	private double[] bufferCoordinates;
 	private double lastStepLength = 1;
 	private static final double DEFAULT_TOLERANCE = 0.00001;
 	private static final int DEFAULT_MAX_ITERATION = 100000;
@@ -72,7 +72,7 @@ public class SteepestDecent extends Minimizer {
 	protected void init() throws OptimizerException {
 		coordinates = energy().coordinates();
 		lineSearch = new SimpleStepLength(energy(), initialStepLength, stepSizeReduction, stepSizeExpansion);
-		bufferCoordinates = new double[coordinates.length][2];
+		bufferCoordinates = new double[coordinates.length];
 		energy().evaluate();
 	}
 
@@ -86,10 +86,9 @@ public class SteepestDecent extends Minimizer {
 
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		for (int i = 0; i < coordinates.length; i++) {
-			bufferCoordinates[i][0] = coordinates[i][0];
-			bufferCoordinates[i][1] = coordinates[i][1];
-		}
+		for (int i = 0; i < coordinates.length; i++)
+			bufferCoordinates[i] = coordinates[i];
+
 		try {
 			lastStepLength = lineSearch.findStepLength(bufferCoordinates);
 		} catch (LineSearchException lsException) {

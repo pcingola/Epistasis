@@ -12,7 +12,7 @@ import meshi.optimizers.exceptions.OptimizerException;
  *
  *The BFGS algorithm (general)
  *----------------------------
- *In Newton minimizers an aproximation to the Hessian of the energy function at position Xk is calculated. Then finding the
+ *In Newton minimizers an approximation to the Hessian of the energy function at position Xk is calculated. Then finding the
  *inverse of that Hessian (Hk), and solving the equation Pk = -Hk*grad(Xk) gives a good search direction Pk. Later, a
  *line search procedure has to determine just how much to go in that direction (producing the scalar alpha_k). The new
  *position is given by: Xk+1 = Xk + alpha_k*Pk.In the BFGS method the inverse Hessian is not computed explicitly. Instead
@@ -33,7 +33,7 @@ import meshi.optimizers.exceptions.OptimizerException;
  *d) Check for thrown errors to see if the minimization succeeded.
  *e) The minimized position is in the 'coordinates' variable at the 'energy' class.
  *
- *2)This implementation creates a matrix (of doubles) whos size is 0.5*(n^2). Where n is the number of variable to minimze. If n is large
+ *2)This implementation creates a matrix (of doubles) size is 0.5*(n^2). Where n is the number of variables to minimize. If n is large
  *the memory load might be very great.
  *
  *3)The inverse Hessian matrix (H) which is symmetric is stored as a linear vector in the following way (to save space):
@@ -129,17 +129,17 @@ public class BFGS extends Minimizer {
 	private double[] P; // The search direction
 	private double[] X; // The coordinates at iteration K
 	private double[] G; // The (-) gradients at iteration K
-	private double[] S; // The coordinates difference before the inverese Hessian update
-	private double[] Y; // The (-) gradients difference before the inverese Hessian update
+	private double[] S; // The coordinates difference before the inverse Hessian update
+	private double[] Y; // The (-) gradients difference before the inverse Hessian update
 	private double[] A; // Hk*Yk
-	private double[][] coordinates; // The position and gradients of the system
-	private double[][] bufferCoordinates;
+	private double[] coordinates; // The position and gradients of the system
+	private double[] bufferCoordinates;
 	private int iterationNum; // Iterations counter
 
-	// BFGS paramters
+	// BFGS parameters
 	private double allowedMaxH;
 	private static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
-	private static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Dont change this number unless necessary
+	private static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
 
 	// Wolf conditions line search parameters
 	private double c1;
@@ -151,7 +151,7 @@ public class BFGS extends Minimizer {
 	private static final double DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH = 3.0;
 	private static final int DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH = 10;
 
-	// Steepest descent module paramters
+	// Steepest descent module parameters
 	int numStepsSteepestDecent;
 	double initStepSteepestDecent;
 	double stepSizeReductionSteepestDecent;
@@ -161,7 +161,7 @@ public class BFGS extends Minimizer {
 	private static final double DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT = 0.5;
 	private static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
 
-	// Constant paramters
+	// Constant parameters
 	private final int MAX_NUM_VARIABLES = 3000;
 
 	public static double abs(double a) {
@@ -202,7 +202,7 @@ public class BFGS extends Minimizer {
 		coordinates = energy().coordinates();
 		n = coordinates.length;
 		np = (n + 1) * n / 2;
-		bufferCoordinates = new double[n][2];
+		bufferCoordinates = new double[n];
 		P = new double[n];
 		X = new double[n];
 		Y = new double[n];
@@ -238,9 +238,10 @@ public class BFGS extends Minimizer {
 		initHessian();
 		lineSearch.Reset(steepestDecent.lastStepLength());
 		energy().evaluate();
+
 		for (int i = 0; i < n; i++) {
-			X[i] = coordinates[i][0];
-			G[i] = coordinates[i][1];
+			X[i] = coordinates[i];
+			// G[i] = coordinates[i][1];
 		}
 	}
 
@@ -252,9 +253,13 @@ public class BFGS extends Minimizer {
 		double MaxH; // The maximal entry in H (in term of magnitude)
 		int i, j, k; // auxilary counters
 		double tempAbs;
+
 		// Pk=Hk*(-Gk)
-		for (i = 0; i < n; i++)
-			G[i] = coordinates[i][1];
+		for (i = 0; i < n; i++) {
+			if (Math.random() < 2) throw new RuntimeException("WTF!?");
+			// G[i] = coordinates[i][1];
+		}
+
 		for (i = 0; i < n; i++) {
 			P[i] = 0;
 			k = i;
@@ -269,28 +274,30 @@ public class BFGS extends Minimizer {
 		}
 		// Do the line search
 		try {
-			for (i = 0; i < n; i++) {
-				bufferCoordinates[i][0] = coordinates[i][0];
-				bufferCoordinates[i][1] = P[i];
-			}
+			for (i = 0; i < n; i++)
+				bufferCoordinates[i] = coordinates[i];
+
 			lineSearch.findStepLength(bufferCoordinates);
 		} catch (LineSearchException lsEx) {
 			// return the energy coordinates to those before the line search
 			System.out.println("Line seach failed");
 			System.out.println("exception code =  " + lsEx.code);
 			System.out.println("exception message = " + lsEx.getMessage());
+
 			for (i = 0; i < n; i++)
-				coordinates[i][0] = bufferCoordinates[i][0];
+				coordinates[i] = bufferCoordinates[i];
 			energy().evaluate();
 			return false;
 		}
 		// Calculate Gk+1,Sk,Yk and the curvature Yk*Sk. Check for pathological curvature
 		Curv = 0;
 		for (i = 0; i < n; i++) {
-			Y[i] = coordinates[i][1] - G[i];
-			S[i] = coordinates[i][0] - X[i];
-			G[i] = coordinates[i][1];
-			X[i] = coordinates[i][0];
+			if (Math.random() < 2) throw new RuntimeException("WTF!?");
+			//			Y[i] = coordinates[i][1] - G[i];
+			//			S[i] = coordinates[i][0] - X[i];
+			//			G[i] = coordinates[i][1];
+			//			X[i] = coordinates[i][0];
+
 			Curv += Y[i] * S[i];
 		}
 		if (Curv == 0) {
