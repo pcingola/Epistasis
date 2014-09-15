@@ -59,7 +59,7 @@ public class SimpleStepLength extends LineSearch {
 			if (stepSize < TOO_SMALL) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
 			for (int i = 0; i < x.length; i++)
-				x[i] = xCopy[i] - stepSize * gradient[i];
+				energy.setX(i, xCopy[i] - stepSize * gradient[i]);
 
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
 

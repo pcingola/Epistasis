@@ -79,7 +79,14 @@ public abstract class Energy {
 
 	@Override
 	public String toString() {
-		return "Energy: " + energy + "\tx: " + Gpr.toString(x) + "\tgradient: " + Gpr.toString(gradient);
+		return "Energy: " + (energyNeedsUpdate ? "[Needs update]" : "") //
+				+ energy //
+				//
+				+ "\tx: " + Gpr.toString(x) //
+				//
+				+ "\tgradient " //
+				+ (gradientNeedsUpdate ? "[Needs update]" : "") //
+				+ ": " + Gpr.toString(gradient);
 	}
 
 	/**
@@ -102,8 +109,8 @@ public abstract class Energy {
 		if (!gradientNeedsUpdate) return gradient;
 
 		double grad[] = calcGradient();
-		energyNeedsUpdate = false;
 
+		gradientNeedsUpdate = false;
 		return grad;
 	}
 }

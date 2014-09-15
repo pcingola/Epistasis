@@ -11,8 +11,7 @@ public abstract class Optimizer {
 		RUNNING, CONVERGED, UNCONVERGED, KILLED, DONE;
 	}
 
-	protected boolean debug = true;
-
+	protected boolean debug = false;
 	protected Energy energy;
 	protected OptimizationTerminator optimizerTerminator;
 
@@ -26,4 +25,14 @@ public abstract class Optimizer {
 	}
 
 	public abstract OptimizerStatus run() throws OptimizerException;
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + " : " + energy;
+	}
+
 }

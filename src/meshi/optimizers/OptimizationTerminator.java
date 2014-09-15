@@ -29,7 +29,7 @@ public class OptimizationTerminator {
 	 * Finds the maximal component (in magnitude) of the gradient vector in coordinates ( coordinates[][1] ).
 	 */
 	double getGradMagnitude() {
-		double grad[] = energy.getGradient();
+		double grad[] = energy.updateGradient();
 
 		double maxAbs = 0;
 		for (int i = 0; i < grad.length; i++)

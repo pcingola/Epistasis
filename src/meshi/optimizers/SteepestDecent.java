@@ -36,7 +36,7 @@ import meshi.optimizers.exceptions.OptimizerException;
 public class SteepestDecent extends Minimizer {
 
 	private SimpleStepLength lineSearch;
-	//	private double[] x;
+
 	private double[] xCopy;
 	private double lastStepLength = 1;
 	private static final double DEFAULT_INITIAL_STEP_LENGTH = 1.0;
@@ -88,10 +88,5 @@ public class SteepestDecent extends Minimizer {
 		}
 
 		return true;
-	}
-
-	@Override
-	public String toString() {
-		return ("SteepestDecent\t" + energy);
 	}
 }
