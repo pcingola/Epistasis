@@ -36,13 +36,10 @@ import meshi.optimizers.exceptions.OptimizerException;
 public class SteepestDecent extends Minimizer {
 
 	private SimpleStepLength lineSearch;
-	private double[] coordinates;
-	private double[] bufferCoordinates;
+	//	private double[] x;
+	private double[] xCopy;
 	private double lastStepLength = 1;
-	private static final double DEFAULT_TOLERANCE = 0.00001;
-	private static final int DEFAULT_MAX_ITERATION = 100000;
-	private static final int DEFAULT_REPORT_EVERY = 1;
-	private static final double DEFAULT_INITIAL_STEP_LENGTH = 0.00000001;
+	private static final double DEFAULT_INITIAL_STEP_LENGTH = 1.0;
 	private static final double DEFAULT_STEP_SIZE_REDUCTION = 0.5;
 	private static final double DEFAULT_STEP_SIZE_EXPENTION = 1.1;
 	private double initialStepLength;
@@ -51,17 +48,12 @@ public class SteepestDecent extends Minimizer {
 
 	// Default values constructor
 	public SteepestDecent(Energy energy) {
-		this(energy, DEFAULT_TOLERANCE, DEFAULT_MAX_ITERATION, DEFAULT_REPORT_EVERY, DEFAULT_INITIAL_STEP_LENGTH, DEFAULT_STEP_SIZE_REDUCTION, DEFAULT_STEP_SIZE_EXPENTION);
-	}
-
-	// Values for the line search are taken as default in this constructor
-	public SteepestDecent(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, tolerance, maxSteps, reportEvery, DEFAULT_INITIAL_STEP_LENGTH, DEFAULT_STEP_SIZE_REDUCTION, DEFAULT_STEP_SIZE_EXPENTION);
+		this(energy, DEFAULT_INITIAL_STEP_LENGTH, DEFAULT_STEP_SIZE_REDUCTION, DEFAULT_STEP_SIZE_EXPENTION);
 	}
 
 	//Full constructor
-	public SteepestDecent(Energy energy, double tolerance, int maxSteps, int reportEvery, double initialStepLength, double stepSizeReduction, double stepSizeExpansion) {
-		super(energy, maxSteps, reportEvery, tolerance);
+	public SteepestDecent(Energy energy, double initialStepLength, double stepSizeReduction, double stepSizeExpansion) {
+		super(energy);
 		this.initialStepLength = initialStepLength;
 		this.stepSizeReduction = stepSizeReduction;
 		this.stepSizeExpansion = stepSizeExpansion;
@@ -69,9 +61,8 @@ public class SteepestDecent extends Minimizer {
 
 	@Override
 	protected void init() throws OptimizerException {
-		coordinates = energy().coordinates();
 		lineSearch = new SimpleStepLength(energy(), initialStepLength, stepSizeReduction, stepSizeExpansion);
-		bufferCoordinates = new double[coordinates.length];
+		xCopy = new double[energy.size()];
 		energy().evaluate();
 	}
 
@@ -85,20 +76,22 @@ public class SteepestDecent extends Minimizer {
 
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		for (int i = 0; i < coordinates.length; i++)
-			bufferCoordinates[i] = coordinates[i];
+		System.arraycopy(energy.getX(), 0, xCopy, 0, xCopy.length);
+
+		energy.evaluate();
 
 		try {
-			lastStepLength = lineSearch.findStepLength(bufferCoordinates);
+			lastStepLength = lineSearch.findStepLength(xCopy);
 		} catch (LineSearchException lsException) {
-			if (lsException.code == LineSearchException.NOT_A_DESCENT_DIRECTION) throw new OptimizerException("\n\n Problem in SteepestDecent." + " Direction is not a descent direction. \n" + "This problem is caused by incorrect differentiation of the " + "energy function.\n" + "gradient rms is ");
+			if (lsException.code == LineSearchException.NOT_A_DESCENT_DIRECTION) throw new OptimizerException("\n\nProblem in SteepestDecent. Direction is not a descent direction.\nThis problem is caused by incorrect differentiation of the energy function.\n");
 			else throw new RuntimeException("Unknown LineSearchException " + lsException);
 		}
+
 		return true;
 	}
 
 	@Override
 	public String toString() {
-		return ("SteepestDecent\n" + "\t maxSteps \t" + maxSteps + "\n" + "\t tolerance \t" + tolerance);
+		return ("SteepestDecent\t" + energy);
 	}
 }

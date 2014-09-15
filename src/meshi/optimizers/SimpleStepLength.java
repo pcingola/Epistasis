@@ -1,6 +1,7 @@
 package meshi.optimizers;
 
 import meshi.optimizers.exceptions.LineSearchException;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * This class provide a simple way to find the step length. It start with a certain length and check if
@@ -23,17 +24,17 @@ import meshi.optimizers.exceptions.LineSearchException;
 
 public class SimpleStepLength extends LineSearch {
 
+	private static final double TOO_SMALL = Math.exp(-60);
+
 	private double stepSize, stepSizeReduction, stepSizeExpansion;
-	private double old_e, new_e;
-	private double[] coordinates;
-	private final double verySmall = Math.exp(-60);
-	int i;
+	private double energyOld, energyNew;
+	private double[] x;
 
 	public SimpleStepLength(Energy energy, double stepSize1, double stepSizeReduction, double stepSizeExpansion) {
 		super(energy);
 		this.stepSizeExpansion = stepSizeExpansion;
 		this.stepSizeReduction = stepSizeReduction;
-		coordinates = energy.coordinates();
+		x = energy.getX();
 
 		if (stepSizeExpansion > 0) stepSize = stepSize1 / stepSizeExpansion;
 		else stepSize = 1;
@@ -42,32 +43,27 @@ public class SimpleStepLength extends LineSearch {
 	}
 
 	@Override
-	public double findStepLength(double[] inputCoordinates) throws LineSearchException {
-		if (inputCoordinates == coordinates) throw new LineSearchException(LineSearchException.WEIRD_INPUT_TO_FIND_STEP_LENGTH, "\n\nThe input array to the function 'findStepLength' " + "has the same pointer as the 'coordinate' array in energy. \n" + "It should be a different array.\n");
+	public double findStepLength(double[] xCopy) throws LineSearchException {
+		if (xCopy == x) throw new LineSearchException(LineSearchException.WEIRD_INPUT_TO_FIND_STEP_LENGTH, "\n\nThe input array to the function 'findStepLength' " + "has the same pointer as the 'coordinate' array in energy. \n" + "It should be a different array.\n");
 		stepSize = stepSize * stepSizeExpansion / stepSizeReduction;
 		if (stepSizeExpansion <= 0) stepSize = 1;
 
-		for (i = 0; i < coordinates.length; i++)
-			coordinates[i] = inputCoordinates[i];
-
-		old_e = energy.getEnergy();
-		new_e = old_e;
+		energyOld = energy.getEnergy();
+		energyNew = energyOld;
 
 		// If no energy reduction is achieved for a specific step size it is reduced
 		// until a step that produce reduction in energy is found.
-		while (new_e >= old_e) {
-
+		double gradient[] = energy.getGradient();
+		while (energyNew >= energyOld) {
 			stepSize *= stepSizeReduction;
+			if (stepSize < TOO_SMALL) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
-			if (stepSize < verySmall) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n");
+			for (int i = 0; i < x.length; i++)
+				x[i] = xCopy[i] - stepSize * gradient[i];
 
-			for (i = 0; i < coordinates.length; i++) {
-				coordinates[i] = inputCoordinates[i] + stepSize * inputCoordinates[i];
-				// coordinates[i][0] = inputCoordinates[i][0] + stepSize*inputCoordinates[i][1];
+			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
 
-			}
-
-			new_e = energy.evaluate(); // The energy at the new coordinates.
+			if (debug) Gpr.debug("Step size: " + stepSize + "\told energy: " + energyOld + "\tnew " + energy);
 		}
 
 		return stepSize;

@@ -25,6 +25,7 @@ public class TestSuiteAll {
 		suite.addTestSuite(TestTransitionMatrix.class);
 		suite.addTestSuite(TestCaseLikelihoodRatio.class);
 		suite.addTestSuite(TestCaseLogisticRegression.class);
+		suite.addTestSuite(TestCaseOptimization.class);
 
 		return suite;
 	}

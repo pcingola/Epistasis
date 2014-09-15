@@ -11,16 +11,14 @@ public abstract class Optimizer {
 		RUNNING, CONVERGED, UNCONVERGED, KILLED, DONE;
 	}
 
-	public final Energy energy;
-	public final int maxSteps;
-	public final int reportEvery;
-	public static final OptimizationTerminator optimizerTerminator = new OptimizationTerminator();
+	protected boolean debug = true;
 
-	public Optimizer(Energy energy, int maxSteps, int reportEvery) {
-		this.maxSteps = maxSteps;
+	protected Energy energy;
+	protected OptimizationTerminator optimizerTerminator;
+
+	public Optimizer(Energy energy) {
 		this.energy = energy;
-		this.reportEvery = reportEvery;
-		optimizerTerminator.reset();
+		optimizerTerminator = new OptimizationTerminator(energy);
 	}
 
 	public Energy energy() {

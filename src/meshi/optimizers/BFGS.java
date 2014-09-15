@@ -168,15 +168,14 @@ public class BFGS extends Minimizer {
 		return a;
 	}
 
-	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, tolerance, maxSteps, reportEvery, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.coordinates().length, DEFAULT_MAX_NUM_KICK_STARTS, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH, DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
+	//Full constructor
+	public BFGS(Energy energy, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
+		super(energy);
+		getParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
 
-	//Full constructor
-	public BFGS(Energy energy, double tolerance, int maxIterations, int reportEvery, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
-		super(energy, maxIterations, reportEvery, tolerance);
-		if (maxIterations <= numStepsSteepestDecent) throw new RuntimeException(" numStepsSteepestDecent " + numStepsSteepestDecent + " >= maxIterations " + maxIterations + "\n" + " please use SteepstDecent class instead.");
-		getParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
+	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
+		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH, DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
 	}
 
 	private void getParameters(double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
@@ -196,9 +195,9 @@ public class BFGS extends Minimizer {
 
 	@Override
 	protected void init() throws OptimizerException {
-		steepestDecent = new SteepestDecent(energy(), tolerance, numStepsSteepestDecent, reportEvery, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
+		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 		lineSearch = new WolfConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
-		coordinates = energy().coordinates();
+		coordinates = energy().getX();
 		n = coordinates.length;
 		np = (n + 1) * n / 2;
 		bufferCoordinates = new double[n];
@@ -343,6 +342,6 @@ public class BFGS extends Minimizer {
 
 	@Override
 	public String toString() {
-		return ("BFGS\n" + "\t maxSteps \t" + maxSteps + "\n" + "\t tolerance \t" + tolerance);
+		return ("BFGS\t" + energy);
 	}
 }

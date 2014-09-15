@@ -1,6 +1,7 @@
 package meshi.optimizers;
 
 import meshi.optimizers.exceptions.OptimizerException;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * Minimize energy according to a given set of coordinates and an energy function
@@ -10,22 +11,11 @@ import meshi.optimizers.exceptions.OptimizerException;
 public abstract class Minimizer extends Optimizer {
 
 	public final int MAX_KICKSTARTS = 1000;
-	public final double tolerance;
-	private double forceMagnitude;
-	private int numberOfKickStrarts;
-	public static final OptimizationTerminator terminator = new OptimizationTerminator();
 
-	public Minimizer(Energy energy, int maxSteps, int reportEvery, double tolerance) {
-		super(energy, maxSteps, reportEvery);
-		this.tolerance = tolerance;
-		energy.evaluate();
-	}
+	int numberOfKickStrarts;
 
-	/**
-	 * Finds the maximal component (in magnitude) of the gradient vector in coordinates ( coordinates[][1] ).
-	 */
-	double getGradMagnitude() {
-		throw new RuntimeException("Gradient magnitude: Unimplemented!");
+	public Minimizer(Energy energy) {
+		super(energy);
 	}
 
 	protected abstract void init() throws OptimizerException;
@@ -35,16 +25,25 @@ public abstract class Minimizer extends Optimizer {
 	protected abstract boolean minimizationStep() throws OptimizerException;
 
 	@Override
-	public OptimizerStatus run() throws OptimizerException {
-		return run(true);
+	public OptimizerStatus run() {
+		try {
+			return run(true);
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	public OptimizerStatus run(boolean testFlag) throws OptimizerException {
 		init();
 		numberOfKickStrarts = 0;
 		int step;
-		for (step = 1; status(step) == OptimizerStatus.RUNNING; step++) {
+		for (step = 1; optimizerTerminator.status(step) == OptimizerStatus.RUNNING; step++) {
+
+			energy.evaluate(); // Update energy
+
 			boolean minimizationStepOK = minimizationStep();
+
+			if (debug) Gpr.debug("minimizationStepOK: " + minimizationStepOK + "\t" + energy);
 
 			if (!minimizationStepOK) {
 				if (numberOfKickStrarts >= MAX_KICKSTARTS) throw new OptimizerException("\n\nThe simulation was restarted for " + MAX_KICKSTARTS + " times " + "which is more than allowed.\n" + "So many restarts are indicative of an ill-shaped energy function or " + "an energy differentiation\n");
@@ -58,14 +57,7 @@ public abstract class Minimizer extends Optimizer {
 			}
 		}
 
-		return status(step);
+		return optimizerTerminator.status(step);
 	}
 
-	private OptimizerStatus status(int step) {
-		if (terminator.dead()) { return OptimizerStatus.KILLED; }
-		forceMagnitude = getGradMagnitude();
-		if (forceMagnitude < tolerance) return OptimizerStatus.CONVERGED;
-		if (step <= maxSteps) return OptimizerStatus.RUNNING;
-		return OptimizerStatus.UNCONVERGED;
-	}
 }

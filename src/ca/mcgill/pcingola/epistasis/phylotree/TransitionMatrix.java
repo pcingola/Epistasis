@@ -396,20 +396,7 @@ public class TransitionMatrix extends Array2DRowRealMatrix {
 
 			for (int j = 0; j < getColumnDimension(); j++) {
 				if (j > 0) sb.append(", ");
-				double val = getEntry(i, j);
-				double aval = Math.abs(val);
-				if (aval < 1000000 && aval >= 100000.0) sb.append(String.format("% 6.2f", val));
-				else if (aval < 100000 && aval >= 10000.0) sb.append(String.format("% 5.2f ", val));
-				else if (aval < 10000 && aval >= 1000.0) sb.append(String.format("% 4.2f  ", val));
-				else if (aval < 1000 && aval >= 100.0) sb.append(String.format("% 3.2f   ", val));
-				else if (aval < 100 && aval >= 10.0) sb.append(String.format("% 2.2f    ", val));
-				else if (aval < 10 && aval >= 1.0) sb.append(String.format("% 1.3f    ", val));
-				else if (aval < 1.0 && aval >= 0.01) sb.append(String.format("% 1.3f    ", val));
-				else if (aval < 1.0 && aval >= 0.001) sb.append(String.format("% 1.4f   ", val));
-				else if (aval < 1.0 && aval >= 0.000001) sb.append(String.format("% 1.6f ", val));
-				else if (aval < 1.0 && aval >= 0.0000001) sb.append(String.format("% 1.7f", val));
-				else if (val == 0.0) sb.append(String.format(" 0        ", val));
-				else sb.append(String.format("% 1.3e", val));
+				sb.append(Gpr.toString(getEntry(i, j)));
 			}
 			sb.append(" |\n");
 		}

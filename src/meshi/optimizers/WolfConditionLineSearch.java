@@ -71,7 +71,7 @@ public class WolfConditionLineSearch extends LineSearch {
 		this.maxNumEvaluations = maxNumEvaluations;
 		this.extendAlphaFactor = extendAlphaFactor;
 		interSafeGuard = extendAlphaFactor / interSafeGuardFactor;
-		coordinates = energy.coordinates();
+		coordinates = energy.getX();
 		n = coordinates.length;
 		Reset();
 	}
