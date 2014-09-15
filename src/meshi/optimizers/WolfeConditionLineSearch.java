@@ -243,7 +243,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			energy.needsUpdate();
 			eNew = energy.evaluate();
-			Gpr.debug("numAlphaEvaluations: " + numAlphaEvaluations + "\talphaNew: " + alphaNew + "\tx: " + Gpr.toString(x) + "\tx0: " + Gpr.toString(x0) + "\teNew: " + eNew);
+			if (debug) Gpr.debug("numAlphaEvaluations: " + numAlphaEvaluations + "\talphaNew: " + alphaNew + "\tx: " + Gpr.toString(x) + "\tx0: " + Gpr.toString(x0) + "\teNew: " + eNew);
 
 			gradNew = 0; // Calculating the gradient at a=alphaNew
 			double grad[] = energy.getGradient();
