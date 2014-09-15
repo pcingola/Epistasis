@@ -64,11 +64,12 @@ public class WolfeConditionLineSearch extends LineSearch {
 	private double[] x;
 	private double[] xCopy;
 	private int firstRun;
-	private double alphaI, alphaI1, alphaFinal;
+	private double alphaPrev, alpha, alphaFinal;
 	private int n; // Number of variables
-	private double e0, eI, eI1; // Energy values along Pk
-	private double grad0, gradI, gradI1; // Gradients along Pk
-	private int numAlphaEvaluations, stop;
+	private double e0, ePrev, e; // Energy values along Pk
+	private double grad0, pkGradPrev, pkGrad; // Gradients along Pk
+	private int numAlphaEvaluations;
+	boolean stop = false;
 	private int i;
 
 	public WolfeConditionLineSearch(Energy energy) {
@@ -111,17 +112,17 @@ public class WolfeConditionLineSearch extends LineSearch {
 		if (grad0 >= 0) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation of the energy function,\n" + "or by numerical instabilities of the minimizing techniques" + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
 		numAlphaEvaluations = -1;
-		stop = 0;
+		stop = false;
 		e0 = energyNew;
-		eI = e0;
-		alphaI = 0;
+		ePrev = e0;
+		alphaPrev = 0;
 
 		// Choosing the initial alpha guess
 		if (firstRun != 0) {
 			firstRun = 0;
 		} else {
-			alphaI1 = 2.02 * (energyNew - energyOld) / grad0;
-			if (alphaI1 > 1) alphaI1 = 1;
+			alpha = 2.02 * (energyNew - energyOld) / grad0;
+			if (alpha > 1) alpha = 1;
 		}
 
 		energyOld = energyNew; // For the next time line search is called
@@ -129,36 +130,36 @@ public class WolfeConditionLineSearch extends LineSearch {
 		if (debug) Gpr.debug("Energy: " + energy + "\n\tx0: " + Gpr.toString(x0) + "\n\tpk: " + Gpr.toString(pk) + "\n\tgrad0: " + grad0);
 
 		// Bracketing the Wolf area
-		while ((numAlphaEvaluations <= maxNumEvaluations) && (stop == 0)) {
+		while ((numAlphaEvaluations <= maxNumEvaluations) && (!stop)) {
 			numAlphaEvaluations++;
 
 			// Calculating left hand side of first Wolfe condition: eI1 = f(x0 + alpha * pk)
 			for (i = 0; i < n; i++)
-				x[i] = x0[i] + alphaI1 * pk[i];
+				x[i] = x0[i] + alpha * pk[i];
 			energy.needsUpdate(); // Force energy function update
-			eI1 = energy.evaluate();
+			e = energy.evaluate();
 
 			// Calculating left hand side of second Wolfe condition: gradI1 = pk * grad[ f(x0 + alpha * pk) ]
-			gradI1 = 0;
+			pkGrad = 0;
 			grad = energy.getGradient();
 			for (i = 0; i < n; i++)
-				gradI1 -= pk[i] * grad[i];
+				pkGrad -= pk[i] * grad[i];
 
-			if (debug) Gpr.debug("alpha_I:" + alphaI + "\talpha_I1: " + alphaI1 + "\tx : " + Gpr.toString(x) + "\teI1: " + eI1 + "\tgradI1: " + gradI1);
+			if (debug) Gpr.debug("alpha_I:" + alphaPrev + "\talpha_I1: " + alpha + "\tx : " + Gpr.toString(x) + "\teI1: " + e + "\tgradI1: " + pkGrad);
 
-			if ((eI1 > (e0 + c1 * alphaI1 * grad0)) || ((eI1 >= eI) && (numAlphaEvaluations > 0))) {
+			if ((e > (e0 + c1 * alpha * grad0)) || ((e >= ePrev) && (numAlphaEvaluations > 0))) {
 				zoom(x0, false); // Calling the regular zoom
 			} else {
-				if (Math.abs(gradI1) <= (-c2 * grad0)) {
-					alphaFinal = alphaI1;
-					stop = 1;
-				} else if (gradI1 >= 0) zoom(x0, true); // Inverse Zoom
+				if (Math.abs(pkGrad) <= (-c2 * grad0)) {
+					alphaFinal = alpha;
+					stop = true;
+				} else if (pkGrad >= 0) zoom(x0, true); // Inverse Zoom
 			}
 
-			alphaI = alphaI1;
-			gradI = gradI1;
-			eI = eI1;
-			alphaI1 = alphaI1 * extendAlphaFactor;
+			alphaPrev = alpha;
+			pkGradPrev = pkGrad;
+			ePrev = e;
+			alpha = alpha * extendAlphaFactor;
 		}
 
 		if (numAlphaEvaluations > maxNumEvaluations) {
@@ -172,12 +173,12 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 	public void reset() {
 		firstRun = 1;
-		alphaI1 = 1.0;
+		alpha = 1.0;
 	}
 
 	public void reset(double resAlpha) {
 		firstRun = 1;
-		alphaI1 = resAlpha;
+		alpha = resAlpha;
 	}
 
 	// The function Zoom finds a step length satisfing the Wolf conditions, given the bracketing of alphaI and alphaI1.
@@ -188,24 +189,23 @@ public class WolfeConditionLineSearch extends LineSearch {
 		double gradHi, gradLow, gradNew = 0;
 		double a = 0, b = 0, ga = 0, gb = 0, ea, eb, interval, d1 = 0, d2 = 0; // Cubic interpolation variables
 
-		eHi = eI1;
-		gradHi = gradI1;
-		alphaHi = alphaI1;
-		eLow = eI;
-		gradLow = gradI;
-		alphaLow = alphaI;
+		eHi = e;
+		gradHi = pkGrad;
+		alphaHi = alpha;
+		eLow = ePrev;
+		gradLow = pkGradPrev;
+		alphaLow = alphaPrev;
 
 		if (inv) {
-			eHi = eI;
-			gradHi = gradI;
-			alphaHi = alphaI;
-			eLow = eI1;
-			gradLow = gradI1;
-			alphaLow = alphaI1;
+			eHi = ePrev;
+			gradHi = pkGradPrev;
+			alphaHi = alphaPrev;
+			eLow = e;
+			gradLow = pkGrad;
+			alphaLow = alpha;
 		}
 
-		while ((numAlphaEvaluations <= maxNumEvaluations) && (stop == 0)) {
-
+		while ((numAlphaEvaluations <= maxNumEvaluations) && (!stop)) {
 			numAlphaEvaluations++;
 
 			// Cubic interpolation of the next step length
@@ -229,6 +229,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			if ((d1 * d1 - ga * gb) >= 0) {
 				d2 = Math.sqrt(d1 * d1 - ga * gb);
+				Gpr.debug("gb: " + gb + "\tga: " + ga + "\td2: " + d2);
 				alphaNew = b - (b - a) * (gb + d2 - d1) / (gb - ga + 2 * d2);
 			} else alphaNew = a; // Forcing bisection
 
@@ -240,9 +241,11 @@ public class WolfeConditionLineSearch extends LineSearch {
 			for (i = 0; i < n; i++)
 				x[i] = x0[i] + alphaNew * x0[i];
 
+			Gpr.debug("numAlphaEvaluations: " + numAlphaEvaluations + "\talphaNew: " + alphaNew + "\tx: " + Gpr.toString(x));
+			energy.needsUpdate();
 			eNew = energy.evaluate();
 
-			gradNew = 0; // calculating the gradient at a=alphaNew
+			gradNew = 0; // Calculating the gradient at a=alphaNew
 			for (i = 0; i < n; i++)
 				gradNew -= x0[i] * x[i];
 
@@ -252,7 +255,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 				gradHi = gradNew;
 			} else {
 
-				if (Math.abs(gradNew) <= (-c2 * grad0)) stop = 1;
+				if (Math.abs(gradNew) <= (-c2 * grad0)) stop = true;
 				else {
 					if ((gradNew * (alphaHi - alphaLow)) >= 0) {
 						alphaHi = alphaLow;
@@ -270,5 +273,4 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 		alphaFinal = alphaNew;
 	}
-
 }
