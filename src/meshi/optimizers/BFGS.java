@@ -1,6 +1,5 @@
 package meshi.optimizers;
 
-import meshi.energy.Energy;
 import meshi.optimizers.exceptions.LineSearchException;
 import meshi.optimizers.exceptions.OptimizerException;
 

@@ -2,7 +2,6 @@ package meshi.optimizers;
 
 import java.util.LinkedList;
 
-import meshi.energy.Energy;
 import meshi.optimizers.exceptions.LineSearchException;
 import meshi.optimizers.exceptions.OptimizerException;
 

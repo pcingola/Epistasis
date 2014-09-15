@@ -200,7 +200,7 @@ public class Epistasis implements CommandLine {
 					if (!done.contains(key)) {
 						done.add(key);
 						String lout = likelihoodRatio(msa1, msa2, false);
-						if (!lout.isEmpty()) tmp.write(Gpr.prependEachLine("LIKELIHOOD_GENES\t" + gene1 + "\t" + gene2 + "\t", lout) + "\n");
+						if (!lout.isEmpty()) tmp.write(lout + "\n");
 					}
 				}
 
@@ -232,22 +232,6 @@ public class Epistasis implements CommandLine {
 
 		double lik = lik1 * lik2;
 		return lik;
-	}
-
-	String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, boolean brief) {
-		StringBuilder sb = new StringBuilder();
-
-		for (int i2 = 0; i2 < msa2.length(); i2++) {
-			if (msa2.isSkip(i2)) continue;
-
-			String res = likelihoodRatio(msa1, msaIdx1, msa2, i2, brief);
-			if (res != null) {
-				if (debug) System.err.println(res);
-				sb.append(res + "\n");
-			}
-		}
-
-		return sb.toString();
 	}
 
 	/**
@@ -289,15 +273,17 @@ public class Epistasis implements CommandLine {
 
 		for (int i1 = 0; i1 < msa1.length(); i1++) {
 			if (msa1.isSkip(i1)) continue;
-			sb.append(likelihoodRatio(msa1, i1, msa2, brief) + "\n");
-		}
 
-		//		return IntStream.range(0, msa1.length()) //
-		//				.filter(i1 -> !msa1.isSkip(i1)) //
-		//				.parallel() //
-		//				.mapToObj(i1 -> likelihoodRatio(msa1, i1, msa2, brief)) // Calculate all likelihoods for this entry
-		//				.collect(Collectors.joining("\n")) //
-		//		;
+			for (int i2 = 0; i2 < msa2.length(); i2++) {
+				if (msa2.isSkip(i2)) continue;
+
+				String res = likelihoodRatio(msa1, i1, msa2, i2, brief);
+				if (res != null) {
+					if (debug) System.err.println(res);
+					sb.append(res + "\n");
+				}
+			}
+		}
 
 		return sb.toString();
 	}

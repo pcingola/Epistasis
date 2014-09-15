@@ -1,4 +1,4 @@
-package meshi.energy;
+package meshi.optimizers;
 
 /**
  * A generic class for all energy functions to be minimized.
@@ -6,6 +6,7 @@ package meshi.energy;
 public abstract class Energy {
 
 	double[] coordinates;
+	double[] gradient;
 	double energy;
 
 	/**

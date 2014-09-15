@@ -1,6 +1,5 @@
 package meshi.optimizers;
 
-import meshi.energy.Energy;
 import meshi.optimizers.exceptions.LineSearchException;
 
 /**
@@ -62,8 +61,11 @@ public class SimpleStepLength extends LineSearch {
 
 			if (stepSize < verySmall) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
-			for (i = 0; i < coordinates.length; i++)
+			for (i = 0; i < coordinates.length; i++) {
 				coordinates[i] = inputCoordinates[i] + stepSize * inputCoordinates[i];
+				// coordinates[i][0] = inputCoordinates[i][0] + stepSize*inputCoordinates[i][1];
+
+			}
 
 			new_e = energy.evaluate(); // The energy at the new coordinates.
 		}
