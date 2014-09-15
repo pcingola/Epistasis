@@ -1,6 +1,7 @@
 package meshi.optimizers;
 
 import meshi.optimizers.exceptions.LineSearchException;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  *This class implements a line search that satisfies the Wolf conditions according to the scheme in: Numerical Optimization
@@ -47,7 +48,7 @@ import meshi.optimizers.exceptions.LineSearchException;
  *
  **/
 
-public class WolfConditionLineSearch extends LineSearch {
+public class WolfeConditionLineSearch extends LineSearch {
 
 	public static final double DEFAULT_C1 = 1e-4;
 	public static final double DEFAULT_C2 = 0.9;
@@ -70,11 +71,11 @@ public class WolfConditionLineSearch extends LineSearch {
 	private int numAlphaEvaluations, stop;
 	private int i;
 
-	public WolfConditionLineSearch(Energy energy) {
+	public WolfeConditionLineSearch(Energy energy) {
 		this(energy, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR, DEFAULT_MAX_NUM_EVALUATIONS);
 	}
 
-	public WolfConditionLineSearch(Energy energy, double c1, double c2, double extendAlphaFactor, int maxNumEvaluations) {
+	public WolfeConditionLineSearch(Energy energy, double c1, double c2, double extendAlphaFactor, int maxNumEvaluations) {
 		super(energy);
 		this.c1 = c1;
 		this.c2 = c2;
@@ -125,19 +126,29 @@ public class WolfConditionLineSearch extends LineSearch {
 
 		energyOld = energyNew; // For the next time line search is called
 
+		if (debug) Gpr.debug("Energy: " + energy + "\n\tx0: " + Gpr.toString(x0) + "\n\tpk: " + Gpr.toString(pk) + "\n\tgrad0: " + grad0);
+
 		// Bracketing the Wolf area
 		while ((numAlphaEvaluations <= maxNumEvaluations) && (stop == 0)) {
 			numAlphaEvaluations++;
+
+			// Calculating left hand side of first Wolfe condition: eI1 = f(x0 + alpha * pk)
 			for (i = 0; i < n; i++)
 				x[i] = x0[i] + alphaI1 * pk[i];
-
+			energy.needsUpdate(); // Force energy function update
 			eI1 = energy.evaluate();
-			gradI1 = 0; // calculating the gradient at a=alphaI1
+
+			// Calculating left hand side of second Wolfe condition: gradI1 = pk * grad[ f(x0 + alpha * pk) ]
+			gradI1 = 0;
+			grad = energy.getGradient();
 			for (i = 0; i < n; i++)
 				gradI1 -= pk[i] * grad[i];
 
-			if ((eI1 > (e0 + c1 * alphaI1 * grad0)) || ((eI1 >= eI) && (numAlphaEvaluations > 0))) zoom(x0, false); // Calling the regular zoom
-			else {
+			if (debug) Gpr.debug("alpha_I:" + alphaI + "\talpha_I1: " + alphaI1 + "\tx : " + Gpr.toString(x) + "\teI1: " + eI1 + "\tgradI1: " + gradI1);
+
+			if ((eI1 > (e0 + c1 * alphaI1 * grad0)) || ((eI1 >= eI) && (numAlphaEvaluations > 0))) {
+				zoom(x0, false); // Calling the regular zoom
+			} else {
 				if (Math.abs(gradI1) <= (-c2 * grad0)) {
 					alphaFinal = alphaI1;
 					stop = 1;

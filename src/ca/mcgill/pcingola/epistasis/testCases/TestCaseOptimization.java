@@ -1,7 +1,7 @@
 package ca.mcgill.pcingola.epistasis.testCases;
 
 import junit.framework.TestCase;
-import meshi.optimizers.WolfConditionLineSearch;
+import meshi.optimizers.WolfeConditionLineSearch;
 
 /**
  * Test cases for logistic regression
@@ -27,7 +27,7 @@ public class TestCaseOptimization extends TestCase {
 
 	public void test_02() throws Exception {
 		TestsEnergy01 energy = new TestsEnergy01();
-		WolfConditionLineSearch ls = new WolfConditionLineSearch(energy);
+		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
 
 		energy.evaluate();
 		ls.findStepLength();

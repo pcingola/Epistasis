@@ -110,7 +110,7 @@ public class LBFGS extends Minimizer {
 	}
 
 	private SteepestDecent steepestDecent;
-	private WolfConditionLineSearch lineSearch;
+	private WolfeConditionLineSearch lineSearch;
 	private int n; // number of variables
 	private double[] X; // The coordinates vector at iteration K
 
@@ -181,7 +181,7 @@ public class LBFGS extends Minimizer {
 	@Override
 	protected void init() throws OptimizerException {
 		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
-		lineSearch = new WolfConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
+		lineSearch = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
 		coordinates = energy().getX();
 		n = coordinates.length;
 

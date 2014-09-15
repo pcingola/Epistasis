@@ -121,7 +121,7 @@ import meshi.optimizers.exceptions.OptimizerException;
 public class BFGS extends Minimizer {
 
 	private SteepestDecent steepestDecent;
-	private WolfConditionLineSearch lineSearch;
+	private WolfeConditionLineSearch lineSearch;
 	private int n; // number of variables
 	int np; // (n+1)*n/2 - size of H
 	private double[] H; // Inverse Hessian
@@ -171,13 +171,13 @@ public class BFGS extends Minimizer {
 	}
 
 	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfConditionLineSearch.DEFAULT_C1, WolfConditionLineSearch.DEFAULT_C2, WolfConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
+		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfeConditionLineSearch.DEFAULT_C1, WolfeConditionLineSearch.DEFAULT_C2, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
 	}
 
 	@Override
 	protected void init() throws OptimizerException {
 		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
-		lineSearch = new WolfConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
+		lineSearch = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
 		coordinates = energy().getX();
 		n = coordinates.length;
 		np = (n + 1) * n / 2;
