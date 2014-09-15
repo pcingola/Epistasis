@@ -26,6 +26,20 @@ public abstract class Energy {
 		energyNeedsUpdate = gradientNeedsUpdate = true;
 	}
 
+	public void addXBestGradient(double alpha) {
+		for (int i = 0; i < x.length; i++)
+			x[i] = xBest[i] + alpha * gradient[i];
+
+		energyNeedsUpdate = gradientNeedsUpdate = true;
+	}
+
+	public void addXGradient(double alpha) {
+		for (int i = 0; i < x.length; i++)
+			x[i] += alpha * gradient[i];
+
+		energyNeedsUpdate = gradientNeedsUpdate = true;
+	}
+
 	/**
 	 * Calculate energy
 	 */
@@ -35,6 +49,13 @@ public abstract class Energy {
 	 * Calculate gradient
 	 */
 	protected abstract double[] calcGradient();
+
+	/**
+	 * Copy current x[] to an array
+	 */
+	public void copyX(double copyX[]) {
+		System.arraycopy(x, 0, copyX, 0, x.length);
+	}
 
 	/**
 	 * Evaluate energy (store value for future use)
@@ -70,6 +91,13 @@ public abstract class Energy {
 
 	public void setX(int idx, double xi) {
 		x[idx] = xi;
+		energyNeedsUpdate = gradientNeedsUpdate = true;
+	}
+
+	public void setXBest() {
+		for (int i = 0; i < x.length; i++)
+			x[i] = xBest[i];
+
 		energyNeedsUpdate = gradientNeedsUpdate = true;
 	}
 

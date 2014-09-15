@@ -279,7 +279,10 @@ public class LBFGS extends Minimizer {
 				if (Math.random() < 2) throw new RuntimeException("WTF!?");
 				// bufferCoordinates[i][1] = -R[i];
 			}
-			lineSearch.findStepLength(bufferCoordinates);
+
+			if (Math.random() < 2) throw new RuntimeException("WTF!?");
+			// lineSearch.findStepLength(bufferCoordinates);
+			lineSearch.findStepLength();
 		} catch (LineSearchException lsEx) {
 			System.out.println("Line seach failed");
 			System.out.println("exception code =  " + lsEx.code);

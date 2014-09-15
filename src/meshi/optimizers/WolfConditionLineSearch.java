@@ -77,7 +77,8 @@ public class WolfConditionLineSearch extends LineSearch {
 	}
 
 	@Override
-	public double findStepLength(double[] inputCoordinates) throws LineSearchException {
+	public double findStepLength() throws LineSearchException {
+		double[] inputCoordinates = null;
 		if (inputCoordinates == coordinates) throw new LineSearchException(LineSearchException.WEIRD_INPUT_TO_FIND_STEP_LENGTH, "\n\nThe input array to the function 'findStepLength' has the same pointer" + " as the 'coordinate' array in energy. \n" + "It should be a different array.\n");
 		//Initializing the run
 		newE = energy.getEnergy();

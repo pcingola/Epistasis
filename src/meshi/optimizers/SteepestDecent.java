@@ -37,7 +37,6 @@ public class SteepestDecent extends Minimizer {
 
 	private SimpleStepLength lineSearch;
 
-	private double[] xCopy;
 	private double lastStepLength = 1;
 	private static final double DEFAULT_INITIAL_STEP_LENGTH = 1.0;
 	private static final double DEFAULT_STEP_SIZE_REDUCTION = 0.5;
@@ -62,7 +61,6 @@ public class SteepestDecent extends Minimizer {
 	@Override
 	protected void init() throws OptimizerException {
 		lineSearch = new SimpleStepLength(energy(), initialStepLength, stepSizeReduction, stepSizeExpansion);
-		xCopy = new double[energy.size()];
 		energy().evaluate();
 	}
 
@@ -76,12 +74,11 @@ public class SteepestDecent extends Minimizer {
 
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		System.arraycopy(energy.getX(), 0, xCopy, 0, xCopy.length);
 
 		energy.evaluate();
 
 		try {
-			lastStepLength = lineSearch.findStepLength(xCopy);
+			lastStepLength = lineSearch.findStepLength();
 		} catch (LineSearchException lsException) {
 			if (lsException.code == LineSearchException.NOT_A_DESCENT_DIRECTION) throw new OptimizerException("\n\nProblem in SteepestDecent. Direction is not a descent direction.\nThis problem is caused by incorrect differentiation of the energy function.\n");
 			else throw new RuntimeException("Unknown LineSearchException " + lsException);

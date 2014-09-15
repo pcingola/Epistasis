@@ -13,7 +13,7 @@ import meshi.optimizers.exceptions.LineSearchException;
 
 public abstract class LineSearch {
 
-	protected boolean debug = false;
+	protected boolean debug = true;
 
 	protected Energy energy;
 
@@ -21,5 +21,5 @@ public abstract class LineSearch {
 		this.energy = energy;
 	}
 
-	public abstract double findStepLength(double[] coordinates) throws LineSearchException;
+	public abstract double findStepLength() throws LineSearchException;
 }

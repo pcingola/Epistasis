@@ -28,13 +28,11 @@ public class SimpleStepLength extends LineSearch {
 
 	private double stepSize, stepSizeReduction, stepSizeExpansion;
 	private double energyOld, energyNew;
-	private double[] x;
 
 	public SimpleStepLength(Energy energy, double stepSize1, double stepSizeReduction, double stepSizeExpansion) {
 		super(energy);
 		this.stepSizeExpansion = stepSizeExpansion;
 		this.stepSizeReduction = stepSizeReduction;
-		x = energy.getX();
 
 		if (stepSizeExpansion > 0) stepSize = stepSize1 / stepSizeExpansion;
 		else stepSize = 1;
@@ -43,8 +41,7 @@ public class SimpleStepLength extends LineSearch {
 	}
 
 	@Override
-	public double findStepLength(double[] xCopy) throws LineSearchException {
-		if (xCopy == x) throw new LineSearchException(LineSearchException.WEIRD_INPUT_TO_FIND_STEP_LENGTH, "\n\nThe input array to the function 'findStepLength' " + "has the same pointer as the 'coordinate' array in energy. \n" + "It should be a different array.\n");
+	public double findStepLength() throws LineSearchException {
 		stepSize = stepSize * stepSizeExpansion / stepSizeReduction;
 		if (stepSizeExpansion <= 0) stepSize = 1;
 
@@ -53,14 +50,11 @@ public class SimpleStepLength extends LineSearch {
 
 		// If no energy reduction is achieved for a specific step size it is reduced
 		// until a step that produce reduction in energy is found.
-		double gradient[] = energy.getGradient();
 		while (energyNew >= energyOld) {
 			stepSize *= stepSizeReduction;
 			if (stepSize < TOO_SMALL) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
-			for (int i = 0; i < x.length; i++)
-				energy.setX(i, xCopy[i] - stepSize * gradient[i]);
-
+			energy.addXBestGradient(-stepSize);
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
 
 			if (debug) Gpr.debug("Step size: " + stepSize + "\told energy: " + energyOld + "\tnew " + energy);

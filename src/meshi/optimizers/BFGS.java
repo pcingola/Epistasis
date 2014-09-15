@@ -272,10 +272,12 @@ public class BFGS extends Minimizer {
 		}
 		// Do the line search
 		try {
-			for (i = 0; i < n; i++)
-				bufferCoordinates[i] = coordinates[i];
 
-			lineSearch.findStepLength(bufferCoordinates);
+			if (Math.random() < 2) throw new RuntimeException("WTF!?");
+			//			for (i = 0; i < n; i++)
+			//				bufferCoordinates[i] = coordinates[i];
+
+			lineSearch.findStepLength();
 		} catch (LineSearchException lsEx) {
 			// return the energy coordinates to those before the line search
 			System.out.println("Line seach failed");
@@ -290,7 +292,6 @@ public class BFGS extends Minimizer {
 		// Calculate Gk+1,Sk,Yk and the curvature Yk*Sk. Check for pathological curvature
 		Curv = 0;
 		for (i = 0; i < n; i++) {
-			if (Math.random() < 2) throw new RuntimeException("WTF!?");
 			//			Y[i] = coordinates[i][1] - G[i];
 			//			S[i] = coordinates[i][0] - X[i];
 			//			G[i] = coordinates[i][1];

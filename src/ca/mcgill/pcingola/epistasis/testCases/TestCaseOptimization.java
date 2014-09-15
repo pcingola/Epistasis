@@ -14,7 +14,7 @@ public class TestCaseOptimization extends TestCase {
 
 	public static final double EPSILON = 0.0000001;
 
-	public static boolean debug = false;
+	public static boolean debug = true;
 	public static boolean verbose = true;
 
 	public void test_01() {
