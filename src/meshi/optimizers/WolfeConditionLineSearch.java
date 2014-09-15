@@ -109,7 +109,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 			grad0 -= pk[i] * grad[i];
 
 		// Sanity check: Is this in the descent direction?
-		if (grad0 >= 0) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation of the energy function,\n" + "or by numerical instabilities of the minimizing techniques" + "(such as not fullfilling the Wolf condtions in BFGS).\n");
+		if (grad0 >= 0) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. This problem might be caused by incorrect diffrentiation of the energy function or by numerical instabilities of the minimizing techniques (such as not fullfilling the Wolf condtions in BFGS).\n");
 
 		numAlphaEvaluations = -1;
 		stop = false;
@@ -135,7 +135,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			// Calculating left hand side of first Wolfe condition: eI1 = f(x0 + alpha * pk)
 			for (i = 0; i < n; i++)
-				x[i] = x0[i] + alpha * pk[i];
+				x[i] = x0[i] - alpha * pk[i];
 			energy.needsUpdate(); // Force energy function update
 			e = energy.evaluate();
 
@@ -148,12 +148,12 @@ public class WolfeConditionLineSearch extends LineSearch {
 			if (debug) Gpr.debug("alpha_I:" + alphaPrev + "\talpha_I1: " + alpha + "\tx : " + Gpr.toString(x) + "\teI1: " + e + "\tgradI1: " + pkGrad);
 
 			if ((e > (e0 + c1 * alpha * grad0)) || ((e >= ePrev) && (numAlphaEvaluations > 0))) {
-				zoom(x0, false); // Calling the regular zoom
+				zoom(x0, pk, false); // Calling the regular zoom
 			} else {
 				if (Math.abs(pkGrad) <= (-c2 * grad0)) {
 					alphaFinal = alpha;
 					stop = true;
-				} else if (pkGrad >= 0) zoom(x0, true); // Inverse Zoom
+				} else if (pkGrad >= 0) zoom(x0, pk, true); // Inverse Zoom
 			}
 
 			alphaPrev = alpha;
@@ -183,7 +183,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 	// The function Zoom finds a step length satisfing the Wolf conditions, given the bracketing of alphaI and alphaI1.
 	// It was separated into a different function to make the code more readable.
-	private void zoom(double[] x0, boolean inv) {
+	private void zoom(double[] x0, double[] pk, boolean inv) {
 		double alphaHi, alphaLow, alphaNew = 0;
 		double eHi, eLow, eNew = 0;
 		double gradHi, gradLow, gradNew = 0;
@@ -229,7 +229,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			if ((d1 * d1 - ga * gb) >= 0) {
 				d2 = Math.sqrt(d1 * d1 - ga * gb);
-				Gpr.debug("gb: " + gb + "\tga: " + ga + "\td2: " + d2);
+				// Gpr.debug("gb: " + gb + "\tga: " + ga + "\td2: " + d2);
 				alphaNew = b - (b - a) * (gb + d2 - d1) / (gb - ga + 2 * d2);
 			} else alphaNew = a; // Forcing bisection
 
@@ -239,15 +239,16 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			// Continue with zoom - calculating the properties of the new found step length
 			for (i = 0; i < n; i++)
-				x[i] = x0[i] + alphaNew * x0[i];
+				x[i] = x0[i] - alphaNew * pk[i];
 
-			Gpr.debug("numAlphaEvaluations: " + numAlphaEvaluations + "\talphaNew: " + alphaNew + "\tx: " + Gpr.toString(x));
 			energy.needsUpdate();
 			eNew = energy.evaluate();
+			Gpr.debug("numAlphaEvaluations: " + numAlphaEvaluations + "\talphaNew: " + alphaNew + "\tx: " + Gpr.toString(x) + "\tx0: " + Gpr.toString(x0) + "\teNew: " + eNew);
 
 			gradNew = 0; // Calculating the gradient at a=alphaNew
+			double grad[] = energy.getGradient();
 			for (i = 0; i < n; i++)
-				gradNew -= x0[i] * x[i];
+				gradNew -= pk[i] * grad[i];
 
 			if ((eNew > (e0 + c1 * alphaNew * grad0)) || (eNew >= eLow)) {
 				alphaHi = alphaNew;

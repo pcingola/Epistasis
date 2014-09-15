@@ -1,7 +1,13 @@
 package ca.mcgill.pcingola.epistasis.testCases;
 
+import java.util.Random;
+
 import junit.framework.TestCase;
 import meshi.optimizers.WolfeConditionLineSearch;
+
+import org.junit.Assert;
+
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * Test cases for logistic regression
@@ -29,8 +35,72 @@ public class TestCaseOptimization extends TestCase {
 		TestsEnergy01 energy = new TestsEnergy01();
 		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
 
-		energy.evaluate();
-		ls.findStepLength();
+		// Set initial points
+		Random rand = new Random(20140915);
+
+		int N = 100;
+		for (int i = 0; i < N; i++) {
+			energy.setX(0, 10.0 * rand.nextDouble() - 5.0);
+			energy.setX(1, 10.0 * rand.nextDouble() - 5.0);
+
+			double enerBef = energy.evaluate();
+
+			// Optimize using Wolfe
+			ls.findStepLength();
+
+			double enerAfter = energy.evaluate();
+
+			if (debug) Gpr.debug("Energy before: " + enerBef + "\tafter: " + enerAfter + "\n\t" + energy);
+			Assert.assertTrue(enerBef > enerAfter);
+		}
 	}
+
+	//	public void test_03() throws Exception {
+	//		TestsEnergy01 energy = new TestsEnergy01();
+	//		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
+	//
+	//		// Set initial value
+	//		energy.setX(0, 0.8);
+	//		energy.setX(1, +4);
+	//
+	//		double enerBef = energy.evaluate();
+	//		double alpha = ls.findStepLength();
+	//		double enerAfter = energy.evaluate();
+	//
+	//		if (debug) Gpr.debug("Energy before: " + enerBef + "\tafter: " + enerAfter + "\n\t" + energy);
+	//		Assert.assertTrue(enerBef > enerAfter);
+	//	}
+	//
+	//	public void test_04() throws Exception {
+	//		TestsEnergy01 energy = new TestsEnergy01();
+	//		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
+	//
+	//		// Set initial points
+	//		energy.setX(0, -2);
+	//		energy.setX(1, +3);
+	//
+	//		double enerBef = energy.evaluate();
+	//		double alpha = ls.findStepLength();
+	//		double enerAfter = energy.evaluate();
+	//
+	//		if (debug) Gpr.debug("Energy before: " + enerBef + "\tafter: " + enerAfter + "\n\t" + energy);
+	//		Assert.assertTrue(enerBef > enerAfter);
+	//	}
+	//
+	//	public void test_05() throws Exception {
+	//		TestsEnergy01 energy = new TestsEnergy01();
+	//		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
+	//
+	//		// Set initial points (0, 0)
+	//		energy.setX(0, 0);
+	//		energy.setX(1, 0);
+	//
+	//		double enerBef = energy.evaluate();
+	//		double alpha = ls.findStepLength();
+	//		double enerAfter = energy.evaluate();
+	//
+	//		if (debug) Gpr.debug("Energy before: " + enerBef + "\tafter: " + enerAfter + "\n\t" + energy);
+	//		Assert.assertTrue(enerBef > enerAfter);
+	//	}
 
 }
