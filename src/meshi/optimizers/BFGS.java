@@ -145,10 +145,6 @@ public class BFGS extends Minimizer {
 	private double c2;
 	private double extendAlphaFactorWolfSearch;
 	private static int maxNumEvaluationsWolfSearch;
-	private static final double DEFAULT_C1 = 1e-4;
-	private static final double DEFAULT_C2 = 0.9;
-	private static final double DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH = 3.0;
-	private static final int DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH = 10;
 
 	// Steepest descent module parameters
 	int numStepsSteepestDecent;
@@ -171,26 +167,11 @@ public class BFGS extends Minimizer {
 	//Full constructor
 	public BFGS(Energy energy, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
 		super(energy);
-		getParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
+		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
 
 	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH, DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
-	}
-
-	private void getParameters(double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
-		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
-		this.c1 = c1;
-		this.c2 = c2;
-		this.extendAlphaFactorWolfSearch = extendAlphaFactorWolfSearch;
-		BFGS.maxNumEvaluationsWolfSearch = maxNumEvaluationsWolfSearch;
-		this.numStepsSteepestDecent = numStepsSteepestDecent;
-		if (this.numStepsSteepestDecent < 1) this.numStepsSteepestDecent = 1;
-		this.initStepSteepestDecent = initStepSteepestDecent;
-		this.stepSizeReductionSteepestDecent = stepSizeReductionSteepestDecent;
-		this.stepSizeExpansionSteepestDecent = stepSizeExpansionSteepestDecent;
-		// Checking if the minimizing problem is not too large
-		if (n > MAX_NUM_VARIABLES) throw new RuntimeException("\n\nThe number of variables to be minimized is greater than the maximum\n" + "this minimizer can handle. Use a minimizer for large-scale problems such as LBFGS\n");
+		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfConditionLineSearch.DEFAULT_C1, WolfConditionLineSearch.DEFAULT_C2, WolfConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
 	}
 
 	@Override
@@ -234,7 +215,7 @@ public class BFGS extends Minimizer {
 		steepestDecent.run();
 		iterationNum += numStepsSteepestDecent;
 		initHessian();
-		lineSearch.Reset(steepestDecent.lastStepLength());
+		lineSearch.reset(steepestDecent.lastStepLength());
 		energy().evaluate();
 
 		for (int i = 0; i < n; i++) {
@@ -339,6 +320,21 @@ public class BFGS extends Minimizer {
 			return false;
 		}
 		return true;
+	}
+
+	private void setParameters(double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
+		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
+		this.c1 = c1;
+		this.c2 = c2;
+		this.extendAlphaFactorWolfSearch = extendAlphaFactorWolfSearch;
+		BFGS.maxNumEvaluationsWolfSearch = maxNumEvaluationsWolfSearch;
+		this.numStepsSteepestDecent = numStepsSteepestDecent;
+		if (this.numStepsSteepestDecent < 1) this.numStepsSteepestDecent = 1;
+		this.initStepSteepestDecent = initStepSteepestDecent;
+		this.stepSizeReductionSteepestDecent = stepSizeReductionSteepestDecent;
+		this.stepSizeExpansionSteepestDecent = stepSizeExpansionSteepestDecent;
+		// Checking if the minimizing problem is not too large
+		if (n > MAX_NUM_VARIABLES) throw new RuntimeException("\n\nThe number of variables to be minimized is greater than the maximum\n" + "this minimizer can handle. Use a minimizer for large-scale problems such as LBFGS\n");
 	}
 
 	@Override

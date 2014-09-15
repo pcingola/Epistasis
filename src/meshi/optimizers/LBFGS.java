@@ -212,7 +212,7 @@ public class LBFGS extends Minimizer {
 		//if (numKickStarts > 2) energy.test();
 		System.out.println("kickStart " + os);
 		iterationNum += numStepsSteepestDecent;
-		lineSearch.Reset(steepestDecent.lastStepLength());
+		lineSearch.reset(steepestDecent.lastStepLength());
 		energy().evaluate();
 		for (int i = 0; i < n; i++) {
 			X[i] = coordinates[i];

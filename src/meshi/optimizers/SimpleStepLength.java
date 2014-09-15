@@ -40,7 +40,6 @@ public class SimpleStepLength extends LineSearch {
 		if (stepSizeReduction <= 0) throw new RuntimeException("\n\nIrrecoverable error in the line search method: SimpleStepLength.\n" + "The step size reduction parameter in the constructor is non-positive.\n");
 	}
 
-	@Override
 	public double findStepLength() throws LineSearchException {
 		stepSize = stepSize * stepSizeExpansion / stepSizeReduction;
 		if (stepSizeExpansion <= 0) stepSize = 1;

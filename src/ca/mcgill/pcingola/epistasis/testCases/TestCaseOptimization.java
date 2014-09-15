@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis.testCases;
 
 import junit.framework.TestCase;
 import meshi.optimizers.SteepestDecent;
+import meshi.optimizers.WolfConditionLineSearch;
 
 import org.junit.Assert;
 
@@ -26,4 +27,10 @@ public class TestCaseOptimization extends TestCase {
 		Assert.assertEquals(energy.getX()[0], 2.0, EPSILON);
 		Assert.assertEquals(energy.getX()[1], 5.0, EPSILON);
 	}
+
+	public void test_02() {
+		TestsEnergy01 energy = new TestsEnergy01();
+		WolfConditionLineSearch ls = new WolfConditionLineSearch(energy);
+	}
+
 }

@@ -49,20 +49,31 @@ import meshi.optimizers.exceptions.LineSearchException;
 
 public class WolfConditionLineSearch extends LineSearch {
 
+	public static final double DEFAULT_C1 = 1e-4;
+	public static final double DEFAULT_C2 = 0.9;
+	public static final double DEFAULT_EXTENDED_ALPHA_FACTOR = 3.0;
+	public static final int DEFAULT_MAX_NUM_EVALUATIONS = 10;
+
 	private double maxNumEvaluations;
 	private double extendAlphaFactor;
 	private double c1, c2;
 	private final double interSafeGuardFactor = 20;
 	private double interSafeGuard;
 	private double oldE, newE;
-	private double[] coordinates;
+	private double[] x;
+	private double[] xCopy;
 	private int firstRun;
 	private double alphaI, alphaI1, alphaFinal;
-	private int n; // number of variables
-	private double e0, eI, eI1; //Energy values along Pk
-	private double grad0, gradI, gradI1; //gradients along Pk
+	private int n; // Number of variables
+	private double e0, eI, eI1; // Energy values along Pk
+	private double grad0, gradI, gradI1; // Gradients along Pk
 	private int numAlphaEvaluations, stop;
 	private int i;
+
+	public WolfConditionLineSearch(Energy energy) {
+		this(energy, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR, DEFAULT_MAX_NUM_EVALUATIONS);
+
+	}
 
 	public WolfConditionLineSearch(Energy energy, double c1, double c2, double extendAlphaFactor, int maxNumEvaluations) {
 		super(energy);
@@ -71,22 +82,30 @@ public class WolfConditionLineSearch extends LineSearch {
 		this.maxNumEvaluations = maxNumEvaluations;
 		this.extendAlphaFactor = extendAlphaFactor;
 		interSafeGuard = extendAlphaFactor / interSafeGuardFactor;
-		coordinates = energy.getX();
-		n = coordinates.length;
-		Reset();
+
+		n = x.length;
+		x = energy.getX();
+		xCopy = new double[n];
+
+		reset();
 	}
 
 	@Override
 	public double findStepLength() throws LineSearchException {
-		double[] inputCoordinates = null;
-		if (inputCoordinates == coordinates) throw new LineSearchException(LineSearchException.WEIRD_INPUT_TO_FIND_STEP_LENGTH, "\n\nThe input array to the function 'findStepLength' has the same pointer" + " as the 'coordinate' array in energy. \n" + "It should be a different array.\n");
-		//Initializing the run
+		energy.copyX(xCopy);
+		return findStepLength(xCopy, energy.getGradient());
+	}
+
+	public double findStepLength(double x0[], double pk[]) throws LineSearchException {
+
+		// Initializing the run
 		newE = energy.getEnergy();
-		grad0 = 0; // calculating the gradient at a=0
-		for (i = 0; i < n; i++) {
-			if (Math.random() < 2) throw new RuntimeException("WTF!?");
-			// grad0 -= inputCoordinates[i][1] * coordinates[i][1];
-		}
+
+		// Calculating gradient norm at 0
+		grad0 = 0;
+		double grad[] = energy.getGradient();
+		for (i = 0; i < n; i++)
+			grad0 -= pk[i] * grad[i];
 
 		if (grad0 >= 0) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation of the energy function,\n" + "or by numerical instabilities of the minimizing techniques" + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
@@ -122,14 +141,14 @@ public class WolfConditionLineSearch extends LineSearch {
 			}
 
 			if ((eI1 > (e0 + c1 * alphaI1 * grad0)) || ((eI1 >= eI) && (numAlphaEvaluations > 0))) {
-				Zoom(inputCoordinates, 0); // Calling the regular zoom
+				zoom(x0, false); // Calling the regular zoom
 			} else {
 				if (Math.abs(gradI1) <= (-c2 * grad0)) {
 					alphaFinal = alphaI1;
 					stop = 1;
 				} else {
 					if (gradI1 >= 0) {
-						Zoom(inputCoordinates, 1); //calling the inverse Zoom
+						zoom(x0, true); // Inverse Zoom
 					}
 				}
 			}
@@ -140,27 +159,27 @@ public class WolfConditionLineSearch extends LineSearch {
 		}
 		if (numAlphaEvaluations > maxNumEvaluations) {
 			for (i = 0; i < n; i++)
-				// Returining the coordinates to the original state
-				coordinates[i] = inputCoordinates[i];
+				// Returning the coordinates to the original state
+				x[i] = x0[i];
 			energy.evaluate();
 			throw new LineSearchException(LineSearchException.WOLF_CONDITION_NOT_MET, "\n\nWolf conditions not met. The line search did not converge,\n" + "and exceeded the maximal number of step extensions allowed. See the help\n" + "on this class for possible solutions to this problem.\n");
 		}
 		return alphaFinal;
 	}
 
-	public void Reset() {
+	public void reset() {
 		firstRun = 1;
 		alphaI1 = 1.0;
 	}
 
-	public void Reset(double resAlpha) {
+	public void reset(double resAlpha) {
 		firstRun = 1;
 		alphaI1 = resAlpha;
 	}
 
 	// The function Zoom finds a step length satisfing the Wolf conditions, given the bracketing of alphaI and alphaI1.
 	// It was separated into a different function to make the code more readable.
-	private void Zoom(double[] inputCoordinates, int inv) {
+	private void zoom(double[] inputCoordinates, boolean inv) {
 		double alphaHi, alphaLow, alphaNew = 0;
 		double eHi, eLow, eNew = 0;
 		double gradHi, gradLow, gradNew = 0;
@@ -172,7 +191,8 @@ public class WolfConditionLineSearch extends LineSearch {
 		eLow = eI;
 		gradLow = gradI;
 		alphaLow = alphaI;
-		if (inv == 1) {
+
+		if (inv) {
 			eHi = eI;
 			gradHi = gradI;
 			alphaHi = alphaI;
@@ -207,12 +227,12 @@ public class WolfConditionLineSearch extends LineSearch {
 			if ((Math.abs(a - alphaNew) < (interval * interSafeGuard)) || (Math.abs(b - alphaNew) < (interval * interSafeGuard))) alphaNew = (a + b) / 2; //If the cubic minimum is to close to the edges, the bisection method is choosen
 			// Continue with zoom - calculating the properties of the new found step length
 			for (i = 0; i < n; i++)
-				coordinates[i] = inputCoordinates[i] + alphaNew * inputCoordinates[i];
+				x[i] = inputCoordinates[i] + alphaNew * inputCoordinates[i];
 
 			eNew = energy.evaluate();
 			gradNew = 0; // calculating the gradient at a=alphaNew
 			for (i = 0; i < n; i++)
-				gradNew -= inputCoordinates[i] * coordinates[i];
+				gradNew -= inputCoordinates[i] * x[i];
 			if ((eNew > (e0 + c1 * alphaNew * grad0)) || (eNew >= eLow)) {
 				alphaHi = alphaNew;
 				eHi = eNew;
