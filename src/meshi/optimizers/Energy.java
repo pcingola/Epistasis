@@ -23,21 +23,21 @@ public abstract class Energy {
 
 	public void addX(int idx, double addToXi) {
 		x[idx] += addToXi;
-		energyNeedsUpdate = gradientNeedsUpdate = true;
+		needsUpdate();
 	}
 
 	public void addXBestGradient(double alpha) {
 		for (int i = 0; i < x.length; i++)
 			x[i] = xBest[i] + alpha * gradient[i];
 
-		energyNeedsUpdate = gradientNeedsUpdate = true;
+		needsUpdate();
 	}
 
 	public void addXGradient(double alpha) {
 		for (int i = 0; i < x.length; i++)
 			x[i] += alpha * gradient[i];
 
-		energyNeedsUpdate = gradientNeedsUpdate = true;
+		needsUpdate();
 	}
 
 	/**
@@ -84,21 +84,25 @@ public abstract class Energy {
 		return x;
 	}
 
+	public void needsUpdate() {
+		energyNeedsUpdate = gradientNeedsUpdate = true;
+	}
+
 	public void setX(double newX[]) {
 		System.arraycopy(newX, 0, x, 0, x.length);
-		energyNeedsUpdate = gradientNeedsUpdate = true;
+		needsUpdate();
 	}
 
 	public void setX(int idx, double xi) {
 		x[idx] = xi;
-		energyNeedsUpdate = gradientNeedsUpdate = true;
+		needsUpdate();
 	}
 
 	public void setXBest() {
 		for (int i = 0; i < x.length; i++)
 			x[i] = xBest[i];
 
-		energyNeedsUpdate = gradientNeedsUpdate = true;
+		needsUpdate();
 	}
 
 	public int size() {

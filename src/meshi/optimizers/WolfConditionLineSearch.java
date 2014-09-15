@@ -59,7 +59,7 @@ public class WolfConditionLineSearch extends LineSearch {
 	private double c1, c2;
 	private final double interSafeGuardFactor = 20;
 	private double interSafeGuard;
-	private double oldE, newE;
+	private double energyOld, energyNew;
 	private double[] x;
 	private double[] xCopy;
 	private int firstRun;
@@ -72,7 +72,6 @@ public class WolfConditionLineSearch extends LineSearch {
 
 	public WolfConditionLineSearch(Energy energy) {
 		this(energy, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR, DEFAULT_MAX_NUM_EVALUATIONS);
-
 	}
 
 	public WolfConditionLineSearch(Energy energy, double c1, double c2, double extendAlphaFactor, int maxNumEvaluations) {
@@ -83,8 +82,8 @@ public class WolfConditionLineSearch extends LineSearch {
 		this.extendAlphaFactor = extendAlphaFactor;
 		interSafeGuard = extendAlphaFactor / interSafeGuardFactor;
 
+		x = energy.getX(); // Local copy of coordinates
 		n = x.length;
-		x = energy.getX();
 		xCopy = new double[n];
 
 		reset();
@@ -99,19 +98,20 @@ public class WolfConditionLineSearch extends LineSearch {
 	public double findStepLength(double x0[], double pk[]) throws LineSearchException {
 
 		// Initializing the run
-		newE = energy.getEnergy();
+		energyNew = energy.getEnergy();
 
-		// Calculating gradient norm at 0
+		// Calculating  grad_0 = - p_k^T * grad[ f(x_k) ]
 		grad0 = 0;
 		double grad[] = energy.getGradient();
 		for (i = 0; i < n; i++)
 			grad0 -= pk[i] * grad[i];
 
+		// Sanity check: Is this in the descent direction?
 		if (grad0 >= 0) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation of the energy function,\n" + "or by numerical instabilities of the minimizing techniques" + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
 		numAlphaEvaluations = -1;
 		stop = 0;
-		e0 = newE;
+		e0 = energyNew;
 		eI = e0;
 		alphaI = 0;
 
@@ -119,51 +119,43 @@ public class WolfConditionLineSearch extends LineSearch {
 		if (firstRun != 0) {
 			firstRun = 0;
 		} else {
-			alphaI1 = 2.02 * (newE - oldE) / grad0;
+			alphaI1 = 2.02 * (energyNew - energyOld) / grad0;
 			if (alphaI1 > 1) alphaI1 = 1;
 		}
 
-		oldE = newE; // For the next time line search is called
+		energyOld = energyNew; // For the next time line search is called
 
 		// Bracketing the Wolf area
 		while ((numAlphaEvaluations <= maxNumEvaluations) && (stop == 0)) {
 			numAlphaEvaluations++;
-			for (i = 0; i < n; i++) {
-				if (Math.random() < 2) throw new RuntimeException("WTF!?");
-				// coordinates[i][0] = inputCoordinates[i][0] + alphaI1 * inputCoordinates[i][1];
-			}
+			for (i = 0; i < n; i++)
+				x[i] = x0[i] + alphaI1 * pk[i];
 
 			eI1 = energy.evaluate();
 			gradI1 = 0; // calculating the gradient at a=alphaI1
-			for (i = 0; i < n; i++) {
-				if (Math.random() < 2) throw new RuntimeException("WTF!?");
-				// gradI1 -= inputCoordinates[i][1] * coordinates[i][1];
-			}
+			for (i = 0; i < n; i++)
+				gradI1 -= pk[i] * grad[i];
 
-			if ((eI1 > (e0 + c1 * alphaI1 * grad0)) || ((eI1 >= eI) && (numAlphaEvaluations > 0))) {
-				zoom(x0, false); // Calling the regular zoom
-			} else {
+			if ((eI1 > (e0 + c1 * alphaI1 * grad0)) || ((eI1 >= eI) && (numAlphaEvaluations > 0))) zoom(x0, false); // Calling the regular zoom
+			else {
 				if (Math.abs(gradI1) <= (-c2 * grad0)) {
 					alphaFinal = alphaI1;
 					stop = 1;
-				} else {
-					if (gradI1 >= 0) {
-						zoom(x0, true); // Inverse Zoom
-					}
-				}
+				} else if (gradI1 >= 0) zoom(x0, true); // Inverse Zoom
 			}
+
 			alphaI = alphaI1;
 			gradI = gradI1;
 			eI = eI1;
 			alphaI1 = alphaI1 * extendAlphaFactor;
 		}
+
 		if (numAlphaEvaluations > maxNumEvaluations) {
-			for (i = 0; i < n; i++)
-				// Returning the coordinates to the original state
-				x[i] = x0[i];
+			energy.setX(x0); // Returning the coordinates to the original state
 			energy.evaluate();
-			throw new LineSearchException(LineSearchException.WOLF_CONDITION_NOT_MET, "\n\nWolf conditions not met. The line search did not converge,\n" + "and exceeded the maximal number of step extensions allowed. See the help\n" + "on this class for possible solutions to this problem.\n");
+			throw new LineSearchException(LineSearchException.WOLF_CONDITION_NOT_MET, "\n\nWolf conditions not met. The line search did not converge, and exceeded the maximal number of step extensions allowed.\n");
 		}
+
 		return alphaFinal;
 	}
 
@@ -179,7 +171,7 @@ public class WolfConditionLineSearch extends LineSearch {
 
 	// The function Zoom finds a step length satisfing the Wolf conditions, given the bracketing of alphaI and alphaI1.
 	// It was separated into a different function to make the code more readable.
-	private void zoom(double[] inputCoordinates, boolean inv) {
+	private void zoom(double[] x0, boolean inv) {
 		double alphaHi, alphaLow, alphaNew = 0;
 		double eHi, eLow, eNew = 0;
 		double gradHi, gradLow, gradNew = 0;
@@ -202,7 +194,9 @@ public class WolfConditionLineSearch extends LineSearch {
 		}
 
 		while ((numAlphaEvaluations <= maxNumEvaluations) && (stop == 0)) {
+
 			numAlphaEvaluations++;
+
 			// Cubic interpolation of the next step length
 			a = alphaLow;
 			b = alphaHi;
@@ -210,6 +204,7 @@ public class WolfConditionLineSearch extends LineSearch {
 			gb = gradHi;
 			ea = eLow;
 			eb = eHi;
+
 			if (a > b) { //switch
 				b = alphaLow;
 				a = alphaHi;
@@ -218,26 +213,34 @@ public class WolfConditionLineSearch extends LineSearch {
 				eb = eLow;
 				ea = eHi;
 			}
+
 			d1 = ga + gb - 3 * (ea - eb) / (a - b);
+
 			if ((d1 * d1 - ga * gb) >= 0) {
 				d2 = Math.sqrt(d1 * d1 - ga * gb);
 				alphaNew = b - (b - a) * (gb + d2 - d1) / (gb - ga + 2 * d2);
 			} else alphaNew = a; // Forcing bisection
+
 			interval = Math.abs(b - a);
+
 			if ((Math.abs(a - alphaNew) < (interval * interSafeGuard)) || (Math.abs(b - alphaNew) < (interval * interSafeGuard))) alphaNew = (a + b) / 2; //If the cubic minimum is to close to the edges, the bisection method is choosen
+
 			// Continue with zoom - calculating the properties of the new found step length
 			for (i = 0; i < n; i++)
-				x[i] = inputCoordinates[i] + alphaNew * inputCoordinates[i];
+				x[i] = x0[i] + alphaNew * x0[i];
 
 			eNew = energy.evaluate();
+
 			gradNew = 0; // calculating the gradient at a=alphaNew
 			for (i = 0; i < n; i++)
-				gradNew -= inputCoordinates[i] * x[i];
+				gradNew -= x0[i] * x[i];
+
 			if ((eNew > (e0 + c1 * alphaNew * grad0)) || (eNew >= eLow)) {
 				alphaHi = alphaNew;
 				eHi = eNew;
 				gradHi = gradNew;
 			} else {
+
 				if (Math.abs(gradNew) <= (-c2 * grad0)) stop = 1;
 				else {
 					if ((gradNew * (alphaHi - alphaLow)) >= 0) {
@@ -245,12 +248,15 @@ public class WolfConditionLineSearch extends LineSearch {
 						eHi = eLow;
 						gradHi = gradLow;
 					}
+
 					alphaLow = alphaNew;
 					eLow = eNew;
 					gradLow = gradNew;
 				}
+
 			}
 		}
+
 		alphaFinal = alphaNew;
 	}
 
