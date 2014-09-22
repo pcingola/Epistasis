@@ -45,8 +45,9 @@ public class SimpleStepLength extends LineSearch {
 	 */
 	@Override
 	public double findStepLength() throws LineSearchException {
-		stepSize = stepSize * stepSizeExpansion / stepSizeReduction;
-		if (stepSizeExpansion <= 0) stepSize = 1.0 / stepSizeReduction;
+		System.err.println("\n");
+		if (stepSize < TOO_SMALL) stepSize = 1.0 / stepSizeReduction;
+		else stepSize *= stepSizeExpansion / stepSizeReduction;
 
 		energy.setThetaBest();
 		energyOld = energy.updateEnergy();
@@ -57,7 +58,7 @@ public class SimpleStepLength extends LineSearch {
 		while (energyNew >= energyOld) {
 			stepSize *= stepSizeReduction;
 
-			if (stepSize < TOO_SMALL) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n\tStep Size: " + stepSize);
+			if (stepSize < TOO_SMALL) return stepSize; // throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n\tStep Size: " + stepSize);
 
 			energy.addThetaBestGradient(-stepSize);
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
@@ -71,8 +72,6 @@ public class SimpleStepLength extends LineSearch {
 					+ "\n\tgradient  : " + Gpr.toString(energy.getGradient()) //
 			);
 		}
-
-		energy.setThetaBest();
 
 		return stepSize;
 	}

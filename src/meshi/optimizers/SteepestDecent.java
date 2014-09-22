@@ -74,7 +74,6 @@ public class SteepestDecent extends Minimizer {
 
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-
 		energy.evaluate();
 
 		try {

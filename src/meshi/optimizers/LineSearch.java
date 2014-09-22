@@ -13,7 +13,7 @@ import meshi.optimizers.exceptions.LineSearchException;
 
 public abstract class LineSearch {
 
-	protected boolean debug = false;
+	protected boolean debug = true;
 
 	protected Energy energy;
 

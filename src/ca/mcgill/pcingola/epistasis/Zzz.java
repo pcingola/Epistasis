@@ -13,7 +13,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class Zzz {
 
-	public static double[] realModel = { 1, -1, 0.5 };
+	public static double[] realModel = { 2, -1, -0.5 };
 	Random rand = new Random(20140912);
 	int N = 10000;
 	int size = realModel.length - 1;
@@ -56,10 +56,6 @@ public class Zzz {
 	 */
 	void gradient() {
 		double beta[] = new double[realModel.length];
-
-		//		beta[0] = 2.0569899;
-		//		beta[1] = -1.0051820;
-		//		beta[2] = -0.6982514;
 
 		for (int i = 0; i < realModel.length; i++)
 			beta[i] = realModel[i];
