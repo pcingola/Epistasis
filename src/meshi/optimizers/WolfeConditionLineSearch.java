@@ -84,7 +84,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 		this.extendAlphaFactor = extendAlphaFactor;
 		interSafeGuard = extendAlphaFactor / interSafeGuardFactor;
 
-		x = energy.getX(); // Local copy of coordinates
+		x = energy.getTheta(); // Local copy of coordinates
 		n = x.length;
 		xCopy = new double[n];
 
@@ -93,7 +93,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 	@Override
 	public double findStepLength() throws LineSearchException {
-		energy.copyX(xCopy);
+		energy.copyTheta(xCopy);
 		return findStepLength(xCopy, energy.getGradient());
 	}
 
@@ -163,7 +163,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 		}
 
 		if (numAlphaEvaluations > maxNumEvaluations) {
-			energy.setX(x0); // Returning the coordinates to the original state
+			energy.setTheta(x0); // Returning the coordinates to the original state
 			energy.evaluate();
 			throw new LineSearchException(LineSearchException.WOLF_CONDITION_NOT_MET, "\n\nWolf conditions not met. The line search did not converge, and exceeded the maximal number of step extensions allowed.\n");
 		}

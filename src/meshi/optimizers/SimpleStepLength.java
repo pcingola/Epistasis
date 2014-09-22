@@ -24,7 +24,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 
 public class SimpleStepLength extends LineSearch {
 
-	private static final double TOO_SMALL = Math.exp(-60);
+	private static final double TOO_SMALL = 1e-6;
 
 	private double stepSize, stepSizeReduction, stepSizeExpansion;
 	private double energyOld, energyNew;
@@ -40,24 +40,39 @@ public class SimpleStepLength extends LineSearch {
 		if (stepSizeReduction <= 0) throw new RuntimeException("\n\nIrrecoverable error in the line search method: SimpleStepLength.\n" + "The step size reduction parameter in the constructor is non-positive.\n");
 	}
 
+	/**
+	 * Line search: Find step length
+	 */
+	@Override
 	public double findStepLength() throws LineSearchException {
 		stepSize = stepSize * stepSizeExpansion / stepSizeReduction;
-		if (stepSizeExpansion <= 0) stepSize = 1;
+		if (stepSizeExpansion <= 0) stepSize = 1.0 / stepSizeReduction;
 
-		energyOld = energy.getEnergy();
+		energy.setThetaBest();
+		energyOld = energy.updateEnergy();
 		energyNew = energyOld;
 
 		// If no energy reduction is achieved for a specific step size it is reduced
 		// until a step that produce reduction in energy is found.
 		while (energyNew >= energyOld) {
 			stepSize *= stepSizeReduction;
-			if (stepSize < TOO_SMALL) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n");
 
-			energy.addXBestGradient(-stepSize);
+			if (stepSize < TOO_SMALL) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is apparently not a descent direction. \n" + "This problem might be caused by incorrect diffrentiation " + "of the energy function,\n" + "or by numerical instabilities of the minimizing techniques " + "(such as not fullfilling the Wolf condtions in BFGS).\n\tStep Size: " + stepSize);
+
+			energy.addThetaBestGradient(-stepSize);
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
 
-			if (debug) Gpr.debug("Step size: " + stepSize + "\told energy: " + energyOld + "\tnew " + energy);
+			if (debug) Gpr.debug("" //
+					+ "\n\tStep size : " + stepSize //
+					+ "\n\tenergy old: " + energyOld //
+					+ "\n\tenerfy new: " + energyNew //
+					+ "\n\tmodel     : " + Gpr.toString(energy.getThetaBest()) //
+					+ "\n\tmodel     : " + Gpr.toString(energy.getTheta()) //
+					+ "\n\tgradient  : " + Gpr.toString(energy.getGradient()) //
+			);
 		}
+
+		energy.setThetaBest();
 
 		return stepSize;
 	}

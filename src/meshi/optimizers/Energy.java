@@ -7,35 +7,37 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  */
 public abstract class Energy {
 
-	protected double[] x;
-	protected double[] xBest;
-	protected double[] gradient;
+	protected int dim;
+	protected double[] theta; // Parameters to optimize
+	protected double[] thetaBest; // Best parameters so far
+	protected double[] gradient; // Parameter's gradient
 	protected double energy;
 	protected boolean energyNeedsUpdate = true;
 	protected boolean gradientNeedsUpdate = true;
 
 	public Energy(int dim) {
-		x = new double[dim];
-		xBest = new double[dim];
+		this.dim = dim;
+		theta = new double[dim];
+		thetaBest = new double[dim];
 		gradient = new double[dim];
 		energy = Double.NaN;
 	}
 
-	public void addX(int idx, double addToXi) {
-		x[idx] += addToXi;
+	public void addTheta(int idx, double addToXi) {
+		theta[idx] += addToXi;
 		needsUpdate();
 	}
 
-	public void addXBestGradient(double alpha) {
-		for (int i = 0; i < x.length; i++)
-			x[i] = xBest[i] + alpha * gradient[i];
+	public void addThetaBestGradient(double alpha) {
+		for (int i = 0; i < theta.length; i++)
+			theta[i] = thetaBest[i] + alpha * gradient[i];
 
 		needsUpdate();
 	}
 
-	public void addXGradient(double alpha) {
-		for (int i = 0; i < x.length; i++)
-			x[i] += alpha * gradient[i];
+	public void addThetaGradient(double alpha) {
+		for (int i = 0; i < theta.length; i++)
+			theta[i] += alpha * gradient[i];
 
 		needsUpdate();
 	}
@@ -51,10 +53,17 @@ public abstract class Energy {
 	protected abstract double[] calcGradient();
 
 	/**
+	 * Copy current gradient[] to an array
+	 */
+	public void copyGradient(double copyGrad[]) {
+		System.arraycopy(gradient, 0, copyGrad, 0, gradient.length);
+	}
+
+	/**
 	 * Copy current x[] to an array
 	 */
-	public void copyX(double copyX[]) {
-		System.arraycopy(x, 0, copyX, 0, x.length);
+	public void copyTheta(double copyX[]) {
+		System.arraycopy(theta, 0, copyX, 0, theta.length);
 	}
 
 	/**
@@ -80,33 +89,37 @@ public abstract class Energy {
 		return gradient;
 	}
 
-	public double[] getX() {
-		return x;
+	public double[] getTheta() {
+		return theta;
+	}
+
+	public double[] getThetaBest() {
+		return thetaBest;
 	}
 
 	public void needsUpdate() {
 		energyNeedsUpdate = gradientNeedsUpdate = true;
 	}
 
-	public void setX(double newX[]) {
-		System.arraycopy(newX, 0, x, 0, x.length);
+	public void setTheta(double newX[]) {
+		System.arraycopy(newX, 0, theta, 0, theta.length);
 		needsUpdate();
 	}
 
-	public void setX(int idx, double xi) {
-		x[idx] = xi;
+	public void setTheta(int idx, double xi) {
+		theta[idx] = xi;
 		needsUpdate();
 	}
 
-	public void setXBest() {
-		for (int i = 0; i < x.length; i++)
-			x[i] = xBest[i];
-
-		needsUpdate();
+	/**
+	 * Best energy so far? Keep a copy
+	 */
+	public void setThetaBest() {
+		System.arraycopy(theta, 0, thetaBest, 0, theta.length);
 	}
 
 	public int size() {
-		return x.length;
+		return theta.length;
 	}
 
 	@Override
@@ -114,9 +127,9 @@ public abstract class Energy {
 		return "Energy: " + (energyNeedsUpdate ? "[Needs update]" : "") //
 				+ energy //
 				//
-				+ "\tx: " + Gpr.toString(x) //
+				+ "\ttheta: " + Gpr.toString(theta) //
 				//
-				+ "\tgradient " //
+				+ "\tgradient[theta] " //
 				+ (gradientNeedsUpdate ? "[Needs update]" : "") //
 				+ ": " + Gpr.toString(gradient);
 	}
@@ -127,11 +140,7 @@ public abstract class Energy {
 	public double updateEnergy() {
 		if (!energyNeedsUpdate) return energy;
 
-		double energyOld = energy;
 		energy = calcEnergy(); // Update energy
-
-		// Best energy so far? Keep a copy
-		if (energy < energyOld) System.arraycopy(x, 0, xBest, 0, x.length);
 
 		energyNeedsUpdate = false;
 		return energy;

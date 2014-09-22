@@ -157,13 +157,13 @@ public class LBFGS extends Minimizer {
 	private static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 1.1;
 
 	public LBFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, DEFAULT_ALLOWED_MAX_R_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, DEFAULT_M, DEFAULT_USE_GAMA, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH, DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
+		this(energy, DEFAULT_ALLOWED_MAX_R_FACTOR * energy.getTheta().length, DEFAULT_MAX_NUM_KICK_STARTS, DEFAULT_M, DEFAULT_USE_GAMA, DEFAULT_C1, DEFAULT_C2, DEFAULT_EXTENDED_ALPHA_FACTOR_WOLF_SEARCH, DEFAULT_MAX_NUM_EVALUATIONS_WOLF_SEARCH, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
 	}
 
 	//Full constructor
 	public LBFGS(Energy energy, int allowedMaxR, int maxNumKickStarts, int m, boolean useGama, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
 		super(energy);
-		System.out.println("LBFGS starts with " + energy.getX().length + " coordinates");
+		System.out.println("LBFGS starts with " + energy.getTheta().length + " coordinates");
 		this.allowedMaxR = allowedMaxR;
 		this.m = m;
 		this.useGama = useGama;
@@ -182,7 +182,7 @@ public class LBFGS extends Minimizer {
 	protected void init() throws OptimizerException {
 		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 		lineSearch = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
-		coordinates = energy().getX();
+		coordinates = energy().getTheta();
 		n = coordinates.length;
 
 		bufferCoordinates = new double[n];

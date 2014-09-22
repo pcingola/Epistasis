@@ -1,102 +1,78 @@
 package ca.mcgill.pcingola.regression;
 
-import java.util.Arrays;
 import java.util.Random;
+
+import meshi.optimizers.Energy;
+import meshi.optimizers.Minimizer;
+import meshi.optimizers.SteepestDecent;
 
 /**
  * Generic regression for single values output
  */
-public abstract class Regression {
+public abstract class Regression extends Energy {
 
 	boolean debug = false;
 	int numSamples;
 	int size;
 	int maxIterations = 10000; // Maximum number of iterations
-	double beta[]; // Parameters
-	double x[][]; // Input data
-	double y[]; // Output (real outputs)
+	double samplesX[][]; // Samples: Input data
+	double samplesY[]; // Samples: Output (real outputs)
 	double out[]; // Predicted outputs (model output)
-	boolean outputValid;
-	double gradient[];
 	Random rand;
+	Minimizer minnimizer;
 
 	public Regression(int size) {
+		super(size + 1); // Add one for intercept
 		this.size = size;
-		beta = new double[size + 1]; // Add one parameter (e.g. intercept in linear models)
-		gradient = new double[size + 1];
 		initModelRand();
 	}
 
 	void checkSamples(double in[][], double out[]) {
 		if (in.length != out.length) throw new RuntimeException("Sample dimensions do not match. Dim(in) = [ " + in.length + " , " + in[0].length + " ], Dim(out) = " + out.length);
-		if (in[0].length != size) throw new RuntimeException("Input dimension does not model size. Dim(in) = [ " + in.length + " , " + in[0].length + " ], Dim(out) = " + size);
-	}
-
-	public double[] getBeta() {
-		return beta;
+		if (in[0].length != (dim - 1)) throw new RuntimeException("Input dimension does not model size. Dim(in) = [ " + in.length + " , " + in[0].length + " ], Dim(out) = " + (dim - 1));
 	}
 
 	public double[] getOut() {
 		return out;
 	}
 
-	public double[][] getX() {
-		return x;
+	public double[][] getSamplesX() {
+		return samplesX;
 	}
 
-	public double[] getY() {
-		return y;
+	public double[] getSamplesY() {
+		return samplesY;
 	}
-
-	/**
-	 * Has this model converged?
-	 */
-	public abstract boolean hasConverged();
 
 	/**
 	 * Randomly initialize a model
 	 */
 	public void initModelRand() {
-		for (int i = 0; i < size + 1; i++)
-			beta[i] = randOne();
+		for (int i = 0; i < dim; i++)
+			theta[i] = randOne();
 
-		outputValid = false;
+		needsUpdate();
 	}
 
 	/**
 	 * Learn: Fit model
 	 */
 	public double[] learn() {
-		outputValid = false; // Invalidate previous 'predicted' results
-
-		int it = 0;
-		do {
-			if (debug) System.out.println("Iteration:  " + it);
-			learnIteration();
-			it++;
-		} while ((it < maxIterations) && !hasConverged());
-
-		return beta;
+		minnimizer = new SteepestDecent(this);
+		minnimizer.run();
+		return theta;
 	}
-
-	/**
-	 * Learn parameters (single iteration)
-	 */
-	public abstract void learnIteration();
 
 	/**
 	 * Apply model to all in[]
 	 */
 	public double[] predict() {
-		if (outputValid) return out;
-
-		if (out == null) out = new double[x.length];
+		if (out == null) out = new double[samplesX.length];
 
 		// Calculate model for each input
 		for (int i = 0; i < numSamples; i++)
-			out[i] = predict(x[i]);
+			out[i] = predict(samplesX[i]);
 
-		outputValid = true;
 		return out;
 	}
 
@@ -118,9 +94,9 @@ public abstract class Regression {
 		this.maxIterations = maxIterations;
 	}
 
-	public void setModel(double beta[]) {
-		if (this.beta != null && this.beta.length != beta.length) throw new RuntimeException("Number of parameters does not match model size: " + this.beta.length + " != " + beta.length);
-		this.beta = Arrays.copyOf(beta, beta.length);
+	public void setModel(double theta[]) {
+		if (this.theta != null && this.theta.length != theta.length) throw new RuntimeException("Number of parameters does not match model size: " + this.theta.length + " != " + theta.length);
+		System.arraycopy(theta, 0, this.theta, 0, theta.length);
 	}
 
 	public void setRand(Random rand) {
@@ -135,31 +111,32 @@ public abstract class Regression {
 		checkSamples(in, out);
 
 		numSamples = in.length;
-		x = new double[numSamples][size + 1];
+		samplesX = new double[numSamples][dim + 1];
 
 		// Copy data
 		for (int i = 0; i < numSamples; i++) {
 			for (int j = 0; j < size; j++)
-				x[i][j] = in[i][j];
+				samplesX[i][j] = in[i][j];
 
-			x[i][size] = 1.0; // Add 'intercept' term
+			samplesX[i][size] = 1.0; // Add 'intercept' term
 		}
 
-		y = Arrays.copyOf(out, out.length);
+		if (samplesY == null) samplesY = new double[out.length];
+		System.arraycopy(out, 0, samplesY, 0, out.length);
 	}
 
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
+		sb.append(energy + ", model: ");
 		for (int i = 0; i < size; i++) {
 			if (sb.length() > 0) {
-				if (beta[i] >= 0) sb.append(" + ");
+				if (theta[i] > 0 && i > 0) sb.append(" + ");
 				else sb.append(" ");
 			}
-			sb.append(beta[i] + " * in_" + i);
+			sb.append(theta[i] + " * in_" + i);
 		}
-		sb.append((beta[size] >= 0 ? " + " : " ") + beta[size]);
+		sb.append((theta[size] >= 0 ? " + " : " ") + theta[size]);
 		return sb.toString();
 	}
-
 }

@@ -11,6 +11,7 @@ public abstract class Optimizer {
 		RUNNING, CONVERGED, UNCONVERGED, KILLED, DONE;
 	}
 
+	protected boolean verbose = true;
 	protected boolean debug = false;
 	protected Energy energy;
 	protected OptimizationTerminator optimizerTerminator;
@@ -28,6 +29,10 @@ public abstract class Optimizer {
 
 	public void setDebug(boolean debug) {
 		this.debug = debug;
+	}
+
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
 	}
 
 	@Override

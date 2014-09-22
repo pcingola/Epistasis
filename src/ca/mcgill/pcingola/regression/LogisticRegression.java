@@ -17,17 +17,22 @@ public class LogisticRegression extends Regression {
 		super(size);
 	}
 
+	@Override
+	protected double calcEnergy() {
+		return logLikelihood();
+	}
+
 	/**
 	 * Calculate gradient
 	 */
-	public double[] gradient() {
+	@Override
+	public double[] calcGradient() {
 		predict();
-		Arrays.fill(gradient, 0.0);
+		Arrays.fill(gradient, 0.0); // First guess: All parameters are zero
 
-		int dim = size + 1;
 		for (int i = 0; i < numSamples; i++)
 			for (int j = 0; j < dim; j++)
-				gradient[j] += (y[i] - out[i]) * x[i][j];
+				gradient[j] -= (samplesY[i] - out[i]) * samplesX[i][j];
 
 		// Scale: divide by number of samples
 		for (int j = 0; j < dim; j++)
@@ -36,25 +41,13 @@ public class LogisticRegression extends Regression {
 		return gradient;
 	}
 
-	@Override
 	public boolean hasConverged() {
 		double sum = 0.0;
-		for (int i = 0; i < beta.length; i++)
+
+		for (int i = 0; i < theta.length; i++)
 			sum += Math.abs(gradient[i]);
+
 		return sum < minGradient;
-	}
-
-	@Override
-	public void learnIteration() {
-		outputValid = false;
-		predict();
-		gradient();
-
-		for (int i = 0; i < beta.length; i++) {
-			if (debug) System.out.println("\t" + i + "\tbeta: " + beta[i] + "\tgradient: " + gradient[i]);
-			beta[i] += gradient[i];
-		}
-
 	}
 
 	/**
@@ -66,7 +59,7 @@ public class LogisticRegression extends Regression {
 
 		double sum = 0;
 		for (int i = 0; i < numSamples; i++)
-			sum += Math.log(y[i] == 0 ? out[i] : 1.0 - out[i]);
+			sum += Math.log(samplesY[i] == 0 ? out[i] : 1.0 - out[i]);
 
 		return sum;
 	}
@@ -77,11 +70,11 @@ public class LogisticRegression extends Regression {
 	 */
 	public double logLikelihoodNull() {
 		double sum = 0;
-		double h = beta[beta.length - 1];
+		double h = theta[theta.length - 1];
 		double o = 1.0 / (1.0 + Math.exp(-h));
 
 		for (int i = 0; i < numSamples; i++)
-			sum += Math.log(y[i] == 0 ? o : 1.0 - o);
+			sum += Math.log(samplesY[i] == 0 ? o : 1.0 - o);
 
 		return sum;
 	}
@@ -92,9 +85,9 @@ public class LogisticRegression extends Regression {
 
 		// beta * in
 		for (int i = 0; i < size; i++)
-			h += in[i] * beta[i];
+			h += in[i] * theta[i];
 
-		h += beta[size]; // Last value is 'bias'
+		h += theta[size]; // Last value is 'bias'
 
 		return 1.0 / (1.0 + Math.exp(-h));
 	}
@@ -107,4 +100,15 @@ public class LogisticRegression extends Regression {
 		this.minGradient = minGradient;
 	}
 
+	public String toStringSamples() {
+		StringBuilder sb = new StringBuilder();
+
+		for (int i = 0; i < numSamples; i++) {
+			for (int j = 0; j < dim; j++)
+				sb.append(samplesX[i][j] + "\t");
+			sb.append(predict(samplesX[i]) + "\t");
+			sb.append(samplesY[i] + "\n");
+		}
+		return sb.toString();
+	}
 }

@@ -28,8 +28,8 @@ public class TestCaseOptimization extends TestCase {
 		optimizer.setDebug(debug);
 		optimizer.run();
 
-		Assert.assertEquals(energy.getX()[0], 2.0, EPSILON);
-		Assert.assertEquals(energy.getX()[1], 5.0, EPSILON);
+		Assert.assertEquals(energy.getTheta()[0], 2.0, EPSILON);
+		Assert.assertEquals(energy.getTheta()[1], 5.0, EPSILON);
 	}
 
 	public void test_02() throws Exception {
@@ -41,9 +41,9 @@ public class TestCaseOptimization extends TestCase {
 
 		int N = 10000;
 		for (int i = 0; i < N; i++) {
-			energy.setX(0, 10.0 * rand.nextDouble() - 5.0);
-			energy.setX(1, 10.0 * rand.nextDouble() - 5.0);
-			if (debug) System.out.println("\n\nx: " + Gpr.toString(energy.getX()));
+			energy.setTheta(0, 10.0 * rand.nextDouble() - 5.0);
+			energy.setTheta(1, 10.0 * rand.nextDouble() - 5.0);
+			if (debug) System.out.println("\n\nx: " + Gpr.toString(energy.getTheta()));
 
 			double enerBef = energy.evaluate();
 
@@ -64,8 +64,8 @@ public class TestCaseOptimization extends TestCase {
 		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
 
 		// Set initial value
-		energy.setX(0, 0.8);
-		energy.setX(1, +4);
+		energy.setTheta(0, 0.8);
+		energy.setTheta(1, +4);
 
 		double enerBef = energy.evaluate();
 		double alpha = ls.findStepLength();
@@ -80,8 +80,8 @@ public class TestCaseOptimization extends TestCase {
 		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
 
 		// Set initial points
-		energy.setX(0, -2);
-		energy.setX(1, +3);
+		energy.setTheta(0, -2);
+		energy.setTheta(1, +3);
 
 		double enerBef = energy.evaluate();
 		double alpha = ls.findStepLength();
@@ -96,8 +96,8 @@ public class TestCaseOptimization extends TestCase {
 		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
 
 		// Set initial points (0, 0)
-		energy.setX(0, 0);
-		energy.setX(1, 0);
+		energy.setTheta(0, 0);
+		energy.setTheta(1, 0);
 
 		double enerBef = energy.evaluate();
 		double alpha = ls.findStepLength();
@@ -112,8 +112,8 @@ public class TestCaseOptimization extends TestCase {
 		WolfeConditionLineSearch ls = new WolfeConditionLineSearch(energy);
 
 		// Set initial points (0, 0)
-		energy.setX(0, 2.784);
-		energy.setX(1, -2.108);
+		energy.setTheta(0, 2.784);
+		energy.setTheta(1, -2.108);
 
 		double enerBef = energy.evaluate();
 		double alpha = ls.findStepLength();

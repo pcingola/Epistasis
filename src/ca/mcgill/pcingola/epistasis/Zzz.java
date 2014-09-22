@@ -13,6 +13,13 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class Zzz {
 
+	public static double[] realModel = { 1, -1, 0.5 };
+	Random rand = new Random(20140912);
+	int N = 10000;
+	int size = realModel.length - 1;
+	double beta[] = new double[size + 1];
+	LogisticRegression lr;
+
 	public static final boolean debug = false;
 
 	/**
@@ -31,49 +38,31 @@ public class Zzz {
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
 
-		int N = 200;
-		int size = 2;
+		Zzz zzz = new Zzz();
+		zzz.logisticModel();
+		zzz.gradient();
 
-		// Output
-		StringBuilder sb = new StringBuilder();
-		sb.append("x1\tx2\ty\n");
-		Random rand = new Random(20140912);
+		Timer.showStdErr("End");
+	}
 
-		// Initialize model
-		LogisticRegression lr = new LogisticRegression(size);
-		double beta[] = new double[size + 1];
-		beta[0] = 2;
-		beta[1] = -1;
-		beta[2] = -0.5;
-		lr.setRand(rand);
-		lr.setModel(beta);
+	/**
+	 * BGFS fitting
+	 */
+	public void bfgs() {
+	}
 
-		// Create samples
-		double in[][] = new double[N][size];
-		double out[] = new double[N];
-		for (int i = 0; i < N; i++) {
+	/**
+	 * Gradient descent fitting
+	 */
+	void gradient() {
+		double beta[] = new double[realModel.length];
 
-			// Inputs
-			for (int j = 0; j < size; j++) {
-				in[i][j] = 2 * rand.nextDouble() - 1.0;
-				sb.append((j > 0 ? "\t" : "") + in[i][j]);
-			}
+		//		beta[0] = 2.0569899;
+		//		beta[1] = -1.0051820;
+		//		beta[2] = -0.6982514;
 
-			// Output
-			double o = lr.predict(in[i]);
-			out[i] = rand.nextDouble() < o ? 1.0 : 0.0;
-			sb.append("\t" + out[i] + "\n");
-		}
-		lr.setSamples(in, out);
-
-		// Write samples to file
-		System.out.println(sb);
-		Gpr.toFile(Gpr.HOME + "/logistic_01.txt", sb);
-
-		beta[0] = 2.0569899;
-		beta[1] = -1.0051820;
-		beta[2] = -0.6982514;
-		lr.setModel(beta);
+		for (int i = 0; i < realModel.length; i++)
+			beta[i] = realModel[i];
 
 		// Likelihood
 		double ll = lr.logLikelihood() / Math.log(10.0);
@@ -83,10 +72,46 @@ public class Zzz {
 
 		// Learn
 		lr.initModelRand();
-		lr.setDebug(true);
-		double betaModel[] = lr.learn();
-		System.out.println("Model: " + lr);
 
-		Timer.showStdErr("End");
+		beta[0] = beta[1] = beta[2] = 0;
+		lr.setModel(beta);
+		System.out.println(lr);
+
+		lr.setDebug(true);
+		lr.learn();
+		System.out.println("Model: " + lr);
+	}
+
+	public void logisticModel() {
+		// Initialize model
+		lr = new LogisticRegression(size);
+		lr.setRand(rand);
+		lr.setModel(realModel);
+		lr.setThetaBest();
+
+		// Create samples
+		double in[][] = new double[N][size];
+		double out[] = new double[N];
+		for (int i = 0; i < N; i++) {
+
+			// Inputs
+			for (int j = 0; j < size; j++)
+				in[i][j] = 2 * rand.nextDouble() - 1.0;
+
+			// Output
+			double o = lr.predict(in[i]);
+			//			Gpr.debug("in: " + Gpr.toString(in[i]) + "\tout: " + o);
+			out[i] = rand.nextDouble() < o ? 1.0 : 0.0;
+		}
+		lr.setSamples(in, out);
+
+		// Write samples to file
+		if (debug) System.out.println(lr.toStringSamples());
+		String fileName = Gpr.HOME + "/logistic.txt";
+		System.out.println("Model saved to: " + fileName);
+		Gpr.toFile(fileName, lr.toStringSamples());
+
+		lr.needsUpdate();
+		System.out.println("Energy: " + lr.updateEnergy());
 	}
 }

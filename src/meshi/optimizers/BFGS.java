@@ -120,44 +120,44 @@ import meshi.optimizers.exceptions.OptimizerException;
 
 public class BFGS extends Minimizer {
 
-	private SteepestDecent steepestDecent;
-	private WolfeConditionLineSearch lineSearch;
-	private int n; // number of variables
+	// Constant parameters
+	public final int MAX_NUM_VARIABLES = 3000;
+	public static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
+	public static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
+	public static final int DEFAULT_NUM_STEP_STEEPEST_DECENT = 50;
+	public static final double DEFAULT_INIT_STEP_STEEPEST_DECENT = 0.0001;
+	public static final double DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT = 0.5;
+	public static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
+
+	protected SteepestDecent steepestDecent;
+	protected WolfeConditionLineSearch lineSearch;
+	protected int n; // number of variables
 	int np; // (n+1)*n/2 - size of H
-	private double[] H; // Inverse Hessian
-	private double[] P; // The search direction
-	private double[] X; // The coordinates at iteration K
-	private double[] G; // The (-) gradients at iteration K
-	private double[] S; // The coordinates difference before the inverse Hessian update
-	private double[] Y; // The (-) gradients difference before the inverse Hessian update
-	private double[] A; // Hk*Yk
-	private double[] coordinates; // The position and gradients of the system
-	private double[] bufferCoordinates;
-	private int iterationNum; // Iterations counter
+	protected double[] H; // Inverse Hessian
+	protected double[] P; // The search direction
+	protected double[] X; // The coordinates at iteration K
+	protected double[] G; // The (-) gradients at iteration K
+	protected double[] S; // The coordinates difference before the inverse Hessian update
+	protected double[] Y; // The (-) gradients difference before the inverse Hessian update
+	protected double[] A; // Hk*Yk
+	protected double[] coordinates; // The position and gradients of the system
+	protected double[] bufferCoordinates;
+	protected int iterationNum; // Iterations counter
 
 	// BFGS parameters
-	private double allowedMaxH;
-	private static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
-	private static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
+	protected double allowedMaxH;
 
 	// Wolf conditions line search parameters
-	private double c1;
-	private double c2;
-	private double extendAlphaFactorWolfSearch;
-	private static int maxNumEvaluationsWolfSearch;
+	protected double c1;
+	protected double c2;
+	protected double extendAlphaFactorWolfSearch;
+	protected static int maxNumEvaluationsWolfSearch;
 
 	// Steepest descent module parameters
 	int numStepsSteepestDecent;
 	double initStepSteepestDecent;
 	double stepSizeReductionSteepestDecent;
 	double stepSizeExpansionSteepestDecent;
-	public static final int DEFAULT_NUM_STEP_STEEPEST_DECENT = 50;
-	private static final double DEFAULT_INIT_STEP_STEEPEST_DECENT = 0.0001;
-	private static final double DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT = 0.5;
-	private static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
-
-	// Constant parameters
-	private final int MAX_NUM_VARIABLES = 3000;
 
 	public static double abs(double a) {
 		if (a < 0) return -1 * a;
@@ -171,14 +171,14 @@ public class BFGS extends Minimizer {
 	}
 
 	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getX().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfeConditionLineSearch.DEFAULT_C1, WolfeConditionLineSearch.DEFAULT_C2, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
+		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfeConditionLineSearch.DEFAULT_C1, WolfeConditionLineSearch.DEFAULT_C2, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
 	}
 
 	@Override
 	protected void init() throws OptimizerException {
 		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 		lineSearch = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
-		coordinates = energy().getX();
+		coordinates = energy().getTheta();
 		n = coordinates.length;
 		np = (n + 1) * n / 2;
 		bufferCoordinates = new double[n];
@@ -195,7 +195,7 @@ public class BFGS extends Minimizer {
 	}
 
 	// Initializing the inverse Hessian to the unity matrix
-	private void initHessian() {
+	protected void initHessian() {
 		int i, j, k = 0;
 		H = new double[np];
 		for (i = 0; i < n; i++) {
@@ -211,17 +211,16 @@ public class BFGS extends Minimizer {
 	// Starting the BFGS minimization by a few steepest descent steps, followed by inverse Hessian initialization
 	@Override
 	protected void kickStart() throws OptimizerException {
-		System.out.println("\nA kick start has occurred in iteration:" + iterationNum + "\n");
+		if (verbose) System.err.println("\nA kick start has occurred in iteration:" + iterationNum + "\n");
 		steepestDecent.run();
 		iterationNum += numStepsSteepestDecent;
 		initHessian();
-		lineSearch.reset(steepestDecent.lastStepLength());
-		energy().evaluate();
 
-		for (int i = 0; i < n; i++) {
-			X[i] = coordinates[i];
-			// G[i] = coordinates[i][1];
-		}
+		lineSearch.reset(steepestDecent.lastStepLength());
+
+		energy().evaluate();
+		energy.copyTheta(X);
+		energy.copyGradient(G);
 	}
 
 	@Override
@@ -234,10 +233,7 @@ public class BFGS extends Minimizer {
 		double tempAbs;
 
 		// Pk=Hk*(-Gk)
-		for (i = 0; i < n; i++) {
-			if (Math.random() < 2) throw new RuntimeException("WTF!?");
-			// G[i] = coordinates[i][1];
-		}
+		energy.copyTheta(G);
 
 		for (i = 0; i < n; i++) {
 			P[i] = 0;
@@ -253,35 +249,33 @@ public class BFGS extends Minimizer {
 		}
 		// Do the line search
 		try {
-
-			if (Math.random() < 2) throw new RuntimeException("WTF!?");
-			//			for (i = 0; i < n; i++)
-			//				bufferCoordinates[i] = coordinates[i];
-
+			energy.copyTheta(bufferCoordinates);
 			lineSearch.findStepLength();
 		} catch (LineSearchException lsEx) {
-			// return the energy coordinates to those before the line search
-			System.out.println("Line seach failed");
-			System.out.println("exception code =  " + lsEx.code);
-			System.out.println("exception message = " + lsEx.getMessage());
+			// Return the energy coordinates to those before the line search
+			System.err.println("Line seach failed");
+			System.err.println("exception code =  " + lsEx.code);
+			System.err.println("exception message = " + lsEx.getMessage());
 
-			for (i = 0; i < n; i++)
-				coordinates[i] = bufferCoordinates[i];
+			energy.setTheta(bufferCoordinates);
 			energy().evaluate();
 			return false;
 		}
 		// Calculate Gk+1,Sk,Yk and the curvature Yk*Sk. Check for pathological curvature
 		Curv = 0;
+		double x[] = energy.getTheta();
+		double grad[] = energy.getGradient();
 		for (i = 0; i < n; i++) {
-			//			Y[i] = coordinates[i][1] - G[i];
-			//			S[i] = coordinates[i][0] - X[i];
-			//			G[i] = coordinates[i][1];
-			//			X[i] = coordinates[i][0];
+			Y[i] = grad[i] - G[i];
+			S[i] = x[i] - X[i];
+			G[i] = grad[i];
+			X[i] = x[i];
 
 			Curv += Y[i] * S[i];
 		}
+
 		if (Curv == 0) {
-			System.out.println("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable\n");
+			System.err.println("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable\n");
 			return false;
 		} else Curv = -1 / Curv;
 
@@ -322,7 +316,7 @@ public class BFGS extends Minimizer {
 		return true;
 	}
 
-	private void setParameters(double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
+	protected void setParameters(double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
 		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
 		this.c1 = c1;
 		this.c2 = c2;
