@@ -5,6 +5,7 @@ import java.util.Random;
 import junit.framework.TestCase;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.regression.LogisticRegression;
+import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Test cases for logistic regression
@@ -23,7 +24,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	 * @param N : Number of data samples
 	 * @param createFile : If non-null, create a tab-separated file with sample data
 	 */
-	public void modelFitTest(Random rand, double beta[], int N, String createFile, double betaFit[], double maxDifference) {
+	public void modelFitTest(Random rand, double beta[], int N, String createFile, double betaFit[], double maxDifference, boolean useBfgs) {
 		int size = beta.length - 1;
 
 		// Output file titles
@@ -33,7 +34,7 @@ public class TestCaseLogisticRegression extends TestCase {
 		sb.append("\ty\n");
 
 		// Initialize model
-		LogisticRegression lr = new LogisticRegression(size);
+		LogisticRegression lr = useBfgs ? new LogisticRegressionBfgs(size) : new LogisticRegression(size);
 		lr.setDebug(debug);
 		lr.setRand(rand);
 		lr.setModel(beta);
@@ -81,7 +82,7 @@ public class TestCaseLogisticRegression extends TestCase {
 		double beta[] = { 2, -1, -0.5 }; // Real model
 		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01);
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, false);
 	}
 
 	public void test_02() {
@@ -91,7 +92,7 @@ public class TestCaseLogisticRegression extends TestCase {
 		double beta[] = { 2, -1, -0.5 }; // Real model
 		double betaFit[] = { 2.02, -0.9848, -0.5247 }; // Expected fitted model
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01);
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, false);
 	}
 
 	public void test_03() {
@@ -102,7 +103,7 @@ public class TestCaseLogisticRegression extends TestCase {
 		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
 		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01);
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, false);
 	}
 
 }

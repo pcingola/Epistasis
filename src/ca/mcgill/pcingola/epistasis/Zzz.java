@@ -3,6 +3,9 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.Random;
 
 import meshi.optimizers.BFGS;
+import meshi.optimizers.GradientDecent;
+import meshi.optimizers.Minimizer;
+import meshi.optimizers.SteepestDecent;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.regression.LogisticRegression;
@@ -17,6 +20,9 @@ public class Zzz {
 	public static double[] realModel = { 2, -1, -0.5 };
 
 	public static final boolean debug = false;
+	public static String type = "grad";
+	//	public static String type = "steepest";
+	//	public static String type = "bgfs";
 
 	Random rand = new Random(20140912);
 	int N = 10000;
@@ -41,11 +47,32 @@ public class Zzz {
 		Timer.showStdErr("Start");
 
 		Zzz zzz = new Zzz();
-		zzz.logisticModel();
-		zzz.gradient();
-		//		zzz.bfgs();
-		//		zzz.learn1D();
 
+		// Create model
+		zzz.logisticModel();
+
+		// Select minimizer type and learn
+		Minimizer minimizer = null;
+		switch (type) {
+		case "bfgs":
+			minimizer = new BFGS(zzz.lr);
+			break;
+		case "steepest":
+			minimizer = new SteepestDecent(zzz.lr);
+			break;
+
+		case "grad":
+			minimizer = new GradientDecent(zzz.lr);
+			break;
+
+		default:
+			throw new RuntimeException("UNknown type " + type);
+		}
+		zzz.lr.setMinnimizer(minimizer);
+
+		zzz.learn();
+
+		// Show model after fitting
 		System.out.println("Model: " + zzz.lr);
 		double ll = zzz.lr.logLikelihood() / Math.log(10.0);
 		double llnull = zzz.lr.logLikelihoodNull() / Math.log(10.0);
@@ -56,37 +83,9 @@ public class Zzz {
 	}
 
 	/**
-	 * BGFS fitting
+	 * Learn: Fit model
 	 */
-	public void bfgs() {
-		double beta[] = new double[realModel.length];
-
-		for (int i = 0; i < realModel.length; i++)
-			beta[i] = realModel[i];
-
-		// Likelihood
-		double ll = lr.logLikelihood() / Math.log(10.0);
-		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
-		System.out.println("Log likelihood [10]: " + ll);
-		System.out.println("Log likelihood Null [10]: " + llnull);
-
-		// Learn
-		lr.initModelRand();
-
-		beta[0] = beta[1] = beta[2] = 0;
-		lr.setModel(beta);
-		System.out.println(lr);
-
-		lr.setDebug(true);
-		BFGS bfgs = new BFGS(lr);
-		lr.setMinnimizer(bfgs);
-		lr.learn();
-	}
-
-	/**
-	 * Gradient descent fitting
-	 */
-	void gradient() {
+	public void learn() {
 		double beta[] = new double[realModel.length];
 
 		for (int i = 0; i < realModel.length; i++)
@@ -108,6 +107,33 @@ public class Zzz {
 		lr.setDebug(true);
 		lr.learn();
 	}
+
+	//
+	//	/**
+	//	 * Gradient descent fitting
+	//	 */
+	//	void gradient() {
+	//		double beta[] = new double[realModel.length];
+	//
+	//		for (int i = 0; i < realModel.length; i++)
+	//			beta[i] = realModel[i];
+	//
+	//		// Likelihood
+	//		double ll = lr.logLikelihood() / Math.log(10.0);
+	//		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
+	//		System.out.println("Log likelihood [10]: " + ll);
+	//		System.out.println("Log likelihood Null [10]: " + llnull);
+	//
+	//		// Learn
+	//		lr.initModelRand();
+	//
+	//		beta[0] = beta[1] = beta[2] = 0;
+	//		lr.setModel(beta);
+	//		System.out.println(lr);
+	//
+	//		lr.setDebug(true);
+	//		lr.learn();
+	//	}
 
 	public void logisticModel() {
 		// Initialize model
