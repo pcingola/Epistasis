@@ -3,8 +3,8 @@ package ca.mcgill.pcingola.regression;
 import java.util.Random;
 
 import meshi.optimizers.Energy;
+import meshi.optimizers.GradientDecent;
 import meshi.optimizers.Minimizer;
-import meshi.optimizers.SteepestDecent;
 
 /**
  * Generic regression for single values output
@@ -58,7 +58,8 @@ public abstract class Regression extends Energy {
 	 * Learn: Fit model
 	 */
 	public double[] learn() {
-		if (minnimizer == null) minnimizer = new SteepestDecent(this);
+		// if (minnimizer == null) minnimizer = new SteepestDecent(this);
+		if (minnimizer == null) minnimizer = new GradientDecent(this);
 		minnimizer.run();
 		return theta;
 	}

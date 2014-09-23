@@ -3,9 +3,12 @@ package ca.mcgill.pcingola.epistasis.testCases;
 import java.util.Random;
 
 import junit.framework.TestCase;
+import meshi.optimizers.BFGS;
+import meshi.optimizers.GradientDecent;
+import meshi.optimizers.Minimizer;
+import meshi.optimizers.SteepestDecent;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.regression.LogisticRegression;
-import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Test cases for logistic regression
@@ -24,7 +27,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	 * @param N : Number of data samples
 	 * @param createFile : If non-null, create a tab-separated file with sample data
 	 */
-	public void modelFitTest(Random rand, double beta[], int N, String createFile, double betaFit[], double maxDifference, boolean useBfgs) {
+	public void modelFitTest(Random rand, double beta[], int N, String createFile, double betaFit[], double maxDifference, String minType) {
 		int size = beta.length - 1;
 
 		// Output file titles
@@ -34,10 +37,29 @@ public class TestCaseLogisticRegression extends TestCase {
 		sb.append("\ty\n");
 
 		// Initialize model
-		LogisticRegression lr = useBfgs ? new LogisticRegressionBfgs(size) : new LogisticRegression(size);
+		LogisticRegression lr = new LogisticRegression(size);
 		lr.setDebug(debug);
 		lr.setRand(rand);
 		lr.setModel(beta);
+
+		// Minimizer
+		Minimizer minimizer = null;
+		switch (minType) {
+		case "bfgs":
+			minimizer = new BFGS(lr);
+			break;
+		case "steepest":
+			minimizer = new SteepestDecent(lr);
+			break;
+
+		case "grad":
+			minimizer = new GradientDecent(lr);
+			break;
+
+		default:
+			throw new RuntimeException("UNknown type " + minType);
+		}
+		lr.setMinnimizer(minimizer);
 
 		// Create samples
 		double in[][] = new double[N][size];
@@ -67,7 +89,7 @@ public class TestCaseLogisticRegression extends TestCase {
 
 		lr.initModelRand();
 		double betaModel[] = lr.learn();
-		if (verbose) System.out.println("Model: " + lr);
+		if (verbose) System.out.println("Model " + minType + ": " + lr);
 
 		for (int i = 0; i < beta.length; i++) {
 			double err = Math.abs(betaModel[i] - betaFit[i]);
@@ -82,7 +104,27 @@ public class TestCaseLogisticRegression extends TestCase {
 		double beta[] = { 2, -1, -0.5 }; // Real model
 		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, false);
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
+	}
+
+	public void test_01_bfgs() {
+		Random rand = new Random(20140912);
+		int N = 200;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.0640984923304844, -1.0239938699726805, -0.7703983709252996 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
+	}
+
+	public void test_01_steepest() {
+		Random rand = new Random(20140912);
+		int N = 200;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.046631981850833, -1.0086930966008898, -0.7213103155135495 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, "steepest");
 	}
 
 	public void test_02() {
@@ -92,18 +134,22 @@ public class TestCaseLogisticRegression extends TestCase {
 		double beta[] = { 2, -1, -0.5 }; // Real model
 		double betaFit[] = { 2.02, -0.9848, -0.5247 }; // Expected fitted model
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, false);
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
 	}
 
 	public void test_03() {
 		Random rand = new Random(20140912);
 		int N = 10000;
-		int size = 5;
-
 		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
 		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, false);
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
 	}
+
+	//	!!!!!!!!!!!
+	//	GRADIENT
+	//	STEEPEST DESCENT
+	//	BFGS
+	//	!!!!!!!!!!!!
 
 }
