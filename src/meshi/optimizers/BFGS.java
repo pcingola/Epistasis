@@ -130,7 +130,7 @@ public class BFGS extends Minimizer {
 	public static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
 
 	protected SteepestDecent steepestDecent;
-	protected WolfeConditionLineSearch lineSearch;
+	protected WolfeConditionLineSearch lineSearchWolfe;
 	protected int n; // number of variables
 	int np; // (n+1)*n/2 - size of H
 	protected double[] H; // Inverse Hessian
@@ -164,20 +164,19 @@ public class BFGS extends Minimizer {
 		return a;
 	}
 
-	//Full constructor
+	public BFGS(Energy energy) {
+		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfeConditionLineSearch.DEFAULT_C1, WolfeConditionLineSearch.DEFAULT_C2, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
+	}
+
 	public BFGS(Energy energy, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
 		super(energy);
 		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
 
-	public BFGS(Energy energy, double tolerance, int maxSteps, int reportEvery) {
-		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfeConditionLineSearch.DEFAULT_C1, WolfeConditionLineSearch.DEFAULT_C2, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
-	}
-
 	@Override
 	protected void init() throws OptimizerException {
 		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
-		lineSearch = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
+		lineSearchWolfe = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
 		coordinates = energy().getTheta();
 		n = coordinates.length;
 		np = (n + 1) * n / 2;
@@ -216,7 +215,7 @@ public class BFGS extends Minimizer {
 		iterationNum += numStepsSteepestDecent;
 		initHessian();
 
-		lineSearch.reset(steepestDecent.lastStepLength());
+		lineSearchWolfe.reset(steepestDecent.lastStepLength());
 
 		energy().evaluate();
 		energy.copyTheta(X);
@@ -250,12 +249,17 @@ public class BFGS extends Minimizer {
 		// Do the line search
 		try {
 			energy.copyTheta(bufferCoordinates);
-			lineSearch.findStepLength();
+			lineSearchWolfe.findStepLength();
 		} catch (LineSearchException lsEx) {
-			// Return the energy coordinates to those before the line search
-			System.err.println("Line seach failed");
-			System.err.println("exception code =  " + lsEx.code);
-			System.err.println("exception message = " + lsEx.getMessage());
+
+			if (debug) {
+				// Return the energy coordinates to those before the line search
+				System.err.println("Line seach failed");
+				System.err.println("exception code =  " + lsEx.code);
+				System.err.println("exception message = " + lsEx.getMessage());
+
+				lsEx.printStackTrace();
+			}
 
 			energy.setTheta(bufferCoordinates);
 			energy().evaluate();

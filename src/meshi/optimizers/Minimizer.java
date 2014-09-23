@@ -10,7 +10,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 
 public abstract class Minimizer extends Optimizer {
 
-	public final int MAX_KICKSTARTS = 1000;
+	public final int MAX_KICKSTARTS = 100;
 
 	int numberOfKickStrarts;
 
@@ -49,7 +49,7 @@ public abstract class Minimizer extends Optimizer {
 				if (numberOfKickStrarts >= MAX_KICKSTARTS) throw new OptimizerException("\n\nThe simulation was restarted for " + MAX_KICKSTARTS + " times " + "which is more than allowed.\n" + "So many restarts are indicative of an ill-shaped energy function or " + "an energy differentiation\n");
 				try {
 					kickStart();
-					System.out.println("kickstart # " + numberOfKickStrarts + " done");
+					if (verbose) System.err.println("kickstart # " + numberOfKickStrarts + " done");
 				} catch (OptimizerException oe) {
 					throw oe;
 				}

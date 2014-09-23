@@ -11,8 +11,8 @@ public abstract class Optimizer {
 		RUNNING, CONVERGED, UNCONVERGED, KILLED, DONE;
 	}
 
-	protected boolean verbose = true;
 	protected boolean debug = false;
+	protected boolean verbose = false || debug;
 	protected Energy energy;
 	protected OptimizationTerminator optimizerTerminator;
 

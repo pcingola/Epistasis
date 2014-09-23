@@ -109,7 +109,10 @@ public class WolfeConditionLineSearch extends LineSearch {
 			grad0 -= pk[i] * grad[i];
 
 		// Sanity check: Is this in the descent direction?
-		if (grad0 >= 0) throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. This problem might be caused by incorrect diffrentiation of the energy function or by numerical instabilities of the minimizing techniques (such as not fullfilling the Wolf condtions in BFGS).\n");
+		if (grad0 >= 0) {
+			if (debug) Gpr.debug("Error: Gradient direction issue?");
+			throw new LineSearchException(LineSearchException.NOT_A_DESCENT_DIRECTION, "\n\nThe search direction is not a descent direction. This problem might be caused by incorrect diffrentiation of the energy function or by numerical instabilities of the minimizing techniques (such as not fullfilling the Wolf condtions in BFGS).\n");
+		}
 
 		numAlphaEvaluations = -1;
 		stop = false;
@@ -163,6 +166,8 @@ public class WolfeConditionLineSearch extends LineSearch {
 		}
 
 		if (numAlphaEvaluations > maxNumEvaluations) {
+			if (debug) Gpr.debug("Error: Too many evaluations");
+
 			energy.setTheta(x0); // Returning the coordinates to the original state
 			energy.evaluate();
 			throw new LineSearchException(LineSearchException.WOLF_CONDITION_NOT_MET, "\n\nWolf conditions not met. The line search did not converge, and exceeded the maximal number of step extensions allowed.\n");

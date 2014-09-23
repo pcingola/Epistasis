@@ -38,16 +38,13 @@ public class SteepestDecent extends Minimizer {
 	private SimpleStepLength lineSearch;
 
 	private double lastStepLength = 1;
-	private static final double DEFAULT_INITIAL_STEP_LENGTH = 1.0;
-	private static final double DEFAULT_STEP_SIZE_REDUCTION = 0.5;
-	private static final double DEFAULT_STEP_SIZE_EXPENTION = 1.1;
 	private double initialStepLength;
 	private double stepSizeReduction;
 	private double stepSizeExpansion;
 
 	// Default values constructor
 	public SteepestDecent(Energy energy) {
-		this(energy, DEFAULT_INITIAL_STEP_LENGTH, DEFAULT_STEP_SIZE_REDUCTION, DEFAULT_STEP_SIZE_EXPENTION);
+		this(energy, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION, SimpleStepLength.DEFAULT_STEP_SIZE_EXPANTION);
 	}
 
 	//Full constructor
@@ -78,6 +75,7 @@ public class SteepestDecent extends Minimizer {
 
 		try {
 			lastStepLength = lineSearch.findStepLength();
+			if (lastStepLength <= 0) return true; // Could not improve after line search?
 		} catch (LineSearchException lsException) {
 			if (lsException.code == LineSearchException.NOT_A_DESCENT_DIRECTION) throw new OptimizerException("\n\nProblem in SteepestDecent. Direction is not a descent direction.\nThis problem is caused by incorrect differentiation of the energy function.\n");
 			else throw new RuntimeException("Unknown LineSearchException " + lsException);

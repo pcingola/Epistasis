@@ -2,6 +2,9 @@ package ca.mcgill.pcingola.regression;
 
 import java.util.Arrays;
 
+import meshi.optimizers.SimpleStepLength;
+import ca.mcgill.mcb.pcingola.util.Gpr;
+
 /**
  * Logistic regression
  * Model fitting by gradient descent
@@ -51,6 +54,38 @@ public class LogisticRegression extends Regression {
 	}
 
 	/**
+	 * Learn only one dimension at the time
+	 */
+	public void lean1D() {
+		for (int i = 0; i < dim; i++)
+			lean1D(i);
+	}
+
+	/**
+	 * Learn only 'dimOpt' dimension 
+	 */
+	void lean1D(int dimOpt) {
+		calcGradient();
+
+		double sum = 0;
+		for (int i = 0; i < gradient.length; i++)
+			sum += Math.abs(gradient[i]);
+
+		for (int i = 0; i < gradient.length; i++)
+			if (i != dimOpt) gradient[i] = 0;
+			else gradient[i] *= 0.01 / sum;
+
+		Gpr.debug("Gradient: " + Gpr.toString(gradient) + "\tenergy: " + energy + "\t" + Gpr.toString(theta));
+
+		try {
+			SimpleStepLength lineSearch = new SimpleStepLength(this);
+			lineSearch.findStepLength();
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
 	 * Calculate log likelihood (of training data)
 	 * Logarithm is in natural base ('e')
 	 */
@@ -83,12 +118,13 @@ public class LogisticRegression extends Regression {
 	public double predict(double[] in) {
 		double h = 0.0;
 
-		// beta * in
+		// h = beta * in
 		for (int i = 0; i < size; i++)
 			h += in[i] * theta[i];
 
 		h += theta[size]; // Last value is 'bias'
 
+		// logit(h)
 		return 1.0 / (1.0 + Math.exp(-h));
 	}
 

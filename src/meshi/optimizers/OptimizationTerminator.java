@@ -2,6 +2,11 @@ package meshi.optimizers;
 
 import meshi.optimizers.Optimizer.OptimizerStatus;
 
+/**
+ * Control when the optimization step is finished
+ * 
+ * @author pcingola
+ */
 public class OptimizationTerminator {
 
 	public static final int DEFAULT_MAX_STEPS = 1000000;
@@ -10,6 +15,7 @@ public class OptimizationTerminator {
 	boolean dead;
 	int maxSteps;
 	double gradientMaxAbsThreshold;
+	double energyOld = Double.MAX_VALUE;
 	String message;
 	Energy energy;
 
@@ -52,11 +58,19 @@ public class OptimizationTerminator {
 	}
 
 	public OptimizerStatus status(int step) {
+		// Has this been killed?
 		if (isDead()) { return OptimizerStatus.KILLED; }
 
+		// Is energy improving?
+		double energyNew = energy.getEnergy();
+		if (energyNew >= energyOld) return OptimizerStatus.CONVERGED;
+		energyOld = energyNew;
+
+		// Is the gradient 'strong' enough
 		double gradMaxAbs = getGradMagnitude();
 		if (gradMaxAbs < gradientMaxAbsThreshold) return OptimizerStatus.CONVERGED;
 
+		// Are we done with the number of steps?
 		if (step <= maxSteps) return OptimizerStatus.RUNNING;
 
 		return OptimizerStatus.UNCONVERGED;

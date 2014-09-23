@@ -58,7 +58,7 @@ public abstract class Regression extends Energy {
 	 * Learn: Fit model
 	 */
 	public double[] learn() {
-		minnimizer = new SteepestDecent(this);
+		if (minnimizer == null) minnimizer = new SteepestDecent(this);
 		minnimizer.run();
 		return theta;
 	}
@@ -92,6 +92,10 @@ public abstract class Regression extends Energy {
 
 	public void setMaxIterations(int maxIterations) {
 		this.maxIterations = maxIterations;
+	}
+
+	public void setMinnimizer(Minimizer minnimizer) {
+		this.minnimizer = minnimizer;
 	}
 
 	public void setModel(double theta[]) {

@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.Random;
 
+import meshi.optimizers.BFGS;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.regression.LogisticRegression;
@@ -14,13 +15,14 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
 public class Zzz {
 
 	public static double[] realModel = { 2, -1, -0.5 };
+
+	public static final boolean debug = false;
+
 	Random rand = new Random(20140912);
 	int N = 10000;
 	int size = realModel.length - 1;
 	double beta[] = new double[size + 1];
 	LogisticRegression lr;
-
-	public static final boolean debug = false;
 
 	/**
 	 * Running glm in R:
@@ -41,6 +43,14 @@ public class Zzz {
 		Zzz zzz = new Zzz();
 		zzz.logisticModel();
 		zzz.gradient();
+		//		zzz.bfgs();
+		//		zzz.learn1D();
+
+		System.out.println("Model: " + zzz.lr);
+		double ll = zzz.lr.logLikelihood() / Math.log(10.0);
+		double llnull = zzz.lr.logLikelihoodNull() / Math.log(10.0);
+		System.out.println("Log likelihood [10]: " + ll);
+		System.out.println("Log likelihood Null [10]: " + llnull);
 
 		Timer.showStdErr("End");
 	}
@@ -49,6 +59,28 @@ public class Zzz {
 	 * BGFS fitting
 	 */
 	public void bfgs() {
+		double beta[] = new double[realModel.length];
+
+		for (int i = 0; i < realModel.length; i++)
+			beta[i] = realModel[i];
+
+		// Likelihood
+		double ll = lr.logLikelihood() / Math.log(10.0);
+		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
+		System.out.println("Log likelihood [10]: " + ll);
+		System.out.println("Log likelihood Null [10]: " + llnull);
+
+		// Learn
+		lr.initModelRand();
+
+		beta[0] = beta[1] = beta[2] = 0;
+		lr.setModel(beta);
+		System.out.println(lr);
+
+		lr.setDebug(true);
+		BFGS bfgs = new BFGS(lr);
+		lr.setMinnimizer(bfgs);
+		lr.learn();
 	}
 
 	/**
@@ -75,6 +107,16 @@ public class Zzz {
 
 		lr.setDebug(true);
 		lr.learn();
+	}
+
+	public void learn1D() {
+		double eold = lr.getEnergy();
+		double enew = eold - 1;
+		while (enew < eold) {
+			eold = lr.getEnergy();
+			lr.lean1D();
+			enew = lr.getEnergy();
+		}
 		System.out.println("Model: " + lr);
 	}
 
