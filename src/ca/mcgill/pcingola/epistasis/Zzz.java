@@ -109,17 +109,6 @@ public class Zzz {
 		lr.learn();
 	}
 
-	public void learn1D() {
-		double eold = lr.getEnergy();
-		double enew = eold - 1;
-		while (enew < eold) {
-			eold = lr.getEnergy();
-			lr.lean1D();
-			enew = lr.getEnergy();
-		}
-		System.out.println("Model: " + lr);
-	}
-
 	public void logisticModel() {
 		// Initialize model
 		lr = new LogisticRegression(size);

@@ -2,12 +2,9 @@ package ca.mcgill.pcingola.regression;
 
 import java.util.Arrays;
 
-import meshi.optimizers.SimpleStepLength;
-import ca.mcgill.mcb.pcingola.util.Gpr;
-
 /**
  * Logistic regression
- * Model fitting by gradient descent
+ * Model fitting by gradient descent (default)
  *
  * @author pcingola
  */
@@ -51,38 +48,6 @@ public class LogisticRegression extends Regression {
 			sum += Math.abs(gradient[i]);
 
 		return sum < minGradient;
-	}
-
-	/**
-	 * Learn only one dimension at the time
-	 */
-	public void lean1D() {
-		for (int i = 0; i < dim; i++)
-			lean1D(i);
-	}
-
-	/**
-	 * Learn only 'dimOpt' dimension 
-	 */
-	void lean1D(int dimOpt) {
-		calcGradient();
-
-		double sum = 0;
-		for (int i = 0; i < gradient.length; i++)
-			sum += Math.abs(gradient[i]);
-
-		for (int i = 0; i < gradient.length; i++)
-			if (i != dimOpt) gradient[i] = 0;
-			else gradient[i] *= 0.01 / sum;
-
-		Gpr.debug("Gradient: " + Gpr.toString(gradient) + "\tenergy: " + energy + "\t" + Gpr.toString(theta));
-
-		try {
-			SimpleStepLength lineSearch = new SimpleStepLength(this);
-			lineSearch.findStepLength();
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	/**
