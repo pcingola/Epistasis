@@ -79,7 +79,7 @@ public class SimpleStepLength extends LineSearch {
 					+ "\n\tmodel best : " + Gpr.toString(energy.getThetaBest()) //
 					+ "\n\tmodel      : " + Gpr.toString(energy.getTheta()) //
 					+ "\n\tgradient   : " + Gpr.toString(energy.getGradient()) //
-			);
+					);
 		}
 
 		return stepSize;

@@ -57,11 +57,15 @@ public class LogisticRegression extends Regression {
 	public double logLikelihood() {
 		predict();
 
-		double sum = 0;
-		for (int i = 0; i < numSamples; i++)
-			sum += Math.log(samplesY[i] == 0 ? out[i] : 1.0 - out[i]);
+		double loglik = 0;
+		double dmin = Double.MAX_VALUE;
+		for (int i = 0; i < numSamples; i++) {
+			double d = samplesY[i] == 0 ? out[i] : 1.0 - out[i];
+			dmin = Math.min(dmin, d);
+			loglik += Math.log(d);
+		}
 
-		return sum;
+		return loglik;
 	}
 
 	/**

@@ -2,6 +2,7 @@ package meshi.optimizers;
 
 import meshi.optimizers.exceptions.LineSearchException;
 import meshi.optimizers.exceptions.OptimizerException;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  *This class implements a BFGS minimizer according to the scheme in: Numerical Optimization by J. Nocendal &
@@ -125,9 +126,9 @@ public class BFGS extends Minimizer {
 	public static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
 	public static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
 	public static final int DEFAULT_NUM_STEP_STEEPEST_DECENT = 50;
-	public static final double DEFAULT_INIT_STEP_STEEPEST_DECENT = 0.0001;
-	public static final double DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT = 0.5;
-	public static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
+	//	public static final double DEFAULT_INIT_STEP_STEEPEST_DECENT = 0.0001;
+	//	public static final double DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT = 0.5;
+	//	public static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
 
 	protected SteepestDecent steepestDecent;
 	protected WolfeConditionLineSearch lineSearchWolfe;
@@ -165,7 +166,17 @@ public class BFGS extends Minimizer {
 	}
 
 	public BFGS(Energy energy) {
-		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length, DEFAULT_MAX_NUM_KICK_STARTS, WolfeConditionLineSearch.DEFAULT_C1, WolfeConditionLineSearch.DEFAULT_C2, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS, DEFAULT_NUM_STEP_STEEPEST_DECENT, DEFAULT_INIT_STEP_STEEPEST_DECENT, DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT, DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT);
+		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length //
+		, DEFAULT_MAX_NUM_KICK_STARTS //
+				, WolfeConditionLineSearch.DEFAULT_C1 //
+				, WolfeConditionLineSearch.DEFAULT_C2//
+				, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR //
+				, WolfeConditionLineSearch.DEFAULT_MAX_NUM_EVALUATIONS //
+				, DEFAULT_NUM_STEP_STEEPEST_DECENT //
+				, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH //
+				, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION //
+				, SimpleStepLength.DEFAULT_STEP_SIZE_EXPANTION //
+		);
 	}
 
 	public BFGS(Energy energy, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
@@ -215,12 +226,19 @@ public class BFGS extends Minimizer {
 	@Override
 	protected void kickStart() throws OptimizerException {
 		if (verbose) System.err.println("\nA kick start has occurred in iteration:" + iterationNum + "\n");
+
+		// Run steepest descent
 		steepestDecent.run();
+		if (debug) Gpr.debug("Steepest descent: " + Gpr.toString(energy.getTheta()));
+
+		// Initialize Hessian
 		iterationNum += numStepsSteepestDecent;
 		initHessian();
 
+		// Initialize Wolfe search
 		lineSearchWolfe.reset(steepestDecent.lastStepLength());
 
+		// Update energy
 		energy().evaluate();
 		energy.copyTheta(X);
 		energy.copyGradient(G);
@@ -234,6 +252,9 @@ public class BFGS extends Minimizer {
 		double MaxH; // The maximal entry in H (in term of magnitude)
 		int i, j, k; // auxilary counters
 		double tempAbs;
+
+		if (debug) //
+			Gpr.debug("Theta: " + Gpr.toString(energy.getTheta()));
 
 		// Pk=Hk*(-Gk)
 		energy.copyTheta(G);
