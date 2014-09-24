@@ -83,6 +83,11 @@ public class Zzz {
 
 	/***
 	 * Logistic regression using T2D-26K data
+	 * 
+	 * Test dataset: 
+	 * 		- VCF          : t2d1/vcf/eff/hm.chr1.gt.vcf
+	 * 		- pheno + PCAs : t2d1/coEvolution/coEvolution.pheno.covariates.txt
+	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
 	 */
 	void logistic26k() {
 		Timer.showStdErr("Reading PCA data form '" + eigen26k + "'");
