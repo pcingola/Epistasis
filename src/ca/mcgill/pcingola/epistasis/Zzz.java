@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.HashMap;
 import java.util.Random;
 
 import meshi.optimizers.BFGS;
@@ -22,10 +23,13 @@ public class Zzz {
 	public static final boolean debug = false;
 	public static String type = "grad"; // "steepest"; "bgfs";
 
+	String eigen26k = "data/26k/pruned_v3_based_variants_26k_pca.txt.gz";
+	HashMap<String, Integer> sampleId2pos;
 	Random rand = new Random(20140912);
 	int N = 10000;
 	int size = realModel.length - 1;
 	double beta[] = new double[size + 1];
+	double pca[][];
 	LogisticRegression lr;
 
 	/**
@@ -47,6 +51,8 @@ public class Zzz {
 		Zzz zzz = new Zzz();
 		// zzz.logisticTest();
 		zzz.logistic26k();
+
+		Timer.showStdErr("End");
 	}
 
 	/**
@@ -76,10 +82,41 @@ public class Zzz {
 	}
 
 	/***
-	 * LOGISTIC USING PIERRE's CO-FACTORS!!!!!
+	 * Logistic regression using T2D-26K data
 	 */
 	void logistic26k() {
+		Timer.showStdErr("Reading PCA data form '" + eigen26k + "'");
+		// Read file
+		String lines[] = Gpr.readFile(eigen26k).split("\n");
+		sampleId2pos = new HashMap<>();
 
+		// Allocate PCA matrix
+		int numPca = lines[0].split("\t").length - 2; // All, but sampleId and population are PCAs
+		pca = new double[lines.length][numPca];
+
+		// Parse
+		int sampleNum = 0;
+		for (String line : lines) {
+			line = line.trim();
+			String fields[] = line.split("\t");
+
+			// Parse sample ID & population data
+			String sampleId = fields[0];
+			String population = fields[fields.length - 1];
+
+			// Add to map
+			sampleId2pos.put(sampleId, sampleNum);
+
+			// Parse PCA values
+			if (debug) System.out.print(sampleId + "\t" + population);
+			for (int i = 1; i < fields.length - 1; i++) {
+				pca[sampleNum][i - 1] = Gpr.parseDoubleSafe(fields[i]);
+				if (debug) System.out.print("\t" + pca[sampleNum][i - 1]);
+			}
+			if (debug) System.out.println("");
+
+			sampleNum++;
+		}
 	}
 
 	public void logisticModel() {
@@ -114,33 +151,6 @@ public class Zzz {
 		lr.needsUpdate();
 		System.out.println("Energy: " + lr.updateEnergy());
 	}
-
-	//
-	//	/**
-	//	 * Gradient descent fitting
-	//	 */
-	//	void gradient() {
-	//		double beta[] = new double[realModel.length];
-	//
-	//		for (int i = 0; i < realModel.length; i++)
-	//			beta[i] = realModel[i];
-	//
-	//		// Likelihood
-	//		double ll = lr.logLikelihood() / Math.log(10.0);
-	//		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
-	//		System.out.println("Log likelihood [10]: " + ll);
-	//		System.out.println("Log likelihood Null [10]: " + llnull);
-	//
-	//		// Learn
-	//		lr.initModelRand();
-	//
-	//		beta[0] = beta[1] = beta[2] = 0;
-	//		lr.setModel(beta);
-	//		System.out.println(lr);
-	//
-	//		lr.setDebug(true);
-	//		lr.learn();
-	//	}
 
 	void logisticTest() {
 		// Create model
