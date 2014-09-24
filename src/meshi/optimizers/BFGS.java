@@ -188,6 +188,10 @@ public class BFGS extends Minimizer {
 		S = new double[n];
 		A = new double[n];
 		iterationNum = 0;
+
+		steepestDecent.setDebug(debug);
+		lineSearchWolfe.setDebug(debug);
+
 		// Starting the BFGS minimization by a few steepest descent steps, followed by inverse Hessian, gradients (G),
 		// and position (X) initialization
 		kickStart();

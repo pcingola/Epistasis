@@ -58,6 +58,7 @@ public class SteepestDecent extends Minimizer {
 	@Override
 	protected void init() throws OptimizerException {
 		lineSearch = new SimpleStepLength(energy(), initialStepLength, stepSizeReduction, stepSizeExpansion);
+		lineSearch.setDebug(debug);
 		energy().evaluate();
 	}
 

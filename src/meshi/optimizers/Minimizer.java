@@ -43,7 +43,7 @@ public abstract class Minimizer extends Optimizer {
 
 			boolean minimizationStepOK = minimizationStep();
 
-			if (debug) Gpr.debug("Iteration: " + step + "\tstepOK: " + minimizationStepOK + "\t" + this);
+			if (debug) Gpr.debug("Iteration: " + step + "\tminimizationStepOK OK: " + minimizationStepOK + "\t" + this);
 
 			if (!minimizationStepOK) {
 				if (numberOfKickStrarts >= MAX_KICKSTARTS) throw new OptimizerException("\n\nThe simulation was restarted for " + MAX_KICKSTARTS + " times " + "which is more than allowed.\n" + "So many restarts are indicative of an ill-shaped energy function or " + "an energy differentiation\n");

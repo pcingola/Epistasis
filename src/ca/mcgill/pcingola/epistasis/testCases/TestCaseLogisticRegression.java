@@ -17,8 +17,8 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class TestCaseLogisticRegression extends TestCase {
 
-	public static boolean debug = false;
-	public static boolean verbose = true;
+	public static boolean debug = true;
+	public static boolean verbose = true || debug;
 
 	/**
 	 * Create a model, create data, fit model and check that parameters are correctly fitted
@@ -48,6 +48,7 @@ public class TestCaseLogisticRegression extends TestCase {
 		case "bfgs":
 			minimizer = new BFGS(lr);
 			break;
+
 		case "steepest":
 			minimizer = new SteepestDecent(lr);
 			break;
@@ -97,59 +98,64 @@ public class TestCaseLogisticRegression extends TestCase {
 		}
 	}
 
-	public void test_01() {
+	//	public void test_01() {
+	//		Random rand = new Random(20140912);
+	//		int N = 200;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
+	//	}
+	//
+	//	public void test_01_bfgs() {
+	//		Random rand = new Random(20140912);
+	//		int N = 200;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.0640984923304844, -1.0239938699726805, -0.7703983709252996 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
+	//	}
+	//
+	//	public void test_01_steepest() {
+	//		Random rand = new Random(20140912);
+	//		int N = 200;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.046631981850833, -1.0086930966008898, -0.7213103155135495 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "steepest");
+	//	}
+	//
+	//	public void test_02() {
+	//		Random rand = new Random(20140912);
+	//		int N = 10000;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.02, -0.9848, -0.5247 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
+	//	}
+
+	public void test_02_bfgs() {
 		Random rand = new Random(20140912);
-		int N = 200;
-
-		double beta[] = { 2, -1, -0.5 }; // Real model
-		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
-
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
-	}
-
-	public void test_01_bfgs() {
-		Random rand = new Random(20140912);
-		int N = 200;
-
-		double beta[] = { 2, -1, -0.5 }; // Real model
-		double betaFit[] = { 2.0640984923304844, -1.0239938699726805, -0.7703983709252996 }; // Expected fitted model
-
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
-	}
-
-	public void test_01_steepest() {
-		Random rand = new Random(20140912);
-		int N = 200;
-
-		double beta[] = { 2, -1, -0.5 }; // Real model
-		double betaFit[] = { 2.046631981850833, -1.0086930966008898, -0.7213103155135495 }; // Expected fitted model
-
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, "steepest");
-	}
-
-	public void test_02() {
-		Random rand = new Random(20140912);
-		int N = 10000;
+		int N = 100000;
 
 		double beta[] = { 2, -1, -0.5 }; // Real model
 		double betaFit[] = { 2.02, -0.9848, -0.5247 }; // Expected fitted model
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
+		modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
+		//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "steepest");
 	}
 
-	public void test_03() {
-		Random rand = new Random(20140912);
-		int N = 10000;
-		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
-		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
-
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
-	}
-
-	//	!!!!!!!!!!!
-	//	GRADIENT
-	//	STEEPEST DESCENT
-	//	BFGS
-	//	!!!!!!!!!!!!
+	//	public void test_03() {
+	//		Random rand = new Random(20140912);
+	//		int N = 10000;
+	//		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
+	//		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "grad");
+	//	}
 
 }

@@ -5,6 +5,7 @@ import java.util.Random;
 import meshi.optimizers.Energy;
 import meshi.optimizers.GradientDecent;
 import meshi.optimizers.Minimizer;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * Generic regression for single values output
@@ -60,6 +61,7 @@ public abstract class Regression extends Energy {
 	public double[] learn() {
 		// if (minnimizer == null) minnimizer = new SteepestDecent(this);
 		if (minnimizer == null) minnimizer = new GradientDecent(this);
+		minnimizer.setDebug(debug);
 		minnimizer.run();
 		return theta;
 	}
@@ -132,16 +134,6 @@ public abstract class Regression extends Energy {
 
 	@Override
 	public String toString() {
-		StringBuilder sb = new StringBuilder();
-		sb.append(energy + ", model: ");
-		for (int i = 0; i < size; i++) {
-			if (sb.length() > 0) {
-				if (theta[i] > 0 && i > 0) sb.append(" + ");
-				else sb.append(" ");
-			}
-			sb.append(theta[i] + " * in_" + i);
-		}
-		sb.append((theta[size] >= 0 ? " + " : " ") + theta[size]);
-		return sb.toString();
+		return energy + ", model: " + Gpr.toString(theta);
 	}
 }
