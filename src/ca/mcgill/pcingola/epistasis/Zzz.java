@@ -20,9 +20,7 @@ public class Zzz {
 	public static double[] realModel = { 2, -1, -0.5 };
 
 	public static final boolean debug = false;
-	public static String type = "grad";
-	//	public static String type = "steepest";
-	//	public static String type = "bgfs";
+	public static String type = "grad"; // "steepest"; "bgfs";
 
 	Random rand = new Random(20140912);
 	int N = 10000;
@@ -47,39 +45,8 @@ public class Zzz {
 		Timer.showStdErr("Start");
 
 		Zzz zzz = new Zzz();
-
-		// Create model
-		zzz.logisticModel();
-
-		// Select minimizer type and learn
-		Minimizer minimizer = null;
-		switch (type) {
-		case "bfgs":
-			minimizer = new BFGS(zzz.lr);
-			break;
-		case "steepest":
-			minimizer = new SteepestDecent(zzz.lr);
-			break;
-
-		case "grad":
-			minimizer = new GradientDecent(zzz.lr);
-			break;
-
-		default:
-			throw new RuntimeException("UNknown type " + type);
-		}
-		zzz.lr.setMinnimizer(minimizer);
-
-		zzz.learn();
-
-		// Show model after fitting
-		System.out.println("Model: " + zzz.lr);
-		double ll = zzz.lr.logLikelihood() / Math.log(10.0);
-		double llnull = zzz.lr.logLikelihoodNull() / Math.log(10.0);
-		System.out.println("Log likelihood [10]: " + ll);
-		System.out.println("Log likelihood Null [10]: " + llnull);
-
-		Timer.showStdErr("End");
+		// zzz.logisticTest();
+		zzz.logistic26k();
 	}
 
 	/**
@@ -108,32 +75,12 @@ public class Zzz {
 		lr.learn();
 	}
 
-	//
-	//	/**
-	//	 * Gradient descent fitting
-	//	 */
-	//	void gradient() {
-	//		double beta[] = new double[realModel.length];
-	//
-	//		for (int i = 0; i < realModel.length; i++)
-	//			beta[i] = realModel[i];
-	//
-	//		// Likelihood
-	//		double ll = lr.logLikelihood() / Math.log(10.0);
-	//		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
-	//		System.out.println("Log likelihood [10]: " + ll);
-	//		System.out.println("Log likelihood Null [10]: " + llnull);
-	//
-	//		// Learn
-	//		lr.initModelRand();
-	//
-	//		beta[0] = beta[1] = beta[2] = 0;
-	//		lr.setModel(beta);
-	//		System.out.println(lr);
-	//
-	//		lr.setDebug(true);
-	//		lr.learn();
-	//	}
+	/***
+	 * LOGISTIC USING PIERRE's CO-FACTORS!!!!!
+	 */
+	void logistic26k() {
+
+	}
 
 	public void logisticModel() {
 		// Initialize model
@@ -166,5 +113,67 @@ public class Zzz {
 
 		lr.needsUpdate();
 		System.out.println("Energy: " + lr.updateEnergy());
+	}
+
+	//
+	//	/**
+	//	 * Gradient descent fitting
+	//	 */
+	//	void gradient() {
+	//		double beta[] = new double[realModel.length];
+	//
+	//		for (int i = 0; i < realModel.length; i++)
+	//			beta[i] = realModel[i];
+	//
+	//		// Likelihood
+	//		double ll = lr.logLikelihood() / Math.log(10.0);
+	//		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
+	//		System.out.println("Log likelihood [10]: " + ll);
+	//		System.out.println("Log likelihood Null [10]: " + llnull);
+	//
+	//		// Learn
+	//		lr.initModelRand();
+	//
+	//		beta[0] = beta[1] = beta[2] = 0;
+	//		lr.setModel(beta);
+	//		System.out.println(lr);
+	//
+	//		lr.setDebug(true);
+	//		lr.learn();
+	//	}
+
+	void logisticTest() {
+		// Create model
+		logisticModel();
+
+		// Select minimizer type and learn
+		Minimizer minimizer = null;
+		switch (type) {
+		case "bfgs":
+			minimizer = new BFGS(lr);
+			break;
+		case "steepest":
+			minimizer = new SteepestDecent(lr);
+			break;
+
+		case "grad":
+			minimizer = new GradientDecent(lr);
+			break;
+
+		default:
+			throw new RuntimeException("UNknown type " + type);
+		}
+		lr.setMinnimizer(minimizer);
+
+		learn();
+
+		// Show model after fitting
+		System.out.println("Model: " + lr);
+		double ll = lr.logLikelihood() / Math.log(10.0);
+		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
+		System.out.println("Log likelihood [10]: " + ll);
+		System.out.println("Log likelihood Null [10]: " + llnull);
+
+		Timer.showStdErr("End");
 	}
 }
