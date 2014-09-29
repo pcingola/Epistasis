@@ -1,5 +1,7 @@
 package meshi.optimizers;
 
+import java.util.Arrays;
+
 import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
@@ -99,6 +101,13 @@ public abstract class Energy {
 
 	public void needsUpdate() {
 		energyNeedsUpdate = gradientNeedsUpdate = true;
+	}
+
+	public void reset() {
+		needsUpdate();
+		Arrays.fill(theta, 0.0);
+		Arrays.fill(thetaBest, 0.0);
+		Arrays.fill(gradient, 0.0);
 	}
 
 	public void setTheta(double newX[]) {

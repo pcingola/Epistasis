@@ -27,7 +27,7 @@ public class SimpleStepLength extends LineSearch {
 	public static final double DEFAULT_INITIAL_STEP_LENGTH = 1.0;
 	public static final double DEFAULT_STEP_SIZE_REDUCTION = 0.5;
 	public static final double DEFAULT_STEP_SIZE_EXPANTION = 1.1;
-	public static final double TOO_BIG = 8.0;
+	public static final double TOO_BIG = 1000000.0;
 	public static final double TOO_SMALL = 1e-6;
 
 	private double stepSize, stepSizeReduction, stepSizeExpansion;
@@ -79,7 +79,7 @@ public class SimpleStepLength extends LineSearch {
 					+ "\n\tmodel best : " + Gpr.toString(energy.getThetaBest()) //
 					+ "\n\tmodel      : " + Gpr.toString(energy.getTheta()) //
 					+ "\n\tgradient   : " + Gpr.toString(energy.getGradient()) //
-					);
+			);
 		}
 
 		return stepSize;

@@ -12,7 +12,13 @@ public class LogisticRegressionBfgs extends LogisticRegression {
 
 	public LogisticRegressionBfgs(int size) {
 		super(size);
-		minnimizer = new BFGS(this);
+		minimizer = new BFGS(this);
+	}
+
+	@Override
+	public void reset() {
+		super.reset();
+		minimizer = new BFGS(this);
 	}
 
 }

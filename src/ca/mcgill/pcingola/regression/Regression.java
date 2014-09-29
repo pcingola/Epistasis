@@ -1,10 +1,11 @@
 package ca.mcgill.pcingola.regression;
 
+import java.util.Arrays;
 import java.util.Random;
 
 import meshi.optimizers.Energy;
-import meshi.optimizers.GradientDecent;
 import meshi.optimizers.Minimizer;
+import meshi.optimizers.SteepestDecent;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
@@ -20,12 +21,11 @@ public abstract class Regression extends Energy {
 	double samplesY[]; // Samples: Output (real outputs)
 	double out[]; // Predicted outputs (model output)
 	Random rand;
-	Minimizer minnimizer;
+	Minimizer minimizer;
 
 	public Regression(int size) {
 		super(size + 1); // Add one for intercept
 		this.size = size;
-		initModelRand();
 	}
 
 	void checkSamples(double in[][], double out[]) {
@@ -59,10 +59,13 @@ public abstract class Regression extends Energy {
 	 * Learn: Fit model
 	 */
 	public double[] learn() {
-		// if (minnimizer == null) minnimizer = new SteepestDecent(this);
-		if (minnimizer == null) minnimizer = new GradientDecent(this);
-		minnimizer.setDebug(debug);
-		minnimizer.run();
+		if (rand != null) initModelRand();
+		else Arrays.fill(theta, 0.0);
+
+		// if (minimizer == null) minimizer = new GradientDecent(this);
+		if (minimizer == null) minimizer = new SteepestDecent(this);
+		minimizer.setDebug(debug);
+		minimizer.run();
 		return theta;
 	}
 
@@ -85,8 +88,14 @@ public abstract class Regression extends Energy {
 	public abstract double predict(double in[]);
 
 	protected double randOne() {
-		double r = (rand != null ? rand.nextDouble() : Math.random());
+		double r = rand.nextDouble();
 		return 2 * r - 1;
+	}
+
+	@Override
+	public void reset() {
+		super.reset();
+		minimizer = null;
 	}
 
 	public void setDebug(boolean debug) {
@@ -98,7 +107,7 @@ public abstract class Regression extends Energy {
 	}
 
 	public void setMinnimizer(Minimizer minnimizer) {
-		this.minnimizer = minnimizer;
+		minimizer = minnimizer;
 	}
 
 	public void setModel(double theta[]) {

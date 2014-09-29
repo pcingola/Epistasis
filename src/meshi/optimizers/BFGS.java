@@ -126,9 +126,6 @@ public class BFGS extends Minimizer {
 	public static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
 	public static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
 	public static final int DEFAULT_NUM_STEP_STEEPEST_DECENT = 50;
-	//	public static final double DEFAULT_INIT_STEP_STEEPEST_DECENT = 0.0001;
-	//	public static final double DEFAULT_STEP_SIZE_REDUCTION_STEEPEST_DECENT = 0.5;
-	//	public static final double DEFAULT_STEP_SIZE_EXPENTION_STEEPEST_DECENT = 2;
 
 	protected SteepestDecent steepestDecent;
 	protected WolfeConditionLineSearch lineSearchWolfe;

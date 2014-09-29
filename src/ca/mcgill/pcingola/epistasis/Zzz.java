@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -7,9 +8,12 @@ import meshi.optimizers.BFGS;
 import meshi.optimizers.GradientDecent;
 import meshi.optimizers.Minimizer;
 import meshi.optimizers.SteepestDecent;
+import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.regression.LogisticRegression;
+import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Test
@@ -23,13 +27,14 @@ public class Zzz {
 	public static final boolean debug = false;
 	public static String type = "grad"; // "steepest"; "bgfs";
 
-	String eigen26k = "data/26k/pruned_v3_based_variants_26k_pca.txt.gz";
+	String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
+	String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
 	HashMap<String, Integer> sampleId2pos;
 	Random rand = new Random(20140912);
 	int N = 10000;
 	int size = realModel.length - 1;
 	double beta[] = new double[size + 1];
-	double pca[][];
+	double covariates[][];
 	LogisticRegression lr;
 
 	/**
@@ -50,7 +55,7 @@ public class Zzz {
 
 		Zzz zzz = new Zzz();
 		// zzz.logisticTest();
-		zzz.logistic26k();
+		zzz.logisticT2d();
 
 		Timer.showStdErr("End");
 	}
@@ -81,46 +86,46 @@ public class Zzz {
 		lr.learn();
 	}
 
-	/***
-	 * Logistic regression using T2D-26K data
-	 * 
-	 * Test dataset: 
-	 * 		- VCF          : t2d1/vcf/eff/hm.chr1.gt.vcf
-	 * 		- pheno + PCAs : t2d1/coEvolution/coEvolution.pheno.covariates.txt
-	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
+	/**
+	 * Load phenotypes and covariates
 	 */
-	void logistic26k() {
-		Timer.showStdErr("Reading PCA data form '" + eigen26k + "'");
-		// Read file
-		String lines[] = Gpr.readFile(eigen26k).split("\n");
+	void loadPhenoAndCovariates(String phenoCovariates) {
+		Timer.showStdErr("Reading PCA data form '" + phenoCovariates + "'");
+
+		// Read "phenotypes + covariates" file
+		String lines[] = Gpr.readFile(phenoCovariates).split("\n");
 		sampleId2pos = new HashMap<>();
 
 		// Allocate PCA matrix
-		int numPca = lines[0].split("\t").length - 2; // All, but sampleId and population are PCAs
-		pca = new double[lines.length][numPca];
+		int numCov = lines.length - 1; // Row 1 is the title, other rows are covariates
+		int numSamples = lines[0].split("\t").length - 1; // All, but first column are samples
+		covariates = new double[numSamples][numCov];
 
 		// Parse
-		int sampleNum = 0;
+		int covariateNum = -1;
+		String sampleIds[];
 		for (String line : lines) {
 			line = line.trim();
 			String fields[] = line.split("\t");
 
-			// Parse sample ID & population data
-			String sampleId = fields[0];
-			String population = fields[fields.length - 1];
+			// Skip title
+			if (covariateNum < 0) {
+				sampleIds = fields;
 
-			// Add to map
-			sampleId2pos.put(sampleId, sampleNum);
+				// Add sampleIDs to map
+				for (int i = 1; i < fields.length; i++)
+					sampleId2pos.put(sampleIds[i], i - 1);
 
-			// Parse PCA values
-			if (debug) System.out.print(sampleId + "\t" + population);
-			for (int i = 1; i < fields.length - 1; i++) {
-				pca[sampleNum][i - 1] = Gpr.parseDoubleSafe(fields[i]);
-				if (debug) System.out.print("\t" + pca[sampleNum][i - 1]);
+			} else {
+				// Parse covariate values
+				for (int i = 1; i < fields.length; i++) {
+					covariates[i - 1][covariateNum] = Gpr.parseDoubleSafe(fields[i]);
+					if (debug) System.out.print("\tCovaraite [sample: " + (i - 1) + "][" + covariateNum + "] : " + covariates[i - 1][covariateNum]);
+				}
+				if (debug) System.out.println("");
 			}
-			if (debug) System.out.println("");
 
-			sampleNum++;
+			covariateNum++;
 		}
 	}
 
@@ -157,6 +162,87 @@ public class Zzz {
 		System.out.println("Energy: " + lr.updateEnergy());
 	}
 
+	/***
+	 * Logistic regression using T2D-26K data
+	 *
+	 * Test dataset:
+	 * 		- VCF          : t2d1/vcf/eff/hm.chr1.gt.vcf
+	 * 		- pheno + PCAs : t2d1/coEvolution/coEvolution.pheno.covariates.txt
+	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
+	 */
+	void logisticT2d() {
+		//---
+		// Load phenotype and covariates
+		//---
+		loadPhenoAndCovariates(t2dPhenoCovariates);
+
+		int numSamples = covariates.length;
+		int numCovs = covariates[0].length;
+
+		// TODO: Convert phenotype to {0,1}
+		int phenoRowNum = 0; // Covariate number zero is phenotype
+		double pheno[] = new double[numSamples];
+		for (int i = 0; i < numSamples; i++)
+			pheno[i] = covariates[i][phenoRowNum] - 1.0;
+
+		// Normalize covariates: sex, age
+		normalizeCovariates(11);
+		normalizeCovariates(12);
+
+		//---
+		// Create logistic regression model
+		//---
+
+		// Initialize logistic regression
+		// Note: Even thought the first row currently has the
+		//       phenotype, we'll overwrite the row using 'allele'
+		//       information before performing logistic regression
+		LogisticRegression lr = new LogisticRegressionBfgs(numCovs);
+		lr.setSamples(covariates, pheno);
+
+		// Samples to skip
+		boolean skip[] = new boolean[numSamples];
+		Arrays.fill(skip, false);
+		lr.setSkip(skip);
+
+		//---
+		// Read VCF file and perform logistic regression
+		// TODO: Matrix format
+		//			- Use "SnpSift allelmat" format it's much faster
+		//			- We need to load the whole matrix into memory (filter out singletons / MAF < 0.1% ?)
+		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
+		//---
+		VcfFileIterator vcf = new VcfFileIterator(t2dVcf);
+		for (VcfEntry ve : vcf) {
+			System.out.println(ve.toStringNoGt());
+
+			// Reset model
+			lr.reset();
+
+			// Get genotypes
+			byte gt[] = ve.getGenotypesScores();
+
+			// Copy genotypes to first row and set 'skip' field
+			double x[][] = lr.getSamplesX();
+			for (int i = 0; i < numSamples; i++) {
+				x[i][phenoRowNum] = gt[i];
+				skip[i] = (gt[i] < 0);
+			}
+
+			// Filter by LL ratio
+			lr.setDebug(debug);
+			lr.learn();
+			System.out.println("LL_ratio: " + lr.logLikelihoodRatio() + "\tModel: " + lr + "\n");
+
+			// TODO: Calculate and check p-value
+			//         - Chi-square
+			//         - Wald test
+		}
+
+		// TODO
+		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
+	}
+
 	void logisticTest() {
 		// Create model
 		logisticModel();
@@ -190,5 +276,31 @@ public class Zzz {
 		System.out.println("Log likelihood Null [10]: " + llnull);
 
 		Timer.showStdErr("End");
+	}
+
+	/**
+	 * Normalize (mean 0, variance 1) a covariates' row
+	 */
+	void normalizeCovariates(int covNum) {
+		// Calculate mean
+		double sum = 0;
+		for (int i = 0; i < covariates.length; i++)
+			sum += covariates[i][covNum];
+		double avg = sum / covariates.length;
+
+		// Calculate stddev
+		sum = 0;
+		for (int i = 0; i < covariates.length; i++) {
+			double d = (covariates[i][covNum] - avg);
+			sum += d * d;
+		}
+		double stddev = Math.sqrt(sum / (covariates.length - 1));
+
+		Timer.showStdErr("Covariate " + covNum + ", mean: " + avg + ", stddev: " + stddev);
+
+		// Normalize
+		for (int i = 0; i < covariates.length; i++)
+			covariates[i][covNum] = (covariates[i][covNum] - avg) / stddev;
+
 	}
 }
