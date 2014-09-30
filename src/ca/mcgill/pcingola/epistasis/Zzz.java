@@ -2,7 +2,6 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.Random;
 
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -12,31 +11,29 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
- * Test
+ * Logistic regression log-likelihood test
  *
  * @author pcingola
  */
 public class Zzz {
 
-	public static double[] realModel = { 2, -1, -0.5 };
-
 	public static final boolean debug = false;
+	public static boolean writeToFile = false;
+
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
-
 	public static final String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	// public static final  String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
+	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf"; // "/t2d1/vcf/eff/hm.test.vcf";
 
+	String sampleIds[];
 	HashMap<String, Integer> sampleId2pos;
-	Random rand = new Random(20140912);
-	int N = 10000;
-	int size = realModel.length - 1;
-	double beta[] = new double[size + 1];
 	double covariates[][];
 	double pheno[];
-	int numSamples;
-	int numCovs;
+	double llMax = Double.NEGATIVE_INFINITY, llMin = Double.POSITIVE_INFINITY;
+	int numSamples, numCovs;
+	int count = 0;
 	LogisticRegression lr;
+	HashMap<Long, LogisticRegression> modelAltByThread = new HashMap<Long, LogisticRegression>();
+	HashMap<Long, LogisticRegression> modelNullByThread = new HashMap<Long, LogisticRegression>();
 
 	/**
 	 * Running glm in R:
@@ -55,13 +52,17 @@ public class Zzz {
 		Timer.showStdErr("Start");
 
 		Zzz zzz = new Zzz();
-		// zzz.logisticTest();
 		zzz.logisticT2d();
 
 		Timer.showStdErr("End");
 	}
 
+	/**
+	 * Create models
+	 */
 	void createModels() {
+		long threadId = Thread.currentThread().getId();
+
 		//---
 		// Create alternative model
 		//---
@@ -74,6 +75,7 @@ public class Zzz {
 				xAlt[i][j] = covariates[i][j];
 
 		lrAlt.setSamples(xAlt, pheno);
+		modelAltByThread.put(threadId, lrAlt);
 
 		//---
 		// Create null model
@@ -87,36 +89,13 @@ public class Zzz {
 				xNull[i][j] = covariates[i][j + 1];
 
 		lrNull.setSamples(xNull, pheno);
+		modelNullByThread.put(threadId, lrNull);
 
 		// Samples to skip
 		boolean skip[] = new boolean[numSamples];
 		Arrays.fill(skip, false);
 		lrAlt.setSkip(skip);
 		lrNull.setSkip(skip);
-	}
-
-	/**
-	 * Learn: Fit model
-	 */
-	public void learn() {
-		double beta[] = new double[realModel.length];
-
-		for (int i = 0; i < realModel.length; i++)
-			beta[i] = realModel[i];
-
-		// Likelihood
-		double ll = lr.logLikelihood();
-		System.out.println("Log likelihood: " + ll);
-
-		// Learn
-		lr.initModelRand();
-
-		beta[0] = beta[1] = beta[2] = 0;
-		lr.setModel(beta);
-		System.out.println(lr);
-
-		lr.setDebug(true);
-		lr.learn();
 	}
 
 	/**
@@ -130,13 +109,12 @@ public class Zzz {
 		sampleId2pos = new HashMap<>();
 
 		// Allocate PCA matrix
-		int numCov = lines.length - 1; // Row 1 is the title, other rows are covariates
-		int numSamples = lines[0].split("\t").length - 1; // All, but first column are samples
-		covariates = new double[numSamples][numCov];
+		numCovs = lines.length - 1; // Row 1 is the title, other rows are covariates
+		numSamples = lines[0].split("\t").length - 1; // All, but first column are samples
+		covariates = new double[numSamples][numCovs];
 
 		// Parse
 		int covariateNum = -1;
-		String sampleIds[];
 		for (String line : lines) {
 			line = line.trim();
 			String fields[] = line.split("\t");
@@ -159,15 +137,9 @@ public class Zzz {
 		}
 
 		//---
-		// Set number of samples and covariates
-		//---
-		numSamples = covariates.length;
-		numCovs = covariates[0].length;
-
-		//---
 		// Convert phenotype to {0,1}
 		//---
-		double pheno[] = new double[numSamples];
+		pheno = new double[numSamples];
 		for (int i = 0; i < numSamples; i++)
 			pheno[i] = covariates[i][PHENO_ROW_NUMBER] - 1.0;
 
@@ -187,8 +159,6 @@ public class Zzz {
 	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
 	 */
 	void logisticT2d() {
-		boolean writeToFile = false;
-
 		//---
 		// Load phenotype and covariates
 		//---
@@ -203,77 +173,89 @@ public class Zzz {
 		//---
 		VcfFileIterator vcf = new VcfFileIterator(t2dVcf);
 
-		double llMax = Double.NEGATIVE_INFINITY, llMin = Double.POSITIVE_INFINITY;
-		// TODO: Parallelize using
-		//       StreamSupport.stream(vcf.spliterator(), true);
-
-		int count = 1;
-		for (VcfEntry ve : vcf) {
-
-			LogisticRegression lrAlt, lrNull;
-
-			// Reset model
-			lrAlt.reset();
-			lrNull.reset();
-
-			// Get genotypes
-			byte gt[] = ve.getGenotypesScores();
-
-			// Copy genotypes to first row and set 'skip' field
-			double xAlt[][] = lrAlt.getSamplesX();
-			boolean skip[] = lrAlt.getSkip();
-			for (int i = 0; i < numSamples; i++) {
-				xAlt[i][PHENO_ROW_NUMBER] = gt[i];
-				skip[i] = (gt[i] < 0) || (pheno[i] < 0);
-			}
-
-			// Calculate logistic models
-			lrAlt.setDebug(debug);
-			lrAlt.learn();
-
-			lrNull.setDebug(debug);
-			lrNull.learn();
-
-			// Calculate likelihood ratio
-			double ll = 2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
-
-			//
-			if (Double.isFinite(ll)) {
-				if ((llMax < ll) || (llMin > ll)) {
-					System.out.println(ve.toStr() //
-							+ "\tLL_ratio: " + ll //
-							+ "\tLL range: " + llMin + " / " + llMax //
-							+ "\n\tModel Alt  : " + lrAlt //
-							+ "\n\tModel Null : " + lrNull //
-					);
-				} else Timer.show(count + "\t" + ve.toStr());
-
-				llMin = Math.min(llMin, ll);
-				llMax = Math.max(llMax, ll);
-			} else {
-				throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
-			}
-
-			// TODO: Calculate and check p-value
-			//         - Chi-square
-			//         - Wald test
-
-			// Save as TXT table
-			if (writeToFile) {
-				String fileName = Gpr.HOME + "/lr_test.alt.txt";
-				Gpr.debug("Writing 'alt' table to :" + fileName);
-				Gpr.toFile(fileName, lrAlt.toStringSamples());
-
-				fileName = Gpr.HOME + "/lr_test.null.txt";
-				Gpr.debug("Writing 'null' table to :" + fileName);
-				Gpr.toFile(fileName, lrNull.toStringSamples());
-			}
-
-			count++;
-		}
-
 		// TODO
 		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
+
+		// TODO: Parallelize using
+		//       StreamSupport.stream(vcf.spliterator(), true);
+		for (VcfEntry ve : vcf)
+			logLikelihood(ve);
+	}
+
+	/**
+	 * Fit models and calculate log likelihood test
+	 */
+	void logLikelihood(VcfEntry ve) {
+		Gpr.debug("CHECK MATCH SAMPLES VCF AND PCA");
+
+		// Get models for this thread
+		long threadId = Thread.currentThread().getId();
+		LogisticRegression lrAlt = modelAltByThread.get(threadId);
+		LogisticRegression lrNull = modelNullByThread.get(threadId);
+
+		// Need to create models?
+		if (lrAlt == null) {
+			createModels();
+			lrAlt = modelAltByThread.get(threadId);
+			lrNull = modelNullByThread.get(threadId);
+		}
+
+		// Reset models
+		lrAlt.reset();
+		lrNull.reset();
+
+		// Get genotypes
+		byte gt[] = ve.getGenotypesScores();
+
+		// Copy genotypes to first row (alt model) and set 'skip' field
+		double xAlt[][] = lrAlt.getSamplesX();
+		boolean skip[] = lrAlt.getSkip();
+		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
+			xAlt[vcfSampleNum][PHENO_ROW_NUMBER] = gt[vcfSampleNum];
+			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
+		}
+
+		// Calculate logistic models
+		lrAlt.setDebug(debug);
+		lrAlt.learn();
+
+		lrNull.setDebug(debug);
+		lrNull.learn();
+
+		// Calculate likelihood ratio
+		double ll = 2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
+
+		// Stats
+		if (Double.isFinite(ll)) {
+			if ((llMax < ll) || (llMin > ll)) {
+				System.out.println(ve.toStr() //
+						+ "\tLL_ratio: " + ll //
+						+ "\tLL range: " + llMin + " / " + llMax //
+						+ "\n\tModel Alt  : " + lrAlt //
+						+ "\n\tModel Null : " + lrNull //
+						);
+			} else Timer.show(count + "\t" + ve.toStr());
+
+			llMin = Math.min(llMin, ll);
+			llMax = Math.max(llMax, ll);
+		} else {
+			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
+		}
+
+		// TODO: Calculate and check p-value (Chi-square test)
+
+		// Save as TXT table
+		if (writeToFile) {
+			String fileName = Gpr.HOME + "/lr_test.alt.txt";
+			Gpr.debug("Writing 'alt' table to :" + fileName);
+			Gpr.toFile(fileName, lrAlt.toStringSamples());
+
+			fileName = Gpr.HOME + "/lr_test.null.txt";
+			Gpr.debug("Writing 'null' table to :" + fileName);
+			Gpr.toFile(fileName, lrNull.toStringSamples());
+		}
+
+		count++;
 	}
 
 	/**
