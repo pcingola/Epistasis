@@ -46,6 +46,10 @@ public abstract class Regression extends Energy {
 		return samplesY;
 	}
 
+	public boolean[] getSkip() {
+		return skip;
+	}
+
 	/**
 	 * Randomly initialize a model
 	 */
@@ -140,6 +144,10 @@ public abstract class Regression extends Energy {
 
 		if (samplesY == null) samplesY = new double[out.length];
 		System.arraycopy(out, 0, samplesY, 0, out.length);
+	}
+
+	public void setSkip(boolean[] skip) {
+		this.skip = skip;
 	}
 
 	@Override

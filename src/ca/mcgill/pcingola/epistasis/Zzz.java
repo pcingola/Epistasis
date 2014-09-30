@@ -4,10 +4,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
 
-import meshi.optimizers.BFGS;
-import meshi.optimizers.GradientDecent;
-import meshi.optimizers.Minimizer;
-import meshi.optimizers.SteepestDecent;
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -25,17 +21,21 @@ public class Zzz {
 	public static double[] realModel = { 2, -1, -0.5 };
 
 	public static final boolean debug = false;
-	public static String type = "grad"; // "steepest"; "bgfs";
+	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
-	String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	// String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
+	public static final String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
+	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	// public static final  String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
+
 	HashMap<String, Integer> sampleId2pos;
 	Random rand = new Random(20140912);
 	int N = 10000;
 	int size = realModel.length - 1;
 	double beta[] = new double[size + 1];
 	double covariates[][];
+	double pheno[];
+	int numSamples;
+	int numCovs;
 	LogisticRegression lr;
 
 	/**
@@ -59,6 +59,40 @@ public class Zzz {
 		zzz.logisticT2d();
 
 		Timer.showStdErr("End");
+	}
+
+	void createModels() {
+		//---
+		// Create alternative model
+		//---
+		LogisticRegression lrAlt = new LogisticRegressionBfgs(numCovs);
+
+		// Copy all covariates, except first one (phenotype row)
+		double xAlt[][] = new double[numSamples][numCovs];
+		for (int i = 0; i < numSamples; i++)
+			for (int j = 0; j < numCovs; j++)
+				xAlt[i][j] = covariates[i][j];
+
+		lrAlt.setSamples(xAlt, pheno);
+
+		//---
+		// Create null model
+		//---
+		LogisticRegression lrNull = new LogisticRegressionBfgs(numCovs - 1); // No genotypes
+
+		// Copy all covariates, except first one (phenotype row)
+		double xNull[][] = new double[numSamples][numCovs - 1];
+		for (int i = 0; i < numSamples; i++)
+			for (int j = 0; j < numCovs - 1; j++)
+				xNull[i][j] = covariates[i][j + 1];
+
+		lrNull.setSamples(xNull, pheno);
+
+		// Samples to skip
+		boolean skip[] = new boolean[numSamples];
+		Arrays.fill(skip, false);
+		lrAlt.setSkip(skip);
+		lrNull.setSkip(skip);
 	}
 
 	/**
@@ -123,38 +157,25 @@ public class Zzz {
 
 			covariateNum++;
 		}
-	}
 
-	public void logisticModel() {
-		// Initialize model
-		lr = new LogisticRegression(size);
-		lr.setRand(rand);
-		lr.setModel(realModel);
-		lr.setThetaBest();
+		//---
+		// Set number of samples and covariates
+		//---
+		numSamples = covariates.length;
+		numCovs = covariates[0].length;
 
-		// Create samples
-		double in[][] = new double[N][size];
-		double out[] = new double[N];
-		for (int i = 0; i < N; i++) {
+		//---
+		// Convert phenotype to {0,1}
+		//---
+		double pheno[] = new double[numSamples];
+		for (int i = 0; i < numSamples; i++)
+			pheno[i] = covariates[i][PHENO_ROW_NUMBER] - 1.0;
 
-			// Inputs
-			for (int j = 0; j < size; j++)
-				in[i][j] = 2 * rand.nextDouble() - 1.0;
-
-			// Output
-			double o = lr.predict(in[i]);
-			out[i] = rand.nextDouble() < o ? 1.0 : 0.0;
-		}
-		lr.setSamples(in, out);
-
-		// Write samples to file
-		if (debug) System.out.println(lr.toStringSamples());
-		String fileName = Gpr.HOME + "/logistic.txt";
-		System.out.println("Model saved to: " + fileName);
-		Gpr.toFile(fileName, lr.toStringSamples());
-
-		lr.needsUpdate();
-		System.out.println("Energy: " + lr.updateEnergy());
+		//---
+		// Normalize covariates: sex, age
+		//---
+		normalizeCovariates(11);
+		normalizeCovariates(12);
 	}
 
 	/***
@@ -173,47 +194,6 @@ public class Zzz {
 		//---
 		loadPhenoAndCovariates(t2dPhenoCovariates);
 
-		int numSamples = covariates.length;
-		int numCovs = covariates[0].length;
-
-		// TODO: Convert phenotype to {0,1}
-		int phenoRowNum = 0; // Covariate number zero is phenotype
-		double pheno[] = new double[numSamples];
-		for (int i = 0; i < numSamples; i++)
-			pheno[i] = covariates[i][phenoRowNum] - 1.0;
-
-		// Normalize covariates: sex, age
-		normalizeCovariates(11);
-		normalizeCovariates(12);
-
-		//---
-		// Create logistic regression models
-		//---
-
-		// Initialize logistic regression
-		// Note: Even thought the first row currently has the
-		//       phenotype, we'll overwrite the row using 'allele'
-		//       information before performing logistic regression
-
-		LogisticRegression lrAlt = new LogisticRegressionBfgs(numCovs);
-		lrAlt.setSamples(covariates, pheno);
-
-		LogisticRegression lrNull = new LogisticRegressionBfgs(numCovs - 1); // No genotypes
-
-		// Copy all covariates, except first one (phenotype row)
-		double xNull[][] = new double[numSamples][numCovs - 1];
-		for (int i = 0; i < numSamples; i++)
-			for (int j = 0; j < numCovs - 1; j++)
-				xNull[i][j] = covariates[i][j + 1];
-
-		lrNull.setSamples(xNull, pheno);
-
-		// Samples to skip
-		boolean skip[] = new boolean[numSamples];
-		Arrays.fill(skip, false);
-		lrAlt.setSkip(skip);
-		lrNull.setSkip(skip);
-
 		//---
 		// Read VCF file and perform logistic regression
 		// TODO: Matrix format
@@ -230,6 +210,8 @@ public class Zzz {
 		int count = 1;
 		for (VcfEntry ve : vcf) {
 
+			LogisticRegression lrAlt, lrNull;
+
 			// Reset model
 			lrAlt.reset();
 			lrNull.reset();
@@ -239,8 +221,9 @@ public class Zzz {
 
 			// Copy genotypes to first row and set 'skip' field
 			double xAlt[][] = lrAlt.getSamplesX();
+			boolean skip[] = lrAlt.getSkip();
 			for (int i = 0; i < numSamples; i++) {
-				xAlt[i][phenoRowNum] = gt[i];
+				xAlt[i][PHENO_ROW_NUMBER] = gt[i];
 				skip[i] = (gt[i] < 0) || (pheno[i] < 0);
 			}
 
@@ -291,39 +274,6 @@ public class Zzz {
 
 		// TODO
 		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
-	}
-
-	void logisticTest() {
-		// Create model
-		logisticModel();
-
-		// Select minimizer type and learn
-		Minimizer minimizer = null;
-		switch (type) {
-		case "bfgs":
-			minimizer = new BFGS(lr);
-			break;
-		case "steepest":
-			minimizer = new SteepestDecent(lr);
-			break;
-
-		case "grad":
-			minimizer = new GradientDecent(lr);
-			break;
-
-		default:
-			throw new RuntimeException("UNknown type " + type);
-		}
-		lr.setMinnimizer(minimizer);
-
-		learn();
-
-		// Show model after fitting
-		System.out.println("Model: " + lr);
-		double ll = lr.logLikelihood();
-		System.out.println("Log likelihood: " + ll);
-
-		Timer.showStdErr("End");
 	}
 
 	/**

@@ -103,8 +103,4 @@ public class LogisticRegression extends Regression {
 		this.minGradient = minGradient;
 	}
 
-	public void setSkip(boolean[] skip) {
-		this.skip = skip;
-	}
-
 }
