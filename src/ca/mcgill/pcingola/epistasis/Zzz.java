@@ -13,6 +13,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.regression.LogisticRegression;
+import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Test
@@ -23,12 +24,12 @@ public class Zzz {
 
 	public static double[] realModel = { 2, -1, -0.5 };
 
-	public static final boolean debug = true;
+	public static final boolean debug = false;
 	public static String type = "grad"; // "steepest"; "bgfs";
 
 	String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	// String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
+	String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	// String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
 	HashMap<String, Integer> sampleId2pos;
 	Random rand = new Random(20140912);
 	int N = 10000;
@@ -165,7 +166,7 @@ public class Zzz {
 	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
 	 */
 	void logisticT2d() {
-		boolean writeToFile = true;
+		boolean writeToFile = false;
 
 		//---
 		// Load phenotype and covariates
@@ -193,25 +194,25 @@ public class Zzz {
 		// Note: Even thought the first row currently has the
 		//       phenotype, we'll overwrite the row using 'allele'
 		//       information before performing logistic regression
-		// LogisticRegression lr = new LogisticRegressionBfgs(numCovs);
 
-		LogisticRegression lrAlt = new LogisticRegression(numCovs);
+		LogisticRegression lrAlt = new LogisticRegressionBfgs(numCovs);
 		lrAlt.setSamples(covariates, pheno);
 
-		LogisticRegression lrNull = new LogisticRegression(numCovs - 1); // No genotypes
+		LogisticRegression lrNull = new LogisticRegressionBfgs(numCovs - 1); // No genotypes
 
 		// Copy all covariates, except first one (phenotype row)
-		double xNull[][] = new double[numSamples][numCovs];
+		double xNull[][] = new double[numSamples][numCovs - 1];
 		for (int i = 0; i < numSamples; i++)
 			for (int j = 0; j < numCovs - 1; j++)
 				xNull[i][j] = covariates[i][j + 1];
 
-		lrAlt.setSamples(xNull, pheno);
+		lrNull.setSamples(xNull, pheno);
 
 		// Samples to skip
 		boolean skip[] = new boolean[numSamples];
 		Arrays.fill(skip, false);
 		lrAlt.setSkip(skip);
+		lrNull.setSkip(skip);
 
 		//---
 		// Read VCF file and perform logistic regression
@@ -221,11 +222,17 @@ public class Zzz {
 		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
 		//---
 		VcfFileIterator vcf = new VcfFileIterator(t2dVcf);
-		double llMax = Double.MIN_VALUE, llMin = Double.MAX_VALUE;
+
+		double llMax = Double.NEGATIVE_INFINITY, llMin = Double.POSITIVE_INFINITY;
+		// TODO: Parallelize using
+		//       StreamSupport.stream(vcf.spliterator(), true);
+
+		int count = 1;
 		for (VcfEntry ve : vcf) {
 
 			// Reset model
 			lrAlt.reset();
+			lrNull.reset();
 
 			// Get genotypes
 			byte gt[] = ve.getGenotypesScores();
@@ -237,27 +244,32 @@ public class Zzz {
 				skip[i] = (gt[i] < 0) || (pheno[i] < 0);
 			}
 
-			// Filter by LL ratio
+			// Calculate logistic models
 			lrAlt.setDebug(debug);
 			lrAlt.learn();
 
 			lrNull.setDebug(debug);
 			lrNull.learn();
 
-			double ll = lrAlt.logLikelihood() - lrNull.logLikelihood();
+			// Calculate likelihood ratio
+			double ll = 2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
 
+			//
 			if (Double.isFinite(ll)) {
+				if ((llMax < ll) || (llMin > ll)) {
+					System.out.println(ve.toStr() //
+							+ "\tLL_ratio: " + ll //
+							+ "\tLL range: " + llMin + " / " + llMax //
+							+ "\n\tModel Alt  : " + lrAlt //
+							+ "\n\tModel Null : " + lrNull //
+					);
+				} else Timer.show(count + "\t" + ve.toStr());
+
 				llMin = Math.min(llMin, ll);
 				llMax = Math.max(llMax, ll);
 			} else {
-				Gpr.debug("Infinite!");
+				throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
 			}
-
-			System.out.println("LL_ratio: " + ll //
-					+ "\tLL range: " + llMin + " / " + llMax //
-					+ "\tModel: " + lrAlt //
-					+ "\t" + ve.toStr() //
-			);
 
 			// TODO: Calculate and check p-value
 			//         - Chi-square
@@ -265,10 +277,16 @@ public class Zzz {
 
 			// Save as TXT table
 			if (writeToFile) {
-				String fileName = Gpr.HOME + "/lr_test.txt";
-				Gpr.debug("Writing table to :" + fileName);
+				String fileName = Gpr.HOME + "/lr_test.alt.txt";
+				Gpr.debug("Writing 'alt' table to :" + fileName);
 				Gpr.toFile(fileName, lrAlt.toStringSamples());
+
+				fileName = Gpr.HOME + "/lr_test.null.txt";
+				Gpr.debug("Writing 'null' table to :" + fileName);
+				Gpr.toFile(fileName, lrNull.toStringSamples());
 			}
+
+			count++;
 		}
 
 		// TODO

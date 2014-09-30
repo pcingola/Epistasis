@@ -75,28 +75,6 @@ public class LogisticRegression extends Regression {
 		return loglik;
 	}
 
-	//	/**
-	//	 * Calculate log likelihood (of training data)
-	//	 * Logarithm is in natural base ('e')
-	//	 */
-	//	public double logLikelihoodNull() {
-	//		double sum = 0;
-	//		double h = theta[theta.length - 1];
-	//		double o = 1.0 / (1.0 + Math.exp(-h));
-	//
-	//		for (int i = 0; i < numSamples; i++) {
-	//			if (skip != null && skip[i]) continue;
-	//
-	//			sum += Math.log(samplesY[i] == 0 ? o : 1.0 - o);
-	//		}
-	//
-	//		return sum;
-	//	}
-	//
-	//	public double logLikelihoodRatio() {
-	//		return logLikelihood() / logLikelihoodNull();
-	//	}
-
 	@Override
 	public double predict(double[] in) {
 		double h = 0.0;
