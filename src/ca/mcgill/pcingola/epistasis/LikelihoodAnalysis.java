@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -13,20 +14,21 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
- * Logistic regression log-likelihood test
+ * Logistic regression log-likelihood analysis of VCF + phenotype data
  *
  * @author pcingola
  */
-public class Zzz {
+public class LikelihoodAnalysis {
 
 	public static final boolean debug = false;
 	public static boolean writeToFile = false;
 
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
-	public static final String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	//	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
 
+	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
+	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
+
+	String logLikInfoField; // If not null, an INFO field is added
 	String sampleIds[];
 	double covariates[][];
 	double pheno[];
@@ -40,10 +42,17 @@ public class Zzz {
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
 
-		Zzz zzz = new Zzz();
-		zzz.logisticT2d();
+		LikelihoodAnalysis zzz = new LikelihoodAnalysis(args);
+		zzz.run();
 
 		Timer.showStdErr("End");
+	}
+
+	public LikelihoodAnalysis(String args[]) {
+		if (args.length > 1) {
+			phenoCovariatesFileName = args[0];
+			vcfFileName = args[1];
+		}
 	}
 
 	/**
@@ -136,52 +145,6 @@ public class Zzz {
 		normalizeCovariates(12);
 	}
 
-	/***
-	 * Logistic regression using T2D-26K data
-	 *
-	 * Test dataset:
-	 * 		- VCF          : t2d1/vcf/eff/hm.chr1.gt.vcf
-	 * 		- pheno + PCAs : t2d1/coEvolution/coEvolution.pheno.covariates.txt
-	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
-	 */
-	void logisticT2d() {
-		//---
-		// Load phenotype and covariates
-		//---
-		loadPhenoAndCovariates(t2dPhenoCovariates);
-
-		//---
-		// Read VCF file and perform logistic regression
-		// TODO: Matrix format
-		//			- Use "SnpSift allelmat" format it's much faster
-		//			- We need to load the whole matrix into memory (filter out singletons / MAF < 0.1% ?)
-		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
-		//---
-		VcfFileIterator vcf = new VcfFileIterator(t2dVcf);
-
-		// TODO
-		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
-
-		//---
-		// Check that sample names and sample order matches
-		//---
-		vcf.readHeader();
-		List<String> sampleNames = vcf.getVcfHeader().getSampleNames();
-		int snum = 0;
-		for (String s : sampleNames) {
-			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
-					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
-					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-			); }
-			snum++;
-		}
-
-		//---
-		// Calculate for each entry in VCF file (use parallel stream
-		//---
-		StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve));
-	}
-
 	/**
 	 * Fit models and calculate log likelihood test
 	 */
@@ -222,6 +185,8 @@ public class Zzz {
 
 		// Calculate likelihood ratio
 		double ll = 2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
+
+		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
 		// Stats
 		if (Double.isFinite(ll)) {
@@ -283,5 +248,54 @@ public class Zzz {
 		for (int i = 0; i < covariates.length; i++)
 			covariates[i][covNum] = (covariates[i][covNum] - avg) / stddev;
 
+	}
+
+	public void run() {
+		run(false);
+	}
+
+	/**
+	 * Run analysis and collect some results (for test cases)
+	 */
+	public List<VcfEntry> run(boolean createList) {
+		//---
+		// Load phenotype and covariates
+		//---
+		loadPhenoAndCovariates(phenoCovariatesFileName);
+
+		//---
+		// Read VCF file and perform logistic regression
+		// TODO: Matrix format
+		//			- Use "SnpSift allelmat" format it's much faster
+		//			- We need to load the whole matrix into memory (filter out singletons / MAF < 0.1% ?)
+		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
+		//---
+		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
+
+		// TODO
+		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
+
+		//---
+		// Check that sample names and sample order matches
+		//---
+		vcf.readHeader();
+		List<String> sampleNames = vcf.getVcfHeader().getSampleNames();
+		int snum = 0;
+		for (String s : sampleNames) {
+			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
+					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
+					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
+			); }
+			snum++;
+		}
+
+		//---
+		// Calculate for each entry in VCF file (use parallel stream
+		//---
+		ArrayList<VcfEntry> list = new ArrayList<VcfEntry>();
+		if (createList) StreamSupport.stream(vcf.spliterator(), true).peek(ve -> logLikelihood(ve)).forEach(ve -> list.add(ve)); // Process and populate list of VCF entries
+		else StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve)); // Process (do not populate list)
+
+		return list;
 	}
 }

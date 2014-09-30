@@ -18,7 +18,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
 public class TestCaseLogisticRegression extends TestCase {
 
 	public static boolean debug = false;
-	public static boolean verbose = true || debug;
+	public static boolean verbose = false || debug;
 
 	/**
 	 * Create samples and set them to logReg model (optionally create a file)
@@ -108,6 +108,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_01() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 200;
 
@@ -118,6 +119,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_01_bfgs() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 200;
 
@@ -128,6 +130,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_01_steepest() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 200;
 
@@ -138,6 +141,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_02() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 10000;
 
@@ -148,6 +152,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_02_bfgs() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 100000;
 
@@ -158,6 +163,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_02_steepest() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 100000;
 
@@ -168,6 +174,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	}
 
 	public void test_03() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 10000;
 		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
@@ -180,6 +187,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	 * Reset model and learn same data
 	 */
 	public void test_04() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 10000;
 		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
@@ -199,6 +207,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	 * Reset model and learn different data
 	 */
 	public void test_05() {
+		Gpr.debug("Test");
 		Random rand = new Random(20140912);
 		int N = 10000;
 		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
