@@ -186,8 +186,6 @@ public class Zzz {
 	 * Fit models and calculate log likelihood test
 	 */
 	void logLikelihood(VcfEntry ve) {
-		Gpr.debug("CHECK MATCH SAMPLES VCF AND PCA");
-
 		// Get models for this thread
 		long threadId = Thread.currentThread().getId();
 		LogisticRegression lrAlt = modelAltByThread.get(threadId);
@@ -227,7 +225,12 @@ public class Zzz {
 
 		// Stats
 		if (Double.isFinite(ll)) {
-			if ((llMax < ll) || (llMin > ll)) {
+			boolean show = (llMax < ll) || (llMin > ll);
+
+			llMin = Math.min(llMin, ll);
+			llMax = Math.max(llMax, ll);
+
+			if (show) {
 				System.out.println(ve.toStr() //
 						+ "\tLL_ratio: " + ll //
 						+ "\tLL range: " + llMin + " / " + llMax //
@@ -236,8 +239,6 @@ public class Zzz {
 				);
 			} else Timer.show(count + "\t" + ve.toStr());
 
-			llMin = Math.min(llMin, ll);
-			llMax = Math.max(llMax, ll);
 		} else {
 			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
 		}
