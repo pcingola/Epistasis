@@ -24,7 +24,8 @@ public class Zzz {
 
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 	public static final String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf"; // "/t2d1/vcf/eff/hm.test.vcf";
+	//	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
 
 	String sampleIds[];
 	double covariates[][];
@@ -36,19 +37,6 @@ public class Zzz {
 	HashMap<Long, LogisticRegression> modelAltByThread = new HashMap<Long, LogisticRegression>();
 	HashMap<Long, LogisticRegression> modelNullByThread = new HashMap<Long, LogisticRegression>();
 
-	/**
-	 * Running glm in R:
-	 *
-	 * Call:  glm(formula = y ~ x1 + x2, family = binomial, data = dres)
-	 *
-	 * Coefficients:
-	 * 	(Intercept)           x1           x2
-	 * 	-0.6983       2.0570      -1.0052
-	 *
-	 * Degrees of Freedom: 199 Total (i.e. Null);  197 Residual
-	 * Null Deviance:	    261.4
-	 * Residual Deviance: 207.9 	AIC: 213.9
-	 */
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
 
