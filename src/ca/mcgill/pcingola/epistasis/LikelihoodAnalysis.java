@@ -20,21 +20,22 @@ import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
  */
 public class LikelihoodAnalysis {
 
-	public static final boolean debug = false;
 	public static boolean writeToFile = false;
 
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
+	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
 
-	String logLikInfoField; // If not null, an INFO field is added
-	String sampleIds[];
+	boolean debug = false;
+	int numSamples, numCovs;
+	int count = 0;
+	int covariatesToNormalize[] = { 11, 12 };
 	double covariates[][];
 	double pheno[];
 	double llMax = Double.NEGATIVE_INFINITY, llMin = Double.POSITIVE_INFINITY;
-	int numSamples, numCovs;
-	int count = 0;
+	String logLikInfoField; // If not null, an INFO field is added
+	String sampleIds[];
 	LogisticRegression lr;
 	HashMap<Long, LogisticRegression> modelAltByThread = new HashMap<Long, LogisticRegression>();
 	HashMap<Long, LogisticRegression> modelNullByThread = new HashMap<Long, LogisticRegression>();
@@ -42,8 +43,16 @@ public class LikelihoodAnalysis {
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
 
+		boolean debug = false;
+
 		LikelihoodAnalysis zzz = new LikelihoodAnalysis(args);
-		zzz.run();
+
+		if (debug) {
+			zzz.setDebug(debug);
+			zzz.setLogLikInfoField("LL");
+		}
+
+		zzz.run(debug);
 
 		Timer.showStdErr("End");
 	}
@@ -141,8 +150,8 @@ public class LikelihoodAnalysis {
 		//---
 		// Normalize covariates: sex, age
 		//---
-		normalizeCovariates(11);
-		normalizeCovariates(12);
+		for (int cov : covariatesToNormalize)
+			normalizeCovariates(cov);
 	}
 
 	/**
@@ -293,9 +302,22 @@ public class LikelihoodAnalysis {
 		// Calculate for each entry in VCF file (use parallel stream
 		//---
 		ArrayList<VcfEntry> list = new ArrayList<VcfEntry>();
-		if (createList) StreamSupport.stream(vcf.spliterator(), true).peek(ve -> logLikelihood(ve)).forEach(ve -> list.add(ve)); // Process and populate list of VCF entries
-		else StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve)); // Process (do not populate list)
+		if (createList) {
+			// Process and populate list of VCF entries (single thread, used for debugging and test cases)
+			for (VcfEntry ve : vcf) {
+				logLikelihood(ve);
+				list.add(ve);
+			}
+		} else StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve)); // Process (do not populate list)
 
 		return list;
+	}
+
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	public void setLogLikInfoField(String logLikInfoField) {
+		this.logLikInfoField = logLikInfoField;
 	}
 }

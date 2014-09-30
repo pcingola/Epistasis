@@ -68,7 +68,8 @@ public class LogisticRegression extends Regression {
 		double loglik = 0;
 		for (int i = 0; i < numSamples; i++) {
 			if (skip != null && skip[i]) continue;
-			double d = samplesY[i] == 0 ? out[i] : 1.0 - out[i];
+			//			double d = (samplesY[i] == 0 ? 1.0 - out[i] : out[i]);
+			double d = (samplesY[i] == 0 ? out[i] : 1.0 - out[i]);
 			loglik += Math.log(d);
 		}
 
