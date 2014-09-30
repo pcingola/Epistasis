@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.stream.StreamSupport;
 
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
@@ -26,7 +27,6 @@ public class Zzz {
 	public static final String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf"; // "/t2d1/vcf/eff/hm.test.vcf";
 
 	String sampleIds[];
-	HashMap<String, Integer> sampleId2pos;
 	double covariates[][];
 	double pheno[];
 	double llMax = Double.NEGATIVE_INFINITY, llMin = Double.POSITIVE_INFINITY;
@@ -108,7 +108,6 @@ public class Zzz {
 
 		// Read "phenotypes + covariates" file
 		String lines[] = Gpr.readFile(phenoCovariates).split("\n");
-		sampleId2pos = new HashMap<>();
 
 		// Allocate PCA matrix
 		numCovs = lines.length - 1; // Row 1 is the title, other rows are covariates
@@ -123,12 +122,9 @@ public class Zzz {
 
 			// Skip title
 			if (covariateNum < 0) {
-				sampleIds = fields;
-
-				// Add sampleIDs to map
+				sampleIds = new String[fields.length - 1];
 				for (int i = 1; i < fields.length; i++)
-					sampleId2pos.put(sampleIds[i], i - 1);
-
+					sampleIds[i - 1] = fields[i];
 			} else {
 				// Parse covariate values
 				for (int i = 1; i < fields.length; i++)
@@ -178,7 +174,23 @@ public class Zzz {
 		// TODO
 		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
 
+		//---
+		// Check that sample names and sample order matches
+		//---
+		vcf.readHeader();
+		List<String> sampleNames = vcf.getVcfHeader().getSampleNames();
+		int snum = 0;
+		for (String s : sampleNames) {
+			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
+					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
+					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
+			); }
+			snum++;
+		}
+
+		//---
 		// Calculate for each entry in VCF file (use parallel stream
+		//---
 		StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve));
 	}
 
