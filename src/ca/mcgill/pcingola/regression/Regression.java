@@ -93,7 +93,7 @@ public abstract class Regression extends Energy {
 	public abstract double predict(double in[]);
 
 	protected double randOne() {
-		double r = rand.nextDouble();
+		double r = rand != null ? rand.nextDouble() : Math.random();
 		return 2 * r - 1;
 	}
 
