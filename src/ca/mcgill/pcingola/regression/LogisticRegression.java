@@ -12,7 +12,6 @@ public class LogisticRegression extends Regression {
 
 	double minGradient = 0.0001;
 	double eta = 1.0; // Learning (gradient)
-	boolean skip[]; // If set to true, samples are skipped
 
 	public LogisticRegression(int size) {
 		super(size);
@@ -67,39 +66,36 @@ public class LogisticRegression extends Regression {
 		predict();
 
 		double loglik = 0;
-		double dmin = Double.MAX_VALUE;
 		for (int i = 0; i < numSamples; i++) {
 			if (skip != null && skip[i]) continue;
-
 			double d = samplesY[i] == 0 ? out[i] : 1.0 - out[i];
-			dmin = Math.min(dmin, d);
 			loglik += Math.log(d);
 		}
 
 		return loglik;
 	}
 
-	/**
-	 * Calculate log likelihood (of training data)
-	 * Logarithm is in natural base ('e')
-	 */
-	public double logLikelihoodNull() {
-		double sum = 0;
-		double h = theta[theta.length - 1];
-		double o = 1.0 / (1.0 + Math.exp(-h));
-
-		for (int i = 0; i < numSamples; i++) {
-			if (skip != null && skip[i]) continue;
-
-			sum += Math.log(samplesY[i] == 0 ? o : 1.0 - o);
-		}
-
-		return sum;
-	}
-
-	public double logLikelihoodRatio() {
-		return logLikelihood() / logLikelihoodNull();
-	}
+	//	/**
+	//	 * Calculate log likelihood (of training data)
+	//	 * Logarithm is in natural base ('e')
+	//	 */
+	//	public double logLikelihoodNull() {
+	//		double sum = 0;
+	//		double h = theta[theta.length - 1];
+	//		double o = 1.0 / (1.0 + Math.exp(-h));
+	//
+	//		for (int i = 0; i < numSamples; i++) {
+	//			if (skip != null && skip[i]) continue;
+	//
+	//			sum += Math.log(samplesY[i] == 0 ? o : 1.0 - o);
+	//		}
+	//
+	//		return sum;
+	//	}
+	//
+	//	public double logLikelihoodRatio() {
+	//		return logLikelihood() / logLikelihoodNull();
+	//	}
 
 	@Override
 	public double predict(double[] in) {

@@ -14,6 +14,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 public abstract class Regression extends Energy {
 
 	boolean debug = false;
+	boolean skip[]; // If set to true, samples are skipped
 	int numSamples;
 	int size;
 	int maxIterations = 10000; // Maximum number of iterations
@@ -156,6 +157,8 @@ public abstract class Regression extends Energy {
 
 		// Show data
 		for (int i = 0; i < numSamples; i++) {
+			if (skip[i]) continue; // Don't show skipped samples
+
 			for (int j = 0; j < dim; j++)
 				sb.append(samplesX[i][j] + "\t");
 

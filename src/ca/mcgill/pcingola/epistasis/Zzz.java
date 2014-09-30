@@ -13,7 +13,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.regression.LogisticRegression;
-import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Test
@@ -24,7 +23,7 @@ public class Zzz {
 
 	public static double[] realModel = { 2, -1, -0.5 };
 
-	public static final boolean debug = false;
+	public static final boolean debug = true;
 	public static String type = "grad"; // "steepest"; "bgfs";
 
 	String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
@@ -71,10 +70,8 @@ public class Zzz {
 			beta[i] = realModel[i];
 
 		// Likelihood
-		double ll = lr.logLikelihood() / Math.log(10.0);
-		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
-		System.out.println("Log likelihood [10]: " + ll);
-		System.out.println("Log likelihood Null [10]: " + llnull);
+		double ll = lr.logLikelihood();
+		System.out.println("Log likelihood: " + ll);
 
 		// Learn
 		lr.initModelRand();
@@ -189,20 +186,32 @@ public class Zzz {
 		normalizeCovariates(12);
 
 		//---
-		// Create logistic regression model
+		// Create logistic regression models
 		//---
 
 		// Initialize logistic regression
 		// Note: Even thought the first row currently has the
 		//       phenotype, we'll overwrite the row using 'allele'
 		//       information before performing logistic regression
-		LogisticRegression lr = new LogisticRegressionBfgs(numCovs);
-		lr.setSamples(covariates, pheno);
+		// LogisticRegression lr = new LogisticRegressionBfgs(numCovs);
+
+		LogisticRegression lrAlt = new LogisticRegression(numCovs);
+		lrAlt.setSamples(covariates, pheno);
+
+		LogisticRegression lrNull = new LogisticRegression(numCovs - 1); // No genotypes
+
+		// Copy all covariates, except first one (phenotype row)
+		double xNull[][] = new double[numSamples][numCovs];
+		for (int i = 0; i < numSamples; i++)
+			for (int j = 0; j < numCovs - 1; j++)
+				xNull[i][j] = covariates[i][j + 1];
+
+		lrAlt.setSamples(xNull, pheno);
 
 		// Samples to skip
 		boolean skip[] = new boolean[numSamples];
 		Arrays.fill(skip, false);
-		lr.setSkip(skip);
+		lrAlt.setSkip(skip);
 
 		//---
 		// Read VCF file and perform logistic regression
@@ -216,22 +225,26 @@ public class Zzz {
 		for (VcfEntry ve : vcf) {
 
 			// Reset model
-			lr.reset();
+			lrAlt.reset();
 
 			// Get genotypes
 			byte gt[] = ve.getGenotypesScores();
 
 			// Copy genotypes to first row and set 'skip' field
-			double x[][] = lr.getSamplesX();
+			double xAlt[][] = lrAlt.getSamplesX();
 			for (int i = 0; i < numSamples; i++) {
-				x[i][phenoRowNum] = gt[i];
-				skip[i] = (gt[i] < 0);
+				xAlt[i][phenoRowNum] = gt[i];
+				skip[i] = (gt[i] < 0) || (pheno[i] < 0);
 			}
 
 			// Filter by LL ratio
-			lr.setDebug(debug);
-			lr.learn();
-			double ll = lr.logLikelihoodRatio();
+			lrAlt.setDebug(debug);
+			lrAlt.learn();
+
+			lrNull.setDebug(debug);
+			lrNull.learn();
+
+			double ll = lrAlt.logLikelihood() - lrNull.logLikelihood();
 
 			if (Double.isFinite(ll)) {
 				llMin = Math.min(llMin, ll);
@@ -242,7 +255,7 @@ public class Zzz {
 
 			System.out.println("LL_ratio: " + ll //
 					+ "\tLL range: " + llMin + " / " + llMax //
-					+ "\tModel: " + lr //
+					+ "\tModel: " + lrAlt //
 					+ "\t" + ve.toStr() //
 			);
 
@@ -252,9 +265,9 @@ public class Zzz {
 
 			// Save as TXT table
 			if (writeToFile) {
-				String fileName = Gpr.HOME + "/lt_test.txt";
+				String fileName = Gpr.HOME + "/lr_test.txt";
 				Gpr.debug("Writing table to :" + fileName);
-				Gpr.toFile(fileName, lr.toStringSamples());
+				Gpr.toFile(fileName, lrAlt.toStringSamples());
 			}
 		}
 
@@ -289,10 +302,8 @@ public class Zzz {
 
 		// Show model after fitting
 		System.out.println("Model: " + lr);
-		double ll = lr.logLikelihood() / Math.log(10.0);
-		double llnull = lr.logLikelihoodNull() / Math.log(10.0);
-		System.out.println("Log likelihood [10]: " + ll);
-		System.out.println("Log likelihood Null [10]: " + llnull);
+		double ll = lr.logLikelihood();
+		System.out.println("Log likelihood: " + ll);
 
 		Timer.showStdErr("End");
 	}

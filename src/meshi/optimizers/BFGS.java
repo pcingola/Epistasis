@@ -243,6 +243,8 @@ public class BFGS extends Minimizer {
 
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
+		if (debug) Gpr.debug("BFGS Minimization step: " + energy.getEnergy());
+
 		double Curv = 0; // The curvature index
 		double YHY; // Yk*Hk*Yk
 		double Coef; // A temporary result
@@ -268,6 +270,7 @@ public class BFGS extends Minimizer {
 				k++;
 			}
 		}
+
 		// Do the line search
 		try {
 			energy.copyTheta(bufferCoordinates);
@@ -287,6 +290,7 @@ public class BFGS extends Minimizer {
 			energy().evaluate();
 			return false;
 		}
+
 		// Calculate Gk+1,Sk,Yk and the curvature Yk*Sk. Check for pathological curvature
 		Curv = 0;
 		double x[] = energy.getTheta();
