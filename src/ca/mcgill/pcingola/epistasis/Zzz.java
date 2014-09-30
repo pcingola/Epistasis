@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.stream.StreamSupport;
 
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -61,6 +62,7 @@ public class Zzz {
 	 * Create models
 	 */
 	void createModels() {
+		Timer.showStdErr("Creating models for thread: " + Thread.currentThread());
 		long threadId = Thread.currentThread().getId();
 
 		//---
@@ -176,10 +178,8 @@ public class Zzz {
 		// TODO
 		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
 
-		// TODO: Parallelize using
-		//       StreamSupport.stream(vcf.spliterator(), true);
-		for (VcfEntry ve : vcf)
-			logLikelihood(ve);
+		// Calculate for each entry in VCF file (use parallel stream
+		StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve));
 	}
 
 	/**
@@ -233,7 +233,7 @@ public class Zzz {
 						+ "\tLL range: " + llMin + " / " + llMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //
-						);
+				);
 			} else Timer.show(count + "\t" + ve.toStr());
 
 			llMin = Math.min(llMin, ll);
