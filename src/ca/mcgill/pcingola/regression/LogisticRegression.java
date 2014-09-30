@@ -133,15 +133,4 @@ public class LogisticRegression extends Regression {
 		this.skip = skip;
 	}
 
-	public String toStringSamples() {
-		StringBuilder sb = new StringBuilder();
-
-		for (int i = 0; i < numSamples; i++) {
-			for (int j = 0; j < dim; j++)
-				sb.append(samplesX[i][j] + "\t");
-			sb.append(predict(samplesX[i]) + "\t");
-			sb.append(samplesY[i] + "\n");
-		}
-		return sb.toString();
-	}
 }

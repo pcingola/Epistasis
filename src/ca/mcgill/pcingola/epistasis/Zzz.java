@@ -28,7 +28,8 @@ public class Zzz {
 	public static String type = "grad"; // "steepest"; "bgfs";
 
 	String t2dPhenoCovariates = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	// String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	String t2dVcf = Gpr.HOME + "/t2d1/vcf/eff/hm.test.vcf";
 	HashMap<String, Integer> sampleId2pos;
 	Random rand = new Random(20140912);
 	int N = 10000;
@@ -118,11 +119,8 @@ public class Zzz {
 
 			} else {
 				// Parse covariate values
-				for (int i = 1; i < fields.length; i++) {
+				for (int i = 1; i < fields.length; i++)
 					covariates[i - 1][covariateNum] = Gpr.parseDoubleSafe(fields[i]);
-					if (debug) System.out.print("\tCovaraite [sample: " + (i - 1) + "][" + covariateNum + "] : " + covariates[i - 1][covariateNum]);
-				}
-				if (debug) System.out.println("");
 			}
 
 			covariateNum++;
@@ -147,7 +145,6 @@ public class Zzz {
 
 			// Output
 			double o = lr.predict(in[i]);
-			//			Gpr.debug("in: " + Gpr.toString(in[i]) + "\tout: " + o);
 			out[i] = rand.nextDouble() < o ? 1.0 : 0.0;
 		}
 		lr.setSamples(in, out);
@@ -171,6 +168,8 @@ public class Zzz {
 	 * 		- R script     : workspace/Epistasis/scripts/coEvolution/coEvolution.r
 	 */
 	void logisticT2d() {
+		boolean writeToFile = true;
+
 		//---
 		// Load phenotype and covariates
 		//---
@@ -213,8 +212,8 @@ public class Zzz {
 		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
 		//---
 		VcfFileIterator vcf = new VcfFileIterator(t2dVcf);
+		double llMax = Double.MIN_VALUE, llMin = Double.MAX_VALUE;
 		for (VcfEntry ve : vcf) {
-			System.out.println(ve.toStringNoGt());
 
 			// Reset model
 			lr.reset();
@@ -232,11 +231,31 @@ public class Zzz {
 			// Filter by LL ratio
 			lr.setDebug(debug);
 			lr.learn();
-			System.out.println("LL_ratio: " + lr.logLikelihoodRatio() + "\tModel: " + lr + "\n");
+			double ll = lr.logLikelihoodRatio();
+
+			if (Double.isFinite(ll)) {
+				llMin = Math.min(llMin, ll);
+				llMax = Math.max(llMax, ll);
+			} else {
+				Gpr.debug("Infinite!");
+			}
+
+			System.out.println("LL_ratio: " + ll //
+					+ "\tLL range: " + llMin + " / " + llMax //
+					+ "\tModel: " + lr //
+					+ "\t" + ve.toStr() //
+			);
 
 			// TODO: Calculate and check p-value
 			//         - Chi-square
 			//         - Wald test
+
+			// Save as TXT table
+			if (writeToFile) {
+				String fileName = Gpr.HOME + "/lt_test.txt";
+				Gpr.debug("Writing table to :" + fileName);
+				Gpr.toFile(fileName, lr.toStringSamples());
+			}
 		}
 
 		// TODO
