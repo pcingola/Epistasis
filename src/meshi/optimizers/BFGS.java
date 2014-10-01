@@ -54,7 +54,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *- energy - pointer to an TotalEnergy object, where the energy function is.
  *- tolerance - 1e-6 - Minimization stops when the magnitude of the maximal gradient component drops below tolerance.
  *- maxSteps - 1000 - The maximal number of iteration steps allowed
- *- reoprtEvery - 100 - The frequency of the minimization reports.
  *
  *
  *Parameters Specific to the BFGS algorithm
@@ -172,7 +171,11 @@ public class BFGS extends Minimizer {
 		);
 	}
 
-	public BFGS(Energy energy, double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
+	public BFGS(Energy energy //
+			, double allowedMaxH, int maxNumKickStarts // General minimization parameters
+			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Parameters specific to the Wolf conditions line search
+			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest Decent parameters
+	) {
 		super(energy);
 		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
@@ -342,7 +345,10 @@ public class BFGS extends Minimizer {
 		return true;
 	}
 
-	protected void setParameters(double allowedMaxH, int maxNumKickStarts, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent) {
+	protected void setParameters(double allowedMaxH, int maxNumKickStarts // General
+			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Wolfe
+			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest descent
+	) {
 		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
 		this.c1 = c1;
 		this.c2 = c2;
@@ -353,6 +359,7 @@ public class BFGS extends Minimizer {
 		this.initStepSteepestDecent = initStepSteepestDecent;
 		this.stepSizeReductionSteepestDecent = stepSizeReductionSteepestDecent;
 		this.stepSizeExpansionSteepestDecent = stepSizeExpansionSteepestDecent;
+
 		// Checking if the minimizing problem is not too large
 		if (n > MAX_NUM_VARIABLES) throw new RuntimeException("\n\nThe number of variables to be minimized is greater than the maximum\n" + "this minimizer can handle. Use a minimizer for large-scale problems such as LBFGS\n");
 	}
