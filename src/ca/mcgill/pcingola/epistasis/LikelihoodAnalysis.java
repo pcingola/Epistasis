@@ -198,6 +198,7 @@ public class LikelihoodAnalysis {
 
 		// Calculate likelihood ratio
 		double ll = -2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
+		double llok = -2.0 * (lrAlt.logLikelihood_OK() - lrNull.logLikelihood_OK());
 
 		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
@@ -206,11 +207,13 @@ public class LikelihoodAnalysis {
 			boolean show = (llMax < ll);
 			llMax = Math.max(llMax, ll);
 
-			if (show) {
+			if (show || debug) {
 				writeToFile |= show;
 				System.out.println(ve.toStr() //
-						+ "\tLL_ratio: " + ll //
-						+ "\tLL_max: " + llMax //
+						+ "\tLL_ratio: " + ll + " / " + llok//
+						+ "\tLL_alt: " + lrAlt.logLikelihood_OK() //
+						+ "\tLL_null: " + lrNull.logLikelihood_OK() //
+						+ "\tLL_ratio_max: " + llMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //
 				);
@@ -224,13 +227,21 @@ public class LikelihoodAnalysis {
 
 		// Save as TXT table
 		if (writeToFile) {
+			// ALT data
 			String fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".alt.txt";
-			Gpr.debug("Writing 'alt' table to :" + fileName);
+			Gpr.debug("Writing 'alt data' table to :" + fileName);
 			Gpr.toFile(fileName, lrAlt.toStringSamples());
 
+			// NULL data
 			fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".null.txt";
-			Gpr.debug("Writing 'null' table to :" + fileName);
+			Gpr.debug("Writing 'null data' table to :" + fileName);
 			Gpr.toFile(fileName, lrNull.toStringSamples());
+
+			// ALT model
+			fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".alt.model.txt";
+			Gpr.debug("Writing 'alt model' to :" + fileName);
+			Gpr.toFile(fileName, lrAlt.toStringModel());
+
 		}
 
 		count++;

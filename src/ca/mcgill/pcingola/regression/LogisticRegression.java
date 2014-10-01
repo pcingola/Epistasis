@@ -84,6 +84,23 @@ public class LogisticRegression extends Regression {
 		return loglik;
 	}
 
+	/**
+	 * Calculate log likelihood (of training data)
+	 * Logarithm is in natural base ('e')
+	 */
+	public double logLikelihood_OK() {
+		predict();
+
+		double loglik = 0;
+		for (int i = 0; i < numSamples; i++) {
+			if (skip != null && skip[i]) continue;
+			double d = (samplesY[i] == 0 ? 1.0 - out[i] : out[i]);
+			loglik += Math.log(d);
+		}
+
+		return loglik;
+	}
+
 	@Override
 	public double predict(double[] in) {
 		double h = 0.0;

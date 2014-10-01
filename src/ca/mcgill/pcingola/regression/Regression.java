@@ -155,6 +155,16 @@ public abstract class Regression extends Energy {
 		return energy + ", model: " + Gpr.toString(theta);
 	}
 
+	public String toStringModel() {
+		StringBuilder sb = new StringBuilder();
+
+		for (int j = 0; j < dim; j++)
+			sb.append((j > 0 ? "\t" : "") + theta[j]);
+		sb.append("\n");
+
+		return sb.toString();
+	}
+
 	public String toStringSamples() {
 		StringBuilder sb = new StringBuilder();
 

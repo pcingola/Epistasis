@@ -38,23 +38,23 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		throw new RuntimeException("Missing check condition!");
 	}
 
-	/**
-	 * Model: Genotype is phenotype (so it should match perfect)
-	 */
-	public void test_02() {
-		Gpr.debug("Test");
-
-		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_02.vcf" };
-		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
-		la.setWriteToFile(debug);
-		la.setDebug(debug);
-		la.setLogLikInfoField(LL_INFO_FIELD);
-
-		List<VcfEntry> list = la.run(true);
-
-		// Check result (only on line)
-		System.out.println(list.get(0).getInfo(LL_INFO_FIELD));
-		throw new RuntimeException("Missing check condition!");
-	}
+	//	/**
+	//	 * Model: Genotype is phenotype (so it should match perfect)
+	//	 */
+	//	public void test_02() {
+	//		Gpr.debug("Test");
+	//
+	//		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_02.vcf" };
+	//		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
+	//		la.setWriteToFile(debug);
+	//		la.setDebug(debug);
+	//		la.setLogLikInfoField(LL_INFO_FIELD);
+	//
+	//		List<VcfEntry> list = la.run(true);
+	//
+	//		// Check result (only on line)
+	//		System.out.println(list.get(0).getInfo(LL_INFO_FIELD));
+	//		throw new RuntimeException("Missing check condition!");
+	//	}
 
 }
