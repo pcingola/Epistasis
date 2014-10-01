@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class LogisticRegression extends Regression {
 
-	public static final boolean IMPLEMENTATION_CORRECT = true;
+	// public static final boolean IMPLEMENTATION_CORRECT = true;
 
 	double minGradient = 0.0001;
 	double eta = 1.0; // Learning (gradient)
@@ -28,7 +28,7 @@ public class LogisticRegression extends Regression {
 
 	@Override
 	protected double calcEnergy() {
-		return (IMPLEMENTATION_CORRECT ? -1 : 1) * logLikelihood();
+		return -logLikelihood();
 	}
 
 	/**
@@ -65,7 +65,7 @@ public class LogisticRegression extends Regression {
 	 * Deviance: minus twice the maximized log-likelihood.
 	 */
 	public double deviance() {
-		return -2.0 * logLikelihood_OK();
+		return -2.0 * logLikelihood();
 	}
 
 	/**
@@ -85,27 +85,6 @@ public class LogisticRegression extends Regression {
 	 * Logarithm is in natural base ('e')
 	 */
 	public double logLikelihood() {
-		predict();
-
-		double loglik = 0;
-		for (int i = 0; i < numSamples; i++) {
-			if (skip != null && skip[i]) continue;
-
-			double d;
-			if (IMPLEMENTATION_CORRECT) d = (samplesY[i] == 0 ? 1.0 - out[i] : out[i]);
-			else d = (samplesY[i] == 0 ? out[i] : 1.0 - out[i]);
-
-			loglik += Math.log(d);
-		}
-
-		return loglik;
-	}
-
-	/**
-	 * Calculate log likelihood (of training data)
-	 * Logarithm is in natural base ('e')
-	 */
-	public double logLikelihood_OK() {
 		predict();
 
 		double loglik = 0;

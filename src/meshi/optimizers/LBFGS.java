@@ -180,7 +180,7 @@ public class LBFGS extends Minimizer {
 
 	@Override
 	protected void init() throws OptimizerException {
-		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
+		steepestDecent = new SteepestDecent(energy(), numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 		lineSearch = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
 		coordinates = energy().getTheta();
 		n = coordinates.length;

@@ -4,7 +4,7 @@ import meshi.optimizers.Optimizer.OptimizerStatus;
 
 /**
  * Control when the optimization step is finished
- * 
+ *
  * @author pcingola
  */
 public class OptimizationTerminator {
@@ -55,6 +55,14 @@ public class OptimizationTerminator {
 
 	public String message() {
 		return message;
+	}
+
+	public void setGradientMaxAbsThreshold(double gradientMaxAbsThreshold) {
+		this.gradientMaxAbsThreshold = gradientMaxAbsThreshold;
+	}
+
+	public void setMaxSteps(int maxSteps) {
+		this.maxSteps = maxSteps;
 	}
 
 	public OptimizerStatus status(int step) {

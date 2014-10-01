@@ -198,7 +198,6 @@ public class LikelihoodAnalysis {
 
 		// Calculate likelihood ratio
 		double ll = -2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
-		double llok = -2.0 * (lrAlt.logLikelihood_OK() - lrNull.logLikelihood_OK());
 
 		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
@@ -210,9 +209,9 @@ public class LikelihoodAnalysis {
 			if (show || debug) {
 				writeToFile |= show;
 				System.out.println(ve.toStr() //
-						+ "\tLL_ratio: " + ll + " / " + llok//
-						+ "\tLL_alt: " + lrAlt.logLikelihood_OK() //
-						+ "\tLL_null: " + lrNull.logLikelihood_OK() //
+						+ "\tLL_ratio: " + ll //
+						+ "\tLL_alt: " + lrAlt.logLikelihood() //
+						+ "\tLL_null: " + lrNull.logLikelihood() //
 						+ "\tLL_ratio_max: " + llMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //

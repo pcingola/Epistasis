@@ -182,7 +182,7 @@ public class BFGS extends Minimizer {
 
 	@Override
 	protected void init() throws OptimizerException {
-		steepestDecent = new SteepestDecent(energy(), initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
+		steepestDecent = new SteepestDecent(energy(), numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 		lineSearchWolfe = new WolfeConditionLineSearch(energy(), c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch);
 		coordinates = energy().getTheta();
 		n = coordinates.length;

@@ -35,6 +35,7 @@ import meshi.optimizers.exceptions.OptimizerException;
 
 public class SteepestDecent extends Minimizer {
 
+	public static final int DEFAULT_MAX_STEP = 1000;
 	private SimpleStepLength lineSearch;
 
 	private double lastStepLength = 1;
@@ -44,15 +45,16 @@ public class SteepestDecent extends Minimizer {
 
 	// Default values constructor
 	public SteepestDecent(Energy energy) {
-		this(energy, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION, SimpleStepLength.DEFAULT_STEP_SIZE_EXPANTION);
+		this(energy, DEFAULT_MAX_STEP, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION, SimpleStepLength.DEFAULT_STEP_SIZE_EXPANTION);
 	}
 
 	//Full constructor
-	public SteepestDecent(Energy energy, double initialStepLength, double stepSizeReduction, double stepSizeExpansion) {
+	public SteepestDecent(Energy energy, int maxIteration, double initialStepLength, double stepSizeReduction, double stepSizeExpansion) {
 		super(energy);
 		this.initialStepLength = initialStepLength;
 		this.stepSizeReduction = stepSizeReduction;
 		this.stepSizeExpansion = stepSizeExpansion;
+		optimizerTerminator.setMaxSteps(maxIteration);
 	}
 
 	@Override
