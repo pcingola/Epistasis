@@ -16,7 +16,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 
 	public static final String LL_INFO_FIELD = "LL";
 
-	public static boolean debug = false;
+	public static boolean debug = true;
 	public static boolean verbose = false || debug;
 
 	/**
