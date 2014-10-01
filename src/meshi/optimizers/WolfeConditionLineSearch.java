@@ -53,7 +53,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 	public static final double DEFAULT_C1 = 1e-4;
 	public static final double DEFAULT_C2 = 0.9;
 	public static final double DEFAULT_EXTENDED_ALPHA_FACTOR = 3.0;
-	public static final int DEFAULT_MAX_NUM_EVALUATIONS = 10;
+	public static final int DEFAULT_MAX_NUM_EVALUATIONS = 100;
 
 	private double maxNumEvaluations;
 	private double extendAlphaFactor;
@@ -260,7 +260,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			// Continue with zoom - calculating the properties of the new found step length
 			for (i = 0; i < n; i++)
-				x[i] = x0[i] - alphaNew * pk[i];
+				x[i] = x0[i] + alphaNew * pk[i];
 
 			energy.needsUpdate();
 			eNew = energy.evaluate();
@@ -269,7 +269,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 			gradNew = 0; // Calculating the gradient at a=alphaNew
 			double grad[] = energy.getGradient();
 			for (i = 0; i < n; i++)
-				gradNew -= pk[i] * grad[i];
+				gradNew += pk[i] * grad[i];
 
 			if ((eNew > (e0 + c1 * alphaNew * grad0)) || (eNew >= eLow)) {
 				alphaHi = alphaNew;
@@ -277,7 +277,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 				gradHi = gradNew;
 			} else {
 
-				if (Math.abs(gradNew) <= (-c2 * grad0)) stop = true;
+				if (Math.abs(gradNew) <= (c2 * grad0)) stop = true;
 				else {
 					if ((gradNew * (alphaHi - alphaLow)) >= 0) {
 						alphaHi = alphaLow;
