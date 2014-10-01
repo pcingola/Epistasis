@@ -46,14 +46,21 @@ public abstract class Minimizer extends Optimizer {
 			if (debug) Gpr.debug("Iteration: " + step + "\t" + this);
 
 			if (!minimizationStepOK) {
-				if (numberOfKickStrarts >= MAX_KICKSTARTS) throw new OptimizerException("\n\nThe simulation was restarted for " + MAX_KICKSTARTS + " times " + "which is more than allowed.\n" + "So many restarts are indicative of an ill-shaped energy function or " + "an energy differentiation\n");
-				try {
-					kickStart();
-					if (verbose) System.err.println("kickstart # " + numberOfKickStrarts + " done");
-				} catch (OptimizerException oe) {
-					throw oe;
+				if (numberOfKickStrarts >= MAX_KICKSTARTS) {
+					optimizerTerminator.kill("\n\nThe simulation was restarted for " + MAX_KICKSTARTS + " times " //
+							+ "which is more than allowed.\n" //
+							+ "So many restarts are indicative of an ill-shaped energy function or " //
+							+ "an energy differentiation\n" //
+					);
+				} else {
+					try {
+						kickStart();
+						if (verbose) System.err.println("kickstart # " + numberOfKickStrarts + " done");
+					} catch (OptimizerException oe) {
+						throw oe;
+					}
+					numberOfKickStrarts++;
 				}
-				numberOfKickStrarts++;
 			}
 		}
 

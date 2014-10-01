@@ -112,7 +112,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *if the number of variables exceeds this limit.
  *
  *
- *Reference: http://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm
+ * Reference: http://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm
  *
  **/
 
@@ -199,11 +199,13 @@ public class BFGS extends Minimizer {
 		ak = new double[n];
 		iterationNum = 0;
 
-		steepestDecent.setDebug(debug);
-		lineSearchWolfe.setDebug(debug);
+		// Debug other algorithms?
+		//		steepestDecent.setDebug(debug);
+		//		lineSearchWolfe.setDebug(debug);
 
-		// Starting the BFGS minimization by a few steepest descent steps, followed by inverse Hessian, gradients (G),
-		// and position (X) initialization
+		// Starting the BFGS minimization by a few steepest descent steps, followed
+		// by inverse Hessian initialization (to identity matrix), gradients and
+		// position (X) initialization
 		kickStart();
 	}
 
@@ -232,7 +234,6 @@ public class BFGS extends Minimizer {
 
 		// Run steepest descent
 		steepestDecent.run();
-		if (debug) Gpr.debug("Steepest descent, step: " + steepestDecent.lastStepLength() + ", " + Gpr.toString(energy.getTheta()));
 
 		// Initialize Hessian
 		iterationNum += numStepsSteepestDecent;
@@ -252,7 +253,7 @@ public class BFGS extends Minimizer {
 	 */
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		if (debug) Gpr.debug(this);
+		// if (debug) Gpr.debug(this);
 
 		double curv = 0; // The curvature index
 		double ykBinvYkCurv; // Yk*Hk*Yk
@@ -401,6 +402,7 @@ public class BFGS extends Minimizer {
 				k++;
 			}
 		}
+
 		if (maxBinvk > allowedMaxH) {
 			if (debug) Gpr.debug("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable, maxBinvk : " + allowedMaxH);
 			return false;
