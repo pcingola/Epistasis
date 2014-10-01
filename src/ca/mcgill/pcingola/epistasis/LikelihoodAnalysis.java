@@ -162,7 +162,9 @@ public class LikelihoodAnalysis {
 	void logLikelihood(VcfEntry ve) {
 		boolean writeToFile = this.writeToFile;
 
+		//---
 		// Get models for this thread
+		//---
 		long threadId = Thread.currentThread().getId();
 		LogisticRegression lrAlt = modelAltByThread.get(threadId);
 		LogisticRegression lrNull = modelNullByThread.get(threadId);
@@ -174,7 +176,9 @@ public class LikelihoodAnalysis {
 			lrNull = modelNullByThread.get(threadId);
 		}
 
-		// Reset models
+		//---
+		// Initialize model's data
+		//---
 		lrAlt.reset();
 		lrNull.reset();
 
@@ -189,22 +193,25 @@ public class LikelihoodAnalysis {
 			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
 		}
 
-		// Calculate logistic models
+		//---
+		// Fit logistic models
+		//---
 		lrNull.setDebug(debug);
 		lrNull.learn();
 
-		// Use null model as start point for ALT model
+		// Use null model;s result as start point for ALT model (except for genotype parameter)
 		double thetaNull[] = lrNull.getTheta();
 		double thetaAlt[] = lrAlt.getTheta();
 		thetaAlt[0] = 0;
 		for (int i = 0; i < thetaNull.length; i++)
 			thetaAlt[i + 1] = thetaNull[i];
 
-		Gpr.debug("theta_0 (Alt): " + Gpr.toString(lrAlt.getTheta()));
 		lrAlt.setDebug(debug);
 		lrAlt.learn();
 
+		//---
 		// Calculate likelihood ratio
+		//---
 		double ll = -2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
 
 		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
@@ -232,7 +239,9 @@ public class LikelihoodAnalysis {
 
 		// TODO: Calculate and check p-value (Chi-square test)
 
-		// Save as TXT table
+		//---
+		// Save as TXT table (only used for debugging)
+		//---
 		if (writeToFile) {
 			// ALT data
 			String fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".alt.txt";
