@@ -61,4 +61,9 @@ public abstract class Minimizer extends Optimizer {
 		return optimizerTerminator.status(step);
 	}
 
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + " : " + energy;
+	}
+
 }

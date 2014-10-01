@@ -26,4 +26,10 @@ public abstract class LineSearch {
 	public void setDebug(boolean debug) {
 		this.debug = debug;
 	}
+
+	@Override
+	public String toString() {
+		return this.getClass().getSimpleName() + " : " + energy;
+	}
+
 }

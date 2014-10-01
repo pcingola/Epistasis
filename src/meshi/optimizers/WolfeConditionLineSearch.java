@@ -98,6 +98,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 	}
 
 	public double findStepLength(double x0[], double pk[]) throws LineSearchException {
+		if (debug) Gpr.debug(this);
 
 		// Initializing the run
 		energyNew = energy.getEnergy();

@@ -121,6 +121,7 @@ public class BFGS extends Minimizer {
 	public static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
 	public static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
 	public static final int DEFAULT_NUM_STEP_STEEPEST_DECENT = 50;
+	public static final double DEFAULT_STEP_SIZE_EXPANTION = 2.0;
 
 	protected SteepestDecent steepestDecent;
 	protected WolfeConditionLineSearch lineSearchWolfe;
@@ -167,7 +168,7 @@ public class BFGS extends Minimizer {
 				, DEFAULT_NUM_STEP_STEEPEST_DECENT //
 				, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH //
 				, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION //
-				, SimpleStepLength.DEFAULT_STEP_SIZE_EXPANTION //
+				, DEFAULT_STEP_SIZE_EXPANTION //
 		);
 	}
 
@@ -221,11 +222,11 @@ public class BFGS extends Minimizer {
 	// Starting the BFGS minimization by a few steepest descent steps, followed by inverse Hessian initialization
 	@Override
 	protected void kickStart() throws OptimizerException {
-		if (verbose) System.err.println("\nA kick start has occurred in iteration:" + iterationNum + "\n");
+		if (debug) Gpr.debug("A kick start has occurred in iteration:" + iterationNum + "\n");
 
 		// Run steepest descent
 		steepestDecent.run();
-		if (debug) Gpr.debug("Steepest descent: " + Gpr.toString(energy.getTheta()));
+		if (debug) Gpr.debug("Steepest descent, step: " + steepestDecent.lastStepLength() + ", " + Gpr.toString(energy.getTheta()));
 
 		// Initialize Hessian
 		iterationNum += numStepsSteepestDecent;
@@ -242,7 +243,7 @@ public class BFGS extends Minimizer {
 
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		if (debug) Gpr.debug("BFGS Minimization step: " + energy.getEnergy());
+		if (debug) Gpr.debug(this);
 
 		double Curv = 0; // The curvature index
 		double YHY; // Yk*Hk*Yk
@@ -250,9 +251,6 @@ public class BFGS extends Minimizer {
 		double MaxH; // The maximal entry in H (in term of magnitude)
 		int i, j, k; // auxilary counters
 		double tempAbs;
-
-		if (debug) //
-			Gpr.debug("Theta: " + Gpr.toString(energy.getTheta()));
 
 		// Pk=Hk*(-Gk)
 		energy.copyTheta(G);

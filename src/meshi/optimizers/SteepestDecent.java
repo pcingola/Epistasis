@@ -86,4 +86,5 @@ public class SteepestDecent extends Minimizer {
 
 		return true;
 	}
+
 }
