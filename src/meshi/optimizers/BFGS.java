@@ -162,7 +162,7 @@ public class BFGS extends Minimizer {
 
 	public BFGS(Energy energy) {
 		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length //
-		, DEFAULT_MAX_NUM_KICK_STARTS //
+				, DEFAULT_MAX_NUM_KICK_STARTS //
 				, WolfeConditionLineSearch.DEFAULT_C1 //
 				, WolfeConditionLineSearch.DEFAULT_C2//
 				, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR //
@@ -171,14 +171,14 @@ public class BFGS extends Minimizer {
 				, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH //
 				, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION //
 				, DEFAULT_STEP_SIZE_EXPANTION //
-		);
+				);
 	}
 
 	public BFGS(Energy energy //
 			, double allowedMaxH, int maxNumKickStarts // General minimization parameters
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Parameters specific to the Wolf conditions line search
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest Decent parameters
-	) {
+			) {
 		super(energy);
 		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
@@ -405,9 +405,9 @@ public class BFGS extends Minimizer {
 
 		if (maxBinvk > allowedMaxH) {
 			if (debug) Gpr.debug("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable, maxBinvk : " + maxBinvk);
-			Gpr.debug("THIS SHOULD RETRUN false!");
-			return true;
+			return false;
 		}
+
 		return true;
 	}
 
@@ -417,7 +417,7 @@ public class BFGS extends Minimizer {
 	protected void setParameters(double allowedMaxH, int maxNumKickStarts // General
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Wolfe
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest descent
-	) {
+			) {
 		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
 		this.c1 = c1;
 		this.c2 = c2;

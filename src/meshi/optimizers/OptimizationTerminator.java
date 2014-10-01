@@ -10,7 +10,7 @@ import meshi.optimizers.Optimizer.OptimizerStatus;
 public class OptimizationTerminator {
 
 	public static final int DEFAULT_MAX_STEPS = 1000000;
-	public static final double DEFAULT_GRADIENT_MAX_ABS_THRESHOLD = 1E-6;
+	public static final double DEFAULT_GRADIENT_MAX_ABS_THRESHOLD = 1E-4;
 
 	boolean dead;
 	int maxSteps;
