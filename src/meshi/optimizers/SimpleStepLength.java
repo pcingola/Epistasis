@@ -1,7 +1,6 @@
 package meshi.optimizers;
 
 import meshi.optimizers.exceptions.LineSearchException;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * This class provide a simple way to find the step length. It start with a certain length and check if
@@ -72,12 +71,12 @@ public class SimpleStepLength extends LineSearch {
 			energy.addThetaBestGradient(-stepSize);
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
 
-			if (debug) Gpr.debug("" //
-					+ "step : " + stepSize //
-					+ "\tenergy : " + energyNew //
-					+ "\tmodel : " + Gpr.toString(energy.getTheta()) //
-					+ "\tgradient : " + Gpr.toString(energy.getGradient()) //
-			);
+			//			if (debug) Gpr.debug("" //
+			//					+ "step : " + stepSize //
+			//					+ "\tenergy : " + energyNew //
+			//					+ "\tmodel : " + Gpr.toString(energy.getTheta()) //
+			//					+ "\tgradient : " + Gpr.toString(energy.getGradient()) //
+			//			);
 		}
 
 		return stepSize;

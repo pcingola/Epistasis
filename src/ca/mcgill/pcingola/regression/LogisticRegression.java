@@ -10,7 +10,7 @@ import java.util.Arrays;
  */
 public class LogisticRegression extends Regression {
 
-	public static final boolean IMPLEMENTATION_CORRECT = false;
+	public static final boolean IMPLEMENTATION_CORRECT = true;
 
 	double minGradient = 0.0001;
 	double eta = 1.0; // Learning (gradient)
@@ -28,7 +28,7 @@ public class LogisticRegression extends Regression {
 
 	@Override
 	protected double calcEnergy() {
-		return (IMPLEMENTATION_CORRECT ? -1 : 1) * (1.0 / numSamples) * logLikelihood();
+		return (IMPLEMENTATION_CORRECT ? -1 : 1) * logLikelihood();
 	}
 
 	/**

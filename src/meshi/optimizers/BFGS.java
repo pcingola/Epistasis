@@ -49,10 +49,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *
  *6)The initial guess to the Hessian is the unity matrix. Better guesses are possible (see the reference).
  *
- *7) To test this minimizer you can run the "BFGSTest.java" program which minimize a cluster of 5 Helium atoms
- *using this minimzer.
- *
- *
  *General minimization parameters
  *-------------------------------
  *- energy - pointer to an TotalEnergy object, where the energy function is.
@@ -63,8 +59,8 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *
  *Parameters Specific to the BFGS algorithm
  *-----------------------------------------
- *- allowedMaxH - (10-100)*n - In some energy function scenerios the inverse Hessian approximation might become unstable and
- *                       unrealiable, by having huge numbers in the H entries. This paramter sets a upper limit on the
+ *- allowedMaxH - (10-100)*n - In some energy function scenarios the inverse Hessian approximation might become unstable and
+ *                       unrealiable, by having huge numbers in the H entries. This parameter sets a upper limit on the
  *                       matrix H entries. Higher values would lead to a new kick-start. This value should be somewhere
  *                       in the range (10-100)*n (lower is more conservative).
  *- maxNumKickStarts - 3 - If the minimzer become unstable for some reason, it could be restarted from the current position.
@@ -76,7 +72,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *The BFGS algorithm requires a step length finder who finds a step length that also satisfies the Wolf conditions. See the
  *help of this specific line search for explaination of what these conditions are. The parameters of this line search are:
  *
- *- c1,c2 - 1e-4,0.9 - The two paramters of the Wolf conditions. Must satisfy: 0<c1<c2<1
+ *- c1,c2 - 1e-4,0.9 - The two parameters of the Wolf conditions. Must satisfy: 0<c1<c2<1
  *- maxNumEvaluations - 10 - The maximal number of step length trails allowed. This gives an upper limit on the total number of
  *                        evaluations both in the bracketing and Zoom. If line search fails because this number was
  *                        exceeded try to enlarge 'extendAlphaFactor' or change the initial alpha guess. This error might
@@ -88,10 +84,10 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *Steepest Decent module
  *-----------------------
  *In two cases steepest descent minimization is done instead of BFGS.
- *1) All runs strart with a certain number of steepest descent steps, because difficult scenarios for BFGS minimization
+ *1) All runs start with a certain number of steepest descent steps, because difficult scenarios for BFGS minimization
  *might occur at the start due to atom clashes.
  *2) If the normal operation of the minimizer is disturbed for some reason  (failing to produce a descent direction,
- *failing to satisfies the wolf conditions, etc.) another set of steepst descent steps (with similar parameters to
+ *failing to satisfies the wolf conditions, etc.) another set of steepest descent steps (with similar parameters to
  *case 1) is attempted. If the normal operation is disturbed too many times, the minimization is aborted because
  *this is indicative of a more severe fault, most likely in the energy function.
  *
@@ -100,12 +96,12 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *                      least one steepest descent step is done.
  *- initialStepLength - 1 - parameter of the steepest descent line search. The first step length to be tried after the
  *                      calculation of the first gradient. This parameter should normally be 1 unless very large gradients
- *						(such as clashhing of VDW atoms) are expected in the first steps. In that case it should be  set to
+ *						(such as clashing of VDW atoms) are expected in the first steps. In that case it should be  set to
  *                      a much smaller value (1e-4 or less).
  *- stepSizeReduction - 0.5 - parameter of the line search. The step length is multiplied by this factor if no reduction
  *                      in energy is achieved.
  *- stepSizeExpansion - 2 - parameter of the line search. The first step length tried is the step length from previous
- *                      line search multiplied by this factor. (Note that non-positive values to this paramater cause
+ *                      line search multiplied by this factor. (Note that non-positive values to this parameter cause
  *                      special options to be called (see the SimpleStepLength class help).
  *
  *
@@ -359,10 +355,5 @@ public class BFGS extends Minimizer {
 		this.stepSizeExpansionSteepestDecent = stepSizeExpansionSteepestDecent;
 		// Checking if the minimizing problem is not too large
 		if (n > MAX_NUM_VARIABLES) throw new RuntimeException("\n\nThe number of variables to be minimized is greater than the maximum\n" + "this minimizer can handle. Use a minimizer for large-scale problems such as LBFGS\n");
-	}
-
-	@Override
-	public String toString() {
-		return ("BFGS\t" + energy);
 	}
 }

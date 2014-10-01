@@ -24,8 +24,8 @@ log.lik <- function(y, p) {
 # Main
 #-------------------------------------------------------------------------------
 
-name <- 'lr_test.1_10001.alt'
 name <- 'lr_test.1_10002.alt'
+name <- 'lr_test.1_10001.alt'
 
 # Load data from TXT file. See Regression.toStringSample() method
 dataFile <- paste( name, '.txt', sep='')
