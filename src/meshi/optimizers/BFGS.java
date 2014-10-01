@@ -112,6 +112,8 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *if the number of variables exceeds this limit.
  *
  *
+ *Reference: http://en.wikipedia.org/wiki/Broyden%E2%80%93Fletcher%E2%80%93Goldfarb%E2%80%93Shanno_algorithm
+ *
  **/
 
 public class BFGS extends Minimizer {
@@ -126,14 +128,14 @@ public class BFGS extends Minimizer {
 	protected SteepestDecent steepestDecent;
 	protected WolfeConditionLineSearch lineSearchWolfe;
 	protected int n; // number of variables
-	int np; // (n+1)*n/2 - size of H
-	protected double[] H; // Inverse Hessian
-	protected double[] P; // The search direction
-	protected double[] X; // The coordinates at iteration K
-	protected double[] G; // The (-) gradients at iteration K
-	protected double[] S; // The coordinates difference before the inverse Hessian update
-	protected double[] Y; // The (-) gradients difference before the inverse Hessian update
-	protected double[] A; // Hk*Yk
+	int np; // (n+1) * n/2 - size of H
+	protected double[] Binvk; // Inverse Hessian approximation at iteration k
+	protected double[] pk; // p_k : The search direction
+	protected double[] xk; // x_k : The coordinates at iteration k
+	protected double[] gradNeg; // The (-) gradients at itSeration k
+	protected double[] sk; // s_k : The coordinates difference before the inverse Hessian update
+	protected double[] yk; // y_k : The (-) gradients difference before the inverse Hessian update
+	protected double[] Ak; // A_k = Hk * yk
 	protected double[] coordinates; // The position and gradients of the system
 	protected double[] bufferCoordinates;
 	protected int iterationNum; // Iterations counter
@@ -160,7 +162,7 @@ public class BFGS extends Minimizer {
 
 	public BFGS(Energy energy) {
 		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length //
-		, DEFAULT_MAX_NUM_KICK_STARTS //
+				, DEFAULT_MAX_NUM_KICK_STARTS //
 				, WolfeConditionLineSearch.DEFAULT_C1 //
 				, WolfeConditionLineSearch.DEFAULT_C2//
 				, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR //
@@ -169,14 +171,14 @@ public class BFGS extends Minimizer {
 				, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH //
 				, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION //
 				, DEFAULT_STEP_SIZE_EXPANTION //
-		);
+				);
 	}
 
 	public BFGS(Energy energy //
 			, double allowedMaxH, int maxNumKickStarts // General minimization parameters
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Parameters specific to the Wolf conditions line search
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest Decent parameters
-	) {
+			) {
 		super(energy);
 		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
@@ -189,12 +191,12 @@ public class BFGS extends Minimizer {
 		n = coordinates.length;
 		np = (n + 1) * n / 2;
 		bufferCoordinates = new double[n];
-		P = new double[n];
-		X = new double[n];
-		Y = new double[n];
-		G = new double[n];
-		S = new double[n];
-		A = new double[n];
+		pk = new double[n];
+		xk = new double[n];
+		yk = new double[n];
+		gradNeg = new double[n];
+		sk = new double[n];
+		Ak = new double[n];
 		iterationNum = 0;
 
 		steepestDecent.setDebug(debug);
@@ -205,15 +207,17 @@ public class BFGS extends Minimizer {
 		kickStart();
 	}
 
-	// Initializing the inverse Hessian to the unity matrix
+	/**
+	 * Initializing the inverse Hessian to the identity matrix
+	 */
 	protected void initHessian() {
 		int i, j, k = 0;
-		H = new double[np];
+		Binvk = new double[np];
 		for (i = 0; i < n; i++) {
-			H[k] = 1;
+			Binvk[k] = 1;
 			k++;
 			for (j = 0; j < (n - i - 1); j++) {
-				H[k] = 0;
+				Binvk[k] = 0;
 				k++;
 			}
 		}
@@ -237,8 +241,8 @@ public class BFGS extends Minimizer {
 
 		// Update energy
 		energy().evaluate();
-		energy.copyTheta(X);
-		energy.copyGradient(G);
+		energy.copyTheta(xk);
+		energy.copyGradient(gradNeg);
 	}
 
 	@Override
@@ -252,18 +256,18 @@ public class BFGS extends Minimizer {
 		int i, j, k; // auxilary counters
 		double tempAbs;
 
-		// Pk=Hk*(-Gk)
-		energy.copyTheta(G);
+		// Pk = Hk * (-Gk)
+		energy.copyTheta(gradNeg);
 
 		for (i = 0; i < n; i++) {
-			P[i] = 0;
+			pk[i] = 0;
 			k = i;
 			for (j = 0; j < i; j++) {
-				P[i] += H[k] * G[j];
+				pk[i] += Binvk[k] * gradNeg[j];
 				k += (n - 1 - j);
 			}
 			for (j = i; j < n; j++) {
-				P[i] += H[k] * G[j];
+				pk[i] += Binvk[k] * gradNeg[j];
 				k++;
 			}
 		}
@@ -293,12 +297,12 @@ public class BFGS extends Minimizer {
 		double x[] = energy.getTheta();
 		double grad[] = energy.getGradient();
 		for (i = 0; i < n; i++) {
-			Y[i] = grad[i] - G[i];
-			S[i] = x[i] - X[i];
-			G[i] = grad[i];
-			X[i] = x[i];
+			yk[i] = grad[i] - gradNeg[i];
+			sk[i] = x[i] - xk[i];
+			gradNeg[i] = grad[i];
+			xk[i] = x[i];
 
-			Curv += Y[i] * S[i];
+			Curv += yk[i] * sk[i];
 		}
 
 		if (Curv == 0) {
@@ -309,29 +313,29 @@ public class BFGS extends Minimizer {
 		// Updating the inverse Hessian
 		// Ak = Curv*Hk*Yk
 		for (i = 0; i < n; i++) {
-			A[i] = 0;
+			Ak[i] = 0;
 			k = i;
 			for (j = 0; j < i; j++) {
-				A[i] += H[k] * Y[j];
+				Ak[i] += Binvk[k] * yk[j];
 				k += (n - 1 - j);
 			}
 			for (j = i; j < n; j++) {
-				A[i] += H[k] * Y[j];
+				Ak[i] += Binvk[k] * yk[j];
 				k++;
 			}
-			A[i] = Curv * A[i];
+			Ak[i] = Curv * Ak[i];
 		}
 		// Hk+1 = Hk + (Sk*Ak' + Ak*Sk') + (Curv*(Yk'*Ak) + Curv)*Sk*Sk'
 		YHY = 0;
 		MaxH = 0;
 		for (i = 0; i < n; i++)
-			YHY += Y[i] * A[i];
+			YHY += yk[i] * Ak[i];
 		Coef = Curv * YHY + Curv;
 		k = 0;
 		for (i = 0; i < n; i++) {
 			for (j = i; j < n; j++) {
-				H[k] = H[k] + A[j] * S[i] + A[i] * S[j] + Coef * S[i] * S[j];
-				tempAbs = H[k] * H[k];
+				Binvk[k] = Binvk[k] + Ak[j] * sk[i] + Ak[i] * sk[j] + Coef * sk[i] * sk[j];
+				tempAbs = Binvk[k] * Binvk[k];
 				if (tempAbs > MaxH) MaxH = tempAbs;
 				k++;
 			}
@@ -346,7 +350,7 @@ public class BFGS extends Minimizer {
 	protected void setParameters(double allowedMaxH, int maxNumKickStarts // General
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Wolfe
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest descent
-	) {
+			) {
 		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
 		this.c1 = c1;
 		this.c2 = c2;
