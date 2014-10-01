@@ -97,6 +97,11 @@ public class WolfeConditionLineSearch extends LineSearch {
 		return findStepLength(xCopy, energy.getGradient(-1.0));
 	}
 
+	/**
+	 * Find optimization step satisfiying wolfe conditions
+	 * @param x0 : Initial coordinates
+	 * @param pk : Line of descent (e.g. negative gradient)
+	 */
 	public double findStepLength(double x0[], double pk[]) throws LineSearchException {
 		if (debug) Gpr.debug(this + "\n\tpk : " + Gpr.toString(pk));
 
