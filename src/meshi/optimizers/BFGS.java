@@ -132,7 +132,7 @@ public class BFGS extends Minimizer {
 	protected double[] Binvk; // Inverse Hessian approximation at iteration k
 	protected double[] pk; // p_k : The search direction
 	protected double[] xk; // x_k : The coordinates at iteration k
-	protected double[] gradNeg; // The (-) gradients at itSeration k
+	protected double[] gradNegk; // The (-) gradient at iteration k
 	protected double[] sk; // s_k : The coordinates difference before the inverse Hessian update
 	protected double[] yk; // y_k : The (-) gradients difference before the inverse Hessian update
 	protected double[] Ak; // A_k = Hk * yk
@@ -162,7 +162,7 @@ public class BFGS extends Minimizer {
 
 	public BFGS(Energy energy) {
 		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length //
-				, DEFAULT_MAX_NUM_KICK_STARTS //
+		, DEFAULT_MAX_NUM_KICK_STARTS //
 				, WolfeConditionLineSearch.DEFAULT_C1 //
 				, WolfeConditionLineSearch.DEFAULT_C2//
 				, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR //
@@ -171,14 +171,14 @@ public class BFGS extends Minimizer {
 				, SimpleStepLength.DEFAULT_INITIAL_STEP_LENGTH //
 				, SimpleStepLength.DEFAULT_STEP_SIZE_REDUCTION //
 				, DEFAULT_STEP_SIZE_EXPANTION //
-				);
+		);
 	}
 
 	public BFGS(Energy energy //
 			, double allowedMaxH, int maxNumKickStarts // General minimization parameters
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Parameters specific to the Wolf conditions line search
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest Decent parameters
-			) {
+	) {
 		super(energy);
 		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
@@ -194,7 +194,7 @@ public class BFGS extends Minimizer {
 		pk = new double[n];
 		xk = new double[n];
 		yk = new double[n];
-		gradNeg = new double[n];
+		gradNegk = new double[n];
 		sk = new double[n];
 		Ak = new double[n];
 		iterationNum = 0;
@@ -223,7 +223,9 @@ public class BFGS extends Minimizer {
 		}
 	}
 
-	// Starting the BFGS minimization by a few steepest descent steps, followed by inverse Hessian initialization
+	/**
+	 * Starting the BFGS minimization by a few steepest descent steps, followed by inverse Hessian initialization
+	 */
 	@Override
 	protected void kickStart() throws OptimizerException {
 		if (debug) Gpr.debug("A kick start has occurred in iteration:" + iterationNum + "\n");
@@ -242,37 +244,46 @@ public class BFGS extends Minimizer {
 		// Update energy
 		energy().evaluate();
 		energy.copyTheta(xk);
-		energy.copyGradient(gradNeg);
+		energy.getGradient(-1, gradNegk);
 	}
 
+	/**
+	 * BFGS algorithm
+	 */
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
 		if (debug) Gpr.debug(this);
 
-		double Curv = 0; // The curvature index
+		double curv = 0; // The curvature index
 		double YHY; // Yk*Hk*Yk
 		double Coef; // A temporary result
 		double MaxH; // The maximal entry in H (in term of magnitude)
 		int i, j, k; // auxilary counters
 		double tempAbs;
 
-		// Pk = Hk * (-Gk)
-		energy.copyTheta(gradNeg);
+		//---
+		// Step 1: Calculate pk = Binvk * (- grad[ f(xk) ] )
+		//---
+		energy.getGradient(-1, gradNegk);
 
 		for (i = 0; i < n; i++) {
 			pk[i] = 0;
 			k = i;
+
 			for (j = 0; j < i; j++) {
-				pk[i] += Binvk[k] * gradNeg[j];
+				pk[i] += Binvk[k] * gradNegk[j];
 				k += (n - 1 - j);
 			}
+
 			for (j = i; j < n; j++) {
-				pk[i] += Binvk[k] * gradNeg[j];
+				pk[i] += Binvk[k] * gradNegk[j];
 				k++;
 			}
 		}
 
-		// Do the line search
+		//---
+		// Step 2: Perform line search
+		//---
 		try {
 			energy.copyTheta(bufferCoordinates);
 			lineSearchWolfe.findStepLength();
@@ -292,45 +303,69 @@ public class BFGS extends Minimizer {
 			return false;
 		}
 
-		// Calculate Gk+1,Sk,Yk and the curvature Yk*Sk. Check for pathological curvature
-		Curv = 0;
-		double x[] = energy.getTheta();
-		double grad[] = energy.getGradient();
+		//---
+		// Step 3: Calculate
+		//          i) grad[ f( x_(k+1) ) ],
+		//          ii) s_k = alpha_k * p_k
+		//          iii) y_k = grad[ f(x_(k+1)) ] - grad[ f(x_k) ]
+		//          iv) curvature = 1 / (s_k^T * y_k)
+		// Check for pathological curvature
+		//---
+		curv = 0;
+		double xk1[] = energy.getTheta(); // x_(k+1)
+		double gradk1[] = energy.getGradient(); // grad[ f( x_(k+1) ) ]
 		for (i = 0; i < n; i++) {
-			yk[i] = grad[i] - gradNeg[i];
-			sk[i] = x[i] - xk[i];
-			gradNeg[i] = grad[i];
-			xk[i] = x[i];
+			// Note: We have to calculate yk = grad[ f(x_(k+1)) ] - grad[ f(x_k) ]
+			// But gradNegk = - grad[ f(x_k) ], so we have to add
+			yk[i] = gradk1[i] + gradNegk[i];
 
-			Curv += yk[i] * sk[i];
+			// Calculate sk = alpha_k * p_k
+			// Since x_(k+1) = x_k + alpha_k * p_k = x_k + s_k
+			//       => s_k = x_(k+1) - x_k
+			sk[i] = xk1[i] - xk[i];
+
+			// Update gradient and x_k for next iteration
+			gradNegk[i] = -gradk1[i];
+			xk[i] = xk1[i];
+
+			// Curvature = y_k^T * s_k = s_k^T * y_k
+			curv += yk[i] * sk[i];
 		}
 
-		if (Curv == 0) {
+		if (curv == 0) {
 			System.err.println("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable\n");
 			return false;
-		} else Curv = -1 / Curv;
+		} else curv = -1 / curv;
 
-		// Updating the inverse Hessian
-		// Ak = Curv*Hk*Yk
+		//---
+		// Step 4Updating the inverse Hessian
+		// B_{k+1)^-1 = B_k^(-1) +
+		//---
+
+		// A_k = curv * Binv_k * y_k
 		for (i = 0; i < n; i++) {
 			Ak[i] = 0;
 			k = i;
+
 			for (j = 0; j < i; j++) {
 				Ak[i] += Binvk[k] * yk[j];
 				k += (n - 1 - j);
 			}
+
 			for (j = i; j < n; j++) {
 				Ak[i] += Binvk[k] * yk[j];
 				k++;
 			}
-			Ak[i] = Curv * Ak[i];
+
+			Ak[i] = curv * Ak[i];
 		}
+
 		// Hk+1 = Hk + (Sk*Ak' + Ak*Sk') + (Curv*(Yk'*Ak) + Curv)*Sk*Sk'
 		YHY = 0;
 		MaxH = 0;
 		for (i = 0; i < n; i++)
 			YHY += yk[i] * Ak[i];
-		Coef = Curv * YHY + Curv;
+		Coef = curv * YHY + curv;
 		k = 0;
 		for (i = 0; i < n; i++) {
 			for (j = i; j < n; j++) {
@@ -347,10 +382,13 @@ public class BFGS extends Minimizer {
 		return true;
 	}
 
+	/**
+	 * Set initial parameters
+	 */
 	protected void setParameters(double allowedMaxH, int maxNumKickStarts // General
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Wolfe
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest descent
-			) {
+	) {
 		this.allowedMaxH = allowedMaxH * allowedMaxH; // Doubling it so Math.abs is not needed in the comparison
 		this.c1 = c1;
 		this.c2 = c2;
