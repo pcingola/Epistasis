@@ -129,16 +129,28 @@ public class BFGS extends Minimizer {
 	protected WolfeConditionLineSearch lineSearchWolfe;
 	protected int n; // number of variables
 	int np; // (n+1) * n/2 - size of H
-	protected double[] Binvk; // Inverse Hessian approximation at iteration k
+	protected int iterationNum; // Iterations counter
 	protected double[] pk; // p_k : The search direction
 	protected double[] xk; // x_k : The coordinates at iteration k
 	protected double[] gradNegk; // The (-) gradient at iteration k
 	protected double[] sk; // s_k : The coordinates difference before the inverse Hessian update
 	protected double[] yk; // y_k : The (-) gradients difference before the inverse Hessian update
-	protected double[] ak; // A_k = Hk * yk
+	protected double[] ak; // A_k = Binv_k * y_k
 	protected double[] coordinates; // The position and gradients of the system
 	protected double[] bufferCoordinates;
-	protected int iterationNum; // Iterations counter
+
+	// Inverse Hessian approximation at iteration k (stored as a 'compact' vector, since it's symmetric)
+	// Example of how elements are stored in a 5x5 symmetric matrix ('.' represents elements not stored)
+	//
+	//			[  a11  a12  a13  a14  a15 ]
+	//			[   .   a22  a23  a24  a25 ]
+	//			[   .    .   a33  a34  a35 ]
+	//			[   .    .    .   a44  a45 ]
+	//			[   .    .    .    .   a55 ]
+	//
+	//  =>		[  a11  a12  a13  a14  a15  a22  a23  a24  a25  a33  a34  a35  a44  a45  a55 ]
+	//          Total: 15 instead of 25 elements, that is "(n+1) * n/2" instead of "n^2"
+	protected double[] Binvk;
 
 	// BFGS parameters
 	protected double allowedMaxH;
@@ -216,8 +228,12 @@ public class BFGS extends Minimizer {
 		int i, j, k = 0;
 		Binvk = new double[np];
 		for (i = 0; i < n; i++) {
-			Binvk[k] = 1;
+			Binvk[k] = 1; // Diagonal element
 			k++;
+
+			// Rest of elements after the diagonal, until end of row
+			// Notice that elements before the diagonal are not stored, because
+			// the matrix is symmetric, so we can save space.
 			for (j = 0; j < (n - i - 1); j++) {
 				Binvk[k] = 0;
 				k++;
@@ -271,15 +287,13 @@ public class BFGS extends Minimizer {
 			pk[i] = 0;
 			k = i;
 
-			for (j = 0; j < i; j++) {
+			// Elements before diagonal are stored in rows (due to symmetry)
+			for (j = 0; j < i; j++, k += (n - 1 - j))
 				pk[i] += Binvk[k] * gradNegk[j];
-				k += (n - 1 - j);
-			}
 
-			for (j = i; j < n; j++) {
+			// Elements after diagonal are stored consecutevly
+			for (j = i; j < n; j++, k++)
 				pk[i] += Binvk[k] * gradNegk[j];
-				k++;
-			}
 		}
 
 		//---
@@ -355,15 +369,13 @@ public class BFGS extends Minimizer {
 			ak[i] = 0;
 			k = i;
 
-			for (j = 0; j < i; j++) {
+			// Elements before diagonal
+			for (j = 0; j < i; j++, k += (n - 1 - j))
 				ak[i] += Binvk[k] * yk[j];
-				k += (n - 1 - j);
-			}
 
-			for (j = i; j < n; j++) {
+			// Elements after diagonal
+			for (j = i; j < n; j++, k++)
 				ak[i] += Binvk[k] * yk[j];
-				k++;
-			}
 
 			ak[i] = curv * ak[i];
 		}
