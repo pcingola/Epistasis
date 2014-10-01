@@ -14,16 +14,16 @@ import ca.mcgill.pcingola.epistasis.LikelihoodAnalysis;
  */
 public class TestCaseLogisticRegressionT2d extends TestCase {
 
-	public static boolean debug = true;
+	public static boolean debug = false;
 	public static boolean verbose = false || debug;
 
 	/**
-	 * Reset model and learn different data
+	 * Model: Genotype is 0/0 for all (so it should match the null model)
 	 */
 	public void test_01() {
 		Gpr.debug("Test");
 
-		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_00.vcf" };
+		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_01.vcf" };
 		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
 		la.setDebug(debug);
 
@@ -34,5 +34,27 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 
 		// Check result (only on line)
 		System.out.println(list.get(0).getInfo(llInfo));
+		throw new RuntimeException("Missing check condition!");
 	}
+
+	/**
+	 * Model: Genotype is phenotype (so it should match perfect)
+	 */
+	public void test_02() {
+		Gpr.debug("Test");
+
+		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_02.vcf" };
+		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
+		la.setDebug(debug);
+
+		String llInfo = "LL";
+		la.setLogLikInfoField(llInfo);
+
+		List<VcfEntry> list = la.run(true);
+
+		// Check result (only on line)
+		System.out.println(list.get(0).getInfo(llInfo));
+		throw new RuntimeException("Missing check condition!");
+	}
+
 }

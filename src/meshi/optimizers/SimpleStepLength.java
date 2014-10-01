@@ -53,7 +53,7 @@ public class SimpleStepLength extends LineSearch {
 	 */
 	@Override
 	public double findStepLength() throws LineSearchException {
-		if (debug) System.err.println("\n");
+		// if (debug) System.err.println("\n");
 
 		if (stepSize < TOO_SMALL || stepSize > TOO_BIG) stepSize = 1.0 / stepSizeReduction;
 		else stepSize *= stepSizeExpansion / stepSizeReduction;
@@ -73,12 +73,10 @@ public class SimpleStepLength extends LineSearch {
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
 
 			if (debug) Gpr.debug("" //
-					+ "\n\tStep size  : " + stepSize //
-					+ "\n\tenergy old : " + energyOld //
-					+ "\n\tenerfy new : " + energyNew //
-					+ "\n\tmodel best : " + Gpr.toString(energy.getThetaBest()) //
-					+ "\n\tmodel      : " + Gpr.toString(energy.getTheta()) //
-					+ "\n\tgradient   : " + Gpr.toString(energy.getGradient()) //
+					+ "step : " + stepSize //
+					+ "\tenergy : " + energyNew //
+					+ "\tmodel : " + Gpr.toString(energy.getTheta()) //
+					+ "\tgradient : " + Gpr.toString(energy.getGradient()) //
 			);
 		}
 

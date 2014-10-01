@@ -11,7 +11,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.regression.LogisticRegression;
-import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Logistic regression log-likelihood analysis of VCF + phenotype data
@@ -25,7 +24,8 @@ public class LikelihoodAnalysis {
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	// String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/t2d_13K.test_02.vcf";
 
 	boolean debug = false;
 	int numSamples, numCovs;
@@ -43,7 +43,7 @@ public class LikelihoodAnalysis {
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
 
-		boolean debug = false;
+		boolean debug = true;
 
 		LikelihoodAnalysis zzz = new LikelihoodAnalysis(args);
 
@@ -74,7 +74,7 @@ public class LikelihoodAnalysis {
 		//---
 		// Create alternative model
 		//---
-		LogisticRegression lrAlt = new LogisticRegressionBfgs(numCovs);
+		LogisticRegression lrAlt = new LogisticRegression(numCovs);
 
 		// Copy all covariates, except first one (phenotype row)
 		double xAlt[][] = new double[numSamples][numCovs];
@@ -88,7 +88,7 @@ public class LikelihoodAnalysis {
 		//---
 		// Create null model
 		//---
-		LogisticRegression lrNull = new LogisticRegressionBfgs(numCovs - 1); // No genotypes
+		LogisticRegression lrNull = new LogisticRegression(numCovs - 1); // No genotypes
 
 		// Copy all covariates, except first one (phenotype row)
 		double xNull[][] = new double[numSamples][numCovs - 1];
@@ -200,6 +200,7 @@ public class LikelihoodAnalysis {
 		// Stats
 		if (Double.isFinite(ll)) {
 			boolean show = (llMax < ll) || (llMin > ll);
+			show = true;
 
 			llMin = Math.min(llMin, ll);
 			llMax = Math.max(llMax, ll);

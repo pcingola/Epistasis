@@ -10,7 +10,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 
 public class GradientDecent extends Minimizer {
 
-	double mu = 1.0; // Learning rate 
+	double mu = 1.0; // Learning rate
 
 	public GradientDecent(Energy energy) {
 		super(energy);
@@ -35,6 +35,7 @@ public class GradientDecent extends Minimizer {
 				+ "\tTheta: " + Gpr.toString(energy.getTheta()) //
 				+ "\tGradient: " + Gpr.toString(energy.getTheta()) //
 		);
+
 		return true;
 	}
 }
