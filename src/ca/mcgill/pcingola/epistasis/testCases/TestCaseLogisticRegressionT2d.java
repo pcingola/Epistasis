@@ -3,7 +3,7 @@ package ca.mcgill.pcingola.epistasis.testCases;
 import java.util.List;
 
 import junit.framework.TestCase;
-import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.LikelihoodAnalysis;
 
@@ -23,7 +23,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 	 * Model: Genotype is 0/0 for all (so it should match the null model)
 	 */
 	public void test_01() {
-		Gpr.debug("Test");
+		Timer.showStdErr("Test");
 
 		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_01.vcf" };
 		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
@@ -35,6 +35,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 
 		// Check result (only on line)
 		System.out.println(list.get(0).getInfo(LL_INFO_FIELD));
+		Timer.showStdErr("done.");
 		throw new RuntimeException("Missing check condition!");
 	}
 
