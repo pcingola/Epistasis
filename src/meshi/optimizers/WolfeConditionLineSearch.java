@@ -53,7 +53,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 	public static final double DEFAULT_C1 = 1e-4;
 	public static final double DEFAULT_C2 = 0.9;
 	public static final double DEFAULT_EXTENDED_ALPHA_FACTOR = 3.0;
-	public static final int DEFAULT_MAX_NUM_EVALUATIONS = 100;
+	public static final int DEFAULT_MAX_NUM_EVALUATIONS = 10;
 
 	private double maxNumEvaluations;
 	private double extendAlphaFactor;
@@ -157,7 +157,8 @@ public class WolfeConditionLineSearch extends LineSearch {
 			if (debug) Gpr.debug("alpha_I:" + alphaPrev + "\talpha_I1: " + alpha + "\tx : " + Gpr.toString(x) + "\teI1: " + e + "\tgradI1: " + pkGrad);
 
 			if ((e > (e0 + c1 * alpha * grad0)) || ((e >= ePrev) && (numAlphaEvaluations > 0))) {
-				if (debug) Gpr.debug("Wolfe condition I not satisfied: f(x_k + alpha * p_k) <= f(x_k) + c1 * alpha * p_k * grad[ f(x_k) ]" //
+				if (debug) Gpr.debug("Wolfe condition I not satisfied: " //
+						+ "\n\tf(x_k + alpha * p_k) <= f(x_k) + c1 * alpha * p_k * grad[ f(x_k) ]: " + (e <= (e0 + c1 * alpha * grad0)) //
 						+ "\n\tx_k                                        :" + Gpr.toString(x0) //
 						+ "\n\tp_k                                        :" + Gpr.toString(pk) //
 						+ "\n\tp_k * grad[ f(x_k) ]                       :" + grad0 //
@@ -276,6 +277,12 @@ public class WolfeConditionLineSearch extends LineSearch {
 				eHi = eNew;
 				gradHi = gradNew;
 			} else {
+				// This is the second Wolfe condition: p_k * grad[ f(x_k + alpha * p_k) ] >= c2 p_k * grad[ f(x_k) ]
+				if (debug) Gpr.debug("Second Wolfe condition II:" //
+						+ "\n\tp_k * grad[ f(x_k + alpha * p_k) ] >= c2 p_k * grad[ f(x_k) ] : " + (Math.abs(gradNew) <= (c2 * grad0)) //
+						+ "\n\tp_k * grad[ f(x_k + alpha * p_k) ] : " + gradNew //
+						+ "\n\tc2 * p_k * grad[ f(x_k) ]          : " + (c2 * grad0) //
+				);
 
 				if (Math.abs(gradNew) <= (c2 * grad0)) stop = true;
 				else {
