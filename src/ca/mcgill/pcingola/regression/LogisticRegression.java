@@ -24,6 +24,9 @@ public class LogisticRegression extends Regression {
 
 	/**
 	 * Calculate gradient
+	 * Note: Since we want the maximum likelihood and we have a minimization
+	 *       algorithm, we then minimize "negative log-likelihood".
+	 *       That's why the gradient is negative.
 	 */
 	@Override
 	public double[] calcGradient() {
