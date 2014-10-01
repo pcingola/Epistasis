@@ -157,6 +157,16 @@ public class WolfeConditionLineSearch extends LineSearch {
 			if (debug) Gpr.debug("alpha_I:" + alphaPrev + "\talpha_I1: " + alpha + "\tx : " + Gpr.toString(x) + "\teI1: " + e + "\tgradI1: " + pkGrad);
 
 			if ((e > (e0 + c1 * alpha * grad0)) || ((e >= ePrev) && (numAlphaEvaluations > 0))) {
+				if (debug) Gpr.debug("Wolfe condition I not satisfied: f(x_k + alpha * p_k) <= f(x_k) + c1 * alpha * p_k * grad[ f(x_k) ]" //
+						+ "\n\tx_k                                        :" + Gpr.toString(x0) //
+						+ "\n\tp_k                                        :" + Gpr.toString(pk) //
+						+ "\n\tp_k * grad[ f(x_k) ]                       :" + grad0 //
+						+ "\n\talpha                                      :" + alpha //
+						+ "\n\tx_k + alpha * p_k                          :" + Gpr.toString(x) //
+						+ "\n\tf( x_k )                                   :" + e0 //
+						+ "\n\tf( x_k + alpha * p_k )                     :" + e //
+						+ "\n\tf(x_k) + c1 * alpha * p_k * grad[ f(x_k) ] :" + (e0 + c1 * alpha * grad0) //
+				);
 				zoom(x0, pk, false); // Calling the regular zoom
 			} else {
 				if (Math.abs(pkGrad) <= (-c2 * grad0)) {
@@ -192,7 +202,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 		alpha = resAlpha;
 	}
 
-	// The function Zoom finds a step length satisfing the Wolf conditions, given the bracketing of alphaI and alphaI1.
+	// The function Zoom finds a step length satisfying the Wolf conditions, given the bracketing of alphaI and alphaI1.
 	// It was separated into a different function to make the code more readable.
 	private void zoom(double[] x0, double[] pk, boolean inv) {
 		double alphaHi, alphaLow, alphaNew = 0;
