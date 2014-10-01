@@ -20,7 +20,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
  */
 public class LikelihoodAnalysis {
 
-	public static boolean writeToFile = false;
+	public static boolean WRITE_TO_FILE = false;
 
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
@@ -159,6 +159,8 @@ public class LikelihoodAnalysis {
 	 * Fit models and calculate log likelihood test
 	 */
 	void logLikelihood(VcfEntry ve) {
+		boolean writeToFile = WRITE_TO_FILE;
+
 		// Get models for this thread
 		long threadId = Thread.currentThread().getId();
 		LogisticRegression lrAlt = modelAltByThread.get(threadId);
@@ -204,6 +206,7 @@ public class LikelihoodAnalysis {
 			llMax = Math.max(llMax, ll);
 
 			if (show) {
+				writeToFile |= show;
 				System.out.println(ve.toStr() //
 						+ "\tLL_ratio: " + ll //
 						+ "\tLL_max: " + llMax //
@@ -220,11 +223,11 @@ public class LikelihoodAnalysis {
 
 		// Save as TXT table
 		if (writeToFile) {
-			String fileName = Gpr.HOME + "/lr_test.alt.txt";
+			String fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".alt.txt";
 			Gpr.debug("Writing 'alt' table to :" + fileName);
 			Gpr.toFile(fileName, lrAlt.toStringSamples());
 
-			fileName = Gpr.HOME + "/lr_test.null.txt";
+			fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".null.txt";
 			Gpr.debug("Writing 'null' table to :" + fileName);
 			Gpr.toFile(fileName, lrNull.toStringSamples());
 		}
