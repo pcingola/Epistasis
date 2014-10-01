@@ -392,10 +392,10 @@ public class BFGS extends Minimizer {
 		//
 		//                    = B_k^(-1) + coefSkSkT * ( s_k * s_k^T ) - ( a_k * s_k^T + s_k * a_k^T )
 
-		// Binv_(k+1) = Binv_k + (s_k * a_k' + a_k * s_k') + ( curv * (y_k' * a_k) + curv ) * s_k * s_k'
+		// Binv_(k+1) = Binv_k + (s_k * a_k' + a_k * s_k') + coefSkSkT * s_k * s_k'
 		for (i = 0; i < n; i++) {
 			for (j = i; j < n; j++) {
-				Binvk[k] = Binvk[k] + ak[j] * sk[i] + ak[i] * sk[j] + coefSkSkT * sk[i] * sk[j];
+				Binvk[k] = Binvk[k] + coefSkSkT * sk[i] * sk[j] - (ak[j] * sk[i] + ak[i] * sk[j]);
 				tempAbs = Binvk[k] * Binvk[k];
 				if (tempAbs > maxBinvk) maxBinvk = tempAbs;
 				k++;
