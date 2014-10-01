@@ -34,7 +34,7 @@ public class LikelihoodAnalysis {
 	int covariatesToNormalize[] = { 11, 12 };
 	double covariates[][];
 	double pheno[];
-	double llMax = Double.NEGATIVE_INFINITY, llMin = Double.POSITIVE_INFINITY;
+	double llMax = Double.NEGATIVE_INFINITY;
 	String logLikInfoField; // If not null, an INFO field is added
 	String sampleIds[];
 	LogisticRegression lr;
@@ -200,20 +200,17 @@ public class LikelihoodAnalysis {
 
 		// Stats
 		if (Double.isFinite(ll)) {
-			boolean show = (llMax < ll) || (llMin > ll);
-			show = true;
-
-			llMin = Math.min(llMin, ll);
+			boolean show = (llMax < ll);
 			llMax = Math.max(llMax, ll);
 
 			if (show) {
 				System.out.println(ve.toStr() //
 						+ "\tLL_ratio: " + ll //
-						+ "\tLL range: " + llMin + " / " + llMax //
+						+ "\tLL_max: " + llMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //
 				);
-			} else Timer.show(count + "\t" + ve.toStr());
+			} else Timer.show(count + "\tLL_ratio: " + ll + "\t" + ve.toStr());
 
 		} else {
 			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
