@@ -136,8 +136,6 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 		energyOld = energyNew; // For the next time line search is called
 
-		if (debug) Gpr.debug("Energy: " + energy + "\n\tx0: " + Gpr.toString(x0) + "\n\tpk: " + Gpr.toString(pk) + "\n\tgrad0: " + grad0);
-
 		// Bracketing the Wolf area
 		while ((numAlphaEvaluations <= maxNumEvaluations) && (!stop)) {
 			numAlphaEvaluations++;
@@ -153,8 +151,6 @@ public class WolfeConditionLineSearch extends LineSearch {
 			grad = energy.getGradient();
 			for (i = 0; i < n; i++)
 				pkGrad += pk[i] * grad[i];
-
-			if (debug) Gpr.debug("alpha_I:" + alphaPrev + "\talpha_I1: " + alpha + "\tx : " + Gpr.toString(x) + "\teI1: " + e + "\tgradI1: " + pkGrad);
 
 			if ((e > (e0 + c1 * alpha * grad0)) || ((e >= ePrev) && (numAlphaEvaluations > 0))) {
 				if (debug) Gpr.debug("Wolfe condition I not satisfied: " //
@@ -189,6 +185,8 @@ public class WolfeConditionLineSearch extends LineSearch {
 			energy.evaluate();
 			throw new LineSearchException(LineSearchException.WOLF_CONDITION_NOT_MET, "\n\nWolf conditions not met. The line search did not converge, and exceeded the maximal number of step extensions allowed.\n");
 		}
+
+		if (debug) Gpr.debug("alpha_final: " + alphaFinal + "\t" + this);
 
 		return alphaFinal;
 	}
@@ -279,12 +277,12 @@ public class WolfeConditionLineSearch extends LineSearch {
 			} else {
 				// This is the second Wolfe condition: p_k * grad[ f(x_k + alpha * p_k) ] >= c2 p_k * grad[ f(x_k) ]
 				if (debug) Gpr.debug("Second Wolfe condition II:" //
-						+ "\n\tp_k * grad[ f(x_k + alpha * p_k) ] >= c2 p_k * grad[ f(x_k) ] : " + (Math.abs(gradNew) <= (c2 * grad0)) //
+						+ "\n\tp_k * grad[ f(x_k + alpha * p_k) ] >= c2 p_k * grad[ f(x_k) ] : " + (gradNew >= (c2 * grad0)) //
 						+ "\n\tp_k * grad[ f(x_k + alpha * p_k) ] : " + gradNew //
 						+ "\n\tc2 * p_k * grad[ f(x_k) ]          : " + (c2 * grad0) //
 				);
 
-				if (Math.abs(gradNew) <= (c2 * grad0)) stop = true;
+				if (gradNew >= (c2 * grad0)) stop = true;
 				else {
 					if ((gradNew * (alphaHi - alphaLow)) >= 0) {
 						alphaHi = alphaLow;
