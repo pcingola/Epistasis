@@ -135,7 +135,7 @@ public class BFGS extends Minimizer {
 	protected double[] gradNegk; // The (-) gradient at iteration k
 	protected double[] sk; // s_k : The coordinates difference before the inverse Hessian update
 	protected double[] yk; // y_k : The (-) gradients difference before the inverse Hessian update
-	protected double[] Ak; // A_k = Hk * yk
+	protected double[] ak; // A_k = Hk * yk
 	protected double[] coordinates; // The position and gradients of the system
 	protected double[] bufferCoordinates;
 	protected int iterationNum; // Iterations counter
@@ -196,7 +196,7 @@ public class BFGS extends Minimizer {
 		yk = new double[n];
 		gradNegk = new double[n];
 		sk = new double[n];
-		Ak = new double[n];
+		ak = new double[n];
 		iterationNum = 0;
 
 		steepestDecent.setDebug(debug);
@@ -255,8 +255,8 @@ public class BFGS extends Minimizer {
 		if (debug) Gpr.debug(this);
 
 		double curv = 0; // The curvature index
-		double YHY; // Yk*Hk*Yk
-		double Coef; // A temporary result
+		double ykBinvYkCurv; // Yk*Hk*Yk
+		double coefSkSkT; // A temporary result
 		double MaxH; // The maximal entry in H (in term of magnitude)
 		int i, j, k; // auxilary counters
 		double tempAbs;
@@ -338,7 +338,7 @@ public class BFGS extends Minimizer {
 		} else curv = -1 / curv;
 
 		//---
-		// Step 4: Updating the inverse Hessian estimation
+		// Step 4: Update inverse Hessian estimation
 		//         B_{k+1)^-1 = B_k^(-1)
 		//                      + ( s_k^T * y_k + y_k^T Binv_k * y_k ) * 1 / (( s_k^T * y_k )^2)
 		//                      - ( Binv_k * y_k * s_k^T + s_k * y_k^T * Binv_k ) * 1 / ( s_k^T * y_k )
@@ -346,37 +346,54 @@ public class BFGS extends Minimizer {
 		//               i)   curv = 1 / ( s_k^T * y_k )		is a scalar
 		//               ii)  y_k * s_k^T = (s_k * y_k^T)^T		is a rank one matrix
 		//               iii) s_k * s_k^T						is another rank one matrix
-		//				 iV)  A_k = curv * Binv_k * y_k			is a vector
+		//				 iV)  a_k = curv * Binv_k * y_k			is a vector
 		//---
 
-		// A_k = curv * Binv_k * y_k = Binv_k * y_k / ( s_k^T * y_k )
+		// a_k =  Binv_k * y_k / ( s_k^T * y_k ) = curv * Binv_k * y_k
 		for (i = 0; i < n; i++) {
-			Ak[i] = 0;
+			ak[i] = 0;
 			k = i;
 
 			for (j = 0; j < i; j++) {
-				Ak[i] += Binvk[k] * yk[j];
+				ak[i] += Binvk[k] * yk[j];
 				k += (n - 1 - j);
 			}
 
 			for (j = i; j < n; j++) {
-				Ak[i] += Binvk[k] * yk[j];
+				ak[i] += Binvk[k] * yk[j];
 				k++;
 			}
 
-			Ak[i] = curv * Ak[i];
+			ak[i] = curv * ak[i];
 		}
 
-		// Hk+1 = Hk + (Sk*Ak' + Ak*Sk') + (Curv*(Yk'*Ak) + Curv)*Sk*Sk'
-		YHY = 0;
+		// Calculate ykBinvYkCurv = y_k' * Binv_k * y_k
+		//                    = y_k' * ( curv * Binv_k * y_k ) / curv
+		//                    = y_k' * a_k / curv
+		ykBinvYkCurv = 0;
 		MaxH = 0;
 		for (i = 0; i < n; i++)
-			YHY += yk[i] * Ak[i];
-		Coef = curv * YHY + curv;
+			ykBinvYkCurv += yk[i] * ak[i];
+
+		// Coefficient multiplying s_k * s_k^T matrix:
+		//
+		// coefSkSkT = ( s_k^T * y_k + y_k' * Binv_k * y_k ) / ( s_k^T * y_k )^2
+		//           = ( s_k^T * y_k ) / ( s_k^T * y_k )^2 + ( y_k' * Binv_k * y_k ) / ( s_k^T * y_k )^2
+		//           = 1 / ( s_k^T * y_k ) + ( y_k' * Binv_k * y_k ) / ( s_k^T * y_k )^2
+		//           = curv + ( ykBinvYkCurv ) / ( s_k^T * y_k )
+		//           = curv + ykBinvYkCurv * curv
+		coefSkSkT = curv * ykBinvYkCurv + curv;
 		k = 0;
+
+		// Update inverse Hessian estimation
+		//         B_{k+1)^-1 = B_k^(-1)
+		//                      + ( s_k^T * y_k + y_k^T Binv_k * y_k ) * 1 / (( s_k^T * y_k )^2)
+		//                      - ( Binv_k * y_k * s_k^T + s_k * y_k^T * Binv_k ) * 1 / ( s_k^T * y_k )
+
+		// Binv_(k+1) = Binv_k + (s_k * a_k' + a_k * s_k') + ( curv * (y_k' * a_k) + curv ) * s_k * s_k'
 		for (i = 0; i < n; i++) {
 			for (j = i; j < n; j++) {
-				Binvk[k] = Binvk[k] + Ak[j] * sk[i] + Ak[i] * sk[j] + Coef * sk[i] * sk[j];
+				Binvk[k] = Binvk[k] + ak[j] * sk[i] + ak[i] * sk[j] + coefSkSkT * sk[i] * sk[j];
 				tempAbs = Binvk[k] * Binvk[k];
 				if (tempAbs > MaxH) MaxH = tempAbs;
 				k++;
