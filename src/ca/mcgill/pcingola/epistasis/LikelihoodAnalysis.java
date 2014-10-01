@@ -190,11 +190,19 @@ public class LikelihoodAnalysis {
 		}
 
 		// Calculate logistic models
-		lrAlt.setDebug(debug);
-		lrAlt.learn();
-
 		lrNull.setDebug(debug);
 		lrNull.learn();
+
+		// Use null model as start point for ALT model
+		double thetaNull[] = lrNull.getTheta();
+		double thetaAlt[] = lrAlt.getTheta();
+		thetaAlt[0] = 0;
+		for (int i = 0; i < thetaNull.length; i++)
+			thetaAlt[i + 1] = thetaNull[i];
+
+		Gpr.debug("theta_0 (Alt): " + Gpr.toString(lrAlt.getTheta()));
+		lrAlt.setDebug(debug);
+		lrAlt.learn();
 
 		// Calculate likelihood ratio
 		double ll = -2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
