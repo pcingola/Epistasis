@@ -29,6 +29,7 @@ public class LikelihoodAnalysis {
 	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/t2d_13K.test_02.vcf";
 
 	boolean debug = false;
+	boolean writeToFile = WRITE_TO_FILE;
 	int numSamples, numCovs;
 	int count = 0;
 	int covariatesToNormalize[] = { 11, 12 };
@@ -159,7 +160,7 @@ public class LikelihoodAnalysis {
 	 * Fit models and calculate log likelihood test
 	 */
 	void logLikelihood(VcfEntry ve) {
-		boolean writeToFile = WRITE_TO_FILE;
+		boolean writeToFile = this.writeToFile;
 
 		// Get models for this thread
 		long threadId = Thread.currentThread().getId();
@@ -321,5 +322,9 @@ public class LikelihoodAnalysis {
 
 	public void setLogLikInfoField(String logLikInfoField) {
 		this.logLikInfoField = logLikInfoField;
+	}
+
+	public void setWriteToFile(boolean writeToFile) {
+		this.writeToFile = writeToFile;
 	}
 }
