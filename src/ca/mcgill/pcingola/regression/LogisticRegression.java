@@ -19,6 +19,13 @@ public class LogisticRegression extends Regression {
 		super(size);
 	}
 
+	/**
+	 * AIC: Minus twice the maximized log-likelihood plus twice the number of parameters
+	 */
+	public double aic() {
+		return deviance() + 2 * size;
+	}
+
 	@Override
 	protected double calcEnergy() {
 		return (IMPLEMENTATION_CORRECT ? -1 : 1) * (1.0 / numSamples) * logLikelihood();
@@ -54,6 +61,16 @@ public class LogisticRegression extends Regression {
 		return gradient;
 	}
 
+	/**
+	 * Deviance: minus twice the maximized log-likelihood.
+	 */
+	public double deviance() {
+		return -2.0 * logLikelihood_OK();
+	}
+
+	/**
+	 * Has the algorithm converged?
+	 */
 	public boolean hasConverged() {
 		double sum = 0.0;
 
