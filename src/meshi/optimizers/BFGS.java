@@ -333,7 +333,7 @@ public class BFGS extends Minimizer {
 		}
 
 		if (curv == 0) {
-			System.err.println("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable\n");
+			if (debug) Gpr.debug("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable, curv : " + curv);
 			return false;
 		} else curv = -1 / curv;
 
