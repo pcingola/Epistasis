@@ -257,7 +257,7 @@ public class BFGS extends Minimizer {
 		double curv = 0; // The curvature index
 		double ykBinvYkCurv; // Yk*Hk*Yk
 		double coefSkSkT; // A temporary result
-		double MaxH; // The maximal entry in H (in term of magnitude)
+		double maxBinvk; // The maximal entry in H (in term of magnitude)
 		int i, j, k; // auxilary counters
 		double tempAbs;
 
@@ -340,7 +340,7 @@ public class BFGS extends Minimizer {
 		//---
 		// Step 4: Update inverse Hessian estimation
 		//         B_{k+1)^-1 = B_k^(-1)
-		//                      + ( s_k^T * y_k + y_k^T Binv_k * y_k ) * 1 / (( s_k^T * y_k )^2)
+		//                      + ( s_k^T * y_k + y_k^T Binv_k * y_k ) * 1 / (( s_k^T * y_k )^2) * ( s_k * s_k^T )
 		//                      - ( Binv_k * y_k * s_k^T + s_k * y_k^T * Binv_k ) * 1 / ( s_k^T * y_k )
 		//         Note that
 		//               i)   curv = 1 / ( s_k^T * y_k )		is a scalar
@@ -371,7 +371,7 @@ public class BFGS extends Minimizer {
 		//                    = y_k' * ( curv * Binv_k * y_k ) / curv
 		//                    = y_k' * a_k / curv
 		ykBinvYkCurv = 0;
-		MaxH = 0;
+		maxBinvk = 0;
 		for (i = 0; i < n; i++)
 			ykBinvYkCurv += yk[i] * ak[i];
 
@@ -389,17 +389,19 @@ public class BFGS extends Minimizer {
 		//         B_{k+1)^-1 = B_k^(-1)
 		//                      + ( s_k^T * y_k + y_k^T Binv_k * y_k ) * 1 / (( s_k^T * y_k )^2)
 		//                      - ( Binv_k * y_k * s_k^T + s_k * y_k^T * Binv_k ) * 1 / ( s_k^T * y_k )
+		//
+		//                    = B_k^(-1) + coefSkSkT * ( s_k * s_k^T ) - ( a_k * s_k^T + s_k * a_k^T )
 
 		// Binv_(k+1) = Binv_k + (s_k * a_k' + a_k * s_k') + ( curv * (y_k' * a_k) + curv ) * s_k * s_k'
 		for (i = 0; i < n; i++) {
 			for (j = i; j < n; j++) {
 				Binvk[k] = Binvk[k] + ak[j] * sk[i] + ak[i] * sk[j] + coefSkSkT * sk[i] * sk[j];
 				tempAbs = Binvk[k] * Binvk[k];
-				if (tempAbs > MaxH) MaxH = tempAbs;
+				if (tempAbs > maxBinvk) maxBinvk = tempAbs;
 				k++;
 			}
 		}
-		if (MaxH > allowedMaxH) {
+		if (maxBinvk > allowedMaxH) {
 			System.out.println("Minimization Error: The inverse Hessian is very badly scaled, and is unreliable\n");
 			return false;
 		}
