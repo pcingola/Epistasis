@@ -94,11 +94,11 @@ public class WolfeConditionLineSearch extends LineSearch {
 	@Override
 	public double findStepLength() throws LineSearchException {
 		energy.copyTheta(xCopy);
-		return findStepLength(xCopy, energy.getGradient());
+		return findStepLength(xCopy, energy.getGradient(-1.0));
 	}
 
 	public double findStepLength(double x0[], double pk[]) throws LineSearchException {
-		if (debug) Gpr.debug(this);
+		if (debug) Gpr.debug(this + "\n\tpk : " + Gpr.toString(pk));
 
 		// Initializing the run
 		energyNew = energy.getEnergy();
@@ -107,7 +107,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 		grad0 = 0;
 		double grad[] = energy.getGradient();
 		for (i = 0; i < n; i++)
-			grad0 -= pk[i] * grad[i];
+			grad0 += pk[i] * grad[i];
 
 		// Sanity check: Is this in the descent direction?
 		if (grad0 >= 0) {
@@ -139,7 +139,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 
 			// Calculating left hand side of first Wolfe condition: eI1 = f(x0 + alpha * pk)
 			for (i = 0; i < n; i++)
-				x[i] = x0[i] - alpha * pk[i];
+				x[i] = x0[i] + alpha * pk[i];
 			energy.needsUpdate(); // Force energy function update
 			e = energy.evaluate();
 
@@ -147,7 +147,7 @@ public class WolfeConditionLineSearch extends LineSearch {
 			pkGrad = 0;
 			grad = energy.getGradient();
 			for (i = 0; i < n; i++)
-				pkGrad -= pk[i] * grad[i];
+				pkGrad += pk[i] * grad[i];
 
 			if (debug) Gpr.debug("alpha_I:" + alphaPrev + "\talpha_I1: " + alpha + "\tx : " + Gpr.toString(x) + "\teI1: " + e + "\tgradI1: " + pkGrad);
 

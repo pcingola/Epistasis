@@ -91,6 +91,16 @@ public abstract class Energy {
 		return gradient;
 	}
 
+	/**
+	 * Scaled gradient
+	 */
+	public double[] getGradient(double factor) {
+		double ng[] = new double[gradient.length];
+		for (int i = 0; i < ng.length; i++)
+			ng[i] = factor * gradient[i];
+		return ng;
+	}
+
 	public double[] getTheta() {
 		return theta;
 	}
