@@ -11,6 +11,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.regression.LogisticRegression;
+import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
 
 /**
  * Logistic regression log-likelihood analysis of VCF + phenotype data
@@ -43,7 +44,7 @@ public class LikelihoodAnalysis {
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
 
-		boolean debug = true;
+		boolean debug = false;
 
 		LikelihoodAnalysis zzz = new LikelihoodAnalysis(args);
 
@@ -74,7 +75,7 @@ public class LikelihoodAnalysis {
 		//---
 		// Create alternative model
 		//---
-		LogisticRegression lrAlt = new LogisticRegression(numCovs);
+		LogisticRegression lrAlt = new LogisticRegressionBfgs(numCovs);
 
 		// Copy all covariates, except first one (phenotype row)
 		double xAlt[][] = new double[numSamples][numCovs];
@@ -88,7 +89,7 @@ public class LikelihoodAnalysis {
 		//---
 		// Create null model
 		//---
-		LogisticRegression lrNull = new LogisticRegression(numCovs - 1); // No genotypes
+		LogisticRegression lrNull = new LogisticRegressionBfgs(numCovs - 1); // No genotypes
 
 		// Copy all covariates, except first one (phenotype row)
 		double xNull[][] = new double[numSamples][numCovs - 1];
