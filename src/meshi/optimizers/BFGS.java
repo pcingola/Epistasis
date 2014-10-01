@@ -338,11 +338,18 @@ public class BFGS extends Minimizer {
 		} else curv = -1 / curv;
 
 		//---
-		// Step 4Updating the inverse Hessian
-		// B_{k+1)^-1 = B_k^(-1) +
+		// Step 4: Updating the inverse Hessian estimation
+		//         B_{k+1)^-1 = B_k^(-1)
+		//                      + ( s_k^T * y_k + y_k^T Binv_k * y_k ) * 1 / (( s_k^T * y_k )^2)
+		//                      - ( Binv_k * y_k * s_k^T + s_k * y_k^T * Binv_k ) * 1 / ( s_k^T * y_k )
+		//         Note that
+		//               i)   curv = 1 / ( s_k^T * y_k )		is a scalar
+		//               ii)  y_k * s_k^T = (s_k * y_k^T)^T		is a rank one matrix
+		//               iii) s_k * s_k^T						is another rank one matrix
+		//				 iV)  A_k = curv * Binv_k * y_k			is a vector
 		//---
 
-		// A_k = curv * Binv_k * y_k
+		// A_k = curv * Binv_k * y_k = Binv_k * y_k / ( s_k^T * y_k )
 		for (i = 0; i < n; i++) {
 			Ak[i] = 0;
 			k = i;
