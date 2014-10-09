@@ -5,8 +5,13 @@ import meshi.optimizers.exceptions.OptimizerException;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
- *This class implements a BFGS minimizer according to the scheme in: Numerical Optimization by J. Nocendal &
- *S. J. Wright, Springer 1999, pp 193-201.
+ * BFGS optimization algorithm. Originally written for Meshi package.
+ * Optimized, debugged and corrected by Pablo Cingolani.
+ *
+ * Reference: http://svn.codehaus.org/jtstand/jtsandbox/src/main/java/meshi/optimizers/BFGS.java
+ *
+ * This class implements a BFGS minimizer according to the scheme in: Numerical Optimization by J. Nocendal &
+ * S. J. Wright, Springer 1999, pp 193-201.
  *
  * This class was written by Nir Kalisman as part of the MESHI package Kalisman et al. (2005) Bioinformatics 21:3931-3932
  *
@@ -62,8 +67,6 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
  *                       unrealiable, by having huge numbers in the H entries. This parameter sets a upper limit on the
  *                       matrix H entries. Higher values would lead to a new kick-start. This value should be somewhere
  *                       in the range (10-100)*n (lower is more conservative).
- *- maxNumKickStarts - 3 - If the minimzer become unstable for some reason, it could be restarted from the current position.
- *                         This parameter determined how many times this could happen before the minimization is aborted.
  *
  *
  *Parameters specific to the Wolf conditions line search
@@ -121,7 +124,7 @@ public class BFGS extends Minimizer {
 	// Constant parameters
 	public final int MAX_NUM_VARIABLES = 3000;
 	public static final double DEFAULT_ALLOWED_MAX_H_FACTOR = 100;
-	public static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
+	// public static final int DEFAULT_MAX_NUM_KICK_STARTS = 3; // Don't change this number unless necessary
 	public static final int DEFAULT_NUM_STEP_STEEPEST_DECENT = 50;
 	public static final double DEFAULT_STEP_SIZE_EXPANTION = 1.1; // 2.0;
 
@@ -176,7 +179,6 @@ public class BFGS extends Minimizer {
 
 	public BFGS(Energy energy) {
 		this(energy, DEFAULT_ALLOWED_MAX_H_FACTOR * energy.getTheta().length //
-				, DEFAULT_MAX_NUM_KICK_STARTS //
 				, WolfeConditionLineSearch.DEFAULT_C1 //
 				, WolfeConditionLineSearch.DEFAULT_C2//
 				, WolfeConditionLineSearch.DEFAULT_EXTENDED_ALPHA_FACTOR //
@@ -189,12 +191,12 @@ public class BFGS extends Minimizer {
 	}
 
 	public BFGS(Energy energy //
-			, double allowedMaxH, int maxNumKickStarts // General minimization parameters
+			, double allowedMaxH // General minimization parameters
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Parameters specific to the Wolf conditions line search
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest Decent parameters
 			) {
 		super(energy);
-		setParameters(allowedMaxH, maxNumKickStarts, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
+		setParameters(allowedMaxH, c1, c2, extendAlphaFactorWolfSearch, maxNumEvaluationsWolfSearch, numStepsSteepestDecent, initStepSteepestDecent, stepSizeReductionSteepestDecent, stepSizeExpansionSteepestDecent);
 	}
 
 	@Override
@@ -271,8 +273,6 @@ public class BFGS extends Minimizer {
 	 */
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		// if (debug) Gpr.debug(this);
-
 		double curv = 0; // The curvature index
 		double ykBinvYkCurv; // yk * Binvk * yk
 		double coefSkSkT; // A temporary result
@@ -428,7 +428,7 @@ public class BFGS extends Minimizer {
 	/**
 	 * Set initial parameters
 	 */
-	protected void setParameters(double allowedMaxH, int maxNumKickStarts // General
+	protected void setParameters(double allowedMaxH // General
 			, double c1, double c2, double extendAlphaFactorWolfSearch, int maxNumEvaluationsWolfSearch // Wolfe
 			, int numStepsSteepestDecent, double initStepSteepestDecent, double stepSizeReductionSteepestDecent, double stepSizeExpansionSteepestDecent // Steepest descent
 			) {
