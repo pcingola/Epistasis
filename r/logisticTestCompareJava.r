@@ -9,6 +9,9 @@
 
 library(epicalc)
 
+calcGlm <- FALSE
+calcGlm <- TRUE
+
 #-------------------------------------------------------------------------------
 # Sigmoid finction
 #-------------------------------------------------------------------------------
@@ -24,8 +27,15 @@ log.lik <- function(y, p) {
 # Main
 #-------------------------------------------------------------------------------
 
-name <- 'lr_test.1_10002.alt'
 name <- 'lr_test.1_10001.alt'
+name <- 'lr_test.1_10002.alt'
+
+# lr_test.1_10002.alt:
+#	(Intercept)   in0   in1        in2        in3     in4    in5      in6      in7         in8         in9         in10       in11     in12  
+#	-2.657e+01    5.3   -5.8e-09   -4.3e-09   -2e-10  -9e-09 -5.5e-09 -5.1e-09 -2.887e-09  6.914e-09   -1.7e-09    1.2e-09    1.2e-11  1.4e-10  
+#
+#                 [5.3, 0,         0,         0,      0,     0,       0,       0,          0,          0,          0,         0,       0,       -0.26 ]
+#
 
 # Load data from TXT file. See Regression.toStringSample() method
 if( ! exists('d') ) {
@@ -40,8 +50,7 @@ if( ! exists('d') ) {
 #---
 # Calculate logistic regression models
 #---
-
-if( F ) {
+if( calcGlm ) {
 	# Full model, takes into account genotypes and PCs
 	lr.alt  <- glm( out ~ in0 + in1 + in2 + in3 + in4 + in5 + in6 + in7 + in8 + in9 + in10 + in11 + in12 , family=binomial, data=d)
 
@@ -80,20 +89,29 @@ if( F ) {
 # IRWLS
 #---
 
-X <- as.matrix( d[,1:13] )
-Xzero <- as.matrix( d[,1:14] )
+# Initialize
+X <- as.matrix( d[,1:13] )		# Data to fit
+Xzero <- as.matrix( d[,1:14] )	# Data to fi: Include intercepts (last columns of '1')
 
 N <- dim(X)[2] + 1
 beta <- rep(0, N)
 
 y <- as.numeric(d$out)
 
-eta <- Xzero %*% beta
-mu <- 1 / (1 + exp( - eta))
-nu <- mu * (1 - mu)
-zeta <- eta + (y - mu) / nu
-w <- nu
+for( i in 1:10 ) {
+	# Update parameters
+	eta <- Xzero %*% beta
+	mu <- 1 / (1 + exp( - eta))
+	nu <- mu * (1 - mu)
+	zeta <- eta + (y - mu) / nu
+	w <- nu
 
-dd <- data.frame( X, zeta )
-slm <- lm( zeta ~ in0 + in1 + in2 + in3 + in4 + in5 + in6 + in7 + in8 + in9 + in10 + in11 + in12 , data=dd, weights=w)
+	# Fit weighted model
+	dd <- data.frame( X, zeta )
+	slm <- lm( zeta ~ in0 + in1 + in2 + in3 + in4 + in5 + in6 + in7 + in8 + in9 + in10 + in11 + in12 , data=dd, weights=w)
+
+	# Update beta
+	beta <- as.vector( c( slm$coefficients[2:14], slm$coefficients[1] ) )
+	cat('Beta:', beta, '\n')
+}
 
