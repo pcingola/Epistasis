@@ -118,6 +118,20 @@ public abstract class Energy {
 		return thetaBest;
 	}
 
+	/**
+	 * Gradient's norm
+	 */
+	public double gradientNorm() {
+		double sum = 0;
+
+		for (int i = 0; i < theta.length; i++) {
+			double g = gradient[i];
+			sum += g * g;
+		}
+
+		return Math.sqrt(sum);
+	}
+
 	public void needsUpdate() {
 		energyNeedsUpdate = gradientNeedsUpdate = true;
 	}

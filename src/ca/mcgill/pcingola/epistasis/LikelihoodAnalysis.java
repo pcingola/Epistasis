@@ -25,8 +25,8 @@ public class LikelihoodAnalysis {
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/t2d_13K.test_02.vcf";
+	// String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
 
 	boolean debug = false;
 	boolean writeToFile = WRITE_TO_FILE;

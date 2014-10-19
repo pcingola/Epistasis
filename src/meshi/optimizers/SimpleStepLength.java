@@ -70,13 +70,6 @@ public class SimpleStepLength extends LineSearch {
 
 			energy.addThetaBestGradient(-stepSize);
 			energyNew = energy.updateEnergy(); // The energy at the new coordinates.
-
-			//			if (debug) Gpr.debug("" //
-			//					+ "step : " + stepSize //
-			//					+ "\tenergy : " + energyNew //
-			//					+ "\tmodel : " + Gpr.toString(energy.getTheta()) //
-			//					+ "\tgradient : " + Gpr.toString(energy.getGradient()) //
-			//			);
 		}
 
 		return stepSize;
