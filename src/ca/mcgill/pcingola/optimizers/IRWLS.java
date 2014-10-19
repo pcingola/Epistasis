@@ -3,6 +3,7 @@ package ca.mcgill.pcingola.optimizers;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.optimizers.exceptions.OptimizerException;
 import ca.mcgill.pcingola.regression.LogisticRegression;
+import ca.mcgill.pcingola.regression.WeightedLinearRegression;
 
 /**
  * IRWLS optimization algorithm (Iterated Re-Weighted Least Squares) 
@@ -66,6 +67,9 @@ public class IRWLS extends Minimizer {
 		}
 
 		// Step II: Solve weighted least square problem
+		WeightedLinearRegression wlr = new WeightedLinearRegression();
+		wlr.regress(Y, X, W);
+
 		return true;
 	}
 }

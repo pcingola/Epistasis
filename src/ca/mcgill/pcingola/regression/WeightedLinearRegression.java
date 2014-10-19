@@ -7,7 +7,7 @@ package ca.mcgill.pcingola.regression;
  *
  * Adapted by pcingola
  */
-public class LinearRegression {
+public class WeightedLinearRegression {
 
 	double[][] V; // Least squares and var/covar matrix
 	public double[] C; // Coefficients
