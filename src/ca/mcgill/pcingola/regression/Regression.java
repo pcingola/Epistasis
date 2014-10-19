@@ -34,6 +34,13 @@ public abstract class Regression extends Energy {
 		if (in[0].length != (dim - 1)) throw new RuntimeException("Input dimension does not model size. Dim(in) = [ " + in.length + " , " + in[0].length + " ], Dim(out) = " + (dim - 1));
 	}
 
+	/**
+	 * Number of samples to regress
+	 */
+	public int getNumSamples() {
+		return samplesY.length;
+	}
+
 	public double[] getOut() {
 		return out;
 	}

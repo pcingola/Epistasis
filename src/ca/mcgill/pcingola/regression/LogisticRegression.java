@@ -12,6 +12,7 @@ public class LogisticRegression extends Regression {
 
 	// public static final boolean IMPLEMENTATION_CORRECT = true;
 
+	double h[]; // Predicted outputs (model output)
 	double minGradient = 0.0001;
 	double eta = 1.0; // Learning (gradient)
 
@@ -68,6 +69,10 @@ public class LogisticRegression extends Regression {
 		return -2.0 * logLikelihood();
 	}
 
+	public double[] getH() {
+		return h;
+	}
+
 	/**
 	 * Has the algorithm converged?
 	 */
@@ -97,6 +102,23 @@ public class LogisticRegression extends Regression {
 		return loglik;
 	}
 
+	/**
+	 * Apply model to all in[]
+	 */
+	@Override
+	public double[] predict() {
+		if (out == null) {
+			out = new double[samplesX.length];
+			h = new double[samplesX.length];
+		}
+
+		// Calculate model for each input
+		for (int i = 0; i < numSamples; i++)
+			out[i] = predict(i);
+
+		return out;
+	}
+
 	@Override
 	public double predict(double[] in) {
 		double h = 0.0;
@@ -107,8 +129,27 @@ public class LogisticRegression extends Regression {
 
 		h += theta[size]; // Last value is 'bias'
 
-		// logit(h)
+		// Calculate logit(h)
 		return 1.0 / (1.0 + Math.exp(-h));
+	}
+
+	/**
+	 * Predict input sample 'idx'
+	 */
+	protected double predict(int idx) {
+		double sum = 0.0;
+		double in[] = samplesX[idx];
+
+		// h = beta * in
+		for (int i = 0; i < size; i++)
+			sum += in[i] * theta[i];
+
+		sum += theta[size]; // Last value is 'bias'
+
+		h[idx] = sum; // Store 'h'
+
+		// Calculate logit(h)
+		return 1.0 / (1.0 + Math.exp(-sum));
 	}
 
 	@Override

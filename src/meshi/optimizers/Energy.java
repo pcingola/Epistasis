@@ -77,6 +77,10 @@ public abstract class Energy {
 		return energy;
 	}
 
+	public int getDim() {
+		return dim;
+	}
+
 	/**
 	 * Returns latest energy value
 	 **/

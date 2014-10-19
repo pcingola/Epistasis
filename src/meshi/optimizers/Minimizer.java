@@ -18,10 +18,21 @@ public abstract class Minimizer extends Optimizer {
 		super(energy);
 	}
 
+	/**
+	 * Initialize algorithm
+	 */
 	protected abstract void init() throws OptimizerException;
 
+	/**
+	 * Kick-start the algorithm after minimization step failed
+	 */
 	protected abstract void kickStart() throws OptimizerException;
 
+	/**
+	 * Minimize
+	 * @return true if OK, false if 'kickstart' is required
+	 * @throws OptimizerException
+	 */
 	protected abstract boolean minimizationStep() throws OptimizerException;
 
 	@Override
