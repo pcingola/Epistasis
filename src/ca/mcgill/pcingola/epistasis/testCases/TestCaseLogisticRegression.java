@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.optimizers.BFGS;
 import ca.mcgill.pcingola.optimizers.GradientDecent;
-import ca.mcgill.pcingola.optimizers.Irwls;
+import ca.mcgill.pcingola.optimizers.IRWLS;
 import ca.mcgill.pcingola.optimizers.Minimizer;
 import ca.mcgill.pcingola.optimizers.SteepestDecent;
 import ca.mcgill.pcingola.regression.LogisticRegression;
@@ -81,7 +81,7 @@ public class TestCaseLogisticRegression extends TestCase {
 			break;
 
 		case "irwls":
-			minimizer = new Irwls(lr);
+			minimizer = new IRWLS(lr);
 			break;
 
 		case "steepest":

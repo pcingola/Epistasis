@@ -1,6 +1,6 @@
 package ca.mcgill.pcingola.regression;
 
-import ca.mcgill.pcingola.optimizers.Irwls;
+import ca.mcgill.pcingola.optimizers.IRWLS;
 
 /**
  * Logistic regression
@@ -12,13 +12,13 @@ public class LogisticRegressionIrwls extends LogisticRegression {
 
 	public LogisticRegressionIrwls(int size) {
 		super(size);
-		minimizer = new Irwls(this);
+		minimizer = new IRWLS(this);
 	}
 
 	@Override
 	public void reset() {
 		super.reset();
-		minimizer = new Irwls(this);
+		minimizer = new IRWLS(this);
 	}
 
 }

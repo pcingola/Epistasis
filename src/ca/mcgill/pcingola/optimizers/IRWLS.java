@@ -5,8 +5,8 @@ import ca.mcgill.pcingola.optimizers.exceptions.OptimizerException;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
 /**
- * IRWLS optimization algorithm: Specifically implemented 
- * for Logistic Regression (binary output)
+ * IRWLS optimization algorithm (Iterated Re-Weighted Least Squares) 
+ * Specifically implemented for Logistic Regression (binary output)
  * 
  * References:
  * 
@@ -20,14 +20,14 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  *															Pablo Cingolani 2014
  **/
 
-public class Irwls extends Minimizer {
+public class IRWLS extends Minimizer {
 
 	int iterationNum = 0;
 	LogisticRegression logReg;
 	double zeta[]; // Output and derivate
 	double w[]; // Weights for re-weighted least squares
 
-	public Irwls(LogisticRegression logReg) {
+	public IRWLS(LogisticRegression logReg) {
 		super(logReg);
 		this.logReg = logReg;
 		zeta = new double[logReg.getNumSamples()];
