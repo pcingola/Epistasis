@@ -5,7 +5,9 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
 /**
- * IRWLS optimization algorithm (specifically implemented for Logistic regression)
+ * IRWLS optimization algorithm: Specifically implemented 
+ * for Logistic Regression (binary output)
+ * 
  * References:
  * 
  * 	i) "Introduction to Generalized Linear Models" by Heather Turner
@@ -14,6 +16,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  *	ii) "Exercises (Part 4), Introduction to R UCLA/CCPR", John Fox, February 2005
  *		http://socserv.socsci.mcmaster.ca/jfox/Courses/UCLA/Exercises-4.pdf
  *
+ * Note: We use "Generalized Linear models" nomenclature
  *															Pablo Cingolani 2014
  **/
 
@@ -21,14 +24,12 @@ public class Irwls extends Minimizer {
 
 	int iterationNum = 0;
 	LogisticRegression logReg;
-	double nu[]; // Variance parameter
 	double zeta[]; // Output and derivate
 	double w[]; // Weights for re-weighted least squares
 
 	public Irwls(LogisticRegression logReg) {
 		super(logReg);
 		this.logReg = logReg;
-		nu = new double[logReg.getNumSamples()];
 		zeta = new double[logReg.getNumSamples()];
 		w = new double[logReg.getNumSamples()];
 	}
@@ -51,11 +52,20 @@ public class Irwls extends Minimizer {
 	 */
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
+		// Step I: Evaluate logistic regression and 
+		//         calculate intermediate variables nu, zeta, w
 		logReg.evaluate();
+		double eta[] = logReg.getH();
+		double mu[] = logReg.getOut();
+		double y[] = logReg.getSamplesY();
 
-		logReg.getH();
-		logReg.getOut();
+		int n = logReg.getNumSamples();
+		for (int i = 0; i < n; i++) {
+			w[i] = mu[i] * (1.0 * mu[i]);
+			zeta[i] = eta[i] + (y[i] - mu[i]) / w[i];
+		}
 
+		// Step II: Solve weighted least square problem
 		return true;
 	}
 }
