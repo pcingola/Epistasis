@@ -1,7 +1,7 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
-import meshi.optimizers.exceptions.LineSearchException;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.pcingola.optimizers.exceptions.LineSearchException;
 
 /**
  *This class implements a line search that satisfies the Wolf conditions according to the scheme in: Numerical Optimization

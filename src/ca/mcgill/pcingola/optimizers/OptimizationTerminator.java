@@ -1,6 +1,6 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
-import meshi.optimizers.Optimizer.OptimizerStatus;
+import ca.mcgill.pcingola.optimizers.Optimizer.OptimizerStatus;
 
 /**
  * Control when the optimization step is finished

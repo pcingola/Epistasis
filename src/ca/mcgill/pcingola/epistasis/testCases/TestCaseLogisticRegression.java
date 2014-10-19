@@ -3,12 +3,12 @@ package ca.mcgill.pcingola.epistasis.testCases;
 import java.util.Random;
 
 import junit.framework.TestCase;
-import meshi.optimizers.BFGS;
-import meshi.optimizers.GradientDecent;
-import meshi.optimizers.Irwls;
-import meshi.optimizers.Minimizer;
-import meshi.optimizers.SteepestDecent;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.pcingola.optimizers.BFGS;
+import ca.mcgill.pcingola.optimizers.GradientDecent;
+import ca.mcgill.pcingola.optimizers.Irwls;
+import ca.mcgill.pcingola.optimizers.Minimizer;
+import ca.mcgill.pcingola.optimizers.SteepestDecent;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
 /**

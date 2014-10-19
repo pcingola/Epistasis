@@ -1,7 +1,7 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
-import meshi.optimizers.exceptions.OptimizerException;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.pcingola.optimizers.exceptions.OptimizerException;
 
 /**
  * Minimize energy according to a given set of coordinates and an energy function

@@ -1,6 +1,6 @@
 package ca.mcgill.pcingola.regression;
 
-import meshi.optimizers.GradientDecent;
+import ca.mcgill.pcingola.optimizers.GradientDecent;
 
 /**
  * Logistic regression

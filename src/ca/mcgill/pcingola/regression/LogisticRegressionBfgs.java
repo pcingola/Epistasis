@@ -1,6 +1,6 @@
 package ca.mcgill.pcingola.regression;
 
-import meshi.optimizers.BFGS;
+import ca.mcgill.pcingola.optimizers.BFGS;
 
 /**
  * Logistic regression

@@ -1,4 +1,4 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
 import java.util.Arrays;
 

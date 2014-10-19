@@ -1,6 +1,6 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
-import meshi.optimizers.exceptions.LineSearchException;
+import ca.mcgill.pcingola.optimizers.exceptions.LineSearchException;
 
 /**
  *An abstract class of the common function calls in all the Line-Search procedure.

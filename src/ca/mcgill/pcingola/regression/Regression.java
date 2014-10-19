@@ -3,10 +3,10 @@ package ca.mcgill.pcingola.regression;
 import java.util.Arrays;
 import java.util.Random;
 
-import meshi.optimizers.Energy;
-import meshi.optimizers.Minimizer;
-import meshi.optimizers.SteepestDecent;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.pcingola.optimizers.Energy;
+import ca.mcgill.pcingola.optimizers.Minimizer;
+import ca.mcgill.pcingola.optimizers.SteepestDecent;
 
 /**
  * Generic regression for single values output

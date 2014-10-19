@@ -1,7 +1,7 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
-import meshi.optimizers.exceptions.LineSearchException;
-import meshi.optimizers.exceptions.OptimizerException;
+import ca.mcgill.pcingola.optimizers.exceptions.LineSearchException;
+import ca.mcgill.pcingola.optimizers.exceptions.OptimizerException;
 
 /**
  * This class implements a simple steepest descent minimizer, using a simple back tracking line search.

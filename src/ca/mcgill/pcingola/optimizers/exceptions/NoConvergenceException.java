@@ -1,4 +1,4 @@
-package meshi.optimizers.exceptions;
+package ca.mcgill.pcingola.optimizers.exceptions;
 
 public class NoConvergenceException extends Exception {
 

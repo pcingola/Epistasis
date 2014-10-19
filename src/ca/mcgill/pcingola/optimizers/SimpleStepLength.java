@@ -1,6 +1,6 @@
-package meshi.optimizers;
+package ca.mcgill.pcingola.optimizers;
 
-import meshi.optimizers.exceptions.LineSearchException;
+import ca.mcgill.pcingola.optimizers.exceptions.LineSearchException;
 
 /**
  * This class provide a simple way to find the step length. It start with a certain length and check if

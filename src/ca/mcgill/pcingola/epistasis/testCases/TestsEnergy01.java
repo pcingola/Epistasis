@@ -1,6 +1,6 @@
 package ca.mcgill.pcingola.epistasis.testCases;
 
-import meshi.optimizers.Energy;
+import ca.mcgill.pcingola.optimizers.Energy;
 
 /**
  * Implements an "Energy" function:

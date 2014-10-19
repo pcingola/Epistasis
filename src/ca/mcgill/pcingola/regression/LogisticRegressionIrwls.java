@@ -1,6 +1,6 @@
 package ca.mcgill.pcingola.regression;
 
-import meshi.optimizers.Irwls;
+import ca.mcgill.pcingola.optimizers.Irwls;
 
 /**
  * Logistic regression

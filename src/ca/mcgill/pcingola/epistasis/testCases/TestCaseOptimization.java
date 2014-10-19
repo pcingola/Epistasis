@@ -3,12 +3,12 @@ package ca.mcgill.pcingola.epistasis.testCases;
 import java.util.Random;
 
 import junit.framework.TestCase;
-import meshi.optimizers.SteepestDecent;
-import meshi.optimizers.WolfeConditionLineSearch;
 
 import org.junit.Assert;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.pcingola.optimizers.SteepestDecent;
+import ca.mcgill.pcingola.optimizers.WolfeConditionLineSearch;
 
 /**
  * Test cases for logistic regression
