@@ -26,10 +26,9 @@
 
 library(epicalc)
 
-calcGlm <- FALSE
-calcGlm <- TRUE
+debug <- FALSE
 
-calcIRWLS <- FALSE
+calcGlm <- TRUE
 calcIRWLS <- TRUE
 
 createSamples <- FALSE
@@ -144,10 +143,12 @@ if( calcIRWLS ) {
 		zeta <- eta + (y - mu) / nu
 		w <- nu
 
-		cat('\teta  :', eta, '\n')
-		cat('\tmu   :', mu, '\n')
-		cat('\tw    :', w, '\n')
-		cat('\tzeta :', zeta, '\n')
+		if( debug) {
+			cat('\teta  :', eta, '\n')
+			cat('\tmu   :', mu, '\n')
+			cat('\tw    :', w, '\n')
+			cat('\tzeta :', zeta, '\n')
+		}
 
 		# Fit weighted model
 		dd <- data.frame( X, zeta )
