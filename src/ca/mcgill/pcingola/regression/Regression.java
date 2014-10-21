@@ -139,7 +139,7 @@ public abstract class Regression extends Energy {
 		checkSamples(in, out);
 
 		numSamples = in.length;
-		samplesX = new double[numSamples][dim + 1];
+		samplesX = new double[numSamples][dim];
 
 		// Copy data
 		for (int i = 0; i < numSamples; i++) {

@@ -66,12 +66,14 @@ public class TestCaseLogisticRegression extends TestCase {
 	 */
 	public LogisticRegression modelFitTest(Random rand, double beta[], int N, String createFile, double betaFit[], double maxDifference, String minType) {
 		int size = beta.length - 1;
-
 		// Initialize model
 		LogisticRegression lr = new LogisticRegression(size);
 		lr.setDebug(debug);
 		if (rand != null) lr.setRand(rand);
 		lr.setModel(beta);
+
+		// Create samples
+		createSamples(lr, N, size, createFile, rand);
 
 		// Minimizer
 		Minimizer minimizer = null;
@@ -97,9 +99,6 @@ public class TestCaseLogisticRegression extends TestCase {
 		}
 		lr.setMinnimizer(minimizer);
 
-		// Create samples
-		createSamples(lr, N, size, createFile, rand);
-
 		// Learn
 		double betaModel[] = lr.learn();
 		if (verbose) System.out.println("Model " + minType + ": " + lr);
@@ -112,6 +111,7 @@ public class TestCaseLogisticRegression extends TestCase {
 		return lr;
 	}
 
+	//
 	//	public void test_01() {
 	//		Gpr.debug("Test");
 	//		Random rand = new Random(20140912);
@@ -235,7 +235,7 @@ public class TestCaseLogisticRegression extends TestCase {
 	public void test_01_irwls() {
 		Gpr.debug("Test");
 		Random rand = new Random(20140912);
-		int N = 200;
+		int N = 50;
 
 		double beta[] = { 2, -1, -0.5 }; // Real model
 		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model

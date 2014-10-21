@@ -38,6 +38,10 @@ public class IRWLS extends Minimizer {
 	@Override
 	protected void init() throws OptimizerException {
 		Gpr.debug("Init");
+
+		// Initialize beta to 0
+		double zero[] = new double[energy.getDim()];
+		energy.setTheta(zero);
 	}
 
 	/**
@@ -68,7 +72,11 @@ public class IRWLS extends Minimizer {
 
 		// Step II: Solve weighted least square problem
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
-		wlr.regress(Y, X, W);
+		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) return false;
+
+		// Set new coefficients
+		logReg.setTheta(wlr.getCoefficients());
+		Gpr.debug(logReg + "\tLL: " + logReg.logLikelihood());
 
 		return true;
 	}

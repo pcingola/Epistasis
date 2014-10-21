@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.regression;
 
+
 /**
  * Weighted linear regression
  *
@@ -10,32 +11,57 @@ package ca.mcgill.pcingola.regression;
 public class WeightedLinearRegression {
 
 	double[][] V; // Least squares and var/covar matrix
-	public double[] C; // Coefficients
-	public double[] SEC; // Std Error of coefficients
+	public double[] coefficients; // Coefficients
+	public double[] stdErrCoeff; // Std Error of coefficients
 	double RYSQ; // Multiple correlation coefficient
-	double SDV; // Standard deviation of errors
-	double FReg; // Fisher F statistic for regression
-	double[] Ycalc; // Calculated values of Y
-	double[] DY; // Residual values of Y
+	double stdErr; // Standard deviation of errors
+	double regressF; // Fisher F statistic for regression
+	double[] yCalc; // Calculated values of Y
+	double[] yResiduals; // Residual values of Y
+
+	public double[] getCoefficients() {
+		return coefficients;
+	}
+
+	public double getRegressF() {
+		return regressF;
+	}
+
+	public double getRYSQ() {
+		return RYSQ;
+	}
+
+	public double getStdErr() {
+		return stdErr;
+	}
+
+	public double[] getStdErrCoeff() {
+		return stdErrCoeff;
+	}
+
+	public double[] getyResiduals() {
+		return yResiduals;
+	}
 
 	/**
 	 * Perform regression
-	 *  Y[j]   = j-th observed data point
-	 *  X[i,j] = j-th value of the i-th independent varialble
-	 *  W[j]   = j-th weight value
+	 *  y[j]   = j-th observed data point
+	 *  X[i,j] = j-th value of the i-th independent variable
+	 *  w[j]   = j-th weight value
 	 */
-	public boolean regress(double[] Y, double[][] X, double[] W) {
+	public boolean regress(double[] y, double[][] X, double[] w) {
 
-		int M = Y.length; // M = Number of data points
-		int N = X.length / M; // N = Number of linear terms
-		int NDF = M - N; // Degrees of freedom
-		Ycalc = new double[M];
-		DY = new double[M];
+		int M = y.length; // M = Number of data points
+		int N = X[0].length; // N = Number of linear terms
+		int df = M - N; // Degrees of freedom
+		yCalc = new double[M];
+		yResiduals = new double[M];
+
 		// If not enough data, don't attempt regression
-		if (NDF < 1) { return false; }
+		if (df < 1) { return false; }
 		V = new double[N][N];
-		C = new double[N];
-		SEC = new double[N];
+		coefficients = new double[N];
+		stdErrCoeff = new double[N];
 		double[] B = new double[N]; // Vector for LSQ
 
 		// Clear the matrices to start out
@@ -48,11 +74,13 @@ public class WeightedLinearRegression {
 			for (int j = 0; j < N; j++) {
 				V[i][j] = 0;
 				for (int k = 0; k < M; k++)
-					V[i][j] = V[i][j] + W[k] * X[i][k] * X[j][k];
+					V[i][j] = V[i][j] + w[k] * X[k][i] * X[k][j];
+				//V[i][j] = V[i][j] + W[k] * X[i][k] * X[j][k];
 			}
 			B[i] = 0;
 			for (int k = 0; k < M; k++)
-				B[i] = B[i] + W[k] * X[i][k] * Y[k];
+				B[i] = B[i] + w[k] * X[k][i] * y[k];
+			// B[i] = B[i] + W[k] * X[i][k] * Y[k];
 		}
 
 		// V now contains the raw least squares matrix
@@ -61,9 +89,9 @@ public class WeightedLinearRegression {
 		// V now contains the inverted least square matrix
 		// Matrix multpily to get coefficients C = VB
 		for (int i = 0; i < N; i++) {
-			C[i] = 0;
+			coefficients[i] = 0;
 			for (int j = 0; j < N; j++)
-				C[i] = C[i] + V[i][j] * B[j];
+				coefficients[i] = coefficients[i] + V[i][j] * B[j];
 		}
 
 		// Calculate statistics
@@ -72,45 +100,50 @@ public class WeightedLinearRegression {
 		double YBAR = 0;
 		double WSUM = 0;
 		for (int k = 0; k < M; k++) {
-			YBAR = YBAR + W[k] * Y[k];
-			WSUM = WSUM + W[k];
+			YBAR = YBAR + w[k] * y[k];
+			WSUM = WSUM + w[k];
 		}
 		YBAR = YBAR / WSUM;
 		for (int k = 0; k < M; k++) {
-			Ycalc[k] = 0;
+			yCalc[k] = 0;
+
 			for (int i = 0; i < N; i++)
-				Ycalc[k] = Ycalc[k] + C[i] * X[i][k];
-			DY[k] = Ycalc[k] - Y[k];
-			TSS = TSS + W[k] * (Y[k] - YBAR) * (Y[k] - YBAR);
-			RSS = RSS + W[k] * DY[k] * DY[k];
+				yCalc[k] = yCalc[k] + coefficients[i] * X[k][i];
+			//			Ycalc[k] = Ycalc[k] + C[i] * X[i][k];
+
+			yResiduals[k] = yCalc[k] - y[k];
+			TSS = TSS + w[k] * (y[k] - YBAR) * (y[k] - YBAR);
+			RSS = RSS + w[k] * yResiduals[k] * yResiduals[k];
 		}
-		double SSQ = RSS / NDF;
+		double SSQ = RSS / df;
 		RYSQ = 1 - RSS / TSS;
-		FReg = 9999999;
-		if (RYSQ < 0.9999999) FReg = RYSQ / (1 - RYSQ) * NDF / (N - 1);
-		SDV = Math.sqrt(SSQ);
+		regressF = 9999999;
+		if (RYSQ < 0.9999999) regressF = RYSQ / (1 - RYSQ) * df / (N - 1);
+		stdErr = Math.sqrt(SSQ);
 
 		// Calculate var-covar matrix and std error of coefficients
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < N; j++)
 				V[i][j] = V[i][j] * SSQ;
-			SEC[i] = Math.sqrt(V[i][i]);
+			stdErrCoeff[i] = Math.sqrt(V[i][i]);
 		}
+
 		return true;
 	}
 
 	public boolean symmetricMatrixInvert(double[][] V) {
-		int N = (int) Math.sqrt(V.length);
+		int N = V.length;
 		double[] t = new double[N];
 		double[] Q = new double[N];
 		double[] R = new double[N];
 		double AB;
 		int K, L, M;
 
-		// Invert a symetric matrix in V
+		// Invert a symmetric matrix in V
 		for (M = 0; M < N; M++)
 			R[M] = 1;
 		K = 0;
+
 		for (M = 0; M < N; M++) {
 			double big = 0;
 			for (L = 0; L < N; L++) {
@@ -155,6 +188,7 @@ public class WeightedLinearRegression {
 			for (int J = 0; J <= L; J++)
 				V[M][J] = V[J][M];
 		}
+
 		return true;
 	}
 }

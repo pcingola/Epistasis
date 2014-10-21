@@ -147,8 +147,8 @@ public abstract class Energy {
 		Arrays.fill(gradient, 0.0);
 	}
 
-	public void setTheta(double newX[]) {
-		System.arraycopy(newX, 0, theta, 0, theta.length);
+	public void setTheta(double newTheta[]) {
+		System.arraycopy(newTheta, 0, theta, 0, theta.length);
 		needsUpdate();
 	}
 
