@@ -18,7 +18,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class TestCaseLogisticRegression extends TestCase {
 
-	public static boolean debug = false;
+	public static boolean debug = true;
 	public static boolean verbose = false || debug;
 
 	/**
@@ -47,7 +47,7 @@ public class TestCaseLogisticRegression extends TestCase {
 			out[i] = rand.nextDouble() < o ? 1.0 : 0.0;
 			sb.append("\t" + out[i] + "\n");
 		}
-		lr.setSamples(in, out);
+		lr.setSamplesAddIntercept(in, out);
 
 		// Write samples to file
 		if (createFile != null) {
@@ -263,22 +263,28 @@ public class TestCaseLogisticRegression extends TestCase {
 		int i = 0;
 		for (String l : lines) {
 			// Skip title
-			if (i == 0) continue;
+			if (i == 0) {
+				i++;
+				continue;
+			}
 
 			String f[] = l.split("\t");
 
 			// Output
-			out[i] = Gpr.parseDoubleSafe(f[0]);
+			out[i - 1] = Gpr.parseDoubleSafe(f[0]);
 
-			// Inputs
-			for (int j = 1; j < f.length; j++)
-				in[i - 1][j - 1] = Gpr.parseDoubleSafe(f[j]);
+			// Inputs (first two columns are 'output' and 'intercept')
+			for (int j = 2; j < f.length; j++)
+				in[i - 1][j - 2] = Gpr.parseDoubleSafe(f[j]);
 
 			i++;
 		}
 
+		// Show matrix
+		if (debug) Gpr.debug("In:\n" + Gpr.toString(in));
+
 		// Set samples
-		lr.setSamples(in, out);
+		lr.setSamplesAddIntercept(in, out);
 	}
 
 	public void test_06_irwls() {

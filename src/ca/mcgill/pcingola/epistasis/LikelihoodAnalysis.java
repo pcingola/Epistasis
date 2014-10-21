@@ -84,7 +84,7 @@ public class LikelihoodAnalysis {
 			for (int j = 0; j < numCovs; j++)
 				xAlt[i][j] = covariates[i][j];
 
-		lrAlt.setSamples(xAlt, pheno);
+		lrAlt.setSamplesAddIntercept(xAlt, pheno);
 		modelAltByThread.put(threadId, lrAlt);
 
 		//---
@@ -98,7 +98,7 @@ public class LikelihoodAnalysis {
 			for (int j = 0; j < numCovs - 1; j++)
 				xNull[i][j] = covariates[i][j + 1];
 
-		lrNull.setSamples(xNull, pheno);
+		lrNull.setSamplesAddIntercept(xNull, pheno);
 		modelNullByThread.put(threadId, lrNull);
 
 		// Samples to skip

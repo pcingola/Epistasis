@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.regression;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * Weighted linear regression
@@ -9,6 +10,8 @@ package ca.mcgill.pcingola.regression;
  * Adapted by pcingola
  */
 public class WeightedLinearRegression {
+
+	public static boolean debug = true;
 
 	double[][] V; // Least squares and var/covar matrix
 	public double[] coefficients; // Coefficients
@@ -58,7 +61,8 @@ public class WeightedLinearRegression {
 		yResiduals = new double[M];
 
 		// If not enough data, don't attempt regression
-		if (df < 1) { return false; }
+		if (df < 1) return false;
+
 		V = new double[N][N];
 		coefficients = new double[N];
 		stdErrCoeff = new double[N];
@@ -128,11 +132,20 @@ public class WeightedLinearRegression {
 			stdErrCoeff[i] = Math.sqrt(V[i][i]);
 		}
 
+		if (debug) Gpr.debug("Coefficients: " + Gpr.toString(coefficients));
 		return true;
 	}
 
+	/**
+	 * Invert a symmetric matrix
+	 * @param V : Matrix to be inverted AND result (when method returns, the resulting matrix is stored here)
+	 * @return true if matrix was inverted
+	 */
 	public boolean symmetricMatrixInvert(double[][] V) {
 		int N = V.length;
+
+		Gpr.debug("V:\n" + Gpr.toString(V));
+
 		double[] t = new double[N];
 		double[] Q = new double[N];
 		double[] R = new double[N];

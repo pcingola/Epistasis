@@ -135,7 +135,7 @@ public abstract class Regression extends Energy {
 	 * Data is copied into new arrays
 	 * Input samples are added one column at the end with value '1' (intercept or 'bias' term in models)
 	 */
-	public void setSamples(double in[][], double out[]) {
+	public void setSamplesAddIntercept(double in[][], double out[]) {
 		checkSamples(in, out);
 
 		numSamples = in.length;
