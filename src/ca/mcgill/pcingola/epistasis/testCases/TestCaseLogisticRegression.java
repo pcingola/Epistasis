@@ -64,8 +64,9 @@ public class TestCaseLogisticRegression extends TestCase {
 	 * @param N : Number of data samples
 	 * @param createFile : If non-null, create a tab-separated file with sample data
 	 */
-	public LogisticRegression modelFitTest(Random rand, double beta[], int N, String createFile, double betaFit[], double maxDifference, String minType) {
+	public LogisticRegression modelFitTest(Random rand, double beta[], int N, String createFile, String loadFile, double betaFit[], double maxDifference, String minType) {
 		int size = beta.length - 1;
+
 		// Initialize model
 		LogisticRegression lr = new LogisticRegression(size);
 		lr.setDebug(debug);
@@ -73,7 +74,8 @@ public class TestCaseLogisticRegression extends TestCase {
 		lr.setModel(beta);
 
 		// Create samples
-		createSamples(lr, N, size, createFile, rand);
+		if (loadFile == null) createSamples(lr, N, size, createFile, rand);
+		else readModel(lr, loadFile);
 
 		// Minimizer
 		Minimizer minimizer = null;
@@ -215,8 +217,8 @@ public class TestCaseLogisticRegression extends TestCase {
 	//		Gpr.debug("Test");
 	//		Random rand = new Random(20140912);
 	//		int N = 10000;
-	//		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
 	//		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
+	//		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
 	//
 	//		LogisticRegression lr = modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
 	//
@@ -231,16 +233,61 @@ public class TestCaseLogisticRegression extends TestCase {
 	//	public void test_06() {
 	//		throw new RuntimeException("Create test using T2D data. Compare to R's calculations");
 	//	}
+	//
+	//	public void test_01_irwls() {
+	//		Gpr.debug("Test");
+	//		Random rand = new Random(20140912);
+	//		int N = 50;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "irwls");
+	//	}
 
-	public void test_01_irwls() {
-		Gpr.debug("Test");
-		Random rand = new Random(20140912);
-		int N = 50;
+	/**
+	 * Read a model
+	 */
+	public void readModel(LogisticRegression lr, String fileName) {
+		String lines[] = Gpr.readFile(fileName).split("\n");
 
-		double beta[] = { 2, -1, -0.5 }; // Real model
-		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+		// Model size and sampels
+		int N = lines.length - 1; // Number of samples. First line is "title" (not sample)
+		int size = lines[0].split("\t").length - 2; // Number of elements in linear model. First column is 'output', other columns are input (one input is 'bias')
+		Gpr.debug("File '" + fileName + "', samples: " + N + ", model size: " + size);
 
-		modelFitTest(rand, beta, N, null, betaFit, 0.01, "irwls");
+		double in[][] = new double[N][size];
+		double out[] = new double[N];
+
+		// Load model: Read and parse file
+		int i = 0;
+		for (String l : lines) {
+			// Skip title
+			if (i == 0) continue;
+
+			String f[] = l.split("\t");
+
+			// Output
+			out[i] = Gpr.parseDoubleSafe(f[0]);
+
+			// Inputs
+			for (int j = 1; j < f.length; j++)
+				in[i - 1][j - 1] = Gpr.parseDoubleSafe(f[j]);
+
+			i++;
+		}
+
+		// Set samples
+		lr.setSamples(in, out);
 	}
 
+	public void test_06_irwls() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		double beta[] = { -0.75, -3.0, 0.5 }; // Real model
+		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+
+		String fileName = "test/logReg_test_IRWLS_01.txt";
+		modelFitTest(rand, beta, -1, null, fileName, betaFit, 0.01, "irwls");
+	}
 }
