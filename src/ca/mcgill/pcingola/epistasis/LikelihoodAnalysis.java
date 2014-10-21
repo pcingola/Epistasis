@@ -1,8 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -11,7 +9,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.regression.LogisticRegression;
-import ca.mcgill.pcingola.regression.LogisticRegressionBfgs;
+import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 
 /**
  * Logistic regression log-likelihood analysis of VCF + phenotype data
@@ -39,8 +37,7 @@ public class LikelihoodAnalysis {
 	String logLikInfoField; // If not null, an INFO field is added
 	String sampleIds[];
 	LogisticRegression lr;
-	HashMap<Long, LogisticRegression> modelAltByThread = new HashMap<Long, LogisticRegression>();
-	HashMap<Long, LogisticRegression> modelNullByThread = new HashMap<Long, LogisticRegression>();
+	LogisticRegression lrAlt, lrNull;
 
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
@@ -66,46 +63,81 @@ public class LikelihoodAnalysis {
 		}
 	}
 
+	double[] copyNonSkip(double d[], boolean skip[], int countSkip) {
+		int totalSamples = numSamples - countSkip;
+		double dd[] = new double[totalSamples];
+
+		int idx = 0;
+		for (int i = 0; i < numSamples; i++)
+			if (!skip[i]) dd[idx++] = d[i];
+
+		return dd;
+	}
+
 	/**
-	 * Create models
+	 * Create alternative model
 	 */
-	void createModels() {
-		Timer.showStdErr("Creating models for thread: " + Thread.currentThread());
-		long threadId = Thread.currentThread().getId();
+	LogisticRegression createAltModel(boolean skip[], int countSkip, byte gt[], double phenoNonSkip[]) {
+		LogisticRegression lrAlt = new LogisticRegressionIrwls(numCovs);
 
-		//---
-		// Create alternative model
-		//---
-		LogisticRegression lrAlt = new LogisticRegressionBfgs(numCovs);
+		// Copy all covariates (except one that are skipped)
+		int totalSamples = numSamples - countSkip;
+		double xAlt[][] = new double[totalSamples][numCovs];
 
-		// Copy all covariates, except first one (phenotype row)
-		double xAlt[][] = new double[numSamples][numCovs];
-		for (int i = 0; i < numSamples; i++)
-			for (int j = 0; j < numCovs; j++)
-				xAlt[i][j] = covariates[i][j];
+		int idx = 0;
+		for (int i = 0; i < numSamples; i++) {
+			if (skip[i]) continue;
 
-		lrAlt.setSamplesAddIntercept(xAlt, pheno);
-		modelAltByThread.put(threadId, lrAlt);
+			// First row from phenotypes file is phenotype. But we want to predict using 'genotype', so we replace it
+			xAlt[idx][0] = gt[i];
 
-		//---
-		// Create null model
-		//---
-		LogisticRegression lrNull = new LogisticRegressionBfgs(numCovs - 1); // No genotypes
+			// Copy all other covariates
+			for (int j = 1; j < numCovs; j++)
+				xAlt[idx][j] = covariates[i][j];
 
-		// Copy all covariates, except first one (phenotype row)
-		double xNull[][] = new double[numSamples][numCovs - 1];
-		for (int i = 0; i < numSamples; i++)
+			idx++;
+		}
+
+		// Set samples
+		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
+		lrAlt.setDebug(debug);
+
+		return lrAlt;
+	}
+
+	/**
+	 * Create null model
+	 */
+	LogisticRegression createNullModel(boolean skip[], int countSkip, double phenoNonSkip[]) {
+		LogisticRegression lrNull = new LogisticRegressionIrwls(numCovs - 1); // Null model: No genotypes
+
+		// Copy all covariates (except one that are skipped)
+		int totalSamples = numSamples - countSkip;
+		double xNull[][] = new double[totalSamples][numCovs - 1];
+
+		int idx = 0;
+		for (int i = 0; i < numSamples; i++) {
+			if (skip[i]) continue;
+
 			for (int j = 0; j < numCovs - 1; j++)
-				xNull[i][j] = covariates[i][j + 1];
+				xNull[idx][j] = covariates[i][j + 1];
 
-		lrNull.setSamplesAddIntercept(xNull, pheno);
-		modelNullByThread.put(threadId, lrNull);
+			idx++;
+		}
 
-		// Samples to skip
-		boolean skip[] = new boolean[numSamples];
-		Arrays.fill(skip, false);
-		lrAlt.setSkip(skip);
-		lrNull.setSkip(skip);
+		// Set samples
+		lrNull.setSamplesAddIntercept(xNull, phenoNonSkip);
+		lrNull.setDebug(debug);
+
+		return lrNull;
+	}
+
+	public LogisticRegression getLrAlt() {
+		return lrAlt;
+	}
+
+	public LogisticRegression getLrNull() {
+		return lrNull;
 	}
 
 	/**
@@ -162,51 +194,26 @@ public class LikelihoodAnalysis {
 	void logLikelihood(VcfEntry ve) {
 		boolean writeToFile = this.writeToFile;
 
-		//---
-		// Get models for this thread
-		//---
-		long threadId = Thread.currentThread().getId();
-		LogisticRegression lrAlt = modelAltByThread.get(threadId);
-		LogisticRegression lrNull = modelNullByThread.get(threadId);
-
-		// Need to create models?
-		if (lrAlt == null) {
-			createModels();
-			lrAlt = modelAltByThread.get(threadId);
-			lrNull = modelNullByThread.get(threadId);
-		}
-
-		//---
-		// Initialize model's data
-		//---
-		lrAlt.reset();
-		lrNull.reset();
-
+		// Which samples should be skipped?
+		// i.e.: Missing genotype or missing phenotype
 		// Get genotypes
 		byte gt[] = ve.getGenotypesScores();
-
-		// Copy genotypes to first row (alt model) and set 'skip' field
-		double xAlt[][] = lrAlt.getSamplesX();
-		boolean skip[] = lrAlt.getSkip();
+		boolean skip[] = new boolean[numSamples];
+		int countSkip = 0;
 		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
-			xAlt[vcfSampleNum][PHENO_ROW_NUMBER] = gt[vcfSampleNum];
 			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
+			if (skip[vcfSampleNum]) countSkip++;
 		}
+
+		// Create Null and Alt models
+		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
+		LogisticRegression lrAlt = createAltModel(skip, countSkip, gt, phenoNonSkip);
+		LogisticRegression lrNull = createNullModel(skip, countSkip, phenoNonSkip);
 
 		//---
 		// Fit logistic models
 		//---
-		lrNull.setDebug(debug);
 		lrNull.learn();
-
-		// Use null model;s result as start point for ALT model (except for genotype parameter)
-		double thetaNull[] = lrNull.getTheta();
-		double thetaAlt[] = lrAlt.getTheta();
-		thetaAlt[0] = 0;
-		for (int i = 0; i < thetaNull.length; i++)
-			thetaAlt[i + 1] = thetaNull[i];
-
-		lrAlt.setDebug(debug);
 		lrAlt.learn();
 
 		//---
@@ -237,12 +244,12 @@ public class LikelihoodAnalysis {
 			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
 		}
 
-		// TODO: Calculate and check p-value (Chi-square test)
+		Gpr.debug("TODO: Calculate and check p-value (Chi-square test)");
 
 		//---
 		// Save as TXT table (only used for debugging)
 		//---
-		if (writeToFile) {
+		if (debug && writeToFile) {
 			// ALT data
 			String fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".alt.txt";
 			Gpr.debug("Writing 'alt data' table to :" + fileName);
@@ -259,6 +266,10 @@ public class LikelihoodAnalysis {
 			Gpr.toFile(fileName, lrAlt.toStringModel());
 
 		}
+
+		// Used for test cases and debugging
+		this.lrNull = lrNull;
+		this.lrAlt = lrAlt;
 
 		count++;
 	}
@@ -310,9 +321,6 @@ public class LikelihoodAnalysis {
 		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
 		//---
 		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
-
-		// TODO
-		Gpr.debug("WRITE TEST CASE TO COMPARE TO R's RESULTS");
 
 		//---
 		// Check that sample names and sample order matches

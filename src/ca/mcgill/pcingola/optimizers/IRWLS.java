@@ -31,12 +31,13 @@ public class IRWLS extends Minimizer {
 	public IRWLS(LogisticRegression logReg) {
 		super(logReg);
 		this.logReg = logReg;
-		zeta = new double[logReg.getNumSamples()];
-		w = new double[logReg.getNumSamples()];
 	}
 
 	@Override
 	protected void init() throws OptimizerException {
+		zeta = new double[logReg.getNumSamples()];
+		w = new double[logReg.getNumSamples()];
+
 		// Initialize beta to 0
 		double zero[] = new double[energy.getDim()];
 		energy.setTheta(zero);
@@ -70,15 +71,18 @@ public class IRWLS extends Minimizer {
 
 		if (debug) {
 			Gpr.debug(logReg + "\tLL: " + logReg.logLikelihood());
-			Gpr.debug("\teta  : " + Gpr.toString(eta));
-			Gpr.debug("\tmu   : " + Gpr.toString(mu));
-			Gpr.debug("\tw    : " + Gpr.toString(w));
-			Gpr.debug("\tzeta : " + Gpr.toString(zeta));
+			Gpr.debug("\teta  (" + eta.length + "): " + Gpr.toStringHead(eta));
+			Gpr.debug("\tmu   (" + mu.length + "): " + Gpr.toStringHead(mu));
+			Gpr.debug("\tw    (" + w.length + "): " + Gpr.toStringHead(w));
+			Gpr.debug("\tzeta (" + zeta.length + "): " + Gpr.toStringHead(zeta));
 		}
 
 		// Step II: Solve weighted least square problem
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
-		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) return false;
+		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) {
+			Gpr.debug("Cannot perform regression!");
+			return false;
+		}
 
 		// Set new coefficients
 		logReg.setTheta(wlr.getCoefficients());

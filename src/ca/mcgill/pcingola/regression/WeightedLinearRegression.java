@@ -1,5 +1,7 @@
 package ca.mcgill.pcingola.regression;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
+
 /**
  * Weighted linear regression
  *
@@ -9,8 +11,7 @@ package ca.mcgill.pcingola.regression;
  */
 public class WeightedLinearRegression {
 
-	public static boolean debug = true;
-
+	boolean debug = false;
 	double[][] V; // Least squares and var/covar matrix
 	public double[] coefficients; // Coefficients
 	public double[] stdErrCoeff; // Std Error of coefficients
@@ -77,16 +78,16 @@ public class WeightedLinearRegression {
 				V[i][j] = 0;
 				for (int k = 0; k < M; k++)
 					V[i][j] = V[i][j] + w[k] * X[k][i] * X[k][j];
-				//V[i][j] = V[i][j] + W[k] * X[i][k] * X[j][k];
 			}
 			B[i] = 0;
 			for (int k = 0; k < M; k++)
 				B[i] = B[i] + w[k] * X[k][i] * y[k];
-			// B[i] = B[i] + W[k] * X[i][k] * Y[k];
 		}
 
 		// V now contains the raw least squares matrix
+		if (debug) Gpr.debug("V: \n" + Gpr.toString(V));
 		if (!symmetricMatrixInvert(V)) return false;
+		if (debug) Gpr.debug("Inv(V): \n" + Gpr.toString(V));
 
 		// V now contains the inverted least square matrix
 		// Matrix multpily to get coefficients C = VB
@@ -111,7 +112,6 @@ public class WeightedLinearRegression {
 
 			for (int i = 0; i < N; i++)
 				yCalc[k] = yCalc[k] + coefficients[i] * X[k][i];
-			//			Ycalc[k] = Ycalc[k] + C[i] * X[i][k];
 
 			yResiduals[k] = yCalc[k] - y[k];
 			TSS = TSS + w[k] * (y[k] - YBAR) * (y[k] - YBAR);
@@ -133,6 +133,10 @@ public class WeightedLinearRegression {
 		return true;
 	}
 
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
 	/**
 	 * Invert a symmetric matrix
 	 * @param V : Matrix to be inverted AND result (when method returns, the resulting matrix is stored here)
@@ -144,7 +148,7 @@ public class WeightedLinearRegression {
 		double[] t = new double[N];
 		double[] Q = new double[N];
 		double[] R = new double[N];
-		double AB;
+		double maxAbs;
 		int K, L, M;
 
 		// Invert a symmetric matrix in V
@@ -155,14 +159,17 @@ public class WeightedLinearRegression {
 		for (M = 0; M < N; M++) {
 			double big = 0;
 			for (L = 0; L < N; L++) {
-				AB = Math.abs(V[L][L]);
-				if ((AB > big) && (R[L] != 0)) {
-					big = AB;
+				maxAbs = Math.abs(V[L][L]);
+				if ((maxAbs > big) && (R[L] != 0)) {
+					big = maxAbs;
 					K = L;
 				}
 			}
 
-			if (big == 0) return false;
+			if (big == 0) {
+				if (debug) Gpr.debug("Max ABS number is zero!");
+				return false;
+			}
 
 			R[K] = 0;
 			Q[K] = 1 / V[K][K];

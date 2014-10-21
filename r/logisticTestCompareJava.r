@@ -9,18 +9,36 @@
 
 library(epicalc)
 
-calcGlm <- FALSE
 calcGlm <- TRUE
+debug <- TRUE
 
 #-------------------------------------------------------------------------------
 # Sigmoid finction
 #-------------------------------------------------------------------------------
-s <- function(h) { 
-	1 / (1 + exp(-h)); 
+
+s <- function(h) {
+    1 / (1 + exp(-h));
+}
+
+sX <- function(beta, X) {
+    eta <- X %*% beta
+    mu <- 1 / (1 + exp(- eta));
+
+    n <- length(mu)
+    r <- runif(n)
+    out <- rep(0, n)
+    out[ r < mu ] <- 1
+    return (data.frame( out, mu, eta ))
 }
 
 log.lik <- function(y, p) {
-	sum( log( p^y * (1 - p)^(1 - y) ) );
+    sum( log( p^y * (1 - p)^(1 - y) ) );
+}
+
+log.lik.X <- function(y, beta, X) {
+    s.lik <- sX(beta, X)
+    p <- s.lik$mu
+    return( log.lik(y, p) )
 }
 
 #-------------------------------------------------------------------------------
@@ -64,9 +82,13 @@ if( calcGlm ) {
 	#---
 	# Alt model (Java and R)
 	#---
-	beta.r <- as.numeric( lr.alt$coefficients )
-	beta.r[ is.na(beta.r) ] <- 0	# Remove 'NA'
-	beta.r <- c( beta.r[-1] , beta.r[1] )	# Re-order elements: same order as beta.j (intercept is the last element instead of the first one)
+	beta.alt.r <- as.numeric( lr.alt$coefficients )
+	beta.alt.r[ is.na(beta.alt.r) ] <- 0	# Remove 'NA'
+	beta.alt.r <- c( beta.alt.r[-1] , beta.alt.r[1] )	# Re-order elements: same order as beta.j (intercept is the last element instead of the first one)
+
+	beta.null.r <- as.numeric( lr.null$coefficients )
+	beta.null.r[ is.na(beta.null.r) ] <- 0	# Remove 'NA'
+	beta.null.r <- c( beta.null.r[-1] , beta.null.r[1] )	# Re-order elements: same order as beta.j (intercept is the last element instead of the first one)
 
 	# Transform input data to matrix and calculate logistic regression
 	x <- as.matrix( d[,1:14] )
@@ -77,12 +99,14 @@ if( calcGlm ) {
 	ll.alt.j <- log.lik( y, p.j )
 	cat('Log likelihood Alt  (Java):', ll.alt.j, '\n')
 
-	h.r <- x %*% beta.r
+	h.r <- x %*% beta.alt.r
 	p.r <- s( h.r )
 	ll.alt.r <- log.lik( y, p.r )
 	cat('Log likelihood Alt  (R   ):', ll.alt.r, '\n')
 
 	if( ll.alt.j > ll.alt.r ) cat('Java likelihood is better :', (ll.alt.j - ll.alt.r), '\n')
+	cat('Beta Alt  (glm):', beta.alt.r, '\n')
+	cat('Beta Null (glm):', beta.null.r, '\n')
 }
 
 #---
@@ -105,6 +129,16 @@ for( i in 1:10 ) {
 	nu <- mu * (1 - mu)
 	zeta <- eta + (y - mu) / nu
 	w <- nu
+	ll <- log.lik( y, mu )
+
+	cat('LL:', ll, '\tBeta:', beta, '\n')
+	if( debug) {
+		cat('\teta  (', length(eta), '):', eta[1:10], '\tsum:', sum(eta), '\n')
+		cat('\tmu   (', length(mu), '):', mu[1:10], '\tsum:', sum(mu),  '\n')
+		cat('\tw    (', length(w), '):', w[1:10], '\tsum:', sum(w), '\n')
+		cat('\tzeta (', length(zeta), '):', zeta[1:10], '\tsum:', sum(zeta), '\n')
+		cat('\n')
+	}
 
 	# Fit weighted model
 	dd <- data.frame( X, zeta )
@@ -112,6 +146,5 @@ for( i in 1:10 ) {
 
 	# Update beta
 	beta <- as.vector( c( slm$coefficients[2:14], slm$coefficients[1] ) )
-	cat('Beta:', beta, '\n')
 }
 

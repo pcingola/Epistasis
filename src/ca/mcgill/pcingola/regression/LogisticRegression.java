@@ -45,8 +45,6 @@ public class LogisticRegression extends Regression {
 
 		int countSamples = 0;
 		for (int i = 0; i < numSamples; i++) {
-			if (skip != null && skip[i]) continue;
-
 			for (int j = 0; j < dim; j++)
 				gradient[j] -= (samplesY[i] - out[i]) * samplesX[i][j];
 
@@ -94,7 +92,6 @@ public class LogisticRegression extends Regression {
 
 		double loglik = 0;
 		for (int i = 0; i < numSamples; i++) {
-			if (skip != null && skip[i]) continue;
 			double d = (samplesY[i] == 0 ? 1.0 - out[i] : out[i]);
 			loglik += Math.log(d);
 		}
@@ -155,7 +152,6 @@ public class LogisticRegression extends Regression {
 	@Override
 	public void reset() {
 		super.reset();
-		if (skip != null) Arrays.fill(skip, false);
 	}
 
 	public void setEta(double eta) {
