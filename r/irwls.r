@@ -15,6 +15,9 @@ calcGlm <- TRUE
 calcIRWLS <- FALSE
 calcIRWLS <- TRUE
 
+createSamples <- FALSE
+fileName <- "logReg_test_IRWLS_01.txt"
+
 #-------------------------------------------------------------------------------
 # Sigmoid finction
 #-------------------------------------------------------------------------------
@@ -48,26 +51,51 @@ log.lik.X <- function(y, beta, X) {
 # Main
 #-------------------------------------------------------------------------------
 
-N <- 1000	# Numner of samples
+#---
+# Real parameters (used to generate data)
+#---
 beta.0 <- c( -0.75, -3.0, 0.5 )	# Real model
+
+#---
+# Create samples using model
+#---
+N <- 1000	# Numner of samples
 
 # Dimensions
 D.0 <- length(beta.0)
 D <- length(beta.0) - 1
 
 # Initialize data
-X <- matrix( rnorm( N * D ), nrow=N, ncol=D)
-colnames(X) <- c('x1', 'x2')
-X.0 <- cbind( rep(1, N), X)
-colnames(X.0) <- c('x0', 'x1', 'x2')
+if( createSamples ) {
+	# Create samples
+	X <- matrix( rnorm( N * D ), nrow=N, ncol=D)
+	colnames(X) <- c('x1', 'x2')
+	X.0 <- cbind( rep(1, N), X)
+	colnames(X.0) <- c('x0', 'x1', 'x2')
+	y <- as.numeric(s.0$out)
+
+	# Save data file
+	file <- "logReg_test.txt"
+	cat('Saving samples', file, '\n')
+	dsave <- data.frame( y, X.0 )
+	write.table(dsave, file=file, quote=FALSE, sep="\t", row.names=FALSE)
+
+} else {
+	# Load samples
+	cat('Loading samples', fileName, '\n')
+	d <- read.csv(file=fileName, sep="\t")
+	y <- as.numeric( d$y )
+
+	cols <- dim(d)[2]
+	X.0 <- as.matrix( d[,2:cols] )
+}
 
 # Calculate output
 s.0 <- sX(beta.0, X.0)
-y <- as.numeric(s.0$out)
 cat('Beta (Real ):', beta.0, '\tLL: ', log.lik.X(y, beta.0, X.0) , '\n')
 
 #---
-# Calculate logistic regression models
+# Calculate logistic regression model (using R's GLM)
 #---
 if( calcGlm ) {
 	# Full model, takes into account genotypes and PCs
@@ -78,9 +106,8 @@ if( calcGlm ) {
 }
 
 #---
-# IRWLS
+# Calculate using IRWLS algorithm
 #---
-
 if( calcIRWLS ) {
 	# Initialize
 	beta.n <- beta.0 * 0
