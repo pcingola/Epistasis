@@ -1,6 +1,5 @@
 package ca.mcgill.pcingola.regression;
 
-import ca.mcgill.mcb.pcingola.util.Gpr;
 
 /**
  * Weighted linear regression
@@ -132,7 +131,6 @@ public class WeightedLinearRegression {
 			stdErrCoeff[i] = Math.sqrt(V[i][i]);
 		}
 
-		if (debug) Gpr.debug("Coefficients: " + Gpr.toString(coefficients));
 		return true;
 	}
 
@@ -143,8 +141,6 @@ public class WeightedLinearRegression {
 	 */
 	public boolean symmetricMatrixInvert(double[][] V) {
 		int N = V.length;
-
-		Gpr.debug("V:\n" + Gpr.toString(V));
 
 		double[] t = new double[N];
 		double[] Q = new double[N];

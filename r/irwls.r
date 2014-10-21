@@ -108,6 +108,7 @@ if( createSamples ) {
 
 	cols <- dim(d)[2]
 	X.0 <- as.matrix( d[,2:cols] )
+	X <- X.0[,2:(cols-1)]
 }
 
 # Calculate output
@@ -142,6 +143,11 @@ if( calcIRWLS ) {
 		nu <- mu * (1 - mu)
 		zeta <- eta + (y - mu) / nu
 		w <- nu
+
+		cat('\teta  :', eta, '\n')
+		cat('\tmu   :', mu, '\n')
+		cat('\tw    :', w, '\n')
+		cat('\tzeta :', zeta, '\n')
 
 		# Fit weighted model
 		dd <- data.frame( X, zeta )

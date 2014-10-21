@@ -6,11 +6,11 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.WeightedLinearRegression;
 
 /**
- * IRWLS optimization algorithm (Iterated Re-Weighted Least Squares) 
+ * IRWLS optimization algorithm (Iterated Re-Weighted Least Squares)
  * Specifically implemented for Logistic Regression (binary output)
- * 
+ *
  * References:
- * 
+ *
  * 	i) "Introduction to Generalized Linear Models" by Heather Turner
  *		http://statmath.wu.ac.at/courses/heather_turner/glmCourse_001.pdf
  *
@@ -57,7 +57,7 @@ public class IRWLS extends Minimizer {
 	 */
 	@Override
 	protected boolean minimizationStep() throws OptimizerException {
-		// Step I: Evaluate logistic regression and 
+		// Step I: Evaluate logistic regression and
 		//         calculate intermediate variables nu, zeta, w
 		logReg.evaluate();
 		double eta[] = logReg.getH();
@@ -66,9 +66,15 @@ public class IRWLS extends Minimizer {
 
 		int n = logReg.getNumSamples();
 		for (int i = 0; i < n; i++) {
-			w[i] = mu[i] * (1.0 * mu[i]);
+			w[i] = mu[i] * (1.0 - mu[i]);
 			zeta[i] = eta[i] + (y[i] - mu[i]) / w[i];
 		}
+
+		Gpr.debug(logReg + "\tLL: " + logReg.logLikelihood());
+		Gpr.debug("\teta  : " + Gpr.toString(eta));
+		Gpr.debug("\tmu   : " + Gpr.toString(mu));
+		Gpr.debug("\tw    : " + Gpr.toString(w));
+		Gpr.debug("\tzeta : " + Gpr.toString(zeta));
 
 		// Step II: Solve weighted least square problem
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
@@ -76,7 +82,6 @@ public class IRWLS extends Minimizer {
 
 		// Set new coefficients
 		logReg.setTheta(wlr.getCoefficients());
-		Gpr.debug(logReg + "\tLL: " + logReg.logLikelihood());
 
 		return true;
 	}
