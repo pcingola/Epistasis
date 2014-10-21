@@ -42,7 +42,7 @@
 
 library(epicalc)
 
-debug <- FALSE
+debug <- T
 
 calcGlm <- TRUE
 calcIRWLS <- TRUE

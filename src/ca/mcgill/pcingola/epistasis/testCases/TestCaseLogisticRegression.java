@@ -165,18 +165,29 @@ public class TestCaseLogisticRegression extends TestCase {
 	//
 	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
 	//	}
-
-	public void test_01_irwls() {
-		Gpr.debug("Test");
-		Random rand = new Random(20140912);
-		int N = 50;
-
-		double beta[] = { 2, -1, -0.5 }; // Real model
-		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
-
-		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
-	}
-
+	//
+	//	public void test_01_bfgs() {
+	//		Gpr.debug("Test");
+	//		Random rand = new Random(20140912);
+	//		int N = 200;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
+	//	}
+	//
+	//	public void test_01_irwls() {
+	//		Gpr.debug("Test");
+	//		Random rand = new Random(20140912);
+	//		int N = 200;
+	//
+	//		double beta[] = { 2, -1, -0.5 }; // Real model
+	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+	//
+	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
+	//	}
+	//
 	//	public void test_01_steepest() {
 	//		Gpr.debug("Test");
 	//		Random rand = new Random(20140912);
@@ -295,4 +306,13 @@ public class TestCaseLogisticRegression extends TestCase {
 	//		String fileName = "test/logReg_test_IRWLS_01.txt";
 	//		modelFitTest(rand, beta, -1, null, fileName, betaFit, 0.01, "irwls");
 	//	}
+	public void test_07_irwls() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.246685, -1.154966, -0.5728833 }; // Expected fitted model
+
+		String fileName = "test/logReg_test_IRWLS_02.txt";
+		modelFitTest(rand, beta, -1, null, fileName, betaFit, 0.01, "irwls");
+	}
 }
