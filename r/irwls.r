@@ -5,7 +5,7 @@
 # Used for debugging data from LogisticeRegression class (Java code)
 #
 #
-# Sample output:
+# Sample output "logReg_test_IRWLS_01.txt", model c( -0.75, -3.0, 0.5 )
 #	Loading samples logReg_test_IRWLS_01.txt 
 #	Beta (Real ): -0.75 -3 0.5 	LL:  -383.3362 
 #	Beta (R    ): -0.7075655 -2.715519 0.4777281 	LL:  -382.0379 
@@ -20,6 +20,22 @@
 #	Beta (IRWLS): -0.7075655 -2.715519 0.4777281 	LL:  -382.0379 
 #	Beta (IRWLS): -0.7075655 -2.715519 0.4777281 	LL:  -382.0379 
 #	Beta (IRWLS): -0.7075655 -2.715519 0.4777281 	LL:  -382.0379 
+#
+# Sample output "logReg_test_IRWLS_02.txt", model c( -0.5, 2, -1 )
+#	Loading samples logReg_test_IRWLS_02.txt 
+#	Beta (Real ): -0.5 2 -1 	LL:  -396.4534 
+#	Beta (R    ): -0.5728833 2.246685 -1.154966 	LL:  -394.5612 
+#	Beta (IRWLS): 0 0 0 	LL:  -693.1472 
+#	Beta (IRWLS): -0.2862796 1.15751 -0.5996483 	LL:  -437.8987 
+#	Beta (IRWLS): -0.4555457 1.822203 -0.9407998 	LL:  -399.754 
+#	Beta (IRWLS): -0.5515022 2.172371 -1.117771 	LL:  -394.704 
+#	Beta (IRWLS): -0.5721644 2.244255 -1.153757 	LL:  -394.5614 
+#	Beta (IRWLS): -0.5728825 2.246682 -1.154964 	LL:  -394.5612 
+#	Beta (IRWLS): -0.5728833 2.246685 -1.154966 	LL:  -394.5612 
+#	Beta (IRWLS): -0.5728833 2.246685 -1.154966 	LL:  -394.5612 
+#	Beta (IRWLS): -0.5728833 2.246685 -1.154966 	LL:  -394.5612 
+#	Beta (IRWLS): -0.5728833 2.246685 -1.154966 	LL:  -394.5612 
+#	Beta (IRWLS): -0.5728833 2.246685 -1.154966 	LL:  -394.5612 
 #	
 #																Pablo Cingolani
 #-------------------------------------------------------------------------------
@@ -32,7 +48,8 @@ calcGlm <- TRUE
 calcIRWLS <- TRUE
 
 createSamples <- FALSE
-fileName <- "logReg_test_IRWLS_01.txt"
+#fileName <- "logReg_test_IRWLS_01.txt"
+fileName <- "logReg_test_IRWLS_02.txt"
 
 #-------------------------------------------------------------------------------
 # Sigmoid finction
@@ -70,7 +87,8 @@ log.lik.X <- function(y, beta, X) {
 #---
 # Real parameters (used to generate data)
 #---
-beta.0 <- c( -0.75, -3.0, 0.5 )	# Real model
+#beta.0 <- c( -0.75, -3.0, 0.5 )	# Real model
+beta.0 <- c( -0.5, 2, -1 )	# Real model
 
 #---
 # Create samples using model

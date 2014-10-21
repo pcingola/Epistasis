@@ -18,7 +18,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class TestCaseLogisticRegression extends TestCase {
 
-	public static boolean debug = false;
+	public static boolean debug = true;
 	public static boolean verbose = false || debug;
 
 	/**
@@ -164,17 +164,6 @@ public class TestCaseLogisticRegression extends TestCase {
 	//		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
 	//
 	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
-	//	}
-	//
-	//	public void test_01_bfgs() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 200;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
 	//	}
 
 	public void test_01_irwls() {

@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.optimizers;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.optimizers.Optimizer.OptimizerStatus;
 
 /**
@@ -10,7 +11,9 @@ import ca.mcgill.pcingola.optimizers.Optimizer.OptimizerStatus;
 public class OptimizationTerminator {
 
 	public static final int DEFAULT_MAX_STEPS = 1000000;
-	public static final double DEFAULT_GRADIENT_MAX_ABS_THRESHOLD = 1E-4;
+	public static final double DEFAULT_GRADIENT_MAX_ABS_THRESHOLD = 1E-6;
+
+	public static boolean debug = true;
 
 	boolean dead;
 	int maxSteps;
@@ -71,15 +74,22 @@ public class OptimizationTerminator {
 
 		// Is energy improving?
 		double energyNew = energy.getEnergy();
-		if (energyNew >= energyOld) return OptimizerStatus.CONVERGED;
+		if (energyNew >= energyOld) {
+			if (debug) Gpr.debug("Energy increase: Converged. Energy old: " + energyOld + ", energy new: " + energyNew);
+			return OptimizerStatus.CONVERGED;
+		}
 		energyOld = energyNew;
 
 		// Is the gradient 'strong' enough
 		double gradMaxAbs = getGradMagnitude();
-		if (gradMaxAbs < gradientMaxAbsThreshold) return OptimizerStatus.CONVERGED;
+		if (gradMaxAbs < gradientMaxAbsThreshold) {
+			if (debug) Gpr.debug("Gradient small: Converged. Gradient Max Abs: " + gradMaxAbs);
+			return OptimizerStatus.CONVERGED;
+		}
 
 		// Are we done with the number of steps?
 		if (step <= maxSteps) return OptimizerStatus.RUNNING;
+		if (debug) Gpr.debug("Maximum numner of steps reached: " + step);
 
 		return OptimizerStatus.UNCONVERGED;
 	}
