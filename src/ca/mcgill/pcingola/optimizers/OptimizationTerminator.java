@@ -13,7 +13,7 @@ public class OptimizationTerminator {
 	public static final int DEFAULT_MAX_STEPS = 1000000;
 	public static final double DEFAULT_GRADIENT_MAX_ABS_THRESHOLD = 1E-6;
 
-	public static boolean debug = true;
+	public static boolean debug = false;
 
 	boolean dead;
 	int maxSteps;

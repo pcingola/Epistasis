@@ -1,6 +1,5 @@
 package ca.mcgill.pcingola.regression;
 
-
 /**
  * Weighted linear regression
  *

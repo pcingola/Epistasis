@@ -18,7 +18,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class TestCaseLogisticRegression extends TestCase {
 
-	public static boolean debug = true;
+	public static boolean debug = false;
 	public static boolean verbose = false || debug;
 
 	/**
@@ -155,157 +155,154 @@ public class TestCaseLogisticRegression extends TestCase {
 		lr.setSamplesAddIntercept(in, out);
 	}
 
-	//	public void test_01() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 200;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
-	//	}
-	//
-	//	public void test_01_bfgs() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 200;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, betaFit, 0.01, "bfgs");
-	//	}
-	//
-	//	public void test_01_irwls() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 200;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
-	//	}
-	//
-	//	public void test_01_steepest() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 200;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "steepest");
-	//	}
-	//
-	//	public void test_02() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 10000;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.02, -0.9848, -0.5247 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
-	//	}
-	//
-	//	public void test_02_bfgs() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 100000;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.015, -1.015, -0.506 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
-	//	}
-	//
-	//	public void test_02_irwls() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 100000;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.015, -1.015, -0.506 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
-	//	}
-	//
-	//	public void test_02_steepest() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 100000;
-	//
-	//		double beta[] = { 2, -1, -0.5 }; // Real model
-	//		double betaFit[] = { 2.015, -1.015, -0.506 }; // Expected fitted model
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "steepest");
-	//	}
-	//
-	//	public void test_03() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 10000;
-	//		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
-	//		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
-	//
-	//		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
-	//	}
-	//
-	//	/**
-	//	 * Reset model and learn same data
-	//	 */
-	//	public void test_04() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 10000;
-	//		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
-	//		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
-	//
-	//		LogisticRegression lr = modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
-	//
-	//		// Make sure we can learn after a reset
-	//		lr.reset();
-	//		rand = new Random(20140912);
-	//		double betaScond[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
-	//		double betaFitSecond[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
-	//		lr = modelFitTest(rand, betaScond, N, null, null, betaFitSecond, 0.01, "bfgs");
-	//	}
-	//
-	//	/**
-	//	 * Reset model and learn different data
-	//	 */
-	//	public void test_05() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		int N = 10000;
-	//		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
-	//		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
-	//
-	//		LogisticRegression lr = modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
-	//
-	//		// Make sure we can learn after a reset
-	//		lr.reset();
-	//		rand = new Random(20140912);
-	//		double betaScond[] = { -0.7, 0.8, 2, -0.8, 1.9, 0.5 };
-	//		double betaFitSecond[] = { -0.705, 0.834, 1.980, -0.772, 1.889, 0.531 };
-	//		lr = modelFitTest(rand, betaScond, N, null, null, betaFitSecond, 0.01, "bfgs");
-	//	}
-	//
-	//	public void test_06() {
-	//		throw new RuntimeException("Create test using T2D data. Compare to R's calculations");
-	//	}
-	//
-	//	public void test_06_irwls() {
-	//		Gpr.debug("Test");
-	//		Random rand = new Random(20140912);
-	//		double beta[] = { -3.0, 0.5, -0.75 }; // Real model
-	//		double betaFit[] = { -2.715519, 0.4777281, -0.7075655, }; // Expected fitted model
-	//
-	//		String fileName = "test/logReg_test_IRWLS_01.txt";
-	//		modelFitTest(rand, beta, -1, null, fileName, betaFit, 0.01, "irwls");
-	//	}
+	public void test_01() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 200;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.055550258008242, -1.0041789502014213, -0.6979724967536511 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
+	}
+
+	public void test_01_bfgs() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 200;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
+	}
+
+	public void test_01_irwls() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 200;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
+	}
+
+	public void test_01_steepest() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 200;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.057, -1.005, -0.698 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "steepest");
+	}
+
+	public void test_02() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 10000;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.02, -0.9848, -0.5247 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
+	}
+
+	public void test_02_bfgs() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 100000;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.015, -1.015, -0.506 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
+	}
+
+	public void test_02_irwls() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 100000;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.015, -1.015, -0.506 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
+	}
+
+	public void test_02_steepest() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 100000;
+
+		double beta[] = { 2, -1, -0.5 }; // Real model
+		double betaFit[] = { 2.015, -1.015, -0.506 }; // Expected fitted model
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "steepest");
+	}
+
+	public void test_03() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 10000;
+		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
+		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
+
+		modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "grad");
+	}
+
+	/**
+	 * Reset model and learn same data
+	 */
+	public void test_04() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 10000;
+		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
+		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
+
+		LogisticRegression lr = modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
+
+		// Make sure we can learn after a reset
+		lr.reset();
+		rand = new Random(20140912);
+		double betaScond[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
+		double betaFitSecond[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
+		lr = modelFitTest(rand, betaScond, N, null, null, betaFitSecond, 0.01, "bfgs");
+	}
+
+	/**
+	 * Reset model and learn different data
+	 */
+	public void test_05() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		int N = 10000;
+		double betaFit[] = { 1.6997, -0.0427, -1.0012, 0.8036, 1.2781, -0.5192 };
+		double beta[] = { 1.7, -0.1, -1, 0.8, 1.3, -0.5 };
+
+		LogisticRegression lr = modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "bfgs");
+
+		// Make sure we can learn after a reset
+		lr.reset();
+		rand = new Random(20140912);
+		double betaScond[] = { -0.7, 0.8, 2, -0.8, 1.9, 0.5 };
+		double betaFitSecond[] = { -0.705, 0.834, 1.980, -0.772, 1.889, 0.531 };
+		lr = modelFitTest(rand, betaScond, N, null, null, betaFitSecond, 0.01, "bfgs");
+	}
+
+	public void test_06_irwls() {
+		Gpr.debug("Test");
+		Random rand = new Random(20140912);
+		double beta[] = { -3.0, 0.5, -0.75 }; // Real model
+		double betaFit[] = { -2.715519, 0.4777281, -0.7075655, }; // Expected fitted model
+
+		String fileName = "test/logReg_test_IRWLS_01.txt";
+		modelFitTest(rand, beta, -1, null, fileName, betaFit, 0.01, "irwls");
+	}
+
 	public void test_07_irwls() {
 		Gpr.debug("Test");
 		Random rand = new Random(20140912);

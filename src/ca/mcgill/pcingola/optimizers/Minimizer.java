@@ -62,7 +62,7 @@ public abstract class Minimizer extends Optimizer {
 							+ "which is more than allowed.\n" //
 							+ "So many restarts are indicative of an ill-shaped energy function or " //
 							+ "an energy differentiation\n" //
-							);
+					);
 				} else {
 					try {
 						kickStart();
