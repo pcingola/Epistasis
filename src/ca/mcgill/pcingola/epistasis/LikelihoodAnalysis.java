@@ -23,8 +23,8 @@ public class LikelihoodAnalysis {
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	// String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
+	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
 
 	boolean debug = false;
 	boolean writeToFile = WRITE_TO_FILE;
@@ -33,7 +33,8 @@ public class LikelihoodAnalysis {
 	int covariatesToNormalize[] = { 11, 12 };
 	double covariates[][];
 	double pheno[];
-	double llMax = Double.NEGATIVE_INFINITY;
+	double logLik = 0;
+	double logLikMax = Double.NEGATIVE_INFINITY;
 	String logLikInfoField; // If not null, an INFO field is added
 	String sampleIds[];
 	LogisticRegression lr;
@@ -132,6 +133,14 @@ public class LikelihoodAnalysis {
 		return lrNull;
 	}
 
+	public double getLogLik() {
+		return logLik;
+	}
+
+	public double getLogLikMax() {
+		return logLikMax;
+	}
+
 	public LogisticRegression getLrAlt() {
 		return lrAlt;
 	}
@@ -219,14 +228,14 @@ public class LikelihoodAnalysis {
 		//---
 		// Calculate likelihood ratio
 		//---
-		double ll = -2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
+		double ll = 2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
 
 		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
 		// Stats
 		if (Double.isFinite(ll)) {
-			boolean show = (llMax < ll);
-			llMax = Math.max(llMax, ll);
+			boolean show = (logLikMax < ll);
+			logLikMax = Math.max(logLikMax, ll);
 
 			if (show || debug) {
 				writeToFile |= show;
@@ -234,10 +243,10 @@ public class LikelihoodAnalysis {
 						+ "\tLL_ratio: " + ll //
 						+ "\tLL_alt: " + lrAlt.logLikelihood() //
 						+ "\tLL_null: " + lrNull.logLikelihood() //
-						+ "\tLL_ratio_max: " + llMax //
+						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //
-				);
+						);
 			} else Timer.show(count + "\tLL_ratio: " + ll + "\t" + ve.toStr());
 
 		} else {
@@ -270,6 +279,7 @@ public class LikelihoodAnalysis {
 		// Used for test cases and debugging
 		this.lrNull = lrNull;
 		this.lrAlt = lrAlt;
+		logLik = ll;
 
 		count++;
 	}
@@ -332,7 +342,7 @@ public class LikelihoodAnalysis {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-			); }
+					); }
 			snum++;
 		}
 
