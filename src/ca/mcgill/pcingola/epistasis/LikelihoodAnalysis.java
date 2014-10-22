@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.stream.StreamSupport;
 
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
+import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
@@ -31,6 +32,7 @@ public class LikelihoodAnalysis {
 	int numSamples, numCovs;
 	int count = 0;
 	int covariatesToNormalize[] = { 11, 12 };
+	int deltaDf = 1; // Difference in degrees of freedom between Alt and Null model
 	double covariates[][];
 	double pheno[];
 	double logLik = 0;
@@ -238,22 +240,25 @@ public class LikelihoodAnalysis {
 			logLikMax = Math.max(logLikMax, ll);
 
 			if (show || debug) {
+				// Calculate p-value
+				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
+				Gpr.debug("TODO: Calculate and check p-value (Chi-square test): " + pval);
+
 				writeToFile |= show;
 				System.out.println(ve.toStr() //
 						+ "\tLL_ratio: " + ll //
+						+ "\tp-value: " + pval //
 						+ "\tLL_alt: " + lrAlt.logLikelihood() //
 						+ "\tLL_null: " + lrNull.logLikelihood() //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //
-						);
+				);
 			} else Timer.show(count + "\tLL_ratio: " + ll + "\t" + ve.toStr());
 
 		} else {
 			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
 		}
-
-		Gpr.debug("TODO: Calculate and check p-value (Chi-square test)");
 
 		//---
 		// Save as TXT table (only used for debugging)
@@ -342,7 +347,7 @@ public class LikelihoodAnalysis {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
 
