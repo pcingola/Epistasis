@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.StreamSupport;
 
@@ -20,6 +21,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 public class LikelihoodAnalysis {
 
 	public static boolean WRITE_TO_FILE = false;
+	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
 	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
@@ -41,6 +43,7 @@ public class LikelihoodAnalysis {
 	String sampleIds[];
 	LogisticRegression lr;
 	LogisticRegression lrAlt, lrNull;
+	HashMap<String, Double> llNullCache = new HashMap<String, Double>();
 
 	public static void main(String[] args) {
 		Timer.showStdErr("Start");
@@ -51,7 +54,7 @@ public class LikelihoodAnalysis {
 
 		if (debug) {
 			zzz.setDebug(debug);
-			zzz.setLogLikInfoField("LL");
+			zzz.setLogLikInfoField(VCF_INFO_LOG_LIKELIHOOD);
 		}
 
 		zzz.run(debug);
@@ -64,6 +67,27 @@ public class LikelihoodAnalysis {
 			phenoCovariatesFileName = args[0];
 			vcfFileName = args[1];
 		}
+	}
+
+	/**
+	 * Calculate logistic regression's null model (or retrieve it form a cache)
+	 */
+	protected double calcNullModel(int countSkip, boolean skip[], char skipChar[], double phenoNonSkip[]) {
+		String skipStr = new String(skipChar);
+
+		// Is logLikelihood cached?
+		Double llNull = llNullCache.get(skipStr);
+		if (llNull != null) return llNull;
+
+		// Not found in cache? Create model and claculate it
+		LogisticRegression lrNull = createNullModel(skip, countSkip, phenoNonSkip);
+		this.lrNull = lrNull;
+		lrNull.learn();
+
+		llNull = lrNull.logLikelihood();
+		llNullCache.put(skipStr, llNull); // Add to cache
+
+		return llNull;
 	}
 
 	double[] copyNonSkip(double d[], boolean skip[], int countSkip) {
@@ -210,27 +234,35 @@ public class LikelihoodAnalysis {
 		// Get genotypes
 		byte gt[] = ve.getGenotypesScores();
 		boolean skip[] = new boolean[numSamples];
+		char skipChar[] = new char[numSamples];
 		int countSkip = 0;
 		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
 			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
-			if (skip[vcfSampleNum]) countSkip++;
+			if (skip[vcfSampleNum]) {
+				countSkip++;
+				skipChar[vcfSampleNum] = '1';
+			} else skipChar[vcfSampleNum] = '0';
 		}
 
 		// Create Null and Alt models
 		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
-		LogisticRegression lrAlt = createAltModel(skip, countSkip, gt, phenoNonSkip);
-		LogisticRegression lrNull = createNullModel(skip, countSkip, phenoNonSkip);
 
 		//---
 		// Fit logistic models
 		//---
-		lrNull.learn();
+
+		// Calculate 'Null' model (or retrieve from cache)
+		double llNull = calcNullModel(countSkip, skip, skipChar, phenoNonSkip);
+
+		// Create and calculate 'Alt' model
+		LogisticRegression lrAlt = createAltModel(skip, countSkip, gt, phenoNonSkip);
 		lrAlt.learn();
+		double llAlt = lrAlt.logLikelihood();
 
 		//---
 		// Calculate likelihood ratio
 		//---
-		double ll = 2.0 * (lrAlt.logLikelihood() - lrNull.logLikelihood());
+		double ll = 2.0 * (llAlt - llNull);
 
 		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
@@ -248,13 +280,12 @@ public class LikelihoodAnalysis {
 				System.out.println(ve.toStr() //
 						+ "\tLL_ratio: " + ll //
 						+ "\tp-value: " + pval //
-						+ "\tLL_alt: " + lrAlt.logLikelihood() //
-						+ "\tLL_null: " + lrNull.logLikelihood() //
+						+ "\tLL_alt: " + llAlt //
+						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
-						+ "\n\tModel Null : " + lrNull //
 				);
-			} else Timer.show(count + "\tLL_ratio: " + ll + "\t" + ve.toStr());
+			} else Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + ve.toStr());
 
 		} else {
 			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
@@ -282,7 +313,6 @@ public class LikelihoodAnalysis {
 		}
 
 		// Used for test cases and debugging
-		this.lrNull = lrNull;
 		this.lrAlt = lrAlt;
 		logLik = ll;
 

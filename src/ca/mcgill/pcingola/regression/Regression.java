@@ -14,6 +14,7 @@ import ca.mcgill.pcingola.optimizers.SteepestDecent;
 public abstract class Regression extends Energy {
 
 	boolean debug = false;
+	protected boolean predictNeedsUpdate = true;
 	int numSamples;
 	int size;
 	int maxIterations = 10000; // Maximum number of iterations
@@ -76,10 +77,18 @@ public abstract class Regression extends Energy {
 		return theta;
 	}
 
+	@Override
+	public void needsUpdate() {
+		super.needsUpdate();
+		predictNeedsUpdate = true;
+	}
+
 	/**
 	 * Apply model to all in[]
 	 */
 	public double[] predict() {
+		if (!predictNeedsUpdate) return out;
+
 		if (out == null) out = new double[samplesX.length];
 
 		// Calculate model for each input

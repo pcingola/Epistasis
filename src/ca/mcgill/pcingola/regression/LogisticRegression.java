@@ -10,11 +10,9 @@ import java.util.Arrays;
  */
 public class LogisticRegression extends Regression {
 
-	// public static final boolean IMPLEMENTATION_CORRECT = true;
-
 	double h[]; // Predicted outputs (model output)
 	double minGradient = 0.0001;
-	double eta = 1.0; // Learning (gradient)
+	double loglik = Double.NaN; // Log Likelihood
 
 	public LogisticRegression(int size) {
 		super(size);
@@ -88,6 +86,8 @@ public class LogisticRegression extends Regression {
 	 * Logarithm is in natural base ('e')
 	 */
 	public double logLikelihood() {
+		if (!Double.isNaN(loglik)) return loglik; // Use cached value
+
 		predict();
 
 		double loglik = 0;
@@ -99,11 +99,19 @@ public class LogisticRegression extends Regression {
 		return loglik;
 	}
 
+	@Override
+	public void needsUpdate() {
+		super.needsUpdate();
+		loglik = Double.NaN;
+	}
+
 	/**
 	 * Apply model to all in[]
 	 */
 	@Override
 	public double[] predict() {
+		if (!predictNeedsUpdate) return out;
+
 		if (out == null) {
 			out = new double[samplesX.length];
 			h = new double[samplesX.length];
@@ -152,10 +160,7 @@ public class LogisticRegression extends Regression {
 	@Override
 	public void reset() {
 		super.reset();
-	}
-
-	public void setEta(double eta) {
-		this.eta = eta;
+		loglik = Double.NaN;
 	}
 
 	public void setMinGradient(double minGradient) {
