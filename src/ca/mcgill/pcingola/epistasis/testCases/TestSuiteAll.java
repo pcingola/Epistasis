@@ -23,10 +23,10 @@ public class TestSuiteAll {
 		suite.addTestSuite(TestCasesPhylo.class);
 		suite.addTestSuite(TestCasesPhyloLikelihood.class);
 		suite.addTestSuite(TestTransitionMatrix.class);
+		suite.addTestSuite(TestCaseLikelihoodRatioMsa.class);
 		suite.addTestSuite(TestCaseOptimization.class);
 		suite.addTestSuite(TestCaseLogisticRegression.class);
 		suite.addTestSuite(TestCaseLogisticRegressionT2d.class);
-		suite.addTestSuite(TestCaseLikelihoodRatio.class);
 
 		return suite;
 	}

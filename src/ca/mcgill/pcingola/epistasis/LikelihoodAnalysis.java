@@ -129,6 +129,7 @@ public class LikelihoodAnalysis {
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
 
+		this.lrAlt = lrAlt;
 		return lrAlt;
 	}
 
@@ -156,6 +157,7 @@ public class LikelihoodAnalysis {
 		lrNull.setSamplesAddIntercept(xNull, phenoNonSkip);
 		lrNull.setDebug(debug);
 
+		this.lrNull = lrNull;
 		return lrNull;
 	}
 
@@ -224,15 +226,12 @@ public class LikelihoodAnalysis {
 	}
 
 	/**
-	 * Fit models and calculate log likelihood test
+	 * Fit models and calculate log likelihood ratio using 'genotypes' (gt) for the Alt model
 	 */
-	void logLikelihood(VcfEntry ve) {
-		boolean writeToFile = this.writeToFile;
-
+	protected double logLikelihood(String id, byte gt[]) {
 		// Which samples should be skipped?
 		// i.e.: Missing genotype or missing phenotype
 		// Get genotypes
-		byte gt[] = ve.getGenotypesScores();
 		boolean skip[] = new boolean[numSamples];
 		char skipChar[] = new char[numSamples];
 		int countSkip = 0;
@@ -248,7 +247,7 @@ public class LikelihoodAnalysis {
 		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
 
 		//---
-		// Fit logistic models
+		// Fit logistic models, calculate log likelihood
 		//---
 
 		// Calculate 'Null' model (or retrieve from cache)
@@ -259,14 +258,12 @@ public class LikelihoodAnalysis {
 		lrAlt.learn();
 		double llAlt = lrAlt.logLikelihood();
 
-		//---
 		// Calculate likelihood ratio
-		//---
 		double ll = 2.0 * (llAlt - llNull);
 
-		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
-
+		//---
 		// Stats
+		//---
 		if (Double.isFinite(ll)) {
 			boolean show = (logLikMax < ll);
 			logLikMax = Math.max(logLikMax, ll);
@@ -276,20 +273,29 @@ public class LikelihoodAnalysis {
 				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
 				Gpr.debug("TODO: Calculate and check p-value (Chi-square test): " + pval);
 
-				writeToFile |= show;
-				System.out.println(ve.toStr() //
+				System.out.println(id //
 						+ "\tLL_ratio: " + ll //
 						+ "\tp-value: " + pval //
 						+ "\tLL_alt: " + llAlt //
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
-				);
-			} else Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + ve.toStr());
+						);
+			} else Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + id);
 
-		} else {
-			throw new RuntimeException("Likelihood ratio is infinite!\n" + ve);
-		}
+		} else throw new RuntimeException("Likelihood ratio is infinite!\n" + id);
+
+		return ll;
+	}
+
+	/**
+	 * Calculate log likelihood on a VCF entry
+	 */
+	protected void logLikelihood(VcfEntry ve) {
+		byte gt[] = ve.getGenotypesScores();
+		double ll = logLikelihood(ve.toStr(), gt);
+
+		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
 		//---
 		// Save as TXT table (only used for debugging)
@@ -313,7 +319,7 @@ public class LikelihoodAnalysis {
 		}
 
 		// Used for test cases and debugging
-		this.lrAlt = lrAlt;
+		lrAlt = lrAlt;
 		logLik = ll;
 
 		count++;
@@ -377,7 +383,7 @@ public class LikelihoodAnalysis {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-			); }
+					); }
 			snum++;
 		}
 

@@ -10,7 +10,7 @@ import ca.mcgill.pcingola.epistasis.Epistasis;
  *
  * @author pcingola
  */
-public class TestCaseLikelihoodRatio extends TestCase {
+public class TestCaseLikelihoodRatioMsa extends TestCase {
 
 	public static boolean debug = true;
 	public static boolean verbose = true;
