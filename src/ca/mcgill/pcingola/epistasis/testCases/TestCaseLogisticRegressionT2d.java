@@ -52,7 +52,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		// Check ALT model
 		//---
 		double betaAlt[] = la.getLrAlt().getTheta();
-		Gpr.debug("beta [Alt] : " + Gpr.toString(betaAlt));
+		if (debug) Gpr.debug("beta [Alt] : " + Gpr.toString(betaAlt));
 
 		// Check that first coefficients is near zero
 		Assert.assertTrue(Math.abs(betaAlt[0]) < 0.01);
@@ -61,7 +61,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		// Check null model
 		//---
 		double betaNull[] = la.getLrNull().getTheta();
-		Gpr.debug("beta [Null]: " + Gpr.toString(betaNull));
+		if (debug) Gpr.debug("beta [Null]: " + Gpr.toString(betaNull));
 		double betaNullExpected[] = { 0.3090173, 4.075187, 1.490912, -3.58731, 5.213386, -3.410404, 0.1404156, 1.266376, 1.617885, 6.241032, -0.1195287, -0.00546481, 0.0192881 };
 		Assert.assertTrue(maxAbsDiff(betaNullExpected, betaNull) < 0.0001);
 
@@ -90,7 +90,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		// Check ALT model
 		//---
 		double betaAlt[] = la.getLrAlt().getTheta();
-		Gpr.debug("beta [Alt] : " + Gpr.toString(betaAlt));
+		if (debug) Gpr.debug("beta [Alt] : " + Gpr.toString(betaAlt));
 
 		// Check that coefficients are ~ [20, 0, 0, 0, ..., 0, 0, -10 ]
 		for (int i = 1; i < betaAlt.length - 1; i++)
@@ -102,7 +102,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		// Check null model
 		//---
 		double betaNull[] = la.getLrNull().getTheta();
-		Gpr.debug("beta [Null]: " + Gpr.toString(betaNull));
+		if (debug) Gpr.debug("beta [Null]: " + Gpr.toString(betaNull));
 		double betaNullExpected[] = { 0.3090173, 4.075187, 1.490912, -3.58731, 5.213386, -3.410404, 0.1404156, 1.266376, 1.617885, 6.241032, -0.1195287, -0.00546481, 0.0192881 };
 		Assert.assertTrue(maxAbsDiff(betaNullExpected, betaNull) < 0.0001);
 

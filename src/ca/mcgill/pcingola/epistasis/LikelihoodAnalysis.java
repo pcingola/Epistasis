@@ -23,18 +23,20 @@ public class LikelihoodAnalysis {
 	public static boolean WRITE_TO_FILE = false;
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
-	public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
+	// public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
 
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
+	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
+	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
 
 	boolean debug = false;
 	boolean verbose = false;
 	boolean writeToFile = WRITE_TO_FILE;
-	int numSamples, numCovs;
+	int numSamples;
+	int numCovariates;
 	int count = 0;
-	int covariatesToNormalize[] = { 11, 12 };
+	int covariatesToNormalize[] = { 10, 11 };
+	int offsetCovariatesAlt = 1;
 	int deltaDf = 1; // Difference in degrees of freedom between Alt and Null model
 	double covariates[][];
 	double pheno[];
@@ -139,22 +141,26 @@ public class LikelihoodAnalysis {
 	 * Create alternative model
 	 */
 	LogisticRegression createAltModel(boolean skip[], int countSkip, byte gt[], double phenoNonSkip[]) {
-		LogisticRegression lrAlt = new LogisticRegressionIrwls(numCovs);
+		LogisticRegression lrAlt = new LogisticRegressionIrwls(numCovariates + 1); // Add genotype
 
 		// Copy all covariates (except one that are skipped)
 		int totalSamples = numSamples - countSkip;
-		double xAlt[][] = new double[totalSamples][numCovs];
+		double xAlt[][] = new double[totalSamples][numCovariates + 1];
 
 		int idx = 0;
+		double gtmax = Double.NEGATIVE_INFINITY, gtmin = Double.POSITIVE_INFINITY;
 		for (int i = 0; i < numSamples; i++) {
 			if (skip[i]) continue;
 
 			// First row from phenotypes file is phenotype. But we want to predict using 'genotype', so we replace it
 			xAlt[idx][0] = gt[i];
 
+			gtmax = Math.max(gtmax, gt[i]);
+			gtmin = Math.min(gtmin, gt[i]);
+
 			// Copy all other covariates
-			for (int j = 1; j < numCovs; j++)
-				xAlt[idx][j] = covariates[i][j];
+			for (int j = 0; j < numCovariates; j++)
+				xAlt[idx][j + 1] = covariates[i][j];
 
 			idx++;
 		}
@@ -172,18 +178,18 @@ public class LikelihoodAnalysis {
 	 * Create null model
 	 */
 	LogisticRegression createNullModel(boolean skip[], int countSkip, double phenoNonSkip[]) {
-		LogisticRegression lrNull = new LogisticRegressionIrwls(numCovs - 1); // Null model: No genotypes
+		LogisticRegression lrNull = new LogisticRegressionIrwls(numCovariates); // Null model: No genotypes
 
 		// Copy all covariates (except one that are skipped)
 		int totalSamples = numSamples - countSkip;
-		double xNull[][] = new double[totalSamples][numCovs - 1];
+		double xNull[][] = new double[totalSamples][numCovariates];
 
 		int idx = 0;
 		for (int i = 0; i < numSamples; i++) {
 			if (skip[i]) continue;
 
-			for (int j = 0; j < numCovs - 1; j++)
-				xNull[idx][j] = covariates[i][j + 1];
+			for (int j = 0; j < numCovariates; j++)
+				xNull[idx][j] = covariates[i][j];
 
 			idx++;
 		}
@@ -216,42 +222,43 @@ public class LikelihoodAnalysis {
 	 * Load phenotypes and covariates
 	 */
 	void loadPhenoAndCovariates(String phenoCovariates) {
-		Timer.showStdErr("Reading PCA data form '" + phenoCovariates + "'");
+		Timer.showStdErr("Reading data form '" + phenoCovariates + "'");
 
 		// Read "phenotypes + covariates" file
 		String lines[] = Gpr.readFile(phenoCovariates).split("\n");
 
 		// Allocate PCA matrix
-		numCovs = lines.length - 1; // Row 1 is the title, other rows are covariates
+		numCovariates = lines.length - 2; // Row 1 is the title, row 2 is phenotype, other rows are covariates
 		numSamples = lines[0].split("\t").length - 1; // All, but first column are samples
-		covariates = new double[numSamples][numCovs];
+		covariates = new double[numSamples][numCovariates];
 
 		// Parse
-		int covariateNum = -1;
+		int lineNum = 0, covNum = 0;
 		for (String line : lines) {
 			line = line.trim();
 			String fields[] = line.split("\t");
 
-			// Skip title
-			if (covariateNum < 0) {
+			// Parse lines
+			if (lineNum == 0) {
+				// First line: Title. Load sample names
 				sampleIds = new String[fields.length - 1];
 				for (int i = 1; i < fields.length; i++)
 					sampleIds[i - 1] = fields[i];
-			} else {
-				// Parse covariate values
+			} else if (lineNum == 1) {
+				// Second line: Phenotypes. 
+				pheno = new double[numSamples];
 				for (int i = 1; i < fields.length; i++)
-					covariates[i - 1][covariateNum] = Gpr.parseDoubleSafe(fields[i]);
+					pheno[i - 1] = Gpr.parseDoubleSafe(fields[i]) - 1.0; // Convert phenotype values from {1,2} to {0,1}
+			} else {
+				// Other lines: Covariantes
+				for (int i = 1; i < fields.length; i++)
+					covariates[i - 1][covNum] = Gpr.parseDoubleSafe(fields[i]);
+				covNum++;
 			}
 
-			covariateNum++;
+			lineNum++;
 		}
-
-		//---
-		// Convert phenotype to {0,1}
-		//---
-		pheno = new double[numSamples];
-		for (int i = 0; i < numSamples; i++)
-			pheno[i] = covariates[i][PHENO_ROW_NUMBER] - 1.0;
+		Timer.showStdErr("Done. Phenotype and " + covNum + "/" + numCovariates + " covariates for " + numSamples + " samples.");
 
 		//---
 		// Normalize covariates: sex, age
@@ -264,9 +271,9 @@ public class LikelihoodAnalysis {
 	 * Fit models and calculate log likelihood ratio using 'genotypes' (gt) for the Alt model
 	 */
 	protected double logLikelihood(String id, byte gt[]) {
-		// Which samples should be skipped?
-		// i.e.: Missing genotype or missing phenotype
-		// Get genotypes
+		//---
+		// Which samples should be skipped? Either missing genotype or missing phenotype
+		//---
 		boolean skip[] = new boolean[numSamples];
 		char skipChar[] = new char[numSamples];
 		int countSkip = 0;
@@ -282,7 +289,7 @@ public class LikelihoodAnalysis {
 		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
 
 		//---
-		// Fit logistic models, calculate log likelihood
+		// Create and fit logistic models, calculate log likelihood
 		//---
 
 		// Calculate 'Null' model (or retrieve from cache)
@@ -291,6 +298,7 @@ public class LikelihoodAnalysis {
 		// Create and calculate 'Alt' model
 		LogisticRegression lrAlt = createAltModel(skip, countSkip, gt, phenoNonSkip);
 		lrAlt.learn();
+
 		double llAlt = lrAlt.logLikelihood();
 
 		// Calculate likelihood ratio
@@ -317,7 +325,7 @@ public class LikelihoodAnalysis {
 						+ "\tModel Alt  : " + lrAlt //
 				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + id);
-		} else throw new RuntimeException("Likelihood ratio is infinite!\n" + id);
+		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
 		countModel(lrAlt);
 
@@ -400,7 +408,7 @@ public class LikelihoodAnalysis {
 		loadPhenoAndCovariates(phenoCovariatesFileName);
 
 		// Initialize
-		thetaAltSum = new double[numCovs + 1];
+		thetaAltSum = new double[numCovariates + offsetCovariatesAlt + 1];
 
 		//---
 		// Read VCF file and run analysis
