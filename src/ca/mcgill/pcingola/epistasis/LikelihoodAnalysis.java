@@ -92,6 +92,25 @@ public class LikelihoodAnalysis {
 		return llNull;
 	}
 
+	/**
+	 * Check that sample names and sample order matches
+	 */
+	void checkSamplesVcf(VcfFileIterator vcf) {
+		//---
+		// Check that sample names and sample order matches
+		//---
+		vcf.readHeader();
+		List<String> sampleNames = vcf.getVcfHeader().getSampleNames();
+		int snum = 0;
+		for (String s : sampleNames) {
+			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
+					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
+					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
+			); }
+			snum++;
+		}
+	}
+
 	double[] copyNonSkip(double d[], boolean skip[], int countSkip) {
 		int totalSamples = numSamples - countSkip;
 		double dd[] = new double[totalSamples];
@@ -380,34 +399,18 @@ public class LikelihoodAnalysis {
 		//---
 		loadPhenoAndCovariates(phenoCovariatesFileName);
 
+		// Initialize
 		thetaAltSum = new double[numCovs + 1];
 
 		//---
-		// Read VCF file and perform logistic regression
-		// TODO: Matrix format
-		//			- Use "SnpSift allelmat" format it's much faster
-		//			- We need to load the whole matrix into memory (filter out singletons / MAF < 0.1% ?)
-		//			- Perform a quick check for overlapping variants between two positions before using logistic regression
+		// Read VCF file and run analysis
 		//---
 		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
+		checkSamplesVcf(vcf); // Check that sample names and sample order matches
+		return run(vcf, createList);
+	}
 
-		//---
-		// Check that sample names and sample order matches
-		//---
-		vcf.readHeader();
-		List<String> sampleNames = vcf.getVcfHeader().getSampleNames();
-		int snum = 0;
-		for (String s : sampleNames) {
-			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
-					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
-					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-			); }
-			snum++;
-		}
-
-		//---
-		// Calculate for each entry in VCF file (use parallel stream
-		//---
+	protected List<VcfEntry> run(VcfFileIterator vcf, boolean createList) {
 		ArrayList<VcfEntry> list = new ArrayList<VcfEntry>();
 		if (createList) {
 			// Process and populate list of VCF entries (single thread, used for debugging and test cases)
