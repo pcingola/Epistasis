@@ -30,6 +30,7 @@ public class LikelihoodAnalysis {
 	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
 
 	boolean debug = false;
+	boolean verbose = false;
 	boolean writeToFile = WRITE_TO_FILE;
 	int numSamples, numCovs;
 	int count = 0;
@@ -283,7 +284,7 @@ public class LikelihoodAnalysis {
 			boolean show = (logLikMax < ll);
 			logLikMax = Math.max(logLikMax, ll);
 
-			if (show || debug || true) {
+			if (show || debug) {
 				// Calculate p-value
 				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
 
@@ -296,7 +297,7 @@ public class LikelihoodAnalysis {
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
 				);
-			} else Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + id);
+			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite!\n" + id);
 
 		countModel(lrAlt);
