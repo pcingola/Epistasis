@@ -183,7 +183,7 @@ public class TestCaseLaplaceIntegral extends TestCase {
 		double H[][] = new double[n][n];
 		double sx[][] = lr.getSamplesX(); // Samples input values
 		lr.getSamplesY();
-		double p[] = lr.getOut(); // Output of logistic regresion is probability
+		double p[] = lr.getOut(); // Output of logistic regression is probability
 
 		// Calculate the Hessian matrix
 		for (int i = 0; i < n; i++)

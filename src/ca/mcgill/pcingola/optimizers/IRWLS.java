@@ -37,10 +37,6 @@ public class IRWLS extends Minimizer {
 	protected void init() throws OptimizerException {
 		zeta = new double[logReg.getNumSamples()];
 		w = new double[logReg.getNumSamples()];
-
-		// Initialize beta to 0
-		double zero[] = new double[energy.getDim()];
-		energy.setTheta(zero);
 	}
 
 	/**

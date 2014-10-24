@@ -37,6 +37,7 @@ public class LikelihoodAnalysis {
 	int deltaDf = 1; // Difference in degrees of freedom between Alt and Null model
 	double covariates[][];
 	double pheno[];
+	double thetaAltSum[];
 	double logLik = 0;
 	double logLikMax = Double.NEGATIVE_INFINITY;
 	String logLikInfoField; // If not null, an INFO field is added
@@ -102,6 +103,19 @@ public class LikelihoodAnalysis {
 	}
 
 	/**
+	 * Keep track of the 'average' theta values (Alt model)
+	 */
+	void countModel(LogisticRegression lrAlt) {
+		synchronized (thetaAltSum) {
+			double theta[] = lrAlt.getTheta();
+			for (int i = 0; i < thetaAltSum.length; i++)
+				thetaAltSum[i] += theta[i];
+
+			count++;
+		}
+	}
+
+	/**
 	 * Create alternative model
 	 */
 	LogisticRegression createAltModel(boolean skip[], int countSkip, byte gt[], double phenoNonSkip[]) {
@@ -128,6 +142,7 @@ public class LikelihoodAnalysis {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
+		setAvgThetaModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 		return lrAlt;
@@ -268,22 +283,23 @@ public class LikelihoodAnalysis {
 			boolean show = (logLikMax < ll);
 			logLikMax = Math.max(logLikMax, ll);
 
-			if (show || debug) {
+			if (show || debug || true) {
 				// Calculate p-value
 				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
-				Gpr.debug("TODO: Calculate and check p-value (Chi-square test): " + pval);
 
-				System.out.println(id //
+				Timer.show(count //
+						+ "\t" + id //
 						+ "\tLL_ratio: " + ll //
 						+ "\tp-value: " + pval //
 						+ "\tLL_alt: " + llAlt //
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
-						+ "\n\tModel Alt  : " + lrAlt //
-						);
+						+ "\tModel Alt  : " + lrAlt //
+				);
 			} else Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + id);
-
 		} else throw new RuntimeException("Likelihood ratio is infinite!\n" + id);
+
+		countModel(lrAlt);
 
 		return ll;
 	}
@@ -322,7 +338,6 @@ public class LikelihoodAnalysis {
 		lrAlt = lrAlt;
 		logLik = ll;
 
-		count++;
 	}
 
 	/**
@@ -364,6 +379,8 @@ public class LikelihoodAnalysis {
 		//---
 		loadPhenoAndCovariates(phenoCovariatesFileName);
 
+		thetaAltSum = new double[numCovs + 1];
+
 		//---
 		// Read VCF file and perform logistic regression
 		// TODO: Matrix format
@@ -383,7 +400,7 @@ public class LikelihoodAnalysis {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
 
@@ -400,6 +417,24 @@ public class LikelihoodAnalysis {
 		} else StreamSupport.stream(vcf.spliterator(), true).forEach(ve -> logLikelihood(ve)); // Process (do not populate list)
 
 		return list;
+	}
+
+	/**
+	 * Set initial parameters ('guess') as the average of the models found so far
+	 */
+	void setAvgThetaModel(LogisticRegression lrAlt) {
+		synchronized (thetaAltSum) {
+			double theta[] = new double[thetaAltSum.length];
+
+			if (count > 0) {
+				lrAlt.setZeroThetaBeforeLearn(false);
+
+				for (int i = 0; i < thetaAltSum.length; i++)
+					theta[i] += thetaAltSum[i] / count;
+			}
+
+			lrAlt.setModel(theta);
+		}
 	}
 
 	public void setDebug(boolean debug) {
