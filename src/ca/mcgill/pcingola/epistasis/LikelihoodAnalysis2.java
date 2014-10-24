@@ -119,7 +119,6 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		//---
 		// Read VCF: Populate list of VCF entries (single thread, used for debugging and test cases)
 		//---
-		Timer.show("Reading VCF file");
 		int count = 1;
 		for (VcfEntry ve : vcf) {
 			String key = ve.toStr();
@@ -129,7 +128,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 			gtByKey.put(key, gt);
 			keys.add(key);
 
-			Gpr.showMark(count++, 1000);
+			Gpr.showMark(count++, 1);
 		}
 
 		//---

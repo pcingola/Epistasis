@@ -30,7 +30,7 @@ public class LikelihoodAnalysis {
 	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
 
 	boolean debug = false;
-	boolean verbose = false;
+	boolean verbose = true;
 	boolean writeToFile = WRITE_TO_FILE;
 	int numSamples;
 	int numCovariates;
@@ -413,6 +413,7 @@ public class LikelihoodAnalysis {
 		//---
 		// Read VCF file and run analysis
 		//---
+		Timer.show("Reading VCF file '" + vcfFileName + "'");
 		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
 		checkSamplesVcf(vcf); // Check that sample names and sample order matches
 		return run(vcf, createList);
