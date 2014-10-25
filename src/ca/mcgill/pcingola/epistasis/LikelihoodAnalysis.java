@@ -23,8 +23,6 @@ public class LikelihoodAnalysis {
 	public static boolean WRITE_TO_FILE = false;
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
-	// public static final int PHENO_ROW_NUMBER = 0; // Covariate number zero is phenotype
-
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
 	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
 	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
@@ -127,11 +125,13 @@ public class LikelihoodAnalysis {
 	/**
 	 * Keep track of the 'average' theta values (Alt model)
 	 */
-	void countModel(LogisticRegression lrAlt) {
+	protected void countModel(LogisticRegression lrAlt) {
 		synchronized (thetaAltSum) {
-			double theta[] = lrAlt.getTheta();
-			for (int i = 0; i < thetaAltSum.length; i++)
-				thetaAltSum[i] += theta[i];
+			if (lrAlt != null) {
+				double theta[] = lrAlt.getTheta();
+				for (int i = 0; i < thetaAltSum.length; i++)
+					thetaAltSum[i] += theta[i];
+			}
 
 			count++;
 		}
@@ -140,7 +140,7 @@ public class LikelihoodAnalysis {
 	/**
 	 * Create alternative model
 	 */
-	LogisticRegression createAltModel(boolean skip[], int countSkip, byte gt[], double phenoNonSkip[]) {
+	protected LogisticRegression createAltModel(boolean skip[], int countSkip, byte gt[], double phenoNonSkip[]) {
 		LogisticRegression lrAlt = new LogisticRegressionIrwls(numCovariates + 1); // Add genotype
 
 		// Copy all covariates (except one that are skipped)
@@ -177,7 +177,7 @@ public class LikelihoodAnalysis {
 	/**
 	 * Create null model
 	 */
-	LogisticRegression createNullModel(boolean skip[], int countSkip, double phenoNonSkip[]) {
+	protected LogisticRegression createNullModel(boolean skip[], int countSkip, double phenoNonSkip[]) {
 		LogisticRegression lrNull = new LogisticRegressionIrwls(numCovariates); // Null model: No genotypes
 
 		// Copy all covariates (except one that are skipped)
@@ -285,12 +285,12 @@ public class LikelihoodAnalysis {
 			} else skipChar[vcfSampleNum] = '0';
 		}
 
-		// Create Null and Alt models
-		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
-
 		//---
 		// Create and fit logistic models, calculate log likelihood
 		//---
+
+		// Phenotypes without 'skipped' entries
+		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
 
 		// Calculate 'Null' model (or retrieve from cache)
 		double llNull = calcNullModel(countSkip, skip, skipChar, phenoNonSkip);
