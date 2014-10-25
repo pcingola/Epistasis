@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.LUDecomposition;
+
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -20,6 +23,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 
 	public static final int MIN_SHARED_VARIANTS = 5;
+	public static final double EPSILON = 1e-6;
 
 	ArrayList<String> keys;
 	HashMap<String, byte[]> gtByKey;
@@ -79,6 +83,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		double xAlt[][] = new double[totalSamples][numCovariates + 3];
 
 		int idx = 0;
+		boolean oki = false, okj = false, okij = false;
 		for (int i = 0; i < numSamples; i++) {
 			if (skip[i]) continue;
 
@@ -90,6 +95,12 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 			for (int j = 0; j < numCovariates; j++)
 				xAlt[idx][j + 3] = covariates[i][j];
 
+			if (idx > 0) {
+				oki |= (xAlt[idx][0] != xAlt[idx - 1][0]);
+				okj |= (xAlt[idx][1] != xAlt[idx - 1][1]);
+				okij |= (xAlt[idx][2] != xAlt[idx - 1][2]);
+			}
+
 			idx++;
 		}
 
@@ -99,7 +110,9 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		lrAlt.setDebug(debug);
 
 		this.lrAlt = lrAlt;
-		return lrAlt;
+
+		if (oki && okj && okij) return lrAlt;
+		return null;
 	}
 
 	/**
@@ -133,6 +146,48 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		return lrNull;
 	}
 
+	/**
+	 * Are these vectors linearly dependent?
+	 */
+	boolean linearDependency(boolean skip[], int countSkip, byte gti[], byte gtj[], byte gtij[]) {
+		int len = gti.length - countSkip;
+		int n = 3;
+		byte M[][] = new byte[n][len];
+
+		// Create a matrix 'M'
+		for (int i = 0, idx = 0; i < gti.length; i++) {
+			if (skip[i]) continue;
+
+			M[0][idx] = gti[i];
+			M[1][idx] = gtj[i];
+			M[2][idx] = gtij[i];
+			idx++;
+		}
+
+		// Calculate M^t * M
+		double MM[][] = new double[n][n];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				int sum = 0;
+
+				for (int h = 0; h < len; h++)
+					sum += M[i][h] * M[j][h];
+
+				MM[i][j] = sum;
+			}
+		}
+
+		// Is det( M^T * M ) zero?
+		Array2DRowRealMatrix MMr = new Array2DRowRealMatrix(MM);
+		double detMM = (new LUDecomposition(MMr)).getDeterminant();
+		if (debug) Gpr.debug("det(MM): " + detMM + "\tMM:\n" + Gpr.toString(MM));
+
+		return Math.abs(detMM) < EPSILON;
+	}
+
+	/**
+	 * Calculate log likelihood
+	 */
 	protected double logLikelihood(String keyi, byte gti[], String keyj, byte gtj[]) {
 		String id = keyi + "-" + keyj;
 
@@ -156,10 +211,22 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 			}
 		}
 
+		//---
+		// Sanity checks
+		//---
+
 		// No samples has both variants? Then there is not much to do.
 		// To few shared varaints? We probably don't have enough statistical power anyways (not worth analysing)
 		if (countGtij < minSharedVariants) {
-			if (verbose) if (verbose) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
+			if (verbose) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
+			countModel(null);
+			return 0.0; // Log-likelihood is zero
+		}
+
+		// Are gti[], gtj[] and gtij[] linearly dependent?
+		// If so, the model will not converge because the parameter (beta) for at least one of the gt[] will be 'NA'
+		if (linearDependency(skip, countSkip, gti, gtj, gtij)) {
+			if (verbose) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
 			countModel(null);
 			return 0.0;
 		}
@@ -185,6 +252,28 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		double ll = 2.0 * (llAlt - llNull);
 
 		//---
+		// Save as TXT table (only used for debugging)
+		//---
+		if (writeToFile) {
+			String idd = id.replace('/', '_');
+
+			// ALT data
+			String fileName = Gpr.HOME + "/lr_test." + idd + ".alt.txt";
+			Gpr.debug("Writing 'alt data' table to :" + fileName);
+			Gpr.toFile(fileName, lrAlt.toStringSamples());
+
+			// NULL data
+			fileName = Gpr.HOME + "/lr_test." + idd + ".null.txt";
+			Gpr.debug("Writing 'null data' table to :" + fileName);
+			Gpr.toFile(fileName, lrNull.toStringSamples());
+
+			// ALT model
+			fileName = Gpr.HOME + "/lr_test." + idd + ".alt.model.txt";
+			Gpr.debug("Writing 'alt model' to :" + fileName);
+			Gpr.toFile(fileName, lrAlt.toStringModel());
+		}
+
+		//---
 		// Stats
 		//---
 		if (Double.isFinite(ll)) {
@@ -204,7 +293,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Alt  : " + lrAlt //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
 
@@ -252,4 +341,5 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 
 		return new ArrayList<VcfEntry>();
 	}
+
 }

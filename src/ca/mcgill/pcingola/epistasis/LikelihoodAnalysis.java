@@ -20,7 +20,6 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
  */
 public class LikelihoodAnalysis {
 
-	public static boolean WRITE_TO_FILE = false;
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
 	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
@@ -29,7 +28,7 @@ public class LikelihoodAnalysis {
 
 	boolean debug = false;
 	boolean verbose = true;
-	boolean writeToFile = WRITE_TO_FILE;
+	boolean writeToFile = true;
 	int numSamples;
 	int numCovariates;
 	int count = 0;
