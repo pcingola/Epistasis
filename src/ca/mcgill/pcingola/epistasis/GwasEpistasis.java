@@ -80,7 +80,11 @@ public class GwasEpistasis extends SnpEff {
 
 		// Find transcript and exon
 		Transcript tr = trancriptById.get(trId);
+		if (tr == null) return;
 		Exon ex = tr.findExon(start);
+		if (ex == null) return;
+
+		if (tr.isStrandMinus()) Gpr.debug("Strand: ------------------------");
 
 		// Calculate start position
 		int startPos;
@@ -112,17 +116,17 @@ public class GwasEpistasis extends SnpEff {
 		String aa = genome.codonTable().aa(codonStr);
 
 		if (aa.equals("" + aaExpected)) {
-			if (debug) Gpr.debug("OK: " + id);
 			countOk++;
+			if (debug) Gpr.debug("OK: " + id);
 		} else {
 			countErr++;
-			Gpr.debug("Entry ID     : " + id //
+			if (debug) Gpr.debug("Entry ID     : " + id //
 					+ "\ntr ID        : " + trId + ", chr: " + chr + ", start: " + start + ", end: " + end + ", idx: " + idx //
 					+ "\nTranscript : " + tr //
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
+			);
 		}
 	}
 
@@ -165,7 +169,7 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + genesLikeFile + "'." //
 				+ "\n\tEntries kept: " + countKept + " / " + count + " [ " + (countKept * 100.0 / count) + "% ]" //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 }
