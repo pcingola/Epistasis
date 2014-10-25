@@ -33,11 +33,11 @@ public class LikelihoodAnalysis {
 	int numCovariates;
 	int count = 0;
 	int covariatesToNormalize[] = { 10, 11 };
-	int offsetCovariatesAlt = 1;
+	int numGtAlt = 1, numGtNull = 0;
 	int deltaDf = 1; // Difference in degrees of freedom between Alt and Null model
 	double covariates[][];
 	double pheno[];
-	double thetaAltSum[];
+	double thetaAltSum[], thetaNullSum[];
 	double logLik = 0;
 	double logLikMax = Double.NEGATIVE_INFINITY;
 	String logLikInfoField; // If not null, an INFO field is added
@@ -128,7 +128,7 @@ public class LikelihoodAnalysis {
 		synchronized (thetaAltSum) {
 			if (lrAlt != null) {
 				double theta[] = lrAlt.getTheta();
-				for (int i = 0; i < thetaAltSum.length; i++)
+				for (int i = 0; i < theta.length; i++)
 					thetaAltSum[i] += theta[i];
 			}
 
@@ -167,7 +167,7 @@ public class LikelihoodAnalysis {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
-		setAvgThetaModel(lrAlt);
+		setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 		return lrAlt;
@@ -244,7 +244,7 @@ public class LikelihoodAnalysis {
 				for (int i = 1; i < fields.length; i++)
 					sampleIds[i - 1] = fields[i];
 			} else if (lineNum == 1) {
-				// Second line: Phenotypes. 
+				// Second line: Phenotypes.
 				pheno = new double[numSamples];
 				for (int i = 1; i < fields.length; i++)
 					pheno[i - 1] = Gpr.parseDoubleSafe(fields[i]) - 1.0; // Convert phenotype values from {1,2} to {0,1}
@@ -302,6 +302,7 @@ public class LikelihoodAnalysis {
 
 		// Calculate likelihood ratio
 		double ll = 2.0 * (llAlt - llNull);
+		logLik = ll; // Store latest value (used for test cases and debugging)
 
 		//---
 		// Stats
@@ -360,11 +361,6 @@ public class LikelihoodAnalysis {
 			Gpr.toFile(fileName, lrAlt.toStringModel());
 
 		}
-
-		// Used for test cases and debugging
-		lrAlt = lrAlt;
-		logLik = ll;
-
 	}
 
 	/**
@@ -407,7 +403,8 @@ public class LikelihoodAnalysis {
 		loadPhenoAndCovariates(phenoCovariatesFileName);
 
 		// Initialize
-		thetaAltSum = new double[numCovariates + offsetCovariatesAlt + 1];
+		thetaAltSum = new double[numCovariates + numGtAlt + 1];
+		thetaNullSum = new double[numCovariates + numGtNull + 1];
 
 		//---
 		// Read VCF file and run analysis
@@ -432,9 +429,9 @@ public class LikelihoodAnalysis {
 	}
 
 	/**
-	 * Set initial parameters ('guess') as the average of the models found so far
+	 * Set initial parameters ('guess') as the average ALT models found so far
 	 */
-	void setAvgThetaModel(LogisticRegression lrAlt) {
+	void setAvgThetaAltModel(LogisticRegression lrAlt) {
 		synchronized (thetaAltSum) {
 			double theta[] = new double[thetaAltSum.length];
 
@@ -446,6 +443,24 @@ public class LikelihoodAnalysis {
 			}
 
 			lrAlt.setModel(theta);
+		}
+	}
+
+	/**
+	 * Set initial parameters ('guess') as the average Null models found so far
+	 */
+	void setAvgThetaNullModel(LogisticRegression lrNull) {
+		synchronized (thetaNullSum) {
+			double theta[] = new double[thetaNullSum.length];
+
+			if (count > 0) {
+				lrNull.setZeroThetaBeforeLearn(false);
+
+				for (int i = 0; i < thetaNullSum.length; i++)
+					theta[i] += thetaNullSum[i] / count;
+			}
+
+			lrNull.setModel(theta);
 		}
 	}
 

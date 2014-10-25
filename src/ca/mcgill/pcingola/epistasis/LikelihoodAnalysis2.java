@@ -3,6 +3,7 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.IntStream;
 
 import org.apache.commons.math3.linear.Array2DRowRealMatrix;
 import org.apache.commons.math3.linear.LUDecomposition;
@@ -48,6 +49,8 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 
 	public LikelihoodAnalysis2(String args[]) {
 		super(args);
+		numGtAlt = 3;
+		numGtNull = 2;
 	}
 
 	/**
@@ -70,6 +73,27 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		llNullCache.put(skipStr, llNull); // Add to cache
 
 		return llNull;
+	}
+
+	/**
+	 * Keep track of the 'average' theta values (Alt model)
+	 */
+	protected void countModel(LogisticRegression lrAlt, LogisticRegression lrNull) {
+		synchronized (thetaAltSum) {
+			if (lrAlt != null) {
+				double theta[] = lrAlt.getTheta();
+				for (int i = 0; i < theta.length; i++)
+					thetaAltSum[i] += theta[i];
+			}
+
+			if (lrNull != null) {
+				double theta[] = lrNull.getTheta();
+				for (int i = 0; i < theta.length; i++)
+					thetaNullSum[i] += theta[i];
+			}
+
+			count++;
+		}
 	}
 
 	/**
@@ -107,6 +131,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
+		setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 
@@ -140,6 +165,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// Set samples
 		lrNull.setSamplesAddIntercept(xNull, phenoNonSkip);
 		lrNull.setDebug(debug);
+		setAvgThetaNullModel(lrNull);
 
 		this.lrNull = lrNull;
 		return lrNull;
@@ -292,7 +318,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
 						+ "\n\tModel Null : " + lrNull //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
 
@@ -325,7 +351,9 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// Calculate likelihoods
 		//---
 
-		for (int i = 0; i < keys.size(); i++) {
+		IntStream.range(0, keys.size()) //
+		.parallel() //
+		.forEach(i -> {
 			for (int j = i + 1; j < keys.size(); j++) {
 				String keyi = keys.get(i);
 				String keyj = keys.get(j);
@@ -334,7 +362,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 
 				logLikelihood(keyi, gti, keyj, gtj);
 			}
-		}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 
