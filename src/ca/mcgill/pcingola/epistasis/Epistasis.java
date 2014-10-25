@@ -17,7 +17,6 @@ import java.util.stream.IntStream;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.util.Pair;
 
-import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.stats.Counter;
@@ -44,7 +43,6 @@ public class Epistasis implements CommandLine {
 	public static boolean debug = false;
 
 	public static int MAX_RAND_ITER = 1000;
-	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = 1.0;
 
 	boolean nextProt;
 	boolean filterMsaByIdMap = true;
@@ -550,13 +548,9 @@ public class Epistasis implements CommandLine {
 		case "gwas":
 			configFile = args[argNum++];
 			genome = args[argNum++];
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			idMapFile = args[argNum++];
 			String vcfFile = args[argNum++];
 			String genesLikeFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			filterMsaByIdMap = true;
 			runGwas(genesLikeFile, vcfFile);
 			break;
 
@@ -1025,20 +1019,12 @@ public class Epistasis implements CommandLine {
 	 * Perform GWAS analysis using epistatic data
 	 */
 	void runGwas(String genesLikeFile, String vcfFile) {
-		//load();
+		// load();
 
-		// Read "genes likelihood" file
-		LineFileIterator lfi = new LineFileIterator(genesLikeFile);
-		for (String line : lfi) {
-			if (line.isEmpty()) continue;
-
-			String f[] = line.split("\t");
-
-			String msa1 = f[0];
-			String msa2 = f[1];
-			double logLikRatio = Gpr.parseDoubleSafe(f[2]);
-			if (logLikRatio > LOG_LIKELIHOOD_RATIO_THRESHOLD) System.out.println(line);
-		}
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		gwasEpistasis.setDebug(debug);
+		gwasEpistasis.initialize();
+		gwasEpistasis.readGenesLogLikelihood();
 	}
 
 	/**

@@ -296,7 +296,7 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Map to MSA
+	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
 	public void mapToMsa(MultipleSequenceAlignmentSet msas, DistanceResult dres) {
 		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
@@ -328,7 +328,7 @@ public class PdbGenome extends SnpEff {
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
 			) {
-				// System.out.println("\tPosition outside amino acid\tAA length: " + aa2pos.length + "\t" + dres);
+				// Position outside amino acid
 				continue;
 			}
 
