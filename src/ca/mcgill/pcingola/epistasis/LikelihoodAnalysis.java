@@ -27,7 +27,7 @@ public class LikelihoodAnalysis {
 	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
 
 	boolean debug = false;
-	boolean verbose = true;
+	boolean verbose = false;
 	boolean writeToFile = false;
 	int numSamples;
 	int numCovariates;

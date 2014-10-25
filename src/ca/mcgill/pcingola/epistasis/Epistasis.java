@@ -17,6 +17,7 @@ import java.util.stream.IntStream;
 import org.apache.commons.math3.linear.RealVector;
 import org.apache.commons.math3.util.Pair;
 
+import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.CommandLine;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.stats.Counter;
@@ -43,6 +44,7 @@ public class Epistasis implements CommandLine {
 	public static boolean debug = false;
 
 	public static int MAX_RAND_ITER = 1000;
+	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = 1.0;
 
 	boolean nextProt;
 	boolean filterMsaByIdMap = true;
@@ -170,51 +172,6 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * calculate likelihood for all MSAs matching gene names
-	 */
-	void likelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String genesDir) {
-		if (msasGene1 == null || msasGene2 == null) return;
-
-		// Create output directory
-		String dir = genesDir + "/likelihood_genes/" + gene1;
-		(new File(dir)).mkdirs();
-
-		// Create output file
-		String outFile = dir + "/" + gene2 + ".txt";
-		String tmpFile = dir + "/" + gene2 + ".tmp";
-		if (Gpr.exists(outFile)) {
-			Timer.showStdErr("Likelihood genes '" + gene1 + "' and '" + gene2 + "', output file exists, skipping ('" + outFile + "')");
-			return;
-		}
-
-		try {
-			BufferedWriter tmp = new BufferedWriter(new FileWriter(tmpFile));
-			Timer.showStdErr("Likelihood genes '" + gene1 + "' and '" + gene2 + "', tmp file: '" + tmpFile + "'");
-
-			// Compare all MSA combinations
-			for (MultipleSequenceAlignment msa1 : msasGene1)
-				for (MultipleSequenceAlignment msa2 : msasGene2) {
-					String key = msa1.getId() + "\t" + msa2.getId();
-
-					// Already calculated? Ignore
-					if (!done.contains(key)) {
-						done.add(key);
-						String lout = likelihoodRatio(msa1, msa2, false);
-						if (!lout.isEmpty()) tmp.write(lout + "\n");
-					}
-				}
-
-			tmp.close();
-
-			// We are done, move tmpFile to outFile
-			(new File(tmpFile)).renameTo(new File(outFile));
-			Timer.showStdErr("Finished likelihood genes '" + gene1 + "' and '" + gene2 + "', output file: '" + outFile + "'");
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
 	 * Calculate likelihood for the 'null model' (H0, i.e. using Qhat)
 	 */
 	public double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
@@ -234,60 +191,6 @@ public class Epistasis implements CommandLine {
 		return lik;
 	}
 
-	/**
-	 * Calculate likelihood ratio for these entries
-	 */
-	public String likelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
-		// Since we execute in parallel, we need one tree per thread
-		LikelihoodTreeAa treeNull = getTreeNull();
-		LikelihoodTreeAa treeAlt = getTreeAlt();
-
-		// Calculate likelihoods for the null and alternative model
-		double likNull = likelihoodNullModel(treeNull, msa1, msaIdx1, msa2, msaIdx2);
-		double likAlt = likelihoodAltModel(treeAlt, msa1, msaIdx1, msa2, msaIdx2);
-		double llr = -2.0 * (Math.log(likNull) - Math.log(likAlt));
-
-		// Return results
-		String seqsStr = "";
-		if (!brief) {
-			String seq1 = msa1.getColumnString(msaIdx1);
-			String seq2 = msa2.getColumnString(msaIdx2);
-			seqsStr = "\t" + seq1 + "\t" + seq2;
-		}
-
-		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
-				+ "\t" + llr //
-				+ "\t" + likNull //
-				+ "\t" + likAlt //
-				+ seqsStr //
-		;
-	}
-
-	/**
-	 * Calculate likelihood for all possible AA pairs within these two MSAs
-	 */
-	String likelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
-		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
-
-		StringBuilder sb = new StringBuilder();
-
-		for (int i1 = 0; i1 < msa1.length(); i1++) {
-			if (msa1.isSkip(i1)) continue;
-
-			for (int i2 = 0; i2 < msa2.length(); i2++) {
-				if (msa2.isSkip(i2)) continue;
-
-				String res = likelihoodRatio(msa1, i1, msa2, i2, brief);
-				if (res != null) {
-					if (debug) System.err.println(res);
-					sb.append(res + "\n");
-				}
-			}
-		}
-
-		return sb.toString();
-	}
-
 	public String likelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
 		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
 		if (msa1 == null) return null;
@@ -295,7 +198,7 @@ public class Epistasis implements CommandLine {
 		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
 		if (msa2 == null) return null;
 
-		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
+		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
 	}
 
 	/**
@@ -315,7 +218,7 @@ public class Epistasis implements CommandLine {
 			msaIdx2 = random.nextInt(msa2.length());
 		}
 
-		return likelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, false);
+		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
 	/**
@@ -438,8 +341,6 @@ public class Epistasis implements CommandLine {
 		}
 
 		Q2 = TransitionMatrixMarkov.load(fileName);
-
-		//		if (!Q2.isRateMatrix()) throw new RuntimeException("Q2 is not a reate matrix!");
 	}
 
 	/**
@@ -449,6 +350,107 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
 		tree = new LikelihoodTreeAa();
 		tree.load(phyloFileName);
+	}
+
+	/**
+	 * Calculate log-likelihood ratio for all MSAs matching gene names
+	 * Output format:
+	 * 		msa1.id [msaIdx1] \t msa2.id[msaIdx2] \t logLikRatio \t likNull \t likAlt \t seqsStr
+	 */
+	void logLikelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String genesDir) {
+		if (msasGene1 == null || msasGene2 == null) return;
+
+		// Create output directory
+		String dir = genesDir + "/likelihood_genes/" + gene1;
+		(new File(dir)).mkdirs();
+
+		// Create output file
+		String outFile = dir + "/" + gene2 + ".txt";
+		String tmpFile = dir + "/" + gene2 + ".tmp";
+		if (Gpr.exists(outFile)) {
+			Timer.showStdErr("Likelihood genes '" + gene1 + "' and '" + gene2 + "', output file exists, skipping ('" + outFile + "')");
+			return;
+		}
+
+		try {
+			BufferedWriter tmp = new BufferedWriter(new FileWriter(tmpFile));
+			Timer.showStdErr("Likelihood genes '" + gene1 + "' and '" + gene2 + "', tmp file: '" + tmpFile + "'");
+
+			// Compare all MSA combinations
+			for (MultipleSequenceAlignment msa1 : msasGene1)
+				for (MultipleSequenceAlignment msa2 : msasGene2) {
+					String key = msa1.getId() + "\t" + msa2.getId();
+
+					// Already calculated? Ignore
+					if (!done.contains(key)) {
+						done.add(key);
+						String lout = logLikelihoodRatio(msa1, msa2, false);
+						if (!lout.isEmpty()) tmp.write(lout + "\n");
+					}
+				}
+
+			tmp.close();
+
+			// We are done, move tmpFile to outFile
+			(new File(tmpFile)).renameTo(new File(outFile));
+			Timer.showStdErr("Finished likelihood genes '" + gene1 + "' and '" + gene2 + "', output file: '" + outFile + "'");
+		} catch (Exception e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	/**
+	 * Calculate likelihood ratio for these entries
+	 */
+	public String logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
+		// Since we execute in parallel, we need one tree per thread
+		LikelihoodTreeAa treeNull = getTreeNull();
+		LikelihoodTreeAa treeAlt = getTreeAlt();
+
+		// Calculate likelihoods for the null and alternative model
+		double likNull = likelihoodNullModel(treeNull, msa1, msaIdx1, msa2, msaIdx2);
+		double likAlt = likelihoodAltModel(treeAlt, msa1, msaIdx1, msa2, msaIdx2);
+		double logLikRatio = -2.0 * (Math.log(likNull) - Math.log(likAlt));
+
+		// Return results
+		String seqsStr = "";
+		if (!brief) {
+			String seq1 = msa1.getColumnString(msaIdx1);
+			String seq2 = msa2.getColumnString(msaIdx2);
+			seqsStr = "\t" + seq1 + "\t" + seq2;
+		}
+
+		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
+				+ "\t" + logLikRatio //
+				+ "\t" + likNull //
+				+ "\t" + likAlt //
+				+ seqsStr //
+		;
+	}
+
+	/**
+	 * Calculate likelihood for all possible AA pairs within these two MSAs
+	 */
+	String logLikelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
+		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i1 = 0; i1 < msa1.length(); i1++) {
+			if (msa1.isSkip(i1)) continue;
+
+			for (int i2 = 0; i2 < msa2.length(); i2++) {
+				if (msa2.isSkip(i2)) continue;
+
+				String res = logLikelihoodRatio(msa1, i1, msa2, i2, brief);
+				if (res != null) {
+					if (debug) System.err.println(res);
+					sb.append(res + "\n");
+				}
+			}
+		}
+
+		return sb.toString();
 	}
 
 	/**
@@ -543,6 +545,19 @@ public class Epistasis implements CommandLine {
 			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runFilterMsa();
+			break;
+
+		case "gwas":
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			String vcfFile = args[argNum++];
+			String genesLikeFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
+			filterMsaByIdMap = true;
+			runGwas(genesLikeFile, vcfFile);
 			break;
 
 		case "likelihood":
@@ -1007,6 +1022,26 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Perform GWAS analysis using epistatic data
+	 */
+	void runGwas(String genesLikeFile, String vcfFile) {
+		//load();
+
+		// Read "genes likelihood" file
+		LineFileIterator lfi = new LineFileIterator(genesLikeFile);
+		for (String line : lfi) {
+			if (line.isEmpty()) continue;
+
+			String f[] = line.split("\t");
+
+			String msa1 = f[0];
+			String msa2 = f[1];
+			double logLikRatio = Gpr.parseDoubleSafe(f[2]);
+			if (logLikRatio > LOG_LIKELIHOOD_RATIO_THRESHOLD) System.out.println(line);
+		}
+	}
+
+	/**
 	 * Likelihhod for all AA 'in contact' pairs
 	 */
 	void runLikelihood() {
@@ -1020,7 +1055,7 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
 				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.map(d -> likelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
+				.map(d -> logLikelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
 				.forEach(System.out::println) //
 		;
 	}
@@ -1071,7 +1106,7 @@ public class Epistasis implements CommandLine {
 				.forEach(str -> {
 					String f[] = str.split("\t");
 					String g1 = f[0], g2 = f[1];
-					likelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
+					logLikelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
 					} //
 				);
 	}
