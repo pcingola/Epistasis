@@ -28,7 +28,7 @@ public class LikelihoodAnalysis {
 
 	boolean debug = false;
 	boolean verbose = true;
-	boolean writeToFile = true;
+	boolean writeToFile = false;
 	int numSamples;
 	int numCovariates;
 	int count = 0;

@@ -105,7 +105,6 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		}
 
 		// Set samples
-		Gpr.debug("xAlt:\n" + Gpr.head(Gpr.toString(xAlt)));
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
 
@@ -218,7 +217,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// No samples has both variants? Then there is not much to do.
 		// To few shared varaints? We probably don't have enough statistical power anyways (not worth analysing)
 		if (countGtij < minSharedVariants) {
-			if (verbose) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
+			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
 			countModel(null);
 			return 0.0; // Log-likelihood is zero
 		}
@@ -226,7 +225,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// Are gti[], gtj[] and gtij[] linearly dependent?
 		// If so, the model will not converge because the parameter (beta) for at least one of the gt[] will be 'NA'
 		if (linearDependency(skip, countSkip, gti, gtj, gtij)) {
-			if (verbose) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
+			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
 			countModel(null);
 			return 0.0;
 		}
@@ -280,7 +279,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 			boolean show = (logLikMax < ll);
 			logLikMax = Math.max(logLikMax, ll);
 
-			if (show || debug || true) {
+			if (show || debug) {
 				// Calculate p-value
 				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
 
@@ -292,8 +291,8 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\n\tModel Alt  : " + lrAlt //
-						+ "\n\tModel Alt  : " + lrAlt //
-						);
+						+ "\n\tModel Null : " + lrNull //
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
 
