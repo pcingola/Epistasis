@@ -1,16 +1,22 @@
 package ca.mcgill.pcingola.epistasis;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
+import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
+import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Marker;
+import ca.mcgill.mcb.pcingola.interval.Markers;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
+import ca.mcgill.mcb.pcingola.interval.tree.IntervalForest;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 
 /**
  * Perform GWAS using epistasis data
@@ -19,19 +25,35 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  */
 public class GwasEpistasis extends SnpEff {
 
-	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = -1000.0;
+	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = 1.0;
 
 	int countOk, countErr;
-	String genesLikeFile;
+	double llRatioThreshold = LOG_LIKELIHOOD_RATIO_THRESHOLD;
+	String logLikelihoodFile; // Log likelihood file (epistatic model)
 	String vcfFile;
 	String genomeVer, pdbDir;
-	HashMap<String, Transcript> trancriptById;
+	HashMap<String, Transcript> trancriptById; // Transcript by (incomplete) transcript ID (no version number is used)
+	HashMap<String, Marker> llmarkerById = new HashMap<String, Marker>(); // log-likelihood markers by ID
+	ArrayList<MarkerPairLikelihood> llpairs; // Gene log-likelihood entries
+	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
+	IntervalForest llforest; // Interval forest of ll-markers
 
 	public GwasEpistasis(String configFile, String genomeVer, String genesLikeFile, String vcfFile) {
 		this.configFile = configFile;
 		this.genomeVer = genomeVer;
-		this.genesLikeFile = genesLikeFile;
+		logLikelihoodFile = genesLikeFile;
 		this.vcfFile = vcfFile;
+	}
+
+	/**
+	 * Build interval forest using LogLik markers
+	 */
+	protected void buildForest() {
+		Timer.showStdErr("Building Log-likelihood marker forest");
+		Markers markers = new Markers();
+		markers.addAll(llmarkerById.values());
+		llforest.build();
+		Timer.showStdErr("Done. Added " + markers.size() + " markers.");
 	}
 
 	public int getCountErr() {
@@ -77,15 +99,21 @@ public class GwasEpistasis extends SnpEff {
 	 *
 	 * E.g.  : 	NM_004635_3:50679137-50679201[0]
 	 * 			NM_006936_21:46226865-46226954[22]
-	 * 
+	 *
 	 * @return A marker that contains the codon referenced by the ID
-	 *			Note: The marker has ALL bases in the codon. 
-	 *				  For instance, is the codon is split between two exons, the 
+	 *			Note: The marker has ALL bases in the codon.
+	 *				  For instance, is the codon is split between two exons, the
 	 *				  marker will contain the intron
-
 	 *
 	 */
 	protected Marker parseMsaId(String id, char aaExpected) {
+		// Try to find cached copy
+		Marker marker = llmarkerById.get(id);
+		if (marker != null) {
+			countOk++;
+			return marker;
+		}
+
 		String idRep = id.replace(':', '_').replace('-', '_').replace('[', '_').replace(']', '_');
 		String f[] = idRep.split("_");
 		String trId = f[0] + "_" + f[1];
@@ -95,7 +123,7 @@ public class GwasEpistasis extends SnpEff {
 		int idx = Gpr.parseIntSafe(f[5]);
 
 		//---
-		// Calculate position witihn CDS
+		// Calculate position within CDS
 		//---
 
 		// Find transcript and exon
@@ -159,7 +187,7 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
 			else System.out.print('*'); // Show error
 		}
 
@@ -168,8 +196,8 @@ public class GwasEpistasis extends SnpEff {
 
 		//---
 		// Create marker
-		// Important: The marker has ALL bases in the codon. 
-		//            For instance, is the codon is split between two exons, the 
+		// Important: The marker has ALL bases in the codon.
+		//            For instance, is the codon is split between two exons, the
 		//            marker will contain the intron
 		//---
 		int markerStart, markerEnd;
@@ -182,7 +210,8 @@ public class GwasEpistasis extends SnpEff {
 		}
 
 		Chromosome chromo = genome.getChromosome(chr);
-		Marker marker = new Marker(chromo, markerStart, markerEnd, ex.isStrandMinus(), id);
+		marker = new Marker(chromo, markerStart, markerEnd, ex.isStrandMinus(), id);
+		llmarkerById.put(id, marker); // Cache marker
 		return marker;
 	}
 
@@ -190,42 +219,79 @@ public class GwasEpistasis extends SnpEff {
 	 * Perform GWAS analysis using epistatic data
 	 */
 	public void readGenesLogLikelihood() {
+		llpairs = new ArrayList<MarkerPairLikelihood>();
 
 		//---
 		// Read "genes likelihood" file
 		//---
-		Timer.showStdErr("Reading genes likelihood file '" + genesLikeFile + "'.");
+		Timer.showStdErr("Reading genes likelihood file '" + logLikelihoodFile + "'.");
 		int count = 0, countKept = 0;
-		LineFileIterator lfi = new LineFileIterator(genesLikeFile);
+		LineFileIterator lfi = new LineFileIterator(logLikelihoodFile);
 		for (String line : lfi) {
 			if (line.isEmpty()) continue;
 
 			// Parse line
 			String f[] = line.split("\t");
-			String msa1 = f[0];
-			String msa2 = f[1];
+			String msaId1 = f[0];
+			String msaId2 = f[1];
 			double logLikRatio = Gpr.parseDoubleSafe(f[2]);
 			String seq1 = f[5];
 			String seq2 = f[6];
 
 			// Filter by log likelihood
 			count++;
-			if (logLikRatio < LOG_LIKELIHOOD_RATIO_THRESHOLD) continue;
+			if (logLikRatio < llRatioThreshold) continue;
 
 			// Map to genomic coordinates
-			// if (debug) Gpr.debug(lfi.getLineNum() + ": " + line);
 			countKept++;
 
-			parseMsaId(msa1, seq1.charAt(0));
-			parseMsaId(msa2, seq2.charAt(0));
+			// Create MarkerPair
+			Marker m1 = parseMsaId(msaId1, seq1.charAt(0));
+			Marker m2 = parseMsaId(msaId2, seq2.charAt(0));
+
+			if (m1 != null && m2 != null) {
+				MarkerPairLikelihood llp = new MarkerPairLikelihood(m1, m2, logLikRatio);
+				llpairs.add(llp);
+				if (debug) Gpr.debug(llp);
+			} else if (verbose) {
+				if (m1 == null) Gpr.debug("Cannot create marker: " + msaId1 + ", AA sequence '" + seq1.charAt(0) + "'");
+				if (m2 == null) Gpr.debug("Cannot create marker: " + msaId2 + ", AA sequence '" + seq2.charAt(0) + "'");
+			}
 
 		}
 
 		int tot = countErr + countOk;
-		Timer.showStdErr("Genes likelihood file '" + genesLikeFile + "'." //
+		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries kept: " + countKept + " / " + count + " [ " + (countKept * 100.0 / count) + "% ]" //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
+	}
+
+	/**
+	 * Read VCF file: Only entries matching markers from GenesLogLik file
+	 * TODO: We can optimize this by using an index and reading only the regions we need
+	 */
+	public void readVcf() {
+		if (llforest == null) buildForest();
+
+		// Read file
+		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
+		for (VcfEntry ve : vcf) {
+			// Is this entry overlapping any llmarker?
+			Markers results = llforest.query(ve);
+			if (results.isEmpty()) continue; // No hits
+
+			// Add genotypes to map (all results)
+			byte gt[] = ve.getGenotypesScores();
+			for (Marker r : results) {
+				gtById.getOrCreate(r.getId()).add(gt);
+				Gpr.debug("Adding GT " + ve.toStr() + "\t" + r.getId());
+			}
+		}
+	}
+
+	public void setLlRatioThreshold(double llRatioThreshold) {
+		this.llRatioThreshold = llRatioThreshold;
 	}
 
 }
