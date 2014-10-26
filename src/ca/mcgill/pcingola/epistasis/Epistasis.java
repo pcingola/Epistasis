@@ -1019,13 +1019,9 @@ public class Epistasis implements CommandLine {
 	 * Perform GWAS analysis using epistatic data
 	 */
 	void runGwas(String genesLikeFile, String vcfFile) {
-		// load();
-
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
 		gwasEpistasis.setDebug(debug);
-		gwasEpistasis.initialize();
-		gwasEpistasis.readGenesLogLikelihood();
-		gwasEpistasis.readVcf();
+		gwasEpistasis.gwas();
 	}
 
 	/**

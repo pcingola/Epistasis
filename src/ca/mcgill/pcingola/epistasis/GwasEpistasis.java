@@ -68,6 +68,36 @@ public class GwasEpistasis extends SnpEff {
 	}
 
 	/**
+	 * Perform GWAS analysis using epistatic information
+	 */
+	public void gwas() {
+		initialize();
+		readGenesLogLikelihood();
+		readVcf();
+
+		// Analyze each enriched region
+		for (MarkerPairLikelihood llpair : llpairs) {
+
+			// Find genotypes in under bog markers
+			String id1 = llpair.getMarker1().getId();
+			String id2 = llpair.getMarker2().getId();
+
+			// No genotypes in any of those regions? Nothing to do
+			if (!gtById.containsKey(id1) || !gtById.containsKey(id2)) {
+				Gpr.debug("Nothing found:\t" + llpair);
+				continue;
+			}
+
+			Gpr.debug("FOUND!\t" + llpair);
+			for (byte gt1[] : gtById.get(id1)) {
+				for (byte gt2[] : gtById.get(id2)) {
+					Gpr.debug("Genotypes: " + id1 + "\t" + id2);
+				}
+			}
+		}
+	}
+
+	/**
 	 * Load all data
 	 */
 	public void initialize() {
