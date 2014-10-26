@@ -1025,6 +1025,7 @@ public class Epistasis implements CommandLine {
 		gwasEpistasis.setDebug(debug);
 		gwasEpistasis.initialize();
 		gwasEpistasis.readGenesLogLikelihood();
+		gwasEpistasis.readVcf();
 	}
 
 	/**

@@ -52,6 +52,9 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Building Log-likelihood marker forest");
 		Markers markers = new Markers();
 		markers.addAll(llmarkerById.values());
+
+		// Create forest and build
+		llforest = new IntervalForest(markers);
 		llforest.build();
 		Timer.showStdErr("Done. Added " + markers.size() + " markers.");
 	}
@@ -187,7 +190,7 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
+			);
 			else System.out.print('*'); // Show error
 		}
 
@@ -264,7 +267,7 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries kept: " + countKept + " / " + count + " [ " + (countKept * 100.0 / count) + "% ]" //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**
@@ -272,9 +275,11 @@ public class GwasEpistasis extends SnpEff {
 	 * TODO: We can optimize this by using an index and reading only the regions we need
 	 */
 	public void readVcf() {
+		// Initialize
 		if (llforest == null) buildForest();
+		gtById = new AutoHashMap<String, ArrayList<byte[]>>(new ArrayList<byte[]>());
 
-		// Read file
+		// Read VCF file
 		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
 		for (VcfEntry ve : vcf) {
 			// Is this entry overlapping any llmarker?
