@@ -70,4 +70,23 @@ public class TestCaseGwas extends TestCase {
 		Assert.assertEquals(0, gwasEpistasis.getCountErr());
 		Assert.assertEquals(298, gwasEpistasis.getCountOk());
 	}
+
+	public void test_04_Gwas_Map() {
+		Gpr.debug("Test");
+
+		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
+		String genome = "testHg19Chr1";
+		String genesLikeFile = "test/gwas_map_test_chr1.txt";
+		String vcfFile = ""; // It doesn't matter, it is not used
+
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		gwasEpistasis.setDebug(debug);
+		gwasEpistasis.initialize();
+		gwasEpistasis.readGenesLogLikelihood();
+
+		// Check that all mappings are OK
+		Assert.assertEquals(0, gwasEpistasis.getCountErr());
+		Assert.assertEquals(13280, gwasEpistasis.getCountOk());
+	}
+
 }
