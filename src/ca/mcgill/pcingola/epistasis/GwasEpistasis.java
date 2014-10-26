@@ -3,8 +3,10 @@ package ca.mcgill.pcingola.epistasis;
 import java.util.HashMap;
 
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
+import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -75,9 +77,15 @@ public class GwasEpistasis extends SnpEff {
 	 *
 	 * E.g.  : 	NM_004635_3:50679137-50679201[0]
 	 * 			NM_006936_21:46226865-46226954[22]
+	 * 
+	 * @return A marker that contains the codon referenced by the ID
+	 *			Note: The marker has ALL bases in the codon. 
+	 *				  For instance, is the codon is split between two exons, the 
+	 *				  marker will contain the intron
+
 	 *
 	 */
-	void parseMsaId(String id, char aaExpected) {
+	protected Marker parseMsaId(String id, char aaExpected) {
 		String idRep = id.replace(':', '_').replace('-', '_').replace('[', '_').replace(']', '_');
 		String f[] = idRep.split("_");
 		String trId = f[0] + "_" + f[1];
@@ -86,11 +94,15 @@ public class GwasEpistasis extends SnpEff {
 		int end = Gpr.parseIntSafe(f[4]);
 		int idx = Gpr.parseIntSafe(f[5]);
 
+		//---
+		// Calculate position witihn CDS
+		//---
+
 		// Find transcript and exon
 		Transcript tr = trancriptById.get(trId);
-		if (tr == null) return;
+		if (tr == null) return null;
 		Exon ex = tr.findExon(start);
-		if (ex == null) return;
+		if (ex == null) return null;
 
 		// Calculate start position
 		int startPos;
@@ -118,12 +130,17 @@ public class GwasEpistasis extends SnpEff {
 
 		// Get position within CDS
 		int cdsBase = tr.baseNumberCds(startPos, false);
+		int cds2pos[] = tr.baseNumberCds2Pos();
 		if ((ex.isStrandPlus() && (startPos < ex.getStart())) //
 				|| (ex.isStrandMinus() && (startPos > ex.getEnd()))) {
 			// If the position is outside the exon, then we must jump to previous exon
-			int cds2pos[] = tr.baseNumberCds2Pos();
-			cdsBase = tr.baseNumberCds(cds2pos[cdsBase - ex.getFrame()], true);
+			startPos = cds2pos[cdsBase - ex.getFrame()];
+			cdsBase = tr.baseNumberCds(startPos, true);
 		}
+
+		//---
+		// Sanity check: Make sure that AA matches between transcript model and MSA data from 'genes likelihood' file
+		//---
 
 		// Extract codon
 		String cdsSeq = tr.cds();
@@ -133,7 +150,7 @@ public class GwasEpistasis extends SnpEff {
 		if (aa.equals("" + aaExpected)) {
 			countOk++;
 			if (debug) Gpr.debug("OK: " + id + " : " + aa);
-			else System.out.print('.');
+			else System.out.print('.'); // Show OK
 		} else {
 			countErr++;
 			if (debug) Gpr.debug("Entry ID     : " + id //
@@ -143,10 +160,30 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
 			);
-			else System.out.print(tr.isStrandPlus() ? "+" + trId : "-" + trId);
+			else System.out.print('*'); // Show error
 		}
 
+		// Add a newline every now and then
 		if (!debug && (countOk + countErr) % 100 == 0) System.out.println("");
+
+		//---
+		// Create marker
+		// Important: The marker has ALL bases in the codon. 
+		//            For instance, is the codon is split between two exons, the 
+		//            marker will contain the intron
+		//---
+		int markerStart, markerEnd;
+		if (tr.isStrandPlus()) {
+			markerStart = cds2pos[cdsBase];
+			markerEnd = cds2pos[cdsBase + 2];
+		} else {
+			markerStart = cds2pos[cdsBase + 2];
+			markerEnd = cds2pos[cdsBase];
+		}
+
+		Chromosome chromo = genome.getChromosome(chr);
+		Marker marker = new Marker(chromo, markerStart, markerEnd, ex.isStrandMinus(), id);
+		return marker;
 	}
 
 	/**
