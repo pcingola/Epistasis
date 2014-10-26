@@ -32,10 +32,18 @@ public class GwasEpistasis extends SnpEff {
 		this.vcfFile = vcfFile;
 	}
 
+	public int getCountErr() {
+		return countErr;
+	}
+
+	public int getCountOk() {
+		return countOk;
+	}
+
 	/**
 	 * Load all data
 	 */
-	void initialize() {
+	public void initialize() {
 		// Initialize SnpEff
 		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genomeVer };
 		args = argsSnpEff;
