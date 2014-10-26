@@ -98,6 +98,7 @@ public class GwasEpistasis extends SnpEff {
 		if (ex.getFrame() != 0) {
 			if (ex.isStrandPlus()) {
 				idx--;
+				if (ex.getFrame() == 2) idx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
 				fr = 3 - ex.getFrame(); // Offset based on frame
 			} else {
 				idx--;
@@ -141,8 +142,8 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
-			else System.out.print(tr.isStrandPlus() ? "+" : "-");
+			);
+			else System.out.print(tr.isStrandPlus() ? "+" + trId : "-" + trId);
 		}
 
 		if (!debug && (countOk + countErr) % 100 == 0) System.out.println("");
@@ -187,7 +188,7 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + genesLikeFile + "'." //
 				+ "\n\tEntries kept: " + countKept + " / " + count + " [ " + (countKept * 100.0 / count) + "% ]" //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 }

@@ -52,4 +52,22 @@ public class TestCaseGwas extends TestCase {
 		Assert.assertEquals(0, gwasEpistasis.getCountErr());
 		Assert.assertEquals(458, gwasEpistasis.getCountOk());
 	}
+
+	public void test_03_Gwas_Map() {
+		Gpr.debug("Test");
+
+		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
+		String genome = "testHg19Chr1";
+		String genesLikeFile = "test/NM_004905.txt";
+		String vcfFile = ""; // It doesn't matter, it is not used
+
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		gwasEpistasis.setDebug(debug);
+		gwasEpistasis.initialize();
+		gwasEpistasis.readGenesLogLikelihood();
+
+		// Check that all mappings are OK
+		Assert.assertEquals(0, gwasEpistasis.getCountErr());
+		Assert.assertEquals(298, gwasEpistasis.getCountOk());
+	}
 }
