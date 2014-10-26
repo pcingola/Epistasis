@@ -189,11 +189,6 @@ public class MsaSimilarity {
 
 	/**
 	 * Show columns from MultipleSequenceAlignment
-	 * @param msai
-	 * @param msaj
-	 * @param posi
-	 * @param posj
-	 * @return
 	 */
 	public String showSeqs(MultipleSequenceAlignment msai, MultipleSequenceAlignment msaj, int posi, int posj) {
 		StringBuilder sb = new StringBuilder();

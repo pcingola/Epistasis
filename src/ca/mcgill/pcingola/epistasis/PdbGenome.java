@@ -254,7 +254,10 @@ public class PdbGenome extends SnpEff {
 			// Find index
 			int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
 			int idxAa = idxBase / 3;
-			if (exon.getFrame() == 1) idxAa++; // If exon frame is 1, the MSA has one additional AA (from the previous exon). I don't know why they do it this way...
+
+			// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon). 
+			//          I don't know why they do it this way...
+			if (exon.getFrame() == 1) idxAa++;
 
 			// Return column sequence
 			return new Triplet<String, String, Integer>(msa.getColumnString(idxAa), msa.getId(), idxAa);

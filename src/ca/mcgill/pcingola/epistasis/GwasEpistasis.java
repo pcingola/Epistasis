@@ -17,7 +17,7 @@ import ca.mcgill.mcb.pcingola.util.Timer;
  */
 public class GwasEpistasis extends SnpEff {
 
-	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = -50.0;
+	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = -1000.0;
 
 	int countOk, countErr;
 	String genesLikeFile;
@@ -70,8 +70,8 @@ public class GwasEpistasis extends SnpEff {
 	 *
 	 */
 	void parseMsaId(String id, char aaExpected) {
-		id = id.replace(':', '_').replace('-', '_').replace('[', '_').replace(']', '_');
-		String f[] = id.split("_");
+		String idRep = id.replace(':', '_').replace('-', '_').replace('[', '_').replace(']', '_');
+		String f[] = idRep.split("_");
 		String trId = f[0] + "_" + f[1];
 		String chr = f[2];
 		int start = Gpr.parseIntSafe(f[3]);
@@ -84,28 +84,34 @@ public class GwasEpistasis extends SnpEff {
 		Exon ex = tr.findExon(start);
 		if (ex == null) return;
 
-		if (tr.isStrandMinus()) Gpr.debug("Strand: ------------------------");
-
 		// Calculate start position
 		int startPos;
 		int fr = 0;
 		if (ex.getFrame() != 0) {
-			fr = 3 - ex.getFrame(); // Offset based on frame
-			idx--; // AA coordinate changes
+			if (ex.isStrandPlus()) {
+				idx--;
+				fr = 3 - ex.getFrame(); // Offset based on frame
+			} else {
+				idx--;
+				if (ex.getFrame() == 2) idx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
+				fr = 3 - ex.getFrame(); // Offset based on frame
+			}
 		}
 
 		// Find AA start position
 		if (ex.isStrandPlus()) {
-			int exStart = Math.max(ex.getStart(), tr.getCdsStart());
-			startPos = exStart + idx * 3 + fr;
+			int exStart = Math.max(start, tr.getCdsStart());
+			startPos = exStart + (idx * 3 + fr);
 		} else {
-			startPos = ex.getEnd() - idx * 3 - fr;
+			int exEnd = Math.min(end, tr.getCdsStart());
+			startPos = exEnd - (idx * 3 + fr);
 		}
 
 		// Get position within CDS
 		int cdsBase = tr.baseNumberCds(startPos, false);
-		if (startPos < ex.getStart()) {
-			// If the position is before exon start, then we must jump to previous exon
+		if ((ex.isStrandPlus() && (startPos < ex.getStart())) //
+				|| (ex.isStrandMinus() && (startPos > ex.getEnd()))) {
+			// If the position is outside the exon, then we must jump to previous exon
 			int cds2pos[] = tr.baseNumberCds2Pos();
 			cdsBase = tr.baseNumberCds(cds2pos[cdsBase - ex.getFrame()], true);
 		}
@@ -117,17 +123,21 @@ public class GwasEpistasis extends SnpEff {
 
 		if (aa.equals("" + aaExpected)) {
 			countOk++;
-			if (debug) Gpr.debug("OK: " + id);
+			if (debug) Gpr.debug("OK: " + id + " : " + aa);
+			else System.out.print('.');
 		} else {
 			countErr++;
 			if (debug) Gpr.debug("Entry ID     : " + id //
-					+ "\ntr ID        : " + trId + ", chr: " + chr + ", start: " + start + ", end: " + end + ", idx: " + idx //
+					+ "\ntr ID        : " + trId + ", chr: " + chr + ", start: " + start + ", end: " + end + ", idx: " + idx + ", fr: " + fr//
 					+ "\nTranscript : " + tr //
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
+			else System.out.print(tr.isStrandPlus() ? "+" : "-");
 		}
+
+		if (!debug && (countOk + countErr) % 100 == 0) System.out.println("");
 	}
 
 	/**
@@ -157,7 +167,7 @@ public class GwasEpistasis extends SnpEff {
 			if (logLikRatio < LOG_LIKELIHOOD_RATIO_THRESHOLD) continue;
 
 			// Map to genomic coordinates
-			if (debug) Gpr.debug(lfi.getLineNum() + ": " + line);
+			// if (debug) Gpr.debug(lfi.getLineNum() + ": " + line);
 			countKept++;
 
 			parseMsaId(msa1, seq1.charAt(0));
@@ -169,7 +179,7 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + genesLikeFile + "'." //
 				+ "\n\tEntries kept: " + countKept + " / " + count + " [ " + (countKept * 100.0 / count) + "% ]" //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 }

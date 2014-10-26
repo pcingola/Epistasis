@@ -40,7 +40,7 @@ import ca.mcgill.pcingola.epistasis.phylotree.UniformTreeValueCache;
 public class Epistasis implements CommandLine {
 
 	public static int MIN_DISTANCE = 1000000;
-	public static boolean debug = false;
+	public static boolean debug = true;
 
 	public static int MAX_RAND_ITER = 1000;
 
