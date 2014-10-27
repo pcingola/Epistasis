@@ -53,6 +53,12 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		numGtNull = 2;
 	}
 
+	public LikelihoodAnalysis2(String phenoCovariatesFileName, String vcfFileName) {
+		super(phenoCovariatesFileName, vcfFileName);
+		numGtAlt = 3;
+		numGtNull = 2;
+	}
+
 	/**
 	 * Calculate logistic regression's null model (or retrieve it form a cache)
 	 */
@@ -213,12 +219,12 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 	/**
 	 * Calculate log likelihood
 	 */
-	protected double logLikelihood(String keyi, byte gti[], String keyj, byte gtj[]) {
+	public double logLikelihood(String keyi, byte gti[], String keyj, byte gtj[]) {
 		String id = keyi + "-" + keyj;
 
 		//---
 		// Which samples should be skipped? Either missing genotype or missing phenotype
-		// Also: Calculate gti * gtj vector and count number of positive entries 
+		// Also: Calculate gti * gtj vector and count number of positive entries
 		//       (i.e. number of samples that have non-Ref (and non-Missing) genotypes in both variants)
 		//---
 		boolean skip[] = new boolean[numSamples];
@@ -318,7 +324,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + lrAlt + "\n\tModel Null : " + lrNull : "") //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
 
@@ -352,17 +358,17 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		//---
 
 		IntStream.range(0, keys.size()) //
-				.parallel() //
-				.forEach(i -> {
-					for (int j = i + 1; j < keys.size(); j++) {
-						String keyi = keys.get(i);
-						String keyj = keys.get(j);
-						byte gti[] = gtByKey.get(keyi);
-						byte gtj[] = gtByKey.get(keyj);
+		.parallel() //
+		.forEach(i -> {
+			for (int j = i + 1; j < keys.size(); j++) {
+				String keyi = keys.get(i);
+				String keyj = keys.get(j);
+				byte gti[] = gtByKey.get(keyi);
+				byte gtj[] = gtByKey.get(keyj);
 
-						logLikelihood(keyi, gti, keyj, gtj);
-					}
-				});
+				logLikelihood(keyi, gti, keyj, gtj);
+			}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

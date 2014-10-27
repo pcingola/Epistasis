@@ -24,8 +24,9 @@ public class TestCaseGwas extends TestCase {
 		String genome = "testHg19Chr1";
 		String genesLikeFile = "test/NM_001438.txt";
 		String vcfFile = ""; // It doesn't matter, it is not used
+		String phenoFile = ""; // It doesn't matter, it is not used
 
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
 		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
@@ -43,8 +44,9 @@ public class TestCaseGwas extends TestCase {
 		String genome = "testHg19Chr1";
 		String genesLikeFile = "test/NM_021969.txt";
 		String vcfFile = ""; // It doesn't matter, it is not used
+		String phenoFile = ""; // It doesn't matter, it is not used
 
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
 		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
@@ -62,8 +64,9 @@ public class TestCaseGwas extends TestCase {
 		String genome = "testHg19Chr1";
 		String genesLikeFile = "test/NM_004905.txt";
 		String vcfFile = ""; // It doesn't matter, it is not used
+		String phenoFile = ""; // It doesn't matter, it is not used
 
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
 		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
@@ -81,8 +84,9 @@ public class TestCaseGwas extends TestCase {
 		String genome = "testHg19Chr1";
 		String genesLikeFile = "test/gwas_map_test_chr1.txt";
 		String vcfFile = ""; // It doesn't matter, it is not used
+		String phenoFile = ""; // It doesn't matter, it is not used
 
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile);
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
 		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();

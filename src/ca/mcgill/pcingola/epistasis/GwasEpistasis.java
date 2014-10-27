@@ -32,17 +32,19 @@ public class GwasEpistasis extends SnpEff {
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
 	String vcfFile;
 	String genomeVer, pdbDir;
+	String phenoCovariatesFile;
 	HashMap<String, Transcript> trancriptById; // Transcript by (incomplete) transcript ID (no version number is used)
 	HashMap<String, Marker> llmarkerById = new HashMap<String, Marker>(); // log-likelihood markers by ID
 	ArrayList<MarkerPairLikelihood> llpairs; // Gene log-likelihood entries
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	IntervalForest llforest; // Interval forest of ll-markers
 
-	public GwasEpistasis(String configFile, String genomeVer, String genesLikeFile, String vcfFile) {
+	public GwasEpistasis(String configFile, String genomeVer, String genesLikeFile, String vcfFile, String phenoCovariatesFile) {
 		this.configFile = configFile;
 		this.genomeVer = genomeVer;
 		logLikelihoodFile = genesLikeFile;
 		this.vcfFile = vcfFile;
+		this.phenoCovariatesFile = phenoCovariatesFile;
 	}
 
 	/**
@@ -75,6 +77,25 @@ public class GwasEpistasis extends SnpEff {
 		readGenesLogLikelihood();
 		readVcf();
 
+		LikelihoodAnalysis2 llan = new LikelihoodAnalysis2(phenoCovariatesFile, vcfFile);
+		llan.init();
+
+		for (String idi : gtById.keySet()) {
+			for (String idj : gtById.keySet()) {
+				if (idi.compareTo(idj) < 0) {
+					for (byte gti[] : gtById.get(idi))
+						for (byte gtj[] : gtById.get(idj)) {
+							double ll = llan.logLikelihood(idi, gti, idj, gtj);
+							System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+						}
+				}
+			}
+		}
+
+		//!!!!!!!!!
+		Gpr.debug("TODO: Analyze markers!!!");
+		if (Math.random() < 2) return;
+
 		// Analyze each enriched region
 		for (MarkerPairLikelihood llpair : llpairs) {
 
@@ -84,11 +105,10 @@ public class GwasEpistasis extends SnpEff {
 
 			// No genotypes in any of those regions? Nothing to do
 			if (!gtById.containsKey(id1) || !gtById.containsKey(id2)) {
-				Gpr.debug("Nothing found:\t" + llpair);
+				if (debug) Gpr.debug("Nothing found:\t" + llpair);
 				continue;
 			}
 
-			Gpr.debug("FOUND!\t" + llpair);
 			for (byte gt1[] : gtById.get(id1)) {
 				for (byte gt2[] : gtById.get(id2)) {
 					Gpr.debug("Genotypes: " + id1 + "\t" + id2);
@@ -286,7 +306,7 @@ public class GwasEpistasis extends SnpEff {
 				MarkerPairLikelihood llp = new MarkerPairLikelihood(m1, m2, logLikRatio);
 				llpairs.add(llp);
 				if (debug) Gpr.debug(llp);
-			} else if (verbose) {
+			} else if (debug) {
 				if (m1 == null) Gpr.debug("Cannot create marker: " + msaId1 + ", AA sequence '" + seq1.charAt(0) + "'");
 				if (m2 == null) Gpr.debug("Cannot create marker: " + msaId2 + ", AA sequence '" + seq2.charAt(0) + "'");
 			}
@@ -302,7 +322,7 @@ public class GwasEpistasis extends SnpEff {
 
 	/**
 	 * Read VCF file: Only entries matching markers from GenesLogLik file
-	 * TODO: We can optimize this by using an index and reading only the regions we need
+	 * TODO: We could optimize this by using an index and reading only the regions we need
 	 */
 	public void readVcf() {
 		// Initialize
@@ -310,6 +330,8 @@ public class GwasEpistasis extends SnpEff {
 		gtById = new AutoHashMap<String, ArrayList<byte[]>>(new ArrayList<byte[]>());
 
 		// Read VCF file
+		int count = 0;
+		Timer.showStdErr("Reading vcf file '" + vcfFile + "'");
 		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
 		for (VcfEntry ve : vcf) {
 			// Is this entry overlapping any llmarker?
@@ -320,9 +342,12 @@ public class GwasEpistasis extends SnpEff {
 			byte gt[] = ve.getGenotypesScores();
 			for (Marker r : results) {
 				gtById.getOrCreate(r.getId()).add(gt);
-				Gpr.debug("Adding GT " + ve.toStr() + "\t" + r.getId());
+				count++;
+				if (debug) Gpr.debug("Adding GT " + ve.toStr() + "\t" + r.getId());
 			}
 		}
+
+		Timer.showStdErr("Done. Added " + count + " gentype entries (hash size:" + gtById.size() + ").");
 	}
 
 	public void setLlRatioThreshold(double llRatioThreshold) {

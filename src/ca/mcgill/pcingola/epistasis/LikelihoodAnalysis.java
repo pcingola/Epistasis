@@ -70,6 +70,11 @@ public class LikelihoodAnalysis {
 		}
 	}
 
+	public LikelihoodAnalysis(String phenoCovariatesFileName, String vcfFileName) {
+		this.phenoCovariatesFileName = phenoCovariatesFileName;
+		this.vcfFileName = vcfFileName;
+	}
+
 	/**
 	 * Calculate logistic regression's null model (or retrieve it form a cache)
 	 */
@@ -215,6 +220,25 @@ public class LikelihoodAnalysis {
 
 	public LogisticRegression getLrNull() {
 		return lrNull;
+	}
+
+	public void init() {
+		//---
+		// Load phenotype and covariates
+		//---
+		loadPhenoAndCovariates(phenoCovariatesFileName);
+
+		// Initialize
+		thetaAltSum = new double[numCovariates + numGtAlt + 1];
+		thetaNullSum = new double[numCovariates + numGtNull + 1];
+
+		//---
+		// Read VCF file and run analysis
+		//---
+		Timer.showStdErr("Checking VCF file '" + vcfFileName + "' against phenotypes file '" + phenoCovariatesFileName + "'");
+		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
+		checkSamplesVcf(vcf); // Check that sample names and sample order matches
+		vcf.close();
 	}
 
 	/**
@@ -397,21 +421,8 @@ public class LikelihoodAnalysis {
 	 * Run analysis and collect some results (for test cases)
 	 */
 	public List<VcfEntry> run(boolean createList) {
-		//---
-		// Load phenotype and covariates
-		//---
-		loadPhenoAndCovariates(phenoCovariatesFileName);
-
-		// Initialize
-		thetaAltSum = new double[numCovariates + numGtAlt + 1];
-		thetaNullSum = new double[numCovariates + numGtNull + 1];
-
-		//---
-		// Read VCF file and run analysis
-		//---
-		Timer.show("Reading VCF file '" + vcfFileName + "'");
+		init();
 		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
-		checkSamplesVcf(vcf); // Check that sample names and sample order matches
 		return run(vcf, createList);
 	}
 
