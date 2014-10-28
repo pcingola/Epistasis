@@ -28,7 +28,6 @@ public class TestCaseGwas extends TestCase {
 
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
-		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
 		gwasEpistasis.readGenesLogLikelihood();
 
@@ -48,7 +47,6 @@ public class TestCaseGwas extends TestCase {
 
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
-		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
 		gwasEpistasis.readGenesLogLikelihood();
 
@@ -68,7 +66,6 @@ public class TestCaseGwas extends TestCase {
 
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
-		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
 		gwasEpistasis.readGenesLogLikelihood();
 
@@ -88,7 +85,6 @@ public class TestCaseGwas extends TestCase {
 
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoFile);
 		gwasEpistasis.setDebug(debug);
-		gwasEpistasis.setLlRatioThreshold(-999999);
 		gwasEpistasis.initialize();
 		gwasEpistasis.readGenesLogLikelihood();
 

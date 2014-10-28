@@ -25,10 +25,11 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
  */
 public class GwasEpistasis extends SnpEff {
 
-	public static final double LOG_LIKELIHOOD_RATIO_THRESHOLD = 1.0;
+	public static int SHOW_EVERY = 10000;
+	public static int SHOW_LINE_EVERY = 100 * SHOW_EVERY;
 
+	boolean analyzeAllPairs = false; // Use for testing and debugging
 	int countOk, countErr;
-	double llRatioThreshold = LOG_LIKELIHOOD_RATIO_THRESHOLD;
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
 	String vcfFile;
 	String genomeVer, pdbDir;
@@ -80,38 +81,38 @@ public class GwasEpistasis extends SnpEff {
 		LikelihoodAnalysis2 llan = new LikelihoodAnalysis2(phenoCovariatesFile, vcfFile);
 		llan.init();
 
-		for (String idi : gtById.keySet()) {
-			for (String idj : gtById.keySet()) {
-				if (idi.compareTo(idj) < 0) {
-					for (byte gti[] : gtById.get(idi))
-						for (byte gtj[] : gtById.get(idj)) {
-							double ll = llan.logLikelihood(idi, gti, idj, gtj);
-							System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-						}
+		if (analyzeAllPairs) {
+			for (String idi : gtById.keySet()) {
+				for (String idj : gtById.keySet()) {
+					if (idi.compareTo(idj) < 0) {
+						for (byte gti[] : gtById.get(idi))
+							for (byte gtj[] : gtById.get(idj)) {
+								double ll = llan.logLikelihood(idi, gti, idj, gtj);
+								System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+							}
+					}
 				}
 			}
-		}
+		} else {
+			// Analyze each enriched region
+			for (MarkerPairLikelihood llpair : llpairs) {
 
-		//!!!!!!!!!
-		Gpr.debug("TODO: Analyze markers!!!");
-		if (Math.random() < 2) return;
+				// Find genotypes in under bog markers
+				String idi = llpair.getMarker1().getId();
+				String idj = llpair.getMarker2().getId();
 
-		// Analyze each enriched region
-		for (MarkerPairLikelihood llpair : llpairs) {
+				// No genotypes in any of those regions? Nothing to do
+				if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+					if (debug) Gpr.debug("Nothing found:\t" + llpair);
+					continue;
+				}
 
-			// Find genotypes in under bog markers
-			String id1 = llpair.getMarker1().getId();
-			String id2 = llpair.getMarker2().getId();
-
-			// No genotypes in any of those regions? Nothing to do
-			if (!gtById.containsKey(id1) || !gtById.containsKey(id2)) {
-				if (debug) Gpr.debug("Nothing found:\t" + llpair);
-				continue;
-			}
-
-			for (byte gt1[] : gtById.get(id1)) {
-				for (byte gt2[] : gtById.get(id2)) {
-					Gpr.debug("Genotypes: " + id1 + "\t" + id2);
+				// Analyze all genotype pairs within those regions
+				for (byte gti[] : gtById.get(idi)) {
+					for (byte gtj[] : gtById.get(idj)) {
+						double ll = llan.logLikelihood(idi, gti, idj, gtj);
+						System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+					}
 				}
 			}
 		}
@@ -164,6 +165,7 @@ public class GwasEpistasis extends SnpEff {
 		Marker marker = llmarkerById.get(id);
 		if (marker != null) {
 			countOk++;
+			showCount(true);
 			return marker;
 		}
 
@@ -231,7 +233,7 @@ public class GwasEpistasis extends SnpEff {
 		if (aa.equals("" + aaExpected)) {
 			countOk++;
 			if (debug) Gpr.debug("OK: " + id + " : " + aa);
-			else System.out.print('.'); // Show OK
+			else showCount(true);
 		} else {
 			countErr++;
 			if (debug) Gpr.debug("Entry ID     : " + id //
@@ -241,11 +243,8 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
 			);
-			else System.out.print('*'); // Show error
+			else showCount(false);
 		}
-
-		// Add a newline every now and then
-		if (!debug && (countOk + countErr) % 100 == 0) System.out.println("");
 
 		//---
 		// Create marker
@@ -278,7 +277,7 @@ public class GwasEpistasis extends SnpEff {
 		// Read "genes likelihood" file
 		//---
 		Timer.showStdErr("Reading genes likelihood file '" + logLikelihoodFile + "'.");
-		int count = 0, countKept = 0;
+		int count = 0;
 		LineFileIterator lfi = new LineFileIterator(logLikelihoodFile);
 		for (String line : lfi) {
 			if (line.isEmpty()) continue;
@@ -293,10 +292,6 @@ public class GwasEpistasis extends SnpEff {
 
 			// Filter by log likelihood
 			count++;
-			if (logLikRatio < llRatioThreshold) continue;
-
-			// Map to genomic coordinates
-			countKept++;
 
 			// Create MarkerPair
 			Marker m1 = parseMsaId(msaId1, seq1.charAt(0));
@@ -315,7 +310,7 @@ public class GwasEpistasis extends SnpEff {
 
 		int tot = countErr + countOk;
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
-				+ "\n\tEntries kept: " + countKept + " / " + count + " [ " + (countKept * 100.0 / count) + "% ]" //
+				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
 		);
 	}
@@ -350,8 +345,20 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Done. Added " + count + " gentype entries (hash size:" + gtById.size() + ").");
 	}
 
-	public void setLlRatioThreshold(double llRatioThreshold) {
-		this.llRatioThreshold = llRatioThreshold;
+	public void setAnalyzeAllPairs(boolean analyzeAllPairs) {
+		this.analyzeAllPairs = analyzeAllPairs;
 	}
 
+	void showCount(boolean ok) {
+		if (!debug) {
+			int tot = countOk + countErr;
+
+			if (ok) {
+				if (tot % SHOW_EVERY == 0) System.out.print('.'); // Show OK
+			} else System.out.print('*'); // Show error
+
+			// Add a newline every now and then
+			if (tot % SHOW_LINE_EVERY == 0) System.out.print("\n" + tot + "\t");
+		}
+	}
 }
