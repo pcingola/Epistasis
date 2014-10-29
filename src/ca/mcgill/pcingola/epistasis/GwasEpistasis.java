@@ -432,7 +432,7 @@ public class GwasEpistasis extends SnpEff {
 		//---
 		// Read VCF file
 		//---
-		int count = 0;
+		int count = 1;
 		Timer.showStdErr("Reading vcf file '" + vcfFile + "'");
 		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
 		for (VcfEntry ve : vcf) {
@@ -447,7 +447,9 @@ public class GwasEpistasis extends SnpEff {
 			}
 
 			// Show somthing every now and then
-			Gpr.showMark(vcf.getLineNum(), SHOW_EVERY_VCF);
+			if (count % (SHOW_EVERY_VCF * 100) == 0) System.out.print("\n" + gts.size() + " / " + count + "\t.");
+			else if (count % SHOW_EVERY_VCF == 0) System.out.print('.');
+
 		}
 		Timer.showStdErr("Done. Added " + count + " gentype entries.");
 
@@ -459,7 +461,7 @@ public class GwasEpistasis extends SnpEff {
 			for (int j = i + 1; j < gts.size(); j++, count++) {
 				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 				double ll = llan.logLikelihood(gtIds.get(i), gts.get(i), gtIds.get(j), gts.get(j));
-				if (debug || ll > SHOW_LINE_LL_MIN) Timer.show(count + "\t" + ll + "\t" + gtIds.get(i) + "\t" + gtIds.get(j));
+				if (ll > SHOW_LINE_LL_MIN) Timer.show(i + " / " + j + "\t" + ll + "\t" + gtIds.get(i) + "\t" + gtIds.get(j));
 			}
 		}
 
