@@ -252,7 +252,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		if (countGtij < minSharedVariants) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
 			countModel(null);
-			return 0.0; // Log-likelihood is zero
+			return 0.0; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
 		}
 
 		// Are gti[], gtj[] and gtij[] linearly dependent?
@@ -260,7 +260,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		if (linearDependency(skip, countSkip, gti, gtj, gtij)) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
 			countModel(null);
-			return 0.0;
+			return 0.0; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
 		//---
@@ -324,7 +324,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + lrAlt + "\n\tModel Null : " + lrNull : "") //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
 
@@ -358,17 +358,17 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		//---
 
 		IntStream.range(0, keys.size()) //
-		.parallel() //
-		.forEach(i -> {
-			for (int j = i + 1; j < keys.size(); j++) {
-				String keyi = keys.get(i);
-				String keyj = keys.get(j);
-				byte gti[] = gtByKey.get(keyi);
-				byte gtj[] = gtByKey.get(keyj);
+				.parallel() //
+				.forEach(i -> {
+					for (int j = i + 1; j < keys.size(); j++) {
+						String keyi = keys.get(i);
+						String keyj = keys.get(j);
+						byte gti[] = gtByKey.get(keyi);
+						byte gtj[] = gtByKey.get(keyj);
 
-				logLikelihood(keyi, gti, keyj, gtj);
-			}
-		});
+						logLikelihood(keyi, gti, keyj, gtj);
+					}
+				});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

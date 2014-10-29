@@ -29,6 +29,7 @@ public class GwasEpistasis extends SnpEff {
 	public static int SHOW_EVERY_GENES_LL = 10000;
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
+	public static int MINOR_ALLELE_COUNT = 5;
 
 	boolean analyzeAllPairs = false; // Use for testing and debugging
 	int countOk, countErr;
@@ -174,6 +175,27 @@ public class GwasEpistasis extends SnpEff {
 				}
 				trancriptById.put(id, tr);
 			}
+
+	}
+
+	/**
+	 * Convert to minor allele (or filter out)
+	 * @return A minor allele genotype, or null if it doesn't satisfy some fitlering requirements)
+	 */
+	byte[] minorAllele(byte gt[]) {
+		// Count alleles
+		int ac = 0;
+		for (int i = 0; i < gt.length; i++)
+			if (gt[i] > 0) ac += gt[i]; // Don't count '-1' (i.e. missing genotypes)
+
+		if (ac < MINOR_ALLELE_COUNT) return null; // Too few alleels: Filter out
+		if (ac <= gt.length) return gt; // OK, gt[] is mainor allele
+
+		// Convert to minor allele
+		for (int i = 0; i < gt.length; i++)
+			if (gt[i] >= 0) gt[i] = (byte) (2 - gt[i]);
+
+		return gt;
 
 	}
 
@@ -397,5 +419,49 @@ public class GwasEpistasis extends SnpEff {
 			// Add a newline every now and then
 			if (tot % SHOW_LINE_GENES_LL_EVERY == 0) System.err.print("\n" + tot + "\t");
 		}
+	}
+
+	/**
+	 * Read VCF file: Only entries matching markers from GenesLogLik file
+	 * TODO: We could optimize this by using an index and reading only the regions we need
+	 */
+	public void testVcf() {
+		ArrayList<byte[]> gts = new ArrayList<byte[]>(); // Store genotypes here
+		ArrayList<String> gtIds = new ArrayList<String>(); // Store VCF reference (some sort of ID)
+
+		//---
+		// Read VCF file
+		//---
+		int count = 0;
+		Timer.showStdErr("Reading vcf file '" + vcfFile + "'");
+		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
+		for (VcfEntry ve : vcf) {
+			// Add genotypes to map (all results)
+			byte gt[] = ve.getGenotypesScores();
+			gt = minorAllele(gt);
+
+			// Store it, if it wasn't filtered out
+			if (gt != null) {
+				gts.add(gt);
+				gtIds.add(ve.getChromosomeName() + ":" + ve.getStart() + "_" + ve.getRef() + "/" + ve.getAltsStr());
+			}
+
+			// Show somthing every now and then
+			Gpr.showMark(vcf.getLineNum(), SHOW_EVERY_VCF);
+		}
+		Timer.showStdErr("Done. Added " + count + " gentype entries.");
+
+		//---
+		// Test VCF entries
+		//---
+		count = 0;
+		for (int i = 0; i < gts.size(); i++) {
+			for (int j = i + 1; j < gts.size(); j++, count++) {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+				double ll = llan.logLikelihood(gtIds.get(i), gts.get(i), gtIds.get(j), gts.get(j));
+				if (debug || ll > SHOW_LINE_LL_MIN) Timer.show(count + "\t" + ll + "\t" + gtIds.get(i) + "\t" + gtIds.get(j));
+			}
+		}
+
 	}
 }
