@@ -25,8 +25,10 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
  */
 public class GwasEpistasis extends SnpEff {
 
-	public static int SHOW_EVERY = 10000;
-	public static int SHOW_LINE_EVERY = 100 * SHOW_EVERY;
+	public static int SHOW_EVERY_VCF = 100;
+	public static int SHOW_EVERY_GENES_LL = 10000;
+	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
+	public static double SHOW_LINE_LL_MIN = 1.0;
 
 	boolean analyzeAllPairs = false; // Use for testing and debugging
 	int countOk, countErr;
@@ -38,6 +40,7 @@ public class GwasEpistasis extends SnpEff {
 	HashMap<String, Marker> llmarkerById = new HashMap<String, Marker>(); // log-likelihood markers by ID
 	ArrayList<MarkerPairLikelihood> llpairs; // Gene log-likelihood entries
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
+	HashMap<Long, LikelihoodAnalysis2> llAnByThreadId = new HashMap<>();
 	IntervalForest llforest; // Interval forest of ll-markers
 
 	public GwasEpistasis(String configFile, String genomeVer, String genesLikeFile, String vcfFile, String phenoCovariatesFile) {
@@ -71,6 +74,22 @@ public class GwasEpistasis extends SnpEff {
 	}
 
 	/**
+	 * Get a likelihood analysis object for each thread
+	 */
+	LikelihoodAnalysis2 getLikelihoodAnalysis2() {
+		long threadId = Thread.currentThread().getId();
+
+		LikelihoodAnalysis2 llan = llAnByThreadId.get(threadId);
+
+		if (llan == null) {
+			llan = new LikelihoodAnalysis2(phenoCovariatesFile, vcfFile);
+			llan.init();
+			llAnByThreadId.put(threadId, llan);
+		}
+		return llan;
+	}
+
+	/**
 	 * Perform GWAS analysis using epistatic information
 	 */
 	public void gwas() {
@@ -78,44 +97,56 @@ public class GwasEpistasis extends SnpEff {
 		readGenesLogLikelihood();
 		readVcf();
 
-		LikelihoodAnalysis2 llan = new LikelihoodAnalysis2(phenoCovariatesFile, vcfFile);
-		llan.init();
+		if (analyzeAllPairs) gwasAll();
+		else gwasMatching();
+	}
 
-		if (analyzeAllPairs) {
-			for (String idi : gtById.keySet()) {
-				for (String idj : gtById.keySet()) {
-					if (idi.compareTo(idj) < 0) {
-						for (byte gti[] : gtById.get(idi))
-							for (byte gtj[] : gtById.get(idj)) {
-								double ll = llan.logLikelihood(idi, gti, idj, gtj);
-								System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-							}
-					}
-				}
-			}
-		} else {
-			// Analyze each enriched region
-			for (MarkerPairLikelihood llpair : llpairs) {
-
-				// Find genotypes in under bog markers
-				String idi = llpair.getMarker1().getId();
-				String idj = llpair.getMarker2().getId();
-
-				// No genotypes in any of those regions? Nothing to do
-				if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-					if (debug) Gpr.debug("Nothing found:\t" + llpair);
-					continue;
-				}
-
-				// Analyze all genotype pairs within those regions
-				for (byte gti[] : gtById.get(idi)) {
-					for (byte gtj[] : gtById.get(idj)) {
-						double ll = llan.logLikelihood(idi, gti, idj, gtj);
-						System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-					}
+	/**
+	 * Analyze all pairs (mostly for debugging)
+	 */
+	void gwasAll() {
+		for (String idi : gtById.keySet()) {
+			for (String idj : gtById.keySet()) {
+				if (idi.compareTo(idj) < 0) {
+					LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+					for (byte gti[] : gtById.get(idi))
+						for (byte gtj[] : gtById.get(idj)) {
+							double ll = llan.logLikelihood(idi, gti, idj, gtj);
+							System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+						}
 				}
 			}
 		}
+	}
+
+	/**
+	 *  Analyze pairs in VCF file that match enriched region (form epistatic analysis)
+	 */
+	void gwasMatching() {
+		llpairs.stream() //
+				.parallel() //
+				.forEach(llpair -> {
+
+					// Find genotypes in under markers
+						String idi = llpair.getMarker1().getId();
+						String idj = llpair.getMarker2().getId();
+
+						// No genotypes in any of those regions? Nothing to do
+						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+							if (debug) Gpr.debug("Nothing found:\t" + llpair);
+						} else {
+							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+
+							// Analyze all genotype pairs within those regions
+							for (byte gti[] : gtById.get(idi)) {
+								for (byte gtj[] : gtById.get(idj)) {
+									double ll = llan.logLikelihood(idi, gti, idj, gtj);
+									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+								}
+							}
+						}
+					} //
+				);
 	}
 
 	/**
@@ -340,6 +371,9 @@ public class GwasEpistasis extends SnpEff {
 				count++;
 				if (debug) Gpr.debug("Adding GT " + ve.toStr() + "\t" + r.getId());
 			}
+
+			// Show somthing every now and then
+			Gpr.showMark(vcf.getLineNum(), SHOW_EVERY_VCF);
 		}
 
 		Timer.showStdErr("Done. Added " + count + " gentype entries (hash size:" + gtById.size() + ").");
@@ -349,16 +383,19 @@ public class GwasEpistasis extends SnpEff {
 		this.analyzeAllPairs = analyzeAllPairs;
 	}
 
+	/**
+	 * Show information is being loaded
+	 */
 	void showCount(boolean ok) {
 		if (!debug) {
 			int tot = countOk + countErr;
 
 			if (ok) {
-				if (tot % SHOW_EVERY == 0) System.out.print('.'); // Show OK
-			} else System.out.print('*'); // Show error
+				if (tot % SHOW_EVERY_GENES_LL == 0) System.err.print('.'); // Show OK
+			} else System.err.print('*'); // Show error
 
 			// Add a newline every now and then
-			if (tot % SHOW_LINE_EVERY == 0) System.out.print("\n" + tot + "\t");
+			if (tot % SHOW_LINE_GENES_LL_EVERY == 0) System.err.print("\n" + tot + "\t");
 		}
 	}
 }

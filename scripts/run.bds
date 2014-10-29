@@ -8,7 +8,7 @@
 
 debug			:= false
 timeout			:= 5 * day
-system			:= 'cluster'
+#system			:= 'cluster'
 cpus			:= ( system == 'local' ? 24 : 4 )
 
 snpEffDir		:= "$HOME/snpEff"
@@ -25,6 +25,7 @@ llGeneLines		:=	5
 aaContact		:= "$dir/aa.contact.txt"
 aaContactSeq	:= "$dir/aa.contact.sequence.txt"
 aaContactBest	:= "$dir/aa.contact.best.txt"
+gwas			:= "$dir/gwas.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
@@ -35,18 +36,24 @@ likNull			:= "$dir/likelihood.null.txt"
 msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
 msaBest			:= "$dir/msas.best.fa"
 pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
+pheno			:= "$dir/coEvolution.pheno.covariates.txt"
 qhat			:= "$dir/Qhat.txt"
 qhat2			:= "$dir/Qhat2.txt"
-tree			:= "$snpEffDir/db/multiz100way/hg19.100way.nh"
 snpeffConfig	:= "$snpEffDir/snpEff.config"
+tree			:= "$snpEffDir/db/multiz100way/hg19.100way.nh"
+vcf				:= "gwas.vcf"
+
 bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
 javaNativeLibs  := "$dir/lib"
 javaGC			:= ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
 javaMem			:= "4G"
+javaMemXL		:= "20G"
 java			:= "java -Xmx$javaMem $javaGC "
+javaXL			:= "java -Xmx$javaMem $javaGC "
 cmdEpistasis	:= "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+cmdEpistasisXL	:= "$javaXL -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
 cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
 
 # Change parameters if we are debugging (smaller datasets)
@@ -287,7 +294,7 @@ task( qhat2 <- [tree, msaBest, idMapBest, aaContactBest] ) {
 wait
 
 #---
-# Part 5: Likelihood
+# Part 5: Likelihood from epistatic model
 #---
 
 println "\nEstimate log-Likelihood: '$lik'"
@@ -336,6 +343,14 @@ if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interac
 #	sys cat $likAll.genes.list.* > $likAll
 }
 wait
+
+#---
+# Part 6: GWAS
+#---
+
+task( gwas <- [likAll, vcf, pheno] ) {
+	sys $cmdEpistasisXL gwas $snpeffConfig $genome $vcf $likAll $pheno > $gwas
+}
 
 # Done
 wait
