@@ -27,7 +27,7 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
  */
 public class GwasEpistasis extends SnpEff {
 
-	public static int SHOW_EVERY_VCF = 100;
+	public static int SHOW_EVERY_VCF = 1000;
 	public static int SHOW_EVERY_GENES_LL = 10000;
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
