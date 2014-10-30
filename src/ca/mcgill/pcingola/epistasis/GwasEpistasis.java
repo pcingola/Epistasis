@@ -386,7 +386,7 @@ public class GwasEpistasis extends SnpEff {
 		gtIds = new ArrayList<String>(); // Store VCF reference (some sort of ID)
 
 		// Read VCF file
-		int count = 0;
+		int count = 1;
 		Timer.showStdErr("Reading vcf file '" + vcfFile + "'");
 		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
 		for (VcfEntry ve : vcf) {
