@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
@@ -14,6 +15,7 @@ import ca.mcgill.mcb.pcingola.interval.Markers;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.interval.tree.IntervalForest;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
+import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
@@ -25,14 +27,16 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
  */
 public class GwasEpistasis extends SnpEff {
 
-	public static int SHOW_EVERY_VCF = 100;
+	public static int SHOW_EVERY_VCF = 1;
 	public static int SHOW_EVERY_GENES_LL = 10000;
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
 	public static int MINOR_ALLELE_COUNT = 5;
+	public static double LL_THRESHOLD = 6.0;
 
 	boolean analyzeAllPairs = false; // Use for testing and debugging
 	int countOk, countErr;
+	double llThreshold = LL_THRESHOLD;
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
 	String vcfFile;
 	String genomeVer, pdbDir;
@@ -43,6 +47,8 @@ public class GwasEpistasis extends SnpEff {
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	HashMap<Long, LikelihoodAnalysis2> llAnByThreadId = new HashMap<>();
 	IntervalForest llforest; // Interval forest of ll-markers
+	ArrayList<byte[]> gts; // VCF genotypes
+	ArrayList<String> gtIds; // VCF IDs (corresponding to genotypes)
 
 	public GwasEpistasis(String configFile, String genomeVer, String genesLikeFile, String vcfFile, String phenoCovariatesFile) {
 		this.configFile = configFile;
@@ -96,7 +102,7 @@ public class GwasEpistasis extends SnpEff {
 	public void gwas() {
 		initialize();
 		readGenesLogLikelihood();
-		readVcf();
+		readVcf(true);
 
 		if (analyzeAllPairs) gwasAll();
 		else gwasMatching();
@@ -125,28 +131,28 @@ public class GwasEpistasis extends SnpEff {
 	 */
 	void gwasMatching() {
 		llpairs.stream() //
-				.parallel() //
-				.forEach(llpair -> {
+		.parallel() //
+		.forEach(llpair -> {
 
-					// Find genotypes in under markers
-						String idi = llpair.getMarker1().getId();
-						String idj = llpair.getMarker2().getId();
+			// Find genotypes in under markers
+			String idi = llpair.getMarker1().getId();
+			String idj = llpair.getMarker2().getId();
 
-						// No genotypes in any of those regions? Nothing to do
-						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-							if (debug) Gpr.debug("Nothing found:\t" + llpair);
-						} else {
-							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+			// No genotypes in any of those regions? Nothing to do
+			if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+				if (debug) Gpr.debug("Nothing found:\t" + llpair);
+			} else {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 
-							// Analyze all genotype pairs within those regions
-							for (byte gti[] : gtById.get(idi)) {
-								for (byte gtj[] : gtById.get(idj)) {
-									double ll = llan.logLikelihood(idi, gti, idj, gtj);
-									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-								}
-							}
-						}
-					} //
+				// Analyze all genotype pairs within those regions
+				for (byte gti[] : gtById.get(idi)) {
+					for (byte gtj[] : gtById.get(idj)) {
+						double ll = llan.logLikelihood(idi, gti, idj, gtj);
+						if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+					}
+				}
+			}
+		} //
 				);
 	}
 
@@ -295,7 +301,7 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
 			else showCount(false);
 		}
 
@@ -365,37 +371,57 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
 	 * Read VCF file: Only entries matching markers from GenesLogLik file
 	 * TODO: We could optimize this by using an index and reading only the regions we need
 	 */
-	public void readVcf() {
+	public void readVcf(boolean filterByForest) {
 		// Initialize
-		if (llforest == null) buildForest();
+		if (filterByForest && llforest == null) buildForest();
 		gtById = new AutoHashMap<String, ArrayList<byte[]>>(new ArrayList<byte[]>());
+		gts = new ArrayList<byte[]>(); // Store genotypes here
+		gtIds = new ArrayList<String>(); // Store VCF reference (some sort of ID)
 
 		// Read VCF file
 		int count = 0;
 		Timer.showStdErr("Reading vcf file '" + vcfFile + "'");
 		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
 		for (VcfEntry ve : vcf) {
+			Markers results = null;
+
 			// Is this entry overlapping any llmarker?
-			Markers results = llforest.query(ve);
-			if (results.isEmpty()) continue; // No hits
+			if (filterByForest) {
+				results = llforest.query(ve);
+				if (results.isEmpty()) continue; // No hits
+			}
 
 			// Add genotypes to map (all results)
 			byte gt[] = ve.getGenotypesScores();
-			for (Marker r : results) {
-				gtById.getOrCreate(r.getId()).add(gt);
-				count++;
-				if (debug) Gpr.debug("Adding GT " + ve.toStr() + "\t" + r.getId());
+			gt = minorAllele(gt);
+
+			// Are gt OK after filtering?
+			if (gt != null) {
+				gts.add(gt);
+				gtIds.add(ve.getChromosomeName() + ":" + ve.getStart() + "_" + ve.getRef() + "/" + ve.getAltsStr());
+
+				// Add to gtById
+				if (results != null) {
+					for (Marker r : results) {
+						gtById.getOrCreate(r.getId()).add(gt);
+						count++;
+						if (debug) Gpr.debug("Adding GT " + ve.toStr() + "\t" + r.getId());
+					}
+				}
 			}
 
-			// Show somthing every now and then
-			Gpr.showMark(vcf.getLineNum(), SHOW_EVERY_VCF);
+			// Show something every now and then
+			if (count % (SHOW_EVERY_VCF * 100) == 0) System.out.print("\n" + gts.size() + " / " + count + "\t.");
+			else if (count % SHOW_EVERY_VCF == 0) System.out.print('.');
+
+			count++;
 		}
 
 		Timer.showStdErr("Done. Added " + count + " gentype entries (hash size:" + gtById.size() + ").");
@@ -426,44 +452,30 @@ public class GwasEpistasis extends SnpEff {
 	 * TODO: We could optimize this by using an index and reading only the regions we need
 	 */
 	public void testVcf() {
-		ArrayList<byte[]> gts = new ArrayList<byte[]>(); // Store genotypes here
-		ArrayList<String> gtIds = new ArrayList<String>(); // Store VCF reference (some sort of ID)
-
-		//---
 		// Read VCF file
-		//---
-		int count = 1;
-		Timer.showStdErr("Reading vcf file '" + vcfFile + "'");
-		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
-		for (VcfEntry ve : vcf) {
-			// Add genotypes to map (all results)
-			byte gt[] = ve.getGenotypesScores();
-			gt = minorAllele(gt);
-
-			// Store it, if it wasn't filtered out
-			if (gt != null) {
-				gts.add(gt);
-				gtIds.add(ve.getChromosomeName() + ":" + ve.getStart() + "_" + ve.getRef() + "/" + ve.getAltsStr());
-			}
-
-			// Show somthing every now and then
-			if (count % (SHOW_EVERY_VCF * 100) == 0) System.out.print("\n" + gts.size() + " / " + count + "\t.");
-			else if (count % SHOW_EVERY_VCF == 0) System.out.print('.');
-
-		}
-		Timer.showStdErr("Done. Added " + count + " gentype entries.");
+		readVcf(false);
 
 		//---
 		// Test VCF entries
 		//---
-		count = 0;
+		Counter count = new Counter();
+		Counter countLl = new Counter();
 		for (int i = 0; i < gts.size(); i++) {
-			for (int j = i + 1; j < gts.size(); j++, count++) {
-				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-				double ll = llan.logLikelihood(gtIds.get(i), gts.get(i), gtIds.get(j), gts.get(j));
-				if (ll > SHOW_LINE_LL_MIN) Timer.show(i + " / " + j + "\t" + ll + "\t" + gtIds.get(i) + "\t" + gtIds.get(j));
-			}
-		}
 
+			final int idxi = i;
+			String idi = gtIds.get(i);
+			byte gti[] = gts.get(i);
+
+			IntStream.range(i + 1, gts.size()) //
+			.parallel() //
+			.forEach(j -> {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+				String idj = gtIds.get(j);
+				double ll = llan.logLikelihood(idi, gti, gtIds.get(j), gts.get(j));
+				if (ll > llThreshold) countLl.inc();
+				if (ll != 0.0) Timer.show(count.inc() + " (" + idxi + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
+			} //
+					);
+		}
 	}
 }
