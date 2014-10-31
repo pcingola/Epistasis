@@ -1031,8 +1031,8 @@ public class Epistasis implements CommandLine {
 		gwasEpistasis.setDebug(debug);
 		//		gwasEpistasis.gwas();
 
-		Gpr.debug("\n\n\n\t\t\tANALYZE ALL PAIRS!!!\n\n");
-		gwasEpistasis.setAnalyzeAllPairs(true);
+		//		Gpr.debug("\n\n\n\t\t\tANALYZE ALL PAIRS!!!\n\n");
+		//		gwasEpistasis.setAnalyzeAllPairs(true);
 		gwasEpistasis.testVcf();
 	}
 
