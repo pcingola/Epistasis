@@ -12,6 +12,7 @@ import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
+import ca.mcgill.mcb.pcingola.interval.Genome;
 import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.interval.Markers;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
@@ -54,27 +55,54 @@ public class GwasEpistasis extends SnpEff {
 	Map<String, Marker> llmarkerById = new HashMap<String, Marker>(); // log-likelihood markers by ID
 	Map<Long, LikelihoodAnalysis2> llAnByThreadId = new HashMap<>();
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
-	IntervalForest llforest; // Interval forest of ll-markers
+	IntervalForest intForest; // Interval forest (MSAs intervals)
+	MultipleSequenceAlignmentSet msas; // MSAs
 
-	public GwasEpistasis(String configFile, String genomeVer, String genesLikeFile, String vcfFile, String phenoCovariatesFile) {
+	public GwasEpistasis(String configFile, String genomeVer, MultipleSequenceAlignmentSet msas, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		this.configFile = configFile;
 		this.genomeVer = genomeVer;
-		logLikelihoodFile = genesLikeFile;
+		this.msas = msas;
 		this.vcfFile = vcfFile;
 		this.phenoCovariatesFile = phenoCovariatesFile;
+		this.numSplits = numSplits;
+		this.splitI = splitI;
+		this.splitJ = splitJ;
+	}
+
+	public GwasEpistasis(String configFile, String genomeVer, String logLikelihoodFile, String vcfFile, String phenoCovariatesFile) {
+		this.configFile = configFile;
+		this.genomeVer = genomeVer;
+		msas = null;
+		this.logLikelihoodFile = logLikelihoodFile;
+		this.vcfFile = vcfFile;
+		this.phenoCovariatesFile = phenoCovariatesFile;
+
+		// No split
+		numSplits = 1;
+		splitI = 1;
+		splitJ = 1;
 	}
 
 	/**
 	 * Build interval forest using LogLik markers
 	 */
 	protected void buildForest() {
-		Timer.showStdErr("Building Log-likelihood marker forest");
+		if (intForest != null) return; // Nothing to do
+
+		Timer.showStdErr("Building interval forest: MSAs");
+
+		// Create a collections of 'markers'
 		Markers markers = new Markers();
-		markers.addAll(llmarkerById.values());
+		Genome genome = config.getSnpEffectPredictor().getGenome();
+		for (MultipleSequenceAlignment msa : msas) {
+			// Create a marker for this MSA and add it to 'markers'
+			Marker m = new Marker(genome.getChromosome(msa.getChromo()), msa.getStart(), msa.getEnd(), false, msa.getId());
+			markers.add(m);
+		}
 
 		// Create forest and build
-		llforest = new IntervalForest(markers);
-		llforest.build();
+		intForest = new IntervalForest(markers);
+		intForest.build();
 		Timer.showStdErr("Done. Added " + markers.size() + " markers.");
 	}
 
@@ -137,28 +165,28 @@ public class GwasEpistasis extends SnpEff {
 	 */
 	void gwasMatching() {
 		llpairs.stream() //
-				.parallel() //
-				.forEach(llpair -> {
+		.parallel() //
+		.forEach(llpair -> {
 
-					// Find genotypes in under markers
-						String idi = llpair.getMarker1().getId();
-						String idj = llpair.getMarker2().getId();
+			// Find genotypes in under markers
+			String idi = llpair.getMarker1().getId();
+			String idj = llpair.getMarker2().getId();
 
-						// No genotypes in any of those regions? Nothing to do
-						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-							if (debug) Gpr.debug("Nothing found:\t" + llpair);
-						} else {
-							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+			// No genotypes in any of those regions? Nothing to do
+			if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+				if (debug) Gpr.debug("Nothing found:\t" + llpair);
+			} else {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 
-							// Analyze all genotype pairs within those regions
-							for (byte gti[] : gtById.get(idi)) {
-								for (byte gtj[] : gtById.get(idj)) {
-									double ll = llan.logLikelihood(idi, gti, idj, gtj);
-									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-								}
-							}
-						}
-					} //
+				// Analyze all genotype pairs within those regions
+				for (byte gti[] : gtById.get(idi)) {
+					for (byte gtj[] : gtById.get(idj)) {
+						double ll = llan.logLikelihood(idi, gti, idj, gtj);
+						if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+					}
+				}
+			}
+		} //
 				);
 	}
 
@@ -307,7 +335,7 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
 			else showCount(false);
 		}
 
@@ -377,23 +405,25 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
 	 * Read VCF file: Only entries matching markers from GenesLogLik file
-	 * 
-	 * Note:	In order to spread the load on many processes in a cluster, we 'split' the 
+	 *
+	 * Note:	In order to spread the load on many processes in a cluster, we 'split' the
 	 * 			VCF file into 'numSplits' (lineNumber % numSplits = nsplit).
-	 * 			In this method, we only store lines that match either of two splits, called 
-	 * 			'split_i' or 'split_j' (note that actually split_i can be equal 
+	 * 			In this method, we only store lines that match either of two splits, called
+	 * 			'split_i' or 'split_j' (note that actually split_i can be equal
 	 * 			to split_j).
-	 * 			Then we perform likelihood calculations, only comparing VCF entries 
-	 * 			in 'split_i' to VCF entries in 'split_j'. This way, we can easily run many 
-	 * 			processes comparing different splits. E.g. we can set numSplits = 100 
+	 * 			Then we perform likelihood calculations, only comparing VCF entries
+	 * 			in 'split_i' to VCF entries in 'split_j'. This way, we can easily run many
+	 * 			processes comparing different splits. E.g. we can set numSplits = 100
 	 * 			and launch 100 * (100 / 2 + 1) = 5,100 processes to compare each split.
 	 */
 	public void readVcf() {
+		buildForest();
+
 		// Initialize
 		gtsSplitI = new ArrayList<byte[]>(); // Store genotypes for split_i
 		gtsSplitJ = new ArrayList<byte[]>(); // Store genotypes for split_j
@@ -410,22 +440,26 @@ public class GwasEpistasis extends SnpEff {
 
 			// Do we store this VCF entry?
 			if (nsplit == splitI || nsplit == splitJ) {
-				byte gt[] = ve.getGenotypesScores();
-				gt = minorAllele(gt);
+				// Do we have any MSA in this region?
+				if (!intForest.query(ve).isEmpty()) {
 
-				// Did gt pass filtering?
-				if (gt != null) {
-					String vcfId = ve.getChromosomeName() + ":" + ve.getStart() + "_" + ve.getRef() + "/" + ve.getAltsStr();
+					byte gt[] = ve.getGenotypesScores();
+					gt = minorAllele(gt);
 
-					// Store in 'splits'
-					if (nsplit == splitI) {
-						gtsSplitI.add(gt);
-						gtIdsSplitI.add(vcfId);
-					}
+					// Did gt pass filtering?
+					if (gt != null) {
+						String vcfId = ve.getChromosomeName() + ":" + ve.getStart() + "_" + ve.getRef() + "/" + ve.getAltsStr();
 
-					if (nsplit == splitJ) {
-						gtsSplitJ.add(gt);
-						gtIdsSplitJ.add(vcfId);
+						// Store in 'splits'
+						if (nsplit == splitI) {
+							gtsSplitI.add(gt);
+							gtIdsSplitI.add(vcfId);
+						}
+
+						if (nsplit == splitJ) {
+							gtsSplitJ.add(gt);
+							gtIdsSplitJ.add(vcfId);
+						}
 					}
 				}
 			}
@@ -465,8 +499,8 @@ public class GwasEpistasis extends SnpEff {
 	 * TODO: We could optimize this by using an index and reading only the regions we need
 	 */
 	public void testVcf() {
-		// Read VCF file
-		readVcf();
+		initialize(); // Initialize
+		readVcf(); // Read VCF file
 
 		//---
 		// Test VCF entries
@@ -485,15 +519,15 @@ public class GwasEpistasis extends SnpEff {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-						String idj = gtIdsSplitJ.get(j);
-						double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
+			.parallel() //
+			.forEach(j -> {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+				String idj = gtIdsSplitJ.get(j);
+				double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
 
-						if (ll > llThreshold) countLl.inc();
-						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
-					} //
+				if (ll > llThreshold) countLl.inc();
+				if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
+			} //
 					);
 		}
 	}

@@ -546,13 +546,18 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "gwas":
-			configFile = args[argNum++];
-			genome = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			String configFile = args[argNum++];
+			String genome = args[argNum++];
 			String vcfFile = args[argNum++];
-			String genesLikeFile = args[argNum++];
 			String phenoCovariatesFile = args[argNum++];
-			if (args.length != argNum) usage("Unused parameter/s for command '" + cmd + "'");
-			runGwas(genesLikeFile, vcfFile, phenoCovariatesFile);
+			int numSplits = Gpr.parseIntSafe(args[argNum++]);
+			int splitI = Gpr.parseIntSafe(args[argNum++]);
+			int splitJ = Gpr.parseIntSafe(args[argNum++]);
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			filterMsaByIdMap = false;
+			runGwas(configFile, genome, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 			break;
 
 		case "likelihood":
@@ -1019,8 +1024,10 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Perform GWAS analysis using epistatic data
 	 */
-	void runGwas(String genesLikeFile, String vcfFile, String phenoCovariatesFile) {
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, genesLikeFile, vcfFile, phenoCovariatesFile);
+	void runGwas(String configFile, String genome, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
+		load();
+
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, msas, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 		gwasEpistasis.setDebug(debug);
 		//		gwasEpistasis.gwas();
 		gwasEpistasis.testVcf();
