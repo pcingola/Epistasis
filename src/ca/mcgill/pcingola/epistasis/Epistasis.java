@@ -1030,6 +1030,9 @@ public class Epistasis implements CommandLine {
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, msas, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 		gwasEpistasis.setDebug(debug);
 		//		gwasEpistasis.gwas();
+
+		Gpr.debug("\n\n\n\t\t\tANALYZE ALL PAIRS!!!\n\n");
+		gwasEpistasis.setAnalyzeAllPairs(true);
 		gwasEpistasis.testVcf();
 	}
 

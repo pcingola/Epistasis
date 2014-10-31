@@ -165,28 +165,28 @@ public class GwasEpistasis extends SnpEff {
 	 */
 	void gwasMatching() {
 		llpairs.stream() //
-		.parallel() //
-		.forEach(llpair -> {
+				.parallel() //
+				.forEach(llpair -> {
 
-			// Find genotypes in under markers
-			String idi = llpair.getMarker1().getId();
-			String idj = llpair.getMarker2().getId();
+					// Find genotypes in under markers
+						String idi = llpair.getMarker1().getId();
+						String idj = llpair.getMarker2().getId();
 
-			// No genotypes in any of those regions? Nothing to do
-			if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-				if (debug) Gpr.debug("Nothing found:\t" + llpair);
-			} else {
-				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+						// No genotypes in any of those regions? Nothing to do
+						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+							if (debug) Gpr.debug("Nothing found:\t" + llpair);
+						} else {
+							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 
-				// Analyze all genotype pairs within those regions
-				for (byte gti[] : gtById.get(idi)) {
-					for (byte gtj[] : gtById.get(idj)) {
-						double ll = llan.logLikelihood(idi, gti, idj, gtj);
-						if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-					}
-				}
-			}
-		} //
+							// Analyze all genotype pairs within those regions
+							for (byte gti[] : gtById.get(idi)) {
+								for (byte gtj[] : gtById.get(idj)) {
+									double ll = llan.logLikelihood(idi, gti, idj, gtj);
+									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+								}
+							}
+						}
+					} //
 				);
 	}
 
@@ -335,7 +335,7 @@ public class GwasEpistasis extends SnpEff {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
+			);
 			else showCount(false);
 		}
 
@@ -405,7 +405,7 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**
@@ -441,7 +441,7 @@ public class GwasEpistasis extends SnpEff {
 			// Do we store this VCF entry?
 			if (nsplit == splitI || nsplit == splitJ) {
 				// Do we have any MSA in this region?
-				if (!intForest.query(ve).isEmpty()) {
+				if (analyzeAllPairs || !intForest.query(ve).isEmpty()) {
 
 					byte gt[] = ve.getGenotypesScores();
 					gt = minorAllele(gt);
@@ -519,15 +519,15 @@ public class GwasEpistasis extends SnpEff {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-				String idj = gtIdsSplitJ.get(j);
-				double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
+					.parallel() //
+					.forEach(j -> {
+						LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+						String idj = gtIdsSplitJ.get(j);
+						double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
 
-				if (ll > llThreshold) countLl.inc();
-				if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
-			} //
+						if (ll > llThreshold) countLl.inc();
+						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
+					} //
 					);
 		}
 	}

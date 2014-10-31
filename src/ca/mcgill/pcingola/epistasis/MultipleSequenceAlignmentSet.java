@@ -87,8 +87,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[] = new int[GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length];
 
 		aaContacts.stream() //
-		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-		.forEach(d -> countAaPairs(counts, d)) //
+				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+				.forEach(d -> countAaPairs(counts, d)) //
 		;
 
 		return counts;
@@ -125,8 +125,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[][] = new int[n][n];
 
 		aaContacts.stream() //
-		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-		.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
+				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+				.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
 
 		return counts;
 	}
@@ -247,6 +247,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	public void load() {
 		LineFileIterator lif = new LineFileIterator(sequenceAlignmentFile);
 
+		int countAligns = 0;
 		while (lif.hasNext()) {
 			int seqLen = -1;
 			MultipleSequenceAlignment msa = null;
@@ -262,6 +263,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 				// Is this a header?
 				if (!header.startsWith(">")) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting header empty line, got: '" + header + "'");
+
+				if (i == 0) Gpr.showMark(countAligns++, 100);
 
 				// Parse and check species
 				String fields[] = header.split("_");
