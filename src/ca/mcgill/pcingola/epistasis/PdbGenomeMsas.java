@@ -16,6 +16,7 @@ import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.io.PDBFileReader;
 
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Marker;
@@ -397,6 +398,97 @@ public class PdbGenomeMsas extends SnpEff {
 				}
 			}
 		}
+	}
+
+	/**
+	 * Create a marker encomapsing an amino acid (trId:aaIdx)
+	 */
+	protected Marker markerMsa(String trId, String chr, int start, int end, int aaIdx, char aaExpected) {
+		// Find transcript and exon
+		Transcript tr = trancriptById.get(trId);
+		if (tr == null) {
+			Gpr.debug("TR NOT FOUND: " + trId);
+			return null;
+		}
+		Exon ex = tr.findExon(start);
+		if (ex == null) return null;
+
+		// Calculate start position
+		int startPos;
+		int fr = 0;
+		if (ex.getFrame() != 0) {
+			if (ex.isStrandPlus()) {
+				aaIdx--;
+				if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
+				fr = 3 - ex.getFrame(); // Offset based on frame
+			} else {
+				aaIdx--;
+				if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
+				fr = 3 - ex.getFrame(); // Offset based on frame
+			}
+		}
+
+		// Find AA start position
+		if (ex.isStrandPlus()) {
+			int exStart = Math.max(start, tr.getCdsStart());
+			startPos = exStart + (aaIdx * 3 + fr);
+		} else {
+			int exEnd = Math.min(end, tr.getCdsStart());
+			startPos = exEnd - (aaIdx * 3 + fr);
+		}
+
+		// Get position within CDS
+		int cdsBase = tr.baseNumberCds(startPos, false);
+		int cds2pos[] = tr.baseNumberCds2Pos();
+		if ((ex.isStrandPlus() && (startPos < ex.getStart())) //
+				|| (ex.isStrandMinus() && (startPos > ex.getEnd()))) {
+			// If the position is outside the exon, then we must jump to previous exon
+			startPos = cds2pos[cdsBase - ex.getFrame()];
+			cdsBase = tr.baseNumberCds(startPos, true);
+		}
+
+		//---
+		// Sanity check: Make sure that AA matches between transcript model and MSA data from 'genes likelihood' file
+		//---
+		String id = chr + ":" + start + "-" + end + "[" + aaExpected + "]";
+
+		// Extract codon
+		String cdsSeq = tr.cds();
+		String codonStr = cdsSeq.substring(cdsBase, cdsBase + 3);
+		String aa = genome.codonTable().aa(codonStr);
+
+		if (aa.equals("" + aaExpected)) {
+
+			if (debug) Gpr.debug("OK: " + id + " : " + aa);
+		} else {
+			if (debug) Gpr.debug("Entry ID     : " + id //
+					+ "\ntr ID        : " + trId + ", chr: " + chr + ", start: " + start + ", end: " + end + ", idx: " + aaIdx + ", fr: " + fr//
+					+ "\nTranscript : " + tr //
+					+ "\nExon       : " + ex //
+					+ "\nStart pos: " + startPos //
+					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
+			);
+			return null;
+		}
+
+		//---
+		// Create marker
+		// Important: The marker has ALL bases in the codon.
+		//            For instance, is the codon is split between two exons, the
+		//            marker will contain the intron
+		//---
+		int markerStart, markerEnd;
+		if (tr.isStrandPlus()) {
+			markerStart = cds2pos[cdsBase];
+			markerEnd = cds2pos[cdsBase + 2];
+		} else {
+			markerStart = cds2pos[cdsBase + 2];
+			markerEnd = cds2pos[cdsBase];
+		}
+
+		Chromosome chromo = genome.getChromosome(chr);
+		Marker marker = new Marker(chromo, markerStart, markerEnd, ex.isStrandMinus(), id);
+		return marker;
 	}
 
 	/**

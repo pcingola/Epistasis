@@ -9,15 +9,11 @@ import java.util.stream.IntStream;
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
-import ca.mcgill.mcb.pcingola.interval.Chromosome;
-import ca.mcgill.mcb.pcingola.interval.Exon;
-import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Genome;
 import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.interval.Markers;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.interval.tree.IntervalForest;
-import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -28,7 +24,7 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
  *
  * @author pcingola
  */
-public class GwasEpistasis extends SnpEff {
+public class GwasEpistasis {
 
 	public static int SHOW_EVERY_VCF = 1000;
 	public static int SHOW_EVERY_GENES_LL = 10000;
@@ -39,11 +35,14 @@ public class GwasEpistasis extends SnpEff {
 
 	// Splits information
 	boolean analyzeAllPairs = false; // Use for testing and debugging
+	boolean debug = false;
+	boolean verbose = false;
 	int splitI = 2;
 	int splitJ = 3;
 	int numSplits = 100;
 	int countOk, countErr;
 	double llThreshold = LL_THRESHOLD;
+	String configFile;
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
 	String vcfFile;
 	String genomeVer, pdbDir;
@@ -57,6 +56,7 @@ public class GwasEpistasis extends SnpEff {
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	IntervalForest intForest; // Interval forest (MSAs intervals)
 	MultipleSequenceAlignmentSet msas; // MSAs
+	PdbGenomeMsas pdbGenomeMsas;
 
 	public GwasEpistasis(String configFile, String genomeVer, MultipleSequenceAlignmentSet msas, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		this.configFile = configFile;
@@ -93,7 +93,7 @@ public class GwasEpistasis extends SnpEff {
 
 		// Create a collections of 'markers'
 		Markers markers = new Markers();
-		Genome genome = config.getSnpEffectPredictor().getGenome();
+		Genome genome = pdbGenomeMsas.getConfig().getSnpEffectPredictor().getGenome();
 		for (MultipleSequenceAlignment msa : msas) {
 			// Create a marker for this MSA and add it to 'markers'
 			Marker m = new Marker(genome.getChromosome(msa.getChromo()), msa.getStart(), msa.getEnd(), false, msa.getId());
@@ -165,28 +165,28 @@ public class GwasEpistasis extends SnpEff {
 	 */
 	void gwasMatching() {
 		llpairs.stream() //
-				.parallel() //
-				.forEach(llpair -> {
+		.parallel() //
+		.forEach(llpair -> {
 
-					// Find genotypes in under markers
-						String idi = llpair.getMarker1().getId();
-						String idj = llpair.getMarker2().getId();
+			// Find genotypes in under markers
+			String idi = llpair.getMarker1().getId();
+			String idj = llpair.getMarker2().getId();
 
-						// No genotypes in any of those regions? Nothing to do
-						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-							if (debug) Gpr.debug("Nothing found:\t" + llpair);
-						} else {
-							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+			// No genotypes in any of those regions? Nothing to do
+			if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+				if (debug) Gpr.debug("Nothing found:\t" + llpair);
+			} else {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 
-							// Analyze all genotype pairs within those regions
-							for (byte gti[] : gtById.get(idi)) {
-								for (byte gtj[] : gtById.get(idj)) {
-									double ll = llan.logLikelihood(idi, gti, idj, gtj);
-									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-								}
-							}
-						}
-					} //
+				// Analyze all genotype pairs within those regions
+				for (byte gti[] : gtById.get(idi)) {
+					for (byte gtj[] : gtById.get(idj)) {
+						double ll = llan.logLikelihood(idi, gti, idj, gtj);
+						if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+					}
+				}
+			}
+		} //
 				);
 	}
 
@@ -194,28 +194,32 @@ public class GwasEpistasis extends SnpEff {
 	 * Load all data
 	 */
 	public void initialize() {
-		// Initialize SnpEff
-		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genomeVer };
-		args = argsSnpEff;
-		setGenomeVer(genomeVer);
-		parseArgs(argsSnpEff);
-		loadConfig();
 
-		// Load SnpEff database
-		if (genomeVer != null) loadDb();
+		pdbGenomeMsas = new PdbGenomeMsas(configFile, genomeVer, pdbDir, msas);
+		pdbGenomeMsas.initialize();
 
-		// Initialize trancriptById
-		trancriptById = new HashMap<>();
-		for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
-			for (Transcript tr : g) {
-				String id = tr.getId();
-				if (id.indexOf('.') > 0) {
-					// When using RefSeq transcripts, we don't store sub-version number
-					id = id.substring(0, id.indexOf('.'));
-				}
-				trancriptById.put(id, tr);
-			}
-
+		//		// Initialize SnpEff
+		//		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genomeVer };
+		//		args = argsSnpEff;
+		//		setGenomeVer(genomeVer);
+		//		parseArgs(argsSnpEff);
+		//		loadConfig();
+		//
+		//		// Load SnpEff database
+		//		if (genomeVer != null) loadDb();
+		//
+		//		// Initialize trancriptById
+		//		trancriptById = new HashMap<>();
+		//		for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
+		//			for (Transcript tr : g) {
+		//				String id = tr.getId();
+		//				if (id.indexOf('.') > 0) {
+		//					// When using RefSeq transcripts, we don't store sub-version number
+		//					id = id.substring(0, id.indexOf('.'));
+		//				}
+		//				trancriptById.put(id, tr);
+		//			}
+		//
 	}
 
 	/**
@@ -268,96 +272,25 @@ public class GwasEpistasis extends SnpEff {
 		String chr = f[2];
 		int start = Gpr.parseIntSafe(f[3]);
 		int end = Gpr.parseIntSafe(f[4]);
-		int idx = Gpr.parseIntSafe(f[5]);
+		int aaIdx = Gpr.parseIntSafe(f[5]);
 
 		//---
 		// Calculate position within CDS
 		//---
+		marker = pdbGenomeMsas.markerMsa(trId, chr, start, end, aaIdx, aaExpected);
 
-		// Find transcript and exon
-		Transcript tr = trancriptById.get(trId);
-		if (tr == null) return null;
-		Exon ex = tr.findExon(start);
-		if (ex == null) return null;
-
-		// Calculate start position
-		int startPos;
-		int fr = 0;
-		if (ex.getFrame() != 0) {
-			if (ex.isStrandPlus()) {
-				idx--;
-				if (ex.getFrame() == 2) idx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
-				fr = 3 - ex.getFrame(); // Offset based on frame
-			} else {
-				idx--;
-				if (ex.getFrame() == 2) idx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
-				fr = 3 - ex.getFrame(); // Offset based on frame
-			}
-		}
-
-		// Find AA start position
-		if (ex.isStrandPlus()) {
-			int exStart = Math.max(start, tr.getCdsStart());
-			startPos = exStart + (idx * 3 + fr);
-		} else {
-			int exEnd = Math.min(end, tr.getCdsStart());
-			startPos = exEnd - (idx * 3 + fr);
-		}
-
-		// Get position within CDS
-		int cdsBase = tr.baseNumberCds(startPos, false);
-		int cds2pos[] = tr.baseNumberCds2Pos();
-		if ((ex.isStrandPlus() && (startPos < ex.getStart())) //
-				|| (ex.isStrandMinus() && (startPos > ex.getEnd()))) {
-			// If the position is outside the exon, then we must jump to previous exon
-			startPos = cds2pos[cdsBase - ex.getFrame()];
-			cdsBase = tr.baseNumberCds(startPos, true);
-		}
-
-		//---
-		// Sanity check: Make sure that AA matches between transcript model and MSA data from 'genes likelihood' file
-		//---
-
-		// Extract codon
-		String cdsSeq = tr.cds();
-		String codonStr = cdsSeq.substring(cdsBase, cdsBase + 3);
-		String aa = genome.codonTable().aa(codonStr);
-
-		if (aa.equals("" + aaExpected)) {
-			countOk++;
-			if (debug) Gpr.debug("OK: " + id + " : " + aa);
-			else showCount(true);
-		} else {
+		// Some accounting
+		if (marker == null) {
 			countErr++;
-			if (debug) Gpr.debug("Entry ID     : " + id //
-					+ "\ntr ID        : " + trId + ", chr: " + chr + ", start: " + start + ", end: " + end + ", idx: " + idx + ", fr: " + fr//
-					+ "\nTranscript : " + tr //
-					+ "\nExon       : " + ex //
-					+ "\nStart pos: " + startPos //
-					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
-			else showCount(false);
-		}
-
-		//---
-		// Create marker
-		// Important: The marker has ALL bases in the codon.
-		//            For instance, is the codon is split between two exons, the
-		//            marker will contain the intron
-		//---
-		int markerStart, markerEnd;
-		if (tr.isStrandPlus()) {
-			markerStart = cds2pos[cdsBase];
-			markerEnd = cds2pos[cdsBase + 2];
+			showCount(false);
 		} else {
-			markerStart = cds2pos[cdsBase + 2];
-			markerEnd = cds2pos[cdsBase];
+			countOk++;
+			showCount(true);
 		}
 
-		Chromosome chromo = genome.getChromosome(chr);
-		marker = new Marker(chromo, markerStart, markerEnd, ex.isStrandMinus(), id);
 		llmarkerById.put(id, marker); // Cache marker
-		return marker;
+
+		return null;
 	}
 
 	/**
@@ -405,7 +338,7 @@ public class GwasEpistasis extends SnpEff {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
@@ -478,6 +411,14 @@ public class GwasEpistasis extends SnpEff {
 		this.analyzeAllPairs = analyzeAllPairs;
 	}
 
+	public void setDebug(boolean debug) {
+		this.debug = debug;
+	}
+
+	public void setVerbose(boolean verbose) {
+		this.verbose = verbose;
+	}
+
 	/**
 	 * Show information is being loaded
 	 */
@@ -519,15 +460,15 @@ public class GwasEpistasis extends SnpEff {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-						String idj = gtIdsSplitJ.get(j);
-						double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
+			.parallel() //
+			.forEach(j -> {
+				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+				String idj = gtIdsSplitJ.get(j);
+				double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
 
-						if (ll > llThreshold) countLl.inc();
-						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
-					} //
+				if (ll > llThreshold) countLl.inc();
+				if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
+			} //
 					);
 		}
 	}
