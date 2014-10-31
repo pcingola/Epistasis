@@ -31,12 +31,12 @@ import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
  * This class has information from
  * 		- PDB
  * 		- Genome (SnpEff)
+ * 		- Multiple sequence alignment set
  * 		- IdMapper
  *
  * @author pcingola
- *
  */
-public class PdbGenome extends SnpEff {
+public class PdbGenomeMsas extends SnpEff {
 
 	public static final double MAX_MISMATCH_RATE = 0.1;
 	public static final double PDB_RESOLUTION = 3.0; // PDB file resolution (in Angstrom)
@@ -53,25 +53,26 @@ public class PdbGenome extends SnpEff {
 	MultipleSequenceAlignmentSet msas;
 	PDBFileReader pdbreader;
 
-	public PdbGenome(String configFile, String genome, String pdbDir) {
+	public PdbGenomeMsas(String configFile, String genomeVer, String pdbDir, MultipleSequenceAlignmentSet msas) {
 		super(null);
 		this.configFile = configFile;
-		genomeVer = genome;
+		this.genomeVer = genomeVer;
 		this.pdbDir = pdbDir;
+		this.msas = msas;
 	}
 
 	/**
-	 * Check that 'protein' sequences match (MSA / Genome)
+	 * Check that all protein sequences from genome match MSAs
 	 */
-	public void checkSequenceMsaTr() {
-		trancriptById.keySet().stream().forEach(trid -> checkSequenceMsaTr(trid));
+	public void checkSequenceGenomeMsas() {
+		trancriptById.keySet().stream().forEach(trid -> checkSequenceGenomeMsas(trid));
 	}
 
 	/**
-	 * Check is the protein sequence from a transcript and the MSA match
+	 * Check is the protein sequence from transcript 'trId' (genome) matches MSAs
 	 * @return 'true' if protein sequences match
 	 */
-	boolean checkSequenceMsaTr(String trid) {
+	boolean checkSequenceGenomeMsas(String trid) {
 		Transcript tr = trancriptById.get(trid);
 		if (tr == null) {
 			warn("Transcript not found:", trid);
@@ -101,10 +102,10 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Check that protein sequences match between PDB and Genome
+	 * Check that protein sequences form PDB matches sequences from Genome
 	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
-	IdMapper checkSequencePdbTr() {
+	IdMapper checkSequencePdbGenome() {
 		if (debug) System.err.println("Checking PDB <-> Transcript sequences\tdebug:" + debug);
 
 		// Create a new IdMapper using only confirmed entries
@@ -112,7 +113,7 @@ public class PdbGenome extends SnpEff {
 		try {
 			Files.list(Paths.get(pdbDir)) //
 					.filter(s -> s.toString().endsWith(".pdb")) //
-					.map(pf -> checkSequencePdbTr(pf.toString())) //
+					.map(pf -> checkSequencePdbGenome(pf.toString())) //
 					.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
@@ -123,10 +124,10 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Check that protein sequences match between PDB and Genome.
+	 * Check that protein sequences form PDB (pdbFile) matches sequences from Genome
 	 * Return a stream of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 */
-	List<IdMapperEntry> checkSequencePdbTr(String pdbFile) {
+	List<IdMapperEntry> checkSequencePdbGenome(String pdbFile) {
 		Structure pdbStruct;
 		try {
 			pdbStruct = pdbreader.getStructure(pdbFile);
@@ -155,7 +156,7 @@ public class PdbGenome extends SnpEff {
 
 		// Check idMaps. Only return those that match
 		for (String trid : trIds)
-			list.addAll(checkSequencePdbTr(pdbId, pdbStruct, trid));
+			list.addAll(checkSequencePdbGenome(pdbId, pdbStruct, trid));
 
 		return list;
 	}
@@ -165,7 +166,7 @@ public class PdbGenome extends SnpEff {
 	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 * Note: Only part of the sequence usually matches
 	 */
-	List<IdMapperEntry> checkSequencePdbTr(String pdbId, Structure pdbStruct, String trId) {
+	List<IdMapperEntry> checkSequencePdbGenome(String pdbId, Structure pdbStruct, String trId) {
 		if (debug) System.err.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
 		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
 		List<IdMapperEntry> idmapsNew = new ArrayList<>();
@@ -229,7 +230,7 @@ public class PdbGenome extends SnpEff {
 	}
 
 	/**
-	 * Find a multiple sequence alignment
+	 * Find a multiple sequence alignment based on a transcript ID and a genomic position
 	 */
 	public Triplet<String, String, Integer> findColumnSequence(String trid, int pos) {
 		// Find all MSA
@@ -255,7 +256,7 @@ public class PdbGenome extends SnpEff {
 			int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
 			int idxAa = idxBase / 3;
 
-			// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon). 
+			// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
 			//          I don't know why they do it this way...
 			if (exon.getFrame() == 1) idxAa++;
 
@@ -313,7 +314,7 @@ public class PdbGenome extends SnpEff {
 			String trid = IdMapperEntry.IDME_TO_REFSEQ.apply(idme);
 
 			// Transcript's protein doesn't match MSA's protein? Nothing to do
-			if (!checkSequenceMsaTr(trid)) {
+			if (!checkSequenceGenomeMsas(trid)) {
 				countMatch.inc("_Total\tERROR\tTR-MSA");
 				return;
 			}
@@ -449,10 +450,6 @@ public class PdbGenome extends SnpEff {
 
 	public void setIdMapper(IdMapper idMapper) {
 		this.idMapper = idMapper;
-	}
-
-	public void setMsas(MultipleSequenceAlignmentSet msas) {
-		this.msas = msas;
 	}
 
 	public void setNextProt(boolean nextProt) {

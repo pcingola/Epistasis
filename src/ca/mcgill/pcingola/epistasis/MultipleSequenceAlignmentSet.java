@@ -242,7 +242,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	}
 
 	/**
-	 * @param args
+	 * Load MSAs from a FASTA file
 	 */
 	public void load() {
 		LineFileIterator lif = new LineFileIterator(sequenceAlignmentFile);

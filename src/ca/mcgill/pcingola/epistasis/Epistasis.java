@@ -58,7 +58,7 @@ public class Epistasis implements CommandLine {
 	MultipleSequenceAlignmentSet msas;
 	EstimateTransitionMatrix mltm;
 	IdMapper idMapper;
-	PdbGenome pdbGenome;
+	PdbGenomeMsas pdbGenome;
 	HashMap<Thread, LikelihoodTreeAa> treeNullByThread = new HashMap<Thread, LikelihoodTreeAa>();
 	HashMap<Thread, LikelihoodTreeAa> treeAltByThread = new HashMap<Thread, LikelihoodTreeAa>();
 	UniformTreeValueCache lcacheNull = new UniformTreeValueCache(GprSeq.AMINO_ACIDS.length);
@@ -237,10 +237,9 @@ public class Epistasis implements CommandLine {
 		}
 
 		if (genome != null) {
-			pdbGenome = new PdbGenome(configFile, genome, pdbDir);
+			pdbGenome = new PdbGenomeMsas(configFile, genome, pdbDir, msas);
 			pdbGenome.setDebug(debug);
 			pdbGenome.setIdMapper(idMapper);
-			pdbGenome.setMsas(msas);
 			pdbGenome.setTree(tree);
 			pdbGenome.setNextProt(nextProt);
 			pdbGenome.initialize();
@@ -914,7 +913,7 @@ public class Epistasis implements CommandLine {
 
 		// Sanity check: Make sure MSA protein sequences match genome's protein data
 		Timer.showStdErr("Checking MSA proteing sequences vs. genome protein sequences");
-		pdbGenome.checkSequenceMsaTr();
+		pdbGenome.checkSequenceGenomeMsas();
 		System.err.println("Totals:\n" + pdbGenome.countMatch);
 		pdbGenome.resetStats();
 
@@ -1031,8 +1030,8 @@ public class Epistasis implements CommandLine {
 		gwasEpistasis.setDebug(debug);
 		//		gwasEpistasis.gwas();
 
-		//		Gpr.debug("\n\n\n\t\t\tANALYZE ALL PAIRS!!!\n\n");
-		//		gwasEpistasis.setAnalyzeAllPairs(true);
+		Gpr.debug("\n\n\n\t\t\tANALYZE ALL PAIRS!!!\n\n");
+		gwasEpistasis.setAnalyzeAllPairs(true);
 		gwasEpistasis.testVcf();
 	}
 
@@ -1128,7 +1127,7 @@ public class Epistasis implements CommandLine {
 	 */
 	void runMapPdbGene() {
 		load();
-		pdbGenome.checkSequencePdbTr();
+		pdbGenome.checkSequencePdbGenome();
 	}
 
 	/**
