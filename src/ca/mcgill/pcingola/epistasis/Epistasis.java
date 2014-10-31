@@ -1,17 +1,12 @@
 package ca.mcgill.pcingola.epistasis;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Function;
-import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import org.apache.commons.math3.linear.RealVector;
@@ -77,61 +72,9 @@ public class Epistasis implements CommandLine {
 		this.args = args;
 	}
 
-	/**
-	 * Find all MSAS for all transcripts in 'gene'
-	 */
-	Set<MultipleSequenceAlignment> findMsasGene(String gene) {
-		List<IdMapperEntry> list = idMapper.getByGeneName(gene);
-		if (list == null || list.isEmpty()) return null;
-
-		Set<MultipleSequenceAlignment> set = list.stream() //
-				.map(ime -> ime.refSeqId) //
-				.filter(tid -> msas.getMsasByTrId(tid) != null) //
-				.flatMap(tid -> msas.getMsasByTrId(tid).stream()) //
-				.collect(Collectors.toSet()) //
-		;
-		return set;
-	}
-
 	@Override
 	public String[] getArgs() {
 		return args;
-	}
-
-	/**
-	 * Get a tree for the current thread (alt model)
-	 */
-	LikelihoodTreeAa getTreeAlt() {
-		LikelihoodTreeAa currentTree = treeAltByThread.get(Thread.currentThread());
-
-		if (currentTree == null) {
-			// No tree? load one
-			Timer.showStdErr("Loading phylogenetic tree from " + treeFile);
-			currentTree = new LikelihoodTreeAa();
-			currentTree.load(treeFile);
-			currentTree.setLcache(lcacheAlt);
-			treeAltByThread.put(Thread.currentThread(), currentTree);
-		}
-
-		return currentTree;
-	}
-
-	/**
-	 * Get a tree for the current thread (null model)
-	 */
-	LikelihoodTreeAa getTreeNull() {
-		LikelihoodTreeAa currentTree = treeNullByThread.get(Thread.currentThread());
-
-		if (currentTree == null) {
-			// No tree? load one
-			Timer.showStdErr("Loading phylogenetic tree from " + treeFile);
-			currentTree = new LikelihoodTreeAa();
-			currentTree.load(treeFile);
-			currentTree.setLcache(lcacheNull);
-			treeNullByThread.put(Thread.currentThread(), currentTree);
-		}
-
-		return currentTree;
 	}
 
 	/**
@@ -155,68 +98,6 @@ public class Epistasis implements CommandLine {
 		for (int i = 0; i < seqs.length; i++)
 			if (seqs[i] != null && !isFullyConserved(seqs[i])) return false;
 		return true;
-	}
-
-	/**
-	 * Calculate likelihood for the 'alternative model' (H1, i.e. using Qhat2)
-	 */
-	public double likelihoodAltModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
-		// Set sequence and calculate likelihood
-		byte seq1[] = msa1.getColumn(idx1);
-		byte seq2[] = msa2.getColumn(idx2);
-		tree.setLeafSequenceAaPair(seq1, seq2);
-		double lik = tree.likelihood(Q2, aaFreqsContact);
-		return lik;
-	}
-
-	/**
-	 * Calculate likelihood for the 'null model' (H0, i.e. using Qhat)
-	 */
-	public double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
-		// Get sequences
-		byte seq1b[] = msa1.getColumn(idx1);
-		byte seq2b[] = msa2.getColumn(idx2);
-
-		// Set sequence and calculate likelihood
-		tree.setLeafSequenceCode(sequenceGaps(seq1b, seq2b));
-		double lik1 = tree.likelihood(Q, aaFreqs);
-
-		// Set sequence and calculate likelihood
-		tree.setLeafSequenceCode(sequenceGaps(seq2b, seq1b));
-		double lik2 = tree.likelihood(Q, aaFreqs);
-
-		double lik = lik1 * lik2;
-		return lik;
-	}
-
-	public String likelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
-		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
-		if (msa1 == null) return null;
-
-		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
-		if (msa2 == null) return null;
-
-		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
-	}
-
-	/**
-	 * Pick two random columns from MSA and calculate likelihood ratio
-	 */
-	String likelihoodRatioRand() {
-		// Pick different transcripts
-		MultipleSequenceAlignment msa1, msa2;
-		do {
-			msa1 = msas.rand(random);
-			msa2 = msas.rand(random);
-		} while (msa1.getTranscriptId().equals(msa2.getTranscriptId()));
-
-		int msaIdx1 = -1, msaIdx2 = -1;
-		for (int i = 0; (msaIdx1 < 0 || msaIdx2 < 0 || msa1.isSkip(msaIdx1) || msa2.isSkip(msaIdx2)) && i < MAX_RAND_ITER; i++) {
-			msaIdx1 = random.nextInt(msa1.length());
-			msaIdx2 = random.nextInt(msa2.length());
-		}
-
-		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
 	/**
@@ -307,8 +188,8 @@ public class Epistasis implements CommandLine {
 			msasNew.setSpecies(msas.getSpecies());
 
 			msas.stream() //
-					.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
-					.forEach(m -> msasNew.add(m));
+			.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
+			.forEach(m -> msasNew.add(m));
 
 			// Replace with filtered version
 			Timer.showStdErr("Done. Filtered MSAS by IdMap. Number of entries before: " + msas.size() + ", after: " + msasNew.size());
@@ -349,105 +230,8 @@ public class Epistasis implements CommandLine {
 		tree.load(phyloFileName);
 	}
 
-	/**
-	 * Calculate log-likelihood ratio for all MSAs matching gene names
-	 * Output format:
-	 * 		msa1.id [msaIdx1] \t msa2.id[msaIdx2] \t logLikRatio \t likNull \t likAlt \t seqsStr
-	 */
-	void logLikelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String genesDir) {
-		if (msasGene1 == null || msasGene2 == null) return;
-
-		// Create output directory
-		String dir = genesDir + "/likelihood_genes/" + gene1;
-		(new File(dir)).mkdirs();
-
-		// Create output file
-		String outFile = dir + "/" + gene2 + ".txt";
-		String tmpFile = dir + "/" + gene2 + ".tmp";
-		if (Gpr.exists(outFile)) {
-			Timer.showStdErr("Likelihood genes '" + gene1 + "' and '" + gene2 + "', output file exists, skipping ('" + outFile + "')");
-			return;
-		}
-
-		try {
-			BufferedWriter tmp = new BufferedWriter(new FileWriter(tmpFile));
-			Timer.showStdErr("Likelihood genes '" + gene1 + "' and '" + gene2 + "', tmp file: '" + tmpFile + "'");
-
-			// Compare all MSA combinations
-			for (MultipleSequenceAlignment msa1 : msasGene1)
-				for (MultipleSequenceAlignment msa2 : msasGene2) {
-					String key = msa1.getId() + "\t" + msa2.getId();
-
-					// Already calculated? Ignore
-					if (!done.contains(key)) {
-						done.add(key);
-						String lout = logLikelihoodRatio(msa1, msa2, false);
-						if (!lout.isEmpty()) tmp.write(lout + "\n");
-					}
-				}
-
-			tmp.close();
-
-			// We are done, move tmpFile to outFile
-			(new File(tmpFile)).renameTo(new File(outFile));
-			Timer.showStdErr("Finished likelihood genes '" + gene1 + "' and '" + gene2 + "', output file: '" + outFile + "'");
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
-	 * Calculate likelihood ratio for these entries
-	 */
-	public String logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
-		// Since we execute in parallel, we need one tree per thread
-		LikelihoodTreeAa treeNull = getTreeNull();
-		LikelihoodTreeAa treeAlt = getTreeAlt();
-
-		// Calculate likelihoods for the null and alternative model
-		double likNull = likelihoodNullModel(treeNull, msa1, msaIdx1, msa2, msaIdx2);
-		double likAlt = likelihoodAltModel(treeAlt, msa1, msaIdx1, msa2, msaIdx2);
-		double logLikRatio = -2.0 * (Math.log(likNull) - Math.log(likAlt));
-
-		// Return results
-		String seqsStr = "";
-		if (!brief) {
-			String seq1 = msa1.getColumnString(msaIdx1);
-			String seq2 = msa2.getColumnString(msaIdx2);
-			seqsStr = "\t" + seq1 + "\t" + seq2;
-		}
-
-		return msa1.getId() + "[" + msaIdx1 + "]\t" + msa2.getId() + "[" + msaIdx2 + "]"//
-				+ "\t" + logLikRatio //
-				+ "\t" + likNull //
-				+ "\t" + likAlt //
-				+ seqsStr //
-		;
-	}
-
-	/**
-	 * Calculate likelihood for all possible AA pairs within these two MSAs
-	 */
-	String logLikelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
-		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
-
-		StringBuilder sb = new StringBuilder();
-
-		for (int i1 = 0; i1 < msa1.length(); i1++) {
-			if (msa1.isSkip(i1)) continue;
-
-			for (int i2 = 0; i2 < msa2.length(); i2++) {
-				if (msa2.isSkip(i2)) continue;
-
-				String res = logLikelihoodRatio(msa1, i1, msa2, i2, brief);
-				if (res != null) {
-					if (debug) System.err.println(res);
-					sb.append(res + "\n");
-				}
-			}
-		}
-
-		return sb.toString();
+	public InteractionLikelihood newInteractionLikelihood() {
+		return new InteractionLikelihood(cpus, treeFile, aaContacts, Q, Q2, aaFreqs, aaFreqsContact, msas, idMapper, pdbGenomeMsas);
 	}
 
 	/**
@@ -685,54 +469,6 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Pre-calculate matrix exponential
-	 */
-	public void precalcExps() {
-
-		// Find all times in the tree
-		HashSet<Double> times = new HashSet<>();
-		tree.times(times);
-
-		// Pre-calculate Q's exponentials
-		times.parallelStream() //
-				.peek(t -> System.err.println("Matrix\tdim:" + Q.getRowDimension() + "x" + Q.getColumnDimension() + "\tExp(" + t + ")")) //
-				.forEach(t -> Q.matrix(t)) //
-		;
-
-		// Calculate all gene-gene
-		(cpus == 1 ? times.stream() : times.parallelStream()) //
-				.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "x" + Q2.getColumnDimension() + "\tExp(" + t + ")")) //
-				.forEach(t -> Q2.matrix(t)) //
-		;
-	}
-
-	/**
-	 * Return a sequence of 'ranked' charaters
-	 * I.e.: The most common pair is represented by '0', the next one '1', etc.
-	 *       (ranks over 10 use letters 'A', 'B', etc.)
-	 */
-	String rankedSequence(String seq1, String seq2) {
-		char s1[] = seq1.toCharArray();
-		char s2[] = seq2.toCharArray();
-		int len = s1.length;
-		char s[] = new char[len];
-
-		CountByType cbt = new CountByType();
-		for (int i = 0; i < len; i++)
-			cbt.inc("" + s1[i] + s2[i]);
-
-		Map<String, Integer> ranks = cbt.ranks(true);
-		for (int i = 0; i < len; i++) {
-			String key = "" + s1[i] + s2[i];
-			int rank = ranks.get(key);
-			if (rank < 10) s[i] = (char) ('0' + rank);
-			else s[i] = (char) ('A' + rank);
-		}
-
-		return String.valueOf(s);
-	}
-
-	/**
 	 * Parse and Dispatch to right command
 	 */
 	@Override
@@ -755,27 +491,27 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.stream() //
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+		.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
 		// Show MI and conservation
 		//---
 		aaContactsUniq.stream() //
-				.forEach( //
-						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
-								, d //
-								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-								, EntropySeq.entropy(d.aaSeq1) //
-								, EntropySeq.entropy(d.aaSeq2) //
-								, EntropySeq.conservation(d.aaSeq1) //
-								, EntropySeq.conservation(d.aaSeq2) //
-								) //
+		.forEach( //
+				d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+						, d //
+						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq2) //
+						, EntropySeq.conservation(d.aaSeq1) //
+						, EntropySeq.conservation(d.aaSeq2) //
+						) //
 				);
 
 		//---
@@ -790,8 +526,8 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAa = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
-				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
+		.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+		.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
 		;
 		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_" + type + "\t", countFirstAa.toStringSort()));
 
@@ -800,11 +536,11 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnnAll = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-				.forEach( //
-						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
+		.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+		.forEach( //
+				d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
 				) //
-		;
+				;
 		System.err.println("Count fist AA with annotations (all):\n" + Gpr.prependEachLine("COUNT_AA_NEXTPROT_" + type + "\t", countFirstAaAnnAll.toStringSort()));
 
 		//---
@@ -812,14 +548,14 @@ public class Epistasis implements CommandLine {
 		//---
 		CountByType countFirstAaAnn = new CountByType();
 		aaContactsUniq.stream() //
-				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
-				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
-				.forEach( //
-						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
-								ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
-								) //
+		.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
+		.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
+		.forEach( //
+				d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
+						ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
+						) //
 				) //
-		;
+				;
 		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_NEXTPROT_" + type + "\t", countFirstAaAnn.toStringSort()));
 
 	}
@@ -856,9 +592,9 @@ public class Epistasis implements CommandLine {
 		Timer.showStdErr("Sort by position");
 		DistanceResults aaContactsUniq = new DistanceResults();
 		aaContacts.stream() //
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
-				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) // Filter out missing entries
+		.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
 		//---
@@ -877,8 +613,8 @@ public class Epistasis implements CommandLine {
 	void runAaFilterIdMap() {
 		load();
 		aaContacts.stream() //
-				.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
-				.forEach(System.out::println);
+		.filter(d -> idMapper.hasEntry(d.getTrIdNoSub(), d.pdbId, d.pdbChainId)) //
+		.forEach(System.out::println);
 	}
 
 	void runAaFrequencies() {
@@ -887,14 +623,14 @@ public class Epistasis implements CommandLine {
 		// Calculate AA frequencies
 		long aaCount[] = new long[GprSeq.AMINO_ACIDS.length];
 		msas.stream() //
-				.forEach( // Count all AA in this MSA
-						msa -> {
-							for (int col = 0; col < msa.length(); col++)
-								for (int row = 0; row < msa.size(); row++) {
-									byte aa = msa.getCode(row, col);
-									if (aa >= 0) aaCount[aa]++;
-								}
-						});
+		.forEach( // Count all AA in this MSA
+				msa -> {
+					for (int col = 0; col < msa.length(); col++)
+						for (int row = 0; row < msa.size(); row++) {
+							byte aa = msa.getCode(row, col);
+							if (aa >= 0) aaCount[aa]++;
+						}
+				});
 
 		// Show results
 		double sum = 0;
@@ -976,11 +712,11 @@ public class Epistasis implements CommandLine {
 			// Count for all MSAs
 			//---
 			msas.getMsas().stream() //
-					.filter(msa -> msa.length() > num) //
-					.forEach(msa -> IntStream.range(0, msa.length() - num) //
-							.peek(i -> total.inc()) //
-							.filter(i -> msa.isFullyConserved(i, num)) //
-							.forEach(i -> conserved.inc()) //
+			.filter(msa -> msa.length() > num) //
+			.forEach(msa -> IntStream.range(0, msa.length() - num) //
+					.peek(i -> total.inc()) //
+					.filter(i -> msa.isFullyConserved(i, num)) //
+					.forEach(i -> conserved.inc()) //
 					);
 
 			//---
@@ -989,11 +725,11 @@ public class Epistasis implements CommandLine {
 			Counter totalIc = new Counter();
 			Counter conservedIc = new Counter();
 			aaContacts.stream() //
-					.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
-					.peek(d -> totalIc.inc()) //
-					.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
-					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
-					.forEach(d -> conservedIc.inc()) //
+			.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
+			.peek(d -> totalIc.inc()) //
+			.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
+			.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
+			.forEach(d -> conservedIc.inc()) //
 			;
 
 			//---
@@ -1009,7 +745,7 @@ public class Epistasis implements CommandLine {
 					+ "\t" + totalIc //
 					+ "\t" + conservedIc //
 					+ "\t" + String.format("%.2f%%", consIcPerc) //
-			);
+					);
 		}
 	}
 
@@ -1041,17 +777,8 @@ public class Epistasis implements CommandLine {
 	void runLikelihood() {
 		load();
 
-		// Pre-calculate matrix exponentials
-		Timer.showStdErr("Pre-calculating matrix exponentials");
-		precalcExps();
-
-		// Calculate likelihoods
-		Timer.showStdErr("Calculating likelihoods");
-		aaContacts.parallelStream() //
-				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.map(d -> logLikelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
-				.forEach(System.out::println) //
-		;
+		InteractionLikelihood il = newInteractionLikelihood();
+		il.likelihoodAaContacts();
 	}
 
 	/**
@@ -1061,48 +788,8 @@ public class Epistasis implements CommandLine {
 	void runLikelihoodAll(String genesFile) {
 		load();
 
-		// Load gene names
-		Set<String> geneLines = new HashSet<String>();
-		String genesDir = Gpr.dirName(genesFile);
-		for (String line : Gpr.readFile(genesFile).split("\n")) {
-			String f[] = line.split("\t");
-			String gene1 = f[0].trim();
-			String gene2 = f[1].trim();
-
-			// Swap?
-			if (gene1.compareTo(gene2) > 0) {
-				String t = gene1;
-				gene1 = gene2;
-				gene2 = t;
-			}
-
-			geneLines.add(gene1 + "\t" + gene2);
-		}
-		Timer.showStdErr("Total number of unique pairs: " + geneLines.size());
-
-		// Pre-calculate matrix exponentials
-		Timer.showStdErr("Pre-calculating matrix exponentials");
-		precalcExps();
-
-		// Calculate likelihoods
-		Timer.showStdErr("Calculating likelihood on all pairs");
-		Set<String> genes = idMapper.getEntries().stream().map(im -> im.geneName).collect(Collectors.toSet());
-
-		// Pre calculate all MSAs by gene
-		HashMap<String, Set<MultipleSequenceAlignment>> msasByGeneName = new HashMap<>();
-		for (String gene : genes) {
-			Set<MultipleSequenceAlignment> msas = findMsasGene(gene);
-			if (msas != null && !msas.isEmpty()) msasByGeneName.put(gene, msas);
-		}
-
-		// Calculate likelihoods
-		geneLines.parallelStream() //
-				.forEach(str -> {
-					String f[] = str.split("\t");
-					String g1 = f[0], g2 = f[1];
-					logLikelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
-					} //
-				);
+		InteractionLikelihood il = newInteractionLikelihood();
+		il.likelihoodAllAminAcidsInGenes(genesFile);
 	}
 
 	/**
@@ -1111,15 +798,8 @@ public class Epistasis implements CommandLine {
 	void runLikelihoodNull(int numSamples) {
 		load();
 
-		// Pre-calculate matrix exponentials
-		Timer.showStdErr("Pre-calculating matrix exponentials");
-		precalcExps();
-
-		// Calculate likelihoods
-		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
-		IntStream.range(0, numSamples).parallel() //
-				.mapToObj(i -> likelihoodRatioRand()) // Calculate likelihood
-				.forEach(System.out::println);
+		InteractionLikelihood il = newInteractionLikelihood();
+		il.likelihoodNullModel(numSamples);
 	}
 
 	/**
@@ -1196,7 +876,7 @@ public class Epistasis implements CommandLine {
 				+ "\thas_negative_off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
 				+ "\tis_zero:\t" + Q.isZero() //
 				+ "\tis_symmetric:\t" + Q.isSymmetric() //
-		);
+				);
 	}
 
 	/**
@@ -1224,7 +904,7 @@ public class Epistasis implements CommandLine {
 				+ "\thas_negative_off_diagonal_entries:\t" + Q2.hasNegativeOffDiagonalEntries() //
 				+ "\tis_zero:\t" + Q2.isZero() //
 				+ "\tis_symmetric:\t" + Q2.isSymmetric() //
-		);
+				);
 
 	}
 
@@ -1241,11 +921,11 @@ public class Epistasis implements CommandLine {
 
 		TransitionsAa transAa = new TransitionsAa();
 		aaContacts.stream() //
-				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-				.forEach(d -> {
-					transAa.count(msas.getMsa(d.msa1).getColumn(d.msaIdx1));
-					transAa.count(msas.getMsa(d.msa2).getColumn(d.msaIdx2));
-				});
+		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+		.forEach(d -> {
+			transAa.count(msas.getMsa(d.msa1).getColumn(d.msaIdx1));
+			transAa.count(msas.getMsa(d.msa2).getColumn(d.msaIdx2));
+		});
 
 		System.out.println(Gpr.prependEachLine("AA_SINGLE_IN_CONTACT\t", transAa));
 
@@ -1257,7 +937,7 @@ public class Epistasis implements CommandLine {
 		TransitionsAa sum = msas.stream() //
 				.map(msa -> transitions(msa)) // Calculate transitions
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		;
+				;
 		System.out.println(Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
 
 		//---
@@ -1265,8 +945,8 @@ public class Epistasis implements CommandLine {
 		//---
 		TransitionsAaPairs transPairs = new TransitionsAaPairs();
 		aaContacts.stream()//
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
-				.forEach(d -> transPairs.count(d)) //
+		.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
+		.forEach(d -> transPairs.count(d)) //
 		;
 		System.out.println(Gpr.prependEachLine("AA_PAIRS_IN_CONTACT\t", transPairs));
 
@@ -1308,31 +988,6 @@ public class Epistasis implements CommandLine {
 		default:
 			throw new RuntimeException("Unknown type '" + type + "'");
 		}
-	}
-
-	int[] sequenceGaps(byte seq1[], byte seq2[]) {
-		int c[] = new int[seq1.length];
-
-		for (int i = 0; i < seq1.length; i++)
-			if (seq1[i] < 0 || seq2[i] < 0) c[i] = -1;
-			else c[i] = seq1[i];
-
-		return c;
-	}
-
-	/**
-	 * Create a new sequence using 'seq1', but having GAPs if either seq1 or seq2 has a gap at a position
-	 */
-	String sequenceGaps(String seq1, String seq2) {
-		char c1[] = seq1.toCharArray();
-		char c2[] = seq2.toCharArray();
-		char c[] = new char[c1.length];
-
-		for (int i = 0; i < c1.length; i++)
-			if (c1[i] == '-' || c2[i] == '-') c[i] = '-';
-			else c[i] = c1[i];
-
-		return new String(c);
 	}
 
 	public void setAaContactFile(String aaContactFile) {
@@ -1399,7 +1054,7 @@ public class Epistasis implements CommandLine {
 				.parallelStream() //
 				.map(id -> transitionPairsBg(id, (int) count.inc(), maxCount)) //
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		;
+				;
 
 		return sum;
 	}
@@ -1467,8 +1122,8 @@ public class Epistasis implements CommandLine {
 		// Count transitions
 		Timer.showStdErr("Calculating transition pairs 'null' distribution: " + numberOfSamples + " iterations");
 		IntStream.range(1, numberOfSamples) //
-				.peek(i -> Gpr.showMark(i, 1000)) //
-				.forEach(i -> transitionPairsBg(trans, random));
+		.peek(i -> Gpr.showMark(i, 1000)) //
+		.forEach(i -> transitionPairsBg(trans, random));
 
 		return trans;
 	}
