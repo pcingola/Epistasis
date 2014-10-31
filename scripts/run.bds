@@ -349,7 +349,7 @@ wait
 #---
 
 task( gwas <- [likAll, vcf, pheno] ) {
-	sys $cmdEpistasisXL gwas $snpeffConfig $genome $vcf $likAll $pheno > $gwas
+	sys $cmdEpistasisXL gwas $tree $msa $snpeffConfig $genome $vcf $pheno 10 2 3 > $gwas
 }
 
 # Done
