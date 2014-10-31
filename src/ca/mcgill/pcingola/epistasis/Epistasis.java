@@ -58,7 +58,7 @@ public class Epistasis implements CommandLine {
 	MultipleSequenceAlignmentSet msas;
 	EstimateTransitionMatrix mltm;
 	IdMapper idMapper;
-	PdbGenomeMsas pdbGenome;
+	PdbGenomeMsas pdbGenomeMsas;
 	HashMap<Thread, LikelihoodTreeAa> treeNullByThread = new HashMap<Thread, LikelihoodTreeAa>();
 	HashMap<Thread, LikelihoodTreeAa> treeAltByThread = new HashMap<Thread, LikelihoodTreeAa>();
 	UniformTreeValueCache lcacheNull = new UniformTreeValueCache(GprSeq.AMINO_ACIDS.length);
@@ -237,12 +237,12 @@ public class Epistasis implements CommandLine {
 		}
 
 		if (genome != null) {
-			pdbGenome = new PdbGenomeMsas(configFile, genome, pdbDir, msas);
-			pdbGenome.setDebug(debug);
-			pdbGenome.setIdMapper(idMapper);
-			pdbGenome.setTree(tree);
-			pdbGenome.setNextProt(nextProt);
-			pdbGenome.initialize();
+			pdbGenomeMsas = new PdbGenomeMsas(configFile, genome, pdbDir, msas);
+			pdbGenomeMsas.setDebug(debug);
+			pdbGenomeMsas.setIdMapper(idMapper);
+			pdbGenomeMsas.setTree(tree);
+			pdbGenomeMsas.setNextProt(nextProt);
+			pdbGenomeMsas.initialize();
 		}
 
 		// Set number of cores to use
@@ -547,8 +547,8 @@ public class Epistasis implements CommandLine {
 		case "gwas":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
-			String configFile = args[argNum++];
-			String genome = args[argNum++];
+			configFile = args[argNum++];
+			genome = args[argNum++];
 			String vcfFile = args[argNum++];
 			String phenoCovariatesFile = args[argNum++];
 			int numSplits = Gpr.parseIntSafe(args[argNum++]);
@@ -556,7 +556,7 @@ public class Epistasis implements CommandLine {
 			int splitJ = Gpr.parseIntSafe(args[argNum++]);
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = false;
-			runGwas(configFile, genome, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
+			runGwas(vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 			break;
 
 		case "likelihood":
@@ -913,14 +913,14 @@ public class Epistasis implements CommandLine {
 
 		// Sanity check: Make sure MSA protein sequences match genome's protein data
 		Timer.showStdErr("Checking MSA proteing sequences vs. genome protein sequences");
-		pdbGenome.checkSequenceGenomeMsas();
-		System.err.println("Totals:\n" + pdbGenome.countMatch);
-		pdbGenome.resetStats();
+		pdbGenomeMsas.checkSequenceGenomeMsas();
+		System.err.println("Totals:\n" + pdbGenomeMsas.countMatch);
+		pdbGenomeMsas.resetStats();
 
 		// Add MSA sequences to 'AA contact' entries
 		Timer.showStdErr("Adding MSA sequences");
-		aaContacts.forEach(d -> pdbGenome.mapToMsa(msas, d));
-		System.err.println("Totals:\n" + pdbGenome.countMatch);
+		aaContacts.forEach(d -> pdbGenomeMsas.mapToMsa(msas, d));
+		System.err.println("Totals:\n" + pdbGenomeMsas.countMatch);
 
 		System.err.println("Mapped AA sequences:\n");
 		aaContacts.stream().filter(d -> d.aaSeq1 != null).forEach(System.out::println);
@@ -1023,10 +1023,10 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Perform GWAS analysis using epistatic data
 	 */
-	void runGwas(String configFile, String genome, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
+	void runGwas(String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		load();
 
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(configFile, genome, msas, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(pdbGenomeMsas, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 		gwasEpistasis.setDebug(debug);
 		//		gwasEpistasis.gwas();
 
@@ -1127,7 +1127,7 @@ public class Epistasis implements CommandLine {
 	 */
 	void runMapPdbGene() {
 		load();
-		pdbGenome.checkSequencePdbGenome();
+		pdbGenomeMsas.checkSequencePdbGenome();
 	}
 
 	/**
@@ -1144,7 +1144,7 @@ public class Epistasis implements CommandLine {
 		load();
 
 		// Add NextProt annotations
-		aaContacts.forEach(d -> pdbGenome.nextProt(d));
+		aaContacts.forEach(d -> pdbGenomeMsas.nextProt(d));
 	}
 
 	/**

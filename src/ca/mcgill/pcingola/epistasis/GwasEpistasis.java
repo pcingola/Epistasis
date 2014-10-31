@@ -55,13 +55,10 @@ public class GwasEpistasis {
 	Map<Long, LikelihoodAnalysis2> llAnByThreadId = new HashMap<>();
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	IntervalForest intForest; // Interval forest (MSAs intervals)
-	MultipleSequenceAlignmentSet msas; // MSAs
 	PdbGenomeMsas pdbGenomeMsas;
 
-	public GwasEpistasis(String configFile, String genomeVer, MultipleSequenceAlignmentSet msas, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
-		this.configFile = configFile;
-		this.genomeVer = genomeVer;
-		this.msas = msas;
+	public GwasEpistasis(PdbGenomeMsas pdbGenomeMsas, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
+		this.pdbGenomeMsas = pdbGenomeMsas;
 		this.vcfFile = vcfFile;
 		this.phenoCovariatesFile = phenoCovariatesFile;
 		this.numSplits = numSplits;
@@ -72,7 +69,6 @@ public class GwasEpistasis {
 	public GwasEpistasis(String configFile, String genomeVer, String logLikelihoodFile, String vcfFile, String phenoCovariatesFile) {
 		this.configFile = configFile;
 		this.genomeVer = genomeVer;
-		msas = null;
 		this.logLikelihoodFile = logLikelihoodFile;
 		this.vcfFile = vcfFile;
 		this.phenoCovariatesFile = phenoCovariatesFile;
@@ -94,7 +90,7 @@ public class GwasEpistasis {
 		// Create a collections of 'markers'
 		Markers markers = new Markers();
 		Genome genome = pdbGenomeMsas.getConfig().getSnpEffectPredictor().getGenome();
-		for (MultipleSequenceAlignment msa : msas) {
+		for (MultipleSequenceAlignment msa : pdbGenomeMsas.getMsas()) {
 			// Create a marker for this MSA and add it to 'markers'
 			Marker m = new Marker(genome.getChromosome(msa.getChromo()), msa.getStart(), msa.getEnd(), false, msa.getId());
 			markers.add(m);
@@ -165,61 +161,39 @@ public class GwasEpistasis {
 	 */
 	void gwasMatching() {
 		llpairs.stream() //
-		.parallel() //
-		.forEach(llpair -> {
+				.parallel() //
+				.forEach(llpair -> {
 
-			// Find genotypes in under markers
-			String idi = llpair.getMarker1().getId();
-			String idj = llpair.getMarker2().getId();
+					// Find genotypes in under markers
+						String idi = llpair.getMarker1().getId();
+						String idj = llpair.getMarker2().getId();
 
-			// No genotypes in any of those regions? Nothing to do
-			if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-				if (debug) Gpr.debug("Nothing found:\t" + llpair);
-			} else {
-				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+						// No genotypes in any of those regions? Nothing to do
+						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
+							if (debug) Gpr.debug("Nothing found:\t" + llpair);
+						} else {
+							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 
-				// Analyze all genotype pairs within those regions
-				for (byte gti[] : gtById.get(idi)) {
-					for (byte gtj[] : gtById.get(idj)) {
-						double ll = llan.logLikelihood(idi, gti, idj, gtj);
-						if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-					}
-				}
-			}
-		} //
+							// Analyze all genotype pairs within those regions
+							for (byte gti[] : gtById.get(idi)) {
+								for (byte gtj[] : gtById.get(idj)) {
+									double ll = llan.logLikelihood(idi, gti, idj, gtj);
+									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
+								}
+							}
+						}
+					} //
 				);
 	}
 
 	/**
-	 * Load all data
+	 * Initialize
 	 */
 	public void initialize() {
-
-		pdbGenomeMsas = new PdbGenomeMsas(configFile, genomeVer, pdbDir, msas);
-		pdbGenomeMsas.initialize();
-
-		//		// Initialize SnpEff
-		//		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genomeVer };
-		//		args = argsSnpEff;
-		//		setGenomeVer(genomeVer);
-		//		parseArgs(argsSnpEff);
-		//		loadConfig();
-		//
-		//		// Load SnpEff database
-		//		if (genomeVer != null) loadDb();
-		//
-		//		// Initialize trancriptById
-		//		trancriptById = new HashMap<>();
-		//		for (Gene g : config.getSnpEffectPredictor().getGenome().getGenes())
-		//			for (Transcript tr : g) {
-		//				String id = tr.getId();
-		//				if (id.indexOf('.') > 0) {
-		//					// When using RefSeq transcripts, we don't store sub-version number
-		//					id = id.substring(0, id.indexOf('.'));
-		//				}
-		//				trancriptById.put(id, tr);
-		//			}
-		//
+		if (pdbGenomeMsas == null) {
+			pdbGenomeMsas = new PdbGenomeMsas(configFile, genomeVer, pdbDir, null);
+			pdbGenomeMsas.initialize();
+		}
 	}
 
 	/**
@@ -338,7 +312,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**
@@ -460,15 +434,15 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-				String idj = gtIdsSplitJ.get(j);
-				double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
+					.parallel() //
+					.forEach(j -> {
+						LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+						String idj = gtIdsSplitJ.get(j);
+						double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
 
-				if (ll > llThreshold) countLl.inc();
-				if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
-			} //
+						if (ll > llThreshold) countLl.inc();
+						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
+					} //
 					);
 		}
 	}
