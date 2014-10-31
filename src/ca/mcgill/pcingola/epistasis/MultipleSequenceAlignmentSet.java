@@ -247,7 +247,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	public void load() {
 		LineFileIterator lif = new LineFileIterator(sequenceAlignmentFile);
 
-		int countAligns = 0;
+		int countAligns = 1;
 		while (lif.hasNext()) {
 			int seqLen = -1;
 			MultipleSequenceAlignment msa = null;

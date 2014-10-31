@@ -309,45 +309,49 @@ task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 }
 wait
 
-println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
-if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
-	if( system == 'local' ) {
-		# Launch one process
-		task( likAll <- interactions ) {
-			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
-		}
-	} else {
-		# Split file
-		dirInter := "$dir/interactions"
-		dirGenesLike := "$dirInter/likelihood_genes"
-
-		# Read interactions and split into small files
-		pairs := readInteractions( interactions, dirGenesLike )
-
-		# Split into small lists
-		sys rm -vf $dirInter/genes_pairs_list.* || true
-		filesPairs := pairs.splitToFile( "$dirInter/genes_pairs_list.", llGeneLines )
-
-		# Launch a task for eah file
-		for( string filePairs : filesPairs ) {
-			out := "$dirGenesLike/likelihood." + filePairs.baseName()
-			println "\t$out"
-			task( out <- filePairs ) {
-				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $filePairs > $out
-			}
-		}
-	}
-
-#	# Merge results
-#	wait
-#	sys cat $likAll.genes.list.* > $likAll
-}
-wait
+#---
+# OBSOLETE: Not used
+#---
+# println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
+# if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
+# 	if( system == 'local' ) {
+# 		# Launch one process
+# 		task( likAll <- interactions ) {
+# 			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+# 		}
+# 	} else {
+# 		# Split file
+# 		dirInter := "$dir/interactions"
+# 		dirGenesLike := "$dirInter/likelihood_genes"
+# 
+# 		# Read interactions and split into small files
+# 		pairs := readInteractions( interactions, dirGenesLike )
+# 
+# 		# Split into small lists
+# 		sys rm -vf $dirInter/genes_pairs_list.* || true
+# 		filesPairs := pairs.splitToFile( "$dirInter/genes_pairs_list.", llGeneLines )
+# 
+# 		# Launch a task for eah file
+# 		for( string filePairs : filesPairs ) {
+# 			out := "$dirGenesLike/likelihood." + filePairs.baseName()
+# 			println "\t$out"
+# 			task( out <- filePairs ) {
+# 				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $filePairs > $out
+# 			}
+# 		}
+# 	}
+# 
+# #	# Merge results
+# #	wait
+# #	sys cat $likAll.genes.list.* > $likAll
+# }
+# wait
 
 #---
 # Part 6: GWAS
 #---
 
+println "\nGWAS analysis using epistasis data"
 task( gwas <- [likAll, vcf, pheno] ) {
 	sys $cmdEpistasisXL gwas $tree $msa $snpeffConfig $genome $vcf $pheno 10 2 3 > $gwas
 }
