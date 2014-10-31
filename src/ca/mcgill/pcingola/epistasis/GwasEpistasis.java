@@ -40,7 +40,7 @@ public class GwasEpistasis extends SnpEff {
 	boolean analyzeAllPairs = false; // Use for testing and debugging
 	int splitI = 2;
 	int splitJ = 3;
-	int numSplits = 30;
+	int numSplits = 100;
 	int countOk, countErr;
 	double llThreshold = LL_THRESHOLD;
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
