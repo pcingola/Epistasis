@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Genome;
 import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.interval.Markers;
@@ -17,6 +18,7 @@ import ca.mcgill.mcb.pcingola.interval.tree.IntervalForest;
 import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.mcb.pcingola.util.Tuple;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 
 /**
@@ -56,9 +58,11 @@ public class GwasEpistasis {
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	IntervalForest intForest; // Interval forest (MSAs intervals)
 	PdbGenomeMsas pdbGenomeMsas;
+	InteractionLikelihood interactionLikelihood;
 
-	public GwasEpistasis(PdbGenomeMsas pdbGenomeMsas, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
+	public GwasEpistasis(PdbGenomeMsas pdbGenomeMsas, InteractionLikelihood interactionLikelihood, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		this.pdbGenomeMsas = pdbGenomeMsas;
+		this.interactionLikelihood = interactionLikelihood;
 		this.vcfFile = vcfFile;
 		this.phenoCovariatesFile = phenoCovariatesFile;
 		this.numSplits = numSplits;
@@ -127,63 +131,128 @@ public class GwasEpistasis {
 	}
 
 	/**
-	 * Perform GWAS analysis using epistatic information
+	 * Perform GWAS analysis
 	 */
 	public void gwas() {
-		initialize();
-		readGenesLogLikelihood();
-		readVcf();
+		initialize(); // Initialize
+		readVcf(); // Read VCF file
 
-		if (analyzeAllPairs) gwasAll();
-		else gwasMatching();
-	}
+		//---
+		// Test VCF entries
+		//---
+		Counter count = new Counter();
+		Counter countLl = new Counter();
+		for (int idxi = 0; idxi < gtIdsSplitI.size(); idxi++) {
 
-	/**
-	 * Analyze all pairs (mostly for debugging)
-	 */
-	void gwasAll() {
-		for (String idi : gtById.keySet()) {
-			for (String idj : gtById.keySet()) {
-				if (idi.compareTo(idj) < 0) {
-					LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-					for (byte gti[] : gtById.get(idi))
-						for (byte gtj[] : gtById.get(idj)) {
-							double ll = llan.logLikelihood(idi, gti, idj, gtj);
-							System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-						}
-				}
-			}
+			// Split_i info
+			final int i = idxi;
+			String idi = gtIdsSplitI.get(idxi);
+			byte gti[] = gtsSplitI.get(idxi);
+
+			int minJ = 0;
+			if (splitI == splitJ) minJ = idxi + 1;
+
+			// Parallel on split_j
+			IntStream.range(minJ, gtsSplitJ.size()) //
+			.parallel() //
+			.forEach(j -> {
+				double ll = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+				if (ll > llThreshold) countLl.inc();
+				if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
+			});
 		}
 	}
 
 	/**
-	 *  Analyze pairs in VCF file that match enriched region (form epistatic analysis)
+	 * Perform analysis on genotypes 'i' and 'j'
+	 * @return Bayes factor
 	 */
-	void gwasMatching() {
-		llpairs.stream() //
-				.parallel() //
-				.forEach(llpair -> {
+	double gwas(String idi, byte gti[], String idj, byte gtj[]) {
+		// Pre-calculate matrix exponentials
+		interactionLikelihood.precalcExps();
 
-					// Find genotypes in under markers
-						String idi = llpair.getMarker1().getId();
-						String idj = llpair.getMarker2().getId();
+		// Likelihood based on logistic regression
+		LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+		double llLogReg = llan.logLikelihood(idi, gti, idj, gtj);
 
-						// No genotypes in any of those regions? Nothing to do
-						if (!gtById.containsKey(idi) || !gtById.containsKey(idj)) {
-							if (debug) Gpr.debug("Nothing found:\t" + llpair);
-						} else {
-							LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+		// Find corresponding MSA ID and index for both genotypes
+		Tuple<String, Integer> msaIdxI = id2MsaAa(idi);
+		if (msaIdxI == null) return llLogReg;
 
-							// Analyze all genotype pairs within those regions
-							for (byte gti[] : gtById.get(idi)) {
-								for (byte gtj[] : gtById.get(idj)) {
-									double ll = llan.logLikelihood(idi, gti, idj, gtj);
-									if (debug || ll > SHOW_LINE_LL_MIN) System.out.println("ll:" + ll + "\t" + idi + "\t" + idj);
-								}
-							}
-						}
-					} //
-				);
+		Tuple<String, Integer> msaIdxJ = id2MsaAa(idj);
+		if (msaIdxJ == null) return llLogReg;
+
+		Gpr.debug("MSAs:\t" + msaIdxI + "\t" + msaIdxJ);
+
+		// Likelihood based on epistatic interaction
+		String msaId1 = msaIdxI.first, msaId2 = msaIdxJ.first;
+		int msaIdx1 = msaIdxI.second, msaIdx2 = msaIdxJ.second;
+		double llMsa = 0;
+		interactionLikelihood.logLikelihoodRatioStr(msaId1, msaIdx1, msaId2, msaIdx2, false);
+
+		return llLogReg + llMsa;
+	}
+
+	/**
+	 * Create a marker from the VCF ID
+	 */
+	protected Marker id2marker(String vcfId) {
+		String idRep = vcfId.replace(':', '_').replace('-', '_');
+		String f[] = idRep.split("_");
+		String chr = f[0];
+		int start = Gpr.parseIntSafe(f[1]) - 1;
+		String ref = f[0];
+		int end = start + ref.length() - 1;
+
+		// Find chromo and create marker
+		Chromosome chromo = pdbGenomeMsas.getConfig().getGenome().getChromosome(chr);
+		return new Marker(chromo, start, end, false, vcfId);
+	}
+
+	/**
+	 * Find MSAid and AaIdx for a genomic position (given as an ID string)
+	 */
+	Tuple<String, Integer> id2MsaAa(String idj) {
+		String resMsaId = null;
+		int resAaIdx = -1;
+
+		// Create a marker, find all MSAs that intercept the marker
+		Marker mj = id2marker(idj);
+		Markers resj = intForest.query(mj);
+
+		// We now need to find the AA index for that MSA
+		String seqPrev = null;
+		for (Marker m : resj) {
+			String msaId = m.getId();
+			int aaIdx = pdbGenomeMsas.genomicPos2AaIdx(msaId, mj.getStart());
+
+			if (aaIdx >= 0) {
+				// Found something: Store result
+				// Note: We could just stop here, all the rest is done just to
+				//       ensure that the mapping works OK and that we are not
+				//       finding inconsistent sequences
+				if (resMsaId == null) {
+					resMsaId = msaId;
+					resAaIdx = aaIdx;
+				}
+
+				String colSeq = pdbGenomeMsas.getMsas().getMsa(msaId).getColumnString(aaIdx);
+
+				if (seqPrev != null && !colSeq.equals(seqPrev)) throw new RuntimeException("Column seuqnces differ!"//
+						+ "\n\tID_J              : " + idj //
+						+ "\n\tMarker            : " + m.toStr() //
+						+ "\n\tmsa.Id            : " + msaId //
+						+ "\n\tmsa.aaIdx         : " + aaIdx //
+						+ "\n\tColumn Seq        : " + colSeq //
+						+ "\n\tColumn Seq (prev) : " + seqPrev//
+						);
+				seqPrev = colSeq;
+			}
+		}
+
+		// Resturn result, if any
+		if (resMsaId == null) return null;
+		return new Tuple<String, Integer>(resMsaId, resAaIdx);
 	}
 
 	/**
@@ -248,9 +317,7 @@ public class GwasEpistasis {
 		int end = Gpr.parseIntSafe(f[4]);
 		int aaIdx = Gpr.parseIntSafe(f[5]);
 
-		//---
-		// Calculate position within CDS
-		//---
+		// Create a marker that lies onto the referred AA
 		marker = pdbGenomeMsas.markerMsa(trId, chr, start, end, aaIdx, aaExpected);
 
 		// Some accounting
@@ -260,9 +327,8 @@ public class GwasEpistasis {
 		} else {
 			countOk++;
 			showCount(true);
+			llmarkerById.put(id, marker); // Cache marker
 		}
-
-		llmarkerById.put(id, marker); // Cache marker
 
 		return null;
 	}
@@ -312,7 +378,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
@@ -406,44 +472,6 @@ public class GwasEpistasis {
 
 			// Add a newline every now and then
 			if (tot % SHOW_LINE_GENES_LL_EVERY == 0) System.err.print("\n" + tot + "\t");
-		}
-	}
-
-	/**
-	 * Read VCF file: Only entries matching markers from GenesLogLik file
-	 * TODO: We could optimize this by using an index and reading only the regions we need
-	 */
-	public void testVcf() {
-		initialize(); // Initialize
-		readVcf(); // Read VCF file
-
-		//---
-		// Test VCF entries
-		//---
-		Counter count = new Counter();
-		Counter countLl = new Counter();
-		for (int idxi = 0; idxi < gtIdsSplitI.size(); idxi++) {
-
-			// Split_i info
-			final int i = idxi;
-			String idi = gtIdsSplitI.get(idxi);
-			byte gti[] = gtsSplitI.get(idxi);
-
-			int minJ = 0;
-			if (splitI == splitJ) minJ = idxi + 1;
-
-			// Parallel on split_j
-			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-						String idj = gtIdsSplitJ.get(j);
-						double ll = llan.logLikelihood(idi, gti, idj, gtsSplitJ.get(j));
-
-						if (ll > llThreshold) countLl.inc();
-						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + idj);
-					} //
-					);
 		}
 	}
 }

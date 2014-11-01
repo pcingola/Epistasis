@@ -64,8 +64,8 @@ public class MsaSimilarityN extends MsaSimilarity {
 
 	double calc(String msaiId, String msajId, int posi, int posj) {
 		// Find column sequences
-		String seqsi[] = msas.findColSequences(msaiId, posi, numBases);
-		String seqsj[] = msas.findColSequences(msajId, posj, numBases);
+		String seqsi[] = msas.colSequences(msaiId, posi, numBases);
+		String seqsj[] = msas.colSequences(msajId, posj, numBases);
 
 		if (debug) {
 			System.out.println(msaiId + "\t" + posi);

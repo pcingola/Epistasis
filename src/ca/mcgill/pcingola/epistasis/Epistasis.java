@@ -331,6 +331,10 @@ public class Epistasis implements CommandLine {
 		case "gwas":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
 			configFile = args[argNum++];
 			genome = args[argNum++];
 			String vcfFile = args[argNum++];
@@ -727,7 +731,7 @@ public class Epistasis implements CommandLine {
 			aaContacts.stream() //
 					.filter(d -> !d.msa1.isEmpty() && !d.msa2.isEmpty() && msas.getMsa(d.msa1) != null) //
 					.peek(d -> totalIc.inc()) //
-					.map(d -> new Pair<String[], String[]>(msas.findColSequences(d.msa1, d.msaIdx1, num), msas.findColSequences(d.msa2, d.msaIdx2, num))) //
+					.map(d -> new Pair<String[], String[]>(msas.colSequences(d.msa1, d.msaIdx1, num), msas.colSequences(d.msa2, d.msaIdx2, num))) //
 					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
 					.forEach(d -> conservedIc.inc()) //
 			;
@@ -762,13 +766,10 @@ public class Epistasis implements CommandLine {
 	void runGwas(String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		load();
 
-		GwasEpistasis gwasEpistasis = new GwasEpistasis(pdbGenomeMsas, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
+		InteractionLikelihood il = newInteractionLikelihood();
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(pdbGenomeMsas, il, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 		gwasEpistasis.setDebug(debug);
-		//		gwasEpistasis.gwas();
-
-		//		Gpr.debug("\n\n\n\t\t\tANALYZE ALL PAIRS!!!\n\n");
-		//		gwasEpistasis.setAnalyzeAllPairs(true);
-		gwasEpistasis.testVcf();
+		gwasEpistasis.gwas();
 	}
 
 	/**

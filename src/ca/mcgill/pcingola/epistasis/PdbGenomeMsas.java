@@ -26,6 +26,7 @@ import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Tuple;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
 /**
@@ -82,7 +83,7 @@ public class PdbGenomeMsas extends SnpEff {
 
 		// Get protein sequences
 		String proteinTr = removeAaStop(tr.protein());
-		String proteinMsa = removeAaStop(msas.findRowSequence(trid, tr.getChromosomeName()));
+		String proteinMsa = removeAaStop(msas.rowSequence(trid, tr.getChromosomeName()));
 
 		if (!proteinTr.isEmpty() && proteinMsa != null) {
 			boolean match = proteinTr.equals(proteinMsa);
@@ -231,9 +232,47 @@ public class PdbGenomeMsas extends SnpEff {
 	}
 
 	/**
-	 * Find a multiple sequence alignment based on a transcript ID and a genomic position
+	 * Get aaIdx from MSA and genomic position  'pos'
+	 * Note: Chromosme name is implied by msaId
 	 */
-	public Triplet<String, String, Integer> findColumnSequence(String trid, int pos) {
+	public int genomicPos2AaIdx(String msaId, int pos) {
+		// Find all MSA
+		MultipleSequenceAlignment msa = msas.getMsa(msaId);
+		if (msa == null) return -1;
+
+		String trid = msa.getTranscriptId();
+		Transcript tr = trancriptById.get(trid);
+		if (tr == null) return -1;
+
+		// Check all MSA
+		// Different chromosome or position? Skip
+		if (!msa.getChromo().equals(tr.getChromosomeName())) return -1;
+		if (pos < msa.getStart() || msa.getEnd() < pos) return -1;
+
+		// Find exon
+		Exon exon = tr.findExon(pos);
+		if (exon == null) {
+			Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
+			return -1;
+		}
+
+		// Find index
+		int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
+		int idxAa = idxBase / 3;
+
+		// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
+		//          I don't know why they do it this way...
+		if (exon.getFrame() == 1) idxAa++;
+
+		// Return column index
+		return idxAa;
+	}
+
+	/**
+	 * Convert <transcript_id, position> to <msaIdx, aaIdx>
+	 * Note: Chromosme name is implied by msaId
+	 */
+	public Tuple<String, Integer> genomicPos2MsaIdx(String trid, int pos) {
 		// Find all MSA
 		List<MultipleSequenceAlignment> msaList = msas.getMsasByTrId(trid);
 		if (msaList == null) return null;
@@ -262,10 +301,21 @@ public class PdbGenomeMsas extends SnpEff {
 			if (exon.getFrame() == 1) idxAa++;
 
 			// Return column sequence
-			return new Triplet<String, String, Integer>(msa.getColumnString(idxAa), msa.getId(), idxAa);
+			return new Tuple<String, Integer>(msa.getId(), idxAa);
 		}
-
 		return null;
+	}
+
+	/**
+	 * Find a multiple sequence alignment based on a transcript ID and a genomic position
+	 * Convert <transcript_id, position> to <column_Sequence, msaIdx, aaIdx>
+	 */
+	public Triplet<String, String, Integer> genomicPos2MsaIdxColumnSequence(String trid, int pos) {
+		Tuple<String, Integer> msaIdAa = genomicPos2MsaIdx(trid, pos);
+		if (msaIdAa == null) return null;
+		String msaId = msaIdAa.first;
+		int aaIdx = msaIdAa.second;
+		return new Triplet<String, String, Integer>(msas.getMsa(msaId).getColumnString(aaIdx), msaId, aaIdx);
 	}
 
 	public MultipleSequenceAlignmentSet getMsas() {
@@ -346,8 +396,8 @@ public class PdbGenomeMsas extends SnpEff {
 			int pos2 = aa2pos[dres.aaPos2];
 
 			// Find sequences
-			Triplet<String, String, Integer> res1 = findColumnSequence(trid, pos1);
-			Triplet<String, String, Integer> res2 = findColumnSequence(trid, pos2);
+			Triplet<String, String, Integer> res1 = genomicPos2MsaIdxColumnSequence(trid, pos1);
+			Triplet<String, String, Integer> res2 = genomicPos2MsaIdxColumnSequence(trid, pos2);
 
 			// Both sequences are available?
 			if ((res1 != null) && (res2 != null)) {

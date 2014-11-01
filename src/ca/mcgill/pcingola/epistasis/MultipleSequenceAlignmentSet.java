@@ -63,6 +63,32 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	}
 
 	/**
+	 * Return '2 * numBases + 1' string representing the column sequences
+	 * at position msaId:pos and the surrounding 'numBases' columns
+	 */
+	public String[] colSequences(String msaId, int pos, int numBases) {
+		// Initialize
+		String seqs[] = new String[2 * numBases + 1];
+
+		// Find positions 'pos' and after
+		MultipleSequenceAlignment msa = getMsa(msaId);
+		int maxj = 2 * numBases + 1;
+		for (int i = pos, j = numBases; j < maxj; i++, j++) {
+			if (i >= msa.length()) break;
+			seqs[j] = msa.getColumnString(i);
+		}
+
+		// Find positions before 'pos'
+		msa = getMsa(msaId);
+		for (int i = pos - 1, j = numBases - 1; j >= 0; i--, j--) {
+			if (i < 0) break;
+			seqs[j] = msa.getColumnString(i);
+		}
+
+		return seqs;
+	}
+
+	/**
 	 * Count number of amino acids
 	 */
 	public int[] countAa() {
@@ -87,8 +113,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[] = new int[GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length];
 
 		aaContacts.stream() //
-				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-				.forEach(d -> countAaPairs(counts, d)) //
+		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+		.forEach(d -> countAaPairs(counts, d)) //
 		;
 
 		return counts;
@@ -125,8 +151,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[][] = new int[n][n];
 
 		aaContacts.stream() //
-				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-				.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
+		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+		.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
 
 		return counts;
 	}
@@ -145,64 +171,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		if (code2 < 0) return;
 
 		counts[code1][code2]++;
-	}
-
-	/**
-	 * Return '2 * numBases + 1' string representing the column sequences
-	 * at position msaId:pos and the surrounding 'numBases' columns
-	 */
-	public String[] findColSequences(String msaId, int pos, int numBases) {
-		// Initialize
-		String seqs[] = new String[2 * numBases + 1];
-
-		// Find positions 'pos' and after
-		MultipleSequenceAlignment msa = getMsa(msaId);
-		int maxj = 2 * numBases + 1;
-		for (int i = pos, j = numBases; j < maxj; i++, j++) {
-			if (i >= msa.length()) break;
-			seqs[j] = msa.getColumnString(i);
-		}
-
-		// Find positions before 'pos'
-		msa = getMsa(msaId);
-		for (int i = pos - 1, j = numBases - 1; j >= 0; i--, j--) {
-			if (i < 0) break;
-			seqs[j] = msa.getColumnString(i);
-		}
-
-		return seqs;
-	}
-
-	/**
-	 * Find a row sequence
-	 * @param trid : Transcript ID
-	 * @param chr : Chromosome name (to check that matches the MSA). It can be null, in which case, checking is skipped.
-	 * @return
-	 */
-	public String findRowSequence(String trid, String chr) {
-		// Find all MSA
-		List<MultipleSequenceAlignment> msaList = msasByTrId.get(trid);
-		if (msaList == null) return null;
-
-		// Get all msas for this 'trid'
-		ArrayList<MultipleSequenceAlignment> msasTr = new ArrayList<>();
-		boolean reverse = false;
-		for (MultipleSequenceAlignment msa : msaList) {
-			// Different chromosome or position? Skip
-			if (chr != null && !msa.getChromo().equals(chr)) continue;
-			msasTr.add(msa);
-			reverse |= msa.isStrandNegative();
-		}
-
-		// Sort
-		if (reverse) Collections.sort(msasTr, Collections.reverseOrder());
-		else Collections.sort(msasTr);
-
-		StringBuilder sb = new StringBuilder();
-		for (MultipleSequenceAlignment msa : msasTr)
-			sb.append(msa.getRowString(0));
-
-		return sb.toString();
 	}
 
 	public MultipleSequenceAlignment getMsa(String msaId) {
@@ -318,7 +286,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 				msa.set(i, sequence, header);
 			}
 
-			if (msa != null) msas.add(msa);
+			if (msa != null) add(msa);
 
 			// Empty line separator
 			String emptyLine = lif.next();
@@ -334,6 +302,38 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 */
 	public MultipleSequenceAlignment rand(Random random) {
 		return msas.get(random.nextInt(msas.size()));
+	}
+
+	/**
+	 * Find a row sequence
+	 * @param trid : Transcript ID
+	 * @param chr : Chromosome name (to check that matches the MSA). It can be null, in which case, checking is skipped.
+	 * @return
+	 */
+	public String rowSequence(String trid, String chr) {
+		// Find all MSA
+		List<MultipleSequenceAlignment> msaList = msasByTrId.get(trid);
+		if (msaList == null) return null;
+
+		// Get all msas for this 'trid'
+		ArrayList<MultipleSequenceAlignment> msasTr = new ArrayList<>();
+		boolean reverse = false;
+		for (MultipleSequenceAlignment msa : msaList) {
+			// Different chromosome or position? Skip
+			if (chr != null && !msa.getChromo().equals(chr)) continue;
+			msasTr.add(msa);
+			reverse |= msa.isStrandNegative();
+		}
+
+		// Sort
+		if (reverse) Collections.sort(msasTr, Collections.reverseOrder());
+		else Collections.sort(msasTr);
+
+		StringBuilder sb = new StringBuilder();
+		for (MultipleSequenceAlignment msa : msasTr)
+			sb.append(msa.getRowString(0));
+
+		return sb.toString();
 	}
 
 	public void setSpecies(String[] species) {

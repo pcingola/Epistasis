@@ -183,7 +183,7 @@ public class InteractionLikelihood {
 		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
 		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-		.map(d -> logLikelihoodRatio(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
+		.map(d -> logLikelihoodRatioStr(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
 		.forEach(System.out::println) //
 		;
 	}
@@ -284,16 +284,6 @@ public class InteractionLikelihood {
 		return lik;
 	}
 
-	public String likelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
-		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
-		if (msa1 == null) return null;
-
-		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
-		if (msa2 == null) return null;
-
-		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
-	}
-
 	/**
 	 * Pick two random columns from MSA and calculate likelihood ratio
 	 */
@@ -311,7 +301,7 @@ public class InteractionLikelihood {
 			msaIdx2 = random.nextInt(msa2.length());
 		}
 
-		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, false);
+		return logLikelihoodRatioStr(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
 	void loadTree(String phyloFileName) {
@@ -370,7 +360,57 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate likelihood ratio for these entries
 	 */
-	String logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
+	double logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
+		// Since we execute in parallel, we need one tree per thread
+		LikelihoodTreeAa treeNull = getTreeNull();
+		LikelihoodTreeAa treeAlt = getTreeAlt();
+
+		// Calculate likelihoods for the null and alternative model
+		double likNull = likelihoodNullModel(treeNull, msa1, msaIdx1, msa2, msaIdx2);
+		double likAlt = likelihoodAltModel(treeAlt, msa1, msaIdx1, msa2, msaIdx2);
+		double logLikRatio = -2.0 * (Math.log(likNull) - Math.log(likAlt));
+		return logLikRatio;
+	}
+
+	/**
+	 * Calculate likelihood for all possible AA pairs within these two MSAs
+	 */
+	String logLikelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
+		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
+
+		StringBuilder sb = new StringBuilder();
+
+		for (int i1 = 0; i1 < msa1.length(); i1++) {
+			if (msa1.isSkip(i1)) continue;
+
+			for (int i2 = 0; i2 < msa2.length(); i2++) {
+				if (msa2.isSkip(i2)) continue;
+
+				String res = logLikelihoodRatioStr(msa1, i1, msa2, i2, brief);
+				if (res != null) {
+					if (debug) System.err.println(res);
+					sb.append(res + "\n");
+				}
+			}
+		}
+
+		return sb.toString();
+	}
+
+	public double logLikelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
+		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
+		if (msa1 == null) return 0;
+
+		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
+		if (msa2 == null) return 0;
+
+		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
+	}
+
+	/**
+	 * Calculate likelihood ratio for these entries
+	 */
+	String logLikelihoodRatioStr(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
 		// Since we execute in parallel, we need one tree per thread
 		LikelihoodTreeAa treeNull = getTreeNull();
 		LikelihoodTreeAa treeAlt = getTreeAlt();
@@ -396,29 +436,14 @@ public class InteractionLikelihood {
 				;
 	}
 
-	/**
-	 * Calculate likelihood for all possible AA pairs within these two MSAs
-	 */
-	String logLikelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
-		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
+	public String logLikelihoodRatioStr(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
+		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
+		if (msa1 == null) return null;
 
-		StringBuilder sb = new StringBuilder();
+		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
+		if (msa2 == null) return null;
 
-		for (int i1 = 0; i1 < msa1.length(); i1++) {
-			if (msa1.isSkip(i1)) continue;
-
-			for (int i2 = 0; i2 < msa2.length(); i2++) {
-				if (msa2.isSkip(i2)) continue;
-
-				String res = logLikelihoodRatio(msa1, i1, msa2, i2, brief);
-				if (res != null) {
-					if (debug) System.err.println(res);
-					sb.append(res + "\n");
-				}
-			}
-		}
-
-		return sb.toString();
+		return logLikelihoodRatioStr(msa1, msaIdx1, msa2, msaIdx2, brief);
 	}
 
 	/**
