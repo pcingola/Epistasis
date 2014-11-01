@@ -352,8 +352,9 @@ wait
 #---
 
 println "\nGWAS analysis using epistasis data"
+println "USING MSA_BEST INSTEAD OF ALL!!!!!!"
 task( gwas <- [likAll, vcf, pheno] ) {
-	sys $cmdEpistasisXL gwas $tree $msa $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno 1 0 0 > $gwas
+	sys $cmdEpistasisXL gwas $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno 1 0 0 > $gwas
 }
 
 # Done
