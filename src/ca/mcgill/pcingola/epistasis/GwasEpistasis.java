@@ -33,7 +33,7 @@ public class GwasEpistasis {
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
 	public static int MINOR_ALLELE_COUNT = 5;
-	public static double LL_THRESHOLD = 2.0;
+	public static double LL_THRESHOLD = 6.0;
 
 	// Splits information
 	boolean analyzeAllPairs = false; // Use for testing and debugging
@@ -154,13 +154,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-				double llTot = gwasRes.logLik();
-				if (llTot > llThreshold) countLl.inc();
-				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-			});
+					.parallel() //
+					.forEach(j -> {
+						GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+						double llTot = gwasRes.logLik();
+						if (llTot > llThreshold) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+					});
 		}
 	}
 
@@ -182,13 +182,6 @@ public class GwasEpistasis {
 		gwasRes.pvalueLogReg();
 
 		//---
-		// Calculate Bayes Factor using Laplace approximation maethod
-		//---
-		double h1 = 1.0; // P(theta_1 | M_1) : This is the a-priory distribution
-		double h0 = 1.0; // P(theta_0 | M_0) : This is the a-priory distribution
-		gwasRes.bayesFactor(h1, h0);
-
-		//---
 		// Likelihood based on interaction
 		//---
 
@@ -204,6 +197,13 @@ public class GwasEpistasis {
 		int msaIdx1 = msaIdxI.second, msaIdx2 = msaIdxJ.second;
 		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false);
 		gwasRes.logLikelihoodMsa = llMsa;
+
+		//---
+		// Calculate Bayes Factor using Laplace approximation maethod
+		//---
+		double h1 = 1.0; // P(theta_1 | M_1) : This is the a-priory distribution
+		double h0 = 1.0; // P(theta_0 | M_0) : This is the a-priory distribution
+		gwasRes.bayesFactor(h1, h0);
 
 		return gwasRes;
 	}
@@ -259,7 +259,7 @@ public class GwasEpistasis {
 							+ "\n\tMarker            : " + m.toStr() //
 							+ "\n\tmsa.Id            : " + msaId //
 							+ "\n\tmsa.aaIdx         : " + aaIdx //
-							);
+					);
 					return null;
 				}
 
@@ -272,7 +272,7 @@ public class GwasEpistasis {
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
 						+ "\n\tColumn Seq        : " + colSeq //
 						+ "\n\tColumn Seq (prev) : " + seqPrev//
-						);
+				);
 
 				// Store for next iteration
 				seqPrev = colSeq;
@@ -410,7 +410,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**
