@@ -89,8 +89,7 @@ public class GwasResult {
 
 	@Override
 	public String toString() {
-		return idI + "\t" + idJ //
-				+ "\tlog(BF): " + log10BayesFactor //
+		return "log(BF): " + log10BayesFactor //
 				+ "\tp-value(LogReg): " + pvalueLogReg //
 				+ "\tll_total: " + logLik() //
 				+ "\tll_LogReg: " + logLikelihoodLogReg //
