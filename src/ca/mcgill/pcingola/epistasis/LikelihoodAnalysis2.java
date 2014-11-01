@@ -319,10 +319,10 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// Stats
 		//---
 		if (Double.isFinite(ll)) {
-			boolean show = (logLikMax < ll);
+			// boolean show = (logLikMax < ll);
 			logLikMax = Math.max(logLikMax, ll);
 
-			if (show || debug) {
+			if (debug) {
 				// Calculate p-value
 				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
 
