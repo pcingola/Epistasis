@@ -154,13 +154,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						double ll[] = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-						double llTot = ll[0] + ll[1];
-						if (llTot > llThreshold) countLl.inc();
-						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\tll: " + llTot + "\tll_LogReg: " + ll[0] + "\tll_MSA: " + ll[1] + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
-					});
+			.parallel() //
+			.forEach(j -> {
+				double ll[] = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+				double llTot = ll[0] + ll[1];
+				if (llTot > llThreshold) countLl.inc();
+				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\tll: " + llTot + "\tll_LogReg: " + ll[0] + "\tll_MSA: " + ll[1] + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
+			});
 		}
 	}
 
@@ -179,7 +179,7 @@ public class GwasEpistasis {
 		double res[] = new double[2];
 		res[0] = llLogReg;
 
-		// Log likelihood form logistic regression is too low? 
+		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
 		if (llLogReg < llThreshold) return res;
 
@@ -247,16 +247,30 @@ public class GwasEpistasis {
 					resAaIdx = aaIdx;
 				}
 
-				String colSeq = pdbGenomeMsas.getMsas().getMsa(msaId).getColumnString(aaIdx);
+				// Check sequence length
+				MultipleSequenceAlignment msa = pdbGenomeMsas.getMsas().getMsa(msaId);
+				if (aaIdx >= msa.getSeqLen()) {
+					Gpr.debug("ERROR: Index out of range !"//
+							+ "\n\tID_J              : " + idj //
+							+ "\n\tMarker            : " + m.toStr() //
+							+ "\n\tmsa.Id            : " + msaId //
+							+ "\n\tmsa.aaIdx         : " + aaIdx //
+							);
+					return null;
+				}
 
-				if (seqPrev != null && !colSeq.equals(seqPrev)) throw new RuntimeException("Column seuqnces differ!"//
+				// Check sequence
+				String colSeq = msa.getColumnString(aaIdx);
+				if (seqPrev != null && !colSeq.equals(seqPrev)) Gpr.debug("ERROR: Column sequences differ!"//
 						+ "\n\tID_J              : " + idj //
 						+ "\n\tMarker            : " + m.toStr() //
 						+ "\n\tmsa.Id            : " + msaId //
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
 						+ "\n\tColumn Seq        : " + colSeq //
 						+ "\n\tColumn Seq (prev) : " + seqPrev//
-				);
+						);
+
+				// Store for next iteration
 				seqPrev = colSeq;
 			}
 		}
@@ -392,7 +406,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**

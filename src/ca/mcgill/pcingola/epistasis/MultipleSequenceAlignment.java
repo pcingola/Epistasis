@@ -164,6 +164,7 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 	 * Get all characters in column 'colNum'
 	 */
 	public byte[] getColumn(int colNum) {
+
 		byte col[] = new byte[size()];
 		for (int i = 0; i < col.length; i++)
 			col[i] = align[i][colNum];
@@ -296,8 +297,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	/**
 	 * Set sequence number 'num'
-	 * @param seqNum
-	 * @param seq
 	 */
 	public void set(int seqNum, String seq, String header) {
 		headers[seqNum] = header;
@@ -308,9 +307,6 @@ public class MultipleSequenceAlignment implements Comparable<MultipleSequenceAli
 
 	/**
 	 * Set genomic coordinates (chr:start-end)
-	 * @param chr
-	 * @param start
-	 * @param end
 	 */
 	public void set(String chr, int start, int end, boolean strandNegative) {
 		chromo = Chromosome.simpleName(chr);
