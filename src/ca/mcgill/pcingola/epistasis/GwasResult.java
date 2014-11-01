@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis;
 
+import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
 /**
@@ -9,13 +10,15 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class GwasResult {
 
-	public String idI, idJ;
-	public byte gti[], gtj[], gtij[];
+	public String idI, idJ; // Genotype data 'IDs'
+	public byte gti[], gtj[], gtij[]; // Genotype data used to fit the logistic regression
 
 	public double logLikelihoodLogReg = 0.0; // Log likelihood from Logistic Regression model
+	public double pvalueLogReg = 1.0; // P-value from log-likelihood in logistic regression model
+
 	public double logLikelihoodMsa = 0.0; // Log likelihood from MSA (epistasis) model
-	public LogisticRegression lrNull;
-	public LogisticRegression lrAlt;
+	public LogisticRegression lrNull; // Logistc regression Null model
+	public LogisticRegression lrAlt; // Logistc regression Alt model
 
 	public double bayesFactorLogReg = 0.0; // Bayes factor for logistic regression
 	public double bayesFactor = 0.0; // Total bayes factor
@@ -78,12 +81,20 @@ public class GwasResult {
 		return ll;
 	}
 
+	public double pvalueLogReg() {
+		int deltaDf = lrAlt.getTheta().length - lrNull.getTheta().length;
+		pvalueLogReg = FisherExactTest.get().chiSquareCDFComplementary(logLikelihoodLogReg, deltaDf);
+		return pvalueLogReg;
+	}
+
 	@Override
 	public String toString() {
-		return "ll_total: " + logLik() //
+		return idI + "\t" + idJ //
+				+ "\tlog(BF): " + log10BayesFactor //
+				+ "\tp-value(LogReg): " + pvalueLogReg //
+				+ "\tll_total: " + logLik() //
 				+ "\tll_LogReg: " + logLikelihoodLogReg //
 				+ "\tll_MSA: " + logLikelihoodMsa //
-				+ "\tlog(BF): " + log10BayesFactor //
 				+ "\t" + idI //
 				+ "\t" + idJ;
 

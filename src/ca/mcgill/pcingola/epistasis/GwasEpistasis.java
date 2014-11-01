@@ -154,13 +154,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-						double llTot = gwasRes.logLik();
-						if (llTot > llThreshold) countLl.inc();
-						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-					});
+			.parallel() //
+			.forEach(j -> {
+				GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+				double llTot = gwasRes.logLik();
+				if (llTot > llThreshold) countLl.inc();
+				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+			});
 		}
 	}
 
@@ -177,6 +177,9 @@ public class GwasEpistasis {
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
 		if (gwasRes.logLikelihoodLogReg < llThreshold) return gwasRes;
+
+		// Calculate p-value form logistic regression likelihood test
+		gwasRes.pvalueLogReg();
 
 		//---
 		// Calculate Bayes Factor using Laplace approximation maethod
@@ -256,7 +259,7 @@ public class GwasEpistasis {
 							+ "\n\tMarker            : " + m.toStr() //
 							+ "\n\tmsa.Id            : " + msaId //
 							+ "\n\tmsa.aaIdx         : " + aaIdx //
-					);
+							);
 					return null;
 				}
 
@@ -269,7 +272,7 @@ public class GwasEpistasis {
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
 						+ "\n\tColumn Seq        : " + colSeq //
 						+ "\n\tColumn Seq (prev) : " + seqPrev//
-				);
+						);
 
 				// Store for next iteration
 				seqPrev = colSeq;
@@ -407,7 +410,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
