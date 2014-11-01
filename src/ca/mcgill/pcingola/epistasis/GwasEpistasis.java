@@ -154,12 +154,12 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				double ll = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-				if (ll > llThreshold) countLl.inc();
-				if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
-			});
+					.parallel() //
+					.forEach(j -> {
+						double ll = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+						if (ll > llThreshold) countLl.inc();
+						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
+					});
 		}
 	}
 
@@ -168,9 +168,6 @@ public class GwasEpistasis {
 	 * @return Bayes factor
 	 */
 	double gwas(String idi, byte gti[], String idj, byte gtj[]) {
-		// Pre-calculate matrix exponentials
-		interactionLikelihood.precalcExps();
-
 		// Likelihood based on logistic regression
 		LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 		double llLogReg = llan.logLikelihood(idi, gti, idj, gtj);
@@ -245,7 +242,7 @@ public class GwasEpistasis {
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
 						+ "\n\tColumn Seq        : " + colSeq //
 						+ "\n\tColumn Seq (prev) : " + seqPrev//
-						);
+				);
 				seqPrev = colSeq;
 			}
 		}
@@ -263,6 +260,9 @@ public class GwasEpistasis {
 			pdbGenomeMsas = new PdbGenomeMsas(configFile, genomeVer, pdbDir, null);
 			pdbGenomeMsas.initialize();
 		}
+
+		// Pre-calculate matrix exponentials
+		interactionLikelihood.precalcExps();
 	}
 
 	/**
@@ -378,7 +378,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**
