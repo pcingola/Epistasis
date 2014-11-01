@@ -154,13 +154,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				double ll[] = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-				double llTot = ll[0] + ll[1];
-				if (llTot > llThreshold) countLl.inc();
-				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\tll: " + llTot + "\tll_LogReg: " + ll[0] + "\tll_MSA: " + ll[1] + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
-			});
+					.parallel() //
+					.forEach(j -> {
+						double ll[] = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+						double llTot = ll[0] + ll[1];
+						if (llTot > llThreshold) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\tll: " + llTot + "\tll_LogReg: " + ll[0] + "\tll_MSA: " + ll[1] + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
+					});
 		}
 	}
 
@@ -255,7 +255,7 @@ public class GwasEpistasis {
 							+ "\n\tMarker            : " + m.toStr() //
 							+ "\n\tmsa.Id            : " + msaId //
 							+ "\n\tmsa.aaIdx         : " + aaIdx //
-							);
+					);
 					return null;
 				}
 
@@ -268,7 +268,7 @@ public class GwasEpistasis {
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
 						+ "\n\tColumn Seq        : " + colSeq //
 						+ "\n\tColumn Seq (prev) : " + seqPrev//
-						);
+				);
 
 				// Store for next iteration
 				seqPrev = colSeq;
@@ -290,7 +290,7 @@ public class GwasEpistasis {
 		}
 
 		// Pre-calculate matrix exponentials
-		interactionLikelihood.precalcExps();
+		if (interactionLikelihood != null) interactionLikelihood.precalcExps();
 	}
 
 	/**
@@ -406,7 +406,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**

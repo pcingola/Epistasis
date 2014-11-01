@@ -5,8 +5,6 @@ import java.util.Random;
 
 import junit.framework.TestCase;
 
-import org.apache.commons.math3.linear.Array2DRowRealMatrix;
-import org.apache.commons.math3.linear.LUDecomposition;
 import org.junit.Assert;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -177,35 +175,7 @@ public class TestCaseLaplaceIntegral extends TestCase {
 		// Calculate integral using Laplace's approximation
 		//---
 		LogisticRegression lr = modelFitTest(rand, beta, N, null, null, betaFit, 0.01, "irwls");
-		if (debug) Gpr.debug("Beta (model fit  ): " + Gpr.toString(lr.getTheta()) + "\tLogLik : " + lr.logLikelihood());
-
-		int n = beta.length;
-		double H[][] = new double[n][n];
-		double sx[][] = lr.getSamplesX(); // Samples input values
-		lr.getSamplesY();
-		double p[] = lr.getOut(); // Output of logistic regression is probability
-
-		// Calculate the Hessian matrix
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++) {
-				double ss = 0;
-				for (int s = 0; s < N; s++) {
-					ss += sx[s][i] * sx[s][j] * p[s] * (1 - p[s]);
-				}
-
-				H[i][j] = ss;
-			}
-
-		if (debug) Gpr.debug("H:\n" + Gpr.toString(H));
-
-		// Calculate Hessian's determinant
-		Array2DRowRealMatrix Hr = new Array2DRowRealMatrix(H);
-		double detH = (new LUDecomposition(Hr)).getDeterminant();
-		if (debug) Gpr.debug("det(H): " + detH);
-
-		// Use Lapplace formula
-		double likelihood = Math.exp(lr.logLikelihood());
-		double intLaplace = likelihood * 2.0 * Math.PI * Math.sqrt(1.0 / detH);
+		double intLaplace = lr.likelihoodIntegralLaplaceApproximation();
 		if (debug) Gpr.debug("Integral (Laplace): " + intLaplace);
 
 		//---

@@ -93,4 +93,12 @@ public class TestCaseGwas extends TestCase {
 		Assert.assertEquals(13280, gwasEpistasis.getCountOk());
 	}
 
+	public void test_05_Gwas_Map_RoundTrip() {
+		// Create a atest to map using
+		//	i) Select a random <msaId, aaIdx>
+		//	ii) Map it to genomic coordinate using GwasEpistasis.parseMsaId(String id, char aaExpected) => marker
+		// 	iii) Use all positions in the marker, to map back to <msaId, aaIdx> using GwasEpistasis.id2MsaAa( "chr:pos" )
+		//  iv) Check that <mdsId, aaIdx> are recovered correctly 
+		throw new RuntimeException("Unimplemented test!");
+	}
 }

@@ -2,6 +2,11 @@ package ca.mcgill.pcingola.regression;
 
 import java.util.Arrays;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.LUDecomposition;
+
+import ca.mcgill.mcb.pcingola.util.Gpr;
+
 /**
  * Logistic regression
  * Model fitting by gradient descent (default)
@@ -79,6 +84,40 @@ public class LogisticRegression extends Regression {
 			sum += Math.abs(gradient[i]);
 
 		return sum < minGradient;
+	}
+
+	/**
+	 * Calculate an integral of the likelihood using Laplace's approximation method
+	 */
+	public double likelihoodIntegralLaplaceApproximation() {
+		int n = theta.length;
+		double H[][] = new double[n][n];
+
+		int N = getNumSamples();
+		double p[] = getOut(); // Output of logistic regression is probability
+
+		// Calculate the Hessian matrix
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++) {
+				double ss = 0;
+				for (int s = 0; s < N; s++)
+					ss += samplesX[s][i] * samplesX[s][j] * p[s] * (1 - p[s]);
+
+				H[i][j] = ss;
+			}
+
+		if (debug) Gpr.debug("H:\n" + Gpr.toString(H));
+
+		// Calculate Hessian's determinant
+		Array2DRowRealMatrix Hr = new Array2DRowRealMatrix(H);
+		double detH = (new LUDecomposition(Hr)).getDeterminant();
+		if (debug) Gpr.debug("det(H): " + detH);
+
+		// Use Lapplace's  approximation formula
+		double intLaplace = Math.exp(logLikelihood()) * 2.0 * Math.PI * Math.sqrt(1.0 / detH);
+		if (debug) Gpr.debug("Integral (Laplace): " + intLaplace);
+
+		return intLaplace;
 	}
 
 	/**
