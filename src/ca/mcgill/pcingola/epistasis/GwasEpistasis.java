@@ -33,7 +33,9 @@ public class GwasEpistasis {
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
 	public static int MINOR_ALLELE_COUNT = 5;
-	public static double LL_THRESHOLD = 6.0;
+	public static double LL_THRESHOLD_LOGREG = 6.0;
+	public static double LL_THRESHOLD_MSA = 4.0;
+	public static double LL_THRESHOLD_TOTAL = 20.0;
 
 	// Splits information
 	boolean analyzeAllPairs = false; // Use for testing and debugging
@@ -43,7 +45,8 @@ public class GwasEpistasis {
 	int splitJ = 3;
 	int numSplits = 100;
 	int countOk, countErr;
-	double llThreshold = LL_THRESHOLD;
+	double llThresholdLogReg = LL_THRESHOLD_LOGREG;
+	double llThresholdMsa = LL_THRESHOLD_MSA;
 	String configFile;
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
 	String vcfFile;
@@ -154,13 +157,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-						double llTot = gwasRes.logLik();
-						if (llTot > llThreshold) countLl.inc();
-						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-					});
+			.parallel() //
+			.forEach(j -> {
+				GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+				double llTot = gwasRes.logLik();
+				if (llTot > llThresholdLogReg) countLl.inc();
+				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+			});
 		}
 	}
 
@@ -176,7 +179,7 @@ public class GwasEpistasis {
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
-		if (gwasRes.logLikelihoodLogReg < llThreshold) return gwasRes;
+		if (gwasRes.logLikelihoodLogReg < llThresholdLogReg) return gwasRes;
 
 		// Calculate p-value form logistic regression likelihood test
 		gwasRes.pvalueLogReg();
@@ -197,6 +200,9 @@ public class GwasEpistasis {
 		int msaIdx1 = msaIdxI.second, msaIdx2 = msaIdxJ.second;
 		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false);
 		gwasRes.logLikelihoodMsa = llMsa;
+
+		// Epistatic likelihood model too low? => Don't bother to calculate next part
+		if (gwasRes.logLik() < LL_THRESHOLD_TOTAL && gwasRes.logLikelihoodMsa < llThresholdLogReg) return gwasRes;
 
 		//---
 		// Calculate Bayes Factor using Laplace approximation maethod
@@ -259,7 +265,7 @@ public class GwasEpistasis {
 							+ "\n\tMarker            : " + m.toStr() //
 							+ "\n\tmsa.Id            : " + msaId //
 							+ "\n\tmsa.aaIdx         : " + aaIdx //
-					);
+							);
 					return null;
 				}
 
@@ -272,7 +278,7 @@ public class GwasEpistasis {
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
 						+ "\n\tColumn Seq        : " + colSeq //
 						+ "\n\tColumn Seq (prev) : " + seqPrev//
-				);
+						);
 
 				// Store for next iteration
 				seqPrev = colSeq;
@@ -410,7 +416,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
