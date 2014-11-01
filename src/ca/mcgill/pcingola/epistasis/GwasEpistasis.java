@@ -156,38 +156,52 @@ public class GwasEpistasis {
 			IntStream.range(minJ, gtsSplitJ.size()) //
 					.parallel() //
 					.forEach(j -> {
-						double ll = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-						if (ll > llThreshold) countLl.inc();
-						if (ll != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + ll + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
+						double ll[] = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+						double llTot = ll[0] + ll[1];
+						if (llTot > llThreshold) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\tll: " + llTot + "\tll_LogReg: " + ll[0] + "\tll_MSA: " + ll[1] + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
 					});
 		}
 	}
 
 	/**
 	 * Perform analysis on genotypes 'i' and 'j'
-	 * @return Bayes factor
+	 * @return [ll_LogRes, ll_Msa]
 	 */
-	double gwas(String idi, byte gti[], String idj, byte gtj[]) {
+	double[] gwas(String idi, byte gti[], String idj, byte gtj[]) {
+		//---
 		// Likelihood based on logistic regression
+		//---
 		LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
 		double llLogReg = llan.logLikelihood(idi, gti, idj, gtj);
 
+		// Store results
+		double res[] = new double[2];
+		res[0] = llLogReg;
+
+		// Log likelihood form logistic regression is too low? 
+		// => Don't bother to calculate next part
+		if (llLogReg < llThreshold) return res;
+
+		//---
+		// Likelihood based on interaction
+		//---
+
 		// Find corresponding MSA ID and index for both genotypes
 		Tuple<String, Integer> msaIdxI = id2MsaAa(idi);
-		if (msaIdxI == null) return llLogReg;
+		if (msaIdxI == null) return res;
 
 		Tuple<String, Integer> msaIdxJ = id2MsaAa(idj);
-		if (msaIdxJ == null) return llLogReg;
-
-		Gpr.debug("MSAs:\t" + msaIdxI + "\t" + msaIdxJ);
+		if (msaIdxJ == null) return res;
 
 		// Likelihood based on epistatic interaction
 		String msaId1 = msaIdxI.first, msaId2 = msaIdxJ.first;
 		int msaIdx1 = msaIdxI.second, msaIdx2 = msaIdxJ.second;
-		double llMsa = 0;
-		interactionLikelihood.logLikelihoodRatioStr(msaId1, msaIdx1, msaId2, msaIdx2, false);
+		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false);
+		res[1] = llMsa;
 
-		return llLogReg + llMsa;
+		// Combine
+		return res;
 	}
 
 	/**
