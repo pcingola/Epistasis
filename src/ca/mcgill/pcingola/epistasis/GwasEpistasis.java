@@ -179,31 +179,11 @@ public class GwasEpistasis {
 		if (gwasRes.logLikelihoodLogReg < llThreshold) return gwasRes;
 
 		//---
-		// Calculate Bayes Factor
+		// Calculate Bayes Factor using Laplace approximation maethod
 		//---
-
-		// Calculate laplace approximation terms for ALT models
 		double h1 = 1.0; // P(theta_1 | M_1) : This is the a-priory distribution
-		double detH1 = gwasRes.lrAlt.detHessian();
-
-		// Calculate Laplace approximation terms for NULL model
 		double h0 = 1.0; // P(theta_0 | M_0) : This is the a-priory distribution
-		double detH0 = gwasRes.lrNull.detHessian();
-
-		int diffThetaLen = gwasRes.lrAlt.getTheta().length - gwasRes.lrNull.getTheta().length;
-		double twopik = Math.pow(2.0 * Math.PI, diffThetaLen / 2.0);
-		double diffLl = gwasRes.lrAlt.logLikelihood() - gwasRes.lrNull.logLikelihood();
-
-		double bayesFactor = twopik * Math.sqrt(detH0 / detH1) * Math.exp(diffLl);
-		Gpr.debug("A-priory distributions not set!" //
-				+ "\n\tBF             : " + bayesFactor //
-				+ "\n\tdiff.theta.len : " + diffThetaLen //
-				+ "\n\tdiff.LL        : " + diffLl //
-				+ "\n\tll.alt         : " + gwasRes.lrAlt.logLikelihood() //
-				+ "\n\tll.null        : " + gwasRes.lrNull.logLikelihood() //
-				+ "\n\tdet(H_alt)     : " + detH1 //
-				+ "\n\tdet(H_null)    : " + detH0 //
-		);
+		gwasRes.bayesFactor(h1, h0);
 
 		//---
 		// Likelihood based on interaction
