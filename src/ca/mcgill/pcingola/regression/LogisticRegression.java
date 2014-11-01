@@ -64,6 +64,34 @@ public class LogisticRegression extends Regression {
 	}
 
 	/**
+	 * Calculate the Hessian's matrix determinant
+	 */
+	public double detHessian() {
+		int n = theta.length;
+		double H[][] = new double[n][n];
+
+		int N = getNumSamples();
+		double p[] = getOut(); // Output of logistic regression is probability
+
+		// Calculate the Hessian matrix
+		for (int i = 0; i < n; i++)
+			for (int j = 0; j < n; j++) {
+				double ss = 0;
+				for (int s = 0; s < N; s++)
+					ss += samplesX[s][i] * samplesX[s][j] * p[s] * (1 - p[s]);
+
+				H[i][j] = ss;
+			}
+
+		if (debug) Gpr.debug("H:\n" + Gpr.toString(H));
+
+		// Calculate Hessian's determinant
+		Array2DRowRealMatrix Hr = new Array2DRowRealMatrix(H);
+		double detH = (new LUDecomposition(Hr)).getDeterminant();
+		return detH;
+	}
+
+	/**
 	 * Deviance: minus twice the maximized log-likelihood.
 	 */
 	public double deviance() {
@@ -90,32 +118,12 @@ public class LogisticRegression extends Regression {
 	 * Calculate an integral of the likelihood using Laplace's approximation method
 	 */
 	public double likelihoodIntegralLaplaceApproximation() {
-		int n = theta.length;
-		double H[][] = new double[n][n];
-
-		int N = getNumSamples();
-		double p[] = getOut(); // Output of logistic regression is probability
-
-		// Calculate the Hessian matrix
-		for (int i = 0; i < n; i++)
-			for (int j = 0; j < n; j++) {
-				double ss = 0;
-				for (int s = 0; s < N; s++)
-					ss += samplesX[s][i] * samplesX[s][j] * p[s] * (1 - p[s]);
-
-				H[i][j] = ss;
-			}
-
-		if (debug) Gpr.debug("H:\n" + Gpr.toString(H));
-
-		// Calculate Hessian's determinant
-		Array2DRowRealMatrix Hr = new Array2DRowRealMatrix(H);
-		double detH = (new LUDecomposition(Hr)).getDeterminant();
-		if (debug) Gpr.debug("det(H): " + detH);
-
 		// Use Lapplace's  approximation formula
-		double intLaplace = Math.exp(logLikelihood()) * 2.0 * Math.PI * Math.sqrt(1.0 / detH);
-		if (debug) Gpr.debug("Integral (Laplace): " + intLaplace);
+		double twopik = Math.pow(2.0 * Math.PI, theta.length / 2.0);
+		double detH = detHessian();
+
+		double intLaplace = twopik * Math.exp(logLikelihood()) * Math.sqrt(1.0 / detH);
+		if (debug) Gpr.debug("Integral (Laplace): " + intLaplace + "\tdet(H): " + detH + "\tll: " + logLikelihood() + "\t(2 pi)^(K/2): " + twopik);
 
 		return intLaplace;
 	}

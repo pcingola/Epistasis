@@ -219,8 +219,8 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 	/**
 	 * Calculate log likelihood
 	 */
-	public double logLikelihood(String keyi, byte gti[], String keyj, byte gtj[]) {
-		String id = keyi + "-" + keyj;
+	public GwasResult logLikelihood(String idI, byte gti[], String idJ, byte gtj[]) {
+		String id = idI + "-" + idJ;
 
 		//---
 		// Which samples should be skipped? Either missing genotype or missing phenotype
@@ -244,6 +244,16 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		}
 
 		//---
+		// Create 'result' object
+		//---
+		GwasResult gwasRes = new GwasResult();
+		gwasRes.idI = idI;
+		gwasRes.idJ = idJ;
+		gwasRes.gti = gti;
+		gwasRes.gtj = gtj;
+		gwasRes.gtij = gtij;
+
+		//---
 		// Sanity checks
 		//---
 
@@ -252,7 +262,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		if (countGtij < minSharedVariants) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
 			countModel(null);
-			return 0.0; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
+			return gwasRes; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
 		}
 
 		// Are gti[], gtj[] and gtij[] linearly dependent?
@@ -260,7 +270,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		if (linearDependency(skip, countSkip, gti, gtj, gtij)) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
 			countModel(null);
-			return 0.0; // Linear dependency? Log-likelihood is exactly zero (by definition).
+			return gwasRes; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
 		//---
@@ -330,7 +340,12 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 
 		countModel(lrAlt);
 
-		return ll;
+		// Get all data into GwasData structure
+		gwasRes.logLikelihoodLogReg = ll;
+		gwasRes.lrAlt = lrAlt;
+		gwasRes.lrNull = lrNull;
+
+		return gwasRes;
 	}
 
 	@Override

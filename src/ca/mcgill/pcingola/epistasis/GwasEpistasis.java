@@ -33,7 +33,7 @@ public class GwasEpistasis {
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
 	public static int MINOR_ALLELE_COUNT = 5;
-	public static double LL_THRESHOLD = 6.0;
+	public static double LL_THRESHOLD = 2.0;
 
 	// Splits information
 	boolean analyzeAllPairs = false; // Use for testing and debugging
@@ -156,32 +156,54 @@ public class GwasEpistasis {
 			IntStream.range(minJ, gtsSplitJ.size()) //
 					.parallel() //
 					.forEach(j -> {
-						double ll[] = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
-						double llTot = ll[0] + ll[1];
+						GwasResult gwasRes = gwas(idi, gti, gtIdsSplitJ.get(j), gtsSplitJ.get(j));
+						double llTot = gwasRes.logLik();
 						if (llTot > llThreshold) countLl.inc();
-						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\tll: " + llTot + "\tll_LogReg: " + ll[0] + "\tll_MSA: " + ll[1] + "\t" + idi + "\t" + gtIdsSplitJ.get(j));
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
 					});
 		}
 	}
 
 	/**
 	 * Perform analysis on genotypes 'i' and 'j'
-	 * @return [ll_LogRes, ll_Msa]
 	 */
-	double[] gwas(String idi, byte gti[], String idj, byte gtj[]) {
+	GwasResult gwas(String idi, byte gti[], String idj, byte gtj[]) {
 		//---
 		// Likelihood based on logistic regression
 		//---
 		LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
-		double llLogReg = llan.logLikelihood(idi, gti, idj, gtj);
-
-		// Store results
-		double res[] = new double[2];
-		res[0] = llLogReg;
+		GwasResult gwasRes = llan.logLikelihood(idi, gti, idj, gtj);
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
-		if (llLogReg < llThreshold) return res;
+		if (gwasRes.logLikelihoodLogReg < llThreshold) return gwasRes;
+
+		//---
+		// Calculate Bayes Factor
+		//---
+
+		// Calculate laplace approximation terms for ALT models
+		double h1 = 1.0; // P(theta_1 | M_1) : This is the a-priory distribution
+		double detH1 = gwasRes.lrAlt.detHessian();
+
+		// Calculate Laplace approximation terms for NULL model
+		double h0 = 1.0; // P(theta_0 | M_0) : This is the a-priory distribution
+		double detH0 = gwasRes.lrNull.detHessian();
+
+		int diffThetaLen = gwasRes.lrAlt.getTheta().length - gwasRes.lrNull.getTheta().length;
+		double twopik = Math.pow(2.0 * Math.PI, diffThetaLen / 2.0);
+		double diffLl = gwasRes.lrAlt.logLikelihood() - gwasRes.lrNull.logLikelihood();
+
+		double bayesFactor = twopik * Math.sqrt(detH0 / detH1) * Math.exp(diffLl);
+		Gpr.debug("A-priory distributions not set!" //
+				+ "\n\tBF             : " + bayesFactor //
+				+ "\n\tdiff.theta.len : " + diffThetaLen //
+				+ "\n\tdiff.LL        : " + diffLl //
+				+ "\n\tll.alt         : " + gwasRes.lrAlt.logLikelihood() //
+				+ "\n\tll.null        : " + gwasRes.lrNull.logLikelihood() //
+				+ "\n\tdet(H_alt)     : " + detH1 //
+				+ "\n\tdet(H_null)    : " + detH0 //
+		);
 
 		//---
 		// Likelihood based on interaction
@@ -189,19 +211,18 @@ public class GwasEpistasis {
 
 		// Find corresponding MSA ID and index for both genotypes
 		Tuple<String, Integer> msaIdxI = id2MsaAa(idi);
-		if (msaIdxI == null) return res;
+		if (msaIdxI == null) return gwasRes;
 
 		Tuple<String, Integer> msaIdxJ = id2MsaAa(idj);
-		if (msaIdxJ == null) return res;
+		if (msaIdxJ == null) return gwasRes;
 
 		// Likelihood based on epistatic interaction
 		String msaId1 = msaIdxI.first, msaId2 = msaIdxJ.first;
 		int msaIdx1 = msaIdxI.second, msaIdx2 = msaIdxJ.second;
 		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false);
-		res[1] = llMsa;
+		gwasRes.logLikelihoodMsa = llMsa;
 
-		// Combine
-		return res;
+		return gwasRes;
 	}
 
 	/**
