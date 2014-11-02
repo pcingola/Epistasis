@@ -40,7 +40,7 @@ qhat			:= "$dir/Qhat.txt"
 qhat2			:= "$dir/Qhat2.txt"
 snpeffConfig	:= "$snpEffDir/snpEff.config"
 tree			:= "$snpEffDir/db/multiz100way/hg19.100way.nh"
-vcf				:= "gwas.vcf"
+vcf				:= "$dir/gwas.vcf"
 
 bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
@@ -357,10 +357,10 @@ numSplits := 20
 for( int i=0 ; i < numSplits ; i++ ) {
 	for( int j=i ; j < numSplits ; j++ ) {
 		println "\t$i $j / $numSplits"
-		gwas := "$dir/gwas.$numSplits.$i.$j.txt"
+		gwasOut := "$dir/gwas.$numSplits.$i.$j.txt"
 
-		task( gwas <- [likAll, vcf, pheno] ) {
-			sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwas
+		task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+			sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
 		}
 	}
 }
