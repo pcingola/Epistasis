@@ -101,4 +101,14 @@ public class TestCaseGwas extends TestCase {
 		//  iv) Check that <mdsId, aaIdx> are recovered correctly 
 		throw new RuntimeException("Unimplemented test!");
 	}
+
+	public void test_06_Map_InDels() {
+		// Create a atest to map using
+		//	i) Select a random <msaId, aaIdx>
+		//	ii) Map it to genomic coordinate using GwasEpistasis.parseMsaId(String id, char aaExpected) => marker
+		// 	iii) Use all positions in the marker, to map back to <msaId, aaIdx> using GwasEpistasis.id2MsaAa( "chr:pos" )
+		//  iv) Check that <mdsId, aaIdx> are recovered correctly 
+		throw new RuntimeException("Unimplemented test!");
+	}
+
 }
