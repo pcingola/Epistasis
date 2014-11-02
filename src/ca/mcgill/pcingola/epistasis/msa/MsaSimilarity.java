@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.msa;
 
 import java.util.List;
 import java.util.Random;
@@ -8,6 +8,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
 
 /**
  * Implement a 'similarity' by correlation

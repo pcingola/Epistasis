@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.msa;
 
 import java.util.Arrays;
 

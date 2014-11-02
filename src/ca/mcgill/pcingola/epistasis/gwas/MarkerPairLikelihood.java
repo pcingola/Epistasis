@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.gwas;
 
 import ca.mcgill.mcb.pcingola.interval.Marker;
 

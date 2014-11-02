@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.Epistasis;
-import ca.mcgill.pcingola.epistasis.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.gwas.InteractionLikelihood;
 
 /**
  * Test case likelihood ratio

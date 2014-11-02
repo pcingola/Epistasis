@@ -20,6 +20,21 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.gwas.GwasEpistasis;
+import ca.mcgill.pcingola.epistasis.gwas.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.msa.MsaDistanceVarInf;
+import ca.mcgill.pcingola.epistasis.msa.MsaSimilarity;
+import ca.mcgill.pcingola.epistasis.msa.MsaSimilarityCondEntropy;
+import ca.mcgill.pcingola.epistasis.msa.MsaSimilarityMutInf;
+import ca.mcgill.pcingola.epistasis.msa.MsaSimilarityN;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
+import ca.mcgill.pcingola.epistasis.msa.TransitionsAa;
+import ca.mcgill.pcingola.epistasis.msa.TransitionsAaPairs;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
+import ca.mcgill.pcingola.epistasis.pdb.PdbDistanceAnalysis;
+import ca.mcgill.pcingola.epistasis.pdb.PdbGenomeMsas;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrix;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrixPairs;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
@@ -188,7 +203,7 @@ public class Epistasis implements CommandLine {
 			msasNew.setSpecies(msas.getSpecies());
 
 			msas.stream() //
-					.filter(m -> idMapper.getByRefSeqId(m.transcriptId) != null) //
+					.filter(m -> idMapper.getByRefSeqId(m.getTranscriptId()) != null) //
 					.forEach(m -> msasNew.add(m));
 
 			// Replace with filtered version

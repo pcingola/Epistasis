@@ -1,7 +1,8 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.gwas;
 
 import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
 /**
@@ -14,7 +15,8 @@ public class GwasResult {
 	public static double LL_SHOW_LOGREG_MODEL = 6.0;
 
 	public String idI, idJ; // Genotype data 'IDs'
-	public byte gti[], gtj[], gtij[]; // Genotype data used to fit the logistic regression
+	public Genotype genoi, genoj;
+	byte gtij[]; // Genotype data used to fit the logistic regression
 
 	public double logLikelihoodLogReg = 0.0; // Log likelihood from Logistic Regression model
 	public double pvalueLogReg = 1.0; // P-value from log-likelihood in logistic regression model

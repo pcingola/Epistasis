@@ -1,22 +1,23 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.msa;
 
 import java.util.Arrays;
 
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 
 /**
- * Implement a 'similarity' by mutual information
+ * Implement a 'distance' by variation of information
  *
  * @author pcingola
  */
-public class MsaSimilarityMutInf extends MsaSimilarity {
+public class MsaDistanceVarInf extends MsaSimilarity {
 
-	public MsaSimilarityMutInf(MultipleSequenceAlignmentSet msas) {
-		super(msas, InformationFunction.MI);
+	public MsaDistanceVarInf(MultipleSequenceAlignmentSet msas) {
+		super(msas, InformationFunction.VARINF);
 		double n = GprSeq.AMINO_ACIDS.length;
 		double p = 1.0 / n;
-		maxScore = -Math.log(p) / Math.log(2.0); // Maximum possible entropy
+		maxScore = 2.0 * -Math.log(p) / Math.log(2.0); // Twice the maximum entropy?
 	}
 
 	/**
@@ -59,6 +60,7 @@ public class MsaSimilarityMutInf extends MsaSimilarity {
 		if (count < minCount) return Double.NaN;
 
 		double mutInf = 0.0;
+		double hxy = 0.0;
 		for (int i = 0; i < aaLen; i++) {
 			if (countI[i] <= 0) continue;
 
@@ -71,14 +73,22 @@ public class MsaSimilarityMutInf extends MsaSimilarity {
 					double pj = ((double) countJ[j]) / ((double) count);
 
 					mutInf += pij * Math.log(pij / (pi * pj)) / LOG_2;
+					hxy -= pij * Math.log(pij) / LOG_2;
 				}
 			}
 		}
 
 		// Results
-		incScore(mutInf);
-		if (mutInf >= threshold) return mutInf;
-		return Double.NaN;
+		double varInf = hxy - mutInf;
+
+		if (debug) {
+			Gpr.debug("Zero!\th(x,y):" + hxy + "\tmi: " + mutInf //
+					+ "\n\t" + msai.getId() + "[" + posi + "]:\t" + msai.getColumnString(posi) + "\t" + msai.isSkip(posi) //
+					+ "\n\t" + msaj.getId() + "[" + posj + "]:\t" + msaj.getColumnString(posj) + "\t" + msaj.isSkip(posj) //
+					+ "\n");
+		}
+		incScore(varInf);
+		return varInf;
 	}
 
 }

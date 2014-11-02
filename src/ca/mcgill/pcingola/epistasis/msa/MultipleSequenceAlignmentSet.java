@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.msa;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -13,9 +13,16 @@ import java.util.stream.StreamSupport;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
+import ca.mcgill.mcb.pcingola.interval.Genome;
+import ca.mcgill.mcb.pcingola.interval.Marker;
+import ca.mcgill.mcb.pcingola.interval.Markers;
+import ca.mcgill.mcb.pcingola.interval.tree.IntervalForest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
 
 /**
  * Load a multiple sequence alignment file (UCSC)
@@ -31,12 +38,13 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	public final int MIN_COUNT_THRESHOLD = 50;
 	public final int MIN_SECOND_TOP_BASE_COUNT = 5;
 
-	ArrayList<MultipleSequenceAlignment> msas;
-	AutoHashMap<String, List<MultipleSequenceAlignment>> msasByTrId;
-	HashMap<String, MultipleSequenceAlignment> msaById;
 	int numAligns;
 	String sequenceAlignmentFile;
 	String species[];
+	ArrayList<MultipleSequenceAlignment> msas;
+	AutoHashMap<String, List<MultipleSequenceAlignment>> msasByTrId;
+	HashMap<String, MultipleSequenceAlignment> msaById;
+	IntervalForest intForest; // Interval forest (MSAs intervals)
 
 	public MultipleSequenceAlignmentSet(String sequenceAlignmentFile, int numAligns) {
 		this.numAligns = numAligns;
@@ -55,6 +63,30 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		msasByTrId.getOrCreate(msa.getTranscriptId()).add(msa);
 		msaById.put(msa.getId(), msa);
 		return ok;
+	}
+
+	/**
+	 * Build interval forest using LogLik markers
+	 */
+	public void buildForest() {
+		if (intForest != null) return; // Nothing to do
+
+		Timer.showStdErr("Building interval forest: MSAs");
+
+		// Create a collections of 'markers'
+		Genome genome = new Genome();
+		Markers markers = new Markers();
+		for (MultipleSequenceAlignment msa : this) {
+			// Create a marker for this MSA and add it to 'markers'
+			Chromosome chromo = genome.getOrCreateChromosome(msa.getChromo());
+			Marker m = new Marker(chromo, msa.getStart(), msa.getEnd(), false, msa.getId());
+			markers.add(m);
+		}
+
+		// Create forest and build
+		intForest = new IntervalForest(markers);
+		intForest.build();
+		Timer.showStdErr("Done. Added " + markers.size() + " markers.");
 	}
 
 	public void calcSkip() {
@@ -295,6 +327,13 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 		// Sort lists
 		sortTranscriptLists();
+	}
+
+	/**
+	 * Does this marker match any interval where MSA are available?
+	 */
+	public Markers query(Marker marker) {
+		return intForest.query(marker);
 	}
 
 	/**

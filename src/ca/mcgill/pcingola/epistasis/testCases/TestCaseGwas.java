@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.pcingola.epistasis.GwasEpistasis;
+import ca.mcgill.pcingola.epistasis.gwas.GwasEpistasis;
 
 /**
  * Test cases for logistic regression

@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.pdb;
 
 import java.util.ArrayList;
 import java.util.Arrays;

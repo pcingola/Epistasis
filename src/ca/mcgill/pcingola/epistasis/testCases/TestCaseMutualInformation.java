@@ -6,10 +6,10 @@ import junit.framework.TestCase;
 
 import org.junit.Assert;
 
-import ca.mcgill.pcingola.epistasis.MsaSimilarityMutInf;
-import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignment;
-import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
+import ca.mcgill.pcingola.epistasis.msa.MsaSimilarityMutInf;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
 /**
  * Implement a 'similarity' by mutual information and conditional entropy

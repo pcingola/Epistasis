@@ -1,6 +1,7 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.msa;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
 
 /**
  * Count amino acid pairs transitions (i.e. 400x400 matrix of AA pairs)

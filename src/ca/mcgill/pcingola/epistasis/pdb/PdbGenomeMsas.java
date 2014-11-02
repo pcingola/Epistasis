@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.pdb;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -27,6 +27,11 @@ import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Tuple;
+import ca.mcgill.pcingola.epistasis.IdMapper;
+import ca.mcgill.pcingola.epistasis.IdMapperEntry;
+import ca.mcgill.pcingola.epistasis.Triplet;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
 /**
@@ -107,7 +112,7 @@ public class PdbGenomeMsas extends SnpEff {
 	 * Check that protein sequences form PDB matches sequences from Genome
 	 * Return an IdMapped of confirmed entries (i.e. AA sequence matches between transcript and PDB)
 	 */
-	IdMapper checkSequencePdbGenome() {
+	public IdMapper checkSequencePdbGenome() {
 		if (debug) System.err.println("Checking PDB <-> Transcript sequences\tdebug:" + debug);
 
 		// Create a new IdMapper using only confirmed entries
@@ -325,7 +330,7 @@ public class PdbGenomeMsas extends SnpEff {
 	/**
 	 * Load all data
 	 */
-	void initialize() {
+	public void initialize() {
 		//---
 		// Initialize SnpEff
 		//---
@@ -457,7 +462,7 @@ public class PdbGenomeMsas extends SnpEff {
 	/**
 	 * Create a marker encomapsing an amino acid (trId:aaIdx)
 	 */
-	protected Marker markerMsa(String trId, String chr, int start, int end, int aaIdx, char aaExpected) {
+	public Marker markerMsa(String trId, String chr, int start, int end, int aaIdx, char aaExpected) {
 		// Find transcript and exon
 		Transcript tr = trancriptById.get(trId);
 		if (tr == null) {

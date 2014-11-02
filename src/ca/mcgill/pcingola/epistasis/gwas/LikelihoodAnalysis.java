@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.gwas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,6 +10,7 @@ import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
+import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 
@@ -110,7 +111,7 @@ public class LikelihoodAnalysis {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
 	}
@@ -293,13 +294,14 @@ public class LikelihoodAnalysis {
 	/**
 	 * Fit models and calculate log likelihood ratio using 'genotypes' (gt) for the Alt model
 	 */
-	protected double logLikelihood(String id, byte gt[]) {
+	protected double logLikelihood(Genotype geno) {
 		//---
 		// Which samples should be skipped? Either missing genotype or missing phenotype
 		//---
 		boolean skip[] = new boolean[numSamples];
 		char skipChar[] = new char[numSamples];
 		int countSkip = 0;
+		byte[] gt = geno.getGt();
 		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
 			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
 			if (skip[vcfSampleNum]) {
@@ -340,16 +342,16 @@ public class LikelihoodAnalysis {
 				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
 
 				Timer.show(count //
-						+ "\t" + id //
+						+ "\t" + geno.getId() //
 						+ "\tLL_ratio: " + ll //
 						+ "\tp-value: " + pval //
 						+ "\tLL_alt: " + llAlt //
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-						);
-			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + id);
-		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
+				);
+			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
+		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
 		countModel(lrAlt);
 
@@ -360,8 +362,8 @@ public class LikelihoodAnalysis {
 	 * Calculate log likelihood on a VCF entry
 	 */
 	protected void logLikelihood(VcfEntry ve) {
-		byte gt[] = ve.getGenotypesScores();
-		double ll = logLikelihood(ve.toStr(), gt);
+		Genotype geno = new Genotype(ve);
+		double ll = logLikelihood(geno);
 
 		if (logLikInfoField != null) ve.addInfo(logLikInfoField, "" + ll);
 
@@ -383,7 +385,6 @@ public class LikelihoodAnalysis {
 			fileName = Gpr.HOME + "/lr_test." + ve.getChromosomeName() + "_" + (ve.getStart() + 1) + ".alt.model.txt";
 			Gpr.debug("Writing 'alt model' to :" + fileName);
 			Gpr.toFile(fileName, lrAlt.toStringModel());
-
 		}
 	}
 

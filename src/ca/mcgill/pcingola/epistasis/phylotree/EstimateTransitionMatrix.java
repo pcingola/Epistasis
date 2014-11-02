@@ -11,7 +11,7 @@ import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Tuple;
-import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
 /**
  * Find transition matrix by using a maximum likelihood procedure

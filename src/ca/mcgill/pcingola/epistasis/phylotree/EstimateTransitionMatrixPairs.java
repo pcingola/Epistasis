@@ -1,8 +1,8 @@
 package ca.mcgill.pcingola.epistasis.phylotree;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
-import ca.mcgill.pcingola.epistasis.DistanceResults;
-import ca.mcgill.pcingola.epistasis.MultipleSequenceAlignmentSet;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
 
 /**
  * Estimate  transition matrix of AA Pairs

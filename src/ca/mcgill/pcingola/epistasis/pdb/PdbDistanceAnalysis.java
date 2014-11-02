@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.pdb;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.StructureException;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.pcingola.epistasis.pdb.PdbFile;
+import ca.mcgill.pcingola.epistasis.IdMapper;
 
 /**
  * PDB distance analysis

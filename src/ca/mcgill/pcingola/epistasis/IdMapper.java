@@ -16,6 +16,7 @@ import java.util.stream.Stream;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
 
 /**
  * Map IDs

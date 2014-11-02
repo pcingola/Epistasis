@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.gwas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -13,6 +13,7 @@ import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
+import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 
@@ -27,7 +28,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 	public static final double EPSILON = 1e-6;
 
 	ArrayList<String> keys;
-	HashMap<String, byte[]> gtByKey;
+	HashMap<String, Genotype> gtByKey;
 	int minSharedVariants = MIN_SHARED_VARIANTS;
 
 	public static void main(String[] args) {
@@ -219,8 +220,10 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 	/**
 	 * Calculate log likelihood
 	 */
-	public GwasResult logLikelihood(String idI, byte gti[], String idJ, byte gtj[]) {
-		String id = idI + "-" + idJ;
+	public GwasResult logLikelihood(Genotype genoi, Genotype genoj) {
+		String id = genoi.getId() + "-" + genoj.getId();
+		byte gti[] = genoi.getGt();
+		byte gtj[] = genoj.getGt();
 
 		//---
 		// Which samples should be skipped? Either missing genotype or missing phenotype
@@ -247,10 +250,8 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		// Create 'result' object
 		//---
 		GwasResult gwasRes = new GwasResult();
-		gwasRes.idI = idI;
-		gwasRes.idJ = idJ;
-		gwasRes.gti = gti;
-		gwasRes.gtj = gtj;
+		gwasRes.genoi = genoi;
+		gwasRes.genoj = genoj;
 		gwasRes.gtij = gtij;
 
 		//---
@@ -334,7 +335,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + lrAlt + "\n\tModel Null : " + lrNull : "") //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
 
@@ -351,19 +352,18 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 	@Override
 	public List<VcfEntry> run(VcfFileIterator vcf, boolean createList) {
 		keys = new ArrayList<>();
-		gtByKey = new HashMap<String, byte[]>();
+		gtByKey = new HashMap<String, Genotype>();
 
 		//---
 		// Read VCF: Populate list of VCF entries (single thread, used for debugging and test cases)
 		//---
 		int count = 1;
 		for (VcfEntry ve : vcf) {
-			String key = ve.getChromosomeName() + ":" + (ve.getStart() + 1) + "_" + ve.getRef() + "/" + ve.getAltsStr();;
-			byte gt[] = ve.getGenotypesScores();
+			Genotype gt = new Genotype(ve);
 
 			// Store values
-			gtByKey.put(key, gt);
-			keys.add(key);
+			gtByKey.put(gt.getId(), gt);
+			keys.add(gt.getId());
 
 			Gpr.showMark(count++, 1);
 		}
@@ -373,17 +373,17 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		//---
 
 		IntStream.range(0, keys.size()) //
-				.parallel() //
-				.forEach(i -> {
-					for (int j = i + 1; j < keys.size(); j++) {
-						String keyi = keys.get(i);
-						String keyj = keys.get(j);
-						byte gti[] = gtByKey.get(keyi);
-						byte gtj[] = gtByKey.get(keyj);
+		.parallel() //
+		.forEach(i -> {
+			for (int j = i + 1; j < keys.size(); j++) {
+				String keyi = keys.get(i);
+				String keyj = keys.get(j);
+				Genotype gti = gtByKey.get(keyi);
+				Genotype gtj = gtByKey.get(keyj);
 
-						logLikelihood(keyi, gti, keyj, gtj);
-					}
-				});
+				logLikelihood(gti, gtj);
+			}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

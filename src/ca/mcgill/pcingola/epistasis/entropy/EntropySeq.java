@@ -7,7 +7,7 @@ import java.util.Arrays;
 
 import ca.mcgill.mcb.pcingola.stats.BooleanMutable;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
-import ca.mcgill.pcingola.epistasis.MsaSimilarity;
+import ca.mcgill.pcingola.epistasis.msa.MsaSimilarity;
 
 /**
  * Entropy and other functions for sequences
