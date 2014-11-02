@@ -8,7 +8,7 @@
 
 debug			:= false
 timeout			:= 5 * day
-#system			:= 'cluster'
+system			:= 'cluster'
 cpus			:= ( system == 'local' ? 24 : 4 )
 
 snpEffDir		:= "$HOME/snpEff"
@@ -25,7 +25,6 @@ llGeneLines		:=	5
 aaContact		:= "$dir/aa.contact.txt"
 aaContactSeq	:= "$dir/aa.contact.sequence.txt"
 aaContactBest	:= "$dir/aa.contact.best.txt"
-gwas			:= "$dir/gwas.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
@@ -49,7 +48,7 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 javaNativeLibs  := "$dir/lib"
 javaGC			:= ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
 javaMem			:= "4G"
-javaMemXL		:= "20G"
+javaMemXL		:= "10G"
 java			:= "java -Xmx$javaMem $javaGC "
 javaXL			:= "java -Xmx$javaMemXL $javaGC "
 cmdEpistasis	:= "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
@@ -353,8 +352,17 @@ wait
 
 println "\nGWAS analysis using epistasis data"
 println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
-task( gwas <- [likAll, vcf, pheno] ) {
-	sys $cmdEpistasisXL gwas $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno 10 2 7 > $gwas
+numSplits := 20
+
+for( int i=0 ; i < numSplits ; i++ ) {
+	for( int j=i ; j < numSplits ; j++ ) {
+		println "\t$i $j / $numSplits"
+
+		gwas := "$dir/gwas.$numSplits.$i.$j.txt"
+		task( gwas <- [likAll, vcf, pheno], cpus := 4 ) {
+			sys $cmdEpistasisXL gwas $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwas
+		}
+	}
 }
 
 # Done
