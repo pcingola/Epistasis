@@ -11,7 +11,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class GwasResult {
 
-	public static double LL_SHOW_LOGREG_MODEL = 10.0;
+	public static double LL_SHOW_LOGREG_MODEL = 6.0;
 
 	public String idI, idJ; // Genotype data 'IDs'
 	public byte gti[], gtj[], gtij[]; // Genotype data used to fit the logistic regression
@@ -87,7 +87,7 @@ public class GwasResult {
 		if (logLikelihoodLogReg >= LL_SHOW_LOGREG_MODEL) {
 			modelStr = "\n\tAlt  : " + Gpr.toString(lrAlt.getTheta()) //
 					+ "\n\tNull :             " + Gpr.toString(lrNull.getTheta()) //
-					;
+			;
 		}
 
 		return "log(BF): " + log10BayesFactor //
@@ -98,7 +98,7 @@ public class GwasResult {
 				+ "\t" + idI //
 				+ "\t" + idJ //
 				+ modelStr //
-				;
+		;
 
 	}
 }
