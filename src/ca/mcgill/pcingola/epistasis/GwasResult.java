@@ -1,6 +1,7 @@
 package ca.mcgill.pcingola.epistasis;
 
 import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
 /**
@@ -9,6 +10,8 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  * @author pcingola
  */
 public class GwasResult {
+
+	public static double LL_SHOW_LOGREG_MODEL = 10.0;
 
 	public String idI, idJ; // Genotype data 'IDs'
 	public byte gti[], gtj[], gtij[]; // Genotype data used to fit the logistic regression
@@ -60,18 +63,6 @@ public class GwasResult {
 		// Bayes factor formula
 		bayesFactorLogReg = twopik * Math.sqrt(detH0 / detH1) * Math.exp(diffLl);
 
-		//		// Some debugging info
-		//		Gpr.debug("A-priory distributions not set!" //
-		//				+ "\n\tBF             : " + bayesFactor //
-		//				+ "\n\tlog10(BF)      : " + log10BayesFactor //
-		//				+ "\n\tdiff.theta.len : " + diffThetaLen //
-		//				+ "\n\tdiff.LL        : " + diffLl //
-		//				+ "\n\tll.alt         : " + lrAlt.logLikelihood() //
-		//				+ "\n\tll.null        : " + lrNull.logLikelihood() //
-		//				+ "\n\tdet(H_alt)     : " + detH1 //
-		//				+ "\n\tdet(H_null)    : " + detH0 //
-		//				);
-
 		return bayesFactorLogReg;
 	}
 
@@ -89,13 +80,25 @@ public class GwasResult {
 
 	@Override
 	public String toString() {
+		String modelStr = "";
+
+		// Show LR model
+		double llt = logLik();
+		if (logLikelihoodLogReg >= LL_SHOW_LOGREG_MODEL) {
+			modelStr = "\n\tAlt  : " + Gpr.toString(lrAlt.getTheta()) //
+					+ "\n\tNull :             " + Gpr.toString(lrNull.getTheta()) //
+					;
+		}
+
 		return "log(BF): " + log10BayesFactor //
 				+ "\tp-value(LogReg): " + pvalueLogReg //
-				+ "\tll_total: " + logLik() //
+				+ "\tll_total: " + llt //
 				+ "\tll_LogReg: " + logLikelihoodLogReg //
 				+ "\tll_MSA: " + logLikelihoodMsa //
 				+ "\t" + idI //
-				+ "\t" + idJ;
+				+ "\t" + idJ //
+				+ modelStr //
+				;
 
 	}
 }
