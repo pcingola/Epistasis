@@ -329,6 +329,7 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "gwas":
+			cpus = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			qMatrixFile = args[argNum++];

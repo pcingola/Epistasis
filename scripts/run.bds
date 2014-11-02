@@ -359,8 +359,8 @@ for( int i=0 ; i < numSplits ; i++ ) {
 		println "\t$i $j / $numSplits"
 		gwas := "$dir/gwas.$numSplits.$i.$j.txt"
 
-		task( gwas <- [likAll, vcf, pheno], cpus := 4 ) {
-			sys $cmdEpistasisXL gwas $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwas
+		task( gwas <- [likAll, vcf, pheno] ) {
+			sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwas
 		}
 	}
 }
