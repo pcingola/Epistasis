@@ -38,6 +38,10 @@ public class Genotype extends Marker {
 		return aaIdx;
 	}
 
+	public String getAnnotataions() {
+		return annotataions;
+	}
+
 	public byte[] getGt() {
 		return gt;
 	}

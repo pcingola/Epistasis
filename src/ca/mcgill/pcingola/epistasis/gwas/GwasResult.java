@@ -14,7 +14,6 @@ public class GwasResult {
 
 	public static double LL_SHOW_LOGREG_MODEL = 6.0;
 
-	public String idI, idJ; // Genotype data 'IDs'
 	public Genotype genoi, genoj;
 	byte gtij[]; // Genotype data used to fit the logistic regression
 
@@ -82,13 +81,16 @@ public class GwasResult {
 
 	@Override
 	public String toString() {
-		String modelStr = "";
+		String additionalStr = "";
 
 		// Show LR model
 		double llt = logLik();
 		if (logLikelihoodLogReg >= LL_SHOW_LOGREG_MODEL) {
-			modelStr = "\n\tAlt  : " + Gpr.toString(lrAlt.getTheta()) //
+			additionalStr = "\t" + genoi.getAnnotataions() //
+					+ "\t" + genoj.getAnnotataions() //
+					+ "\n\tAlt  : " + Gpr.toString(lrAlt.getTheta()) //
 					+ "\n\tNull :             " + Gpr.toString(lrNull.getTheta()) //
+
 			;
 		}
 
@@ -97,9 +99,9 @@ public class GwasResult {
 				+ "\tll_total: " + llt //
 				+ "\tll_LogReg: " + logLikelihoodLogReg //
 				+ "\tll_MSA: " + logLikelihoodMsa //
-				+ "\t" + idI //
-				+ "\t" + idJ //
-				+ modelStr //
+				+ "\t" + genoi.getId() //
+				+ "\t" + genoj.getId() //
+				+ additionalStr //
 		;
 
 	}
