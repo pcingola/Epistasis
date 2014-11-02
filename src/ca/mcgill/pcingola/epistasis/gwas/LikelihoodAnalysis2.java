@@ -335,9 +335,17 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + lrAlt + "\n\tModel Null : " + lrNull : "") //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
-		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + id + "\n\tLL.null: " + lrNull + "\n\tLL.alt: " + lrAlt);
+		} else {
+			// Show error
+			Gpr.debug("ERROR: Likelihood ratio is infinite! ID: " + id //
+					+ "\n\tLR.null : " + lrNull //
+					+ "\n\tLR.alt  : " + lrAlt //
+					+ "\n\tLL.null : " + llNull //
+					+ "\n\tLL.alt  : " + llAlt //
+			);
+		}
 
 		countModel(lrAlt);
 
@@ -373,17 +381,17 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		//---
 
 		IntStream.range(0, keys.size()) //
-		.parallel() //
-		.forEach(i -> {
-			for (int j = i + 1; j < keys.size(); j++) {
-				String keyi = keys.get(i);
-				String keyj = keys.get(j);
-				Genotype gti = gtByKey.get(keyi);
-				Genotype gtj = gtByKey.get(keyj);
+				.parallel() //
+				.forEach(i -> {
+					for (int j = i + 1; j < keys.size(); j++) {
+						String keyi = keys.get(i);
+						String keyj = keys.get(j);
+						Genotype gti = gtByKey.get(keyi);
+						Genotype gtj = gtByKey.get(keyj);
 
-				logLikelihood(gti, gtj);
-			}
-		});
+						logLikelihood(gti, gtj);
+					}
+				});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 
