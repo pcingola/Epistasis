@@ -2,6 +2,8 @@
 
 use strict;
 
+my($BF) = 0;
+
 #-------------------------------------------------------------------------------
 # Simplify annotations
 #-------------------------------------------------------------------------------
@@ -13,7 +15,7 @@ sub annotate($) {
 	foreach $ann ( @anns ) {
 		# Format example
 		# 		NON_SYNONYMOUS_CODING(MODERATE|MISSENSE|cGc/cCc|R433P|714|CAPN1|protein_coding|CODING|ENST00000279247|11|1)
-		if( $ann =~ /(.+)\(.*\|.*\|.*\|.*\|.*\|(.*)\|.*\|.*\|.*\|.*\|.*\)/ ) {
+		if( $ann =~ /(.+)\(.*?\|.*?\|.*?\|.*?\|.*?\|(.*?)\|.*/ ) {
 			($eff, $gene) = ($1, $2);
 			$effs{$eff} = 1;
 			$genes{$gene} = 1;
@@ -81,15 +83,21 @@ sub shared($$) {
 my($l, $ann1Str, $ann2Str, $share, $bf, $pva, $ll, $lllr, $llmsa, $id1, $id2, $ann1, $ann2);
 while( $l = <STDIN> ) {
 	chomp $l;
-	#($bf, $pva, $ll, $lllr, $llmsa, $id1, $id2, $ann1, $ann2) = split /\t/, $l;
-	($pva, $ll, $lllr, $llmsa, $id1, $id2, $ann1, $ann2) = split /\t/, $l;
+
+	if( $BF ) {
+		($bf, $pva, $ll, $lllr, $llmsa, $id1, $id2, $ann1, $ann2) = split /\t/, $l;
+	} else {
+		($pva, $ll, $lllr, $llmsa, $id1, $id2, $ann1, $ann2) = split /\t/, $l;
+	}
 
 	$ann1Str = annotate($ann1);
 	$ann2Str = annotate($ann2);
 
 	$share = shared($ann1Str, $ann2Str);
 
-	#print "$bf\t$pva\t$ll\t$lllr\t$llmsa\t$id1\t$id2\t$ann1Str\t$ann2Str\t$share\t$ann1\t$ann2\n";
-	print "$pva\t$ll\t$lllr\t$llmsa\t$id1\t$id2\t$ann1Str\t$ann2Str\t$share\t$ann1\t$ann2\n";
-
+	if( $BF ) {
+		print "$bf\t$pva\t$ll\t$lllr\t$llmsa\t$id1\t$id2\t$ann1Str\t$ann2Str\t$share\t$ann1\t$ann2\n";
+	} else {
+		print "$pva\t$ll\t$lllr\t$llmsa\t$id1\t$id2\t$ann1Str\t$ann2Str\t$share\t$ann1\t$ann2\n";
+	}
 }
