@@ -19,13 +19,51 @@ my( %genes );
 sub hasGenes($) {
 	my($genesStr) = @_;
 
-	my($g);
+	# Split gene 'string' to get individual genes
+	my($g, $s);
 	my(@t) = split /,/, $genesStr;
+
+	# Extract all gene sets from each gene
+	my %sets = ();
 	foreach $g ( @t ) {
-		if( $genes{$g} ne '' )	{ return 1; }
+		if( $genes{$g} ne '' )	{ 
+			my(@gsets) = split /,/, $genes{$g};
+			foreach $s ( @gsets ) { $sets{$s} = 1; } 
+		}
 	}
 
-	return 0;
+	# Join all 
+	return join(',', sort keys %sets );
+}
+
+#-------------------------------------------------------------------------------
+# Read GMT file
+#-------------------------------------------------------------------------------
+sub readGmt($) {
+	my($gmt) = @_;
+
+	open GENES, $gmt;
+
+	my ($l, $i);
+	while( $l = <GENES> ) {
+		# Split by tab
+		chomp $l;
+		my(@genes) = split /\t/, $l;
+
+		# First field is gene set name
+		my($setName) = $genes[0];
+
+		# Fields 3 and on are genes
+		for( $i=2 ; $i <= $#genes ; $i++ ) {
+			my($g) = $genes[$i];
+
+			# Append gene set name
+			if( $genes{$g} ne '' )	{ $genes{$g} .= ","; }
+			$genes{ $g } .= $setName;
+		}
+	}
+
+	close GENES;
 }
 
 #-------------------------------------------------------------------------------
@@ -38,20 +76,17 @@ my $genesFile = $ARGV[0];
 # Read genes
 die "Usage: cat gwas.20.BF.sort.ann.txt | ./filterGeneSet.pl genes_file.txt" if $genesFile eq '';
 
-open GENES, $genesFile;
-my $l;
-while( $l = <GENES> ) {
-	chomp $l;
-	$genes{$l} = 1;
-}
-close GENES;
+readGmt($genesFile);
 
 # Process STDIN
+my $l;
 while( $l = <STDIN> ) {
 	chomp $l;
 	my($bf, $pval, $lltot, $lllr, $llmsa, $id1, $id2, $genes1, $ann1, $genes2, $ann2, $genesShared, $anns1, $anns2 ) = split /\t/, $l;
 
 	# Filter lines
-	if( hasGenes($genes1) && hasGenes($genes2) ) { print "$l\n"; }
+	my($gs1) = hasGenes($genes1);
+	my($gs2) = hasGenes($genes2);
+	if(($gs1 ne '') && ($gs2 ne '')) { print "$l\t$gs1\t$gs2\n"; }
 	
 }
