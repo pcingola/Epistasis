@@ -2,7 +2,6 @@
 
 use strict;
 
-my($BF) = 0;
 
 #-------------------------------------------------------------------------------
 # Simplify annotations
@@ -80,6 +79,15 @@ sub shared($$) {
 # Main
 #-------------------------------------------------------------------------------
 
+# Parse command line options
+die "Usage: cat file.txt | gwasResultSimplifyAnnotations.pl {BF|MSA}" if $#ARGV < 0;
+
+my($BF) = 0;
+if( $ARGV[0] eq 'BF' )	{ $BF = 1; }
+elsif( $ARGV[0] eq 'MSA' )	{ $BF = 0; }
+else { die "Unknown command line option '$ARGV[0]'\n"; }
+
+# Parse input
 my($l, $ann1Str, $ann2Str, $share, $bf, $pva, $ll, $lllr, $llmsa, $id1, $id2, $ann1, $ann2);
 while( $l = <STDIN> ) {
 	chomp $l;
