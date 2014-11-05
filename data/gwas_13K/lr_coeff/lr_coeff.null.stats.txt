@@ -1,0 +1,109 @@
+
+Coefficient: 1
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-2.563000 -0.059000  0.000620  0.003527  0.062000  5.211000 
+std: 0.315277 
+null device 
+          1 
+
+Coefficient: 2
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-5.196000 -0.057000  0.000549  0.003642  0.060000  2.531000 
+std: 0.3122854 
+null device 
+          1 
+
+Coefficient: 3
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-4.2320  0.1620  0.3100  0.3037  0.4550  8.0750 
+std: 0.4013971 
+null device 
+          1 
+
+Coefficient: 4
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -1.150   3.950   4.071   4.078   4.189   7.438 
+std: 0.3251988 
+null device 
+          1 
+
+Coefficient: 5
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -3.085   1.410   1.484   1.471   1.549   5.803 
+std: 0.187815 
+null device 
+          1 
+
+Coefficient: 6
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -6.259  -3.648  -3.590  -3.594  -3.539  -1.057 
+std: 0.1608169 
+null device 
+          1 
+
+Coefficient: 7
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  0.617   5.156   5.210   5.190   5.251  12.440 
+std: 0.1868162 
+null device 
+          1 
+
+Coefficient: 8
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -5.501  -3.451  -3.414  -3.423  -3.386  -0.143 
+std: 0.1118194 
+null device 
+          1 
+
+Coefficient: 9
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-3.7850  0.1050  0.1370  0.1176  0.1560  2.9380 
+std: 0.1332349 
+null device 
+          1 
+
+Coefficient: 10
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -0.013   1.246   1.269   1.281   1.303   4.829 
+std: 0.1046551 
+null device 
+          1 
+
+Coefficient: 11
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+ -0.737   1.593   1.617   1.622   1.641   4.741 
+std: 0.1015294 
+null device 
+          1 
+
+Coefficient: 12
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  3.838   6.219   6.241   6.238   6.262   9.915 
+std: 0.1013885 
+null device 
+          1 
+
+Coefficient: 13
+   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+-0.1640 -0.1200 -0.1200 -0.1195 -0.1190 -0.0950 
+std: 0.001150352 
+null device 
+          1 
+
+Coefficient: 14
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-0.125000 -0.005700 -0.005400 -0.005235 -0.005200  0.073000 
+std: 0.002384066 
+null device 
+          1 
+
+Coefficient: 15
+    Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+-0.07300  0.01200  0.01900  0.01965  0.02700  0.13700 
+std: 0.01646428 
+null device 
+          1 
+
+Coefficient: 16
+
+Coefficient: 17
