@@ -310,6 +310,9 @@ public class InteractionLikelihood {
 		return logLikelihoodRatioStr(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
+	public void likelihoodVcf(String vcfFile) {
+	}
+
 	void loadTree(String phyloFileName) {
 		Timer.showStdErr("Loading phylogenetic tree from " + phyloFileName);
 		tree = new LikelihoodTreeAa();
