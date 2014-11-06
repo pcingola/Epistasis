@@ -101,7 +101,7 @@ public class InteractionLikelihood {
 				+ "\thas_negative_off_diagonal_entries:\t" + Q.hasNegativeOffDiagonalEntries() //
 				+ "\tis_zero:\t" + Q.isZero() //
 				+ "\tis_symmetric:\t" + Q.isSymmetric() //
-				);
+		);
 	}
 
 	/**
@@ -127,7 +127,7 @@ public class InteractionLikelihood {
 				+ "\thas_negative_off_diagonal_entries:\t" + Q2.hasNegativeOffDiagonalEntries() //
 				+ "\tis_zero:\t" + Q2.isZero() //
 				+ "\tis_symmetric:\t" + Q2.isSymmetric() //
-				);
+		);
 
 	}
 
@@ -143,7 +143,7 @@ public class InteractionLikelihood {
 				.filter(tid -> msas.getMsasByTrId(tid) != null) //
 				.flatMap(tid -> msas.getMsasByTrId(tid).stream()) //
 				.collect(Collectors.toSet()) //
-				;
+		;
 		return set;
 	}
 
@@ -194,9 +194,9 @@ public class InteractionLikelihood {
 		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihoods");
 		aaContacts.parallelStream() //
-		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
-		.map(d -> logLikelihoodRatioStr(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
-		.forEach(System.out::println) //
+				.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+				.map(d -> logLikelihoodRatioStr(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2, false)) //
+				.forEach(System.out::println) //
 		;
 	}
 
@@ -241,11 +241,11 @@ public class InteractionLikelihood {
 
 		// Calculate likelihoods
 		geneLines.parallelStream() //
-		.forEach(str -> {
-			String f[] = str.split("\t");
-			String g1 = f[0], g2 = f[1];
-			logLikelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
-		} //
+				.forEach(str -> {
+					String f[] = str.split("\t");
+					String g1 = f[0], g2 = f[1];
+					logLikelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
+					} //
 				);
 	}
 
@@ -272,8 +272,8 @@ public class InteractionLikelihood {
 		// Calculate likelihoods
 		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
 		IntStream.range(0, numSamples).parallel() //
-		.mapToObj(i -> likelihoodRatioRand()) // Calculate likelihood
-		.forEach(System.out::println);
+				.mapToObj(i -> likelihoodRatioRand()) // Calculate likelihood
+				.forEach(System.out::println);
 	}
 
 	/**
@@ -333,8 +333,8 @@ public class InteractionLikelihood {
 		ArrayList<VcfEntry> ves = new ArrayList<VcfEntry>();
 		int n = 1;
 		for (VcfEntry ve : vcf)
-			if (n++ % numSplits == 0) ves.add(ve);
-		Timer.showStdErr("Done. Added " + ves.size() + " entries.");
+			if (n++ % numSplits == split) ves.add(ve);
+		Timer.showStdErr("Done reading VCF (split " + split + "/" + numSplits + " ). Added " + ves.size() + " entries.");
 
 		// Create directory
 		String dirName = Gpr.dirName(vcfFile) + "/likelihood.vcf";
@@ -342,11 +342,11 @@ public class InteractionLikelihood {
 
 		// Process entries
 		ves.stream() //
-		.parallel() //
-		.filter(ve -> !msas.query(ve).isEmpty()) // Only use entries that can be mapped
-		.map(ve -> new GenotypePos(ve)) // Convert to genotyping position
-		.filter(gp -> gp.map2MsaAa(pdbGenomeMsas)) // Successfully mapped to MSA ?
-		.forEach(gp -> logLikelihoodGenomicPosVsTranscript(dirName, gp)) // Calculate likelihood
+				.parallel() //
+				.filter(ve -> !msas.query(ve).isEmpty()) // Only use entries that can be mapped
+				.map(ve -> new GenotypePos(ve)) // Convert to genotyping position
+				.filter(gp -> gp.map2MsaAa(pdbGenomeMsas)) // Successfully mapped to MSA ?
+				.forEach(gp -> logLikelihoodGenomicPosVsTranscript(dirName, gp)) // Calculate likelihood
 		;
 	}
 
@@ -520,7 +520,7 @@ public class InteractionLikelihood {
 				+ "\t" + likNull //
 				+ "\t" + likAlt //
 				+ seqsStr //
-				;
+		;
 	}
 
 	public String logLikelihoodRatioStr(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
@@ -544,14 +544,14 @@ public class InteractionLikelihood {
 
 		// Pre-calculate Q's exponentials
 		times.parallelStream() //
-		.peek(t -> System.err.println("Matrix\tdim:" + Q.getRowDimension() + "x" + Q.getColumnDimension() + "\tExp(" + t + ")")) //
-		.forEach(t -> Q.matrix(t)) //
+				.peek(t -> System.err.println("Matrix\tdim:" + Q.getRowDimension() + "x" + Q.getColumnDimension() + "\tExp(" + t + ")")) //
+				.forEach(t -> Q.matrix(t)) //
 		;
 
 		// Calculate all gene-gene
 		(cpus == 1 ? times.stream() : times.parallelStream()) //
-		.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "x" + Q2.getColumnDimension() + "\tExp(" + t + ")")) //
-		.forEach(t -> Q2.matrix(t)) //
+				.peek(t -> System.err.println("Matrix\tdim:" + Q2.getRowDimension() + "x" + Q2.getColumnDimension() + "\tExp(" + t + ")")) //
+				.forEach(t -> Q2.matrix(t)) //
 		;
 	}
 
