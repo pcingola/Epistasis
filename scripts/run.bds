@@ -387,9 +387,11 @@ if( step6 ) {
 }
 
 # Do ClinVar entries have better LL_MSA than 'null'
+println "\nLogLikelihood of MSA (interaction) using ClinVar entries"
 clinVar := "$dir/clinvar-latest.pass.vcf.gz"
 numSplits := 100
 for( int i=0 ; i < numSplits ; i++ ) {
+	println "\t$i / $numSplits"
 	clinVarOut := "$dir/likelihood.clinvar.$numSplits.$i.txt"
 	task( clinVarOut <- [clinVar, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
 		sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar $numSplits $i > $clinVarOut
