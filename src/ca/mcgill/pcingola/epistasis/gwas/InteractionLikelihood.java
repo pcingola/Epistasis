@@ -336,7 +336,7 @@ public class InteractionLikelihood {
 		Timer.showStdErr("Done. Added " + ves.size() + " entries.");
 
 		// Create directory
-		String dirName = Gpr.dirName(vcfFile) + "/likelyhood.vcf";
+		String dirName = Gpr.dirName(vcfFile) + "/likelihood.vcf";
 		(new File(dirName)).mkdirs();
 
 		// Process entries 		
@@ -425,9 +425,6 @@ public class InteractionLikelihood {
 		// Compare position from VCF against ALL other possitions in the transcript
 		for (MultipleSequenceAlignment msaTr : msasTr) {
 			for (int aaIdxTr = 0; aaIdxTr < msaTr.length(); aaIdxTr++) {
-				// Skip same position
-				if (aaIdxVcf == aaIdxTr && msaTr.getId().equals(msaVcf.getId())) continue;
-
 				String res = logLikelihoodRatioStr(msaVcf, aaIdxVcf, msaTr, aaIdxTr, true);
 
 				// Show & update output
