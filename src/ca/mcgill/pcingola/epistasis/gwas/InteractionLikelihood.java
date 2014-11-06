@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -15,6 +16,7 @@ import java.util.stream.IntStream;
 import org.apache.commons.math3.linear.RealVector;
 
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
+import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -333,13 +335,17 @@ public class InteractionLikelihood {
 			ves.add(ve);
 		Timer.showStdErr("Done. Added " + ves.size() + " entries.");
 
-		// Process entries 
+		// Create directory
+		String dirName = Gpr.dirName(vcfFile) + "/likelyhood.vcf";
+		(new File(dirName)).mkdirs();
+
+		// Process entries 		
 		ves.stream() //
 				.parallel() // 
 				.filter(ve -> !msas.query(ve).isEmpty()) // Only use entries that can be mapped
 				.map(ve -> new GenotypePos(ve)) // Convert to genotyping position
 				.filter(gp -> gp.map2MsaAa(pdbGenomeMsas)) // Successfully mapped to MSA ?
-				.forEach(gp -> logLikelihoodGenomicPosVsTranscript(gp)) // Calculate likelihood 
+				.forEach(gp -> logLikelihoodGenomicPosVsTranscript(dirName, gp)) // Calculate likelihood 
 		;
 	}
 
@@ -399,7 +405,10 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate all likelihoods between a genomic position 'gp' and the rest of AAs in the transcript
 	 */
-	void logLikelihoodGenomicPosVsTranscript(GenotypePos gp) {
+	void logLikelihoodGenomicPosVsTranscript(String dirName, GenotypePos gp) {
+		StringBuilder out = new StringBuilder();
+		String fileName = dirName + "/" + gp.getId().replace(':', '_').replace('-', '_').replace('/', '_') + ".txt";
+
 		// Find transcript
 		MultipleSequenceAlignment msaVcf = msas.getMsa(gp.getMsaId());
 		int aaIdxVcf = gp.getAaIdx();
@@ -408,6 +417,11 @@ public class InteractionLikelihood {
 		// Get all MSAs for this transcript
 		List<MultipleSequenceAlignment> msasTr = msas.getMsasByTrId(trId);
 
+		// Sort them according to genomic coordinates
+		Transcript tr = pdbGenomeMsas.getTranscript(trId);
+		if (tr.isStrandPlus()) Collections.sort(msasTr);
+		else Collections.sort(msasTr, Collections.reverseOrder());
+
 		// Compare position from VCF against ALL other possitions in the transcript
 		for (MultipleSequenceAlignment msaTr : msasTr) {
 			for (int aaIdxTr = 0; aaIdxTr < msaTr.length(); aaIdxTr++) {
@@ -415,9 +429,17 @@ public class InteractionLikelihood {
 				if (aaIdxVcf == aaIdxTr && msaTr.getId().equals(msaVcf.getId())) continue;
 
 				String res = logLikelihoodRatioStr(msaVcf, aaIdxVcf, msaTr, aaIdxTr, true);
-				System.out.println(gp.getId() + "\t" + res);
+
+				// Show & update output
+				String outLine = gp.getId() + "\t" + res;
+				System.out.println(outLine);
+				out.append(outLine + "\n");
 			}
 		}
+
+		// Save to file
+		Timer.showStdErr("Writing file '" + fileName + "'");
+		Gpr.toFile(fileName, out);
 	}
 
 	/**

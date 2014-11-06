@@ -77,7 +77,7 @@ public class GenotypePos extends Marker {
 							+ "\n\tMarker            : " + m.toStr() //
 							+ "\n\tmsa.Id            : " + msaId //
 							+ "\n\tmsa.aaIdx         : " + aaIdx //
-					);
+							);
 				} else {
 					this.msaId = msaId;
 					this.aaIdx = aaIdx;

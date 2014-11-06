@@ -327,6 +327,10 @@ public class PdbGenomeMsas extends SnpEff {
 		return msas;
 	}
 
+	public Transcript getTranscript(String trId) {
+		return trancriptById.get(trId);
+	}
+
 	/**
 	 * Load all data
 	 */
