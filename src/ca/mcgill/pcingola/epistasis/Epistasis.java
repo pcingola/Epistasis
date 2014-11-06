@@ -415,9 +415,9 @@ public class Epistasis implements CommandLine {
 			aaFreqsContactFile = args[argNum++];
 			configFile = args[argNum++];
 			genome = args[argNum++];
+			vcfFile = args[argNum++];
 			numSplits = Gpr.parseIntSafe(args[argNum++]);
 			int split = Gpr.parseIntSafe(args[argNum++]);
-			vcfFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = false;
 			runLikelihoodVcf(vcfFile, numSplits, split);
