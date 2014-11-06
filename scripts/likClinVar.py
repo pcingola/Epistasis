@@ -27,24 +27,7 @@ for l in sys.stdin:
 	if ll < 0: llr = "0"
 
 	# Add to map
-	out = "\t".join( (trid1, start1, end1, aaidx1, trid2, start2, end2, aaidx2, llr, llnull, llalt) ) + "\n"
-	if vcfId in linesByvcfId:
-		linesByvcfId[ vcfId ] += out 
-	else:
-		print "\t%d\t%d\t%s" % ( len(linesByvcfId), count, vcfId )
-		firstLine = "\t".join( (trid1, start1, end1, aaidx1, trid1, start1, end1, aaidx1, "-1", "0", "0") ) + "\n"
-		linesByvcfId[ vcfId ] = firstLine + out
+	if( msa1 == msa2 ): out = "\t".join( (trid1, start1, end1, aaidx1, trid2, start2, end2, aaidx2, llr, llnull, llalt) ) + "\n"
+	else: out = "\t".join( (trid1, start1, end1, aaidx1, trid2, start2, end2, aaidx2, "-1", llnull, llalt) ) + "\n"
 
 	count += 1
-	
-# Show results
-print "Writing results:"
-for vcfId in linesByvcfId:
-	# Write to a file
-	fileName = vcfId.replace(":","_").replace("/","_") + ".txt"
-	f = open(fileName, 'w')
-	f.write(linesByvcfId[vcfId])
-	f.close()
-
-	print fileName
-
