@@ -8,13 +8,20 @@
 
 debug			:= false
 timeout			:= 5 * day
-system			:= 'cluster'
+#system			:= 'cluster'
 cpus			:= ( system == 'local' ? 24 : 4 )
 
-snpEffDir		:= "$HOME/snpEff"
-dir				:= "$snpEffDir/epistasis"
+# Which step/s to perform
+step1			:= false
+step2			:= false
+step3			:= false
+step4			:= false
+step5			:= false
+step6			:= false
 
 # Parameters
+snpEffDir		:= "$HOME/snpEff"
+dir				:= "$snpEffDir/epistasis"
 aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
 aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
 genome			:= "hg19"
@@ -25,6 +32,9 @@ llGeneLines		:=	5
 aaContact		:= "$dir/aa.contact.txt"
 aaContactSeq	:= "$dir/aa.contact.sequence.txt"
 aaContactBest	:= "$dir/aa.contact.best.txt"
+aaFreqs			:= "$dir/aa.frequencies.txt"
+aa2Freqs		:= "$dir/aa.contact.frequencies.txt"
+aaNextProt		:= "$dir/aa.contact.nextProt.txt"
 idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
@@ -123,247 +133,263 @@ string[] splitToFile( string[] list, string baseName, int linesPerFile) {
 # Part 1: Mapping between Pbd, MSA and genome
 #---
 
-# Confirm mappings between Pdb <-> Genome by making sure that 
-# protein sequences match (within cerain error rate)
-println "\nMap Pdb entries to transcripts: '$idMapConfirmed'"
-task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
-wait
+if( step1 ) {
+	# Confirm mappings between Pdb <-> Genome by making sure that 
+	# protein sequences match (within cerain error rate)
+	println "\nMap Pdb entries to transcripts: '$idMapConfirmed'"
+	task( idMapConfirmed <- [pdbDir, tree, msa, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap | tee $idMapConfirmed
+	wait
 
-# Calculate amino acids "in contact" within the same protein
-# using PDB atomic positions
-println "\nCalculate AA in contact within proteins: '$aaContact'"
-tmp := "$aaContact.tmp"
-task( aaContact <- [pdbDir, idMapConfirmed] ) {
-	sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed > $tmp
-	sys cat $tmp | grep "^AA_IN_CONTACT" | cut -f 2- | sort | uniq > $aaContact
+	# Calculate amino acids "in contact" within the same protein
+	# using PDB atomic positions
+	println "\nCalculate AA in contact within proteins: '$aaContact'"
+	tmp := "$aaContact.tmp"
+	task( aaContact <- [pdbDir, idMapConfirmed] ) {
+		sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed > $tmp
+		sys cat $tmp | grep "^AA_IN_CONTACT" | cut -f 2- | sort | uniq > $aaContact
+	}
+	wait
+
+	# Add MSA sequences to the previously calculated 'Aa in contact' file
+	println "\nAdd MSA information to AA in contact: '$aaContactSeq'"
+	task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
+	wait
+
+	# Find "best ID Mappings": For each gene, select one transcript and one PDB entry 
+	# that has longer Aa sequences (for PDB and transcript), as well as the 
+	# most 'AA in contact'
+	println "\nCalculate 'best' mapping: '$idMapBest'"
+	task( idMapBest <- [aaContactSeq, idMapConfirmed] )	sys $cmdEpistasis mapPdbGenomeBest $idMapConfirmed $aaContactSeq > $idMapBest
+	wait
+
+	# Filter AA in contact' file according to 'ID best map'
+	println "\nFilter 'AA in contact' using 'best' mapping: '$aaContactBest'"
+	task( aaContactBest <- [aaContactSeq, idMapBest] )	sys $cmdEpistasis aaFilterIdMap $idMapBest $aaContactSeq > $aaContactBest
+	wait
+
+	# Annotations of amino acids "in contact" using NextProt
+	println "\nAnnotating with NextProt: '$aaNextProt'"
+	task( aaNextProt <- aaContactBest )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapBest $aaContactBest > $aaNextProt
+	wait
 }
-wait
-
-# Add MSA sequences to the previously calculated 'Aa in contact' file
-println "\nAdd MSA information to AA in contact: '$aaContactSeq'"
-task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
-wait
-
-# Find "best ID Mappings": For each gene, select one transcript and one PDB entry 
-# that has longer Aa sequences (for PDB and transcript), as well as the 
-# most 'AA in contact'
-println "\nCalculate 'best' mapping: '$idMapBest'"
-task( idMapBest <- [aaContactSeq, idMapConfirmed] )	sys $cmdEpistasis mapPdbGenomeBest $idMapConfirmed $aaContactSeq > $idMapBest
-wait
-
-# Filter AA in contact' file according to 'ID best map'
-println "\nFilter 'AA in contact' using 'best' mapping: '$aaContactBest'"
-task( aaContactBest <- [aaContactSeq, idMapBest] )	sys $cmdEpistasis aaFilterIdMap $idMapBest $aaContactSeq > $aaContactBest
-wait
-
-# Annotations of amino acids "in contact" using NextProt
-aaNextProt := "$dir/aa.contact.nextProt.txt"
-println "\nAnnotating with NextProt: '$aaNextProt'"
-task( aaNextProt <- aaContactBest )	sys $cmdEpistasis nextprot $snpeffConfig $genomeEnsembl $idMapBest $aaContactBest > $aaNextProt
-wait
 
 #---
 # Part 2: Statistics, MI, VarInf
 #---
 
-# Calculate values (MI, VarInf, etc.) for AA sequeces 'in contact'
-for( string type : ['mi', 'varInf'] ) {
-	# Single base
-	aaStats := "$dir/aa.contact.$type.txt"
-	aaStatsSummary := "$dir/aa.contact.$type.summary.txt"
-	println "\nCalculating $type:\n\t'$aaStats'\n\t'$aaStatsSummary'"
-	task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
+if( step2 ) {
+	# Calculate values (MI, VarInf, etc.) for AA sequeces 'in contact'
+	for( string type : ['mi', 'varInf'] ) {
+		# Single base
+		aaStats := "$dir/aa.contact.$type.txt"
+		aaStatsSummary := "$dir/aa.contact.$type.summary.txt"
+		println "\nCalculating $type:\n\t'$aaStats'\n\t'$aaStatsSummary'"
+		task( aaStats <- aaNextProt )	sys $cmdEpistasis aaContactStats $type $aaNextProt > $aaStats 2> $aaStatsSummary
 
-	# Three bases
-	aaStats3 := "$dir/aa.contact.$type.3.txt"
-	aaStatsSummary3 := "$dir/aa.contact.$type.3.summary.txt"
-	println "\nCalculating $type (3 bases):\n\t'$aaStats3'\n\t'$aaStatsSummary3'"
-	task( aaStats3 <- aaNextProt )	sys $cmdEpistasis aaContactStatsN $type 1 $tree $msa $idMapBest $aaNextProt > $aaStats3 2> $aaStatsSummary3
-}
-wait
-
-# Create files for R
-println "Create R files"
-aaStats := "$dir/aa.contact.mi.txt"
-aaStatsR := "$dir/aa.contact.stats.txt";
-task( aaStatsR <- aaStats ) {
-	sys echo -e "mi\thxy\tvarinf\thcond.xy\thcond.yx\thx\thy\tcons.x\tcons.y" > $aaStatsR
-	sys cat $aaStats | cut -f 19- >> $aaStatsR
-}
-
-# Create R data files
-for( string type : ['mi', 'varInf'] ) {
-	aaStats3 := "$dir/aa.contact.$type.3.txt"
-	aaStats3R := "$dir/aa.contact.$type.3.vals.txt"
-
-	println "\nCreating R data file  $type (3 bases): '$aaStats3R'"
-	task( aaStats3R <- aaStats3 ) {
-		sys echo $type > $aaStats3R
-		sys cut -f 19 $aaStats3 >> $aaStats3R
+		# Three bases
+		aaStats3 := "$dir/aa.contact.$type.3.txt"
+		aaStatsSummary3 := "$dir/aa.contact.$type.3.summary.txt"
+		println "\nCalculating $type (3 bases):\n\t'$aaStats3'\n\t'$aaStatsSummary3'"
+		task( aaStats3 <- aaNextProt )	sys $cmdEpistasis aaContactStatsN $type 1 $tree $msa $idMapBest $aaNextProt > $aaStats3 2> $aaStatsSummary3
 	}
-}
-wait
-
-# Calculate background distribution for MI and VarInf
-for( string type : ['mi', 'varInf'] ) {
-	# Single base background model
-	bg := "$dir/bg.$type.summary.txt"
-	bgDetails := "$dir/bg.$type.details.txt"
-	println "\nCalculating background distribution ($bgNum iterations): '$bg'"
-	task( bgDetails <- [tree, msa] ) sys $cmdEpistasis background $type 0 $bgNum $tree $msa $idMapBest 2>$bg >$bgDetails
 	wait
 
-	# Three bases background model
-	bg3 := "$dir/bg.$type.3.summary.txt"
-	bg3Details := "$dir/bg.$type.3.details.txt"
-	println "\nCalculating background distribution ($bgNum iterations): '$bg3'"
-	task( bg3Details <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa $idMapBest 2>$bg3 >$bg3Details
+	# Create files for R
+	println "Create R files"
+	aaStats := "$dir/aa.contact.mi.txt"
+	aaStatsR := "$dir/aa.contact.stats.txt";
+	task( aaStatsR <- aaStats ) {
+		sys echo -e "mi\thxy\tvarinf\thcond.xy\thcond.yx\thx\thy\tcons.x\tcons.y" > $aaStatsR
+		sys cat $aaStats | cut -f 19- >> $aaStatsR
+	}
+
+	# Create R data files
+	for( string type : ['mi', 'varInf'] ) {
+		aaStats3 := "$dir/aa.contact.$type.3.txt"
+		aaStats3R := "$dir/aa.contact.$type.3.vals.txt"
+
+		println "\nCreating R data file  $type (3 bases): '$aaStats3R'"
+		task( aaStats3R <- aaStats3 ) {
+			sys echo $type > $aaStats3R
+			sys cut -f 19 $aaStats3 >> $aaStats3R
+		}
+	}
+	wait
+
+	# Calculate background distribution for MI and VarInf
+	for( string type : ['mi', 'varInf'] ) {
+		# Single base background model
+		bg := "$dir/bg.$type.summary.txt"
+		bgDetails := "$dir/bg.$type.details.txt"
+		println "\nCalculating background distribution ($bgNum iterations): '$bg'"
+		task( bgDetails <- [tree, msa] ) sys $cmdEpistasis background $type 0 $bgNum $tree $msa $idMapBest 2>$bg >$bgDetails
+		wait
+
+		# Three bases background model
+		bg3 := "$dir/bg.$type.3.summary.txt"
+		bg3Details := "$dir/bg.$type.3.details.txt"
+		println "\nCalculating background distribution ($bgNum iterations): '$bg3'"
+		task( bg3Details <- [tree, msa] ) sys $cmdEpistasis background $type 1 $bgNum $tree $msa $idMapBest 2>$bg3 >$bg3Details
+		wait
+	}
+
+	# Calculate conservation statistics for many AA windows sizes
+	aaCons := "$dir/aa.conservation.txt"
+	println "\nCalculating conservation: '$aaCons'"
+	task( aaCons <- [tree, msa, aaContactBest] )	sys $cmdEpistasis conservation $tree $msa $idMapBest $aaContactBest | tee $aaCons
+	wait
+
+	# Create a BED file from MSA coordinates. To show coverage, load this BED file in IGV.
+	msaBed := "$dir/" + msa.baseName().swapExt(".fa", ".bed")
+	println "\nCreatig BED file: '$msaBed'"
+	task( msaBed <- msa )	sys cat $msa | grep _hg19 | cut -f 5 -d " " | tr -d "+" | sed "s/-$//" | tr ":-" "\t\t" > $msaBed
 	wait
 }
-
-# Calculate conservation statistics for many AA windows sizes
-aaCons := "$dir/aa.conservation.txt"
-println "\nCalculating conservation: '$aaCons'"
-task( aaCons <- [tree, msa, aaContactBest] )	sys $cmdEpistasis conservation $tree $msa $idMapBest $aaContactBest | tee $aaCons
-wait
-
-# Create a BED file from MSA coordinates. To show coverage, load this BED file in IGV.
-msaBed := "$dir/" + msa.baseName().swapExt(".fa", ".bed")
-println "\nCreatig BED file: '$msaBed'"
-task( msaBed <- msa )	sys cat $msa | grep _hg19 | cut -f 5 -d " " | tr -d "+" | sed "s/-$//" | tr ":-" "\t\t" > $msaBed
-wait
 
 #---
 # Part 3: AA frequencies, Transitions matrices, AA-pairs transitions
 #---
 
-aaContactMISumm := "$dir/aa.contact.mi.summary.txt"
-aaContactVISumm := "$dir/aa.contact.varInf.summary.txt"
-aaCountMatrix := "$dir/aa.count.matrix.txt"
-aaMiMatrix := "$dir/aa.mi.matrix.txt"
-aaViMatrix := "$dir/aa.vi.matrix.txt"
-task( aaCountMatrix <- aaContactMISumm ) {
-	sys cat $aaContactMISumm | grep -w COUNT_AA                      | cut -f 2-  | tr "-" "\t" | $cmdTable2Matrix | tee $aaCountMatrix
-	sys cat $aaContactMISumm | grep -w COUNT_AA_NON_FULL_CONS_mi     | cut -f 2,5 | tr "-" "\t" | $cmdTable2Matrix | tee $aaMiMatrix
-	sys cat $aaContactVISumm | grep -w COUNT_AA_NON_FULL_CONS_varInf | cut -f 2,5 | tr "-" "\t" | $cmdTable2Matrix | tee $aaViMatrix
+if( step3 ) {
+	aaContactMISumm := "$dir/aa.contact.mi.summary.txt"
+	aaContactVISumm := "$dir/aa.contact.varInf.summary.txt"
+	aaCountMatrix := "$dir/aa.count.matrix.txt"
+	aaMiMatrix := "$dir/aa.mi.matrix.txt"
+	aaViMatrix := "$dir/aa.vi.matrix.txt"
+	task( aaCountMatrix <- aaContactMISumm ) {
+		sys cat $aaContactMISumm | grep -w COUNT_AA                      | cut -f 2-  | tr "-" "\t" | $cmdTable2Matrix | tee $aaCountMatrix
+		sys cat $aaContactMISumm | grep -w COUNT_AA_NON_FULL_CONS_mi     | cut -f 2,5 | tr "-" "\t" | $cmdTable2Matrix | tee $aaMiMatrix
+		sys cat $aaContactVISumm | grep -w COUNT_AA_NON_FULL_CONS_varInf | cut -f 2,5 | tr "-" "\t" | $cmdTable2Matrix | tee $aaViMatrix
+	}
+
+	# Calculate AA-pairs transitions for 'AA in contact'. Also calculate 'null' distribution
+	# Note: These are 400x400 matrices 
+	trM := "$dir/transitions.txt"
+	println "\nCalculating transitions ($bgNum iterations): '$trM'"
+	task( trM <- [tree, msa, aaContactBest] )	{
+		sys $cmdEpistasis transitions $bgNum $tree $msa $idMapBest $aaContactBest > $trM 
+		sys grep AA_SINGLE_IN_CONTACT $trM		| cut -f 2- > $dir/transitions.aa_single.in_contact.txt
+		sys grep AA_SINGLE_BG $trM				| cut -f 2- > $dir/transitions.aa_single.bg.txt
+		sys grep AA_PAIRS_IN_CONTACT $trM		| cut -f 2- > $dir/transitions.aa_pairs.in_contact.txt
+		sys grep AA_PAIRS_BG_RAND $trM			| cut -f 2- > $dir/transitions.aa_pairs.bg_rand.txt
+		sys grep AA_PAIRS_BG_WITHIN_PROT $trM	| cut -f 2- > $dir/transitions.aa_pairs.bg_within_prot.txt
+	}
+
+	wait
+
+	# Calculate AA frequencies
+	println "\nCalculating AA frequencies: '$aaFreqs'"
+	task( aaFreqs <- [tree, msa, idMapBest] )	sys $cmdEpistasis aaFreqs $tree $msa $idMapBest > $aaFreqs
+	wait
 }
-
-# Calculate AA-pairs transitions for 'AA in contact'. Also calculate 'null' distribution
-# Note: These are 400x400 matrices 
-trM := "$dir/transitions.txt"
-println "\nCalculating transitions ($bgNum iterations): '$trM'"
-task( trM <- [tree, msa, aaContactBest] )	{
-	sys $cmdEpistasis transitions $bgNum $tree $msa $idMapBest $aaContactBest > $trM 
-	sys grep AA_SINGLE_IN_CONTACT $trM		| cut -f 2- > $dir/transitions.aa_single.in_contact.txt
-	sys grep AA_SINGLE_BG $trM				| cut -f 2- > $dir/transitions.aa_single.bg.txt
-	sys grep AA_PAIRS_IN_CONTACT $trM		| cut -f 2- > $dir/transitions.aa_pairs.in_contact.txt
-	sys grep AA_PAIRS_BG_RAND $trM			| cut -f 2- > $dir/transitions.aa_pairs.bg_rand.txt
-	sys grep AA_PAIRS_BG_WITHIN_PROT $trM	| cut -f 2- > $dir/transitions.aa_pairs.bg_within_prot.txt
-}
-
-wait
-
-# Calculate AA frequencies
-aaFreqs := "$dir/aa.frequencies.txt"
-println "\nCalculating AA frequencies: '$aaFreqs'"
-task( aaFreqs <- [tree, msa, idMapBest] )	sys $cmdEpistasis aaFreqs $tree $msa $idMapBest > $aaFreqs
-wait
 
 #---
 # Part 4: Estimate transition matrices Q from sequence alignment and phylegenetic tree
 #---
 
-task( msaBest <- [tree, msa, idMapBest, idMapBest] ) sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msaBest
-wait 
+if( step4 ) {
+	task( msaBest <- [tree, msa, idMapBest, idMapBest] ) sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msaBest
+	wait 
 
-println "\nEstimate Q: '$qhat'"
-task( qhat <- [tree, msaBest, idMapBest, aaContactBest] )	{
-	sys $cmdEpistasis Qhat $tree $msaBest $idMapBest > $qhat.log
-	sys grep "^Q_HAT_MATRIX" $qhat.log | cut -f 2- > $qhat
-}
-wait
+	println "\nEstimate Q: '$qhat'"
+	task( qhat <- [tree, msaBest, idMapBest, aaContactBest] )	{
+		sys $cmdEpistasis Qhat $tree $msaBest $idMapBest > $qhat.log
+		sys grep "^Q_HAT_MATRIX" $qhat.log | cut -f 2- > $qhat
+	}
+	wait
 
-println "\nEstimate Q2 (400x400): '$qhat2'"
-aa2Freqs := "$dir/aa.contact.frequencies.txt"
-task( qhat2 <- [tree, msaBest, idMapBest, aaContactBest] ) {
-	sys $cmdEpistasis Qhat2 $tree $msaBest $idMapBest $aaContactBest > $qhat2.log
-	sys grep "^Q_HAT2_MATRIX" $qhat2.log | cut -f 2- > $qhat2
-	sys grep "^PI_AA_PAIR" $qhat2.log | cut -f 3,5 > $aa2Freqs
+	println "\nEstimate Q2 (400x400): '$qhat2'"
+	task( qhat2 <- [tree, msaBest, idMapBest, aaContactBest] ) {
+		sys $cmdEpistasis Qhat2 $tree $msaBest $idMapBest $aaContactBest > $qhat2.log
+		sys grep "^Q_HAT2_MATRIX" $qhat2.log | cut -f 2- > $qhat2
+		sys grep "^PI_AA_PAIR" $qhat2.log | cut -f 3,5 > $aa2Freqs
+	}
+	wait
 }
-wait
 
 #---
 # Part 5: Likelihood from epistatic model
 #---
 
-println "\nEstimate log-Likelihood: '$lik'"
-task( lik <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihood $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
-}
-wait
+if( step5 ) {
+	println "\nEstimate log-Likelihood: '$lik'"
+	task( lik <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis likelihood $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
+	}
+	wait
 
-println "\nEstimate log-Likelihood null distribution: $likNull"
-task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
-}
-wait
+	println "\nEstimate log-Likelihood null distribution: $likNull"
+	task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
+	}
+	wait
 
-#---
-# OBSOLETE: Not used
-#---
-# println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
-# if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
-# 	if( system == 'local' ) {
-# 		# Launch one process
-# 		task( likAll <- interactions ) {
-# 			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
-# 		}
-# 	} else {
-# 		# Split file
-# 		dirInter := "$dir/interactions"
-# 		dirGenesLike := "$dirInter/likelihood_genes"
-# 
-# 		# Read interactions and split into small files
-# 		pairs := readInteractions( interactions, dirGenesLike )
-# 
-# 		# Split into small lists
-# 		sys rm -vf $dirInter/genes_pairs_list.* || true
-# 		filesPairs := pairs.splitToFile( "$dirInter/genes_pairs_list.", llGeneLines )
-# 
-# 		# Launch a task for eah file
-# 		for( string filePairs : filesPairs ) {
-# 			out := "$dirGenesLike/likelihood." + filePairs.baseName()
-# 			println "\t$out"
-# 			task( out <- filePairs ) {
-# 				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $filePairs > $out
-# 			}
-# 		}
-# 	}
-# 
-# #	# Merge results
-# #	wait
-# #	sys cat $likAll.genes.list.* > $likAll
-# }
-# wait
+	#---
+	# OBSOLETE: Not used
+	#---
+	# println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
+	# if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
+	# 	if( system == 'local' ) {
+	# 		# Launch one process
+	# 		task( likAll <- interactions ) {
+	# 			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
+	# 		}
+	# 	} else {
+	# 		# Split file
+	# 		dirInter := "$dir/interactions"
+	# 		dirGenesLike := "$dirInter/likelihood_genes"
+	# 
+	# 		# Read interactions and split into small files
+	# 		pairs := readInteractions( interactions, dirGenesLike )
+	# 
+	# 		# Split into small lists
+	# 		sys rm -vf $dirInter/genes_pairs_list.* || true
+	# 		filesPairs := pairs.splitToFile( "$dirInter/genes_pairs_list.", llGeneLines )
+	# 
+	# 		# Launch a task for eah file
+	# 		for( string filePairs : filesPairs ) {
+	# 			out := "$dirGenesLike/likelihood." + filePairs.baseName()
+	# 			println "\t$out"
+	# 			task( out <- filePairs ) {
+	# 				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $filePairs > $out
+	# 			}
+	# 		}
+	# 	}
+	# 
+	# #	# Merge results
+	# #	wait
+	# #	sys cat $likAll.genes.list.* > $likAll
+	# }
+	# wait
+}
 
 #---
 # Part 6: GWAS
 #---
 
-println "\nGWAS analysis using epistasis data"
-println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
-numSplits := 20
+if( step6 ) {
+	println "\nGWAS analysis using epistasis data"
+	println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
+	numSplits := 20
 
-for( int i=0 ; i < numSplits ; i++ ) {
-	for( int j=i ; j < numSplits ; j++ ) {
-		println "\t$i $j / $numSplits"
-		gwasOut := "$dir/gwas.$numSplits.$i.$j.txt"
+	for( int i=0 ; i < numSplits ; i++ ) {
+		for( int j=i ; j < numSplits ; j++ ) {
+			println "\t$i $j / $numSplits"
+			gwasOut := "$dir/gwas.$numSplits.$i.$j.txt"
 
-		task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-			sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
+			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+				sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
+			}
 		}
 	}
 }
+
+clinVar := "$dir/clinvar-latest.pass.vcf.gz"
+clinVarOut := "$dir/likelihood.clinvar.txt"
+task( clinVarOut <- [clinVar, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+	sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar > $clinVarOut
+}
+
 
 # Done
 wait
