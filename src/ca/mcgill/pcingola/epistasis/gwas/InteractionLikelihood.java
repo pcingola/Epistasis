@@ -314,8 +314,10 @@ public class InteractionLikelihood {
 		return logLikelihoodRatioStr(msa1, msaIdx1, msa2, msaIdx2, false);
 	}
 
+	/**
+	 * Calculate likelihood using all entries in VCF file (within transcript likelihood)
+	 */
 	public void likelihoodVcf(String vcfFile, PdbGenomeMsas pdbGenomeMsas) {
-
 		// Build interval forest
 		msas.buildForest();
 
@@ -413,7 +415,7 @@ public class InteractionLikelihood {
 				if (aaIdxVcf == aaIdxTr && msaTr.getId().equals(msaVcf.getId())) continue;
 
 				String res = logLikelihoodRatioStr(msaVcf, aaIdxVcf, msaTr, aaIdxTr, true);
-				System.out.println(res);
+				System.out.println(gp.getId() + "\t" + res);
 			}
 		}
 	}
