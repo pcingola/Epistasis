@@ -415,10 +415,12 @@ public class Epistasis implements CommandLine {
 			aaFreqsContactFile = args[argNum++];
 			configFile = args[argNum++];
 			genome = args[argNum++];
+			numSplits = Gpr.parseIntSafe(args[argNum++]);
+			int split = Gpr.parseIntSafe(args[argNum++]);
 			vcfFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = false;
-			runLikelihoodVcf(vcfFile);
+			runLikelihoodVcf(vcfFile, numSplits, split);
 			break;
 
 		case "mappdbgenome":
@@ -829,11 +831,11 @@ public class Epistasis implements CommandLine {
 	 * Likelihood for all AA in geneName Pairs pairs in 'geneNamePairsFile'
 	 * File format: "gene1 \t gene2 \n" (spaces added for legibility)
 	 */
-	void runLikelihoodVcf(String vcfFile) {
+	void runLikelihoodVcf(String vcfFile, int numSplits, int split) {
 		load();
 
 		InteractionLikelihood il = newInteractionLikelihood();
-		il.likelihoodVcf(vcfFile, pdbGenomeMsas);
+		il.likelihoodVcf(vcfFile, pdbGenomeMsas, numSplits, split);
 	}
 
 	/**

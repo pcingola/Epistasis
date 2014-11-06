@@ -319,7 +319,7 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate likelihood using all entries in VCF file (within transcript likelihood)
 	 */
-	public void likelihoodVcf(String vcfFile, PdbGenomeMsas pdbGenomeMsas) {
+	public void likelihoodVcf(String vcfFile, PdbGenomeMsas pdbGenomeMsas, int numSplits, int split) {
 		// Build interval forest
 		msas.buildForest();
 
@@ -331,8 +331,9 @@ public class InteractionLikelihood {
 		Timer.showStdErr("Reading VCF file: " + vcfFile);
 		VcfFileIterator vcf = new VcfFileIterator(vcfFile);
 		ArrayList<VcfEntry> ves = new ArrayList<VcfEntry>();
+		int n = 1;
 		for (VcfEntry ve : vcf)
-			ves.add(ve);
+			if (n++ % numSplits == 0) ves.add(ve);
 		Timer.showStdErr("Done. Added " + ves.size() + " entries.");
 
 		// Create directory
