@@ -23,11 +23,10 @@ for l in sys.stdin:
 	(trid1, start1, end1, aaidx1) = msaIdParse(msa1)
 	(trid2, start2, end2, aaidx2) = msaIdParse(msa2)
 
-	ll = float(llr)
-	if ll < 0: llr = "0"
+	if  msa1 == msa2: llr = "-1"
+	elif float(llr) < 0: llr = "0"
 
 	# Add to map
-	if( msa1 == msa2 ): out = "\t".join( (trid1, start1, end1, aaidx1, trid2, start2, end2, aaidx2, llr, llnull, llalt) ) + "\n"
-	else: out = "\t".join( (trid1, start1, end1, aaidx1, trid2, start2, end2, aaidx2, "-1", llnull, llalt) ) + "\n"
+	print "\t".join( (trid1, start1, end1, aaidx1, trid2, start2, end2, aaidx2, llr, llnull, llalt) )
 
 	count += 1
