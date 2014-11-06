@@ -367,11 +367,13 @@ if( step5 ) {
 # Part 6: GWAS
 #---
 
+println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
+
 if( step6 ) {
 	println "\nGWAS analysis using epistasis data"
-	println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
 	numSplits := 20
 
+	# GWAs using interaction (MSA) data
 	for( int i=0 ; i < numSplits ; i++ ) {
 		for( int j=i ; j < numSplits ; j++ ) {
 			println "\t$i $j / $numSplits"
@@ -384,12 +386,15 @@ if( step6 ) {
 	}
 }
 
+# Do ClinVar entries have better LL_MSA than 'null'
 clinVar := "$dir/clinvar-latest.pass.vcf.gz"
-clinVarOut := "$dir/likelihood.clinvar.txt"
-task( clinVarOut <- [clinVar, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-	sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar > $clinVarOut
+numSplits := 100
+for( i=0 ; i < numSplits ; i++ ) {
+	clinVarOut := "$dir/likelihood.clinvar.$numSplits.$i.txt"
+	task( clinVarOut <- [clinVar, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+		sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar $numSplits $i > $clinVarOut
+	}
 }
-
 
 # Done
 wait
