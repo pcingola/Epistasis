@@ -24,7 +24,7 @@ public class GenotypePos extends Marker {
 	public static boolean debug = false;
 
 	protected String msaId = null; // MSA ID information
-	protected int aaIdx = -1; // MSA's amino acid index
+	protected int aaIdx = -1; // MSA's amino acid index. Note that aaIndex is respect to an MSA (which is an alignment of a single exon), and not respect to the whole AA sequence
 	protected String annotataions; // Annotations referring to this entry
 
 	public GenotypePos() {
@@ -144,10 +144,12 @@ public class GenotypePos extends Marker {
 		String trId = msa.getTranscriptId();
 		Transcript tr = pdbGenomeMsas.getTranscript(trId);
 		if (tr == null) return "Transcript '" + trId + "' not found";
-		if (!tr.getChromosomeName().equals(msa.getChromosomeName())) return "Transcript's chromsome ('" + tr.getChromosomeName() + "') does not match MSA's chromosome ('" + msa.getChromosomeName() + "')";
+		if (!tr.intersects(msa)) return "Transcript and MSA do not intersect: " + tr.toStr() + ", " + msa.toStr();
 
 		// Find genomic position based on AA position
 		int aa2pos[] = tr.aaNumber2Pos();
+
+		Gpr.debug("WRONG!!! This aaIDx refers to EXON, not to WHOLE AA SEQUENCE!");
 		if (aa2pos.length <= aaIdx) return "AA index out of range (aaIdx: " + aaIdx + ", protein length: " + aa2pos.length + ")"; // aaIdx Outside transcript
 
 		// Convert to genomic positions
@@ -175,12 +177,21 @@ public class GenotypePos extends Marker {
 
 		String trid = msa.getTranscriptId();
 		Transcript tr = pdbGenomeMsas.getTranscript(trid);
+
+		// Return column index
+		return mapMsaTrPos2AaIdx(msa, tr, pos);
+	}
+
+	/**
+	 * Map a genomic position to an MSA index (given the Transcript and the MSA)
+	 * @return -1 on failure
+	 */
+	int mapMsaTrPos2AaIdx(MultipleSequenceAlignment msa, Transcript tr, int pos) {
 		if (tr == null) return -1;
 
 		// Check all MSA
 		// Different chromosome or position? Skip
-		if (!msa.getChromosomeName().equals(tr.getChromosomeName())) return -1;
-		if (pos < msa.getStart() || msa.getEnd() < pos) return -1;
+		if (!msa.intersects(tr)) return -1;
 
 		// Find exon
 		Exon exon = tr.findExon(pos);
@@ -225,20 +236,9 @@ public class GenotypePos extends Marker {
 			// Does this MSA intersect chr:pos?
 			if (!msa.intersects(this)) continue;
 
-			// Find exon
-			Exon exon = tr.findExon(pos);
-			if (exon == null) {
-				Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
-				return false;
-			}
-
-			// Find index
-			int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
-			int idxAa = idxBase / 3;
-
-			// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
-			//          I don't know why they do it this way...
-			if (exon.getFrame() == 1) idxAa++;
+			// Find aaIndx
+			int idxAa = mapMsaTrPos2AaIdx(msa, tr, pos);
+			if (idxAa < 0) return false;
 
 			// OK
 			aaIdx = idxAa;

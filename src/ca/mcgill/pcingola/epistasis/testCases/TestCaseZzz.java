@@ -57,7 +57,7 @@ public class TestCaseZzz extends TestCase {
 		//---
 		// Test N times
 		//---
-		int N = 10;
+		int N = 1;
 
 		for (int i = 0; i < N;) {
 			// Step i: Select a random <msaId, aaIdx>
