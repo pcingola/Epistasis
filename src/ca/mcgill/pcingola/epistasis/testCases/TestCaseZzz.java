@@ -21,7 +21,7 @@ import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 public class TestCaseZzz extends TestCase {
 
 	public static boolean debug = false;
-	public static boolean verbose = true || debug;
+	public static boolean verbose = false || debug;
 
 	public void test_05_Gwas_Map_RoundTrip() {
 		// Create a atest to map using
@@ -39,7 +39,6 @@ public class TestCaseZzz extends TestCase {
 		String genome = "testHg19Chr1";
 		String phyloFileName = "data/hg19.100way.nh";
 		String msasFile = "data/msa_test.fa.gz";
-		//		String msasFile = "data/hm1.fa";
 		String pdbDir = ""; // Not used
 
 		LikelihoodTreeAa tree = new LikelihoodTreeAa();
@@ -57,7 +56,7 @@ public class TestCaseZzz extends TestCase {
 		//---
 		// Test N times
 		//---
-		int N = 1000;
+		int N = 100000;
 
 		for (int i = 0; i < N;) {
 			// Step i: Select a random <msaId, aaIdx>
@@ -68,9 +67,9 @@ public class TestCaseZzz extends TestCase {
 			// Sanity check: Do protein sequences match? (transcript vs MSA)
 			if (!pdbGenomeMsas.checkSequenceGenomeMsas(trId)) {
 				if (pdbGenomeMsas.getTranscript(trId) != null) {
-					Gpr.debug("Sequences differ:" //
-							+ "\n\tMSA AA sequence       : " + msas.rowSequence(trId) //
-							+ "\n\tTranscript AA sequence: " + pdbGenomeMsas.getTranscript(trId).protein() //
+					if (debug) Gpr.debug("AA Sequences differ:" //
+							+ "\n\tMSA        : " + msas.rowSequence(trId) //
+							+ "\n\tTranscript : " + pdbGenomeMsas.getTranscript(trId).protein() //
 					);
 				}
 				continue;

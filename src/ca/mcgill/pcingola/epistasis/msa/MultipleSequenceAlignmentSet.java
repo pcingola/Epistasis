@@ -250,6 +250,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 * Load MSAs from a FASTA file
 	 */
 	public void load() {
+		Timer.showStdErr("Loading MSA from '" + sequenceAlignmentFile + "'");
 		LineFileIterator lif = new LineFileIterator(sequenceAlignmentFile);
 		Genome genome = new Genome();
 

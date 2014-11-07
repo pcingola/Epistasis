@@ -104,7 +104,7 @@ public class GenotypePos extends Marker {
 						+ "\n\tMarker            : " + m.toStr() //
 						+ "\n\tmsa.Id            : " + msaId //
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
-				);
+						);
 			} else {
 				// Found it!
 				this.msaId = msaId;
@@ -173,14 +173,23 @@ public class GenotypePos extends Marker {
 		parent = tr.getChromosome();
 
 		// Does this position match MSA coordinates?
-		if (!msa.intersects(this)) { //
-			return "Calculated genomic positions '" + tr.getChromosomeName() + ":" + start + "' in not included in MSA coordinates " + msa.getChromosomeName() + ":" + msa.getStart() + "-" + msa.getEnd();
-		}
+		if (!msa.intersects(this)) return "Calculated genomic positions '" + tr.getChromosomeName() + ":" + start + "' in not included in MSA coordinates " + msa.getChromosomeName() + ":" + msa.getStart() + "-" + msa.getEnd();
 
 		// Check AA sequence
 		String protein = tr.protein();
 		if (aaSeqIndex > protein.length()) return "AA sequence index (aaSeqIndex: " + aaSeqIndex + ") outside AA sequence (length: " + protein.length() + ")";
-		if (protein.charAt(aaSeqIndex) != msa.getChar(0, aaIdx)) return "AA from MSA ('" + msa.getChar(0, aaIdx) + "') does not match AA from protein ('" + protein.charAt(aaSeqIndex) + "')";
+
+		// Different AA sequence?
+		char aaTr = protein.charAt(aaSeqIndex);
+		char aaMsa = msa.getChar(0, aaIdx);
+		if (aaTr != aaMsa) {
+			if ((aaTr == '*') && (aaMsa == '-')) {
+				// Stop codons are represented using different chars, so this one is OK
+			} else {
+				// All other ones are considered errors
+				return "AA from MSA ('" + msa.getChar(0, aaIdx) + "') does not match AA from protein ('" + protein.charAt(aaSeqIndex) + "')";
+			}
+		}
 
 		// OK, no errors
 		return null;
@@ -336,7 +345,7 @@ public class GenotypePos extends Marker {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
 			return false;
 		}
 
