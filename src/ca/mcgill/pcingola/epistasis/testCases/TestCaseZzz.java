@@ -21,19 +21,16 @@ import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 public class TestCaseZzz extends TestCase {
 
 	public static boolean debug = false;
-	public static boolean verbose = false || debug;
+	public static boolean verbose = true || debug;
 
 	public void test_05_Gwas_Map_RoundTrip() {
 		// Create a atest to map using
-		//	i) Select a random <msaId, aaIdx>
+		//	i) Select <msaId, aaIdx>
 		//	ii) Map it to genomic coordinate
 		// 	iii) Map genomic coordinates back to msaId:aaIdx
 		//  iv) Check that <mdsId, aaIdx> are recovered correctly
 
-		//---
-		// Initialize and load data
-		//---
-		Random random = new Random(20141006);
+		new Random(20141006);
 
 		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
 		String genome = "testHg19Chr1";
@@ -56,12 +53,8 @@ public class TestCaseZzz extends TestCase {
 		//---
 		// Test N times
 		//---
-		int N = 100000;
-
-		for (int i = 0; i < N;) {
-			// Step i: Select a random <msaId, aaIdx>
-			MultipleSequenceAlignment msa = msas.rand(random);
-			int aaIdx = random.nextInt(msa.getAaSeqLen());
+		int n = 0;
+		for (MultipleSequenceAlignment msa : msas) {
 			String trId = msa.getTranscriptId();
 
 			// Sanity check: Do protein sequences match? (transcript vs MSA)
@@ -75,38 +68,42 @@ public class TestCaseZzz extends TestCase {
 				continue;
 			}
 
-			// Step ii: Map it to genomic coordinate
-			GenotypePos gp = new GenotypePos(msa.getId(), aaIdx);
-			String err = gp.mapMsa2GenomicErr(pdbGenomeMsas);
-			if (err == null) {
-				if (verbose) Gpr.debug(i + "\tOK\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd());
-			} else {
-				if (verbose) Gpr.debug(i + "\tNO\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + err);
+			// Step i: Select all <msaId, aaIdx>
+			for (int aaIdx = 0; aaIdx < msa.getAaSeqLen(); aaIdx++) {
 
-				String acceptedErr = "Transcript '" + trId + "' not found";
-				if (!err.equals(acceptedErr)) throw new RuntimeException("Unacceptable error condition: " + err);
+				// Step ii: Map it to genomic coordinate
+				GenotypePos gp = new GenotypePos(msa.getId(), aaIdx);
+				String err = gp.mapMsa2GenomicErr(pdbGenomeMsas);
+				if (err == null) {
+					if (verbose) Gpr.debug(n + "\tOK\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd());
+				} else {
+					if (verbose) Gpr.debug(n + "\tNO\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + err);
 
-				continue;
+					String acceptedErr = "Transcript '" + trId + "' not found";
+					if (!err.equals(acceptedErr)) throw new RuntimeException("Unacceptable error condition: " + err);
+
+					continue;
+				}
+
+				// Step iii:  Map genomic coordinates back to msaId:aaIdx
+				GenotypePos gp2 = new GenotypePos(gp.getParent(), gp.getStart(), gp.getId());
+				if (!gp2.mapGenomic2Msa(pdbGenomeMsas, trId)) continue;
+
+				// Step iv: Check that coordinates are mapped back correctly
+				String msaIdxOri = gp.getMsaId() + ":" + gp.getAaIdx();
+				String msaIdxRecover = gp2.getMsaId() + ":" + gp2.getAaIdx();
+
+				if (!msaIdxOri.equals(msaIdxRecover) || verbose) Gpr.debug(n //
+						+ "\t" + msaIdxOri //
+						+ "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd() //
+						+ "\t" + msaIdxRecover //
+				);
+
+				Assert.assertEquals(msaIdxOri, msaIdxRecover);
+
+				n++;
+				if (!verbose) Gpr.showMark(n, 100);
 			}
-
-			// Step iii:  Map genomic coordinates back to msaId:aaIdx
-			GenotypePos gp2 = new GenotypePos(gp.getParent(), gp.getStart(), gp.getId());
-			if (!gp2.mapGenomic2Msa(pdbGenomeMsas, trId)) continue;
-
-			// Step iv: Check that coordinates are mapped back correctly
-			String msaIdxOri = gp.getMsaId() + ":" + gp.getAaIdx();
-			String msaIdxRecover = gp2.getMsaId() + ":" + gp2.getAaIdx();
-
-			if (!msaIdxOri.equals(msaIdxRecover) || verbose) Gpr.debug(i //
-					+ "\t" + msaIdxOri //
-					+ "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd() //
-					+ "\t" + msaIdxRecover //
-			);
-
-			Assert.assertEquals(msaIdxOri, msaIdxRecover);
-
-			i++;
-			if (!verbose) Gpr.showMark(i, 100);
 		}
 	}
 }
