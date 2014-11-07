@@ -16,7 +16,6 @@ import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.io.PDBFileReader;
 
-import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Exon;
 import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Marker;
@@ -25,12 +24,9 @@ import ca.mcgill.mcb.pcingola.interval.NextProt;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
-import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.mcb.pcingola.util.Tuple;
+import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
-import ca.mcgill.pcingola.epistasis.Triplet;
-import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
@@ -236,93 +232,6 @@ public class PdbGenomeMsas extends SnpEff {
 		return idmapsNew;
 	}
 
-	/**
-	 * Get aaIdx from MSA and genomic position  'pos'
-	 * Note: Chromosme name is implied by msaId
-	 */
-	public int genomicPos2AaIdx(String msaId, int pos) {
-		// Find all MSA
-		MultipleSequenceAlignment msa = msas.getMsa(msaId);
-		if (msa == null) return -1;
-
-		String trid = msa.getTranscriptId();
-		Transcript tr = trancriptById.get(trid);
-		if (tr == null) return -1;
-
-		// Check all MSA
-		// Different chromosome or position? Skip
-		if (!msa.getChromosomeName().equals(tr.getChromosomeName())) return -1;
-		if (pos < msa.getStart() || msa.getEnd() < pos) return -1;
-
-		// Find exon
-		Exon exon = tr.findExon(pos);
-		if (exon == null) {
-			Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
-			return -1;
-		}
-
-		// Find index
-		int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
-		int idxAa = idxBase / 3;
-
-		// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
-		//          I don't know why they do it this way...
-		if (exon.getFrame() == 1) idxAa++;
-
-		// Return column index
-		return idxAa;
-	}
-
-	/**
-	 * Convert <transcript_id, position> to <msaIdx, aaIdx>
-	 * Note: Chromosme name is implied by msaId
-	 */
-	public Tuple<String, Integer> genomicPos2MsaIdx(String trid, int pos) {
-		// Find all MSA
-		List<MultipleSequenceAlignment> msaList = msas.getMsasByTrId(trid);
-		if (msaList == null) return null;
-
-		Transcript tr = trancriptById.get(trid);
-
-		// Check all MSA
-		for (MultipleSequenceAlignment msa : msaList) {
-			// Different chromosome or position? Skip
-			if (!msa.getChromosomeName().equals(tr.getChromosomeName())) continue;
-			if (pos < msa.getStart() || msa.getEnd() < pos) continue;
-
-			// Find exon
-			Exon exon = tr.findExon(pos);
-			if (exon == null) {
-				Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
-				return null;
-			}
-
-			// Find index
-			int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
-			int idxAa = idxBase / 3;
-
-			// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
-			//          I don't know why they do it this way...
-			if (exon.getFrame() == 1) idxAa++;
-
-			// Return column sequence
-			return new Tuple<String, Integer>(msa.getId(), idxAa);
-		}
-		return null;
-	}
-
-	/**
-	 * Find a multiple sequence alignment based on a transcript ID and a genomic position
-	 * Convert <transcript_id, position> to <column_Sequence, msaIdx, aaIdx>
-	 */
-	public Triplet<String, String, Integer> genomicPos2MsaIdxColumnSequence(String trid, int pos) {
-		Tuple<String, Integer> msaIdAa = genomicPos2MsaIdx(trid, pos);
-		if (msaIdAa == null) return null;
-		String msaId = msaIdAa.first;
-		int aaIdx = msaIdAa.second;
-		return new Triplet<String, String, Integer>(msas.getMsa(msaId).getColumnString(aaIdx), msaId, aaIdx);
-	}
-
 	public MultipleSequenceAlignmentSet getMsas() {
 		return msas;
 	}
@@ -367,14 +276,18 @@ public class PdbGenomeMsas extends SnpEff {
 	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
 	public void mapToMsa(MultipleSequenceAlignmentSet msas, DistanceResult dres) {
+		// Find trancript IDs using PDB ids
 		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
 		if (idmes == null || idmes.isEmpty()) {
 			warn("No mapping found for PdbId: ", "'" + dres.pdbId + "', chain '" + dres.pdbChainId + "'");
 			return;
 		}
 
-		// Find all transcripts
+		// Find all transcripts, then map <tr, pos> to <msaId, aaIdx>
 		for (IdMapperEntry idme : idmes) {
+			//---
+			// Map <pdbId, aaPos> to <transcript, pos>
+			//---
 			String trid = IdMapperEntry.IDME_TO_REFSEQ.apply(idme);
 
 			// Transcript's protein doesn't match MSA's protein? Nothing to do
@@ -404,21 +317,28 @@ public class PdbGenomeMsas extends SnpEff {
 			int pos1 = aa2pos[dres.aaPos1];
 			int pos2 = aa2pos[dres.aaPos2];
 
-			// Find sequences
-			Triplet<String, String, Integer> res1 = genomicPos2MsaIdxColumnSequence(trid, pos1);
-			Triplet<String, String, Integer> res2 = genomicPos2MsaIdxColumnSequence(trid, pos2);
+			//---
+			// Map <transcript, pos> to <msaId, aaIdx>
+			//---
 
-			// Both sequences are available?
-			if ((res1 != null) && (res2 != null)) {
-				String seq1 = res1.a;
-				String seq2 = res2.a;
+			// Find MSA and aaIdx
+			GenotypePos gp1 = new GenotypePos(), gp2 = new GenotypePos();
+			gp1.mapTrPos2MsaIdx(this, trid, pos1);
+			gp2.mapTrPos2MsaIdx(this, trid, pos2);
+
+			// Both mappings are available?
+			if (gp1.hasMsaInfo() && gp2.hasMsaInfo()) {
+
+				// Sanity check: Find sequences and check against PDB data
+				String seq1 = msas.getMsa(gp1.getMsaId()).getColumnString(gp1.getAaIdx());
+				String seq2 = msas.getMsa(gp2.getMsaId()).getColumnString(gp2.getAaIdx());
+
 				if ((seq1 != null) && (seq2 != null)) {
-
-					Exon exon1 = tr.findExon(pos1);
-					Exon exon2 = tr.findExon(pos2);
+					Exon exon1 = null, exon2 = null;
+					// Does transcript AA sequence match PDB Aa sequence?
+					boolean ok = (dres.aa1 == seq1.charAt(0)) && (dres.aa2 == seq2.charAt(0));
 
 					// Count correct mappings
-					boolean ok = (dres.aa1 == seq1.charAt(0)) && (dres.aa2 == seq2.charAt(0));
 					String okStr = (ok ? "OK___" : "ERROR");
 					String ok1Str = dres.aa1 != seq1.charAt(0) ? "ERROR" : "OK___";
 					String ok2Str = dres.aa2 != seq2.charAt(0) ? "ERROR" : "OK___";
@@ -426,6 +346,8 @@ public class PdbGenomeMsas extends SnpEff {
 
 					// Detailed counts for debugging
 					if (debug) {
+						exon1 = tr.findExon(pos1);
+						exon2 = tr.findExon(pos2);
 						countMatch.inc(dres.pdbId + "_" + ok1Str);
 						countMatch.inc(dres.pdbId + "_" + ok2Str);
 						countMatch.inc("_TOTAL_" + ok1Str + "_Strand:" + (tr.isStrandPlus() ? "+" : "-") + "_Frame:" + exon1.getFrame());
@@ -444,10 +366,10 @@ public class PdbGenomeMsas extends SnpEff {
 
 						dres.transcriptId = tr.getId();
 
-						dres.msa1 = res1.b;
-						dres.msaIdx1 = res1.c;
-						dres.msa2 = res2.b;
-						dres.msaIdx2 = res2.c;
+						dres.msa1 = gp1.getMsaId();
+						dres.msaIdx1 = gp1.getAaIdx();
+						dres.msa2 = gp2.getMsaId();
+						dres.msaIdx2 = gp2.getAaIdx();
 					} else {
 						// Show mapping errors
 						if (debug) System.err.println(ok1Str + " " + ok2Str //
@@ -461,89 +383,6 @@ public class PdbGenomeMsas extends SnpEff {
 				}
 			}
 		}
-	}
-
-	/**
-	 * Create a marker encomapsing an amino acid (trId:aaIdx)
-	 */
-	public Marker markerMsa(String trId, String chr, int start, int end, int aaIdx, char aaExpected) {
-		// Find transcript and exon
-		Transcript tr = trancriptById.get(trId);
-		if (tr == null) return null;
-
-		Exon ex = tr.findExon(start);
-		if (ex == null) return null;
-
-		// Calculate start position
-		int startPos;
-		int fr = 0;
-		if (ex.getFrame() != 0) {
-			aaIdx--;
-			if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA different when frame is 2
-			fr = 3 - ex.getFrame(); // Offset based on frame
-		}
-
-		// Find AA start position
-		if (ex.isStrandPlus()) {
-			int exStart = Math.max(start, tr.getCdsStart());
-			startPos = exStart + (aaIdx * 3 + fr);
-		} else {
-			int exEnd = Math.min(end, tr.getCdsStart());
-			startPos = exEnd - (aaIdx * 3 + fr);
-		}
-
-		// Get position within CDS
-		int cdsBase = tr.baseNumberCds(startPos, false);
-		int cds2pos[] = tr.baseNumberCds2Pos();
-		if ((ex.isStrandPlus() && (startPos < ex.getStart())) //
-				|| (ex.isStrandMinus() && (startPos > ex.getEnd()))) {
-			// If the position is outside the exon, then we must jump to previous exon
-			startPos = cds2pos[cdsBase - ex.getFrame()];
-			cdsBase = tr.baseNumberCds(startPos, true);
-		}
-
-		//---
-		// Sanity check: Make sure that AA matches between transcript model and MSA data from 'genes likelihood' file
-		//---
-		String id = chr + ":" + start + "-" + end + "[" + aaExpected + "]";
-
-		// Extract codon
-		String cdsSeq = tr.cds();
-		String codonStr = cdsSeq.substring(cdsBase, cdsBase + 3);
-		String aa = genome.codonTable().aa(codonStr);
-
-		if (aa.equals("" + aaExpected)) {
-
-			if (debug) Gpr.debug("OK: " + id + " : " + aa);
-		} else {
-			if (debug) Gpr.debug("Entry ID     : " + id //
-					+ "\ntr ID        : " + trId + ", chr: " + chr + ", start: " + start + ", end: " + end + ", idx: " + aaIdx + ", fr: " + fr//
-					+ "\nTranscript : " + tr //
-					+ "\nExon       : " + ex //
-					+ "\nStart pos: " + startPos //
-					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
-			return null;
-		}
-
-		//---
-		// Create marker
-		// Important: The marker has ALL bases in the codon.
-		//            For instance, is the codon is split between two exons, the
-		//            marker will contain the intron
-		//---
-		int markerStart, markerEnd;
-		if (tr.isStrandPlus()) {
-			markerStart = cds2pos[cdsBase];
-			markerEnd = cds2pos[cdsBase + 2];
-		} else {
-			markerStart = cds2pos[cdsBase + 2];
-			markerEnd = cds2pos[cdsBase];
-		}
-
-		Chromosome chromo = genome.getChromosome(chr);
-		Marker marker = new Marker(chromo, markerStart, markerEnd, ex.isStrandMinus(), id);
-		return marker;
 	}
 
 	/**

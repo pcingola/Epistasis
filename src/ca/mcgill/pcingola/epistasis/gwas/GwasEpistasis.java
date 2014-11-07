@@ -9,6 +9,7 @@ import java.util.stream.IntStream;
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.stats.Counter;
@@ -16,6 +17,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
+import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.pdb.PdbGenomeMsas;
 
@@ -129,13 +131,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
-						double llTot = gwasRes.logLik();
-						if (llTot > llThresholdLogReg) countLl.inc();
-						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-					});
+			.parallel() //
+			.forEach(j -> {
+				GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
+				double llTot = gwasRes.logLik();
+				if (llTot > llThresholdLogReg) countLl.inc();
+				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+			});
 		}
 	}
 
@@ -231,19 +233,18 @@ public class GwasEpistasis {
 		int aaIdx = Gpr.parseIntSafe(f[5]);
 
 		// Create a marker that lies onto the referred AA
-		marker = pdbGenomeMsas.markerMsa(trId, chr, start, end, aaIdx, aaExpected);
-
-		// Some accounting
-		if (marker == null) {
-			countErr++;
-			showCount(false);
-		} else {
+		Chromosome chromo = pdbGenomeMsas.getConfig().getGenome().getOrCreateChromosome(chr);
+		GenotypePos gp = new GenotypePos(chromo, start, end, id);
+		if (gp.markerTrAaIdx(pdbGenomeMsas, trId, aaIdx, aaExpected)) {
 			countOk++;
 			showCount(true);
-			llmarkerById.put(id, marker); // Cache marker
+			llmarkerById.put(id, gp); // Cache marker
+			return gp;
+		} else {
+			countErr++;
+			showCount(false);
+			return null;
 		}
-
-		return null;
 	}
 
 	/**
@@ -291,7 +292,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**
