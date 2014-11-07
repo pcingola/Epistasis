@@ -75,7 +75,7 @@ public class PdbGenomeMsas extends SnpEff {
 	 * Check is the protein sequence from transcript 'trId' (genome) matches MSAs
 	 * @return 'true' if protein sequences match
 	 */
-	boolean checkSequenceGenomeMsas(String trid) {
+	public boolean checkSequenceGenomeMsas(String trid) {
 		Transcript tr = trancriptById.get(trid);
 		if (tr == null) {
 			warn("Transcript not found:", trid);

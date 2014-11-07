@@ -349,6 +349,10 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		return msas.get(random.nextInt(msas.size()));
 	}
 
+	public String rowSequence(String trid) {
+		return rowSequence(trid, null);
+	}
+
 	/**
 	 * Find a row sequence
 	 * @param trid : Transcript ID
@@ -405,5 +409,4 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	public Stream<MultipleSequenceAlignment> stream() {
 		return StreamSupport.stream(spliterator(), false);
 	}
-
 }

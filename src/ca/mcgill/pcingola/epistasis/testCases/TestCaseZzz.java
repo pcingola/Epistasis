@@ -26,7 +26,7 @@ public class TestCaseZzz extends TestCase {
 	public void test_05_Gwas_Map_RoundTrip() {
 		// Create a atest to map using
 		//	i) Select a random <msaId, aaIdx>
-		//	ii) Map it to genomic coordinate 
+		//	ii) Map it to genomic coordinate
 		// 	iii) Map genomic coordinates back to msaId:aaIdx
 		//  iv) Check that <mdsId, aaIdx> are recovered correctly
 
@@ -38,8 +38,8 @@ public class TestCaseZzz extends TestCase {
 		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
 		String genome = "testHg19Chr1";
 		String phyloFileName = "data/hg19.100way.nh";
-		// String msasFile = "data/msa_test.fa.gz";
-		String msasFile = "data/hm1.fa";
+		String msasFile = "data/msa_test.fa.gz";
+		//		String msasFile = "data/hm1.fa";
 		String pdbDir = ""; // Not used
 
 		LikelihoodTreeAa tree = new LikelihoodTreeAa();
@@ -57,13 +57,24 @@ public class TestCaseZzz extends TestCase {
 		//---
 		// Test N times
 		//---
-		int N = 1;
+		int N = 1000;
 
 		for (int i = 0; i < N;) {
 			// Step i: Select a random <msaId, aaIdx>
 			MultipleSequenceAlignment msa = msas.rand(random);
 			int aaIdx = random.nextInt(msa.getAaSeqLen());
 			String trId = msa.getTranscriptId();
+
+			// Sanity check: Do protein sequences match? (transcript vs MSA)
+			if (!pdbGenomeMsas.checkSequenceGenomeMsas(trId)) {
+				if (pdbGenomeMsas.getTranscript(trId) != null) {
+					Gpr.debug("Sequences differ:" //
+							+ "\n\tMSA AA sequence       : " + msas.rowSequence(trId) //
+							+ "\n\tTranscript AA sequence: " + pdbGenomeMsas.getTranscript(trId).protein() //
+					);
+				}
+				continue;
+			}
 
 			// Step ii: Map it to genomic coordinate
 			GenotypePos gp = new GenotypePos(msa.getId(), aaIdx);
@@ -72,6 +83,10 @@ public class TestCaseZzz extends TestCase {
 				if (verbose) Gpr.debug(i + "\tOK\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd());
 			} else {
 				if (verbose) Gpr.debug(i + "\tNO\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + err);
+
+				String acceptedErr = "Transcript '" + trId + "' not found";
+				if (!err.equals(acceptedErr)) throw new RuntimeException("Unacceptable error condition: " + err);
+
 				continue;
 			}
 
@@ -82,20 +97,17 @@ public class TestCaseZzz extends TestCase {
 			// Step iv: Check that coordinates are mapped back correctly
 			String msaIdxOri = gp.getMsaId() + ":" + gp.getAaIdx();
 			String msaIdxRecover = gp2.getMsaId() + ":" + gp2.getAaIdx();
-			Gpr.debug(i + "\t" + (msaIdxOri.equals(msaIdxRecover)) //
+
+			if (!msaIdxOri.equals(msaIdxRecover) || verbose) Gpr.debug(i //
 					+ "\t" + msaIdxOri //
 					+ "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd() //
 					+ "\t" + msaIdxRecover //
 			);
 
 			Assert.assertEquals(msaIdxOri, msaIdxRecover);
+
 			i++;
+			if (!verbose) Gpr.showMark(i, 100);
 		}
-
-		throw new RuntimeException("Unimplemented test!");
 	}
-	//	public void test_06_Map_InDels() {
-	//		throw new RuntimeException("Unimplemented test!");
-	//	}
-
 }

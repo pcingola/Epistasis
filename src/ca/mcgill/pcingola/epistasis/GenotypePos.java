@@ -98,8 +98,7 @@ public class GenotypePos extends Marker {
 			int aaIdx = mapMsaIdPos2AaIdx(pdbGenomeMsas, msaId, start);
 
 			// Is AA index within trancript's AA sequence
-			if ((aaIdx >= 0) || (aaIdx >= msa.getAaSeqLen())) {
-
+			if ((aaIdx < 0) || (aaIdx >= msa.getAaSeqLen())) {
 				Gpr.debug("ERROR: Index out of range !"//
 						+ "\n\tID_J              : " + id //
 						+ "\n\tMarker            : " + m.toStr() //
@@ -149,18 +148,39 @@ public class GenotypePos extends Marker {
 		// Find genomic position based on AA position
 		int aa2pos[] = tr.aaNumber2Pos();
 
-		Gpr.debug("WRONG!!! This aaIDx refers to EXON, not to WHOLE AA SEQUENCE!");
-		if (aa2pos.length <= aaIdx) return "AA index out of range (aaIdx: " + aaIdx + ", protein length: " + aa2pos.length + ")"; // aaIdx Outside transcript
+		// Find an exon that matches MSA
+		Exon exon = tr.findExon(msa);
+		if (exon == null) return "Could not find exon intersecting MSA coordinates";
 
-		// Convert to genomic positions
-		start = end = aa2pos[aaIdx];
+		// Index out of exon boundaries?
+		int exAaEnd = exon.getAaIdxEnd();
+		int exAaStart = exon.getAaIdxStart();
+		if (exon.getFrame() == 1) exAaStart--; // I don't know why UCSC numbers the AA different when frame is 2
+		int numAasEx = exAaEnd - exAaStart + 1;
+		if (aaIdx > numAasEx) return "AA index out of range. AaIdx: " + aaIdx + ", exon's AA length: " + numAasEx;
+
+		// Calculate absolute AA index (in full AA sequence)
+		int aaSeqIndex = aaIdx + exAaStart;
+
+		// The codon for this amino acid is split by an intron
+		int pos;
+		if (aaIdx == numAasEx) pos = aa2pos[aaSeqIndex - 1] + 3;
+		else if ((aaIdx == 0) && (exon.getFrame() == 1)) pos = exon.isStrandPlus() ? exon.getStart() : exon.getEnd();
+		else pos = aa2pos[aaSeqIndex];
+
+		// Convert to AA sequence index to genomic position
+		start = end = pos;
 		parent = tr.getChromosome();
 
 		// Does this position match MSA coordinates?
-		if (!msa.intersects(this)) {
-			Gpr.debug(tr.toStringAsciiArt());
+		if (!msa.intersects(this)) { //
 			return "Calculated genomic positions '" + tr.getChromosomeName() + ":" + start + "' in not included in MSA coordinates " + msa.getChromosomeName() + ":" + msa.getStart() + "-" + msa.getEnd();
 		}
+
+		// Check AA sequence
+		String protein = tr.protein();
+		if (aaSeqIndex > protein.length()) return "AA sequence index (aaSeqIndex: " + aaSeqIndex + ") outside AA sequence (length: " + protein.length() + ")";
+		if (protein.charAt(aaSeqIndex) != msa.getChar(0, aaIdx)) return "AA from MSA ('" + msa.getChar(0, aaIdx) + "') does not match AA from protein ('" + protein.charAt(aaSeqIndex) + "')";
 
 		// OK, no errors
 		return null;
@@ -206,7 +226,10 @@ public class GenotypePos extends Marker {
 
 		// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
 		//          I don't know why they do it this way...
-		if (exon.getFrame() == 1) idxAa++;
+		if (exon.getFrame() == 1) {
+			if (idxBase < 1) idxAa = 0; // First two bases are AA number zero
+			else idxAa++; // Other bases are AA number 1 and on
+		}
 
 		// Return column index
 		return idxAa;
@@ -245,6 +268,7 @@ public class GenotypePos extends Marker {
 			msaId = msa.getId();
 			return true;
 		}
+
 		return false;
 	}
 
