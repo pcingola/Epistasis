@@ -663,8 +663,8 @@ public class Epistasis implements CommandLine {
 		msas.stream() //
 				.forEach( // Count all AA in this MSA
 						msa -> {
-							for (int col = 0; col < msa.length(); col++)
-								for (int row = 0; row < msa.size(); row++) {
+							for (int col = 0; col < msa.getAaSeqLen(); col++)
+								for (int row = 0; row < msa.getNumSeqs(); row++) {
 									byte aa = msa.getCode(row, col);
 									if (aa >= 0) aaCount[aa]++;
 								}
@@ -697,7 +697,9 @@ public class Epistasis implements CommandLine {
 		System.err.println("Totals:\n" + pdbGenomeMsas.countMatch);
 
 		System.err.println("Mapped AA sequences:\n");
-		aaContacts.stream().filter(d -> d.aaSeq1 != null).forEach(System.out::println);
+		aaContacts.stream()//
+				.filter(d -> d.aaSeq1 != null)//
+				.forEach(System.out::println);
 	}
 
 	/**
@@ -750,8 +752,8 @@ public class Epistasis implements CommandLine {
 			// Count for all MSAs
 			//---
 			msas.getMsas().stream() //
-					.filter(msa -> msa.length() > num) //
-					.forEach(msa -> IntStream.range(0, msa.length() - num) //
+					.filter(msa -> msa.getAaSeqLen() > num) //
+					.forEach(msa -> IntStream.range(0, msa.getAaSeqLen() - num) //
 							.peek(i -> total.inc()) //
 							.filter(i -> msa.isFullyConserved(i, num)) //
 							.forEach(i -> conserved.inc()) //
@@ -1112,18 +1114,18 @@ public class Epistasis implements CommandLine {
 		TransitionsAaPairs trans = new TransitionsAaPairs();
 		List<MultipleSequenceAlignment> msasTr = msas.getMsasByTrId(trId);
 
-		int totalLen = msasTr.stream().mapToInt(m -> m.length()).sum();
+		int totalLen = msasTr.stream().mapToInt(m -> m.getAaSeqLen()).sum();
 		System.err.println("\t" + trId + "\tNum. MSAs: " + msasTr.size() + "\tTotal len: " + totalLen + "\t" + count + "/" + maxCount);
-		msasTr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.length()));
+		msasTr.forEach(m -> System.err.println("\t\t" + m.getId() + "\t" + m.getAaSeqLen()));
 
 		// Iterate though all sequence alignment on this transcript
 		for (int mi = 0; mi < msasTr.size(); mi++) {
 			MultipleSequenceAlignment msai = msasTr.get(mi);
-			int maxi = msai.length();
+			int maxi = msai.getAaSeqLen();
 
 			for (int mj = mi; mj < msasTr.size(); mj++) {
 				MultipleSequenceAlignment msaj = msasTr.get(mj);
-				int maxj = msaj.length();
+				int maxj = msaj.getAaSeqLen();
 
 				// Compare all rows
 				for (int i = 0; i < maxi; i++) {
@@ -1148,8 +1150,8 @@ public class Epistasis implements CommandLine {
 		int idx1 = 0, idx2 = 0;
 		while (msa == null || idx1 == idx2) {
 			msa = msas.rand(random);
-			idx1 = random.nextInt(msa.length());
-			idx2 = random.nextInt(msa.length());
+			idx1 = random.nextInt(msa.getAaSeqLen());
+			idx2 = random.nextInt(msa.getAaSeqLen());
 		}
 
 		// Calculate transitions
@@ -1178,7 +1180,7 @@ public class Epistasis implements CommandLine {
 	 * Calculate AA transitions
 	 */
 	TransitionsAa transitions(MultipleSequenceAlignment msa) {
-		int max = msa.length();
+		int max = msa.getAaSeqLen();
 		TransitionsAa trans = new TransitionsAa();
 		System.err.println("\t" + msa.getId() + "\tlen: " + max);
 

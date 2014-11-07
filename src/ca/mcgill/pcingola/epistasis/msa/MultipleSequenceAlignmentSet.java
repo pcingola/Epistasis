@@ -23,6 +23,7 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
+import ca.mcgill.pcingola.epistasis.phylotree.PhylogeneticTree;
 
 /**
  * Load a multiple sequence alignment file (UCSC)
@@ -55,6 +56,10 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		msaById = new HashMap<String, MultipleSequenceAlignment>();
 	}
 
+	public MultipleSequenceAlignmentSet(String sequenceAlignmentFile, PhylogeneticTree tree) {
+		this(sequenceAlignmentFile, tree.childNames().size());
+	}
+
 	/**
 	 * Add entry
 	 */
@@ -78,7 +83,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		Markers markers = new Markers();
 		for (MultipleSequenceAlignment msa : this) {
 			// Create a marker for this MSA and add it to 'markers'
-			Chromosome chromo = genome.getOrCreateChromosome(msa.getChromo());
+			Chromosome chromo = genome.getOrCreateChromosome(msa.getChromosomeName());
 			Marker m = new Marker(chromo, msa.getStart(), msa.getEnd(), false, msa.getId());
 			markers.add(m);
 		}
@@ -106,7 +111,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		MultipleSequenceAlignment msa = getMsa(msaId);
 		int maxj = 2 * numBases + 1;
 		for (int i = pos, j = numBases; j < maxj; i++, j++) {
-			if (i >= msa.length()) break;
+			if (i >= msa.getAaSeqLen()) break;
 			seqs[j] = msa.getColumnString(i);
 		}
 
@@ -246,6 +251,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 */
 	public void load() {
 		LineFileIterator lif = new LineFileIterator(sequenceAlignmentFile);
+		Genome genome = new Genome();
 
 		int countAligns = 1;
 		while (lif.hasNext()) {
@@ -295,7 +301,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 
 					if (debug) System.out.println(transcriptId + " " + chr + ":" + start + "-" + end);
 					msa = new MultipleSequenceAlignment(this, transcriptId, numAligns, seqLen);
-					msa.set(chr, start, end, strand);
+					msa.set(genome.getOrCreateChromosome(chr), start, end, strand);
 				} else if (sequence.length() != seqLen) throw new RuntimeException("Error (file '" + sequenceAlignmentFile + "', line " + lif.getLineNum() + "): Expecting sequence of length " + seqLen);
 
 				// Add sequence
@@ -347,7 +353,6 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	 * Find a row sequence
 	 * @param trid : Transcript ID
 	 * @param chr : Chromosome name (to check that matches the MSA). It can be null, in which case, checking is skipped.
-	 * @return
 	 */
 	public String rowSequence(String trid, String chr) {
 		// Find all MSA
@@ -359,9 +364,9 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		boolean reverse = false;
 		for (MultipleSequenceAlignment msa : msaList) {
 			// Different chromosome or position? Skip
-			if (chr != null && !msa.getChromo().equals(chr)) continue;
+			if (chr != null && !msa.getChromosomeName().equals(chr)) continue;
 			msasTr.add(msa);
-			reverse |= msa.isStrandNegative();
+			reverse |= msa.isStrandMinus();
 		}
 
 		// Sort
@@ -392,7 +397,7 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 			MultipleSequenceAlignment msa = l.get(0); // First msa in the list
 
 			// Sort by strand
-			if (msa.isStrandPositive()) Collections.sort(l);
+			if (msa.isStrandPlus()) Collections.sort(l);
 			else Collections.sort(l, Comparator.reverseOrder());
 		}
 	}

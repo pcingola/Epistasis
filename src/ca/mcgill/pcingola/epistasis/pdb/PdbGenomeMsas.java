@@ -251,7 +251,7 @@ public class PdbGenomeMsas extends SnpEff {
 
 		// Check all MSA
 		// Different chromosome or position? Skip
-		if (!msa.getChromo().equals(tr.getChromosomeName())) return -1;
+		if (!msa.getChromosomeName().equals(tr.getChromosomeName())) return -1;
 		if (pos < msa.getStart() || msa.getEnd() < pos) return -1;
 
 		// Find exon
@@ -287,7 +287,7 @@ public class PdbGenomeMsas extends SnpEff {
 		// Check all MSA
 		for (MultipleSequenceAlignment msa : msaList) {
 			// Different chromosome or position? Skip
-			if (!msa.getChromo().equals(tr.getChromosomeName())) continue;
+			if (!msa.getChromosomeName().equals(tr.getChromosomeName())) continue;
 			if (pos < msa.getStart() || msa.getEnd() < pos) continue;
 
 			// Find exon
@@ -469,10 +469,8 @@ public class PdbGenomeMsas extends SnpEff {
 	public Marker markerMsa(String trId, String chr, int start, int end, int aaIdx, char aaExpected) {
 		// Find transcript and exon
 		Transcript tr = trancriptById.get(trId);
-		if (tr == null) {
-			Gpr.debug("TR NOT FOUND: " + trId);
-			return null;
-		}
+		if (tr == null) return null;
+
 		Exon ex = tr.findExon(start);
 		if (ex == null) return null;
 
@@ -480,15 +478,9 @@ public class PdbGenomeMsas extends SnpEff {
 		int startPos;
 		int fr = 0;
 		if (ex.getFrame() != 0) {
-			if (ex.isStrandPlus()) {
-				aaIdx--;
-				if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
-				fr = 3 - ex.getFrame(); // Offset based on frame
-			} else {
-				aaIdx--;
-				if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA differentlt when frame is 2
-				fr = 3 - ex.getFrame(); // Offset based on frame
-			}
+			aaIdx--;
+			if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA different when frame is 2
+			fr = 3 - ex.getFrame(); // Offset based on frame
 		}
 
 		// Find AA start position

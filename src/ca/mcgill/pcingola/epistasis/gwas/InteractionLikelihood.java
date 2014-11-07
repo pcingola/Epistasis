@@ -309,8 +309,8 @@ public class InteractionLikelihood {
 
 		int msaIdx1 = -1, msaIdx2 = -1;
 		for (int i = 0; (msaIdx1 < 0 || msaIdx2 < 0 || msa1.isSkip(msaIdx1) || msa2.isSkip(msaIdx2)) && i < MAX_RAND_ITER; i++) {
-			msaIdx1 = random.nextInt(msa1.length());
-			msaIdx2 = random.nextInt(msa2.length());
+			msaIdx1 = random.nextInt(msa1.getAaSeqLen());
+			msaIdx2 = random.nextInt(msa2.getAaSeqLen());
 		}
 
 		return logLikelihoodRatioStr(msa1, msaIdx1, msa2, msaIdx2, false);
@@ -345,7 +345,7 @@ public class InteractionLikelihood {
 				.parallel() //
 				.filter(ve -> !msas.query(ve).isEmpty()) // Only use entries that can be mapped
 				.map(ve -> new GenotypePos(ve)) // Convert to genotyping position
-				.filter(gp -> gp.map2MsaAa(pdbGenomeMsas)) // Successfully mapped to MSA ?
+				.filter(gp -> gp.mapGenomic2Msa(pdbGenomeMsas)) // Successfully mapped to MSA ?
 				.forEach(gp -> logLikelihoodGenomicPosVsTranscript(dirName, gp)) // Calculate likelihood
 		;
 	}
@@ -429,7 +429,7 @@ public class InteractionLikelihood {
 
 		// Compare position from VCF against ALL other possitions in the transcript
 		for (MultipleSequenceAlignment msaTr : msasTr) {
-			for (int aaIdxTr = 0; aaIdxTr < msaTr.length(); aaIdxTr++) {
+			for (int aaIdxTr = 0; aaIdxTr < msaTr.getAaSeqLen(); aaIdxTr++) {
 				String res = logLikelihoodRatioStr(msaVcf, aaIdxVcf, msaTr, aaIdxTr, true);
 
 				// Show & update output
@@ -463,14 +463,14 @@ public class InteractionLikelihood {
 	 * Calculate likelihood for all possible AA pairs within these two MSAs
 	 */
 	String logLikelihoodRatio(MultipleSequenceAlignment msa1, MultipleSequenceAlignment msa2, boolean brief) {
-		System.err.println(msa1.getId() + " (len: " + msa1.length() + "), " + msa2.getId() + " (len: " + msa2.length() + ") = " + (msa1.length() * msa2.length()));
+		System.err.println(msa1.getId() + " (len: " + msa1.getAaSeqLen() + "), " + msa2.getId() + " (len: " + msa2.getAaSeqLen() + ") = " + (msa1.getAaSeqLen() * msa2.getAaSeqLen()));
 
 		StringBuilder sb = new StringBuilder();
 
-		for (int i1 = 0; i1 < msa1.length(); i1++) {
+		for (int i1 = 0; i1 < msa1.getAaSeqLen(); i1++) {
 			if (msa1.isSkip(i1)) continue;
 
-			for (int i2 = 0; i2 < msa2.length(); i2++) {
+			for (int i2 = 0; i2 < msa2.getAaSeqLen(); i2++) {
 				if (msa2.isSkip(i2)) continue;
 
 				String res = logLikelihoodRatioStr(msa1, i1, msa2, i2, brief);

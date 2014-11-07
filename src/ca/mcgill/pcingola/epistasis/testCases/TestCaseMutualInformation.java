@@ -155,8 +155,8 @@ public class TestCaseMutualInformation extends TestCase {
 		MultipleSequenceAlignment msa = msas.getMsas().get(0);
 
 		// Calculate MI for every pair
-		for (int i = 0; i < msa.length(); i++) {
-			for (int j = i + 1; j < msa.length(); j++) {
+		for (int i = 0; i < msa.getAaSeqLen(); i++) {
+			for (int j = i + 1; j < msa.getAaSeqLen(); j++) {
 				String seqi = msa.getColumnString(i);
 				String seqj = msa.getColumnString(j);
 

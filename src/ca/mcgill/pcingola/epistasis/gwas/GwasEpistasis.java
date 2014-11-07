@@ -129,13 +129,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
-				double llTot = gwasRes.logLik();
-				if (llTot > llThresholdLogReg) countLl.inc();
-				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-			});
+					.parallel() //
+					.forEach(j -> {
+						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
+						double llTot = gwasRes.logLik();
+						if (llTot > llThresholdLogReg) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+					});
 		}
 	}
 
@@ -161,10 +161,10 @@ public class GwasEpistasis {
 		//---
 
 		// Find corresponding MSA ID and index for both genotypes
-		genoi.map2MsaAa(pdbGenomeMsas);
+		genoi.mapGenomic2Msa(pdbGenomeMsas);
 		if (!genoi.hasMsaInfo()) return gwasRes;
 
-		genoj.map2MsaAa(pdbGenomeMsas);
+		genoj.mapGenomic2Msa(pdbGenomeMsas);
 		if (!genoj.hasMsaInfo()) return gwasRes;
 
 		// Likelihood based on epistatic interaction
@@ -185,22 +185,6 @@ public class GwasEpistasis {
 
 		return gwasRes;
 	}
-
-	//	/**
-	//	 * Create a marker from the VCF ID
-	//	 */
-	//	protected Marker id2marker(String vcfId) {
-	//		String idRep = vcfId.replace(':', '_').replace('-', '_');
-	//		String f[] = idRep.split("_");
-	//		String chr = f[0];
-	//		int start = Gpr.parseIntSafe(f[1]) - 1;
-	//		String ref = f[0];
-	//		int end = start + ref.length() - 1;
-	//
-	//		// Find chromo and create marker
-	//		Chromosome chromo = pdbGenomeMsas.getConfig().getGenome().getChromosome(chr);
-	//		return new Marker(chromo, start, end, false, vcfId);
-	//	}
 
 	/**
 	 * Initialize
@@ -307,7 +291,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**

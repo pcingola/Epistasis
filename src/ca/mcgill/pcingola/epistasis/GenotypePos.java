@@ -2,6 +2,7 @@ package ca.mcgill.pcingola.epistasis;
 
 import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.interval.Markers;
+import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
@@ -23,6 +24,17 @@ public class GenotypePos extends Marker {
 
 	public GenotypePos(Marker parent, int start, int end, String id) {
 		super(parent, start, end, false, id);
+	}
+
+	public GenotypePos(Marker parent, int pos, String id) {
+		super(parent, pos, pos, false, id);
+	}
+
+	public GenotypePos(String msaId, int aaIdx) {
+		super();
+		this.msaId = msaId;
+		this.aaIdx = aaIdx;
+		id = msaId + "[" + aaIdx + "]";
 	}
 
 	public GenotypePos(VcfEntry ve) {
@@ -49,8 +61,15 @@ public class GenotypePos extends Marker {
 	/**
 	 * Find MSAid and AaIdx for a genomic position (given as an ID string)
 	 */
-	public boolean map2MsaAa(PdbGenomeMsas pdbGenomeMsas) {
+	public boolean mapGenomic2Msa(PdbGenomeMsas pdbGenomeMsas) {
+		return mapGenomic2Msa(pdbGenomeMsas, null);
+	}
 
+	/**
+	 * Find MSAid and AaIdx for a genomic position (given as an ID string)
+	 * Map it to transcript 'trId'
+	 */
+	public boolean mapGenomic2Msa(PdbGenomeMsas pdbGenomeMsas, String trId) {
 		// Already mapped? Nothing to do
 		if (msaId != null) return true;
 
@@ -61,32 +80,71 @@ public class GenotypePos extends Marker {
 		// We now need to find the AA index for that MSA
 		for (Marker m : res) {
 			String msaId = m.getId();
+			MultipleSequenceAlignment msa = msas.getMsa(msaId);
+
+			// Check trancript ID
+			if (trId != null && !msa.getTranscriptId().equals(trId)) continue;
+
+			// Map to AA index
 			int aaIdx = pdbGenomeMsas.genomicPos2AaIdx(msaId, start);
 
-			if (aaIdx >= 0) {
-				// Found something: Store result
-				// Note: We could just stop here, all the rest is done just to
-				//       ensure that the mapping works OK and that we are not
-				//       finding inconsistent sequences
+			// Is AA index within trancript's AA sequence 
+			if ((aaIdx >= 0) || (aaIdx >= msa.getAaSeqLen())) {
 
-				// Check sequence length
-				MultipleSequenceAlignment msa = msas.getMsa(msaId);
-				if (aaIdx >= msa.getSeqLen()) {
-					Gpr.debug("ERROR: Index out of range !"//
-							+ "\n\tID_J              : " + id //
-							+ "\n\tMarker            : " + m.toStr() //
-							+ "\n\tmsa.Id            : " + msaId //
-							+ "\n\tmsa.aaIdx         : " + aaIdx //
-							);
-				} else {
-					this.msaId = msaId;
-					this.aaIdx = aaIdx;
-					return true;
-				}
+				Gpr.debug("ERROR: Index out of range !"//
+						+ "\n\tID_J              : " + id //
+						+ "\n\tMarker            : " + m.toStr() //
+						+ "\n\tmsa.Id            : " + msaId //
+						+ "\n\tmsa.aaIdx         : " + aaIdx //
+				);
+			} else {
+				// Found it!
+				this.msaId = msaId;
+				this.aaIdx = aaIdx;
+				return true;
 			}
 		}
 
 		return false;
+	}
+
+	/**
+	 * Set genomic coordinates based on MsaId + aaIdx
+	 * @return true if success
+	 */
+	public boolean mapMsa2Genomic(PdbGenomeMsas pdbGenomeMsas) {
+		return mapMsa2GenomicErr(pdbGenomeMsas) == null;
+	}
+
+	/**
+	 * Set genomic coordinates based on MsaId + aaIdx
+	 * @return String describing error type, null on success
+	 */
+	public String mapMsa2GenomicErr(PdbGenomeMsas pdbGenomeMsas) {
+		// Already mapped? Nothing to do
+		if (start >= 0) return null;
+
+		if (aaIdx < 0) return "AA index is negative"; // Incorrect aaIdx
+
+		// Find MSA
+		MultipleSequenceAlignmentSet msas = pdbGenomeMsas.getMsas();
+		MultipleSequenceAlignment msa = msas.getMsa(msaId);
+		if (msa == null) return "MSA '" + msaId + "' not found";
+
+		// Get transcript
+		String trId = msa.getTranscriptId();
+		Transcript tr = pdbGenomeMsas.getTranscript(trId);
+		if (tr == null) return "Transcript '" + trId + "' not found";
+
+		// Find genomic position based on AA position
+		int aa2pos[] = tr.aaNumber2Pos();
+		if (aa2pos.length <= aaIdx) return "AA index out of range (aaIdx: " + aaIdx + ", protein length: " + aa2pos.length + ")"; // aaIdx Outside transcript
+
+		// Convert to genomic positions
+		start = end = aa2pos[aaIdx];
+		parent = tr.getChromosome();
+
+		return null;
 	}
 
 	public void setMsa(String msaId, int aaIDx) {
