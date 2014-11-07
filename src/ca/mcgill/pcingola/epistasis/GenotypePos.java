@@ -100,11 +100,11 @@ public class GenotypePos extends Marker {
 			// Is AA index within trancript's AA sequence
 			if ((aaIdx < 0) || (aaIdx >= msa.getAaSeqLen())) {
 				Gpr.debug("ERROR: Index out of range !"//
-						+ "\n\tID_J              : " + id //
+						+ "\n\tID                : " + id //
 						+ "\n\tMarker            : " + m.toStr() //
 						+ "\n\tmsa.Id            : " + msaId //
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
-						);
+				);
 			} else {
 				// Found it!
 				this.msaId = msaId;
@@ -345,7 +345,7 @@ public class GenotypePos extends Marker {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
+			);
 			return false;
 		}
 
