@@ -1,0 +1,64 @@
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 6:31864409_C/T
+			Marker            : Marker_6:31864383-31864601
+			msa.Id            : NM_006709_6:31864382-31864600
+			msa.aaIdx         : -1
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 1:153276332_C/G
+			Marker            : Marker_1:153276333-153276485
+			msa.Id            : NM_052891_1:153276332-153276484
+			msa.aaIdx         : 51
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 6:33371777_C/T,A
+			Marker            : Marker_6:33371506-33371906
+			msa.Id            : NM_002263_6:33371505-33371905
+			msa.aaIdx         : -1
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 19:13059625_C/T
+			Marker            : Marker_19:13059500-13059627
+			msa.Id            : NM_001270363_19:13059499-13059626
+			msa.aaIdx         : 43
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 3:124746048_A/T,G
+			Marker            : Marker_3:124746049-124746351
+			msa.Id            : NM_020733_3:124746048-124746350
+			msa.aaIdx         : 101
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 2:179620950_C/T
+			Marker            : Marker_2:179620949-179621524
+			msa.Id            : NM_001267550_2:179620948-179621523
+			msa.aaIdx         : 192
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 6:31777945_C/T
+			Marker            : Marker_6:31777824-31779749
+			msa.Id            : NM_005527_6:31777823-31779748
+			msa.aaIdx         : -1
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 6:30680915_C/T
+			Marker            : Marker_6:30679651-30681131
+			msa.Id            : NM_014641_6:30679650-30681130
+			ID                : 6:94120218_G/A
+			Marker            : Marker_6:94120219-94120888
+			msa.Id            : NM_004440_6:94120218-94120887
+			msa.aaIdx         : 223
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 3:101066716_T/A
+			Marker            : Marker_3:101066716-101066895
+			msa.Id            : NM_001282801_3:101066715-101066894
+			msa.aaIdx         : 60
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 20:62366915_G/A
+			Marker            : Marker_20:62366511-62366916
+			msa.Id            : NM_032527_20:62366510-62366915
+			msa.aaIdx         : 136
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 11:4116260_G/T
+			Marker            : Marker_11:4116243-4116261
+			msa.Id            : NM_001033_11:4116242-4116260
+			msa.aaIdx         : 6
+		GenotypePos.mapGenomic2Msa(102):	ERROR: Index out of range !
+			ID                : 6:160196342_A/G
+			Marker            : Marker_6:160196202-160196345
+			msa.Id            : NM_005891_6:160196201-160196344
+			msa.aaIdx         : 48
