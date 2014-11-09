@@ -104,7 +104,7 @@ public class GenotypePos extends Marker {
 						+ "\n\tMarker            : " + m.toStr() //
 						+ "\n\tmsa.Id            : " + msaId //
 						+ "\n\tmsa.aaIdx         : " + aaIdx //
-				);
+						);
 			} else {
 				// Found it!
 				this.msaId = msaId;
@@ -345,7 +345,7 @@ public class GenotypePos extends Marker {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
 			return false;
 		}
 
