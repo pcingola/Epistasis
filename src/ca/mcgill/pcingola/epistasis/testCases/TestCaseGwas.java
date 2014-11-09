@@ -1,7 +1,5 @@
 package ca.mcgill.pcingola.epistasis.testCases;
 
-import java.util.Random;
-
 import junit.framework.TestCase;
 
 import org.junit.Assert;
@@ -106,8 +104,6 @@ public class TestCaseGwas extends TestCase {
 		//	ii) Map it to genomic coordinate
 		// 	iii) Map genomic coordinates back to msaId:aaIdx
 		//  iv) Check that <mdsId, aaIdx> are recovered correctly
-
-		new Random(20141006);
 
 		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
 		String genome = "testHg19Chr1";
