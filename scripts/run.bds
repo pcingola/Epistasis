@@ -8,8 +8,8 @@
 
 debug			:= false
 timeout			:= 5 * day
-#system			:= 'cluster'
-cpus			:= ( system == 'local' ? 24 : 4 )
+system			:= 'cluster'
+cpus			:= ( system == 'local' ? 4 : 4 )
 
 # Which step/s to perform
 step1			:= false
@@ -369,11 +369,12 @@ if( step5 ) {
 
 println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
 
+
 if( step6 ) {
 	println "\nGWAS analysis using epistasis data"
-	numSplits := 20
 
 	# GWAs using interaction (MSA) data
+	numSplits := 20
 	for( int i=0 ; i < numSplits ; i++ ) {
 		for( int j=i ; j < numSplits ; j++ ) {
 			println "\t$i $j / $numSplits"
@@ -384,17 +385,37 @@ if( step6 ) {
 			}
 		}
 	}
+
+	# Do ClinVar entries have better LL_MSA than 'null'
+	println "\nLogLikelihood of MSA (interaction) using ClinVar entries"
+	clinVar := "$dir/clinvar-latest.pass.vcf.gz"
+	dirOut := "$dir/likelihood.clinvar"
+
+	dirOut.mkdir()
+	numSplits = 100
+	for( int i=0 ; i < numSplits ; i++ ) {
+		println "\t$i / $numSplits"
+
+		clinVarOut := "$dirOut/likelihood.clinvar.$numSplits.$i.txt"
+		task( clinVarOut <- [clinVar, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+			sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar $numSplits $i $dirOut > $clinVarOut
+		}
+	}
+
 }
 
-# Do ClinVar entries have better LL_MSA than 'null'
-println "\nLogLikelihood of MSA (interaction) using ClinVar entries"
-clinVar := "$dir/clinvar-latest.pass.vcf.gz"
+# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
+println "\nLogLikelihood of MSA (interaction) using 1000-Genomes project"
+g1k := "$dir/g1k.subsample.vcf"
+dirOut := "$dir/likelihood.g1k"
+dirOut.mkdir()
 numSplits := 100
 for( int i=0 ; i < numSplits ; i++ ) {
 	println "\t$i / $numSplits"
-	clinVarOut := "$dir/likelihood.clinvar.$numSplits.$i.txt"
-	task( clinVarOut <- [clinVar, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-		sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar $numSplits $i > $clinVarOut
+
+	g1kOut := "$dirOut/likelihood.g1k.$numSplits.$i.txt"
+	task( g1kOut <- [g1k, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+		sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $g1k $numSplits $i $dirOut > $g1kOut
 	}
 }
 
