@@ -4,7 +4,9 @@ import junit.framework.TestCase;
 
 import org.junit.Assert;
 
+import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.gwas.GwasEpistasis;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
@@ -21,6 +23,30 @@ public class TestCaseGwas extends TestCase {
 
 	public static boolean debug = false;
 	public static boolean verbose = false || debug;
+
+	public GenotypePos mapToMsa(String genome, String msasFile, String chr, int pos) {
+		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
+		String phyloFileName = "data/hg19.100way.nh";
+		String pdbDir = ""; // Not used
+
+		LikelihoodTreeAa tree = new LikelihoodTreeAa();
+		tree.load(phyloFileName);
+
+		MultipleSequenceAlignmentSet msas = new MultipleSequenceAlignmentSet(msasFile, tree);
+		msas.load();
+		msas.buildForest();
+
+		PdbGenomeMsas pdbGenomeMsas = new PdbGenomeMsas(configFile, genome, pdbDir, msas);
+		pdbGenomeMsas.setDebug(debug);
+		pdbGenomeMsas.setTree(tree);
+		pdbGenomeMsas.initialize();
+
+		Chromosome chromo = pdbGenomeMsas.getConfig().getGenome().getOrCreateChromosome(chr);
+		GenotypePos gp = new GenotypePos(chromo, pos - 1, chr + ":" + pos);
+		gp.mapGenomic2Msa(pdbGenomeMsas);
+
+		return gp;
+	}
 
 	public void test_01_Gwas_Map() {
 		Gpr.debug("Test");
@@ -136,7 +162,7 @@ public class TestCaseGwas extends TestCase {
 					if (debug) Gpr.debug("AA Sequences differ:" //
 							+ "\n\tMSA        : " + msas.rowSequence(trId) //
 							+ "\n\tTranscript : " + pdbGenomeMsas.getTranscript(trId).protein() //
-					);
+							);
 				}
 				continue;
 			}
@@ -170,7 +196,7 @@ public class TestCaseGwas extends TestCase {
 						+ "\t" + msaIdxOri //
 						+ "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd() //
 						+ "\t" + msaIdxRecover //
-				);
+						);
 
 				Assert.assertEquals(msaIdxOri, msaIdxRecover);
 
@@ -179,4 +205,21 @@ public class TestCaseGwas extends TestCase {
 			}
 		}
 	}
+
+	public void test_06_map_transcripts_in_multipleChromos() {
+		String genome = "hg19";
+		String msasFile = "test/NM_006709.fa"; // "data/msa_test.fa.gz";
+		GenotypePos gp = mapToMsa(genome, msasFile, "6", 31864410);
+		Assert.assertTrue(gp.getMsaId() != null);
+		Timer.showStdErr("MSA:\t" + gp.getMsaId() + ":" + gp.getAaIdx());
+	}
+
+	public void test_07_map_last_base_before_frame1() {
+		String genome = "testHg19Chr1";
+		String msasFile = "test/NM_178229.fa";
+		GenotypePos gp = mapToMsa(genome, msasFile, "1", 156526325);
+		Assert.assertTrue(gp.getMsaId() != null);
+		Timer.showStdErr("MSA:\t" + gp.getMsaId() + ":" + gp.getAaIdx());
+	}
+
 }

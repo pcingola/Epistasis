@@ -95,22 +95,15 @@ public class GenotypePos extends Marker {
 			if (trId != null && !msa.getTranscriptId().equals(trId)) continue;
 
 			// Map to AA index
-			int aaIdx = mapMsaIdPos2AaIdx(pdbGenomeMsas, msaId, start);
+			if (mapMsaIdPos2AaIdx(pdbGenomeMsas, msaId, start)) return true;
 
-			// Is AA index within trancript's AA sequence
-			if ((aaIdx < 0) || (aaIdx >= msa.getAaSeqLen())) {
-				Gpr.debug("ERROR: Index out of range !"//
-						+ "\n\tID                : " + id //
-						+ "\n\tMarker            : " + m.toStr() //
-						+ "\n\tmsa.Id            : " + msaId //
-						+ "\n\tmsa.aaIdx         : " + aaIdx //
-						);
-			} else {
-				// Found it!
-				this.msaId = msaId;
-				this.aaIdx = aaIdx;
-				return true;
-			}
+			// Mapping failed
+			Gpr.debug("ERROR: Index out of range !"//
+					+ "\n\tID                : " + id //
+					+ "\n\tMarker            : " + m.toStr() //
+					+ "\n\tmsa.Id            : " + msaId //
+					+ "\n\tmsa.aaIdx         : " + aaIdx //
+					);
 		}
 
 		return false;
@@ -196,37 +189,45 @@ public class GenotypePos extends Marker {
 	}
 
 	/**
-	 * Get aaIdx from MSA and genomic position  'pos'
-	 * Note: Chromosme name is implied by msaId
+	 * Map genomic position to MSA + aaIdx.
+	 * Most of the time only aaIdx within 'msaId' is calculated. On some
+	 * rare border conditions", msaId changes (e.g. when 'pos' maps to
+	 * the last AA and the next exon has frame=1). This case is a quirk
+	 * on how UCSC numbers AA in their multiple sequence alignments.
 	 */
-	int mapMsaIdPos2AaIdx(PdbGenomeMsas pdbGenomeMsas, String msaId, int pos) {
+	boolean mapMsaIdPos2AaIdx(PdbGenomeMsas pdbGenomeMsas, String msaId, int pos) {
 		// Find all MSA
 		MultipleSequenceAlignment msa = pdbGenomeMsas.getMsas().getMsa(msaId);
-		if (msa == null) return -1;
+		if (msa == null) return false;
 
 		String trid = msa.getTranscriptId();
 		Transcript tr = pdbGenomeMsas.getTranscript(trid);
 
 		// Return column index
-		return mapMsaTrPos2AaIdx(msa, tr, pos);
+		return mapMsaTrPos2AaIdx(pdbGenomeMsas, msa, tr, pos);
 	}
 
 	/**
 	 * Map a genomic position to an MSA index (given the Transcript and the MSA)
-	 * @return -1 on failure
+	 * Most of the times only aaIdx within 'msa' is calculated. On some
+	 * rare border conditions", 'msa' changes (e.g. when 'pos' maps to
+	 * the last AA and the next exon has frame=1). This case is a quirk
+	 * on how UCSC numbers AA in their multiple sequence alignments.
+
+	 * @return false on failure
 	 */
-	int mapMsaTrPos2AaIdx(MultipleSequenceAlignment msa, Transcript tr, int pos) {
-		if (tr == null) return -1;
+	boolean mapMsaTrPos2AaIdx(PdbGenomeMsas pdbGenomeMsas, MultipleSequenceAlignment msa, Transcript tr, int pos) {
+		if (tr == null) return false;
 
 		// Check all MSA
 		// Different chromosome or position? Skip
-		if (!msa.intersects(tr)) return -1;
+		if (!msa.intersects(tr)) return false;
 
 		// Find exon
 		Exon exon = tr.findExon(pos);
 		if (exon == null) {
 			Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
-			return -1;
+			return false;
 		}
 
 		// Find index
@@ -240,8 +241,24 @@ public class GenotypePos extends Marker {
 			else idxAa++; // Other bases are AA number 1 and on
 		}
 
-		// Return column index
-		return idxAa;
+		// Out of range
+		if (idxAa >= msa.getAaSeqLen()) {
+			Gpr.debug("MSA before: " + msa.getId());
+			// This can happen when a base maps to the LAST amino acid in an exon.
+			// If the next exons has 'frame=1', then that last AA is 'pushed' to the
+			// next exon (I don't know why UCSC does this complicated mapping between
+			// AA and bases in their MSAs).  So, we have to move the mapping to
+			// the first AA in the next exon.
+
+			idxAa = 0; // First amino acid
+			msa = pdbGenomeMsas.getMsas().findNextExon(msa); // Find MSA for the exon following 'msa'
+			Gpr.debug("MSA after: " + msa.getId());
+		}
+
+		// We are done: Set parameters
+		msaId = msa.getId();
+		aaIdx = idxAa;
+		return true;
 	}
 
 	/**
@@ -263,19 +280,13 @@ public class GenotypePos extends Marker {
 		List<MultipleSequenceAlignment> msaList = pdbGenomeMsas.getMsas().getMsasByTrId(trid);
 		if (msaList == null) return false;
 
-		// Check all MSA
+		// Try to map to all MSAs
 		for (MultipleSequenceAlignment msa : msaList) {
 			// Does this MSA intersect chr:pos?
 			if (!msa.intersects(this)) continue;
 
-			// Find aaIndx
-			int idxAa = mapMsaTrPos2AaIdx(msa, tr, pos);
-			if (idxAa < 0) return false;
-
-			// OK
-			aaIdx = idxAa;
-			msaId = msa.getId();
-			return true;
+			// Try to map to 'msa'
+			if (mapMsaTrPos2AaIdx(pdbGenomeMsas, msa, tr, pos)) return true;
 		}
 
 		return false;

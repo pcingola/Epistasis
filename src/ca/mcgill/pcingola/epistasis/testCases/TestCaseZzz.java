@@ -47,9 +47,9 @@ public class TestCaseZzz extends TestCase {
 	}
 
 	public void test_zzz() {
-		String genome = "hg19";
-		String msasFile = "test/NM_006709.fa"; // "data/msa_test.fa.gz";
-		GenotypePos gp = mapToMsa(genome, msasFile, "6", 31864410);
+		String genome = "testHg19Chr1";
+		String msasFile = "test/NM_178229.fa";
+		GenotypePos gp = mapToMsa(genome, msasFile, "1", 156526325);
 		Assert.assertTrue(gp.getMsaId() != null);
 		Timer.showStdErr("MSA:\t" + gp.getMsaId() + ":" + gp.getAaIdx());
 	}

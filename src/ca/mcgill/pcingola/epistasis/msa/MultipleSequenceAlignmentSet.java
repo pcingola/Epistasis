@@ -210,6 +210,21 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		counts[code1][code2]++;
 	}
 
+	/**
+	 * Find MSA for exon following 'msa'
+	 */
+	public MultipleSequenceAlignment findNextExon(MultipleSequenceAlignment msa) {
+		boolean retNext = false;
+
+		// Find MSA following 'msa', for the same transcriptId
+		for (MultipleSequenceAlignment m : getMsasByTrId(msa.getTranscriptId())) {
+			if (retNext) return m;
+			if (m.getId().equals(msa.getId())) retNext = true;
+		}
+
+		return null;
+	}
+
 	public MultipleSequenceAlignment getMsa(String msaId) {
 		return msaById.get(msaId);
 	}

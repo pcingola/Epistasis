@@ -24,7 +24,6 @@ import ca.mcgill.mcb.pcingola.interval.NextProt;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
-import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
@@ -271,10 +270,7 @@ public class PdbGenomeMsas extends SnpEff {
 					String chrPrev = trancriptById.get(id).getChromosomeName();
 					String chr = tr.getChromosomeName();
 
-					if (chr.length() < chrPrev.length()) {
-						Gpr.debug("TrID: " + id + " already exists in chromosome " + tr.getChromosomeName());
-						trancriptById.put(id, tr);
-					}
+					if (chr.length() < chrPrev.length()) trancriptById.put(id, tr);
 				} else {
 					// Transcript not present: Add it
 					trancriptById.put(id, tr);
