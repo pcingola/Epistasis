@@ -38,10 +38,10 @@ normLogLik <- function(p, c, title) {
 		cat(title, '\tSlope:\t', sumLmfit$coefficients[2], '\tp-value:\t', pvalCoef, 'File:\t', fileName, '\n');
 
 		par(mfrow=c(1,1))
-		smoothScatter( lc, p, main="Scores", xlab="Number of scores", ylab="Score", sub=title )
+		smoothScatter( lc, p, main="Scores", xlab="Number of scores", ylab="Score", sub=title, ylim = c(-20,50) )
 		lines(lowess(lc, p ), col='orange')
 
-		smoothScatter( lc, padj, main="Adjusted Scores", xlab="Number of scores", ylab="Score", sub=title )
+		smoothScatter( lc, padj, main="Adjusted Scores", xlab="Number of scores", ylab="Score", sub=title, ylim = c(-20,50) )
 		lines(lowess(lc, padj ), col='orange')
 
 		plot( density(p) , main="Scores distribution", xlab="red:Adjusted black:Unadjusted", sub=title)
