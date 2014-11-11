@@ -387,6 +387,12 @@ if( step5 ) {
 # Part 6: GWAS
 #---
 
+<<<<<<< HEAD
+=======
+println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
+
+
+>>>>>>> 725e785943f2ae9f6bfbc24a66309165b39f11ec
 if( step6 ) {
 	println "\nGWAS analysis using epistasis data"
 
@@ -402,6 +408,7 @@ if( step6 ) {
 			}
 		}
 	}
+<<<<<<< HEAD
 
 	# Do ClinVar entries have better LL_MSA than 'null'?
 	println "\nClinVar analysis"
@@ -415,6 +422,40 @@ if( step6 ) {
 	g1k := "$dir/g1k.subsample.vcf"
 	dirOut = "$dir/likelihood.g1k"
 	likelihoodvcf(g1k, dirOut, numSplits)
+=======
+
+	# Do ClinVar entries have better LL_MSA than 'null'
+	println "\nLogLikelihood of MSA (interaction) using ClinVar entries"
+	clinVar := "$dir/clinvar-latest.pass.vcf.gz"
+	dirOut := "$dir/likelihood.clinvar"
+
+	dirOut.mkdir()
+	numSplits = 100
+	for( int i=0 ; i < numSplits ; i++ ) {
+		println "\t$i / $numSplits"
+
+		clinVarOut := "$dirOut/likelihood.clinvar.$numSplits.$i.txt"
+		task( clinVarOut <- [clinVar, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+			sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar $numSplits $i $dirOut > $clinVarOut
+		}
+	}
+
+}
+
+# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
+println "\nLogLikelihood of MSA (interaction) using 1000-Genomes project"
+g1k := "$dir/g1k.subsample.vcf"
+dirOut := "$dir/likelihood.g1k"
+dirOut.mkdir()
+numSplits := 100
+for( int i=0 ; i < numSplits ; i++ ) {
+	println "\t$i / $numSplits"
+
+	g1kOut := "$dirOut/likelihood.g1k.$numSplits.$i.txt"
+	task( g1kOut <- [g1k, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+		sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $g1k $numSplits $i $dirOut > $g1kOut
+	}
+>>>>>>> 725e785943f2ae9f6bfbc24a66309165b39f11ec
 }
 
 # Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
