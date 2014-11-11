@@ -45,7 +45,7 @@ likNull			:= "$dir/likelihood.null.txt"
 msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
 msaBest			:= "$dir/msas.best.fa"
 pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
-pheno			:= "$dir/coEvolution.pheno.covariates.txt"
+pheno			:= "$dir/pheno.txt"
 qhat			:= "$dir/Qhat.txt"
 qhat2			:= "$dir/Qhat2.txt"
 snpeffConfig	:= "$snpEffDir/snpEff.config"
@@ -403,6 +403,11 @@ if( step6 ) {
 		}
 	}
 
+#---
+# Part 7: Validation
+#---
+
+if( step7 ) {
 	# Do ClinVar entries have better LL_MSA than 'null'?
 	println "\nClinVar analysis"
 	clinVar := "$dir/clinvar-latest.pass.vcf.gz"
@@ -415,14 +420,14 @@ if( step6 ) {
 	g1k := "$dir/g1k.subsample.vcf"
 	dirOut = "$dir/likelihood.g1k"
 	likelihoodvcf(g1k, dirOut, numSplits)
-}
 
-# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
-println "\nLogLikelihood of MSA (interaction) using HGMD"
-hgmd := "$dir/HGMD.vcf"
-dirOut := "$dir/likelihood.hgmd"
-numSplits := 200
-likelihoodvcf(hgmd, dirOut, numSplits)
+	# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
+	println "\nLogLikelihood of MSA (interaction) using HGMD"
+	hgmd := "$dir/HGMD.vcf"
+	dirOut = "$dir/likelihood.hgmd"
+	numSplits = 200
+	likelihoodvcf(hgmd, dirOut, numSplits)
+}
 
 # Done
 wait
