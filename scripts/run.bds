@@ -8,8 +8,8 @@
 
 debug			:= false
 timeout			:= 5 * day
-#system			:= 'cluster'
-cpus			:= ( system == 'local' ? 24 : 4 )
+system			:= 'cluster'
+cpus			:= ( system == 'local' ? 4 : 4 )
 
 # Which step/s to perform
 step1			:= false
@@ -72,6 +72,26 @@ if( debug ) {
 	msa  = "$dir/head.fa"
 	qhat = "$dir/Qhat_head.txt"
 	bgNum = 1000
+}
+
+#-------------------------------------------------------------------------------
+# Likelihood for interactions from a variant in a VCF file and all other 
+# sites withn a protein
+#-------------------------------------------------------------------------------
+
+void likelihoodvcf(string vcfFile, string dirOut, int numSplits) {
+	println "\nLogLikelihood of MSA (interaction) using VCF file '$vcfFile'"
+	dirOut.mkdir()
+
+	for( int i=0 ; i < numSplits ; i++ ) {
+		println "\t$i / $numSplits"
+
+		base := vcfFile.baseName(".vcf")
+		outputFile := "$dirOut/likelihood.$numSplits.$i.txt"
+		task( outputFile <- [vcfFile, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+			sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcfFile $numSplits $i $dirOut > $outputFile
+		}
+	}
 }
 
 #-------------------------------------------------------------------------------
@@ -367,13 +387,11 @@ if( step5 ) {
 # Part 6: GWAS
 #---
 
-println "\n\n\n\t\t\tUSING MSA_BEST INSTEAD OF ALL!!!!!!\n\n\n"
-
 if( step6 ) {
 	println "\nGWAS analysis using epistasis data"
-	numSplits := 20
 
 	# GWAs using interaction (MSA) data
+	numSplits := 20
 	for( int i=0 ; i < numSplits ; i++ ) {
 		for( int j=i ; j < numSplits ; j++ ) {
 			println "\t$i $j / $numSplits"
@@ -384,19 +402,27 @@ if( step6 ) {
 			}
 		}
 	}
+
+	# Do ClinVar entries have better LL_MSA than 'null'?
+	println "\nClinVar analysis"
+	clinVar := "$dir/clinvar-latest.pass.vcf.gz"
+	dirOut := "$dir/likelihood.clinvar"
+	numSplits = 100
+	likelihoodvcf(clinVar, dirOut, numSplits)
+
+	# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
+	println "\nLogLikelihood of MSA (interaction) using 1000-Genomes project"
+	g1k := "$dir/g1k.subsample.vcf"
+	dirOut = "$dir/likelihood.g1k"
+	likelihoodvcf(g1k, dirOut, numSplits)
 }
 
-# Do ClinVar entries have better LL_MSA than 'null'
-println "\nLogLikelihood of MSA (interaction) using ClinVar entries"
-clinVar := "$dir/clinvar-latest.pass.vcf.gz"
-numSplits := 100
-for( int i=0 ; i < numSplits ; i++ ) {
-	println "\t$i / $numSplits"
-	clinVarOut := "$dir/likelihood.clinvar.$numSplits.$i.txt"
-	task( clinVarOut <- [clinVar, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-		sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $clinVar $numSplits $i > $clinVarOut
-	}
-}
+# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
+println "\nLogLikelihood of MSA (interaction) using HGMD"
+hgmd := "$dir/HGMD.vcf"
+dirOut := "$dir/likelihood.hgmd"
+numSplits := 200
+likelihoodvcf(hgmd, dirOut, numSplits)
 
 # Done
 wait
