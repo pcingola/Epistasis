@@ -103,7 +103,7 @@ public class GenotypePos extends Marker {
 					+ "\n\tMarker            : " + m.toStr() //
 					+ "\n\tmsa.Id            : " + msaId //
 					+ "\n\tmsa.aaIdx         : " + aaIdx //
-					);
+			);
 		}
 
 		return false;
@@ -243,16 +243,18 @@ public class GenotypePos extends Marker {
 
 		// Out of range
 		if (idxAa >= msa.getAaSeqLen()) {
-			Gpr.debug("MSA before: " + msa.getId());
 			// This can happen when a base maps to the LAST amino acid in an exon.
 			// If the next exons has 'frame=1', then that last AA is 'pushed' to the
 			// next exon (I don't know why UCSC does this complicated mapping between
 			// AA and bases in their MSAs).  So, we have to move the mapping to
 			// the first AA in the next exon.
-
+			MultipleSequenceAlignment msaNext = pdbGenomeMsas.getMsas().findNextExon(msa); // Find MSA for the exon following 'msa'
+			if (msaNext == null) {
+				Gpr.debug("ERROR: Cannot find 'next' exon for MSA '" + msa.getId() + "'");
+				return false; // Cannot find next exon (something went wrong)
+			}
+			msa = msaNext;
 			idxAa = 0; // First amino acid
-			msa = pdbGenomeMsas.getMsas().findNextExon(msa); // Find MSA for the exon following 'msa'
-			Gpr.debug("MSA after: " + msa.getId());
 		}
 
 		// We are done: Set parameters
@@ -356,7 +358,7 @@ public class GenotypePos extends Marker {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
+			);
 			return false;
 		}
 
