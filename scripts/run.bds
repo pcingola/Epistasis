@@ -17,7 +17,8 @@ step2			:= false
 step3			:= false
 step4			:= false
 step5			:= false
-step6			:= false
+step6			:= true
+step7			:= false
 
 # Parameters
 snpEffDir		:= "$HOME/snpEff"
@@ -391,17 +392,20 @@ if( step6 ) {
 	println "\nGWAS analysis using epistasis data"
 
 	# GWAs using interaction (MSA) data
-	numSplits := 20
+	numSplits := 30
+	dirGwasOut := "$dir/gwas"
+	dirGwasOut.mkdir()
 	for( int i=0 ; i < numSplits ; i++ ) {
 		for( int j=i ; j < numSplits ; j++ ) {
 			println "\t$i $j / $numSplits"
-			gwasOut := "$dir/gwas.$numSplits.$i.$j.txt"
+			gwasOut := "$dirGwasOut/gwas.$numSplits.$i.$j.txt"
 
 			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
 				sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
 			}
 		}
 	}
+}
 
 #---
 # Part 7: Validation
@@ -412,7 +416,7 @@ if( step7 ) {
 	println "\nClinVar analysis"
 	clinVar := "$dir/clinvar-latest.pass.vcf.gz"
 	dirOut := "$dir/likelihood.clinvar"
-	numSplits = 100
+	numSplits := 100
 	likelihoodvcf(clinVar, dirOut, numSplits)
 
 	# Use dbSnp entries from 1000 Genomes (this should be the 'null' distribution to compare clinVar)
