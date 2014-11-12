@@ -24,11 +24,11 @@ while( $l = <CLINVAR> ) {
 close CLINVAR;
 
 # Read STDIN
-print "chr\tpos\tref\talt\tll\tclnsig\n";
+print "chr\tpos\tref\talt\tll\tlen\tclnsig\n";
 while( $l = <STDIN> ) {
 	chomp $l;
-	($chr, $pos, $ref, $alt, $ll) = split /\t/, $l;
+	($chr, $pos, $ref, $alt, $ll, $len) = split /\t/, $l;
 
 	$pos += 1;
-	print "$chr\t$pos\t$ref\t$alt\t$ll\t" . $clnsig{"$chr:$pos"} . "\n";
+	print "$chr\t$pos\t$ref\t$alt\t$ll\t$len\t" . $clnsig{"$chr:$pos"} . "\n";
 }
