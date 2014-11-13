@@ -21,6 +21,8 @@ public class GwasResult {
 	public double pvalueLogReg = 1.0; // P-value from log-likelihood in logistic regression model
 
 	public double logLikelihoodMsa = 0.0; // Log likelihood from MSA (epistasis) model
+	public double likelihoodMsaAlt = 0.0; // Likelihood from MSA (ALT model)
+	public double likelihoodMsaNull = 0.0; // Likelihood from MSA (NULL model)
 	public LogisticRegression lrNull; // Logistc regression Null model
 	public LogisticRegression lrAlt; // Logistc regression Alt model
 
@@ -99,6 +101,8 @@ public class GwasResult {
 				+ "\tll_total: " + llt //
 				+ "\tll_LogReg: " + logLikelihoodLogReg //
 				+ "\tll_MSA: " + logLikelihoodMsa //
+				+ "\tlik_MSA_ALT: " + likelihoodMsaAlt //
+				+ "\tlik_MSA_NULL: " + likelihoodMsaNull //
 				+ "\t" + genoi.getId() //
 				+ "\t" + genoj.getId() //
 				+ additionalStr //

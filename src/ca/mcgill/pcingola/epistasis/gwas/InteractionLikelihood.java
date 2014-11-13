@@ -448,7 +448,7 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate likelihood ratio for these entries
 	 */
-	double logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief) {
+	double logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief, GwasResult gwasRes) {
 		// Since we execute in parallel, we need one tree per thread
 		LikelihoodTreeAa treeNull = getTreeNull();
 		LikelihoodTreeAa treeAlt = getTreeAlt();
@@ -457,6 +457,12 @@ public class InteractionLikelihood {
 		double likNull = likelihoodNullModel(treeNull, msa1, msaIdx1, msa2, msaIdx2);
 		double likAlt = likelihoodAltModel(treeAlt, msa1, msaIdx1, msa2, msaIdx2);
 		double logLikRatio = -2.0 * (Math.log(likNull) - Math.log(likAlt));
+
+		// Update 'GwasResult'
+		gwasRes.likelihoodMsaNull = likNull;
+		gwasRes.likelihoodMsaAlt = likAlt;
+		gwasRes.logLikelihoodMsa = logLikRatio;
+
 		return logLikRatio;
 	}
 
@@ -485,14 +491,14 @@ public class InteractionLikelihood {
 		return sb.toString();
 	}
 
-	public double logLikelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief) {
+	public double logLikelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief, GwasResult gwasRes) {
 		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
 		if (msa1 == null) return 0;
 
 		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
 		if (msa2 == null) return 0;
 
-		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief);
+		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief, gwasRes);
 	}
 
 	/**

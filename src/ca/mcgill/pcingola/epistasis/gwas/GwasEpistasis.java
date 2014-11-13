@@ -131,13 +131,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
-				double llTot = gwasRes.logLik();
-				if (llTot > llThresholdLogReg) countLl.inc();
-				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-			});
+					.parallel() //
+					.forEach(j -> {
+						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
+						double llTot = gwasRes.logLik();
+						if (llTot > llThresholdLogReg) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+					});
 		}
 	}
 
@@ -172,8 +172,7 @@ public class GwasEpistasis {
 		// Likelihood based on epistatic interaction
 		String msaId1 = genoi.getMsaId(), msaId2 = genoj.getMsaId();
 		int msaIdx1 = genoi.getAaIdx(), msaIdx2 = genoj.getAaIdx();
-		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false);
-		gwasRes.logLikelihoodMsa = llMsa;
+		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false, gwasRes);
 
 		// Epistatic likelihood model too low? => Don't bother to calculate next part
 		if (gwasRes.logLik() < LL_THRESHOLD_TOTAL && gwasRes.logLikelihoodMsa < llThresholdMsa) return gwasRes;
@@ -292,7 +291,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**
