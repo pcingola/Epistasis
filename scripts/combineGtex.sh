@@ -39,7 +39,7 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| grep -vP "\tRPS" \
 # 	| grep -vP "\tRPL" \
 # 	> $DIR/biogrid.human.uniq.txt
-# 
+
 # # Select interactios from BioGrid
 # # Note: No filtering
 # cat $DIR_BIOGRID/BIOGRID-ALL-*.tab2.txt \
