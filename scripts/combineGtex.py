@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 """
-  Select GeneSets from MSigDb using expression data from GTEx
+  Select GeneSets from MSigDb using expression data from GTEx and PPI information from BioGrid
 
 
   Pablo Cingolani 2013
