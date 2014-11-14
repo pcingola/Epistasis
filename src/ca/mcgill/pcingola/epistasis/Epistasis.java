@@ -386,9 +386,10 @@ public class Epistasis implements CommandLine {
 			q2MatrixFile = args[argNum++];
 			aaFreqsContactFile = args[argNum++];
 			String geneNamePairsFile = args[argNum++];
+			String outDir = args[argNum++];
 			filterMsaByIdMap = true;
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
-			runLikelihoodAll(geneNamePairsFile);
+			runLikelihoodAll(geneNamePairsFile, outDir);
 			break;
 
 		case "likelihoodnull":
@@ -418,7 +419,7 @@ public class Epistasis implements CommandLine {
 			vcfFile = args[argNum++];
 			numSplits = Gpr.parseIntSafe(args[argNum++]);
 			int split = Gpr.parseIntSafe(args[argNum++]);
-			String outDir = args[argNum++];
+			outDir = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = false;
 			runLikelihoodVcf(vcfFile, outDir, numSplits, split);
@@ -823,11 +824,11 @@ public class Epistasis implements CommandLine {
 	 * Likelihood for all AA in geneName Pairs pairs in 'geneNamePairsFile'
 	 * File format: "gene1 \t gene2 \n" (spaces added for legibility)
 	 */
-	void runLikelihoodAll(String genesFile) {
+	void runLikelihoodAll(String genesFile, String outDir) {
 		load();
 
 		InteractionLikelihood il = newInteractionLikelihood();
-		il.likelihoodAllAminAcidsInGenes(genesFile);
+		il.likelihoodAllAminAcidsInGenes(genesFile, outDir);
 	}
 
 	/**

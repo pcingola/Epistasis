@@ -204,10 +204,9 @@ public class InteractionLikelihood {
 	 * Likelihood for all AA in geneName Pairs pairs in 'geneNamePairsFile'
 	 * File format: "gene1 \t gene2 \n" (spaces added for legibility)
 	 */
-	public void likelihoodAllAminAcidsInGenes(String genesFile) {
+	public void likelihoodAllAminAcidsInGenes(String genesFile, String outDir) {
 		// Load gene names
 		Set<String> geneLines = new HashSet<String>();
-		String genesDir = Gpr.dirName(genesFile);
 		for (String line : Gpr.readFile(genesFile).split("\n")) {
 			String f[] = line.split("\t");
 			String gene1 = f[0].trim();
@@ -244,7 +243,7 @@ public class InteractionLikelihood {
 				.forEach(str -> {
 					String f[] = str.split("\t");
 					String g1 = f[0], g2 = f[1];
-					logLikelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), genesDir); //
+					logLikelihoodGenes(g1, g2, msasByGeneName.get(g1), msasByGeneName.get(g2), outDir); //
 					} //
 				);
 	}
@@ -361,11 +360,11 @@ public class InteractionLikelihood {
 	 * Output format:
 	 * 		msa1.id [msaIdx1] \t msa2.id[msaIdx2] \t logLikRatio \t likNull \t likAlt \t seqsStr
 	 */
-	void logLikelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String genesDir) {
+	void logLikelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String outDir) {
 		if (msasGene1 == null || msasGene2 == null) return;
 
 		// Create output directory
-		String dir = genesDir + "/likelihood_genes/" + gene1;
+		String dir = outDir + "/likelihood_genes/" + gene1;
 		(new File(dir)).mkdirs();
 
 		// Create output file
