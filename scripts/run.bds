@@ -40,6 +40,7 @@ idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
 interactions    := "$dir/interactions.txt"
+interactionsNull:= "$dir/selectNotInteracting.head.txt"
 lik				:= "$dir/likelihood.contact.txt"
 likAll			:= "$dir/likelihood.all.txt"
 likNull			:= "$dir/likelihood.null.txt"
@@ -429,7 +430,8 @@ if( step7 ) {
 }
 
 # Gene-Gene Log likelihood (MSA) analysis: All possible pairs
-geneGeneLogLik("$dir/interactions/alt", interactions)
+#geneGeneLogLik("$dir/interactions/alt", interactions)
+geneGeneLogLik("$dir/interactions/null", interactionsNull)
 
 # Done
 wait
