@@ -15,7 +15,7 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| cut -f 2,4 \
 # 	| sort \
 # 	| uniq \
-# 	> geneId_geneName.txt
+# 	> $DIR/geneId_geneName.txt
 
 # # Select interations from Reactome (only direct_complex interactions)
 # cat $DIR_REACTOME/interactions/homo_sapiens.interactions.txt \
@@ -24,11 +24,11 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| sed "s/ENSEMBL://g" \
 # 	| sort \
 # 	| uniq \
-# 	> $DIR_REACTOME/reactome.homo_sapiens.interactions.txt
+# 	> $DIR/reactome.homo_sapiens.interactions.txt
 
 # # Select interactios from BioGrid
 # # Note: We filter out RPS/RPL robosomal complexes interactions
-# cat $DIR_BIOGRID/BIOGRID-ALL-3.2.115.tab2.txt \
+# cat $DIR_BIOGRID/BIOGRID-ALL-*.tab2.txt \
 # 	| cut -f 8,9,16,17 \
 # 	| grep -P "\t9606\t9606" \
 # 	| cut -f 1,2 \
@@ -38,7 +38,17 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # 	| grep -v "^RPL" \
 # 	| grep -vP "\tRPS" \
 # 	| grep -vP "\tRPL" \
-# 	> $DIR_BIOGRID/biogrid.human.uniq.txt
+# 	> $DIR/biogrid.human.uniq.txt
+# 
+# # Select interactios from BioGrid
+# # Note: No filtering
+# cat $DIR_BIOGRID/BIOGRID-ALL-*.tab2.txt \
+# 	| cut -f 8,9,16,17 \
+# 	| grep -P "\t9606\t9606" \
+# 	| cut -f 1,2 \
+# 	| sort \
+# 	| uniq \
+# 	> $DIR/biogrid.human.all.txt
 
 # # Get ID -> tissue mapping
 # cut -f 1,7 $DIR_GTEX/gtex_ids.txt \
@@ -49,37 +59,37 @@ DIR_BIOGRID=$HOME/snpEff/db/biogrid
 # # Gene names in MSAs
 # cut -f 3 $DIR/idMap_ensemblId_refseq_pdbId.best.txt | sort | uniq > $DIR/genes.msas.txt
 
-# Calculate combined interaction pairs
-rm -rvf $DIR/interactions.*.txt
-for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
-do
-
-	TIS=`echo $TISSUE | tr -d "\n-" | tr " " "_" | tr -s "_"`
-	echo Tissue: $TISSUE $TIS
-
-	# Select GTEx IDs that are related to pancreas
-	cat $DIR_GTEX/gtex_tissue.txt \
-		| grep "$TISSUE" \
-		| cut -f 1 \
-		| tr "\n" "," \
-		> $DIR_GTEX/$TIS.ids.txt
-
-	# Combine GTEX + Reactome + BioGrid
-	$DIR_SCRIPTS/combineGtex.py \
-		$DIR/geneId_geneName.txt \
-		$DIR_REACTOME/reactome.homo_sapiens.interactions.txt \
-		$DIR_BIOGRID/biogrid.human.uniq.txt \
-		$DIR/genes.msas.txt \
-		$DIR_GTEX/gtex_norm.txt \
-		`cat $DIR_GTEX/$TIS.ids.txt` \
-		0.25 \
-		0 \
-		inf \
-		0.1 \
-		inf \
-		| tee $DIR/interactions.$TIS.txt
-
-done
-
-cat $DIR/interactions.*.txt | sort | uniq > $DIR/interactions.txt
-
+# # Calculate combined interaction pairs
+# rm -rvf $DIR/interactions.*.txt
+# for TISSUE in "Adipose - Subcutaneous" "Adipose - Visceral" "Liver" "Muscle - Skeletal" "Pancreas"
+# do
+# 
+# 	TIS=`echo $TISSUE | tr -d "\n-" | tr " " "_" | tr -s "_"`
+# 	echo Tissue: $TISSUE $TIS
+# 
+# 	# Select GTEx IDs that are related to pancreas
+# 	cat $DIR_GTEX/gtex_tissue.txt \
+# 		| grep "$TISSUE" \
+# 		| cut -f 1 \
+# 		| tr "\n" "," \
+# 		> $DIR_GTEX/$TIS.ids.txt
+# 
+# 	# Combine GTEX + Reactome + BioGrid
+# 	$DIR_SCRIPTS/combineGtex.py \
+# 		$DIR/geneId_geneName.txt \
+# 		$DIR_REACTOME/reactome.homo_sapiens.interactions.txt \
+# 		$DIR_BIOGRID/biogrid.human.uniq.txt \
+# 		$DIR/genes.msas.txt \
+# 		$DIR_GTEX/gtex_norm.txt \
+# 		`cat $DIR_GTEX/$TIS.ids.txt` \
+# 		0.25 \
+# 		0 \
+# 		inf \
+# 		0.1 \
+# 		inf \
+# 		| tee $DIR/interactions.$TIS.txt
+# 
+# done
+# 
+# cat $DIR/interactions.*.txt | sort | uniq > $DIR/interactions.txt
+# 
