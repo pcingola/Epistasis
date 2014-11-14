@@ -8,7 +8,7 @@
 
 debug			:= false
 timeout			:= 5 * day
-system			:= 'cluster'
+#system			:= 'cluster'
 cpus			:= ( system == 'local' ? 4 : 4 )
 
 # Which step/s to perform
@@ -17,7 +17,7 @@ step2			:= false
 step3			:= false
 step4			:= false
 step5			:= false
-step6			:= true
+step6			:= false
 step7			:= false
 
 # Parameters
@@ -73,6 +73,42 @@ if( debug ) {
 	msa  = "$dir/head.fa"
 	qhat = "$dir/Qhat_head.txt"
 	bgNum = 1000
+}
+
+#-------------------------------------------------------------------------------
+# Analize gene-gene interaction log-likelihood(MSA)
+#-------------------------------------------------------------------------------
+
+void geneGeneLogLik(string dirOut, string interactions) {
+	println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
+
+	if( dirOut <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
+		dirOut.mkdir()
+
+		if( system == 'local' ) {
+			# Launch one process
+			out := "$dirOut/likelihood.txt"
+			task( out <- interactions ) {
+				sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $out
+			}
+		} else {
+			# Read interactions and split into small files
+			pairs := readInteractions( interactions, dirOut )
+	
+			# Split into small lists
+			sys rm -vf $dirOut/genes_pairs_list.* || true
+			filesPairs := pairs.splitToFile( "$dirOut/genes_pairs_list.", llGeneLines )
+	
+			# Launch a task for eah file
+			for( string file : filesPairs ) {
+				out := "$dirOut/likelihood." + file.baseName()
+				println "\t$out"
+				task( out <- file ) {
+					sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $file > $out
+				}
+			}
+		}
+	}
 }
 
 #-------------------------------------------------------------------------------
@@ -344,44 +380,6 @@ if( step5 ) {
 		sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
 	}
 	wait
-
-	#---
-	# OBSOLETE: Not used
-	#---
-	# println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
-	# if( likAll <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs, interactions] ) {
-	# 	if( system == 'local' ) {
-	# 		# Launch one process
-	# 		task( likAll <- interactions ) {
-	# 			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions > $likAll
-	# 		}
-	# 	} else {
-	# 		# Split file
-	# 		dirInter := "$dir/interactions"
-	# 		dirGenesLike := "$dirInter/likelihood_genes"
-	# 
-	# 		# Read interactions and split into small files
-	# 		pairs := readInteractions( interactions, dirGenesLike )
-	# 
-	# 		# Split into small lists
-	# 		sys rm -vf $dirInter/genes_pairs_list.* || true
-	# 		filesPairs := pairs.splitToFile( "$dirInter/genes_pairs_list.", llGeneLines )
-	# 
-	# 		# Launch a task for eah file
-	# 		for( string filePairs : filesPairs ) {
-	# 			out := "$dirGenesLike/likelihood." + filePairs.baseName()
-	# 			println "\t$out"
-	# 			task( out <- filePairs ) {
-	# 				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $filePairs > $out
-	# 			}
-	# 		}
-	# 	}
-	# 
-	# #	# Merge results
-	# #	wait
-	# #	sys cat $likAll.genes.list.* > $likAll
-	# }
-	# wait
 }
 
 #---
@@ -432,6 +430,9 @@ if( step7 ) {
 	numSplits = 200
 	likelihoodvcf(hgmd, dirOut, numSplits)
 }
+
+# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
+geneGeneLogLik("$dir/interactions/alt", interactions)
 
 # Done
 wait
