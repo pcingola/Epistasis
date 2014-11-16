@@ -1,7 +1,7 @@
 #!/bin/sh
 
-for txt in `find likelihood_genes -iname "*.txt"`
+for txt in `find . -iname "*.txt"`
 do
-	max=`cut -f 3 $txt | ./topValue.pl`
+	max=`cut -f 3 $txt | ./geneGeneTopValue.pl`
 	echo $txt $max | tee -a topValues.txt
 done
