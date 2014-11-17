@@ -19,7 +19,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
  *
  * @author pcingola
  */
-public class LikelihoodAnalysis {
+public class LikelihoodAnalysisGt {
 
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
@@ -32,13 +32,13 @@ public class LikelihoodAnalysis {
 	boolean writeToFile = false;
 	int numSamples;
 	int numCovariates;
-	int count = 0;
+	int count = 0, countAlt = 0, countNull = 0;
 	int covariatesToNormalize[] = { 10, 11 };
 	int numGtAlt = 1, numGtNull = 0;
 	int deltaDf = 1; // Difference in degrees of freedom between Alt and Null model
 	double covariates[][];
 	double pheno[];
-	double thetaAltSum[], thetaNullSum[];
+	double thetaAltSum[], thetaNullSum[]; // Use current average as initial values for parameter estimates
 	double logLik = 0;
 	double logLikMax = Double.NEGATIVE_INFINITY;
 	String logLikInfoField; // If not null, an INFO field is added
@@ -52,7 +52,7 @@ public class LikelihoodAnalysis {
 
 		boolean debug = false;
 
-		LikelihoodAnalysis zzz = new LikelihoodAnalysis(args);
+		LikelihoodAnalysisGt zzz = new LikelihoodAnalysisGt(args);
 
 		if (debug) {
 			zzz.setDebug(debug);
@@ -64,14 +64,14 @@ public class LikelihoodAnalysis {
 		Timer.showStdErr("End");
 	}
 
-	public LikelihoodAnalysis(String args[]) {
+	public LikelihoodAnalysisGt(String args[]) {
 		if (args.length > 1) {
 			phenoCovariatesFileName = args[0];
 			vcfFileName = args[1];
 		}
 	}
 
-	public LikelihoodAnalysis(String phenoCovariatesFileName, String vcfFileName) {
+	public LikelihoodAnalysisGt(String phenoCovariatesFileName, String vcfFileName) {
 		this.phenoCovariatesFileName = phenoCovariatesFileName;
 		this.vcfFileName = vcfFileName;
 	}
@@ -111,7 +111,7 @@ public class LikelihoodAnalysis {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-			); }
+					); }
 			snum++;
 		}
 	}
@@ -134,11 +134,19 @@ public class LikelihoodAnalysis {
 		synchronized (thetaAltSum) {
 			if (lrAlt != null) {
 				double theta[] = lrAlt.getTheta();
+
+				// Check that there are no errors
+				boolean err = true;
+				for (int i = 0; i < theta.length; i++)
+					err &= Double.isNaN(theta[i]) || Double.isInfinite(theta[i]);
+				if (err) return;
+
+				// Add results
 				for (int i = 0; i < theta.length; i++)
 					thetaAltSum[i] += theta[i];
-			}
 
-			count++;
+				countAlt++;
+			}
 		}
 	}
 
@@ -349,11 +357,12 @@ public class LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
 		countModel(lrAlt);
+		count++;
 
 		return ll;
 	}
@@ -447,11 +456,11 @@ public class LikelihoodAnalysis {
 		synchronized (thetaAltSum) {
 			double theta[] = new double[thetaAltSum.length];
 
-			if (count > 0) {
+			if (countAlt > 0) {
 				lrAlt.setZeroThetaBeforeLearn(false);
 
 				for (int i = 0; i < thetaAltSum.length; i++)
-					theta[i] += thetaAltSum[i] / count;
+					theta[i] += thetaAltSum[i] / countAlt;
 			}
 
 			lrAlt.setModel(theta);
@@ -465,11 +474,11 @@ public class LikelihoodAnalysis {
 		synchronized (thetaNullSum) {
 			double theta[] = new double[thetaNullSum.length];
 
-			if (count > 0) {
+			if (countNull > 0) {
 				lrNull.setZeroThetaBeforeLearn(false);
 
 				for (int i = 0; i < thetaNullSum.length; i++)
-					theta[i] += thetaNullSum[i] / count;
+					theta[i] += thetaNullSum[i] / countNull;
 			}
 
 			lrNull.setModel(theta);

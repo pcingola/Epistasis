@@ -56,7 +56,7 @@ public class GwasEpistasis {
 	List<Genotype> gtsSplitI, gtsSplitJ;
 	Map<String, Transcript> trancriptById; // Transcript by (incomplete) transcript ID (no version number is used)
 	Map<String, Marker> llmarkerById = new HashMap<String, Marker>(); // log-likelihood markers by ID
-	Map<Long, LikelihoodAnalysis2> llAnByThreadId = new HashMap<>();
+	Map<Long, LikelihoodAnalysisGtPair> llAnByThreadId = new HashMap<>();
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	PdbGenomeMsas pdbGenomeMsas;
 	InteractionLikelihood interactionLikelihood;
@@ -95,13 +95,13 @@ public class GwasEpistasis {
 	/**
 	 * Get a likelihood analysis object for each thread
 	 */
-	LikelihoodAnalysis2 getLikelihoodAnalysis2() {
+	LikelihoodAnalysisGtPair getLikelihoodAnalysis2() {
 		long threadId = Thread.currentThread().getId();
 
-		LikelihoodAnalysis2 llan = llAnByThreadId.get(threadId);
+		LikelihoodAnalysisGtPair llan = llAnByThreadId.get(threadId);
 
 		if (llan == null) {
-			llan = new LikelihoodAnalysis2(phenoCovariatesFile, vcfFile);
+			llan = new LikelihoodAnalysisGtPair(phenoCovariatesFile, vcfFile);
 			llan.init();
 			llAnByThreadId.put(threadId, llan);
 		}
@@ -148,7 +148,7 @@ public class GwasEpistasis {
 		//---
 		// Likelihood based on logistic regression
 		//---
-		LikelihoodAnalysis2 llan = getLikelihoodAnalysis2();
+		LikelihoodAnalysisGtPair llan = getLikelihoodAnalysis2();
 		GwasResult gwasRes = llan.logLikelihood(genoi, genoj);
 
 		// Log likelihood form logistic regression is too low?
@@ -172,7 +172,7 @@ public class GwasEpistasis {
 		// Likelihood based on epistatic interaction
 		String msaId1 = genoi.getMsaId(), msaId2 = genoj.getMsaId();
 		int msaIdx1 = genoi.getAaIdx(), msaIdx2 = genoj.getAaIdx();
-		double llMsa = interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false, gwasRes);
+		interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, false, gwasRes);
 
 		// Epistatic likelihood model too low? => Don't bother to calculate next part
 		if (gwasRes.logLik() < LL_THRESHOLD_TOTAL && gwasRes.logLikelihoodMsa < llThresholdMsa) return gwasRes;

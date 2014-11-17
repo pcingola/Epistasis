@@ -22,7 +22,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
  *
  * @author pcingola
  */
-public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
+public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 
 	public static final int MIN_SHARED_VARIANTS = 5;
 	public static final double EPSILON = 1e-6;
@@ -36,7 +36,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 
 		boolean debug = false;
 
-		LikelihoodAnalysis2 zzz = new LikelihoodAnalysis2(args);
+		LikelihoodAnalysisGtPair zzz = new LikelihoodAnalysisGtPair(args);
 
 		if (debug) {
 			zzz.setDebug(debug);
@@ -48,13 +48,13 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		Timer.showStdErr("End");
 	}
 
-	public LikelihoodAnalysis2(String args[]) {
+	public LikelihoodAnalysisGtPair(String args[]) {
 		super(args);
 		numGtAlt = 3;
 		numGtNull = 2;
 	}
 
-	public LikelihoodAnalysis2(String phenoCovariatesFileName, String vcfFileName) {
+	public LikelihoodAnalysisGtPair(String phenoCovariatesFileName, String vcfFileName) {
 		super(phenoCovariatesFileName, vcfFileName);
 		numGtAlt = 3;
 		numGtNull = 2;
@@ -89,17 +89,38 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		synchronized (thetaAltSum) {
 			if (lrAlt != null) {
 				double theta[] = lrAlt.getTheta();
+
+				// Check that there are no errors
+				boolean err = true;
 				for (int i = 0; i < theta.length; i++)
-					thetaAltSum[i] += theta[i];
+					err &= Double.isNaN(theta[i]) || Double.isInfinite(theta[i]);
+
+				// Add if no errors
+				if (!err) {
+					for (int i = 0; i < theta.length; i++)
+						thetaAltSum[i] += theta[i];
+
+					countAlt++;
+				}
 			}
 
 			if (lrNull != null) {
 				double theta[] = lrNull.getTheta();
+
+				// Check that there are no errors
+				boolean err = true;
 				for (int i = 0; i < theta.length; i++)
-					thetaNullSum[i] += theta[i];
+					err &= Double.isNaN(theta[i]) || Double.isInfinite(theta[i]);
+
+				// Add if no errors
+				if (!err) {
+					for (int i = 0; i < theta.length; i++)
+						thetaNullSum[i] += theta[i];
+
+					countNull++;
+				}
 			}
 
-			count++;
 		}
 	}
 
@@ -335,7 +356,7 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + lrAlt + "\n\tModel Null : " + lrNull : "") //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else {
 			// Show error
@@ -344,10 +365,10 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 					+ "\n\tLR.alt  : " + lrAlt //
 					+ "\n\tLL.null : " + llNull //
 					+ "\n\tLL.alt  : " + llAlt //
-			);
+					);
 		}
 
-		countModel(lrAlt);
+		countModel(lrAlt, lrNull);
 
 		// Get all data into GwasData structure
 		gwasRes.logLikelihoodLogReg = ll;
@@ -381,17 +402,17 @@ public class LikelihoodAnalysis2 extends LikelihoodAnalysis {
 		//---
 
 		IntStream.range(0, keys.size()) //
-				.parallel() //
-				.forEach(i -> {
-					for (int j = i + 1; j < keys.size(); j++) {
-						String keyi = keys.get(i);
-						String keyj = keys.get(j);
-						Genotype gti = gtByKey.get(keyi);
-						Genotype gtj = gtByKey.get(keyj);
+		.parallel() //
+		.forEach(i -> {
+			for (int j = i + 1; j < keys.size(); j++) {
+				String keyi = keys.get(i);
+				String keyj = keys.get(j);
+				Genotype gti = gtByKey.get(keyi);
+				Genotype gtj = gtByKey.get(keyj);
 
-						logLikelihood(gti, gtj);
-					}
-				});
+				logLikelihood(gti, gtj);
+			}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

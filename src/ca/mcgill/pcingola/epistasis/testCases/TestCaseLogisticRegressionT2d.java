@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.pcingola.epistasis.gwas.LikelihoodAnalysis;
+import ca.mcgill.pcingola.epistasis.gwas.LikelihoodAnalysisGt;
 
 /**
  * Test cases for logistic regression using phenotypes and VCF data
@@ -41,7 +41,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		Gpr.debug("Test");
 
 		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_01.vcf" };
-		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
+		LikelihoodAnalysisGt la = new LikelihoodAnalysisGt(args);
 		la.setWriteToFile(debug);
 		la.setDebug(debug);
 		la.setLogLikInfoField(LL_INFO_FIELD);
@@ -79,7 +79,7 @@ public class TestCaseLogisticRegressionT2d extends TestCase {
 		Gpr.debug("Test");
 
 		String args[] = { "test/pheno.covariates.T2D_13K.txt", "test/t2d_13K.test_02.vcf" };
-		LikelihoodAnalysis la = new LikelihoodAnalysis(args);
+		LikelihoodAnalysisGt la = new LikelihoodAnalysisGt(args);
 		la.setWriteToFile(debug);
 		la.setDebug(debug);
 		la.setLogLikInfoField(LL_INFO_FIELD);
