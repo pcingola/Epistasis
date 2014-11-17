@@ -439,17 +439,18 @@ if( step7 ) {
 	geneGeneLogLik("$dir/interactions/null", interactionsNull)
 }
 
-	println "\nEstimate log-Likelihood (3-AA neighborhood): '$lik3'"
-	task( lik3 <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-		sys $cmdEpistasis likelihood3 $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik3
-	}
-	wait
+println "\nEstimate log-Likelihood (3-AA neighborhood): '$lik3'"
+task( lik3 <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+	sys $cmdEpistasis likelihood3 $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik3
+}
+wait
 
-	println "\nEstimate log-Likelihood null distribution (3-AA neighborhood): $likNull3"
-	task( likNull3 <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-		sys $cmdEpistasis likelihoodNull3 $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull3
-	}
-	wait
+bgNum = 100 * 1000	# Number of iterations for background calculation
+println "\nEstimate log-Likelihood null distribution (3-AA neighborhood): $likNull3"
+task( likNull3 <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+	sys $cmdEpistasis likelihoodNull3 $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $likNull3
+}
+wait
 
 # Done
 wait
