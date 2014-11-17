@@ -19,7 +19,6 @@ public class TestCaseLikelihoodRatioMsa extends TestCase {
 	public static final double MAX_LL_ERROR = 0.2;
 
 	public void test_01() {
-
 		String treeFile = "test/hg19.100way.nh";
 		String multAlignFile = "test/msas.best.head.fa.gz";
 		String idMapFile = "test/idMap_ensemblId_refseq_pdbId.best.txt";

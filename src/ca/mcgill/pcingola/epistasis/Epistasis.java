@@ -120,7 +120,7 @@ public class Epistasis implements CommandLine {
 	 */
 	public void load() {
 		if (aaFreqsFile != null) aaFreqs = loadAaFreqs(aaFreqsFile);
-		if (aaFreqsContactFile != null) aaFreqsContact = loadAaFreqs(aaFreqsContactFile);
+		if (aaFreqsContactFile != null) aaFreqsContact = loadAaFreqsPairs(aaFreqsContactFile);
 		if (idMapFile != null) loadIdMap(idMapFile);
 		if (treeFile != null) loadTree(treeFile);
 		if (aaContactFile != null) loadAaContact(aaContactFile);
@@ -171,6 +171,42 @@ public class Epistasis implements CommandLine {
 		double sum = 0;
 		for (int i = 0; i < lines.length; i++) {
 			String fields[] = lines[i].split("\t");
+
+			// Sanity check
+			char aa = fields[0].charAt(0);
+			char aaExpected = GprSeq.code2aa((byte) i);
+			if (aa != aaExpected) throw new RuntimeException("AA mismatch: Expecting '" + aaExpected + "' , got '" + aa + "'");
+
+			d[i] = Gpr.parseDoubleSafe(fields[1]);
+			sum += d[i];
+		}
+
+		// Sanity check
+		if (Math.abs(sum - 1.0) > TransitionMatrix.EPSILON) throw new RuntimeException("AA frequencies do not add to 1.0! (sum = " + sum + " )");
+
+		return d;
+	}
+
+	/**
+	 * Load a vector of doubles in the second column of the file (first column is assumed to be labels)
+	 */
+	double[] loadAaFreqsPairs(String fileName) {
+		Timer.showStdErr("Loading amino acid frequencies from '" + fileName + "'");
+		String file = Gpr.readFile(fileName);
+		String lines[] = file.split("\n");
+		if (lines.length != 20 && lines.length != 400) throw new RuntimeException("Expecting either 20 or 400 lines in AA frequencies file!");
+
+		double d[] = new double[lines.length];
+		double sum = 0;
+		for (int i = 0; i < lines.length; i++) {
+			String fields[] = lines[i].split("\t");
+
+			// Sanity check
+			String aa = fields[0];
+			String aaExpected = GprSeq.code2aaPair(i);
+			aaExpected = aaExpected.charAt(0) + "_" + aaExpected.charAt(1); // Change format
+			if (!aa.equals(aaExpected)) throw new RuntimeException("AA mismatch: Expecting '" + aaExpected + "' , got '" + aa + "'");
+
 			d[i] = Gpr.parseDoubleSafe(fields[1]);
 			sum += d[i];
 		}

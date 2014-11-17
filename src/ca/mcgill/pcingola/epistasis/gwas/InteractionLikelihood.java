@@ -150,7 +150,7 @@ public class InteractionLikelihood {
 	/**
 	 * Get a tree for the current thread (alt model)
 	 */
-	LikelihoodTreeAa getTreeAlt() {
+	public LikelihoodTreeAa getTreeAlt() {
 		LikelihoodTreeAa currentTree = treeAltByThread.get(Thread.currentThread());
 
 		if (currentTree == null) {
@@ -168,7 +168,7 @@ public class InteractionLikelihood {
 	/**
 	 * Get a tree for the current thread (null model)
 	 */
-	LikelihoodTreeAa getTreeNull() {
+	public LikelihoodTreeAa getTreeNull() {
 		LikelihoodTreeAa currentTree = treeNullByThread.get(Thread.currentThread());
 
 		if (currentTree == null) {
@@ -251,13 +251,21 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate likelihood for the 'alternative model' (H1, i.e. using Qhat2)
 	 */
+	public double likelihoodAltModel(LikelihoodTreeAa tree, byte seq1[], byte seq2[]) {
+		// Set sequence and calculate likelihood
+		tree.setLeafSequenceAaPair(seq1, seq2);
+		double lik = tree.likelihood(Q2, aaFreqsContact);
+		return lik;
+	}
+
+	/**
+	 * Calculate likelihood for the 'alternative model' (H1, i.e. using Qhat2)
+	 */
 	double likelihoodAltModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
 		// Set sequence and calculate likelihood
 		byte seq1[] = msa1.getColumn(idx1);
 		byte seq2[] = msa2.getColumn(idx2);
-		tree.setLeafSequenceAaPair(seq1, seq2);
-		double lik = tree.likelihood(Q2, aaFreqsContact);
-		return lik;
+		return likelihoodAltModel(tree, seq1, seq2);
 	}
 
 	/**
@@ -278,11 +286,7 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate likelihood for the 'null model' (H0, i.e. using Qhat)
 	 */
-	double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
-		// Get sequences
-		byte seq1b[] = msa1.getColumn(idx1);
-		byte seq2b[] = msa2.getColumn(idx2);
-
+	public double likelihoodNullModel(LikelihoodTreeAa tree, byte seq1b[], byte seq2b[]) {
 		// Set sequence and calculate likelihood
 		tree.setLeafSequenceCode(sequenceGaps(seq1b, seq2b));
 		double lik1 = tree.likelihood(Q, aaFreqs);
@@ -293,6 +297,17 @@ public class InteractionLikelihood {
 
 		double lik = lik1 * lik2;
 		return lik;
+	}
+
+	/**
+	 * Calculate likelihood for the 'null model' (H0, i.e. using Qhat)
+	 */
+	double likelihoodNullModel(LikelihoodTreeAa tree, MultipleSequenceAlignment msa1, int idx1, MultipleSequenceAlignment msa2, int idx2) {
+		// Get sequences
+		byte seq1b[] = msa1.getColumn(idx1);
+		byte seq2b[] = msa2.getColumn(idx2);
+		return likelihoodNullModel(tree, seq1b, seq2b);
+
 	}
 
 	/**
