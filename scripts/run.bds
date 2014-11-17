@@ -9,7 +9,7 @@
 debug			:= false
 timeout			:= 5 * day
 #system			:= 'cluster'
-cpus			:= ( system == 'local' ? 4 : 4 )
+cpus			:= ( system == 'local' ? 24 : 4 )
 
 # Which step/s to perform
 step1			:= false
@@ -44,6 +44,8 @@ interactionsNull:= "$dir/selectNotInteracting.head.txt"
 lik				:= "$dir/likelihood.contact.txt"
 likAll			:= "$dir/likelihood.all.txt"
 likNull			:= "$dir/likelihood.null.txt"
+lik3			:= "$dir/likelihood_aa3.contact.txt"
+likNull3		:= "$dir/likelihood_aa3.null.txt"
 msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
 msaBest			:= "$dir/msas.best.fa"
 pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
@@ -408,7 +410,9 @@ if( step6 ) {
 #---
 
 if( step7 ) {
+	#---
 	# Do ClinVar entries have better LL_MSA than 'null'?
+	#---
 	println "\nClinVar analysis"
 	clinVar := "$dir/clinvar-latest.pass.vcf.gz"
 	dirOut := "$dir/likelihood.clinvar"
@@ -427,11 +431,25 @@ if( step7 ) {
 	dirOut = "$dir/likelihood.hgmd"
 	numSplits = 200
 	likelihoodvcf(hgmd, dirOut, numSplits)
+
+	#---
+	# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
+	#---
+	geneGeneLogLik("$dir/interactions/alt", interactions)
+	geneGeneLogLik("$dir/interactions/null", interactionsNull)
 }
 
-# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
-#geneGeneLogLik("$dir/interactions/alt", interactions)
-geneGeneLogLik("$dir/interactions/null", interactionsNull)
+	println "\nEstimate log-Likelihood (3-AA neighborhood): '$lik3'"
+	task( lik3 <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis likelihood3 $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik3
+	}
+	wait
+
+	println "\nEstimate log-Likelihood null distribution (3-AA neighborhood): $likNull3"
+	task( likNull3 <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis likelihoodNull3 $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull3
+	}
+	wait
 
 # Done
 wait
