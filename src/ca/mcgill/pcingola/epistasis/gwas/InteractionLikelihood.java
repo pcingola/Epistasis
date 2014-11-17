@@ -20,6 +20,7 @@ import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.mcb.pcingola.util.Tuple;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.IdMapper;
@@ -201,6 +202,23 @@ public class InteractionLikelihood {
 	}
 
 	/**
+	 * Likelihhod for all AA 'in contact' pairs
+	 */
+	public void likelihoodAaContacts3() {
+		// Pre-calculate matrix exponentials
+		Timer.showStdErr("Pre-calculating matrix exponentials");
+		precalcExps();
+
+		// Calculate likelihoods
+		Timer.showStdErr("Calculating likelihoods");
+		aaContacts.parallelStream() //
+		.filter(d -> msas.getMsa(d.msa1) != null && msas.getMsa(d.msa2) != null) //
+		.map(d -> logLikelihoodRatio3Str(msas.getMsa(d.msa1), d.msaIdx1, msas.getMsa(d.msa2), d.msaIdx2)) //
+		.forEach(System.out::println) //
+		;
+	}
+
+	/**
 	 * Likelihood for all AA in geneName Pairs pairs in 'geneNamePairsFile'
 	 * File format: "gene1 \t gene2 \n" (spaces added for legibility)
 	 */
@@ -311,6 +329,21 @@ public class InteractionLikelihood {
 	}
 
 	/**
+	 * Likelihood 'null distribution
+	 */
+	public void likelihoodNullModel3(int numSamples) {
+		// Pre-calculate matrix exponentials
+		Timer.showStdErr("Pre-calculating matrix exponentials");
+		precalcExps();
+
+		// Calculate likelihoods
+		Timer.showStdErr("Calculating likelihood on AA pairs in contact");
+		IntStream.range(0, numSamples).parallel() //
+		.mapToObj(i -> likelihoodRatioRand3()) // Calculate likelihood
+		.forEach(System.out::println);
+	}
+
+	/**
 	 * Pick two random columns from MSA and calculate likelihood ratio
 	 */
 	String likelihoodRatioRand() {
@@ -328,6 +361,26 @@ public class InteractionLikelihood {
 		}
 
 		return logLikelihoodRatioStr(msa1, msaIdx1, msa2, msaIdx2, false);
+	}
+
+	/**
+	 * Pick two random columns from MSA and calculate likelihood ratio (3-AA neighborhood)
+	 */
+	String likelihoodRatioRand3() {
+		// Pick different transcripts
+		MultipleSequenceAlignment msa1, msa2;
+		do {
+			msa1 = msas.rand(random);
+			msa2 = msas.rand(random);
+		} while (msa1.getTranscriptId().equals(msa2.getTranscriptId()));
+
+		int msaIdx1 = -1, msaIdx2 = -1;
+		for (int i = 0; (msaIdx1 < 0 || msaIdx2 < 0 || msa1.isSkip(msaIdx1) || msa2.isSkip(msaIdx2)) && i < MAX_RAND_ITER; i++) {
+			msaIdx1 = random.nextInt(msa1.getAaSeqLen());
+			msaIdx2 = random.nextInt(msa2.getAaSeqLen());
+		}
+
+		return logLikelihoodRatio3Str(msa1, msaIdx1, msa2, msaIdx2);
 	}
 
 	/**
@@ -462,7 +515,7 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate likelihood ratio for these entries
 	 */
-	double logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, boolean brief, GwasResult gwasRes) {
+	double logLikelihoodRatio(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2, GwasResult gwasRes) {
 		// Since we execute in parallel, we need one tree per thread
 		LikelihoodTreeAa treeNull = getTreeNull();
 		LikelihoodTreeAa treeAlt = getTreeAlt();
@@ -505,14 +558,109 @@ public class InteractionLikelihood {
 		return sb.toString();
 	}
 
-	public double logLikelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, boolean brief, GwasResult gwasRes) {
+	public double logLikelihoodRatio(String msaId1, int msaIdx1, String msaId2, int msaIdx2, GwasResult gwasRes) {
 		MultipleSequenceAlignment msa1 = msas.getMsa(msaId1);
 		if (msa1 == null) return 0;
 
 		MultipleSequenceAlignment msa2 = msas.getMsa(msaId2);
 		if (msa2 == null) return 0;
 
-		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, brief, gwasRes);
+		return logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, gwasRes);
+	}
+
+	/**
+	 * Calculate likelihood ratio for these entries (3-neighbourhood)
+	 */
+	String logLikelihoodRatio3Str(MultipleSequenceAlignment msa1, int msaIdx1, MultipleSequenceAlignment msa2, int msaIdx2) {
+		GwasResult gwasRes = new GwasResult();
+
+		// Find all 'next' and 'previous' positions
+		Tuple<MultipleSequenceAlignment, Integer> next1 = msas.findNext(msa1, msaIdx1);
+		if (next1 == null) return null;
+		Tuple<MultipleSequenceAlignment, Integer> prev1 = msas.findPrevious(msa1, msaIdx1);
+		if (prev1 == null) return null;
+		Tuple<MultipleSequenceAlignment, Integer> next2 = msas.findNext(msa2, msaIdx2);
+		if (next2 == null) return null;
+		Tuple<MultipleSequenceAlignment, Integer> prev2 = msas.findPrevious(msa2, msaIdx2);
+		if (prev2 == null) return null;
+
+		// Calculate LL_ratio for 'center' position
+		double llmid = logLikelihoodRatio(msa1, msaIdx1, msa2, msaIdx2, gwasRes);
+
+		//---
+		// Forward combination
+		//---
+		double likefNull = gwasRes.likelihoodMsaNull, likefAlt = gwasRes.likelihoodMsaAlt; // Likelihoods for middle position
+		GwasResult gwasResF = new GwasResult();
+
+		// Positon 'previous' in msa1 interacting with 'previous' in msa2
+		double llfprev = logLikelihoodRatio(prev1.first, prev1.second, prev2.first, prev2.second, gwasResF);
+		likefNull *= gwasResF.likelihoodMsaNull;
+		likefAlt *= gwasResF.likelihoodMsaAlt;
+
+		// Positon 'next' in msa1 interacting with 'next' in msa2
+		double llfnext = logLikelihoodRatio(next1.first, next1.second, next2.first, next2.second, gwasResF);
+		likefNull *= gwasResF.likelihoodMsaNull;
+		likefAlt *= gwasResF.likelihoodMsaAlt;
+
+		double llf = llfprev + llmid + llfnext; // Total 'backwards' log-likelihood
+
+		//---
+		// Backward combination
+		//---
+		GwasResult gwasResB = new GwasResult();
+		double likebNull = gwasRes.likelihoodMsaNull, likebAlt = gwasRes.likelihoodMsaAlt; // Likelihoods for middle position
+
+		// Positon 'previous' in msa1 interacting with 'next' in msa2
+		double llbprev = logLikelihoodRatio(prev1.first, prev1.second, next2.first, next2.second, gwasResB);
+		likebNull *= gwasResB.likelihoodMsaNull;
+		likebAlt *= gwasResB.likelihoodMsaAlt;
+
+		// Positon 'next' in msa1 interacting with 'previous' in msa2
+		double llbnext = logLikelihoodRatio(next1.first, next1.second, prev2.first, prev2.second, gwasResB);
+		likebNull *= gwasResB.likelihoodMsaNull;
+		likebAlt *= gwasResB.likelihoodMsaAlt;
+
+		double llb = llbprev + llmid + llbnext; // Total 'backwards' log-likelihood
+
+		//---
+		// Pick best of two results
+		//---
+		String msa1p, msa1n, msa2p, msa2n;
+		String dir;
+		double logLikRatio = 0, likNull = 0, likAlt = 0;
+		if (llf >= llb) {
+			dir = "Forward";
+			logLikRatio = llf;
+			likNull = likefNull;
+			likAlt = likefAlt;
+			msa1p = prev1.first.getId() + "[" + prev1.second + "]";
+			msa1n = next1.first.getId() + "[" + next1.second + "]";
+			msa2p = prev2.first.getId() + "[" + prev2.second + "]";
+			msa2n = next2.first.getId() + "[" + next2.second + "]";
+		} else {
+			dir = "Backward";
+			logLikRatio = llb;
+			likNull = likebNull;
+			likAlt = likebAlt;
+			msa1p = prev1.first.getId() + "[" + prev1.second + "]";
+			msa1n = next1.first.getId() + "[" + next1.second + "]";
+			msa2p = next2.first.getId() + "[" + next2.second + "]";
+			msa2n = prev2.first.getId() + "[" + prev2.second + "]";
+		}
+
+		return dir //
+				+ "\t" + logLikRatio //
+				+ "\t" + llmid //
+				+ "\t" + likNull //
+				+ "\t" + likAlt //
+				+ "\t" + msa1p //
+				+ "\t" + msa1.getId() + "[" + msaIdx1 + "]" //
+				+ "\t" + msa1n //
+				+ "\t" + msa2p //
+				+ "\t" + msa2.getId() + "[" + msaIdx2 + "]"//
+				+ "\t" + msa2n //
+		;
 	}
 
 	/**

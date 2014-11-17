@@ -21,6 +21,7 @@ import ca.mcgill.mcb.pcingola.interval.tree.IntervalForest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
+import ca.mcgill.mcb.pcingola.util.Tuple;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
 import ca.mcgill.pcingola.epistasis.phylotree.PhylogeneticTree;
@@ -150,8 +151,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[] = new int[GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length];
 
 		aaContacts.stream() //
-		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-		.forEach(d -> countAaPairs(counts, d)) //
+				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+				.forEach(d -> countAaPairs(counts, d)) //
 		;
 
 		return counts;
@@ -188,8 +189,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[][] = new int[n][n];
 
 		aaContacts.stream() //
-		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-		.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
+				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+				.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
 
 		return counts;
 	}
@@ -211,6 +212,24 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 	}
 
 	/**
+	 * Find next AA
+	 * @return null if not found
+	 */
+	public Tuple<MultipleSequenceAlignment, Integer> findNext(MultipleSequenceAlignment msa, int idx) {
+		int nextIdx = idx + 1;
+		MultipleSequenceAlignment nextMsa = msa;
+
+		if (nextIdx >= msa.getAaSeqLen()) {
+			nextMsa = findNextExon(msa);
+			nextIdx = 0;
+		}
+
+		if (nextMsa == null) return null;
+
+		return new Tuple<MultipleSequenceAlignment, Integer>(nextMsa, nextIdx);
+	}
+
+	/**
 	 * Find MSA for exon following 'msa'
 	 */
 	public MultipleSequenceAlignment findNextExon(MultipleSequenceAlignment msa) {
@@ -220,6 +239,38 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		for (MultipleSequenceAlignment m : getMsasByTrId(msa.getTranscriptId())) {
 			if (retNext) return m;
 			if (m.getId().equals(msa.getId())) retNext = true;
+		}
+
+		return null;
+	}
+
+	/**
+	 * Find previous AA
+	 * @return null if not found
+	 */
+	public Tuple<MultipleSequenceAlignment, Integer> findPrevious(MultipleSequenceAlignment msa, int idx) {
+		int nextIdx = idx - 1;
+		MultipleSequenceAlignment nextMsa = msa;
+
+		if (nextIdx < 0) {
+			nextMsa = findPreviousExon(msa);
+			if (nextMsa == null) return null;
+			nextIdx = nextMsa.getAaSeqLen() - 1;
+		}
+
+		return new Tuple<MultipleSequenceAlignment, Integer>(nextMsa, nextIdx);
+	}
+
+	/**
+	 * Find MSA for exon following 'msa'
+	 */
+	public MultipleSequenceAlignment findPreviousExon(MultipleSequenceAlignment msa) {
+
+		// Find MSA following 'msa', for the same transcriptId
+		MultipleSequenceAlignment prev = null;
+		for (MultipleSequenceAlignment m : getMsasByTrId(msa.getTranscriptId())) {
+			if (m.getId().equals(msa.getId())) return prev;
+			prev = m;
 		}
 
 		return null;

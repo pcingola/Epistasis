@@ -412,6 +412,19 @@ public class Epistasis implements CommandLine {
 			runLikelihood();
 			break;
 
+		case "likelihood3":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			runLikelihood3();
+			break;
+
 		case "likelihoodall":
 			cpus = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
@@ -440,6 +453,20 @@ public class Epistasis implements CommandLine {
 			filterMsaByIdMap = true;
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			runLikelihoodNull(numSamples);
+			break;
+
+		case "likelihoodnull3":
+			numSamples = Gpr.parseIntSafe(args[argNum++]);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			filterMsaByIdMap = true;
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			runLikelihoodNull3(numSamples);
 			break;
 
 		case "likelihoodvcf":
@@ -857,6 +884,16 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Likelihhod for all AA 'in contact' pairs
+	 */
+	void runLikelihood3() {
+		load();
+
+		InteractionLikelihood il = newInteractionLikelihood();
+		il.likelihoodAaContacts3();
+	}
+
+	/**
 	 * Likelihood for all AA in geneName Pairs pairs in 'geneNamePairsFile'
 	 * File format: "gene1 \t gene2 \n" (spaces added for legibility)
 	 */
@@ -875,6 +912,16 @@ public class Epistasis implements CommandLine {
 
 		InteractionLikelihood il = newInteractionLikelihood();
 		il.likelihoodNullModel(numSamples);
+	}
+
+	/**
+	 * Likelihood 'null distribution for 3-neighbourhood amino acids
+	 */
+	void runLikelihoodNull3(int numSamples) {
+		load();
+
+		InteractionLikelihood il = newInteractionLikelihood();
+		il.likelihoodNullModel3(numSamples);
 	}
 
 	/**
