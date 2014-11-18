@@ -1,5 +1,8 @@
 #!/usr/bin/env python
 
+import sys
+
+
 $lineMax = "";
 $max = 0;
 for( $count = 0 ; $l = <STDIN> ; ) {

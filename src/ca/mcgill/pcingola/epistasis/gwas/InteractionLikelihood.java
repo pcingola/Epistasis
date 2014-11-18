@@ -134,8 +134,9 @@ public class InteractionLikelihood {
 
 	/**
 	 * Find all MSAS for all transcripts in 'gene'
+	 * Results are sorted by genomic strand
 	 */
-	Set<MultipleSequenceAlignment> findMsasGene(String gene) {
+	List<MultipleSequenceAlignment> findMsasGene(String gene) {
 		List<IdMapperEntry> list = idMapper.getByGeneName(gene);
 		if (list == null || list.isEmpty()) return null;
 
@@ -145,7 +146,16 @@ public class InteractionLikelihood {
 				.flatMap(tid -> msas.getMsasByTrId(tid).stream()) //
 				.collect(Collectors.toSet()) //
 		;
-		return set;
+
+		// Add to list and sort by strand
+		ArrayList<MultipleSequenceAlignment> resList = new ArrayList<>();
+		resList.addAll(set);
+		if (resList.size() > 0) {
+			if (resList.get(0).isStrandPlus()) Collections.sort(resList);
+			else Collections.sort(resList, Collections.reverseOrder());
+		}
+
+		return resList;
 	}
 
 	/**
@@ -250,9 +260,9 @@ public class InteractionLikelihood {
 		Set<String> genes = idMapper.getEntries().stream().map(im -> im.geneName).collect(Collectors.toSet());
 
 		// Pre calculate all MSAs by gene
-		HashMap<String, Set<MultipleSequenceAlignment>> msasByGeneName = new HashMap<>();
+		HashMap<String, List<MultipleSequenceAlignment>> msasByGeneName = new HashMap<>();
 		for (String gene : genes) {
-			Set<MultipleSequenceAlignment> msas = findMsasGene(gene);
+			List<MultipleSequenceAlignment> msas = findMsasGene(gene);
 			if (msas != null && !msas.isEmpty()) msasByGeneName.put(gene, msas);
 		}
 
@@ -428,7 +438,7 @@ public class InteractionLikelihood {
 	 * Output format:
 	 * 		msa1.id [msaIdx1] \t msa2.id[msaIdx2] \t logLikRatio \t likNull \t likAlt \t seqsStr
 	 */
-	void logLikelihoodGenes(String gene1, String gene2, Set<MultipleSequenceAlignment> msasGene1, Set<MultipleSequenceAlignment> msasGene2, String outDir) {
+	void logLikelihoodGenes(String gene1, String gene2, List<MultipleSequenceAlignment> msasGene1, List<MultipleSequenceAlignment> msasGene2, String outDir) {
 		if (msasGene1 == null || msasGene2 == null) return;
 
 		// Create output directory
@@ -455,7 +465,7 @@ public class InteractionLikelihood {
 					// Already calculated? Ignore
 					if (!done.contains(key)) {
 						done.add(key);
-						String lout = logLikelihoodRatio(msa1, msa2, false);
+						String lout = logLikelihoodRatio(msa1, msa2, true);
 						if (!lout.isEmpty()) tmp.write(lout + "\n");
 					}
 				}
