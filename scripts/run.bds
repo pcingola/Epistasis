@@ -8,7 +8,7 @@
 
 debug			:= false
 timeout			:= 5 * day
-#system			:= 'cluster'
+system			:= 'cluster'
 cpus			:= ( system == 'local' ? 24 : 4 )
 
 # Which step/s to perform
@@ -40,7 +40,7 @@ idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
 idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
 idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
 interactions    := "$dir/interactions.txt"
-interactionsNull:= "$dir/selectNotInteracting.head.txt"
+interactionsNull:= "$dir/interactions.NON_INTERACTING.txt"
 lik				:= "$dir/likelihood.contact.txt"
 likAll			:= "$dir/likelihood.all.txt"
 likNull			:= "$dir/likelihood.null.txt"
@@ -373,13 +373,22 @@ if( step5 ) {
 	task( lik <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 		sys $cmdEpistasis likelihood $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik
 	}
-	wait
 
 	println "\nEstimate log-Likelihood null distribution: $likNull"
 	task( likNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 		sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs > $likNull
 	}
-	wait
+
+	println "\nEstimate log-Likelihood (3-AA neighborhood): '$lik3'"
+	task( lik3 <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis likelihood3 $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik3
+	}
+
+	bgNum = 100 * 1000	# Number of iterations for background calculation
+	println "\nEstimate log-Likelihood null distribution (3-AA neighborhood): $likNull3"
+	task( likNull3 <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis likelihoodNull3 $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $likNull3
+	}
 }
 
 #---
@@ -431,26 +440,13 @@ if( step7 ) {
 	dirOut = "$dir/likelihood.hgmd"
 	numSplits = 200
 	likelihoodvcf(hgmd, dirOut, numSplits)
-
-	#---
-	# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
-	#---
-	geneGeneLogLik("$dir/interactions/alt", interactions)
-	geneGeneLogLik("$dir/interactions/null", interactionsNull)
 }
 
-println "\nEstimate log-Likelihood (3-AA neighborhood): '$lik3'"
-task( lik3 <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihood3 $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $lik3
-}
-wait
-
-bgNum = 100 * 1000	# Number of iterations for background calculation
-println "\nEstimate log-Likelihood null distribution (3-AA neighborhood): $likNull3"
-task( likNull3 <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-	sys $cmdEpistasis likelihoodNull3 $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $likNull3
-}
-wait
+#---
+# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
+#---
+geneGeneLogLik("$dir/interactions/alt", interactions)
+geneGeneLogLik("$dir/interactions/null", interactionsNull)
 
 # Done
 wait
