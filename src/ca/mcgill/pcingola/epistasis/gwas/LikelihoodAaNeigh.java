@@ -36,7 +36,8 @@ public class LikelihoodAaNeigh {
 
 	@Override
 	public String toString() {
-		return getAvgLogLikRatio() //
+		return logLikelihoodRatio //
+				+ "\t" + getAvgLogLikRatio() //
 				+ "\t" + getAvgLogLikNull() //
 				+ "\t" + getAvgLogLikAlt() //
 				+ "\t" + count //
