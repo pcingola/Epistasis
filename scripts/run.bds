@@ -9,7 +9,7 @@
 debug			:= false
 timeout			:= 5 * day
 system			:= 'cluster'
-cpus			:= ( system == 'local' ? 24 : 1 )
+cpus			:= ( system == 'local' ? 24 : 2 )
 
 # Which step/s to perform
 step1			:= false
@@ -127,7 +127,7 @@ void geneGeneLogLikMatrix(string geneGeneDir) {
 
 		out := "$geneGeneDir/likelihoodGeneGeneMatrix.$split.$maxSplit.txt"
 		print "\t$out\tnumber of files: $len\n"
-		task( out <- sl, cpus := 1 ) {
+		task( out <- sl ) {
 			sys $cmdEpistasis likelihoodGeneGeneMatrix $tree $msaBest $files > $out
 		}
 	}
