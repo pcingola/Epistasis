@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis.gwas;
+package ca.mcgill.pcingola.epistasis.likelihood;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,6 +25,7 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
+import ca.mcgill.pcingola.epistasis.gwas.GwasResult;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;

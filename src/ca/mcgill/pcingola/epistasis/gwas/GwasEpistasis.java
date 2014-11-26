@@ -18,6 +18,9 @@ import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.epistasis.GenotypePos;
+import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.likelihood.LikelihoodAnalysisGtPair;
+import ca.mcgill.pcingola.epistasis.likelihood.MarkerPairLikelihood;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.pdb.PdbGenomeMsas;
 

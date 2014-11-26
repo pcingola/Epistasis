@@ -1,4 +1,6 @@
-package ca.mcgill.pcingola.epistasis.gwas;
+package ca.mcgill.pcingola.epistasis.likelihood;
+
+import ca.mcgill.pcingola.epistasis.gwas.GwasResult;
 
 /**
  * Results form neighbouring LL(MSA) calculations

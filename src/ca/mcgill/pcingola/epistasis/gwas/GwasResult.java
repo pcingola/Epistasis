@@ -15,7 +15,7 @@ public class GwasResult {
 	public static double LL_SHOW_LOGREG_MODEL = 6.0;
 
 	public Genotype genoi, genoj;
-	byte gtij[]; // Genotype data used to fit the logistic regression
+	public byte gtij[]; // Genotype data used to fit the logistic regression
 
 	public double logLikelihoodLogReg = 0.0; // Log likelihood from Logistic Regression model
 	public double pvalueLogReg = 1.0; // P-value from log-likelihood in logistic regression model
@@ -93,7 +93,7 @@ public class GwasResult {
 					+ "\n\tAlt  : " + Gpr.toString(lrAlt.getTheta()) //
 					+ "\n\tNull :             " + Gpr.toString(lrNull.getTheta()) //
 
-					;
+			;
 		}
 
 		return "log(BF): " + log10BayesFactor //
@@ -106,7 +106,7 @@ public class GwasResult {
 				+ "\t" + genoi.getId() //
 				+ "\t" + genoj.getId() //
 				+ additionalStr //
-				;
+		;
 
 	}
 }

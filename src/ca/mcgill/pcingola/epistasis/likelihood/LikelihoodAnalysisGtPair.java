@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis.gwas;
+package ca.mcgill.pcingola.epistasis.likelihood;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -14,6 +14,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
+import ca.mcgill.pcingola.epistasis.gwas.GwasResult;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 

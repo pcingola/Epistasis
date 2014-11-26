@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.junit.Assert;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
-import ca.mcgill.pcingola.epistasis.gwas.LikelihoodAnalysisGt;
+import ca.mcgill.pcingola.epistasis.likelihood.LikelihoodAnalysisGt;
 
 /**
  * Test cases for logistic regression using phenotypes and VCF data

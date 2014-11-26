@@ -151,8 +151,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[] = new int[GprSeq.AMINO_ACIDS.length * GprSeq.AMINO_ACIDS.length];
 
 		aaContacts.stream() //
-				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-				.forEach(d -> countAaPairs(counts, d)) //
+		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+		.forEach(d -> countAaPairs(counts, d)) //
 		;
 
 		return counts;
@@ -189,8 +189,8 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		int counts[][] = new int[n][n];
 
 		aaContacts.stream() //
-				.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
-				.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
+		.filter(d -> getMsa(d.msa1) != null && getMsa(d.msa2) != null) //
+		.forEach(d -> countTransitionsPairs(counts, seqNum1, seqNum2, d));
 
 		return counts;
 	}
@@ -288,12 +288,38 @@ public class MultipleSequenceAlignmentSet implements Iterable<MultipleSequenceAl
 		return msasByTrId.get(trId);
 	}
 
+	/**
+	 * List of MSAs by transcript ID, sorted by transcript's strand (5' to 3')
+	 */
+	public List<MultipleSequenceAlignment> getMsasByTrIdSorted(String trId) {
+		ArrayList<MultipleSequenceAlignment> list = new ArrayList<MultipleSequenceAlignment>();
+		list.addAll(msasByTrId.get(trId));
+
+		if (list.isEmpty() || list.get(0).isStrandPlus()) Collections.sort(list);
+		else Collections.sort(list, Collections.reverseOrder());
+
+		return list;
+	}
+
 	public int getNumAligns() {
 		return numAligns;
 	}
 
 	public String[] getSpecies() {
 		return species;
+	}
+
+	/**
+	 * Total MSA AA length for a given transcript
+	 */
+	public int getTranscriptLength(String trId) {
+		List<MultipleSequenceAlignment> msasTr = getMsasByTrId(trId);
+
+		int len = 0;
+		for (MultipleSequenceAlignment msa : msasTr)
+			len += msa.getAaSeqLen();
+
+		return len;
 	}
 
 	/**
