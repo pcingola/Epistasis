@@ -20,12 +20,8 @@ public class TrLikelihoodMatrix {
 	Map<String, Integer> idToIdx1, idToIdx2;
 	Map<Integer, String> idxToId1, idxToId2;
 
-	public TrLikelihoodMatrix() {
-	}
-
-	public TrLikelihoodMatrix(MultipleSequenceAlignmentSet msas, String fileName) {
+	public TrLikelihoodMatrix(MultipleSequenceAlignmentSet msas) {
 		this.msas = msas;
-		load(fileName);
 	}
 
 	/**
@@ -52,7 +48,7 @@ public class TrLikelihoodMatrix {
 				+ "\t" + bestj //
 				+ "\t" + idxToId1.get(besti) //
 				+ "\t" + idxToId2.get(bestj) //
-				);
+		);
 
 		if (debug) showMatrix(besti, bestj, neighbours);
 	}
@@ -60,39 +56,47 @@ public class TrLikelihoodMatrix {
 	/**
 	 * Load gene-gene interaction file
 	 */
-	public void load(String geneGeneFile) {
-		//---
-		// Read file
-		//---
-		Timer.showStdErr("Loading gene-gene file:" + geneGeneFile);
-		name = geneGeneFile;
-		String lines[] = Gpr.readFile(geneGeneFile).split("\n");
-		Timer.showStdErr("Done: " + lines.length + " lines.");
+	public boolean load(String geneGeneFile) {
+		try {
+			//---
+			// Read file
+			//---
+			Timer.showStdErr("Loading gene-gene file:" + geneGeneFile);
+			name = geneGeneFile;
+			String lines[] = Gpr.readFile(geneGeneFile).split("\n");
+			Timer.showStdErr("Done: " + lines.length + " lines.");
 
-		// Find transcript ID
-		String ft[] = lines[0].split("\t");
-		String f[] = ft[0].split("_");
-		String trId1 = f[0] + "_" + f[1];
-		f = ft[1].split("_");
-		String trId2 = f[0] + "_" + f[1];
-		Timer.showStdErr("Transcript IDs: " + trId1 + " \t" + trId2);
+			// Find transcript ID
+			String ft[] = lines[0].split("\t");
+			String f[] = ft[0].split("_");
+			String trId1 = f[0] + "_" + f[1];
+			f = ft[1].split("_");
+			String trId2 = f[0] + "_" + f[1];
+			Timer.showStdErr("Transcript IDs: " + trId1 + " \t" + trId2);
 
-		// Find MSAs and lengths and crete indexs
-		idToIdx1 = msa2matrixIndex(trId1);
-		idxToId1 = reverseIndex(idToIdx1); // Create reverse index
+			// Find MSAs and lengths and crete indexs
+			idToIdx1 = msa2matrixIndex(trId1);
+			idxToId1 = reverseIndex(idToIdx1); // Create reverse index
 
-		idToIdx2 = msa2matrixIndex(trId2);
-		idxToId2 = reverseIndex(idToIdx2); // Create reverse index
+			idToIdx2 = msa2matrixIndex(trId2);
+			idxToId2 = reverseIndex(idToIdx2); // Create reverse index
 
-		len1 = msas.getTranscriptLength(trId1);
-		len2 = msas.getTranscriptLength(trId2);
+			len1 = msas.getTranscriptLength(trId1);
+			len2 = msas.getTranscriptLength(trId2);
 
-		int expLines = len1 * len2; // This doesn't account for blank separating lines
-		Timer.showStdErr("Total length: " + len1 + "\t" + len2 + "\tExpected lines: " + expLines);
-		if (expLines > lines.length) throw new RuntimeException("Number of lines does not match expected ones!");
+			int expLines = len1 * len2; // This doesn't account for blank separating lines
+			Timer.showStdErr("Total length: " + len1 + "\t" + len2 + "\tExpected lines: " + expLines);
+			if (expLines > lines.length) throw new RuntimeException("Number of lines does not match expected ones!");
 
-		// Parse line and create matrix
-		parseMatrix(lines);
+			// Parse line and create matrix
+			parseMatrix(lines);
+		} catch (Throwable e) {
+			System.err.println("Error parsing file: " + geneGeneFile);
+			e.printStackTrace();
+			return false;
+		}
+
+		return true;
 	}
 
 	/**

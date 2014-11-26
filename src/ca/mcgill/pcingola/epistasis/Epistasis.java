@@ -1066,13 +1066,15 @@ public class Epistasis implements CommandLine {
 
 		// For each file...
 		for (String geneGeneFile : geneGeneFiles) {
-			TrLikelihoodMatrix trLikelihoodMatrix = new TrLikelihoodMatrix(msas, geneGeneFile);
+			TrLikelihoodMatrix trLikelihoodMatrix = new TrLikelihoodMatrix(msas);
 
-			int maxNeigh = 10;
+			if (trLikelihoodMatrix.load(geneGeneFile)) {
+				int maxNeigh = 10;
 
-			// Calculate best score for several neighborhood sizes
-			for (int neigh = 0; neigh < maxNeigh; neigh++) {
-				trLikelihoodMatrix.findBest(neigh);
+				// Calculate best score for several neighborhood sizes
+				for (int neigh = 0; neigh < maxNeigh; neigh++) {
+					trLikelihoodMatrix.findBest(neigh);
+				}
 			}
 		}
 	}
