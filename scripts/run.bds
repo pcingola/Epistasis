@@ -8,8 +8,8 @@
 
 debug			:= false
 timeout			:= 5 * day
-#system			:= 'cluster'
-cpus			:= ( system == 'local' ? 24 : 4 )
+system			:= 'cluster'
+cpus			:= ( system == 'local' ? 24 : 1 )
 
 # Which step/s to perform
 step1			:= false
@@ -446,26 +446,7 @@ if( step7 ) {
 # Gene-Gene Log likelihood (MSA) analysis: All possible pairs
 #---
 #geneGeneLogLik("$dir/interactions/alt", interactions)
-#geneGeneLogLik("$dir/interactions/null", interactionsNull)
-
-for( int neigh=1 ; neigh < 3 ; neigh++ ) {
-	totNeigh := 2 * neigh + 1
-
-	likNeigh := "$dir/likelihood_aa$totNeigh.contact.txt"
-	println "\nEstimate log-Likelihood ($totNeigh AA neighborhood): '$likNeigh'"
-	task( likNeigh <- [tree, msaBest, idMapBest, aaContactBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-		sys $cmdEpistasis likelihood $tree $msaBest $idMapBest $aaContactBest $qhat $aaFreqs $qhat2 $aa2Freqs $neigh | tee $likNeigh
-	}
-	wait
-
-	bgNum = 100 * 1000	# Number of iterations for background calculation
-	likNeighNull := "$dir/likelihood_aa$totNeigh.null.txt"
-	println "\nEstimate log-Likelihood null distribution (3-AA neighborhood): $likNeighNull"
-	task( likNeighNull <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-		sys $cmdEpistasis likelihoodNull $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $neigh | tee $likNeighNull
-	}
-	wait
-}
+geneGeneLogLik("$dir/interactions/null", interactionsNull)
 
 # Done
 wait
