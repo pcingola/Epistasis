@@ -48,7 +48,7 @@ public class TrLikelihoodMatrix {
 				+ "\t" + bestj //
 				+ "\t" + idxToId1.get(besti) //
 				+ "\t" + idxToId2.get(bestj) //
-		);
+				);
 
 		if (debug) showMatrix(besti, bestj, neighbours);
 	}
@@ -184,6 +184,25 @@ public class TrLikelihoodMatrix {
 	 * Score average on the forward/reverse diagonal at position [i,j] of llmatrix
 	 */
 	double score(int i, int j, int neighbours, int stepj) {
+		int mini = i - neighbours, maxi = i + neighbours;
+		int minj = j - neighbours, maxj = j + neighbours;
+		int startj = j - stepj * neighbours;
+
+		int count = 0;
+		double sum = 0;
+		for (int ii = mini, jj = startj; mini <= ii && ii <= maxi && minj <= jj && jj <= maxj; ii++) {
+			if (ii < 0 || ii >= len1 || jj < 0 || jj >= len2) continue;
+			sum += llmatrix[ii][jj];
+			count++;
+		}
+
+		return sum / count;
+	}
+
+	/**
+	 * Score average on the forward/reverse diagonal at position [i,j] of llmatrix
+	 */
+	double scoreAll(int i, int j, int neighbours, int stepj) {
 		int mini = i - neighbours, maxi = i + neighbours;
 		int minj = j - neighbours, maxj = j + neighbours;
 
