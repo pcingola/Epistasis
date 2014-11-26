@@ -48,7 +48,9 @@ public class TrLikelihoodMatrix {
 				+ "\t" + bestj //
 				+ "\t" + idxToId1.get(besti) //
 				+ "\t" + idxToId2.get(bestj) //
-				);
+				+ "\t" + len1 //
+				+ "\t" + len2 //
+		);
 
 		if (debug) showMatrix(besti, bestj, neighbours);
 	}
