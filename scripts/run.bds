@@ -112,6 +112,28 @@ void geneGeneLogLik(string dirOut, string interactions) {
 }
 
 #-------------------------------------------------------------------------------
+# Calculate best scores from pre-calculated LL(MSA) on gene-gene pairs
+#-------------------------------------------------------------------------------
+void geneGeneLogLikMatrix(string geneGeneDir) {
+	geneGene := sys find $geneGeneDir -iname "*.txt"
+	geneGeneList := geneGene.lines()
+
+	print "calculating likelihoodGeneGeneMatrix: '$geneGeneDir'\n"
+	maxSplit := 10
+	for( int split=0 ; split < maxSplit ; split++ ) {
+		sl := geneGeneList.split(split, maxSplit)
+		files := sl.join(" ")
+		len := sl.size()
+
+		out := "$geneGeneDir/likelihoodGeneGeneMatrix.$split.$maxSplit.txt"
+		print "\t$out\tnumber of files: $len\n"
+		task( out <- sl, cpus := 1 ) {
+			sys $cmdEpistasis likelihoodGeneGeneMatrix $tree $msaBest $files > $out
+		}
+	}
+}
+
+#-------------------------------------------------------------------------------
 # Likelihood for interactions from a variant in a VCF file and all other 
 # sites withn a protein
 #-------------------------------------------------------------------------------
@@ -148,6 +170,21 @@ string[] readInteractions(string intFile, string dirGenesLike) {
 	}
 
 	return pairs
+}
+
+#-------------------------------------------------------------------------------
+# Get part of 'splitNum' out of 'maxSplitNum' from a list
+#-------------------------------------------------------------------------------
+string[] split(string[] list, int splitNum, int maxSplitNum) {
+	string[] newList
+	idx := 0
+
+	for(string s : list) {
+		if( (idx % maxSplitNum) == splitNum )	newList += s
+		idx++
+	}
+
+	return newList
 }
 
 #-------------------------------------------------------------------------------
@@ -389,6 +426,12 @@ if( step5 ) {
 	task( likNull3 <- [tree, msaBest, idMapBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 		sys $cmdEpistasis likelihoodNull3 $bgNum $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $likNull3
 	}
+
+	#---
+	# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
+	#---
+	geneGeneLogLik("$dir/interactions/alt", interactions)
+	geneGeneLogLik("$dir/interactions/null", interactionsNull)
 }
 
 #---
@@ -442,11 +485,8 @@ if( step7 ) {
 	likelihoodvcf(hgmd, dirOut, numSplits)
 }
 
-#---
-# Gene-Gene Log likelihood (MSA) analysis: All possible pairs
-#---
-#geneGeneLogLik("$dir/interactions/alt", interactions)
-geneGeneLogLik("$dir/interactions/null", interactionsNull)
+geneGeneLogLikMatrix("$dir/interactions/alt")
+geneGeneLogLikMatrix("$dir/interactions/null")
 
 # Done
 wait
