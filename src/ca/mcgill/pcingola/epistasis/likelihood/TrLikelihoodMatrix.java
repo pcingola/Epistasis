@@ -1,8 +1,14 @@
 package ca.mcgill.pcingola.epistasis.likelihood;
 
+import java.awt.image.BufferedImage;
+import java.awt.image.WritableRaster;
+import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.imageio.ImageIO;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
@@ -22,6 +28,58 @@ public class TrLikelihoodMatrix {
 
 	public TrLikelihoodMatrix(MultipleSequenceAlignmentSet msas) {
 		this.msas = msas;
+	}
+
+	/**
+	 * Create an image from this
+	 */
+	public void createImage(String imageFile, int neigh, boolean showNegative) {
+		int width = len2, height = len1;
+
+		//---
+		// Create pixels
+		//---
+		// Get max value
+		double max = Double.NEGATIVE_INFINITY;
+		double min = Double.POSITIVE_INFINITY;
+		for (int ii = 0; ii < len1; ii++)
+			for (int jj = 0; jj < len2; jj++) {
+				double score = score(ii, jj, neigh);
+				if (score > max) max = score;
+				if (score < min) min = score;
+			}
+
+		double maxAbs = showNegative ? Math.max(Math.abs(max), Math.abs(min)) : Math.abs(max);
+
+		// Create pixels
+		int pixels[] = new int[width * height];
+		Gpr.debug("Width: " + width + "\theight: " + height + "\ttotal: " + pixels.length);
+		int i = 0;
+		for (int ii = 0; ii < height; ii++) {
+			for (int jj = 0; jj < width; jj++) {
+				double score = score(ii, jj, neigh);
+
+				int red = 0, green = 0;
+				if (score > 0) red = (int) (255 * score / maxAbs) & 0xff;
+				else if (showNegative) green = (int) (255 * score / maxAbs) & 0xff;
+
+				pixels[i++] = (red << 16) | (green << 8);
+			}
+		}
+
+		//---
+		// Create image & save it
+		//---
+		BufferedImage img = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
+		WritableRaster raster = img.getRaster();
+		raster.setDataElements(0, 0, width, height, pixels);
+
+		// Save image to file
+		try {
+			ImageIO.write(img, "png", new File(imageFile));
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**
@@ -52,7 +110,7 @@ public class TrLikelihoodMatrix {
 				+ "\t" + len2 //
 		);
 
-		if (debug) showMatrix(besti, bestj, neighbours);
+		if (debug) System.out.println(toStringMatrix(besti, bestj, neighbours));
 	}
 
 	/**
@@ -225,20 +283,50 @@ public class TrLikelihoodMatrix {
 		return sum / count;
 	}
 
+	@Override
+	public String toString() {
+		return toStringMatrix();
+	}
+
+	/**
+	 * Show the whole matrix as a tab separated
+	 */
+	public String toStringMatrix() {
+		StringBuilder sb = new StringBuilder();
+
+		// Title
+		for (int jj = 0; jj < len2; jj++)
+			sb.append("\t" + idxToId2.get(jj));
+		sb.append("\n");
+
+		for (int ii = 0; ii < len1; ii++) {
+			sb.append(idxToId1.get(ii));
+			for (int jj = 0; jj < len2; jj++)
+				sb.append("\t" + llmatrix[ii][jj]);
+			sb.append("\n");
+		}
+
+		return sb.toString();
+	}
+
 	/**
 	 * Show part of the llmatrix (for debugging)
 	 */
-	void showMatrix(int i, int j, int neigh) {
+	public String toStringMatrix(int i, int j, int neigh) {
+		StringBuilder sb = new StringBuilder();
+
 		// Title
 		for (int jj = j - neigh; jj <= j + neigh; jj++)
-			System.out.print("\t" + idxToId2.get(jj));
-		System.out.println("");
+			sb.append("\t" + idxToId2.get(jj));
+		sb.append("\n");
 
 		for (int ii = i - neigh; ii <= i + neigh; ii++) {
-			System.out.print(idxToId1.get(ii));
+			sb.append(idxToId1.get(ii));
 			for (int jj = j - neigh; jj <= j + neigh; jj++)
-				System.out.print("\t" + llmatrix[ii][jj]);
-			System.out.println("");
+				sb.append("\t" + llmatrix[ii][jj]);
+			sb.append("\n");
 		}
+
+		return sb.toString();
 	}
 }

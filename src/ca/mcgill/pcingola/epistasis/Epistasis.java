@@ -431,6 +431,14 @@ public class Epistasis implements CommandLine {
 			runLikelihoodAll(geneNamePairsFile, outDir);
 			break;
 
+		case "likelihoodgenegenematrix":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			String geneGeneFiles[] = Arrays.copyOfRange(args, argNum, args.length);
+			filterMsaByIdMap = false;
+			runLikelihoodGeneGeneMatrix(geneGeneFiles);
+			break;
+
 		case "likelihoodnull":
 			numSamples = Gpr.parseIntSafe(args[argNum++]);
 			treeFile = args[argNum++];
@@ -539,14 +547,6 @@ public class Epistasis implements CommandLine {
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runTransitions(numSamples);
-			break;
-
-		case "likelihoodgenegenematrix":
-			treeFile = args[argNum++];
-			multAlignFile = args[argNum++];
-			String geneGeneFiles[] = Arrays.copyOfRange(args, argNum, args.length);
-			filterMsaByIdMap = false;
-			runLikelihoodGeneGeneMatrix(geneGeneFiles);
 			break;
 
 		default:
@@ -879,6 +879,35 @@ public class Epistasis implements CommandLine {
 		il.likelihoodAllAminAcidsInGenes(genesFile, outDir);
 	}
 
+	void runLikelihoodGeneGeneMatrix(String geneGeneFiles[]) {
+		load();
+
+		// For each file...
+		for (String geneGeneFile : geneGeneFiles) {
+			TrLikelihoodMatrix trLikelihoodMatrix = new TrLikelihoodMatrix(msas);
+
+			if (trLikelihoodMatrix.load(geneGeneFile)) {
+				int maxNeigh = 10;
+
+				// Calculate best score for several neighborhood sizes
+				for (int neigh = 0; neigh < maxNeigh; neigh++) {
+					trLikelihoodMatrix.findBest(neigh);
+
+					// Create image file
+					String imageFile = geneGeneFile + "." + neigh + ".png";
+					Timer.showStdErr("Saving image file '" + imageFile + "'");
+					trLikelihoodMatrix.createImage(imageFile, neigh, false); // Don't show negative likelihoods
+				}
+
+				// Save to matrix file
+				String matrixFile = geneGeneFile + ".matrix";
+				Timer.showStdErr("Saving matrix file '" + matrixFile + "'");
+				Gpr.toFile(matrixFile, trLikelihoodMatrix);
+
+			}
+		}
+	}
+
 	/**
 	 * Likelihood 'null distribution
 	 */
@@ -1059,24 +1088,6 @@ public class Epistasis implements CommandLine {
 		//---
 		TransitionsAaPairs transPairsBg = transitionPairsBg();
 		System.out.println(Gpr.prependEachLine("AA_PAIRS_BG_WITHIN_PROT\t", transPairsBg));
-	}
-
-	void runLikelihoodGeneGeneMatrix(String geneGeneFiles[]) {
-		load();
-
-		// For each file...
-		for (String geneGeneFile : geneGeneFiles) {
-			TrLikelihoodMatrix trLikelihoodMatrix = new TrLikelihoodMatrix(msas);
-
-			if (trLikelihoodMatrix.load(geneGeneFile)) {
-				int maxNeigh = 10;
-
-				// Calculate best score for several neighborhood sizes
-				for (int neigh = 0; neigh < maxNeigh; neigh++) {
-					trLikelihoodMatrix.findBest(neigh);
-				}
-			}
-		}
 	}
 
 	/**
