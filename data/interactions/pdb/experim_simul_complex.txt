@@ -1,0 +1,527 @@
+# Dockground: Protein-Protein complexes
+# Reference: http://dockground.compbio.ku.edu/UNBOUND/ex_sm.php
+ 1      2        3       4      5   6           7               8       9    10       11           12              13     14    15  
+1a2k	0	AB:C     2.5	|| 1gy6        AB:AB          100.00  1.320 1.60     3ran         A:C            99.54  1.326  2.15	
+1a2x	0	A:B     2.3	
+1a9n	0	A:B     2.38
+1agr	0	A:E	2.8	
+1aip	0	CD:A    3.0	
+1ais	0	B:A     2.1	
+1akj	0	AB:DE   2.65	|| 1i4f        AB:AB          100.00  3.180 1.40     1cd8      A1A2:DE          100.00  0.995  2.60
+1azs	0	AB:C    2.3	
+1b0n	0	A:B	1.9	
+1b34	0	A:B	2.5	
+1b6c	0	A:B	2.6	|| 1bkf         A:A            98.13  0.599 1.60     1vjy         A:B           100.00  1.441  2.00
+1bh9	0	B:A	2.6	
+1bml	0	C:A	2.9	
+1bnd	0	A:B	2.3	
+1buh	0	A:B	2.6	
+1bui	0	A:C	2.65	|| 1ddj         A:A            99.60  1.848  2.00     2sak         A:C           100.00  1.665  1.80
+1c1y	0	A:B	1.9	
+1c4z	0	A:D	2.6	
+1cf7	0	B:A	2.6	
+1ci6	0	A:B	2.6	
+1cxz	0	A:B	2.2	
+1d2z	0	B:A	2.0	
+1d3b	0	A:B	2.0	
+1d4x	0	A:G     1.75
+1de4    0       AB:CF   2.80    || 1a6z        AB:AB          100.00  1.379  2.60 1cx8        AB:CF           99.69  1.688  3.20
+1dev	0	A:B	2.2	
+1dkf	0	B:A	2.5	
+1dkg	0	D:A	2.8	
+1dml	0	A:B	2.7	
+1dn1	0	A:B	2.6	
+1dow	0	A:B	1.8	
+1ds6	0	A:B     2.35
+1dx5	0	M:I	2.3	
+1e96	0	A:B	2.4	|| 1mh1         A:A            98.91  0.735 1.38     1hh8         A:B            99.51  0.624  1.80
+1ebd	0	B:C	2.6	
+1efn	0	A:B	2.5	|| 1shf         A:A            98.25  0.660 1.90     1avv         A:B            99.32  0.662  3.00
+1efu	0	C:D	2.5	
+1ewy	0	A:C     2.38	|| 2bmw         A:A            98.02  1.008 1.50     1czp         A:C           100.00  0.893  1.17
+1f02	0	I:T	2.9	
+1f3v	0	B:A	2.0	
+1f51	0	AB:E    3.0	|| 1ixm        AB:AB          100.00  2.266 2.60     1nat         A:E            99.16  0.739  2.45
+1f5q	0	A:B	2.5	
+1f60	0	A:B     1.67
+1f6a    0       A:BD    3.50    || 1f2q         A:A             7.73  1.936  2.40 1fp5      A1A2:BD          100.00  4.482  2.30
+1f6m	0	A:C     2.95	|| 1trb         A:A            99.38  7.293 2.00     2trx         A:C            99.07  1.002  1.68
+1f93	0	B:E	2.6	
+1fbv	0	A:C	2.9	
+1ffg	0	A:B	2.1	
+1fm9	0	A:D	2.1	
+1fo0	0	HP:AB	2.5	
+1foe	0	A:B	2.8	
+1fqj	0	A:B     2.02
+1fqj	0	C:A     2.02
+1frt	0	AB:C    4.5	
+1fs1	0	B:A	1.8	
+1g20    0       AB:EF   2.20    || 1l5h        AB:AB          100.00  1.726  2.30 1fp6        AB:EF           99.65  2.688  2.15
+1g3n	0	A:C	2.9	
+1g4a    0       EF:BADC 3.00    || 1do2        AB:EF          100.00  2.779  4.00 1ht1      CDVX:BADC        100.00  1.758  2.80
+1g4u	0	S:R	2.3	
+1g73	0	A:C	2.0	
+1gc1	0	G:C	2.5	
+1gcq	0	A:C     1.68
+1gcq	0	B:C     1.68
+1gh6	0	B:A	3.2	
+1ghq	0	A:B     2.04	|| 1c3d         A:A           100.00  1.074 1.80     1ly2         A:B            99.22  0.751  1.80
+1gl4	0	A:B	2.0	
+1glb	0	F:G	2.6	||  1f3z         A:F           100.00  0.463  1.98   1bot         O:G           100.00  0.963 3.05  
+1go4	0	B:F     2.05
+1gpw    0       A:B     2.40    || 1thf         D:A            99.21  3.558  1.45  1k9v         F:B           100.00  0.694  2.40
+1gvn	0	B:A     1.95
+1gzs	0	A:B	2.3	
+1h2s	0	A:B     1.93
+1h4l	0	A:D     2.65
+1h6k	0	A:X	2.0	
+1h9d	0	A:B	2.6
+1he1    0       A:C     2.00    || 1he9         A:A            97.66  0.907  2.40 1mh1         A:C            99.43  0.753  1.38	
+1he8	0	A:B	3.0	|| 1e8y         A:A            99.79  2.306 2.00     2evw         X:B            98.19  1.203  1.05
+1hl6	0	B:A	2.5	
+1hqr	0	ABC:D	3.2	
+1hx1	0	A:B	1.9	
+1hxy	0	AB:D	2.6	|| 1t5w        AB:AB          100.00  2.268 2.40     1enf         A:D           100.00  0.519  1.69
+1hyr	0	AB:C    2.7	
+1i2m	0	B:A     1.76
+1i4d	0	AB:D	2.5	|| 1i49        AB:AB          100.00  0.958 2.80     1mh1         A:D            99.45  1.319  1.38
+1i7w	0	C:D	2.0	
+1i8l	0	A:C	3.0	
+1ib1	0	A:E	2.7	
+1ibr	0	B:A	2.3	
+1ijk	0	BC:A    2.6	
+1ikn	0	AC:D    2.3	
+1im3	0	A:D	2.2	
+1im9	0	AC:D    2.8	
+1ira	0	Y:X	2.7	
+1ixs	0	B:A	3.2	
+1iyj	0	B:A	3.4	
+1j2j	0	A:B	1.6	
+1j34	0	AB:C	1.55
+1j8h	0	DE:ABC  2.4	
+1jat	0	A:B	1.6	
+1jdh	0	A:B	1.9	
+1jk9	0	B:A	2.9	
+1jl4	0	AB:D    4.3	
+1jma	0	A:B     2.65
+1jow	0	B:A	3.1	
+1jw9	0	B:D	1.7	
+1jwm    0       AB:D    2.70    || 1t5w        AB:AB          100.00  9.602  2.40 1ste         A:D            98.33  8.698  2.00
+1jzd	0	AB:C    2.3	
+1k5d	0	A:B	2.7	
+1k8r	0	A:B	3.0	
+1k90	0	A:D     2.75
+1k93    0       A:D     2.95    || 1k8t         A:A           100.00  0.533  2.60 1cll         A:D           100.00  2.488  1.70
+1kac	0	A:B	2.6	
+1kcg	0	AB:C    2.6	
+1kg0	0	B:C     2.65
+1kgy	0	A:E	2.7	
+1ki1	0	B:A	2.3	
+1kil	0	ABD:E	2.3	
+1kkm	0	AB:I    2.8	
+1klf	0	B:A     2.79
+1kps	0	A:B	2.5	
+1ksh	0	A:B	1.8	
+1ktk	0	E:A	3.0	
+1kz7	0	A:B	2.4	
+1kzy	0	C:A	2.5	
+1l0o	0	AB:C    2.9	
+1l2w	0	AB:I    2.0	
+1l4d	0	A:B	2.3	
+1l7v	0	A:C	3.2
+1l9b    0       LMH:C   2.40    || 1rzh       LMH:LMH          99.77  1.772  1.80 1cxc         A:C           100.00  0.886  1.60	
+1ldj	0	A:B	3.0	
+1lfd	0	B:A	2.1	
+1lm8	0	BC:V	1.85
+1lpb	0	B:A     2.46
+1ltx	0	A:R	2.7	
+1m1e	0	A:B	2.1	
+1m27	0	A:C	2.5	
+1m2v	0	B:A     2.75
+1m9f	0	A:D     1.73
+1ma9	0	A:B	2.4	|| 1kw2         A:A            99.56  0.987 2.15     2fxu         A:B           100.00  9.534  1.35
+1mbx	0	A:C     2.25
+1mr1	0	A:D     2.85
+1mzw	0	A:B	2.0	
+1n0w	0	A:B	1.7	
+1nbf	0	A:D	2.3	|| 1nb8         A:A            97.45  3.835 2.30     1yj1         A:D            97.33  1.733  1.30
+1nex	0	B:A	2.7	
+1nf3	0	A:C	2.1	
+1nkp	0	A:B	1.8	
+1nmu	0	A:B     2.31
+1npe	0	A:B	2.3	
+1nt2	0	B:A	2.9	
+1nu9	0	A:C	2.2	
+1nvu	0	S:R	2.2	
+1nvu	0	S:Q	2.2	
+1o6s	0	A:B	1.8	
+1o94	0	A:C	2.0	
+1oc0	0	A:B     2.28
+1oey	0	J:A	2.0	
+1ofh    0       A:G     2.50    || 1g41         A:A           100.00  0.808  2.30 1jjw         C:G           100.00  0.755  1.90
+1ofu	0	A:X     2.1	
+1oga	0	DE:AC	1.4	
+1ohz	0	A:B     2.2	
+1oiu	0	A:B     2.0	
+1ol5	0	A:B     2.5	
+1omw	0	A:BG    2.5	|| 1ym7         A:A           100.00  4.834 4.50     1xhm        AB:BG           99.29  0.885  2.70
+1oo0	0	A:B     1.85
+1ook	0	AB:G	2.3	|| 2cf8        HL:AB          100.00  1.542 1.30     1p9a         G:G            99.31  0.691  1.70
+1oqd	0	A:K	2.6	
+1oqe	0	A:K	2.5	
+1or7	0	A:C	2.0	
+1ory	0	A:B     2.45
+1oxb	0	A:B	2.3	
+1oy3	0	BC:D	2.05
+1p3q	0	RQ:V    1.7	
+1p4l	0	AB:D    2.9	
+1p5v	0	A:B	1.7	
+1p7q	0	AB:D    3.4	|| 1i4f        AB:AB          100.00  1.305 1.40     1ugn         A:D            99.49  1.903  1.80
+1p8v	0	A:C	2.6	
+1pk1	0	A:B	1.8	
+1pq1	0	A:B     1.65
+1pqz	0	A:B	2.1	
+1puf	0	A:B	1.9	
+1pvh	0	A:B	2.5	
+1qa9	0	A:B	3.2	
+1qav	0	B:A	1.9	
+1qbk	0	B:C	3.0	
+1qo0	0	AB:DE   2.25
+1qo3	0	A:C     2.3	
+1r1k	0	A:D     2.9	
+1r4a	0	A:E     2.3	
+1r4m	0	AB:I    3.0	|| 1yov        AB:AB           99.41  3.897 2.60     1ndd         A:I           100.00  1.336  1.60
+1r5i	0	ABC:D	2.6	
+1r8s	0	A:E     1.46	|| 1o3y         A:A            99.39  0.874 1.50     1r8m         E:E            99.01  0.984  1.70
+1rk8	0	AB:C    1.9	
+1rlb	0	AB:E  3.1	|| 1f86        AB:AB           98.26  1.762 1.10     1kt3         A:E            99.43  3.383  1.40
+1rp3	0	A:B     2.3	
+1rqq    0       A:CD    2.60    || 1p14         A:A            98.69  0.376  1.90 1rpy        AB:CD           99.12  0.874  2.30
+1rzr	0	C:T     2.8	
+1s1c	0	A:XY    2.6	
+1s1q	0	A:B	2.0	
+1s3s	0	F:G	2.9	
+1s6v    0       A:B     1.88    || 2eut         A:A            98.28  0.958  1.12 1ycc         A:B            98.13  1.969  1.23
+1sbb	0	A:D    2.4	|| 1bec         A:A           100.00  1.013 1.70     3seb         A:D           100.00  2.786  1.48	
+1sgf	0	BY:A	3.15
+1sgf	0	G:B     3.15
+1shz	0	A:C     2.85
+1spp	0	A:B	2.4	
+1sq0	0	A:B	2.6	|| 1ijb         A:A            99.50  1.034 1.80     1p9a         G:B            98.96  0.780  1.70
+1sv0	0	A:C     2.07
+1svx	0	B:A     2.24
+1sxj	0	ABC:F   2.85
+1syx	0	A:B     2.35
+1t0f	0	A:C     1.85
+1t6b	0	X:Y	2.5	
+1t9g	0	D:S	2.9	
+1taf	0	A:B	2.0	
+1tdq	0	A:B	2.6	
+1th1	0	A:C	2.5	
+1th8	0	A:B	2.4	
+1tk5	0	A:B	2.2	
+1tt5	0	A:B	2.6	
+1tu3	0	A:FG	2.31
+1tue	0	A:B     2.1	
+1tx4	0	A:B     1.65
+1txq	0	A:B	1.8	
+1tyg	0	A:B     3.15
+1u0n	0	ABC:D   2.95	|| 1ijk       ABC:ABC          99.83  0.652 2.60     1p9a         G:D            98.87  0.502  1.70
+1u0s	0	Y:A     1.9	
+1u3h	0	CD:AB   2.42
+1u6g	0	C:AB    3.1	
+1u7f	0	A:B	2.6	
+1uad	0	A:C	2.1	
+1uex	0	AB:C	2.85	|| 1jwi        AB:AB          100.00  0.399 2.00     1ijb         A:C            99.50  0.683  1.80
+1ujw	0	A:B     2.75
+1ukl	0	A:CD    3.0	
+1ukv	0	G:Y	1.5	
+1ul1	0	X:A	2.9	
+1unn	0	AB:C    1.9	
+1us7	0	A:B	2.3	
+1usu	0	A:B     2.15
+1uw4	0	B:A     1.95
+1uzx	0	A:B     1.85
+1v74	0	A:B	2.0	
+1v7p	0	AB:C    1.9	|| 1ukm        AB:AB          100.00  0.644 1.90     1dzi         A:C            99.46  0.672  2.10
+1vet	0	A:B	1.9	
+1vg0	0	A:B	2.2	
+1w1i	0	A:F     3.03	|| 2bub         A:A           100.00  0.933 2.66     1vfl         A:F            99.72  0.281  1.80
+1w1w	0	C:G	2.9	
+1w85	0	BD:I    2.0	
+1w98	0	A:B     2.15
+1wa5	0	AC:B    2.0	
+1wdk	0	CD:A    2.5	
+1wlq	0	C:AB    2.8	
+1wmh	0	A:B	1.5	
+1wmi	0	C:D	2.3	
+1wq1    0       R:G     2.50    || 2evw         X:R            98.80  1.145  1.05 1wer         A:G           100.00  0.827  1.60
+1wr6	0	A:E	2.6	
+1wrd	0	A:B     1.75
+1wyw	0	A:B	2.1	
+1x3w	0	A:B	3.0	
+1x75	0	AB:CD	2.8	
+1x79	0	BC:A    2.41
+1x86	0	A:B	3.22
+1xb2	0	A:B	2.2	
+1xd3    0       A:B     1.45    || 1uch         A:A           100.00  2.450  1.80 1yj1         A:B            97.33  2.729  1.30
+1xdt	0	T:R     2.65
+1xk4	0	B:D	1.8	
+1xkp	0	A:BC    1.7	
+1xl3	0	A:C	2.2	
+1xou	0	B:A	2.8	
+1xqs	0	A:C	2.9	
+1xtg	0	A:B	2.1
+1y64	0	A:B     3.05	|| 2fxu         A:A           100.00  2.562 1.35     1ux5         A:B           100.00  1.213  2.50
+1y8x	0	A:B	2.4	
+1ya7	0	FG:P    2.3	
+1ycs	0	A:B	2.2	
+1yi5	0	AB:F    4.2	|| 1ux2     	AB:AB       100.00  4.910 2.20     2ctx         A:F           100.00  2.721  2.40
+1ymm	0	ABC:DE  3.5	
+1ypz	0	EF:A    3.4	
+1yvb    0       A:I     2.70    || 2ghu         A:A           100.00  0.536  3.10 1cew         I:I           100.00  0.839  2.00
+1z0j	0	A:B     1.32
+1z2c	0	B:A	3.0	
+1z3e	0	A:B	1.5	
+1z5s	0	AB:D	3.01
+1z5y	0	E:D     1.94
+1zbd	0	A:B	2.6	
+1zbx	0	A:B	2.5	
+1zc3	0	A:D	2.0	
+1ze3	0	CH:D	1.84
+1zm2	0	A:B     3.07
+1ztx	0	LH:E    2.5	
+1zy8	0	AB:K	2.59	|| 1zmd        AB:A1B1         99.79  0.536 2.08     2f60         K:K1           98.25  0.900  1.55
+2a19	0	B:A     2.5	
+2a41	0	A:C     2.6	
+2a42    0       A:B     1.85    || 2fxu         A:A           100.00  0.622  1.35 3dni         A:B           100.00  1.206  2.00
+2a45	0	B:HJ	3.65
+2a45    0       B:HJ    3.65
+2a5d	0	B:A     1.8	
+2a5t    0       A:B     2.00    || 1pb7         A:A           100.00  2.733  1.35 2a5s         A:B           100.00  2.305  1.70
+2a5y	0	B:A     2.6	
+2a6q	0	AB:E	2.05
+2a78	0	B:A	1.81
+2ajf	0	A:E	2.9	
+2apo	0	A:B     1.95
+2ass	0	B:A	3.0	
+2ass	0	B:C	3.0	
+2atq    0       A:B     3.20    || 1ih7         A:A            99.78  3.495  2.21 2a1k         A:B           100.00  1.915  2.00
+2avu	0	AB:E    3.0	
+2aw2	0	A:B	2.8	
+2ayo	0	A:B	3.5	
+2b0u	0	CD:AB   2.8	
+2b3t	0	B:A     3.1	
+2b4j	0	AB:C    2.02
+2b4s	0	A:B     2.3	|| 2f71         A:A            99.66  2.308 1.55     1p14         A:B            98.69  1.053  1.90
+2b59	0	A:B	2.11
+2bcj	0	A:Q     3.06
+2bfx	0	A:D	1.8	
+2bh1	0	A:X	2.4	
+2bkh	0	A:B	2.4	
+2btf	0	A:P     2.55
+2c1m	0	A:B	2.2	
+2c2v	0	H:T	2.9	
+2c5d    0       A:C     3.3 
+2c5d	0	A:D	3.3	
+2ckh    0       A:B     3.20    || 2ckg         A:A           100.00  0.817  2.45 1wm3         A:B           100.00  0.756  1.20
+2ey4	0	A:E     2.11
+2ey4	0	A:C     2.11
+2f5z	0	AB:K    2.18
+2f9d	0	A:P     2.5
+2g45    0       A:B     1.99    || 2g43         A:A           100.00  17.569 2.09 1yj1         A:B            97.37  0.663  1.30
+2gd4    0       LH:I    3.30    || 2bok         LA:LH           99.58  1.434 1.64 2ant         L:I            99.07  10.431 2.60	
+2goo    0       A:C     2.20    || 1reu         A:A            99.03  1.077  2.65 1bte         A:C           100.00  1.399  1.50
+2gy7    0       A:B     3.70    || 1z3u         A:A            98.60  0.790  2.25 2gy5         A:B           100.00  0.762  2.90
+2hpp	0	H:P     3.3	
+2mta	0	LH:A	2.4	
+2mta	0	C:A     2.4	
+2trc	0	B:P     2.4	
+3fap    0       A:B     1.85    || 1bkf         A:A            98.13  0.632  1.60 1aue         A:B           100.00  0.695  2.33
+3pro    0       A:C     1.80    || 1ssx         A:A            99.49  2.941  0.83 2pro         A:C           100.00  1.860  3.00
+3ygs	0	C:P     2.5	
+1acb	1	E:I     2.0	
+1aro	1	P:L     2.8	|| 1h38         A:P            99.66  17.444 2.90 1lba         A:L           100.00  0.786  2.20
+1ava	1	A:C     1.9	
+1avg	1	H:I     2.6	
+1avw	1	A:B	1.75	|| 2a31         A:A           100.00  0.780 1.25 1avu         A:B           100.00  0.762  2.30
+1ay7	1	A:B     1.7	
+1bgx	1	T:LH	2.3	|| 1taq         A:T            99.52  32.642 2.40 1ay1        LH:LH          100.00  1.717  2.20
+1blx	1	A:B     1.9	
+1brs	1	A:D     2.0	
+1bth    1       LH:P    2.30    || 2cf8        HL:LH           99.61  4.892  1.30 1bpi         A:P           100.00  1.483  1.09
+1bvn	1	P:T     2.5	|| 1hx0         A:P            98.38  0.633 1.38     1ok0         A:T           100.00  0.422  0.93
+1c9p	1	A:B     2.8	
+1cho    1       E:I     1.80    || 1k2i         1:E            98.37  0.422 1.80     2ovo         A:I            98.21  1.110  1.50   
+1clv	1	A:I     2.0	
+1cse	1	E:I     1.2	
+1d6r	1	A:I     2.3	
+1df9	1	B:C     2.1	
+1df9	1	A:C     2.1	
+1dfj    1       E:I     2.50    || 1dy5         A:E            99.19  0.833  0.87 2bnh         0:I           100.00  1.527  2.30
+1dhk	1	A:B	1.85
+1dp5	1	A:B     2.2	
+1dtd	1	A:B	1.65
+1e0f	1	D:I     3.1	
+1e44	1	B:A     2.4	
+1eai	1	B:D     2.4	
+1ezu    1	AB:C    2.40    || 1ecz        AB:AB           98.59  2.274  2.68   1dpo         A:C            98.65  0.790  1.59
+1f34	1	A:B     2.45
+1fle	1	E:I	1.9	
+1fr2	1	B:A	1.6	
+1g3n	1	A:B	2.9	
+1gl0	1	E:I	3.0	
+1gl1	1	A:I	2.1	
+1gpq	1	A:D	1.6	|| 1xs0         A:A            99.26  1.343 1.58     3lzt         A:D           100.00  0.868  0.93
+1gxd	1	A:C	3.1	
+1h9h	1	E:I	1.5	
+1id5    1       LH:I    2.50    || 1mkx        LH:LH          100.00  0.702  2.20 1ifg         A:I            97.14  9.448  2.00
+1jch	1	A:B     3.02
+1jiw	1	P:I     1.74
+1jsu	1	AB:C    2.3	
+1jtd	1	A:B	2.3	
+1jtg	1	A:B     1.73
+1ku6	1	A:B	2.5	|| 2c0q         A:A            99.82  4.061 2.50     1fas         A:B            98.36  0.711  1.80
+1n8o    1       BC:E    2.00    || 1gg6        BC:BC          100.00  1.654  1.40 1ifg         A:E            97.86  0.789  2.00
+1nb5	1	AP:I    2.4	
+1nw9	1	B:A	2.4	
+1oph	1	A:B	2.3	|| 1qlp         A:A            97.72  3.123 2.00     1hj9         A:B            99.55  2.534  0.95
+1oyv	1	B:I	2.5	
+1oyv	1	A:I	2.5	
+1ppf	1	E:I	1.8	|| 1b0f         A:E            99.08  2.176 3.00     2ovo         A:I            98.21  2.027  1.50
+1pxv	1	A:C	1.8	
+1r0r	1	E:I	1.1	
+1sgp	1	E:I	1.4	
+1stf	1	E:I     2.37
+1t6g	1	A:C	1.8	|| 1t6e         X:A           100.00  0.402 1.70     1bk1         A:C           100.00  1.063  2.00
+1ta3	1	B:A	1.7	
+1tbr	1	K:S	2.6	
+1te1	1	A:B	2.5	
+1tmq	1	A:B	2.5	|| 1jae         A:A           100.00  0.767 1.65     1b1u         A:B            99.15  1.424  2.20
+1toc	1	B:R	3.1	
+1tx6    1       A:I     2.20    || 2a31         A:A           100.00  1.597  1.25 1c2a         A:I           100.00  1.730  1.90
+1uea	1	A:B	2.8	
+1ugh	1	E:I	1.9	|| 1akz         A:E           100.00  0.615 1.57     1ugi         A:I           100.00  2.601  1.55
+1uuz	1	A:D	1.8	
+1v5i	1	A:B	1.5	
+1wpx	1	A:B	2.7	
+1xg2	1	A:B	1.9	
+1xx9    1       A:CD    2.20    || 1zhr         A:A            98.32  1.096  1.73 1ecz        AB:CD           99.30  10.314 2.68
+1y4h	1	A:C     1.93
+1zlh	1	A:B	1.7	
+2auh	1	A:B	3.2	
+2bkk	1	A:B     2.15
+2bkr    1       A:B     1.90    || 2bkq         A:A           100.00  13.377 2.00 1ndd         A:B           100.00  16.781 1.60
+2bo9	1	A:B	1.6	
+2d26    1       AB:C    3.30    || 1qlp         A:AB           98.32  8.850  2.00 1qnj         A:C           100.00  2.120  1.10
+2fi4    1       E:I     1.58    || 1hj9         A:E            99.55  0.701 0.95 1bpi         A:I            98.28  1.878  1.09
+2kai    1       AB:I    2.50    || 2pka        AB:AB          100.00  1.898 2.05 1bpi         A:I           100.00  0.721  1.09
+2sni    1       E:I     2.10    || 1sup         A:E            99.64  0.256  1.60 2ci2         I:I           100.00  0.476  2.00
+3sic    1       E:I     1.80    || 1sup         A:E           100.00  0.336  1.60 3ssi         A:I            99.07  0.783  2.30
+4cpa	1	A:I	2.5	
+4htc	1	H:I	2.3	
+4sgb	1	E:I	2.1	
+1a2y	2	AB:C    1.5	|| 1vfa        AB:AB          100.00  0.688 1.80     3lzt         A:C            99.22  1.304  0.93
+1adq	2	LH:A	3.15
+1afv	2	LH:A    3.7	
+1ar1	2	B:CD	2.7	
+1bzq	2	A:L     2.8	
+1cz8	2	LH:W    2.4	
+1dvf	2	AB:CD	1.9	
+1e6j	2	LH:P    3.0	
+1egj	2	LH:A    2.8	
+1ezv	2	XY:E    2.3	
+1fbi	2	LH:X    3.0	
+1fcc	2	B:D	3.5	
+1fns	2	LH:A    2.0	
+1fsk	2	BC:A    2.9	
+1g6v	2	A:K	3.5	|| 1lug         A:A           100.00  0.770 0.95     1f2x         K:K           100.00  0.437  2.10	
+1g9m	2	GC:LH    2.2	|| 1gc1        GC:GC           99.85  1.360  2.50 1rz8        AB:LH           97.74  3.796  2.30
+1h0d	2	AB:C    2.0	
+1i9r	2	LH:A    3.1	
+1iqd	2	AB:C    2.0	
+1jps	2	LH:T	1.85	|| 1jpt        LH:LH          100.00  1.024 1.85     1boy         A:T           100.00  1.332  2.20
+1jrh	2	LH:I    2.8	
+1jtp	2	A:L	1.9	
+1kb5	2	LH:AB	2.5	
+1ken	2	AC:LH	3.5	
+1kxq	2	A:H     1.6	
+1l6x	2	A:B	1.65
+1lk3	2	LH:A	1.91
+1mhh	2	AB:E    2.1	
+1mhp	2	LH:A    2.8	
+1mq8	2	A:B	3.3	
+1mvf	2	A:E     1.65
+1n8z	2	C:AB	2.52
+1nby	2	AB:C 	1.8	
+1ncb	2	LH:N    2.5	
+1nfd	2	EF:B    2.8	
+1nl0	2	LH:G    2.2	
+1nsn	2	LH:S    2.9	
+1oaz	2	LH:A    2.77
+1ob1	2	AB:C	2.9	
+1ors	2	AB:C	1.9	
+1osp	2	LH:O    1.95
+1ots	2	A:C	2.51
+1pg7	2	LH:WX   2.5	
+1pkq	2	AB:E	3.0	
+1qfw	2	LH:AB   3.5	
+1qkz	2	LH:A    1.95
+1r0a	2	B:LH	2.8	
+1r3j	2	AB:C	1.9	
+1rjl	2	AB:C	2.6	
+1s78	2	A:CD    3.25
+1sq2	2	L:N     1.45
+1sy6	2	LH:A	2.1	
+1tpx	2	BC:A    2.56
+1txv	2	AB:LH   2.75
+1tzh	2	LH:V    2.6	
+1v7m	2	LH:V    2.51
+1w72	2	LH:AC   2.15
+1wej	2	LH:F    1.8	|| 1qbl        LH:LH          100.00  0.991 2.26     2b4z         A:F            97.12  0.990  1.50
+1xct	2	AB:P    3.05
+1yjd	2	LH:C	2.7	
+1ynt	2	AB:F	3.1	
+1z3g	2	H:A     3.3	
+1za3	2	AB:S    3.35
+2a0l	2	A:D     3.9	
+2adf	2	LH:A    1.9	
+2aep	2	A:LH    2.1
+2bnq    2       AB:DE   1.70    || 1i4f        AB:AB          100.00  1.149  1.40 2bnu        AB:DE           99.76  1.133  1.40	
+2bse	2	F:C     2.7	
+2jel	2	LH:P	2.5	
+2vit	2	AB:C    3.25
+1axi	3	B:A 	2.1	
+1cd9	3	B:A     2.8	
+1eer	3	B:A     1.9	
+1eer	3	C:A     1.9	
+1f6f	3	B:A     2.3	
+1f6f	3	C:A     2.3	
+1flt	3	VW:Y    1.7	
+1fyh	3	A:B     2.04
+1h59	3	A:B	2.1	
+1hcf    3	AB:X    2.70    || 1b98        AM:AB          100.00  1.548  2.75   1wwb         X:X            99.00  16.177 2.10
+1i1r	3	A:B	2.4	
+1iar	3	B:A	2.3	
+1iil	3	E:A	2.3	
+1itb	3	B:A	2.5	
+1ktz	3	B:A     2.15
+1lqs	3	LM:R    2.7	
+1mox	3	A:C	2.5	
+1nql	3	A:B	2.8	
+1nun	3	B:A	2.9	
+1p9m	3	C:B     3.65
+1p9m	3	A:B     3.65
+1rew	3	AB:D	1.86
+1s4y	3	B:A     2.3	
+1sg1	3	AB:X    2.4	
+1shw	3	A:B	2.2	|| 1shx         A:A           100.00  1.162 2.10     1nuk         A:B           100.00  1.741  2.90
+1shy	3	B:A     3.22
+1tnr	3	A:R     2.85
+1xdk	3	B:A	2.9	
+1xu1	3	A:R	1.9	
+1xwd	3	C:AB	2.92
+1z92	3	A:B     2.8	
+2b5i	3	B:A     2.3	
+2b5i	3	C:A     2.3	
+3hhr	3	C:A     2.8	
