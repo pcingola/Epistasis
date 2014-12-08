@@ -2,53 +2,96 @@
 
 import sys
 
+#---
+# Add items to dictionary
+#---
+def addToDict(vals, key, val):
+	out = ''
+
+	if key == 'MOL_ID':
+		out = show(vals)	# Show old values
+		vals.clear()		# Reset
+		init = 1
+		
+	# Add key or append to previous key (line continuation)
+	if key in vals: vals[key] += val
+	else: vals[key] = val
+
+	return out
+
+#---
+# Parse compound sub fields
+#---
+def parseKeyVal(keyPrev, line):
+	field = line[10:].strip()
+
+	if ':' in field:
+		(key, val) = field.split(':', 1)
+		key = key.strip()
+	else:
+		key = keyPrev
+		val = field
+
+	val = val.strip()
+	if val.endswith(';'): val = val[:-1]
+
+	return (key, val)
+
+#---
+# Show dict entries as one string
+#---
 def show(vals):
 	ret = ''
 	if 'MOL_ID' not in vals:	return ret
 
-	for key in ['MOL_ID', 'SYNONYM', 'CHAIN']:
+	for key in ['MOL_ID', 'MOLECULE', 'SYNONYM', 'CHAIN']:
 		if key in vals:	ret += vals[key]
 		ret += '\t'
 
-	return ret
+	return ret[:-1]
 
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
 
-done = False
+# Parse name from command line
+name = sys.argv[1]
 
+# Initialize
+done = False
 vals = dict()
-out = ''
+compounds = list()
+orgs = list()
+human = True
+key = ''
 
 for l in sys.stdin:
 	l = l.rstrip()
 
 	if l.startswith('COMPND'):
 		done = True
-		field = l[10:].strip()
+		(key, val) = parseKeyVal(key, l)				# Parse compound sub fields
+		outStr = addToDict(vals, key, val)
+		if outStr: compounds.append(outStr)
 
-		# Parse compound sub fields
-		if ':' in field:
-			(key, val) = field.split(':', 1)
-			key = key.strip()
-		else:
-			val = field
+	elif l.startswith('SOURCE'):
+		(key, val) = parseKeyVal(key, l)				# Parse compound sub fields
 
-		val = val.strip()
-		if val.endswith(';'): val = val[:-1]
+		if key == 'ORGANISM_COMMON':
+			orgs.append( val )
+			human &= (val == 'HUMAN')
 
-		# Add to hash
-		if key == 'MOL_ID':
-			out += show(vals)	# Show old values
-			vals = dict()		# New dictionary
-
-		# Add key or append to previous key (line continuation)
-		if key in vals: vals[key] += val
-		else: vals[key] = val
 	else:
 		if done: break;
 
+# Add last element
+compounds.append( show(vals) )
 
-out += show(vals)
-print out
+# Sho results
+out = [i for tup in zip(compounds, orgs) for i in tup] 	# Merge lists and create string
+out = '\t'.join( out )
+
+count = len(compounds)
+if count > 1 and human: print "{}\t{}\t{}".format(name, count, out)
+else: print >> sys.stderr, "{}\t{}\t{}".format(name, count, out)
+
