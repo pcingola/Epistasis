@@ -29,8 +29,12 @@ for l in sys.stdin:
 		field = l[10:].strip()
 
 		# Parse compound sub fields
-		(key, val) = field.split(':', 2)
-		key = key.strip()
+		if ':' in field:
+			(key, val) = field.split(':', 1)
+			key = key.strip()
+		else:
+			val = field
+
 		val = val.strip()
 		if val.endswith(';'): val = val[:-1]
 
@@ -39,7 +43,9 @@ for l in sys.stdin:
 			out += show(vals)	# Show old values
 			vals = dict()		# New dictionary
 
-		vals[key] = val
+		# Add key or append to previous key (line continuation)
+		if key in vals: vals[key] += val
+		else: vals[key] = val
 	else:
 		if done: break;
 
