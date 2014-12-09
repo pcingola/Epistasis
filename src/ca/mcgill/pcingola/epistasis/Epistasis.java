@@ -553,9 +553,8 @@ public class Epistasis implements CommandLine {
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
 			idMapFile = args[argNum++];
-			aaContactFile = args[argNum++];
-			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
 			String pdbFileList = args[argNum++];
+			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runZzz(neighbours, pdbFileList);
@@ -1102,6 +1101,30 @@ public class Epistasis implements CommandLine {
 		System.out.println(Gpr.prependEachLine("AA_PAIRS_BG_WITHIN_PROT\t", transPairsBg));
 	}
 
+	void runZzz(int neighbours, String pdbFileList) {
+		Gpr.debug("Make sure we trad IDs from 'idMap_ensemblId_refseq_pdbId.confirmed.txt' instead of 'best'");
+		Gpr.debug("Make sure we trad MSAS from 'refGene.exonAA.fa' (ALL alignments) instead of 'best' (");
+
+		load();
+
+		// Select only the alignments that we want
+		int i = 0;
+		for (MultipleSequenceAlignment msa : msas) {
+			System.out.println(msa + "\n\n");
+		}
+
+		// TODO:
+		//  - MSAs: Create file with "MSA of interacting molecules"
+		//
+		//  - PDB:
+		//		- Read file listing "pdb IDs interacting"
+		//		- Parse inter-molecule chains (pdb)
+		//
+		//	- LL(MSA):
+		//		- Modify PdbDistanceAnalysis to accept inter-chain distance calculations
+		//		- Calculate LL(MSA) using those inter-chain sites using neigh bases
+	}
+
 	/**
 	 * Check consistency between MSA and tree
 	 */
@@ -1300,23 +1323,6 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'qhat'             : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
 		System.err.println("Command 'transitions'      : " + this.getClass().getSimpleName() + " transitions num_samples phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt ");
 		System.exit(-1);
-	}
-
-	void runZzz(int neighbours, String pdbFileList) {
-
-		Gpr.debug("Make sure we trad IDs from 'idMap_ensemblId_refseq_pdbId.confirmed.txt' instead of 'best'");
-		Gpr.debug("Make sure we trad MSAS from 'refGene.exonAA.fa' (ALL alignments) instead of 'best' (");
-
-		// TODO:
-		//  - MSAs: Create file with "MSA of interacting molecules"
-		//
-		//  - PDB: 
-		//		- Read file listing "pdb IDs interacting"
-		//		- Parse inter-molecule chains (pdb)
-		//
-		//	- LL(MSA):
-		//		- Modify PdbDistanceAnalysis to accept inter-chain distance calculations
-		//		- Calculate LL(MSA) using those inter-chain sites using neigh bases
 	}
 
 }
