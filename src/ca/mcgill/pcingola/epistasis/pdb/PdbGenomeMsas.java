@@ -115,9 +115,9 @@ public class PdbGenomeMsas extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-					.filter(s -> s.toString().endsWith(".pdb")) //
-					.map(pf -> checkSequencePdbGenome(pf.toString())) //
-					.forEach(ims -> idMapperConfirmed.addAll(ims));
+			.filter(s -> s.toString().endsWith(".pdb")) //
+			.map(pf -> checkSequencePdbGenome(pf.toString())) //
+			.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -219,9 +219,9 @@ public class PdbGenomeMsas extends SnpEff {
 					int pdbAaLen = chain.getAtomGroups("amino").size();
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
-							.findFirst() //
-							.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
+					.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
+					.findFirst() //
+					.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
@@ -265,7 +265,7 @@ public class PdbGenomeMsas extends SnpEff {
 				if (id.indexOf('.') > 0) id = id.substring(0, id.indexOf('.')); // When using RefSeq transcripts, we don't store sub-version number
 
 				if (trancriptById.containsKey(id)) {
-					// There is already a transcript? 
+					// There is already a transcript?
 					// Favor shorter chromosome names. E.g.: 'chr6' is better than 'chr6_cox_hap2'
 					String chrPrev = trancriptById.get(id).getChromosomeName();
 					String chr = tr.getChromosomeName();
@@ -319,7 +319,7 @@ public class PdbGenomeMsas extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-			) {
+					) {
 				// Position outside amino acid
 				continue;
 			}
@@ -389,7 +389,7 @@ public class PdbGenomeMsas extends SnpEff {
 								+ "\t" + dres.distance //
 								+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
 								+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
-						);
+								);
 					}
 				}
 			}
@@ -429,7 +429,7 @@ public class PdbGenomeMsas extends SnpEff {
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-				);
+						);
 	}
 
 	/**

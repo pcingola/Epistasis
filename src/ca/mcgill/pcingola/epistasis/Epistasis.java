@@ -549,6 +549,18 @@ public class Epistasis implements CommandLine {
 			runTransitions(numSamples);
 			break;
 
+		case "zzz":
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			idMapFile = args[argNum++];
+			aaContactFile = args[argNum++];
+			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
+			String pdbFileList = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			filterMsaByIdMap = true;
+			runZzz(neighbours, pdbFileList);
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -1288,6 +1300,23 @@ public class Epistasis implements CommandLine {
 		System.err.println("Command 'qhat'             : " + this.getClass().getSimpleName() + " qhat phylo.nh multiple_sequence_alignment.fa transition_matrix.txt");
 		System.err.println("Command 'transitions'      : " + this.getClass().getSimpleName() + " transitions num_samples phylo.nh multiple_alignment_file.fa aa_contact.nextprot.txt ");
 		System.exit(-1);
+	}
+
+	void runZzz(int neighbours, String pdbFileList) {
+
+		Gpr.debug("Make sure we trad IDs from 'idMap_ensemblId_refseq_pdbId.confirmed.txt' instead of 'best'");
+		Gpr.debug("Make sure we trad MSAS from 'refGene.exonAA.fa' (ALL alignments) instead of 'best' (");
+
+		// TODO:
+		//  - MSAs: Create file with "MSA of interacting molecules"
+		//
+		//  - PDB: 
+		//		- Read file listing "pdb IDs interacting"
+		//		- Parse inter-molecule chains (pdb)
+		//
+		//	- LL(MSA):
+		//		- Modify PdbDistanceAnalysis to accept inter-chain distance calculations
+		//		- Calculate LL(MSA) using those inter-chain sites using neigh bases
 	}
 
 }

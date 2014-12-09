@@ -62,8 +62,7 @@ public class PdbDistanceAnalysis {
 	}
 
 	/**
-	 * Distances within two chains of the same structure
-	 * @param chain1
+	 * Distances within two amino acids within the same chain
 	 */
 	List<DistanceResult> distance(Chain chain) {
 		ArrayList<DistanceResult> results = new ArrayList<>();
@@ -124,7 +123,6 @@ public class PdbDistanceAnalysis {
 
 	/**
 	 * Distances within all chains in a structure
-	 * @param chain
 	 */
 	List<DistanceResult> distance(Structure structure) {
 		ArrayList<DistanceResult> results = new ArrayList<>();
@@ -138,9 +136,6 @@ public class PdbDistanceAnalysis {
 
 	/**
 	 * Minimum distance between all atoms in two amino acids
-	 * @param aa1
-	 * @param aa2
-	 * @return
 	 */
 	double distanceMin(AminoAcid aa1, AminoAcid aa2) {
 		double distMin = Double.POSITIVE_INFINITY;
