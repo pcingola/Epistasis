@@ -483,10 +483,30 @@ if( step7 ) {
 	dirOut = "$dir/likelihood.hgmd"
 	numSplits = 200
 	likelihoodvcf(hgmd, dirOut, numSplits)
+
+	# Interacting vs non interacting genes LL(MSA) statistics
+	geneGeneLogLikMatrix("$dir/interactions/alt")
+	geneGeneLogLikMatrix("$dir/interactions/null")
 }
 
-geneGeneLogLikMatrix("$dir/interactions/alt")
-geneGeneLogLikMatrix("$dir/interactions/null")
+#---
+# Find LL(MSA) on interacting proteins (COMPOUND entries in pdb)
+#---
+
+# Select a set of pdb entries having interacting protein structures ('COMPOUND' entries)
+# Find ID map for those entries
+pdbCompound := "$dir/pdbCompoundLines.human.txt"
+pdbCompoundList := "$dir/pdbCompoundLines.human.pdb_list.txt"
+idMapPdbCompound := "$dir/idMap_ensemblId_refseq_pdbId.pdbCompound.txt"
+
+task( [pdbCompound, pdbCompoundList, idMapPdbCompound] <- $pdbDir ) {
+	sys pdbCompoundLines.sh > $pdbCompound
+	sys cut -f 1 $pdbCompound | tr "[a-z]" "[A-Z]" | sort > $pdbCompoundList
+	sys grep -w -f $pdbCompoundList $idMapConfirmed > $idMapPdbCompound
+}
+
+msasCompound := "$dir/msas.pdb_compound.fa"
+task( msasCompound <- [tree, msa, idMapBest, idMapPdbCompound] )	sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msaCompound
 
 # Done
 wait
