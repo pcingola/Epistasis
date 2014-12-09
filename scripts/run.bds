@@ -8,7 +8,7 @@
 
 debug			:= false
 timeout			:= 5 * day
-system			:= 'cluster'
+#system			:= 'cluster'
 cpus			:= ( system == 'local' ? 24 : 4 )
 
 # Which step/s to perform
@@ -59,15 +59,16 @@ vcf				:= "$dir/gwas.vcf"
 bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 
 # Commands
-javaNativeLibs  := "$dir/lib"
-javaGC			:= ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
-javaMem			:= "4G"
-javaMemXL		:= "10G"
-java			:= "java -Xmx$javaMem $javaGC "
-javaXL			:= "java -Xmx$javaMemXL $javaGC "
-cmdEpistasis	:= "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
-cmdEpistasisXL	:= "$javaXL -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
-cmdTable2Matrix := "$dir/aaTable2Matrix.pl"
+javaNativeLibs      := "$dir/lib"
+javaGC		        := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
+javaMem		        := "4G"
+javaMemXL	        := "10G"
+java		        := "java -Xmx$javaMem $javaGC "
+javaXL		        := "java -Xmx$javaMemXL $javaGC "
+cmdEpistasis        := "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+cmdEpistasisXL      := "$javaXL -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+cmdTable2Matrix     := "$dir/scripts/aaTable2Matrix.pl"
+cmdPdbCompoundLines := "$dir/scripts/pdbCompoundLines.sh"
 
 # Change parameters if we are debugging (smaller datasets)
 if( debug ) {
@@ -499,14 +500,14 @@ pdbCompound := "$dir/pdbCompoundLines.human.txt"
 pdbCompoundList := "$dir/pdbCompoundLines.human.pdb_list.txt"
 idMapPdbCompound := "$dir/idMap_ensemblId_refseq_pdbId.pdbCompound.txt"
 
-task( [pdbCompound, pdbCompoundList, idMapPdbCompound] <- $pdbDir ) {
-	sys pdbCompoundLines.sh > $pdbCompound
+task( [pdbCompound, pdbCompoundList, idMapPdbCompound] <- pdbDir ) {
+	sys $cmdPdbCompoundLines $pdbDir > $pdbCompound
 	sys cut -f 1 $pdbCompound | tr "[a-z]" "[A-Z]" | sort > $pdbCompoundList
 	sys grep -w -f $pdbCompoundList $idMapConfirmed > $idMapPdbCompound
 }
 
 msasCompound := "$dir/msas.pdb_compound.fa"
-task( msasCompound <- [tree, msa, idMapBest, idMapPdbCompound] )	sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msaCompound
+task( msasCompound <- [tree, msa, idMapBest, idMapPdbCompound] )	sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msasCompound
 
 # Done
 wait
