@@ -62,7 +62,7 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 javaNativeLibs      := "$dir/lib"
 javaGC		        := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
 javaMem		        := "4G"
-javaMemXL	        := "10G"
+javaMemXL	        := "20G"
 java		        := "java -Xmx$javaMem $javaGC "
 javaXL		        := "java -Xmx$javaMemXL $javaGC "
 cmdEpistasis        := "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
@@ -507,7 +507,7 @@ task( [pdbCompound, pdbCompoundList, idMapPdbCompound] <- pdbDir ) {
 }
 
 msasCompound := "$dir/msas.pdb_compound.fa"
-task( msasCompound <- [tree, msa, idMapBest, idMapPdbCompound] )	sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msasCompound
+task( msasCompound <- [tree, msa, idMapPdbCompound] )	sys $cmdEpistasisXL filterMsa $tree $msa $idMapPdbCompound > $msasCompound
 
 # Done
 wait
