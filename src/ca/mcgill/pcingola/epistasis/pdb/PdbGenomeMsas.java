@@ -505,7 +505,14 @@ public class PdbGenomeMsas extends SnpEff {
 				String seqMsa = msas.getMsa(msa.msaId).getColumnString(msa.msaIdx);
 
 				if ((seqMsa != null) && (pdb.aa == seqMsa.charAt(0))) return msa;
-				else Gpr.debug("Error: Mapped sequences do not match!");
+				else {
+					Gpr.debug("Error: Mapped sequences do not match: " //
+							+ "Seq (MSA): " + seqMsa //
+							+ ", Seq (PDB): " + pdb.aa //
+							+ "\nPdb: " + pdb //
+							+ "\n" + tr //
+							+ "\n");
+				}
 			}
 		}
 		return null;

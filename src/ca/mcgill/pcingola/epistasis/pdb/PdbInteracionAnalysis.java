@@ -13,6 +13,7 @@ import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Atom;
 import org.biojava.bio.structure.Calc;
 import org.biojava.bio.structure.Chain;
+import org.biojava.bio.structure.DBRef;
 import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.StructureException;
@@ -27,6 +28,8 @@ import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
 public class PdbInteracionAnalysis {
+
+	public static final String UNIPROT_DATABASE = "UNP";
 
 	public static boolean debug = false;
 	public static boolean verbose = false;
@@ -90,6 +93,16 @@ public class PdbInteracionAnalysis {
 		return null;
 	}
 
+	Map<String, String> chainUniprotIds(Structure pdbStruct) {
+		// Get db references
+		Map<String, String> chain2uniproId = new HashMap<String, String>();
+		for (DBRef dbref : pdbStruct.getDBRefs()) {
+			if (debug) Gpr.debug("DBREF\tchain:" + dbref.getChainId() + "\tdb: " + dbref.getDatabase() + "\tID: " + dbref.getDbAccession());
+			if (dbref.getDatabase().equals(UNIPROT_DATABASE)) chain2uniproId.put(dbref.getChainId(), dbref.getDbAccession());
+		}
+		return chain2uniproId;
+	}
+
 	/**
 	 * Minimum distance between 2 amino acids (compare every atom)
 	 */
@@ -123,18 +136,19 @@ public class PdbInteracionAnalysis {
 		}
 
 		for (AminoAcid aa1 : aas1) {
+			MsaCoordinates msa1 = null;
 			int aaIdx1 = aa1.getResidueNumber().getSeqNum() - 1;
 
 			for (AminoAcid aa2 : aas2) {
 				double dmin = distanceMin(aa1, aa2);
 				if (dmin <= distanceThreshold) {
-					int aaIdx2 = aa1.getResidueNumber().getSeqNum() - 1;
+					int aaIdx2 = aa2.getResidueNumber().getSeqNum() - 1;
 
 					PdbCoordinate pdb1 = new PdbCoordinate(pdbId, chainName1, aaIdx1, aa1.getAminoType());
 					PdbCoordinate pdb2 = new PdbCoordinate(pdbId, chainName2, aaIdx2, aa2.getAminoType());
 					System.out.println("\t" + dmin + "\t" + pdb1 + "\t" + pdb2);
 
-					MsaCoordinates msa1 = pdbGenomeMsas.mapToMsa(pdb1);
+					if (msa1 == null) msa1 = pdbGenomeMsas.mapToMsa(pdb1);
 					MsaCoordinates msa2 = pdbGenomeMsas.mapToMsa(pdb2);
 
 					if (msa1 == null) {
@@ -146,7 +160,7 @@ public class PdbInteracionAnalysis {
 						continue;
 					}
 
-					Gpr.debug("OK map PDB => MSA");
+					// TODO: Calculate LL(MSA)
 
 				}
 			}
@@ -253,6 +267,9 @@ public class PdbInteracionAnalysis {
 		Structure pdbStruct = pdbGenomeMsas.readPdbFile(pdbFile);
 		if (verbose) Gpr.debug("PDB Structure:\n" + pdbStruct);
 
+		// Get uniprot references
+		Map<String, String> chain2uniproId = chainUniprotIds(pdbStruct);
+
 		// Find Pdb chains
 		List<String> chains = pdbIdToChains.get(pdbId);
 		if (chains == null) throw new RuntimeException("Cannot find chains for pdbId '" + pdbId + "'");
@@ -271,6 +288,14 @@ public class PdbInteracionAnalysis {
 				String molecule1 = getMolecule(pdbId, chain1);
 				String molecule2 = getMolecule(pdbId, chain2);
 				if (molecule1.equals(molecule2)) continue;
+
+				// Compare uniprot IDs
+				String uniprot1 = chain2uniproId.get(chain1);
+				String uniprot2 = chain2uniproId.get(chain2);
+				if (uniprot1 != null && uniprot2 != null && uniprot1.equals(uniprot2)) {
+					Gpr.debug("Different molecule names but same UNIPROT IDs: '" + uniprot1 + "'\n\t" + molecule1 + "\n\t" + molecule2);
+					continue;
+				}
 
 				// Get confirmed maps
 				if (!confirmedMappings.contains(pdbId + ":" + chain2)) {
@@ -307,7 +332,7 @@ public class PdbInteracionAnalysis {
 				}
 
 				// Compute inter-chain distances and likelihoods
-				Gpr.debug(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
+				if (verbose) Gpr.debug(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
 				findInteracting(pdbId, pdbStruct, chain1, chain2, trId1, trId2);
 			}
 		}
