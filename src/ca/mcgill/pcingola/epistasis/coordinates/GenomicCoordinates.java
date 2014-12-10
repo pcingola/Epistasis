@@ -31,6 +31,10 @@ public class GenomicCoordinates extends Marker {
 		super();
 	}
 
+	public GenomicCoordinates(Marker parent, int pos) {
+		super(parent, pos, pos, false, "");
+	}
+
 	public GenomicCoordinates(Marker parent, int start, int end, String id) {
 		super(parent, start, end, false, id);
 	}
@@ -103,7 +107,7 @@ public class GenomicCoordinates extends Marker {
 					+ "\n\tMarker            : " + m.toStr() //
 					+ "\n\tmsa.Id            : " + msaId //
 					+ "\n\tmsa.aaIdx         : " + aaIdx //
-					);
+			);
 		}
 
 		return false;
@@ -214,7 +218,7 @@ public class GenomicCoordinates extends Marker {
 	 * rare border conditions", 'msa' changes (e.g. when 'pos' maps to
 	 * the last AA and the next exon has frame=1). This case is a quirk
 	 * on how UCSC numbers AA in their multiple sequence alignments.
-
+	
 	 * @return false on failure
 	 */
 	boolean mapMsaTrPos2AaIdx(PdbGenomeMsas pdbGenomeMsas, MultipleSequenceAlignment msa, Transcript tr, int pos) {
@@ -359,7 +363,7 @@ public class GenomicCoordinates extends Marker {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-					);
+			);
 			return false;
 		}
 

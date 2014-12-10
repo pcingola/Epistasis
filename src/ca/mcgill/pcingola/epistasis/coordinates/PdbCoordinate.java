@@ -7,4 +7,8 @@ public class PdbCoordinate {
 	public int aaPos;
 	public char aa;
 
+	@Override
+	public String toString() {
+		return pdbId + ":" + pdbChainId + "[" + aaPos + "] '" + aa + "'";
+	}
 }

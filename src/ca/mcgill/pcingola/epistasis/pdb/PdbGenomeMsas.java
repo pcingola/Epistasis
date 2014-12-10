@@ -26,9 +26,13 @@ import ca.mcgill.mcb.pcingola.interval.NextProt;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
 import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
+import ca.mcgill.pcingola.epistasis.coordinates.MsaCoordinates;
+import ca.mcgill.pcingola.epistasis.coordinates.PdbCoordinate;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
@@ -123,9 +127,9 @@ public class PdbGenomeMsas extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-					.filter(s -> s.toString().endsWith(".pdb")) //
-					.map(pf -> checkSequencePdbGenome(pf.toString())) //
-					.forEach(ims -> idMapperConfirmed.addAll(ims));
+			.filter(s -> s.toString().endsWith(".pdb")) //
+			.map(pf -> checkSequencePdbGenome(pf.toString())) //
+			.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -227,9 +231,9 @@ public class PdbGenomeMsas extends SnpEff {
 					int pdbAaLen = chain.getAtomGroups("amino").size();
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
-							.findFirst() //
-							.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
+					.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
+					.findFirst() //
+					.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
@@ -292,6 +296,60 @@ public class PdbGenomeMsas extends SnpEff {
 	}
 
 	/**
+	 * Map a genomic position to an MSA index (given the Transcript and the MSA)
+	 * Most of the times only aaIdx within 'msa' is calculated. On some
+	 * rare border conditions", 'msa' changes (e.g. when 'pos' maps to
+	 * the last AA and the next exon has frame=1). This case is a quirk
+	 * on how UCSC numbers AA in their multiple sequence alignments.
+
+	 * @return false on failure
+	 */
+	public MsaCoordinates mapMsaTrPos2AaIdx(MultipleSequenceAlignment msa, Transcript tr, int pos) {
+		if (tr == null) return null;
+
+		// Check all MSA
+		// Different chromosome or position? Skip
+		if (!msa.intersects(tr)) return null;
+
+		// Find exon
+		Exon exon = tr.findExon(pos);
+		if (exon == null) {
+			Gpr.debug("Cannot find exon for position " + pos + " in transcript " + tr.getId());
+			return null;
+		}
+
+		// Find index
+		int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
+		int idxAa = idxBase / 3;
+
+		// WARNIGN: If exon frame is 2, the MSA has one additional AA (from the previous exon).
+		//          I don't know why they do it this way...
+		if (exon.getFrame() == 2) {
+			if (idxBase < 1) idxAa = 0; // First two bases are AA number zero
+			else idxAa++; // Other bases are AA number 1 and on
+		}
+
+		// Out of range
+		if (idxAa >= msa.getAaSeqLen()) {
+			// This can happen when a base maps to the LAST amino acid in an exon.
+			// If the next exons has 'frame=2', then that last AA is 'pushed' to the
+			// next exon (I don't know why UCSC does this complicated mapping between
+			// AA and bases in their MSAs). So, we have to move the mapping to
+			// the first AA in the next exon.
+			MultipleSequenceAlignment msaNext = getMsas().findNextExon(msa); // Find MSA for the exon following 'msa'
+			if (msaNext == null) {
+				Gpr.debug("ERROR: Cannot find 'next' exon for MSA '" + msa.getId() + "'");
+				return null; // Cannot find next exon (something went wrong)
+			}
+			msa = msaNext;
+			idxAa = 0; // First amino acid
+		}
+
+		// We are done: Set parameters
+		return new MsaCoordinates(msa.getId(), idxAa);
+	}
+
+	/**
 	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
 	public void mapToMsa(DistanceResult dres) {
@@ -327,7 +385,7 @@ public class PdbGenomeMsas extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-			) {
+					) {
 				// Position outside amino acid
 				continue;
 			}
@@ -397,11 +455,91 @@ public class PdbGenomeMsas extends SnpEff {
 								+ "\t" + dres.distance //
 								+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
 								+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
-						);
+								);
 					}
 				}
 			}
 		}
+	}
+
+	/**
+	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
+	 */
+	public GenomicCoordinates mapToMsa(PdbCoordinate dres) {
+		// Find trancript IDs using PDB ids
+		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
+		if (idmes == null || idmes.isEmpty()) {
+			warn("No mapping found for PdbId: ", "'" + dres.pdbId + "', chain '" + dres.pdbChainId + "'");
+			return null;
+		}
+
+		// Find all transcripts, then map <tr, pos> to <msaId, aaIdx>
+		for (IdMapperEntry idme : idmes) {
+			//---
+			// Map <pdbId, aaPos> to <transcript, pos>
+			//---
+			String trid = IdMapperEntry.IDME_TO_REFSEQ.apply(idme);
+
+			// Get transcript
+			Transcript tr = trancriptById.get(trid);
+			if (tr == null) {
+				warn("Transcript not found", trid);
+				continue;
+			}
+
+			// Transcript's protein doesn't match MSA's protein? Don't use this entry
+			if (!checkSequenceGenomeMsas(trid)) continue;
+
+			// Find genomic position based on AA position
+			int aa2pos[] = tr.aaNumber2Pos();
+			if ((aa2pos.length <= dres.aaPos) || (dres.aaPos < 0)) continue;// Position outside amino acid
+
+			// Convert to genomic positions
+			int pos1 = aa2pos[dres.aaPos];
+
+			//---
+			// Map <transcript, pos> to <msaId, aaIdx>
+			//---
+			// Find MSA and aaIdx
+			GenomicCoordinates gp1 = new GenomicCoordinates();
+			gp1.mapTrPos2MsaIdx(this, trid, pos1);
+
+			// Both mappings are available?
+			if (!gp1.hasMsaInfo()) continue;
+
+			// Check sequences
+			String seq1 = msas.getMsa(gp1.getMsaId()).getColumnString(gp1.getAaIdx());
+			if ((seq1 != null) && (dres.aa == seq1.charAt(0))) return gp1;
+		}
+		return null;
+	}
+
+	/**
+	 * Convert <transcript_id, position> to <msaIdx, aaIdx>
+	 */
+	public MsaCoordinates mapTrPos2MsaIdx(String trid, int pos) {
+		// Find transcript
+		Transcript tr = getTranscript(trid);
+		if (tr == null) return null;
+
+		// Set genomic coordinates
+		GenomicCoordinates gc = new GenomicCoordinates(tr.getChromosome(), pos);
+
+		// Find all MSAs for a given transcript ID
+		List<MultipleSequenceAlignment> msaList = getMsas().getMsasByTrId(trid);
+		if (msaList == null) return null;
+
+		// Try to map to all MSAs
+		for (MultipleSequenceAlignment msa : msaList) {
+			// Does this MSA intersect chr:pos?
+			if (!msa.intersects(gc)) continue;
+
+			// Try to map to 'msa'
+			MsaCoordinates msac = mapMsaTrPos2AaIdx(msa, tr, pos);
+			if (msac != null) return msac;
+		}
+
+		return null;
 	}
 
 	/**
@@ -437,7 +575,7 @@ public class PdbGenomeMsas extends SnpEff {
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-				);
+						);
 	}
 
 	/**
