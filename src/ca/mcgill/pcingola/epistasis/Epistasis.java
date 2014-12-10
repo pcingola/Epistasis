@@ -565,11 +565,9 @@ public class Epistasis implements CommandLine {
 			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
 			if (neighbours < 0) usage("Neighbours must be a non-negative number: '" + args[argNum - 1] + "'");
 
-			filterMsaByIdMap = true;
 			filterMsaByIdMap = false;
-			Gpr.debug("\n\n\n\nFILTER FORCED TO FALSE!!!!!!!!n\n\n\n");
-
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+
 			runZzz(distThreshold, neighbours, pdbFileList);
 			break;
 

@@ -53,6 +53,9 @@ public class PdbInteracionAnalysis {
 		pdbIdChainToMolecule.put(pdbId + ":" + chain, moleculeName);
 	}
 
+	/**
+	 * Get list of amino acids in a chain
+	 */
 	List<AminoAcid> aminoAcids(Structure pdbStruct, String chainName) {
 		for (Chain chain : pdbStruct.getChains()) {
 			if (chain.getChainID().equals(chainName)) {
@@ -90,7 +93,7 @@ public class PdbInteracionAnalysis {
 	/**
 	 * Analyze interacting sites in a pdb structure
 	 */
-	void findInteracting(Structure pdbStruct, String chainName1, String chainName2) {
+	void findInteracting(Structure pdbStruct, String chainName1, String chainName2, List<IdMapperEntry> imes1, List<IdMapperEntry> imes2) {
 		List<AminoAcid> aas1 = aminoAcids(pdbStruct, chainName1);
 		List<AminoAcid> aas2 = aminoAcids(pdbStruct, chainName2);
 
@@ -201,10 +204,22 @@ public class PdbInteracionAnalysis {
 		List<String> chains = pdbIdToChains.get(pdbId);
 		if (chains == null) { throw new RuntimeException("Cannot find chains for pdbId '" + pdbId + "'"); }
 
-		// Map to MSAs
+		// Make sure Pdb entries map to genome and sequences match 
+		Set<String> confirmedMappings = new HashSet<String>();
+		List<IdMapperEntry> idMaps = pdbGenomeMsas.checkSequencePdbGenome(pdbFile);
+		Gpr.debug("Confirmed maps: " + idMaps.size());
+		for (IdMapperEntry ime : idMaps) {
+			System.out.println(ime);
+			confirmedMappings.add(ime.pdbId.toUpperCase() + ":" + ime.pdbChainId);
+		}
 
-		Gpr.debug("\n\n\nUSE CONFIRMED ENTRIES: pdbGenomeMsas.checkSequencePdbGenome(pdbFile) \n\n\n");
+		// Analyze distance between amino acids in different chains
 		for (String chain1 : chains) {
+			if (!confirmedMappings.contains(pdbId + ":" + chain1)) {
+				if (verbose) Gpr.debug("No confirmed mapping available for '" + pdbId + ":" + chain1 + "'");
+				continue;
+			}
+
 			for (String chain2 : chains) {
 				if (chain1.compareTo(chain2) >= 0) continue; // Only calculate once
 
@@ -213,28 +228,21 @@ public class PdbInteracionAnalysis {
 				String molecule2 = getMolecule(pdbId, chain2);
 				if (molecule1.equals(molecule2)) continue;
 
-				// Get mappings
-				List<IdMapperEntry> imes1 = idMapper.getByPdbId(pdbId, chain1);
-				if (imes1 == null || imes1.isEmpty()) {
-					if (verbose) Gpr.debug("No mapping available for '" + pdbId + ":" + chain1 + "'");
+				// Get confirmed maps
+				if (!confirmedMappings.contains(pdbId + ":" + chain2)) {
+					if (verbose) Gpr.debug("No confirmed mapping available for '" + pdbId + ":" + chain2 + "'");
 					continue;
 				}
 
+				// Get mappings
+				List<IdMapperEntry> imes1 = idMapper.getByPdbId(pdbId, chain1);
 				List<IdMapperEntry> imes2 = idMapper.getByPdbId(pdbId, chain2);
-				if (imes2 == null || imes2.isEmpty()) {
-					if (verbose) Gpr.debug("No mapping available for '" + pdbId + ":" + chain2 + "'");
-					continue;
-				}
 
 				// Compute inter-chain distances
 				System.out.println(pdbId + "\t" + chain1 + ": '" + molecule1 + "'" + "\t" + chain2 + ": '" + molecule2 + "'");
-				findInteracting(pdbStruct, chain1, chain2);
+				findInteracting(pdbStruct, chain1, chain2, imes1, imes2);
 			}
 		}
-
-		//		List<IdMapperEntry> imes = idMapper.getByPdbId(pdbId, ch);
-		// Get confirmed maps
-		// List<IdMapperEntry> idMaps = pdbGenomeMsas.checkSequencePdbGenome(pdbFile);
 
 	}
 
