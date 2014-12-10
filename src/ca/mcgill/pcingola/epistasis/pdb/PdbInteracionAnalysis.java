@@ -340,13 +340,13 @@ public class PdbInteracionAnalysis {
 	}
 
 	public void run() {
+		interactionLikelihood.precalcExps();
 
 		// Find which PDB entries have more than one molecule (and molecules can be mapped to MSA)
 		List<String> pdbIds = loadPdbInteracionList();
 
 		// Read PDB entries and find mappings to MSA
 		for (String pdbId : pdbIds) {
-
 			// Read pdb file
 			String pdbDir = pdbGenomeMsas.getPdbDir();
 			String pdbFile = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
@@ -354,11 +354,5 @@ public class PdbInteracionAnalysis {
 				parsePdbFile(pdbFile, pdbId);
 			}
 		}
-
-		//
-		//	- LL(MSA):
-		//		- Modify PdbDistanceAnalysis to accept inter-chain distance calculations
-		//		- Calculate LL(MSA) using those inter-chain sites using neigh bases
-
 	}
 }
