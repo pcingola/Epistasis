@@ -21,6 +21,8 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
+import ca.mcgill.pcingola.epistasis.coordinates.MsaCoordinates;
+import ca.mcgill.pcingola.epistasis.coordinates.PdbCoordinate;
 import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
@@ -50,6 +52,20 @@ public class PdbInteracionAnalysis {
 		pdbGenomeMsas = interactionLikelihood.getPdbGenomeMsas();
 		idMapper = interactionLikelihood.getIdMapper();
 		msas = pdbGenomeMsas.getMsas();
+	}
+
+	/**
+	 * Get AA sequence
+	 */
+	String aaSequence(Structure pdbStruct, String chain) {
+		// AA sequence
+		List<AminoAcid> aas = aminoAcids(pdbStruct, chain);
+		StringBuilder sb = new StringBuilder();
+
+		for (AminoAcid aa1 : aas)
+			sb.append(aa1.getAminoType());
+
+		return sb.toString();
 	}
 
 	void addChainToMolecule(String pdbId, String chain, String moleculeName) {
@@ -96,24 +112,44 @@ public class PdbInteracionAnalysis {
 	/**
 	 * Analyze interacting sites in a pdb structure
 	 */
-	void findInteracting(Structure pdbStruct, String chainName1, String chainName2, String trId1, String trid2) {
+	void findInteracting(String pdbId, Structure pdbStruct, String chainName1, String chainName2, String trId1, String trid2) {
 		List<AminoAcid> aas1 = aminoAcids(pdbStruct, chainName1);
 		List<AminoAcid> aas2 = aminoAcids(pdbStruct, chainName2);
 
-		int aaIdx1 = 0;
+		// AA sequence
+		if (verbose) {
+			Gpr.debug("AA seq 1: " + aaSequence(pdbStruct, chainName1));
+			Gpr.debug("AA seq 2: " + aaSequence(pdbStruct, chainName2));
+		}
+
 		for (AminoAcid aa1 : aas1) {
-			int aaIdx2 = 0;
+			int aaIdx1 = aa1.getResidueNumber().getSeqNum() - 1;
 
 			for (AminoAcid aa2 : aas2) {
 				double dmin = distanceMin(aa1, aa2);
 				if (dmin <= distanceThreshold) {
-					System.out.println("\t" + dmin + "\t" + aaIdx1 + " " + aa1.getAminoType() + "\t" + aaIdx2 + " " + aa2.getAminoType());
+					int aaIdx2 = aa1.getResidueNumber().getSeqNum() - 1;
+
+					PdbCoordinate pdb1 = new PdbCoordinate(pdbId, chainName1, aaIdx1, aa1.getAminoType());
+					PdbCoordinate pdb2 = new PdbCoordinate(pdbId, chainName2, aaIdx2, aa2.getAminoType());
+					System.out.println("\t" + dmin + "\t" + pdb1 + "\t" + pdb2);
+
+					MsaCoordinates msa1 = pdbGenomeMsas.mapToMsa(pdb1);
+					MsaCoordinates msa2 = pdbGenomeMsas.mapToMsa(pdb2);
+
+					if (msa1 == null) {
+						Gpr.debug("Could not map PDB coordinates to MSA: " + pdb1);
+						continue;
+					}
+					if (msa2 == null) {
+						Gpr.debug("Could not map PDB coordinates to MSA: " + pdb2);
+						continue;
+					}
+
+					Gpr.debug("OK map PDB => MSA");
+
 				}
-
-				aaIdx2++;
 			}
-
-			aaIdx1++;
 		}
 	}
 
@@ -272,10 +308,9 @@ public class PdbInteracionAnalysis {
 
 				// Compute inter-chain distances and likelihoods
 				Gpr.debug(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
-				findInteracting(pdbStruct, chain1, chain2, trId1, trId2);
+				findInteracting(pdbId, pdbStruct, chain1, chain2, trId1, trId2);
 			}
 		}
-
 	}
 
 	public void run() {

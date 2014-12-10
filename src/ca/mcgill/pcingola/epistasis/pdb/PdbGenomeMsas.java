@@ -101,8 +101,8 @@ public class PdbGenomeMsas extends SnpEff {
 			boolean match = proteinTr.equals(proteinMsa);
 			if (match) trancriptsChecked.add(trid);
 
-			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
 			if (debug && !match) {
+				countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
 				System.err.println(trid + "\t" //
 						+ (proteinTr.equals(proteinMsa) ? "OK" : "ERROR") //
 						+ "\n\tPortein Tr  :\t" + proteinTr //
@@ -127,9 +127,9 @@ public class PdbGenomeMsas extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-					.filter(s -> s.toString().endsWith(".pdb")) //
-					.map(pf -> checkSequencePdbGenome(pf.toString(), true)) //
-					.forEach(ims -> idMapperConfirmed.addAll(ims));
+			.filter(s -> s.toString().endsWith(".pdb")) //
+			.map(pf -> checkSequencePdbGenome(pf.toString(), true)) //
+			.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -225,9 +225,9 @@ public class PdbGenomeMsas extends SnpEff {
 					int pdbAaLen = chain.getAtomGroups("amino").size();
 
 					idmapsOri.stream() //
-							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
-							.findFirst() //
-							.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
+					.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
+					.findFirst() //
+					.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
@@ -383,7 +383,7 @@ public class PdbGenomeMsas extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-			) {
+					) {
 				// Position outside amino acid
 				continue;
 			}
@@ -453,7 +453,7 @@ public class PdbGenomeMsas extends SnpEff {
 								+ "\t" + dres.distance //
 								+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
 								+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
-						);
+								);
 					}
 				}
 			}
@@ -463,7 +463,7 @@ public class PdbGenomeMsas extends SnpEff {
 	/**
 	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
-	public GenomicCoordinates mapToMsa(PdbCoordinate pdb) {
+	public MsaCoordinates mapToMsa(PdbCoordinate pdb) {
 		// Find trancript IDs using PDB ids
 		List<IdMapperEntry> idmes = idMapper.getByPdbId(pdb.pdbId, pdb.pdbChainId);
 		if (idmes == null || idmes.isEmpty()) {
@@ -493,21 +493,20 @@ public class PdbGenomeMsas extends SnpEff {
 			if ((aa2pos.length <= pdb.aaPos) || (pdb.aaPos < 0)) continue;// Position outside amino acid
 
 			// Convert to genomic positions
-			int pos1 = aa2pos[pdb.aaPos];
+			int pos = aa2pos[pdb.aaPos];
 
 			//---
 			// Map <transcript, pos> to <msaId, aaIdx>
 			//---
 			// Find MSA and aaIdx
-			GenomicCoordinates gp1 = new GenomicCoordinates();
-			gp1.mapTrPos2MsaIdx(this, trid, pos1);
+			MsaCoordinates msa = mapTrPos2MsaIdx(trid, pos);
+			if (msa != null) {
+				// Check sequences
+				String seqMsa = msas.getMsa(msa.msaId).getColumnString(msa.msaIdx);
 
-			// Both mappings are available?
-			if (!gp1.hasMsaInfo()) continue;
-
-			// Check sequences
-			String seq1 = msas.getMsa(gp1.getMsaId()).getColumnString(gp1.getAaIdx());
-			if ((seq1 != null) && (pdb.aa == seq1.charAt(0))) return gp1;
+				if ((seqMsa != null) && (pdb.aa == seqMsa.charAt(0))) return msa;
+				else Gpr.debug("Error: Mapped sequences do not match!");
+			}
 		}
 		return null;
 	}
@@ -573,7 +572,7 @@ public class PdbGenomeMsas extends SnpEff {
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-				);
+						);
 	}
 
 	public Structure readPdbFile(String pdbFile) {
