@@ -37,6 +37,7 @@ import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResults;
 import ca.mcgill.pcingola.epistasis.pdb.PdbDistanceAnalysis;
 import ca.mcgill.pcingola.epistasis.pdb.PdbGenomeMsas;
+import ca.mcgill.pcingola.epistasis.pdb.PdbInteracionAnalysis;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrix;
 import ca.mcgill.pcingola.epistasis.phylotree.EstimateTransitionMatrixPairs;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
@@ -550,8 +551,11 @@ public class Epistasis implements CommandLine {
 			break;
 
 		case "zzz":
+			configFile = args[argNum++];
+			genome = args[argNum++];
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
+			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
 			String pdbFileList = args[argNum++];
 			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
@@ -1108,56 +1112,9 @@ public class Epistasis implements CommandLine {
 	void runZzz(int neighbours, String pdbFileList) {
 		load();
 
-		int countOk = 0;
-		String lines[] = Gpr.readFile(pdbFileList).split("\n");
-		for (String line : lines) {
-			String fields[] = line.split("\t");
-
-			String pdbId = fields[0].toUpperCase();
-			System.out.println(pdbId);
-
-			boolean hasMapping = true;
-			Set<String> molecules = new HashSet<>();
-			for (int i = 2; i < fields.length - 1;) {
-				String moleculeId = fields[i++];
-				String name = fields[i++];
-				String synonym = fields[i++];
-				String chain = fields[i++];
-				String organism = fields[i++];
-
-				molecules.add(moleculeId);
-
-				// Split chain IDs
-				for (String ch : chain.split(",")) {
-					ch = ch.trim(); // Chain IDs
-					System.out.println("\t" + moleculeId + ":" + ch + "\t" + name + "\t" + organism);
-
-					// Map the pdbId:chain to an MSA
-					List<IdMapperEntry> imes = idMapper.getByPdbId(pdbId, ch);
-					if (imes == null || imes.isEmpty()) {
-						hasMapping = false;
-					} else {
-						for (IdMapperEntry ime : imes)
-							System.out.println("\t\t" + ime);
-					}
-				}
-			}
-
-			boolean ok = (molecules.size() > 1 && hasMapping);
-			if (ok) countOk++;
-			System.out.println("\t" + (ok ? "OK" : "NO"));
-		}
-
-		Timer.showStdErr("Count OK: " + countOk + " / " + lines.length);
-
-		// TODO:
-		//  - PDB:
-		//		- Read file listing "pdb IDs interacting"
-		//		- Parse inter-molecule chains (pdb)
-		//
-		//	- LL(MSA):
-		//		- Modify PdbDistanceAnalysis to accept inter-chain distance calculations
-		//		- Calculate LL(MSA) using those inter-chain sites using neigh bases
+		InteractionLikelihood intll = newInteractionLikelihood();
+		PdbInteracionAnalysis pdbInteracionAnalysis = new PdbInteracionAnalysis(intll, neighbours, pdbFileList);
+		pdbInteracionAnalysis.run();
 	}
 
 	/**

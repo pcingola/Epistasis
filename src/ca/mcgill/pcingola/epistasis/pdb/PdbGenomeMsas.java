@@ -140,16 +140,10 @@ public class PdbGenomeMsas extends SnpEff {
 
 	/**
 	 * Check that protein sequences form PDB (pdbFile) matches sequences from Genome
-	 * Return a stream of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
+	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 */
-	List<IdMapperEntry> checkSequencePdbGenome(String pdbFile) {
-		Structure pdbStruct;
-		try {
-			pdbStruct = pdbreader.getStructure(pdbFile);
-		} catch (IOException e) {
-			throw new RuntimeException(e);
-		}
-
+	public List<IdMapperEntry> checkSequencePdbGenome(String pdbFile) {
+		Structure pdbStruct = readPdbFile(pdbFile);
 		String pdbId = pdbStruct.getPDBCode();
 
 		// Get transcript IDs
@@ -246,6 +240,10 @@ public class PdbGenomeMsas extends SnpEff {
 
 	public MultipleSequenceAlignmentSet getMsas() {
 		return msas;
+	}
+
+	public String getPdbDir() {
+		return pdbDir;
 	}
 
 	public Transcript getTranscript(String trId) {
@@ -465,11 +463,11 @@ public class PdbGenomeMsas extends SnpEff {
 	/**
 	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
-	public GenomicCoordinates mapToMsa(PdbCoordinate dres) {
+	public GenomicCoordinates mapToMsa(PdbCoordinate pdb) {
 		// Find trancript IDs using PDB ids
-		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
+		List<IdMapperEntry> idmes = idMapper.getByPdbId(pdb.pdbId, pdb.pdbChainId);
 		if (idmes == null || idmes.isEmpty()) {
-			warn("No mapping found for PdbId: ", "'" + dres.pdbId + "', chain '" + dres.pdbChainId + "'");
+			warn("No mapping found for PdbId: ", "'" + pdb.pdbId + "', chain '" + pdb.pdbChainId + "'");
 			return null;
 		}
 
@@ -492,10 +490,10 @@ public class PdbGenomeMsas extends SnpEff {
 
 			// Find genomic position based on AA position
 			int aa2pos[] = tr.aaNumber2Pos();
-			if ((aa2pos.length <= dres.aaPos) || (dres.aaPos < 0)) continue;// Position outside amino acid
+			if ((aa2pos.length <= pdb.aaPos) || (pdb.aaPos < 0)) continue;// Position outside amino acid
 
 			// Convert to genomic positions
-			int pos1 = aa2pos[dres.aaPos];
+			int pos1 = aa2pos[pdb.aaPos];
 
 			//---
 			// Map <transcript, pos> to <msaId, aaIdx>
@@ -509,7 +507,7 @@ public class PdbGenomeMsas extends SnpEff {
 
 			// Check sequences
 			String seq1 = msas.getMsa(gp1.getMsaId()).getColumnString(gp1.getAaIdx());
-			if ((seq1 != null) && (dres.aa == seq1.charAt(0))) return gp1;
+			if ((seq1 != null) && (pdb.aa == seq1.charAt(0))) return gp1;
 		}
 		return null;
 	}
@@ -576,6 +574,14 @@ public class PdbGenomeMsas extends SnpEff {
 				.distinct() //
 				.collect(Collectors.joining(";") //
 						);
+	}
+
+	public Structure readPdbFile(String pdbFile) {
+		try {
+			return pdbreader.getStructure(pdbFile);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
 	}
 
 	/**

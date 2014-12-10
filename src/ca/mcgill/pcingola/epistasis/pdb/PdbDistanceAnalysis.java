@@ -51,8 +51,6 @@ public class PdbDistanceAnalysis {
 
 	/**
 	 * Get all AAs in a chain
-	 * @param chain
-	 * @return
 	 */
 	List<AminoAcid> aminoAcids(Chain chain) {
 		ArrayList<AminoAcid> aas = new ArrayList<AminoAcid>();

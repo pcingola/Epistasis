@@ -159,6 +159,14 @@ public class InteractionLikelihood {
 		return resList;
 	}
 
+	public IdMapper getIdMapper() {
+		return idMapper;
+	}
+
+	public PdbGenomeMsas getPdbGenomeMsas() {
+		return pdbGenomeMsas;
+	}
+
 	/**
 	 * Get a tree for the current thread (alt model)
 	 */
