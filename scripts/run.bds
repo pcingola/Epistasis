@@ -9,7 +9,7 @@
 debug			:= false
 timeout			:= 5 * day
 #system			:= 'cluster'
-cpus			:= ( system == 'local' ? 24 : 4 )
+cpus			:= ( system == 'local' ? 4 : 4 )
 
 # Which step/s to perform
 step1			:= false
@@ -53,7 +53,7 @@ pheno			:= "$dir/pheno.txt"
 qhat			:= "$dir/Qhat.txt"
 qhat2			:= "$dir/Qhat2.txt"
 snpeffConfig	:= "$snpEffDir/snpEff.config"
-tree			:= "$snpEffDir/db/multiz100way/hg19.100way.nh"
+tree			:= "$dir/hg19.100way.nh"
 vcf				:= "$dir/gwas.vcf"
 
 bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
@@ -511,7 +511,7 @@ if( step7 ) {
 
 llCompound := "$dir/likelihood.pdb_compound.txt"
 task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound]) {
-	sys $cmdEpistasis zzz $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompoundList $aaContactDist 1 > $llCompound
+	sys $cmdEpistasis zzz $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompoundList $aaContactDist 1 | tee $llCompound
 }
 
 # Done
