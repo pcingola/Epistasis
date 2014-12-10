@@ -146,7 +146,7 @@ public class PdbInteracionAnalysis {
 
 					PdbCoordinate pdb1 = new PdbCoordinate(pdbId, chainName1, aaIdx1, aa1.getAminoType());
 					PdbCoordinate pdb2 = new PdbCoordinate(pdbId, chainName2, aaIdx2, aa2.getAminoType());
-					System.out.println("\t" + dmin + "\t" + pdb1 + "\t" + pdb2);
+					if (verbose) Gpr.debug("Interacting\t" + dmin + "\t" + pdb1 + "\t" + pdb2);
 
 					if (msa1 == null) msa1 = pdbGenomeMsas.mapToMsa(pdb1);
 					MsaCoordinates msa2 = pdbGenomeMsas.mapToMsa(pdb2);
@@ -160,8 +160,9 @@ public class PdbInteracionAnalysis {
 						continue;
 					}
 
-					// TODO: Calculate LL(MSA)
-
+					// Calculate LL(MSA)
+					String llstr = interactionLikelihood.logLikelihoodRatioStr(msa1.msaId, msa1.msaIdx, msa2.msaId, msa2.msaIdx, false, neighbours);
+					if (llstr != null) System.out.println(llstr);
 				}
 			}
 		}

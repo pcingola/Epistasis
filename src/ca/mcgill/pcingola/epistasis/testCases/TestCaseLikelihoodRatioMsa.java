@@ -55,7 +55,7 @@ public class TestCaseLikelihoodRatioMsa extends TestCase {
 			double ll = Gpr.parseDoubleSafe(field[4]);
 
 			// Calculate
-			String res = il.logLikelihoodRatioStr(msaId1, msaIdx1, msaId2, msaIdx2, false);
+			String res = il.logLikelihoodRatioStr(msaId1, msaIdx1, msaId2, msaIdx2, false, 0);
 
 			// Parse result
 			String fieldsRes[] = res.split("\t");
