@@ -103,7 +103,7 @@ public class GenotypePos extends Marker {
 					+ "\n\tMarker            : " + m.toStr() //
 					+ "\n\tmsa.Id            : " + msaId //
 					+ "\n\tmsa.aaIdx         : " + aaIdx //
-			);
+					);
 		}
 
 		return false;
@@ -148,22 +148,23 @@ public class GenotypePos extends Marker {
 		// Index out of exon boundaries?
 		int exAaEnd = exon.getAaIdxEnd();
 		int exAaStart = exon.getAaIdxStart();
-		if (exon.getFrame() == 1) exAaStart--; // I don't know why UCSC numbers the AA different when frame is 2
 		int numAasEx = exAaEnd - exAaStart + 1;
 		if (aaIdx > numAasEx) return "AA index out of range. AaIdx: " + aaIdx + ", exon's AA length: " + numAasEx;
 
 		// Calculate absolute AA index (in full AA sequence)
 		int aaSeqIndex = aaIdx + exAaStart;
+		if (exon.getFrame() == 1) aaSeqIndex++; // I don't know why UCSC numbers the AA different when frame is 1
 
-		// The codon for this amino acid is split by an intron
-		int pos;
-		if (aaIdx == numAasEx) pos = aa2pos[aaSeqIndex - 1] + 3;
-		else if ((aaIdx == 0) && (exon.getFrame() == 1)) pos = exon.isStrandPlus() ? exon.getStart() : exon.getEnd();
-		else pos = aa2pos[aaSeqIndex];
+		// Genomic positin within exon
+		int pos = aa2pos[aaSeqIndex];
+		if (pos < exon.getStart()) pos = exon.getStart();
+		else if (pos > exon.getEnd()) pos = exon.getEnd();
 
 		// Convert to AA sequence index to genomic position
 		start = end = pos;
 		parent = tr.getChromosome();
+
+		if (debug) Gpr.debug("AA index: " + aaIdx + "\tpos: " + pos + "\texon: [" + exon.getStart() + ", " + exon.getEnd() + "], frame: " + exon.getFrame() + "\tWithin msa: " + msa.intersects(this));
 
 		// Does this position match MSA coordinates?
 		if (!msa.intersects(this)) return "Calculated genomic positions '" + tr.getChromosomeName() + ":" + start + "' in not included in MSA coordinates " + msa.getChromosomeName() + ":" + msa.getStart() + "-" + msa.getEnd();
@@ -234,9 +235,9 @@ public class GenotypePos extends Marker {
 		int idxBase = tr.isStrandPlus() ? (pos - msa.getStart()) : (msa.getEnd() - pos);
 		int idxAa = idxBase / 3;
 
-		// WARNIGN: If exon frame is 1, the MSA has one additional AA (from the previous exon).
+		// WARNIGN: If exon frame is 2, the MSA has one additional AA (from the previous exon).
 		//          I don't know why they do it this way...
-		if (exon.getFrame() == 1) {
+		if (exon.getFrame() == 2) {
 			if (idxBase < 1) idxAa = 0; // First two bases are AA number zero
 			else idxAa++; // Other bases are AA number 1 and on
 		}
@@ -244,9 +245,9 @@ public class GenotypePos extends Marker {
 		// Out of range
 		if (idxAa >= msa.getAaSeqLen()) {
 			// This can happen when a base maps to the LAST amino acid in an exon.
-			// If the next exons has 'frame=1', then that last AA is 'pushed' to the
+			// If the next exons has 'frame=2', then that last AA is 'pushed' to the
 			// next exon (I don't know why UCSC does this complicated mapping between
-			// AA and bases in their MSAs).  So, we have to move the mapping to
+			// AA and bases in their MSAs). So, we have to move the mapping to
 			// the first AA in the next exon.
 			MultipleSequenceAlignment msaNext = pdbGenomeMsas.getMsas().findNextExon(msa); // Find MSA for the exon following 'msa'
 			if (msaNext == null) {
@@ -315,9 +316,8 @@ public class GenotypePos extends Marker {
 		int startPos;
 		int fr = 0;
 		if (ex.getFrame() != 0) {
-			aaIdx--;
-			if (ex.getFrame() == 2) aaIdx++; // I don't know why UCSC numbers the AA different when frame is 2
-			fr = 3 - ex.getFrame(); // Offset based on frame
+			if (ex.getFrame() == 2) aaIdx--; // I don't know why UCSC numbers the AA different when frame is 2
+			fr = ex.getFrame(); // Offset based on frame
 		}
 
 		// Find AA start position
@@ -335,14 +335,15 @@ public class GenotypePos extends Marker {
 		if ((ex.isStrandPlus() && (startPos < ex.getStart())) //
 				|| (ex.isStrandMinus() && (startPos > ex.getEnd()))) {
 			// If the position is outside the exon, then we must jump to previous exon
-			startPos = cds2pos[cdsBase - ex.getFrame()];
-			cdsBase = tr.baseNumberCds(startPos, true);
+			int offset = (3 - ex.getFrame()) % 3; // We have this number of bases to complete the codon
+			cdsBase -= offset; // Jump to previous codon
+			startPos = cds2pos[cdsBase];
 		}
 
 		//---
 		// Sanity check: Make sure that AA matches between transcript model and MSA data from 'genes likelihood' file
 		//---
-		String entryId = tr.getChromosomeName() + ":" + start + "-" + end + "[" + aaExpected + "]";
+		String entryId = tr.getChromosomeName() + ":" + start + "-" + end + "[" + (aaIdx + 1) + "]" + aaExpected;
 
 		// Extract codon
 		String cdsSeq = tr.cds();
@@ -358,7 +359,7 @@ public class GenotypePos extends Marker {
 					+ "\nExon       : " + ex //
 					+ "\nStart pos: " + startPos //
 					+ "\nCodon    : " + codonStr + ", aa (real): " + aa + ", aa (exp): " + aaExpected //
-			);
+					);
 			return false;
 		}
 
