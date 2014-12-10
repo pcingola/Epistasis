@@ -17,7 +17,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
-import ca.mcgill.pcingola.epistasis.GenotypePos;
+import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
 import ca.mcgill.pcingola.epistasis.likelihood.LikelihoodAnalysisGtPair;
 import ca.mcgill.pcingola.epistasis.likelihood.MarkerPairLikelihood;
@@ -236,7 +236,7 @@ public class GwasEpistasis {
 
 		// Create a marker that lies onto the referred AA
 		Chromosome chromo = pdbGenomeMsas.getConfig().getGenome().getOrCreateChromosome(chr);
-		GenotypePos gp = new GenotypePos(chromo, start, end, id);
+		GenomicCoordinates gp = new GenomicCoordinates(chromo, start, end, id);
 		if (gp.markerTrAaIdx(pdbGenomeMsas, trId, aaIdx, aaExpected)) {
 			countOk++;
 			showCount(true);

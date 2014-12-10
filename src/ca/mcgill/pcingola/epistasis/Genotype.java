@@ -2,13 +2,14 @@ package ca.mcgill.pcingola.epistasis;
 
 import ca.mcgill.mcb.pcingola.interval.Marker;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
+import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 
 /**
  * Store genotype information
  *
  * @author pcingola
  */
-public class Genotype extends GenotypePos {
+public class Genotype extends GenomicCoordinates {
 
 	private static final long serialVersionUID = 1L;
 

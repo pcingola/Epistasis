@@ -758,7 +758,7 @@ public class Epistasis implements CommandLine {
 
 		// Add MSA sequences to 'AA contact' entries
 		Timer.showStdErr("Adding MSA sequences");
-		aaContacts.forEach(d -> pdbGenomeMsas.mapToMsa(msas, d));
+		aaContacts.forEach(d -> pdbGenomeMsas.mapToMsa(d));
 		System.err.println("Totals:\n" + pdbGenomeMsas.countMatch);
 
 		System.err.println("Mapped AA sequences:\n");

@@ -21,7 +21,6 @@ public class DistanceResult {
 	// Genomic information
 	public String transcriptId;
 	public String chr1, chr2;
-	public int chr1Num, chr2Num;
 	public int pos1, pos2;
 	public String annotations1, annotations2;
 
@@ -32,7 +31,8 @@ public class DistanceResult {
 
 	public DistanceResult() {
 		pdbId = pdbChainId = transcriptId = aaSeq1 = aaSeq2 = chr1 = chr2 = annotations1 = annotations2 = msa1 = msa2 = "";
-		aaPos1 = aaPos2 = pos1 = pos2 = chr1Num = chr2Num = msaIdx1 = msaIdx2 = -1;
+		aaPos1 = aaPos2 = pos1 = pos2 = msaIdx1 = msaIdx2 = -1;
+		//		chr1Num = chr2Num = -1;
 		distance = -1;
 		aa1 = aa2 = '.';
 	}
@@ -65,7 +65,7 @@ public class DistanceResult {
 				String f[] = chrPos1.split(":");
 				chr1 = f[0];
 				pos1 = Gpr.parseIntSafe(f[1]);
-				chr1Num = Chromosome.number(chr1);
+				//				chr1Num = Chromosome.number(chr1);
 			}
 		}
 
@@ -75,7 +75,7 @@ public class DistanceResult {
 				String f[] = chrPos2.split(":");
 				chr2 = f[0];
 				pos2 = Gpr.parseIntSafe(f[1]);
-				chr2Num = Chromosome.number(chr1);
+				//				chr2Num = Chromosome.number(chr1);
 			}
 		}
 
@@ -123,7 +123,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-				;
+		;
 	}
 
 	/**
@@ -142,13 +142,13 @@ public class DistanceResult {
 
 		List<String> anns = new ArrayList<>();
 		Arrays.stream(annotations1.split(";")) //
-		.forEach( //
-				ann1 -> Arrays.stream(annotations2.split(";")) //
 				.forEach( //
-						ann2 -> anns.add(aaPair + "\t" //
-								+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+						ann1 -> Arrays.stream(annotations2.split(";")) //
+								.forEach( //
+										ann2 -> anns.add(aaPair + "\t" //
+												+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
+										) //
 								) //
-						) //
 				);
 
 		return anns;
@@ -197,7 +197,7 @@ public class DistanceResult {
 				+ "\t" + aaSeq2 //
 				+ "\t" + annotations1 //
 				+ "\t" + annotations2 //
-				;
+		;
 	}
 
 	/**
@@ -207,6 +207,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-				;
+		;
 	}
 }

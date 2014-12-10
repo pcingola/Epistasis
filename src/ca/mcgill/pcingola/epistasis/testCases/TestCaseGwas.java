@@ -7,7 +7,7 @@ import org.junit.Assert;
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
-import ca.mcgill.pcingola.epistasis.GenotypePos;
+import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 import ca.mcgill.pcingola.epistasis.gwas.GwasEpistasis;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
@@ -24,7 +24,7 @@ public class TestCaseGwas extends TestCase {
 	public static boolean debug = false;
 	public static boolean verbose = false || debug;
 
-	public GenotypePos mapToMsa(String genome, String msasFile, String chr, int pos) {
+	public GenomicCoordinates mapToMsa(String genome, String msasFile, String chr, int pos) {
 		String configFile = Gpr.HOME + "/snpEff/snpEff.config";
 		String phyloFileName = "data/hg19.100way.nh";
 		String pdbDir = ""; // Not used
@@ -42,7 +42,7 @@ public class TestCaseGwas extends TestCase {
 		pdbGenomeMsas.initialize();
 
 		Chromosome chromo = pdbGenomeMsas.getConfig().getGenome().getOrCreateChromosome(chr);
-		GenotypePos gp = new GenotypePos(chromo, pos - 1, chr + ":" + pos);
+		GenomicCoordinates gp = new GenomicCoordinates(chromo, pos - 1, chr + ":" + pos);
 		gp.mapGenomic2Msa(pdbGenomeMsas);
 
 		return gp;
@@ -172,7 +172,7 @@ public class TestCaseGwas extends TestCase {
 			for (int aaIdx = 0; aaIdx < msa.getAaSeqLen(); aaIdx++) {
 
 				// Step ii: Map it to genomic coordinate
-				GenotypePos gp = new GenotypePos(msa.getId(), aaIdx);
+				GenomicCoordinates gp = new GenomicCoordinates(msa.getId(), aaIdx);
 				String err = gp.mapMsa2GenomicErr(pdbGenomeMsas);
 				if (err == null) {
 					if (verbose) Gpr.debug(n + "\tOK\t" + gp.getMsaId() + ":" + gp.getAaIdx() + "\t" + gp.getChromosomeName() + ":" + gp.getStart() + "-" + gp.getEnd());
@@ -186,7 +186,7 @@ public class TestCaseGwas extends TestCase {
 				}
 
 				// Step iii:  Map genomic coordinates back to msaId:aaIdx
-				GenotypePos gp2 = new GenotypePos(gp.getParent(), gp.getStart(), gp.getId());
+				GenomicCoordinates gp2 = new GenomicCoordinates(gp.getParent(), gp.getStart(), gp.getId());
 				if (!gp2.mapGenomic2Msa(pdbGenomeMsas, trId)) continue;
 
 				// Step iv: Check that coordinates are mapped back correctly
@@ -210,7 +210,7 @@ public class TestCaseGwas extends TestCase {
 	public void test_06_map_transcripts_in_multipleChromos() {
 		String genome = "hg19";
 		String msasFile = "test/NM_006709.fa"; // "data/msa_test.fa.gz";
-		GenotypePos gp = mapToMsa(genome, msasFile, "6", 31864410);
+		GenomicCoordinates gp = mapToMsa(genome, msasFile, "6", 31864410);
 		Assert.assertTrue(gp.getMsaId() != null);
 		Timer.showStdErr("MSA:\t" + gp.getMsaId() + ":" + gp.getAaIdx());
 	}
@@ -218,7 +218,7 @@ public class TestCaseGwas extends TestCase {
 	public void test_07_map_last_base_before_frame1() {
 		String genome = "testHg19Chr1";
 		String msasFile = "test/NM_178229.fa";
-		GenotypePos gp = mapToMsa(genome, msasFile, "1", 156526325);
+		GenomicCoordinates gp = mapToMsa(genome, msasFile, "1", 156526325);
 		Assert.assertTrue(gp.getMsaId() != null);
 		Timer.showStdErr("MSA:\t" + gp.getMsaId() + ":" + gp.getAaIdx());
 	}

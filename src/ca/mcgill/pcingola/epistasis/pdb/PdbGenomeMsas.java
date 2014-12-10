@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import org.biojava.bio.structure.AminoAcid;
@@ -24,9 +26,9 @@ import ca.mcgill.mcb.pcingola.interval.NextProt;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
-import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
+import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
@@ -50,7 +52,8 @@ public class PdbGenomeMsas extends SnpEff {
 	public CountByType countMatch = new CountByType();
 	CountByType countWarn = new CountByType();
 	String genomeVer, pdbDir;
-	HashMap<String, Transcript> trancriptById;
+	Map<String, Transcript> trancriptById;
+	Set<String> trancriptsChecked;
 	IdMapper idMapper;
 	LikelihoodTreeAa tree;
 	MultipleSequenceAlignmentSet msas;
@@ -62,6 +65,7 @@ public class PdbGenomeMsas extends SnpEff {
 		this.genomeVer = genomeVer;
 		this.pdbDir = pdbDir;
 		this.msas = msas;
+		trancriptsChecked = new HashSet<String>();
 	}
 
 	/**
@@ -82,12 +86,16 @@ public class PdbGenomeMsas extends SnpEff {
 			return false;
 		}
 
+		// Already checked?
+		if (trancriptsChecked.contains(trid)) return true;
+
 		// Get protein sequences
 		String proteinTr = removeAaStop(tr.protein());
 		String proteinMsa = removeAaStop(msas.rowSequence(trid, tr.getChromosomeName()));
 
 		if (!proteinTr.isEmpty() && proteinMsa != null) {
 			boolean match = proteinTr.equals(proteinMsa);
+			if (match) trancriptsChecked.add(trid);
 
 			countMatch.inc("PROTEIN_MSA_VS_TR\t" + (match ? "OK" : "ERROR"));
 			if (debug && !match) {
@@ -115,9 +123,9 @@ public class PdbGenomeMsas extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-			.filter(s -> s.toString().endsWith(".pdb")) //
-			.map(pf -> checkSequencePdbGenome(pf.toString())) //
-			.forEach(ims -> idMapperConfirmed.addAll(ims));
+					.filter(s -> s.toString().endsWith(".pdb")) //
+					.map(pf -> checkSequencePdbGenome(pf.toString())) //
+					.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -219,9 +227,9 @@ public class PdbGenomeMsas extends SnpEff {
 					int pdbAaLen = chain.getAtomGroups("amino").size();
 
 					idmapsOri.stream() //
-					.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
-					.findFirst() //
-					.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
+							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
+							.findFirst() //
+							.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
@@ -286,7 +294,7 @@ public class PdbGenomeMsas extends SnpEff {
 	/**
 	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
-	public void mapToMsa(MultipleSequenceAlignmentSet msas, DistanceResult dres) {
+	public void mapToMsa(DistanceResult dres) {
 		// Find trancript IDs using PDB ids
 		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
 		if (idmes == null || idmes.isEmpty()) {
@@ -319,7 +327,7 @@ public class PdbGenomeMsas extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-					) {
+			) {
 				// Position outside amino acid
 				continue;
 			}
@@ -333,7 +341,7 @@ public class PdbGenomeMsas extends SnpEff {
 			//---
 
 			// Find MSA and aaIdx
-			GenotypePos gp1 = new GenotypePos(), gp2 = new GenotypePos();
+			GenomicCoordinates gp1 = new GenomicCoordinates(), gp2 = new GenomicCoordinates();
 			gp1.mapTrPos2MsaIdx(this, trid, pos1);
 			gp2.mapTrPos2MsaIdx(this, trid, pos2);
 
@@ -389,7 +397,7 @@ public class PdbGenomeMsas extends SnpEff {
 								+ "\t" + dres.distance //
 								+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
 								+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
-								);
+						);
 					}
 				}
 			}
@@ -429,7 +437,7 @@ public class PdbGenomeMsas extends SnpEff {
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-						);
+				);
 	}
 
 	/**

@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis;
+package ca.mcgill.pcingola.epistasis.coordinates;
 
 import java.util.List;
 
@@ -17,7 +17,7 @@ import ca.mcgill.pcingola.epistasis.pdb.PdbGenomeMsas;
  *
  * @author pcingola
  */
-public class GenotypePos extends Marker {
+public class GenomicCoordinates extends Marker {
 
 	private static final long serialVersionUID = 1L;
 
@@ -27,26 +27,26 @@ public class GenotypePos extends Marker {
 	protected int aaIdx = -1; // MSA's amino acid index. Note that aaIndex is respect to an MSA (which is an alignment of a single exon), and not respect to the whole AA sequence
 	protected String annotataions; // Annotations referring to this entry
 
-	public GenotypePos() {
+	public GenomicCoordinates() {
 		super();
 	}
 
-	public GenotypePos(Marker parent, int start, int end, String id) {
+	public GenomicCoordinates(Marker parent, int start, int end, String id) {
 		super(parent, start, end, false, id);
 	}
 
-	public GenotypePos(Marker parent, int pos, String id) {
+	public GenomicCoordinates(Marker parent, int pos, String id) {
 		super(parent, pos, pos, false, id);
 	}
 
-	public GenotypePos(String msaId, int aaIdx) {
+	public GenomicCoordinates(String msaId, int aaIdx) {
 		super();
 		this.msaId = msaId;
 		this.aaIdx = aaIdx;
 		id = msaId + "[" + aaIdx + "]";
 	}
 
-	public GenotypePos(VcfEntry ve) {
+	public GenomicCoordinates(VcfEntry ve) {
 		super(ve.getParent(), ve.getStart(), ve.getEnd(), false, ve.getChromosomeName() + ":" + ve.getStart() + "_" + ve.getRef() + "/" + ve.getAltsStr());
 		annotataions = ve.getInfo("EFF");
 	}

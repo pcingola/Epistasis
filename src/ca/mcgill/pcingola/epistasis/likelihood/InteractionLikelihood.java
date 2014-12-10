@@ -22,9 +22,9 @@ import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.util.Tuple;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
-import ca.mcgill.pcingola.epistasis.GenotypePos;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
+import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 import ca.mcgill.pcingola.epistasis.gwas.GwasResult;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
@@ -370,7 +370,7 @@ public class InteractionLikelihood {
 		ves.stream() //
 				.parallel() //
 				.filter(ve -> !msas.query(ve).isEmpty()) // Only use entries that can be mapped
-				.map(ve -> new GenotypePos(ve)) // Convert to genotyping position
+				.map(ve -> new GenomicCoordinates(ve)) // Convert to genotyping position
 				.filter(gp -> gp.mapGenomic2Msa(pdbGenomeMsas)) // Successfully mapped to MSA ?
 				.forEach(gp -> logLikelihoodGenomicPosVsTranscript(outDir, gp)) // Calculate likelihood
 		;
@@ -432,7 +432,7 @@ public class InteractionLikelihood {
 	/**
 	 * Calculate all likelihoods between a genomic position 'gp' and the rest of AAs in the transcript
 	 */
-	void logLikelihoodGenomicPosVsTranscript(String dirName, GenotypePos gp) {
+	void logLikelihoodGenomicPosVsTranscript(String dirName, GenomicCoordinates gp) {
 		StringBuilder out = new StringBuilder();
 		String fileName = dirName + "/" + gp.getId().replace(':', '_').replace('-', '_').replace('/', '_') + ".txt";
 		if (Gpr.exists(fileName)) {
