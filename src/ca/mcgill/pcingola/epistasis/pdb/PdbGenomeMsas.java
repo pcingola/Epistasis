@@ -127,9 +127,9 @@ public class PdbGenomeMsas extends SnpEff {
 		IdMapper idMapperConfirmed = new IdMapper();
 		try {
 			Files.list(Paths.get(pdbDir)) //
-			.filter(s -> s.toString().endsWith(".pdb")) //
-			.map(pf -> checkSequencePdbGenome(pf.toString())) //
-			.forEach(ims -> idMapperConfirmed.addAll(ims));
+					.filter(s -> s.toString().endsWith(".pdb")) //
+					.map(pf -> checkSequencePdbGenome(pf.toString(), true)) //
+					.forEach(ims -> idMapperConfirmed.addAll(ims));
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
@@ -142,7 +142,7 @@ public class PdbGenomeMsas extends SnpEff {
 	 * Check that protein sequences form PDB (pdbFile) matches sequences from Genome
 	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 */
-	public List<IdMapperEntry> checkSequencePdbGenome(String pdbFile) {
+	public List<IdMapperEntry> checkSequencePdbGenome(String pdbFile, boolean show) {
 		Structure pdbStruct = readPdbFile(pdbFile);
 		String pdbId = pdbStruct.getPDBCode();
 
@@ -165,7 +165,7 @@ public class PdbGenomeMsas extends SnpEff {
 
 		// Check idMaps. Only return those that match
 		for (String trid : trIds)
-			list.addAll(checkSequencePdbGenome(pdbId, pdbStruct, trid));
+			list.addAll(checkSequencePdbGenome(pdbId, pdbStruct, trid, show));
 
 		return list;
 	}
@@ -175,7 +175,7 @@ public class PdbGenomeMsas extends SnpEff {
 	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 * Note: Only part of the sequence usually matches
 	 */
-	List<IdMapperEntry> checkSequencePdbGenome(String pdbId, Structure pdbStruct, String trId) {
+	List<IdMapperEntry> checkSequencePdbGenome(String pdbId, Structure pdbStruct, String trId, boolean show) {
 		if (debug) System.err.println("\nChecking " + trId + "\t<->\t" + pdbStruct.getPDBCode());
 		List<IdMapperEntry> idmapsOri = idMapper.getByPdbId(pdbId);
 		List<IdMapperEntry> idmapsNew = new ArrayList<>();
@@ -225,15 +225,15 @@ public class PdbGenomeMsas extends SnpEff {
 					int pdbAaLen = chain.getAtomGroups("amino").size();
 
 					idmapsOri.stream() //
-					.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
-					.findFirst() //
-					.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
+							.filter(idm -> trId.equals(IdMapperEntry.IDME_TO_REFSEQ.apply(idm)) && pdbId.equals(idm.pdbId)) //
+							.findFirst() //
+							.ifPresent(i -> idmapsNew.add(i.cloneAndSet(chain.getChainID(), pdbAaLen, trAaLen)));
 				} else if (debug) System.err.println("\t\tMapping ERROR :\t" + trId + "\terror: " + err);
 			}
 		}
 
 		// Show all confirmed mappings
-		idmapsNew.stream().forEach(i -> System.out.println(i));
+		if (show) idmapsNew.stream().forEach(i -> System.out.println(i));
 
 		return idmapsNew;
 	}
@@ -383,7 +383,7 @@ public class PdbGenomeMsas extends SnpEff {
 					|| (aa2pos.length <= dres.aaPos2) //
 					|| (dres.aaPos1 < 0) //
 					|| (dres.aaPos2 < 0) //
-					) {
+			) {
 				// Position outside amino acid
 				continue;
 			}
@@ -453,7 +453,7 @@ public class PdbGenomeMsas extends SnpEff {
 								+ "\t" + dres.distance //
 								+ "\n\t" + dres.aa1 + "\t" + dres.aaPos1 + "\t" + tr.getChromosomeName() + ":" + pos1 + "\t" + exon1.getFrame() + "\t" + seq1 //
 								+ "\n\t" + dres.aa2 + "\t" + dres.aaPos2 + "\t" + tr.getChromosomeName() + ":" + pos2 + "\t" + exon2.getFrame() + "\t" + seq2 //
-								);
+						);
 					}
 				}
 			}
@@ -573,7 +573,7 @@ public class PdbGenomeMsas extends SnpEff {
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-						);
+				);
 	}
 
 	public Structure readPdbFile(String pdbFile) {

@@ -199,18 +199,23 @@ public class PdbInteracionAnalysis {
 	 * Note: These are PDB files of COMPOUND molecules
 	 */
 	void parsePdbFile(String pdbFile, String pdbId) {
+		// Make sure Pdb entries map to genome and sequences match
+		Set<String> confirmedMappings = new HashSet<String>();
+		List<IdMapperEntry> idMaps = pdbGenomeMsas.checkSequencePdbGenome(pdbFile, verbose);
+
+		for (IdMapperEntry ime : idMaps) {
+			if (verbose) Gpr.debug("\tMapping:\t" + ime);
+			confirmedMappings.add(ime.pdbId.toUpperCase() + ":" + ime.pdbChainId);
+		}
+
+		if (confirmedMappings.isEmpty()) {
+			if (verbose) Gpr.debug("No mappings found for '" + pdbId + "'");
+			return;
+		} else if (verbose) Gpr.debug("Confirmed mappings: " + idMaps.size());
+
 		Timer.showStdErr("Parsing PDB file '" + pdbFile + "'");
 		Structure pdbStruct = pdbGenomeMsas.readPdbFile(pdbFile);
 		if (verbose) Gpr.debug("PDB Structure:\n" + pdbStruct);
-
-		// Make sure Pdb entries map to genome and sequences match
-		Set<String> confirmedMappings = new HashSet<String>();
-		List<IdMapperEntry> idMaps = pdbGenomeMsas.checkSequencePdbGenome(pdbFile);
-		Gpr.debug("Confirmed maps: " + idMaps.size());
-		for (IdMapperEntry ime : idMaps) {
-			System.out.println(ime);
-			confirmedMappings.add(ime.pdbId.toUpperCase() + ":" + ime.pdbChainId);
-		}
 
 		// Find Pdb chains
 		List<String> chains = pdbIdToChains.get(pdbId);
@@ -244,29 +249,29 @@ public class PdbInteracionAnalysis {
 				// Are the transcripts available in the genome?
 				String trId1 = ime1.refSeqId;
 				if (pdbGenomeMsas.getTranscript(trId1) == null) {
-					Gpr.debug("Cannot find transcript '" + trId1 + "' for " + ime1);
+					if (verbose) Gpr.debug("Cannot find transcript '" + trId1 + "' for " + ime1);
 					continue;
 				}
 
 				String trId2 = ime2.refSeqId;
 				if (pdbGenomeMsas.getTranscript(ime2.refSeqId) == null) {
-					Gpr.debug("Cannot find transcript '" + trId2 + "' for " + ime2);
+					if (verbose) Gpr.debug("Cannot find transcript '" + trId2 + "' for " + ime2);
 					continue;
 				}
 
 				// Do we have MSAs for these transripts?
 				if (msas.getMsasByTrId(trId1) == null) {
-					Gpr.debug("Cannot find MSAs for transcript '" + trId1 + "'");
+					if (verbose) Gpr.debug("Cannot find MSAs for transcript '" + trId1 + "'");
 					continue;
 				}
 
 				if (msas.getMsasByTrId(trId2) == null) {
-					Gpr.debug("Cannot find MSAs for transcript '" + trId2 + "'");
+					if (verbose) Gpr.debug("Cannot find MSAs for transcript '" + trId2 + "'");
 					continue;
 				}
 
 				// Compute inter-chain distances and likelihoods
-				System.out.println(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
+				Gpr.debug(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
 				findInteracting(pdbStruct, chain1, chain2, trId1, trId2);
 			}
 		}
