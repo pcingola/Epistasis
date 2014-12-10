@@ -22,6 +22,7 @@ import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
 import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
 public class PdbInteracionAnalysis {
 
@@ -34,6 +35,7 @@ public class PdbInteracionAnalysis {
 
 	IdMapper idMapper;
 	InteractionLikelihood interactionLikelihood;
+	MultipleSequenceAlignmentSet msas;
 	PdbGenomeMsas pdbGenomeMsas;
 
 	Map<String, String> pdbIdChainToMolecule;
@@ -47,6 +49,7 @@ public class PdbInteracionAnalysis {
 
 		pdbGenomeMsas = interactionLikelihood.getPdbGenomeMsas();
 		idMapper = interactionLikelihood.getIdMapper();
+		msas = pdbGenomeMsas.getMsas();
 	}
 
 	void addChainToMolecule(String pdbId, String chain, String moleculeName) {
@@ -93,7 +96,7 @@ public class PdbInteracionAnalysis {
 	/**
 	 * Analyze interacting sites in a pdb structure
 	 */
-	void findInteracting(Structure pdbStruct, String chainName1, String chainName2, List<IdMapperEntry> imes1, List<IdMapperEntry> imes2) {
+	void findInteracting(Structure pdbStruct, String chainName1, String chainName2, String trId1, String trid2) {
 		List<AminoAcid> aas1 = aminoAcids(pdbStruct, chainName1);
 		List<AminoAcid> aas2 = aminoAcids(pdbStruct, chainName2);
 
@@ -200,11 +203,7 @@ public class PdbInteracionAnalysis {
 		Structure pdbStruct = pdbGenomeMsas.readPdbFile(pdbFile);
 		if (verbose) Gpr.debug("PDB Structure:\n" + pdbStruct);
 
-		// Find Pdb chains
-		List<String> chains = pdbIdToChains.get(pdbId);
-		if (chains == null) { throw new RuntimeException("Cannot find chains for pdbId '" + pdbId + "'"); }
-
-		// Make sure Pdb entries map to genome and sequences match 
+		// Make sure Pdb entries map to genome and sequences match
 		Set<String> confirmedMappings = new HashSet<String>();
 		List<IdMapperEntry> idMaps = pdbGenomeMsas.checkSequencePdbGenome(pdbFile);
 		Gpr.debug("Confirmed maps: " + idMaps.size());
@@ -212,6 +211,10 @@ public class PdbInteracionAnalysis {
 			System.out.println(ime);
 			confirmedMappings.add(ime.pdbId.toUpperCase() + ":" + ime.pdbChainId);
 		}
+
+		// Find Pdb chains
+		List<String> chains = pdbIdToChains.get(pdbId);
+		if (chains == null) throw new RuntimeException("Cannot find chains for pdbId '" + pdbId + "'");
 
 		// Analyze distance between amino acids in different chains
 		for (String chain1 : chains) {
@@ -234,13 +237,37 @@ public class PdbInteracionAnalysis {
 					continue;
 				}
 
-				// Get mappings
-				List<IdMapperEntry> imes1 = idMapper.getByPdbId(pdbId, chain1);
-				List<IdMapperEntry> imes2 = idMapper.getByPdbId(pdbId, chain2);
+				// Get mappings (note that we only get the first available mapping).
+				IdMapperEntry ime1 = idMapper.getByPdbId(pdbId, chain1).get(0);
+				IdMapperEntry ime2 = idMapper.getByPdbId(pdbId, chain2).get(0);
 
-				// Compute inter-chain distances
-				System.out.println(pdbId + "\t" + chain1 + ": '" + molecule1 + "'" + "\t" + chain2 + ": '" + molecule2 + "'");
-				findInteracting(pdbStruct, chain1, chain2, imes1, imes2);
+				// Are the transcripts available in the genome?
+				String trId1 = ime1.refSeqId;
+				if (pdbGenomeMsas.getTranscript(trId1) == null) {
+					Gpr.debug("Cannot find transcript '" + trId1 + "' for " + ime1);
+					continue;
+				}
+
+				String trId2 = ime2.refSeqId;
+				if (pdbGenomeMsas.getTranscript(ime2.refSeqId) == null) {
+					Gpr.debug("Cannot find transcript '" + trId2 + "' for " + ime2);
+					continue;
+				}
+
+				// Do we have MSAs for these transripts?
+				if (msas.getMsasByTrId(trId1) == null) {
+					Gpr.debug("Cannot find MSAs for transcript '" + trId1 + "'");
+					continue;
+				}
+
+				if (msas.getMsasByTrId(trId2) == null) {
+					Gpr.debug("Cannot find MSAs for transcript '" + trId2 + "'");
+					continue;
+				}
+
+				// Compute inter-chain distances and likelihoods
+				System.out.println(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
+				findInteracting(pdbStruct, chain1, chain2, trId1, trId2);
 			}
 		}
 
