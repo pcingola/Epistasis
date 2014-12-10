@@ -509,9 +509,11 @@ if( step7 ) {
 #
 #	task( msasCompound <- [tree, msa, idMapPdbCompound] )	sys $cmdEpistasisXL filterMsa $tree $msa $idMapPdbCompound > $msasCompound
 
-llCompound := "$dir/likelihood.pdb_compound.txt"
-task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound]) {
-	sys $cmdEpistasis zzz $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompoundList $aaContactDist 1 | tee $llCompound
+for(int neigh=1, neigh < 5 ; neigh++ ) {
+	llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.txt"
+	task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound]) {
+		sys $cmdEpistasis likelihoodpdbinteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $aaContactDist 1 | tee $llCompound
+	}
 }
 
 # Done

@@ -43,7 +43,7 @@ public class LikelihoodAaNeigh {
 				+ "\t" + getAvgLogLikNull() //
 				+ "\t" + getAvgLogLikAlt() //
 				+ "\t" + count //
-		;
+				;
 	}
 
 	public void update(GwasResult gwasRes) {
