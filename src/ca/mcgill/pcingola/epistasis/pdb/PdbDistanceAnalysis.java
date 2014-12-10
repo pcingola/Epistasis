@@ -163,7 +163,7 @@ public class PdbDistanceAnalysis {
 				.parallel() //
 				.flatMap(pid -> distance(pid).stream()) //
 				.collect(Collectors.toList()) //
-		;
+				;
 
 		return res;
 	}

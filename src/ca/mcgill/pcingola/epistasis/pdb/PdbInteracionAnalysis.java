@@ -87,26 +87,32 @@ public class PdbInteracionAnalysis {
 		return distMin;
 	}
 
-	String getMolecule(String pdbId, String chain) {
-		return pdbIdChainToMolecule.get(pdbId + ":" + chain);
-	}
-
 	/**
 	 * Analyze interacting sites in a pdb structure
 	 */
-	void interacting(Structure pdbStruct, String chainName1, String chainName2) {
-
+	void findInteracting(Structure pdbStruct, String chainName1, String chainName2) {
 		List<AminoAcid> aas1 = aminoAcids(pdbStruct, chainName1);
-		List<AminoAcid> aas2 = aminoAcids(pdbStruct, chainName1);
+		List<AminoAcid> aas2 = aminoAcids(pdbStruct, chainName2);
 
+		int aaIdx1 = 0;
 		for (AminoAcid aa1 : aas1) {
+			int aaIdx2 = 0;
+
 			for (AminoAcid aa2 : aas2) {
 				double dmin = distanceMin(aa1, aa2);
 				if (dmin <= distanceThreshold) {
-
+					System.out.println("\t" + dmin + "\t" + aaIdx1 + " " + aa1.getAminoType() + "\t" + aaIdx2 + " " + aa2.getAminoType());
 				}
+
+				aaIdx2++;
 			}
+
+			aaIdx1++;
 		}
+	}
+
+	String getMolecule(String pdbId, String chain) {
+		return pdbIdChainToMolecule.get(pdbId + ":" + chain);
 	}
 
 	/**
@@ -222,7 +228,7 @@ public class PdbInteracionAnalysis {
 
 				// Compute inter-chain distances
 				System.out.println(pdbId + "\t" + chain1 + ": '" + molecule1 + "'" + "\t" + chain2 + ": '" + molecule2 + "'");
-				interacting(pdbStruct, chain1, chain2);
+				findInteracting(pdbStruct, chain1, chain2);
 			}
 		}
 

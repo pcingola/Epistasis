@@ -558,14 +558,19 @@ public class Epistasis implements CommandLine {
 			pdbDir = args[argNum++];
 			idMapFile = args[argNum++];
 			String pdbFileList = args[argNum++];
-			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
-			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
-			filterMsaByIdMap = true;
 
+			distThreshold = Gpr.parseDoubleSafe(args[argNum++]);
+			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[argNum - 1] + "'");
+
+			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
+			if (neighbours < 0) usage("Neighbours must be a non-negative number: '" + args[argNum - 1] + "'");
+
+			filterMsaByIdMap = true;
 			filterMsaByIdMap = false;
 			Gpr.debug("\n\n\n\nFILTER FORCED TO FALSE!!!!!!!!n\n\n\n");
 
-			runZzz(neighbours, pdbFileList);
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			runZzz(distThreshold, neighbours, pdbFileList);
 			break;
 
 		default:
@@ -1109,11 +1114,11 @@ public class Epistasis implements CommandLine {
 		System.out.println(Gpr.prependEachLine("AA_PAIRS_BG_WITHIN_PROT\t", transPairsBg));
 	}
 
-	void runZzz(int neighbours, String pdbFileList) {
+	void runZzz(double distThreshold, int neighbours, String pdbFileList) {
 		load();
 
 		InteractionLikelihood intll = newInteractionLikelihood();
-		PdbInteracionAnalysis pdbInteracionAnalysis = new PdbInteracionAnalysis(intll, neighbours, pdbFileList);
+		PdbInteracionAnalysis pdbInteracionAnalysis = new PdbInteracionAnalysis(intll, distThreshold, neighbours, pdbFileList);
 		pdbInteracionAnalysis.run();
 	}
 
