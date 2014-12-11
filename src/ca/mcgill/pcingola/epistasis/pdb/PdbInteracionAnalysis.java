@@ -186,6 +186,7 @@ public class PdbInteracionAnalysis {
 
 						// Calculate Mutual Information
 						double mi = mi(msa1, msa2, aa1.getAminoType(), aa2.getAminoType());
+						double vi = variationOfInformation(msa1, msa2, aa1.getAminoType(), aa2.getAminoType());
 
 						System.out.println(dmin //
 								+ "\t" + llstr //
@@ -194,7 +195,8 @@ public class PdbInteracionAnalysis {
 								+ "\t" + gene1 //
 								+ "\t" + gene2 //
 								+ "\t" + mi //
-								);
+								+ "\t" + vi //
+						);
 						countLl++;
 					}
 				}
@@ -418,5 +420,17 @@ public class PdbInteracionAnalysis {
 		// If distance threshols is less than zero, we select random pairs having a distance MORE than abs(distanceThreshold)
 		if (dmin < Math.abs(distanceThreshold)) return false;
 		return Math.random() < RANDOM_SELECTION;
+	}
+
+	double variationOfInformation(MsaCoordinates msa1, MsaCoordinates msa2, char aa1, char aa2) {
+		MultipleSequenceAlignment m1 = msas.getMsa(msa1.msaId);
+		String colSeq1 = m1.getColumnString(msa1.msaIdx);
+		if (aa1 != colSeq1.charAt(0)) throw new RuntimeException("MSA sequence does not match PDB sequence: '" + colSeq1.charAt(0) + "' vs '" + aa1 + "'");
+
+		MultipleSequenceAlignment m2 = msas.getMsa(msa2.msaId);
+		String colSeq2 = m2.getColumnString(msa2.msaIdx);
+		if (aa2 != colSeq2.charAt(0)) throw new RuntimeException("MSA sequence does not match PDB sequence: '" + colSeq2.charAt(0) + "' vs '" + aa2 + "'");
+
+		return EntropySeq.variationOfInformation(colSeq1, colSeq2);
 	}
 }

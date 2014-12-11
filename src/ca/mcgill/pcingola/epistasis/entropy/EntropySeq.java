@@ -556,7 +556,7 @@ public class EntropySeq {
 		for (int i = 0; i < seqs.length; i++)
 			bases[i] = seqs[i] != null ? seqs[i].charAt(idx) : ' ';
 
-			return new String(bases);
+		return new String(bases);
 	}
 
 }
