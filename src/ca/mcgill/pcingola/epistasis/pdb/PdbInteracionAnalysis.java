@@ -33,11 +33,14 @@ public class PdbInteracionAnalysis {
 
 	public static final String UNIPROT_DATABASE = "UNP";
 
+	public static double RANDOM_SELECTION = 0.001;
 	public static boolean debug = false;
 	public static boolean verbose = false;
 
 	int neighbours;
 	double distanceThreshold;
+	double sumLl = 0;
+	int countLl = 0;
 	String pdbInteractionsFile;
 
 	IdMapper idMapper;
@@ -148,7 +151,7 @@ public class PdbInteracionAnalysis {
 				double dmin = distanceMin(aa1, aa2);
 				sum += dmin;
 				count++;
-				if (dmin <= distanceThreshold) {
+				if (selectInteracting(dmin)) {
 					int aaIdx2 = aa2.getResidueNumber().getSeqNum() - 1;
 
 					PdbCoordinate pdb1 = new PdbCoordinate(pdbId, chainName1, aaIdx1, aa1.getAminoType());
@@ -177,7 +180,13 @@ public class PdbInteracionAnalysis {
 					// Calculate LL(MSA)
 					String llstr = interactionLikelihood.logLikelihoodRatioStr(msa1.msaId, msa1.msaIdx, msa2.msaId, msa2.msaIdx, false, neighbours);
 					if (llstr != null) {
-						System.out.println(llstr);
+						System.out.println(dmin //
+								+ "\t" + llstr //
+								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName1 + "[" + aaIdx1 + "]" //
+								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName2 + "[" + aaIdx1 + "]" //
+								+ "\t" + gene1 //
+								+ "\t" + gene2 //
+						);
 						countLl++;
 					}
 				}
@@ -185,7 +194,7 @@ public class PdbInteracionAnalysis {
 		}
 
 		double avg = count > 0 ? sum / count : Double.POSITIVE_INFINITY;
-		System.err.println(pdbStruct.getName() + ":" + chainName1 + "\t" + pdbStruct.getName() + ":" + chainName2 + "\t" + "average.distance: " + avg + "\tAA.pairs: " + count + "\tAA.pairs.interact: " + countLl + "\tgene1: " + gene1 + "\tgene2: " + gene2);
+		System.err.println(pdbStruct.getPDBCode() + ":" + chainName1 + "\t" + pdbStruct.getName() + ":" + chainName2 + "\t" + "average.distance: " + avg + "\tAA.pairs: " + count + "\tAA.pairs.interact: " + countLl + "\tgene1: " + gene1 + "\tgene2: " + gene2);
 	}
 
 	String getMolecule(String pdbId, String chain) {
@@ -370,9 +379,21 @@ public class PdbInteracionAnalysis {
 			// Read pdb file
 			String pdbDir = pdbGenomeMsas.getPdbDir();
 			String pdbFile = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
-			if (Gpr.exists(pdbFile)) {
-				parsePdbFile(pdbFile, pdbId);
-			}
+
+			if (Gpr.exists(pdbFile)) parsePdbFile(pdbFile, pdbId);
 		}
+	}
+
+	/**
+	 * Should this pair of amino acids be selected as interacting?
+	 */
+
+	boolean selectInteracting(double dmin) {
+		// Positive distance? => Select if AA have distance less than threshold
+		if (distanceThreshold >= 0) return dmin < distanceThreshold;
+
+		// If distance threshols is less than zero, we select random pairs having a distance MORE than abs(distanceThreshold)
+		if (dmin < Math.abs(distanceThreshold)) return false;
+		return Math.random() < RANDOM_SELECTION;
 	}
 }

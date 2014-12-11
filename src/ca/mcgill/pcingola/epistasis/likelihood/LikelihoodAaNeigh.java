@@ -10,15 +10,19 @@ import ca.mcgill.pcingola.epistasis.gwas.GwasResult;
 public class LikelihoodAaNeigh {
 
 	int count;
+	double logLikelihoodRatioMiddle;
 	double logLikelihoodRatio;
 	double logLikelihoodAlt;
 	double logLikelihoodNull;
+	String direction;
 
 	public LikelihoodAaNeigh() {
 	}
 
-	public LikelihoodAaNeigh(GwasResult gwasResult) {
+	public LikelihoodAaNeigh(String direction, GwasResult gwasResult) {
+		this.direction = direction;
 		update(gwasResult);
+		logLikelihoodRatioMiddle = gwasResult.logLikelihoodMsa;
 	}
 
 	public double getAvgLogLikAlt() {
@@ -38,12 +42,14 @@ public class LikelihoodAaNeigh {
 
 	@Override
 	public String toString() {
-		return logLikelihoodRatio //
+		return direction //
+				+ "\t" + logLikelihoodRatioMiddle //
+				+ "\t" + logLikelihoodRatio //
 				+ "\t" + getAvgLogLikRatio() //
 				+ "\t" + getAvgLogLikNull() //
 				+ "\t" + getAvgLogLikAlt() //
 				+ "\t" + count //
-				;
+		;
 	}
 
 	public void update(GwasResult gwasRes) {
