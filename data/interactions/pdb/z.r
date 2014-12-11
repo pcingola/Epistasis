@@ -10,7 +10,11 @@ for( neigh in 1:4 ) {
 	ll.int <- d.int[,5]
 	ll.non <- d.non[,5]
 
-	sub <- paste('Neighbours:', neigh * 2 + 1)
+#	neigh <- 0
+#	ll.int <- d.int[,3]
+#	ll.non <- d.non[,3]
+
+	sub <- paste('Neighbours:', 0) # neigh * 2 + 1)
 	plot( density( ll.int ), main='LL(MSA) of interacting proteins (PDB)', sub=sub, xlim= c(-20,15), xlab='LL(MSA)', col='red' )
 	cat('Interacting\t', summary(ll.int), '\n')
 
