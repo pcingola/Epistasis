@@ -18,6 +18,8 @@ import org.biojava.bio.structure.Group;
 import org.biojava.bio.structure.Structure;
 import org.biojava.bio.structure.StructureException;
 
+import ca.mcgill.mcb.pcingola.interval.Gene;
+import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.IdMapper;
@@ -125,7 +127,7 @@ public class PdbInteracionAnalysis {
 	/**
 	 * Analyze interacting sites in a pdb structure
 	 */
-	void findInteracting(String pdbId, Structure pdbStruct, String chainName1, String chainName2, String trId1, String trid2) {
+	void findInteracting(String pdbId, Structure pdbStruct, String chainName1, String chainName2) {
 		List<AminoAcid> aas1 = aminoAcids(pdbStruct, chainName1);
 		List<AminoAcid> aas2 = aminoAcids(pdbStruct, chainName2);
 
@@ -136,7 +138,8 @@ public class PdbInteracionAnalysis {
 		}
 
 		double sum = 0;
-		int count = 0;
+		int count = 0, countLl = 0;
+		String gene1 = null, gene2 = null;
 		for (AminoAcid aa1 : aas1) {
 			MsaCoordinates msa1 = null;
 			int aaIdx1 = aa1.getResidueNumber().getSeqNum() - 1;
@@ -164,15 +167,25 @@ public class PdbInteracionAnalysis {
 						continue;
 					}
 
+					// Gene names
+					Transcript tr1 = pdbGenomeMsas.getTranscript(msas.getMsa(msa1.msaId).getTranscriptId());
+					gene1 = ((Gene) tr1.getParent()).getGeneName();
+
+					Transcript tr2 = pdbGenomeMsas.getTranscript(msas.getMsa(msa2.msaId).getTranscriptId());
+					gene2 = ((Gene) tr2.getParent()).getGeneName();
+
 					// Calculate LL(MSA)
 					String llstr = interactionLikelihood.logLikelihoodRatioStr(msa1.msaId, msa1.msaIdx, msa2.msaId, msa2.msaIdx, false, neighbours);
-					if (llstr != null) System.out.println(llstr);
+					if (llstr != null) {
+						System.out.println(llstr);
+						countLl++;
+					}
 				}
 			}
 		}
 
 		double avg = count > 0 ? sum / count : Double.POSITIVE_INFINITY;
-		System.err.println("Average distance: " + avg + "\t number of pairs: " + count);
+		System.err.println(pdbStruct.getName() + ":" + chainName1 + "\t" + pdbStruct.getName() + ":" + chainName2 + "\t" + "average.distance: " + avg + "\tAA.pairs: " + count + "\tAA.pairs.interact: " + countLl + "\tgene1: " + gene1 + "\tgene2: " + gene2);
 	}
 
 	String getMolecule(String pdbId, String chain) {
@@ -341,7 +354,7 @@ public class PdbInteracionAnalysis {
 
 				// Compute inter-chain distances and likelihoods
 				if (verbose) Gpr.debug(pdbId + "\t" + chain1 + ": '" + molecule1 + "' (" + trId1 + ")" + "\t" + chain2 + ": '" + molecule2 + "' (" + trId2 + ")");
-				findInteracting(pdbId, pdbStruct, chain1, chain2, trId1, trId2);
+				findInteracting(pdbId, pdbStruct, chain1, chain2);
 			}
 		}
 	}
