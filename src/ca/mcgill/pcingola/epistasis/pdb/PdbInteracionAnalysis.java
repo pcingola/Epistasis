@@ -26,7 +26,9 @@ import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
 import ca.mcgill.pcingola.epistasis.coordinates.MsaCoordinates;
 import ca.mcgill.pcingola.epistasis.coordinates.PdbCoordinate;
+import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
 public class PdbInteracionAnalysis {
@@ -179,14 +181,20 @@ public class PdbInteracionAnalysis {
 
 					// Calculate LL(MSA)
 					String llstr = interactionLikelihood.logLikelihoodRatioStr(msa1.msaId, msa1.msaIdx, msa2.msaId, msa2.msaIdx, false, neighbours);
+
 					if (llstr != null) {
+
+						// Calculate Mutual Information
+						double mi = mi(msa1, msa2);
+
 						System.out.println(dmin //
 								+ "\t" + llstr //
 								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName1 + "[" + aaIdx1 + "]" //
 								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName2 + "[" + aaIdx1 + "]" //
 								+ "\t" + gene1 //
 								+ "\t" + gene2 //
-						);
+								+ "\t" + mi //
+								);
 						countLl++;
 					}
 				}
@@ -272,6 +280,19 @@ public class PdbInteracionAnalysis {
 		if (verbose) Timer.showStdErr("Count OK: " + countOk + " / " + lines.length);
 		Collections.sort(pdbIdsOk);
 		return pdbIdsOk;
+	}
+
+	/**
+	 * Calculate mutual information
+	 */
+	double mi(MsaCoordinates msa1, MsaCoordinates msa2) {
+		MultipleSequenceAlignment m1 = msas.getMsa(msa1.msaId);
+		String colSeq1 = m1.getColumnString(msa1.msaIdx);
+
+		MultipleSequenceAlignment m2 = msas.getMsa(msa2.msaId);
+		String colSeq2 = m2.getColumnString(msa2.msaIdx);
+
+		return EntropySeq.mutualInformation(colSeq1, colSeq2);
 	}
 
 	/**

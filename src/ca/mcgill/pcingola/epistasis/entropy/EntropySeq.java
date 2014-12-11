@@ -24,6 +24,18 @@ public class EntropySeq {
 	public static boolean debug = false;
 	public static final double LOG_2 = Math.log(2.0);;
 
+	final short ONE = 1;
+
+	int count = 0;
+
+	double mi, varInf, hxy, hx, hy, hcondXY, hcondYX;
+
+	TObjectIntHashMap<String> countI = new TObjectIntHashMap<>();
+
+	TObjectIntHashMap<String> countJ = new TObjectIntHashMap<>();
+
+	TObjectIntHashMap<String> countIJ = new TObjectIntHashMap<>();
+
 	/**
 	 * Conditional entropy
 	 */
@@ -424,13 +436,6 @@ public class EntropySeq {
 		return variationOfInformation(codei, codej);
 	}
 
-	final short ONE = 1;
-	int count = 0;
-	double mi, varInf, hxy, hx, hy, hcondXY, hcondYX;
-	TObjectIntHashMap<String> countI = new TObjectIntHashMap<>();
-	TObjectIntHashMap<String> countJ = new TObjectIntHashMap<>();
-	TObjectIntHashMap<String> countIJ = new TObjectIntHashMap<>();
-
 	public EntropySeq() {
 	}
 
@@ -551,7 +556,7 @@ public class EntropySeq {
 		for (int i = 0; i < seqs.length; i++)
 			bases[i] = seqs[i] != null ? seqs[i].charAt(idx) : ' ';
 
-		return new String(bases);
+			return new String(bases);
 	}
 
 }
