@@ -135,12 +135,16 @@ public class PdbInteracionAnalysis {
 			Gpr.debug("AA seq 2: " + aaSequence(pdbStruct, chainName2));
 		}
 
+		double sum = 0;
+		int count = 0;
 		for (AminoAcid aa1 : aas1) {
 			MsaCoordinates msa1 = null;
 			int aaIdx1 = aa1.getResidueNumber().getSeqNum() - 1;
 
 			for (AminoAcid aa2 : aas2) {
 				double dmin = distanceMin(aa1, aa2);
+				sum += dmin;
+				count++;
 				if (dmin <= distanceThreshold) {
 					int aaIdx2 = aa2.getResidueNumber().getSeqNum() - 1;
 
@@ -166,6 +170,9 @@ public class PdbInteracionAnalysis {
 				}
 			}
 		}
+
+		double avg = count > 0 ? sum / count : Double.POSITIVE_INFINITY;
+		System.err.println("Average distance: " + avg + "\t number of pairs: " + count);
 	}
 
 	String getMolecule(String pdbId, String chain) {
