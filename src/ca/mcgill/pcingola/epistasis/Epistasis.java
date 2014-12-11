@@ -566,7 +566,8 @@ public class Epistasis implements CommandLine {
 			String pdbFileList = args[argNum++];
 
 			distThreshold = Gpr.parseDoubleSafe(args[argNum++]);
-			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[argNum - 1] + "'");
+			if (distThreshold == 0) usage("Distnce must be a non-zero number: '" + args[argNum - 1] + "'");
+			if (distThreshold < 0) Gpr.debug("WARNIGN: Negative distance means 'separated more than |distance|'. Looking for AAs separated more than " + Math.abs(distThreshold) + " Angstroms");
 
 			neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
 			if (neighbours < 0) usage("Neighbours must be a non-negative number: '" + args[argNum - 1] + "'");
