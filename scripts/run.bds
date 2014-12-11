@@ -511,7 +511,7 @@ if( step7 ) {
 
 for(int neigh=1; neigh < 5 ; neigh++ ) {
 	llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.txt"
-	task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound]) {
+	task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound], cpus := 1) {
 		sys $cmdEpistasis likelihoodpdbinteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $aaContactDist $neigh | tee $llCompound
 	}
 }
