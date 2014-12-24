@@ -62,7 +62,7 @@ bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
 javaNativeLibs      := "$dir/lib"
 javaGC		        := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
 javaMem		        := "4G"
-javaMemXL	        := "20G"
+javaMemXL	        := "10G"
 java		        := "java -Xmx$javaMem $javaGC "
 javaXL		        := "java -Xmx$javaMemXL $javaGC "
 cmdEpistasis        := "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
@@ -451,7 +451,7 @@ if( step6 ) {
 			println "\t$i $j / $numSplits"
 			gwasOut := "$dirGwasOut/gwas.$numSplits.$i.$j.txt"
 
-			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat2, aaFreqs, aa2Freqs] ) {
 				sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
 			}
 		}

@@ -76,7 +76,7 @@ public class IRWLS extends Minimizer {
 		// Step II: Solve weighted least square problem
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
 		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) {
-			Gpr.debug("Cannot perform regression!");
+			Gpr.debug("Cannot perform regression:\n" + this);
 			return false;
 		}
 
@@ -84,5 +84,18 @@ public class IRWLS extends Minimizer {
 		logReg.setTheta(wlr.getCoefficients());
 
 		return true;
+	}
+
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(super.toString());
+		sb.append("\titerationNum: " + iterationNum);
+		sb.append("\tzeta: " + Gpr.toString(zeta));
+		sb.append("\tw: " + Gpr.toString(w));
+		sb.append("\t" + logReg);
+
+		return sb.toString();
 	}
 }

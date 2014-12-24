@@ -214,4 +214,19 @@ public class LogisticRegression extends Regression {
 		this.minGradient = minGradient;
 	}
 
+	@Override
+	public String toString() {
+		StringBuilder sb = new StringBuilder();
+		sb.append("LogisticRegression:" + super.toString());
+
+		sb.append("\tlogLik: " + loglik);
+
+		sb.append("\th: [");
+		for (int i = 0; i < h.length; i++)
+			sb.append(" " + h[i]);
+		sb.append("]\t");
+
+		return sb.toString();
+	}
+
 }

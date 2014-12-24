@@ -37,8 +37,8 @@ public class GwasEpistasis {
 	public static double SHOW_LINE_LL_MIN = 1.0;
 	public static int MINOR_ALLELE_COUNT = 5;
 	public static double LL_THRESHOLD_LOGREG = 6.0;
-	public static double LL_THRESHOLD_MSA = 2.0;
-	public static double LL_THRESHOLD_TOTAL = 20.0;
+	public static double LL_THRESHOLD_MSA = 0.0;
+	public static double LL_THRESHOLD_TOTAL = 5.0;
 
 	// Splits information
 	boolean analyzeAllPairs = false; // Use for testing and debugging
@@ -134,13 +134,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
-				double llTot = gwasRes.logLik();
-				if (llTot > llThresholdLogReg) countLl.inc();
-				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-			});
+					.parallel() //
+					.forEach(j -> {
+						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
+						double llTot = gwasRes.logLik();
+						if (llTot > llThresholdLogReg) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+					});
 		}
 	}
 
@@ -156,7 +156,7 @@ public class GwasEpistasis {
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
-		if (gwasRes.logLikelihoodLogReg < llThresholdLogReg) return gwasRes;
+		if (gwasRes.logLikelihoodRatioLogReg < llThresholdLogReg) return gwasRes;
 
 		// Calculate p-value form logistic regression likelihood test
 		gwasRes.pvalueLogReg();
@@ -178,7 +178,7 @@ public class GwasEpistasis {
 		interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, gwasRes);
 
 		// Epistatic likelihood model too low? => Don't bother to calculate next part
-		if (gwasRes.logLik() < LL_THRESHOLD_TOTAL && gwasRes.logLikelihoodMsa < llThresholdMsa) return gwasRes;
+		if (gwasRes.logLik() < LL_THRESHOLD_TOTAL && gwasRes.logLikelihoodRatioMsa < llThresholdMsa) return gwasRes;
 
 		//---
 		// Calculate Bayes Factor using Laplace approximation maethod
@@ -294,7 +294,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**

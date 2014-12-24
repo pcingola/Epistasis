@@ -22,7 +22,7 @@ public class LikelihoodAaNeigh {
 	public LikelihoodAaNeigh(String direction, GwasResult gwasResult) {
 		this.direction = direction;
 		update(gwasResult);
-		logLikelihoodRatioMiddle = gwasResult.logLikelihoodMsa;
+		logLikelihoodRatioMiddle = gwasResult.logLikelihoodRatioMsa;
 	}
 
 	public double getAvgLogLikAlt() {
@@ -53,7 +53,7 @@ public class LikelihoodAaNeigh {
 	}
 
 	public void update(GwasResult gwasRes) {
-		logLikelihoodRatio += gwasRes.logLikelihoodMsa;
+		logLikelihoodRatio += gwasRes.logLikelihoodRatioMsa;
 		logLikelihoodNull += Math.log(gwasRes.likelihoodMsaNull);
 		logLikelihoodAlt += Math.log(gwasRes.likelihoodMsaAlt);
 		count++;

@@ -495,7 +495,7 @@ public class InteractionLikelihood {
 		// Update 'GwasResult'
 		gwasRes.likelihoodMsaNull = likNull;
 		gwasRes.likelihoodMsaAlt = likAlt;
-		gwasRes.logLikelihoodMsa = logLikRatio;
+		gwasRes.logLikelihoodRatioMsa = logLikRatio;
 
 		return logLikRatio;
 	}

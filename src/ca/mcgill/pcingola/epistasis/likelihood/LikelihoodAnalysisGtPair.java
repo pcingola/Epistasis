@@ -271,10 +271,10 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 		//---
 		// Create 'result' object
 		//---
-		GwasResult gwasRes = new GwasResult();
-		gwasRes.genoi = genoi;
-		gwasRes.genoj = genoj;
-		gwasRes.gtij = gtij;
+		GwasResult gwasResult = new GwasResult();
+		gwasResult.genoi = genoi;
+		gwasResult.genoj = genoj;
+		gwasResult.gtij = gtij;
 
 		//---
 		// Sanity checks
@@ -285,7 +285,7 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 		if (countGtij < minSharedVariants) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
 			countModel(null);
-			return gwasRes; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
+			return gwasResult; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
 		}
 
 		// Are gti[], gtj[] and gtij[] linearly dependent?
@@ -293,7 +293,7 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 		if (linearDependency(skip, countSkip, gti, gtj, gtij)) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
 			countModel(null);
-			return gwasRes; // Linear dependency? Log-likelihood is exactly zero (by definition).
+			return gwasResult; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
 		//---
@@ -304,14 +304,14 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
 
 		// Calculate 'Null' model (or retrieve from cache)
-		LogisticRegression lrNull = createNullModel(skip, countSkip, phenoNonSkip, gti, gtj);
-		lrNull.learn();
-		double llNull = lrNull.logLikelihood();
+		LogisticRegression logRegrNull = createNullModel(skip, countSkip, phenoNonSkip, gti, gtj);
+		logRegrNull.learn();
+		double llNull = logRegrNull.logLikelihood();
 
 		// Create and calculate 'Alt' model
-		LogisticRegression lrAlt = createAltModel(skip, countSkip, phenoNonSkip, gti, gtj, gtij);
-		lrAlt.learn();
-		double llAlt = lrAlt.logLikelihood();
+		LogisticRegression logRegrAlt = createAltModel(skip, countSkip, phenoNonSkip, gti, gtj, gtij);
+		logRegrAlt.learn();
+		double llAlt = logRegrAlt.logLikelihood();
 
 		// Calculate likelihood ratio
 		double ll = 2.0 * (llAlt - llNull);
@@ -325,17 +325,17 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 			// ALT data
 			String fileName = Gpr.HOME + "/lr_test." + idd + ".alt.txt";
 			Gpr.debug("Writing 'alt data' table to :" + fileName);
-			Gpr.toFile(fileName, lrAlt.toStringSamples());
+			Gpr.toFile(fileName, logRegrAlt.toStringSamples());
 
 			// NULL data
 			fileName = Gpr.HOME + "/lr_test." + idd + ".null.txt";
 			Gpr.debug("Writing 'null data' table to :" + fileName);
-			Gpr.toFile(fileName, lrNull.toStringSamples());
+			Gpr.toFile(fileName, logRegrNull.toStringSamples());
 
 			// ALT model
 			fileName = Gpr.HOME + "/lr_test." + idd + ".alt.model.txt";
 			Gpr.debug("Writing 'alt model' to :" + fileName);
-			Gpr.toFile(fileName, lrAlt.toStringModel());
+			Gpr.toFile(fileName, logRegrAlt.toStringModel());
 		}
 
 		//---
@@ -356,27 +356,27 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 						+ "\tLL_alt: " + llAlt //
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
-						+ (verbose ? "\n\tModel Alt  : " + lrAlt + "\n\tModel Null : " + lrNull : "") //
+						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
 						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else {
 			// Show error
 			Gpr.debug("ERROR: Likelihood ratio is infinite! ID: " + id //
-					+ "\n\tLR.null : " + lrNull //
-					+ "\n\tLR.alt  : " + lrAlt //
+					+ "\n\tLR.null : " + logRegrNull //
+					+ "\n\tLR.alt  : " + logRegrAlt //
 					+ "\n\tLL.null : " + llNull //
 					+ "\n\tLL.alt  : " + llAlt //
 					);
 		}
 
-		countModel(lrAlt, lrNull);
+		countModel(logRegrAlt, logRegrNull);
 
 		// Get all data into GwasData structure
-		gwasRes.logLikelihoodLogReg = ll;
-		gwasRes.lrAlt = lrAlt;
-		gwasRes.lrNull = lrNull;
+		gwasResult.logLikelihoodRatioLogReg = ll;
+		gwasResult.logisticRegressionAlt = logRegrAlt;
+		gwasResult.logisticRegressionNull = logRegrNull;
 
-		return gwasRes;
+		return gwasResult;
 	}
 
 	@Override
