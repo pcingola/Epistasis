@@ -1,13 +1,27 @@
 
-savePng <- T
+savePng <- F
 
-pratio <- function(x) {
+cummProbRatio <- function(x) {
 	p.int <- sum( ll.int >= x ) / length( ll.int ) 
 	p.non <- sum( ll.non >= x ) / length( ll.non ) 
 	return(p.int / p.non)
 }
 
+probRatio <- function(x) {
+	xmin <- x - 0.5
+	xmax <- x + 0.5
+
+	keep <- (xmin <= ll.int) & (ll.int <= xmax)
+	p.int <- sum( keep ) / length( ll.int ) 
+
+	keep <- (xmin <= ll.non) & (ll.non <= xmax)
+	p.non <- sum( keep ) / length( ll.non ) 
+
+	return(p.int / p.non)
+}
+
 if( savePng )	png(width=1024, height=1024)
+
 for( neigh in 1:1 ) {
 	cat('\nNeighbours:', neigh, '\n')
 	d.int <- read.table(paste('likelihood.pdb_compound.neigh_', neigh, '.3.0.txt', sep=''), header=F, sep='\t')
@@ -59,15 +73,27 @@ for( neigh in 1:1 ) {
 # 
 # if( savePng )	dev.off()
 
-
 #---
-# Plot odds ratio
+# Plot odds ratio ('density' probability)
 #---
 x <- seq(-10,10,0.05)
-y <- sapply(x, pratio)
+y <- sapply(x, probRatio)
 ly <- log(y) 
-plot( x, ly, main='Log-Odds ratio', sub='log{ P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ] }', cex=0.5, xlab='LL(MSA)', ylab='log( Odds )', ylim=c(0, 3))
+plot( x, ly, main='Log-Odds ratio', sub='log{ P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ] }', cex=0.5, xlab='LL(MSA)', ylab='log( Odds )')
 lines( supsmu(x, ly), col='red' )
+
+#---
+# Plot odds ratio (cummulative probability)
+#---
+x <- seq(-10,10,0.05)
+y <- sapply(x, cummProbRatio)
+ly <- log(y) 
+plot( x, ly, main='Log-Odds ratio (Cumm Prob)', sub='log{ P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ] }', cex=0.5, xlab='LL(MSA)', ylab='log( Odds )', ylim=c(0, 3))
+lines( supsmu(x, ly), col='red' )
+
+lly <- log(log(y))
+llymodel <- lm( lly ~ x )
+
 
 # Close graphics device
 if( savePng )	dev.off()
