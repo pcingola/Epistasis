@@ -172,9 +172,7 @@ public abstract class Energy {
 	public String toString() {
 		return "Energy: " + (energyNeedsUpdate ? "[Needs update]" : "") //
 				+ energy //
-				//
 				+ "\ttheta: " + Gpr.toString(theta) //
-				//
 				+ "\tgradient[theta] " //
 				+ (gradientNeedsUpdate ? "[Needs update]" : "") //
 				+ ": " + Gpr.toString(gradient);

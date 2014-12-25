@@ -111,7 +111,7 @@ public class LikelihoodAnalysisGt {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
 	}
@@ -357,7 +357,7 @@ public class LikelihoodAnalysisGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
@@ -459,8 +459,10 @@ public class LikelihoodAnalysisGt {
 			if (countAlt > 0) {
 				lrAlt.setZeroThetaBeforeLearn(false);
 
-				for (int i = 0; i < thetaAltSum.length; i++)
+				for (int i = 0; i < thetaAltSum.length; i++) {
 					theta[i] += thetaAltSum[i] / countAlt;
+					if (Double.isInfinite(theta[i]) || Double.isNaN(theta[i])) throw new RuntimeException("Infinite or NaN: theta[i] = " + theta[i]);
+				}
 			}
 
 			lrAlt.setModel(theta);
@@ -477,8 +479,10 @@ public class LikelihoodAnalysisGt {
 			if (countNull > 0) {
 				lrNull.setZeroThetaBeforeLearn(false);
 
-				for (int i = 0; i < thetaNullSum.length; i++)
+				for (int i = 0; i < thetaNullSum.length; i++) {
 					theta[i] += thetaNullSum[i] / countNull;
+					if (Double.isInfinite(theta[i]) || Double.isNaN(theta[i])) throw new RuntimeException("Infinite or NaN: theta[i] = " + theta[i]);
+				}
 			}
 
 			lrNull.setModel(theta);

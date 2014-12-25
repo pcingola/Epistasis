@@ -93,7 +93,7 @@ public class GwasResult {
 					+ "\n\tAlt  : " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\n\tNull :             " + Gpr.toString(logisticRegressionNull.getTheta()) //
 
-			;
+					;
 		}
 
 		return "log(BF): " + log10BayesFactor //
@@ -108,7 +108,7 @@ public class GwasResult {
 				+ "\t" + genoi.getId() //
 				+ "\t" + genoj.getId() //
 				+ additionalStr //
-		;
+				;
 
 	}
 }
