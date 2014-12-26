@@ -76,7 +76,7 @@ public class IRWLS extends Minimizer {
 		// Step II: Solve weighted least square problem
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
 		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) {
-			String msg = "Cannot perform regression:" //
+			String msg = "ERROR: Cannot perform regression." //
 					+ "\n\teta  (" + eta.length + "): " + Gpr.toStringHead(eta) //
 					+ "\n\tmu   (" + mu.length + "): " + Gpr.toStringHead(mu) //
 					+ "\n\tw    (" + w.length + "): " + Gpr.toStringHead(w) //
