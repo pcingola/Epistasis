@@ -77,12 +77,12 @@ public class IRWLS extends Minimizer {
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
 		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) {
 			String msg = "ERROR: Cannot perform regression." //
-					+ "\n\teta  (" + eta.length + "): " + Gpr.toStringHead(eta) //
-					+ "\n\tmu   (" + mu.length + "): " + Gpr.toStringHead(mu) //
-					+ "\n\tw    (" + w.length + "): " + Gpr.toStringHead(w) //
-					+ "\n\tzeta (" + zeta.length + "): " + Gpr.toStringHead(zeta) //
-					+ "\n\tEnergy: " + energy//
-					+ "\n\tIRWLS: " + this //
+			//					+ "\n\teta  (" + eta.length + "): " + Gpr.toStringHead(eta) //
+			//					+ "\n\tmu   (" + mu.length + "): " + Gpr.toStringHead(mu) //
+			//					+ "\n\tw    (" + w.length + "): " + Gpr.toStringHead(w) //
+			//					+ "\n\tzeta (" + zeta.length + "): " + Gpr.toStringHead(zeta) //
+			//					+ "\n\tEnergy: " + energy//
+			//					+ "\n\tIRWLS: " + this //
 			;
 			Gpr.debug(msg);
 			return false;
