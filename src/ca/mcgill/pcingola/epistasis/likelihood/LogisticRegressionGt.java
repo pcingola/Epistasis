@@ -21,7 +21,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
  */
 public class LogisticRegressionGt {
 
-	public static final double MAX_THETA_AVS_VALUE = 5.0; // Do not count average theta values over this number. They are likely to be numerical stability errors
+	//	public static final double MAX_THETA_AVS_VALUE = 5.0; // Do not count average theta values over this number. They are likely to be numerical stability errors
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
 	String phenoCovariatesFileName = Gpr.HOME + "/snpeff/epistasis/pheno.txt";
@@ -32,13 +32,14 @@ public class LogisticRegressionGt {
 	boolean writeToFile = false;
 	int numSamples;
 	int numCovariates;
-	int count = 0, countAlt = 0, countNull = 0;
+	int count = 0;
+	// , countAlt = 0, countNull = 0;
 	int covariatesToNormalize[] = { 10, 11 };
 	int numGtAlt = 1, numGtNull = 0;
 	int deltaDf = 1; // Difference in degrees of freedom between Alt and Null model
 	double covariates[][];
 	double pheno[];
-	double thetaAltSum[], thetaNullSum[]; // Use current average as initial values for parameter estimates
+	//	double thetaAltSum[], thetaNullSum[]; // Use current average as initial values for parameter estimates
 	double logLik = 0;
 	double logLikMax = Double.NEGATIVE_INFINITY;
 	String logLikInfoField; // If not null, an INFO field is added
@@ -113,7 +114,7 @@ public class LogisticRegressionGt {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-			); }
+					); }
 			snum++;
 		}
 	}
@@ -129,23 +130,23 @@ public class LogisticRegressionGt {
 		return dd;
 	}
 
-	/**
-	 * Keep track of the 'average' theta values (Alt model)
-	 */
-	protected void countModel(LogisticRegression lrAlt) {
-		synchronized (thetaAltSum) {
-			if (lrAlt != null) {
-				double theta[] = lrAlt.getTheta();
-				if (hasError(theta)) return;
-
-				// Add results
-				for (int i = 0; i < theta.length; i++)
-					thetaAltSum[i] += theta[i];
-
-				countAlt++;
-			}
-		}
-	}
+	//	/**
+	//	 * Keep track of the 'average' theta values (Alt model)
+	//	 */
+	//	protected void countModel(LogisticRegression lrAlt) {
+	//		synchronized (thetaAltSum) {
+	//			if (lrAlt != null) {
+	//				double theta[] = lrAlt.getTheta();
+	//				if (hasError(theta)) return;
+	//
+	//				// Add results
+	//				for (int i = 0; i < theta.length; i++)
+	//					thetaAltSum[i] += theta[i];
+	//
+	//				countAlt++;
+	//			}
+	//		}
+	//	}
 
 	/**
 	 * Create alternative model
@@ -178,7 +179,7 @@ public class LogisticRegressionGt {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
-		setAvgThetaAltModel(lrAlt);
+		//		setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 		return lrAlt;
@@ -235,8 +236,7 @@ public class LogisticRegressionGt {
 		for (int i = 0; i < theta.length; i++) {
 			if (Double.isNaN(theta[i]) // Is it NaN?
 					|| Double.isInfinite(theta[i]) // Id it infinite?
-					|| Math.abs(theta[i]) > MAX_THETA_AVS_VALUE // Is it too large?
-			) return true;
+					) return true;
 		}
 		return false;
 	}
@@ -247,9 +247,9 @@ public class LogisticRegressionGt {
 		//---
 		loadPhenoAndCovariates(phenoCovariatesFileName);
 
-		// Initialize
-		thetaAltSum = new double[numCovariates + numGtAlt + 1];
-		thetaNullSum = new double[numCovariates + numGtNull + 1];
+		//		// Initialize
+		//		thetaAltSum = new double[numCovariates + numGtAlt + 1];
+		//		thetaNullSum = new double[numCovariates + numGtNull + 1];
 
 		//---
 		// Read VCF file and run analysis
@@ -367,11 +367,11 @@ public class LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
-		countModel(lrAlt);
+		//		countModel(lrAlt);
 		count++;
 
 		return ll;
@@ -459,43 +459,43 @@ public class LogisticRegressionGt {
 		return list;
 	}
 
-	/**
-	 * Set initial parameters ('guess') as the average ALT models found so far
-	 */
-	void setAvgThetaAltModel(LogisticRegression lrAlt) {
-		synchronized (thetaAltSum) {
-			double theta[] = new double[thetaAltSum.length];
-
-			if (countAlt > 0) {
-				lrAlt.setZeroThetaBeforeLearn(false);
-
-				for (int i = 0; i < thetaAltSum.length; i++)
-					theta[i] += thetaAltSum[i] / countAlt;
-			}
-
-			lrAlt.setModel(theta);
-			Gpr.debug("Avg theta (Alt model): " + Gpr.toString(theta));
-		}
-	}
-
-	/**
-	 * Set initial parameters ('guess') as the average Null models found so far
-	 */
-	void setAvgThetaNullModel(LogisticRegression lrNull) {
-		synchronized (thetaNullSum) {
-			double theta[] = new double[thetaNullSum.length];
-
-			if (countNull > 0) {
-				lrNull.setZeroThetaBeforeLearn(false);
-
-				for (int i = 0; i < thetaNullSum.length; i++)
-					theta[i] += thetaNullSum[i] / countNull;
-			}
-
-			lrNull.setModel(theta);
-			// Gpr.debug("Avg theta (Null model): " + Gpr.toString(theta));
-		}
-	}
+	//	/**
+	//	 * Set initial parameters ('guess') as the average ALT models found so far
+	//	 */
+	//	void setAvgThetaAltModel(LogisticRegression lrAlt) {
+	//		synchronized (thetaAltSum) {
+	//			double theta[] = new double[thetaAltSum.length];
+	//
+	//			if (countAlt > 0) {
+	//				lrAlt.setZeroThetaBeforeLearn(false);
+	//
+	//				for (int i = 0; i < thetaAltSum.length; i++)
+	//					theta[i] += thetaAltSum[i] / countAlt;
+	//			}
+	//
+	//			lrAlt.setModel(theta);
+	//			Gpr.debug("Avg theta (Alt model): " + Gpr.toString(theta));
+	//		}
+	//	}
+	//
+	//	/**
+	//	 * Set initial parameters ('guess') as the average Null models found so far
+	//	 */
+	//	void setAvgThetaNullModel(LogisticRegression lrNull) {
+	//		synchronized (thetaNullSum) {
+	//			double theta[] = new double[thetaNullSum.length];
+	//
+	//			if (countNull > 0) {
+	//				lrNull.setZeroThetaBeforeLearn(false);
+	//
+	//				for (int i = 0; i < thetaNullSum.length; i++)
+	//					theta[i] += thetaNullSum[i] / countNull;
+	//			}
+	//
+	//			lrNull.setModel(theta);
+	//			// Gpr.debug("Avg theta (Null model): " + Gpr.toString(theta));
+	//		}
+	//	}
 
 	public void setDebug(boolean debug) {
 		this.debug = debug;
