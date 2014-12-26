@@ -95,13 +95,13 @@ public class GwasResult {
 					+ "\n\tAlt  : " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\n\tNull :             " + Gpr.toString(logisticRegressionNull.getTheta()) //
 
-					;
+			;
 		}
 
 		return "log(BF): " + log10BayesFactor //
 				+ "\tll_total: " + llt //
 				// Logistic regression information
-				+ "\tog(BF_LogReg): " + log10BayesFactorLogReg //
+				+ "\tlog(BF_LogReg): " + log10BayesFactorLogReg //
 				+ "\tp-value(LogReg): " + pvalueLogReg //
 				+ "\tllr_LogReg: " + logLikelihoodRatioLogReg //
 				+ "\tll_LogReg_ALT: " + (logisticRegressionAlt != null ? "" + logisticRegressionAlt.logLikelihood() : "") //
@@ -113,7 +113,7 @@ public class GwasResult {
 				+ "\t" + genoi.getId() //
 				+ "\t" + genoj.getId() //
 				+ additionalStr //
-				;
+		;
 
 	}
 }
