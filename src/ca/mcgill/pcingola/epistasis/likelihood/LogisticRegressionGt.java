@@ -21,7 +21,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
  */
 public class LogisticRegressionGt {
 
-	public static final double MAX_THETA_AVS_VALUE = 10.0; // Do not count average theta values over this number. They are likely to be numerical stability errors
+	public static final double MAX_THETA_AVS_VALUE = 3.0; // Do not count average theta values over this number. They are likely to be numerical stability errors
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
 	String phenoCovariatesFileName = Gpr.HOME + "/snpeff/epistasis/pheno.txt";
