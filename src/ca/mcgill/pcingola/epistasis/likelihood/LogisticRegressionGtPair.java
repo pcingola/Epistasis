@@ -44,9 +44,41 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 			zzz.setLogLikInfoField(VCF_INFO_LOG_LIKELIHOOD);
 		}
 
-		zzz.run(debug);
+		zzz.init();
+		zzz.run();
 
 		Timer.showStdErr("End");
+	}
+
+	@Override
+	public void run() {
+		//---
+		// Read VCF file
+		//---
+		List<Genotype> gts = new ArrayList<Genotype>(); // Store genotypes for split_i
+		Timer.showStdErr("Reading vcf file '" + vcfFileName + "'");
+		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
+		for (VcfEntry ve : vcf) {
+			// Store VCF entry
+			Genotype geno = new Genotype(ve);
+			gts.add(geno);
+		}
+
+		//---
+		// Calculate likelihoods
+		//---
+		int count = 1;
+		for (int idxi = 0; idxi < gts.size(); idxi++) {
+			for (int idxj = idxi + 1; idxj < gts.size(); idxj++) {
+				Genotype gti = gts.get(idxi);
+				Genotype gtj = gts.get(idxj);
+				if (verbose) System.out.println(gti + "\t" + gtj);
+
+				GwasResult gwasResult = logLikelihood(gti, gtj);
+				if (verbose) System.out.println(gwasResult);
+				else Gpr.showMark(count++, 100);
+			}
+		}
 	}
 
 	public LogisticRegressionGtPair(String args[]) {
@@ -160,7 +192,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
-		setAvgThetaAltModel(lrAlt);
+		// setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 
@@ -194,7 +226,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrNull.setSamplesAddIntercept(xNull, phenoNonSkip);
 		lrNull.setDebug(debug);
-		setAvgThetaNullModel(lrNull);
+		// setAvgThetaNullModel(lrNull);
 
 		this.lrNull = lrNull;
 		return lrNull;
@@ -281,7 +313,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//---
 
 		// No samples has both variants? Then there is not much to do.
-		// To few shared varaints? We probably don't have enough statistical power anyways (not worth analysing)
+		// To few shared variants? We probably don't have enough statistical power anyways (not worth analysing)
 		if (countGtij < minSharedVariants) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
 			countModel(null);

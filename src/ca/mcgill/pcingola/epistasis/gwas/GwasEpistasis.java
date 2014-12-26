@@ -153,13 +153,7 @@ public class GwasEpistasis {
 		//---
 		LogisticRegressionGtPair llan = getLikelihoodAnalysis2();
 		GwasResult gwasRes;
-		try {
-			gwasRes = llan.logLikelihood(genoi, genoj);
-		} catch (Throwable t) {
-			Gpr.debug("Effor processing genotypes:\n\tgenoi: " + genoi + "\n\tgenoj: " + genoj + "\n");
-			t.printStackTrace();
-			return null;
-		}
+		gwasRes = llan.logLikelihood(genoi, genoj);
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part

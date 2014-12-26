@@ -23,9 +23,8 @@ public class LogisticRegressionGt {
 
 	public static String VCF_INFO_LOG_LIKELIHOOD = "LL";
 
-	String phenoCovariatesFileName = Gpr.HOME + "/t2d1/coEvolution/coEvolution.pheno.covariates.txt";
-	//	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/hm.chr1.gt.vcf";
-	String vcfFileName = Gpr.HOME + "/t2d1/vcf/eff/z.vcf";
+	String phenoCovariatesFileName = Gpr.HOME + "/snpeff/epistasis/pheno.txt";
+	String vcfFileName = Gpr.HOME + "/snpeff/epistasis/gwas.vcf";
 
 	boolean debug = false;
 	boolean verbose = false;
@@ -59,15 +58,17 @@ public class LogisticRegressionGt {
 			zzz.setLogLikInfoField(VCF_INFO_LOG_LIKELIHOOD);
 		}
 
-		zzz.run(debug);
+		zzz.run();
 
 		Timer.showStdErr("End");
 	}
 
 	public LogisticRegressionGt(String args[]) {
-		if (args.length > 1) {
+		if (args.length == 2) {
 			phenoCovariatesFileName = args[0];
 			vcfFileName = args[1];
+		} else {
+			System.err.println("Usage: " + this.getClass().getSimpleName() + " phenoCovariatesFileName.txt file.vcf");
 		}
 	}
 
@@ -111,7 +112,7 @@ public class LogisticRegressionGt {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
 	}
@@ -357,7 +358,7 @@ public class LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
