@@ -50,37 +50,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		Timer.showStdErr("End");
 	}
 
-	@Override
-	public void run() {
-		//---
-		// Read VCF file
-		//---
-		List<Genotype> gts = new ArrayList<Genotype>(); // Store genotypes for split_i
-		Timer.showStdErr("Reading vcf file '" + vcfFileName + "'");
-		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
-		for (VcfEntry ve : vcf) {
-			// Store VCF entry
-			Genotype geno = new Genotype(ve);
-			gts.add(geno);
-		}
-
-		//---
-		// Calculate likelihoods
-		//---
-		int count = 1;
-		for (int idxi = 0; idxi < gts.size(); idxi++) {
-			for (int idxj = idxi + 1; idxj < gts.size(); idxj++) {
-				Genotype gti = gts.get(idxi);
-				Genotype gtj = gts.get(idxj);
-				if (verbose) System.out.println(gti + "\t" + gtj);
-
-				GwasResult gwasResult = logLikelihood(gti, gtj);
-				if (verbose) System.out.println(gwasResult);
-				else Gpr.showMark(count++, 100);
-			}
-		}
-	}
-
 	public LogisticRegressionGtPair(String args[]) {
 		super(args);
 		numGtAlt = 3;
@@ -123,13 +92,8 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 			if (lrAlt != null) {
 				double theta[] = lrAlt.getTheta();
 
-				// Check that there are no errors
-				boolean err = true;
-				for (int i = 0; i < theta.length; i++)
-					err &= Double.isNaN(theta[i]) || Double.isInfinite(theta[i]);
-
 				// Add if no errors
-				if (!err) {
+				if (!hasError(theta)) {
 					for (int i = 0; i < theta.length; i++)
 						thetaAltSum[i] += theta[i];
 
@@ -140,13 +104,8 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 			if (lrNull != null) {
 				double theta[] = lrNull.getTheta();
 
-				// Check that there are no errors
-				boolean err = true;
-				for (int i = 0; i < theta.length; i++)
-					err &= Double.isNaN(theta[i]) || Double.isInfinite(theta[i]);
-
-				// Add if no errors
-				if (!err) {
+				// Add, if no errrors
+				if (!hasError(theta)) {
 					for (int i = 0; i < theta.length; i++)
 						thetaNullSum[i] += theta[i];
 
@@ -389,7 +348,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else {
 			// Show error
@@ -398,7 +357,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 					+ "\n\tLR.alt  : " + logRegrAlt //
 					+ "\n\tLL.null : " + llNull //
 					+ "\n\tLL.alt  : " + llAlt //
-			);
+					);
 		}
 
 		countModel(logRegrAlt, logRegrNull);
@@ -409,6 +368,37 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		gwasResult.logisticRegressionNull = logRegrNull;
 
 		return gwasResult;
+	}
+
+	@Override
+	public void run() {
+		//---
+		// Read VCF file
+		//---
+		List<Genotype> gts = new ArrayList<Genotype>(); // Store genotypes for split_i
+		Timer.showStdErr("Reading vcf file '" + vcfFileName + "'");
+		VcfFileIterator vcf = new VcfFileIterator(vcfFileName);
+		for (VcfEntry ve : vcf) {
+			// Store VCF entry
+			Genotype geno = new Genotype(ve);
+			gts.add(geno);
+		}
+
+		//---
+		// Calculate likelihoods
+		//---
+		int count = 1;
+		for (int idxi = 0; idxi < gts.size(); idxi++) {
+			for (int idxj = idxi + 1; idxj < gts.size(); idxj++) {
+				Genotype gti = gts.get(idxi);
+				Genotype gtj = gts.get(idxj);
+				if (verbose) System.out.println(gti + "\t" + gtj);
+
+				GwasResult gwasResult = logLikelihood(gti, gtj);
+				if (verbose) System.out.println(gwasResult);
+				else Gpr.showMark(count++, 100);
+			}
+		}
 	}
 
 	@Override
@@ -435,17 +425,17 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//---
 
 		IntStream.range(0, keys.size()) //
-				.parallel() //
-				.forEach(i -> {
-					for (int j = i + 1; j < keys.size(); j++) {
-						String keyi = keys.get(i);
-						String keyj = keys.get(j);
-						Genotype gti = gtByKey.get(keyi);
-						Genotype gtj = gtByKey.get(keyj);
+		.parallel() //
+		.forEach(i -> {
+			for (int j = i + 1; j < keys.size(); j++) {
+				String keyi = keys.get(i);
+				String keyj = keys.get(j);
+				Genotype gti = gtByKey.get(keyi);
+				Genotype gtj = gtByKey.get(keyj);
 
-						logLikelihood(gti, gtj);
-					}
-				});
+				logLikelihood(gti, gtj);
+			}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 
