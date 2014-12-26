@@ -14,7 +14,6 @@ import ca.mcgill.pcingola.optimizers.SteepestDecent;
 public abstract class Regression extends Energy {
 
 	boolean debug = false;
-	boolean zeroThetaBeforeLearn = true;
 	protected boolean predictNeedsUpdate = true;
 	int numSamples;
 	int size;
@@ -69,7 +68,7 @@ public abstract class Regression extends Energy {
 	 */
 	public double[] learn() {
 		if (rand != null) initModelRand();
-		else if (zeroThetaBeforeLearn) Arrays.fill(theta, 0.0);
+		else Arrays.fill(theta, 0.0);
 
 		if (minimizer == null) minimizer = new SteepestDecent(this);
 		minimizer.setDebug(debug);
@@ -155,10 +154,6 @@ public abstract class Regression extends Energy {
 
 		if (samplesY == null) samplesY = new double[out.length];
 		System.arraycopy(out, 0, samplesY, 0, out.length);
-	}
-
-	public void setZeroThetaBeforeLearn(boolean zeroThetaBeforeLearn) {
-		this.zeroThetaBeforeLearn = zeroThetaBeforeLearn;
 	}
 
 	@Override

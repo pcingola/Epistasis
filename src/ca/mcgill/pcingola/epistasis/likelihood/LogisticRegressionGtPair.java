@@ -84,38 +84,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		return llNull;
 	}
 
-	//	/**
-	//	 * Keep track of the 'average' theta values (Alt model)
-	//	 */
-	//	protected void countModel(LogisticRegression lrAlt, LogisticRegression lrNull) {
-	//		synchronized (thetaAltSum) {
-	//			if (lrAlt != null) {
-	//				double theta[] = lrAlt.getTheta();
-	//
-	//				// Add if no errors
-	//				if (!hasError(theta)) {
-	//					for (int i = 0; i < theta.length; i++)
-	//						thetaAltSum[i] += theta[i];
-	//
-	//					countAlt++;
-	//				}
-	//			}
-	//
-	//			if (lrNull != null) {
-	//				double theta[] = lrNull.getTheta();
-	//
-	//				// Add, if no errrors
-	//				if (!hasError(theta)) {
-	//					for (int i = 0; i < theta.length; i++)
-	//						thetaNullSum[i] += theta[i];
-	//
-	//					countNull++;
-	//				}
-	//			}
-	//
-	//		}
-	//	}
-
 	/**
 	 * Create Alt model
 	 */
@@ -151,7 +119,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
-		//		setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 
@@ -185,7 +152,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrNull.setSamplesAddIntercept(xNull, phenoNonSkip);
 		lrNull.setDebug(debug);
-		//		setAvgThetaNullModel(lrNull);
 
 		this.lrNull = lrNull;
 		return lrNull;
@@ -275,7 +241,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// To few shared variants? We probably don't have enough statistical power anyways (not worth analysing)
 		if (countGtij < minSharedVariants) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
-			//			countModel(null);
 			return gwasResult; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
 		}
 
@@ -283,7 +248,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// If so, the model will not converge because the parameter (beta) for at least one of the gt[] will be 'NA'
 		if (linearDependency(skip, countSkip, gti, gtj, gtij)) {
 			if (debug) Timer.show(count + "\t" + id + "\tLL_ratio: 1.0\tLinear dependency ");
-			//			countModel(null);
 			return gwasResult; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
@@ -333,7 +297,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Stats
 		//---
 		if (Double.isFinite(ll)) {
-			// boolean show = (logLikMax < ll);
 			logLikMax = Math.max(logLikMax, ll);
 
 			if (debug) {
@@ -348,7 +311,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else {
 			// Show error
@@ -357,10 +320,8 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 					+ "\n\tLR.alt  : " + logRegrAlt //
 					+ "\n\tLL.null : " + llNull //
 					+ "\n\tLL.alt  : " + llAlt //
-			);
+					);
 		}
-
-		//		countModel(logRegrAlt, logRegrNull);
 
 		// Get all data into GwasData structure
 		gwasResult.logLikelihoodRatioLogReg = ll;
@@ -425,17 +386,17 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//---
 
 		IntStream.range(0, keys.size()) //
-				.parallel() //
-				.forEach(i -> {
-					for (int j = i + 1; j < keys.size(); j++) {
-						String keyi = keys.get(i);
-						String keyj = keys.get(j);
-						Genotype gti = gtByKey.get(keyi);
-						Genotype gtj = gtByKey.get(keyj);
+		.parallel() //
+		.forEach(i -> {
+			for (int j = i + 1; j < keys.size(); j++) {
+				String keyi = keys.get(i);
+				String keyj = keys.get(j);
+				Genotype gti = gtByKey.get(keyi);
+				Genotype gtj = gtByKey.get(keyj);
 
-						logLikelihood(gti, gtj);
-					}
-				});
+				logLikelihood(gti, gtj);
+			}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 
