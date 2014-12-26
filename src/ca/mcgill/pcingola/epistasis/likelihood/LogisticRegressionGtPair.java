@@ -151,7 +151,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
-		setAvgThetaAltModel(lrAlt);
+		//		setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 
@@ -185,7 +185,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrNull.setSamplesAddIntercept(xNull, phenoNonSkip);
 		lrNull.setDebug(debug);
-		setAvgThetaNullModel(lrNull);
+		//		setAvgThetaNullModel(lrNull);
 
 		this.lrNull = lrNull;
 		return lrNull;
@@ -348,7 +348,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else {
 			// Show error
@@ -357,7 +357,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 					+ "\n\tLR.alt  : " + logRegrAlt //
 					+ "\n\tLL.null : " + llNull //
 					+ "\n\tLL.alt  : " + llAlt //
-					);
+			);
 		}
 
 		countModel(logRegrAlt, logRegrNull);
@@ -425,17 +425,17 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//---
 
 		IntStream.range(0, keys.size()) //
-		.parallel() //
-		.forEach(i -> {
-			for (int j = i + 1; j < keys.size(); j++) {
-				String keyi = keys.get(i);
-				String keyj = keys.get(j);
-				Genotype gti = gtByKey.get(keyi);
-				Genotype gtj = gtByKey.get(keyj);
+				.parallel() //
+				.forEach(i -> {
+					for (int j = i + 1; j < keys.size(); j++) {
+						String keyi = keys.get(i);
+						String keyj = keys.get(j);
+						Genotype gti = gtByKey.get(keyi);
+						Genotype gtj = gtByKey.get(keyj);
 
-				logLikelihood(gti, gtj);
-			}
-		});
+						logLikelihood(gti, gtj);
+					}
+				});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

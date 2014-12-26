@@ -113,7 +113,7 @@ public class LogisticRegressionGt {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
 	}
@@ -236,7 +236,7 @@ public class LogisticRegressionGt {
 			if (Double.isNaN(theta[i]) // Is it NaN?
 					|| Double.isInfinite(theta[i]) // Id it infinite?
 					|| Math.abs(theta[i]) > MAX_THETA_AVS_VALUE // Is it too large?
-					) return true;
+			) return true;
 		}
 		return false;
 	}
@@ -367,7 +367,7 @@ public class LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
@@ -474,7 +474,7 @@ public class LogisticRegressionGt {
 			}
 
 			lrAlt.setModel(theta);
-			Gpr.debug("Avg theta (Nll model): " + Gpr.toString(theta));
+			Gpr.debug("Avg theta (Alt model): " + Gpr.toString(theta));
 		}
 	}
 
@@ -493,7 +493,7 @@ public class LogisticRegressionGt {
 			}
 
 			lrNull.setModel(theta);
-			Gpr.debug("Avg theta (Nll model): " + Gpr.toString(theta));
+			Gpr.debug("Avg theta (Null model): " + Gpr.toString(theta));
 		}
 	}
 
