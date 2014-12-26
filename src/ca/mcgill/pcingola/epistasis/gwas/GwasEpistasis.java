@@ -48,7 +48,7 @@ public class GwasEpistasis {
 	int splitJ = 3;
 	int numSplits = 100;
 	int countOk, countErr;
-	double llThresholdLogReg = LL_THRESHOLD_LOGREG;
+	double logLikelihoodRatioLogRegThreshold = LL_THRESHOLD_LOGREG;
 	double llThresholdMsa = LL_THRESHOLD_MSA;
 	String configFile;
 	String logLikelihoodFile; // Log likelihood file (epistatic model)
@@ -138,7 +138,7 @@ public class GwasEpistasis {
 					.forEach(j -> {
 						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
 						double llTot = gwasRes.logLik();
-						if (llTot > llThresholdLogReg) countLl.inc();
+						if (llTot > logLikelihoodRatioLogRegThreshold) countLl.inc();
 						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
 					});
 		}
@@ -157,7 +157,7 @@ public class GwasEpistasis {
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
-		if (gwasRes.logLikelihoodRatioLogReg < llThresholdLogReg) return gwasRes;
+		if (gwasRes.logLikelihoodRatioLogReg < logLikelihoodRatioLogRegThreshold) return gwasRes;
 
 		// Calculate p-value form logistic regression likelihood test
 		gwasRes.pvalueLogReg();

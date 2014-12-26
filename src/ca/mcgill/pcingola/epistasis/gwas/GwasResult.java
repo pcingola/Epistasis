@@ -29,6 +29,7 @@ public class GwasResult {
 	public double bayesFactorLogReg = 0.0; // Bayes factor for logistic regression
 	public double bayesFactor = 0.0; // Total bayes factor
 	public double log10BayesFactor = 0.0; // log10( BF )
+	public double log10BayesFactorLogReg = 0.0; // log10( BF ), only logistic regression term
 
 	/**
 	 * Calculate "total" Bayes factor (BF_logReg * BF_MSA)
@@ -38,6 +39,7 @@ public class GwasResult {
 	 */
 	public double bayesFactor(double h1, double h0) {
 		bayesFactor = bayesFactorLogReg(h1, h0);
+		log10BayesFactorLogReg = Math.log10(bayesFactor);
 		if (logLikelihoodRatioMsa > 0) bayesFactor *= Math.exp(logLikelihoodRatioMsa);
 		log10BayesFactor = Math.log10(bayesFactor);
 		return bayesFactor;
@@ -97,11 +99,14 @@ public class GwasResult {
 		}
 
 		return "log(BF): " + log10BayesFactor //
-				+ "\tp-value(LogReg): " + pvalueLogReg //
 				+ "\tll_total: " + llt //
+				// Logistic regression information
+				+ "\tog(BF_LogReg): " + log10BayesFactorLogReg //
+				+ "\tp-value(LogReg): " + pvalueLogReg //
 				+ "\tllr_LogReg: " + logLikelihoodRatioLogReg //
 				+ "\tll_LogReg_ALT: " + (logisticRegressionAlt != null ? "" + logisticRegressionAlt.logLikelihood() : "") //
 				+ "\tll_LogReg_NULL: " + (logisticRegressionNull != null ? "" + logisticRegressionNull.logLikelihood() : "") //
+				// Epsitasis (MSA) model
 				+ "\tllr_MSA: " + logLikelihoodRatioMsa //
 				+ "\tlik_MSA_ALT: " + likelihoodMsaAlt //
 				+ "\tlik_MSA_NULL: " + likelihoodMsaNull //
