@@ -23,7 +23,7 @@ import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
  *
  * @author pcingola
  */
-public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
+public class LogisticRegressionGtPair extends LogisticRegressionGt {
 
 	public static final int MIN_SHARED_VARIANTS = 5;
 	public static final double EPSILON = 1e-6;
@@ -37,7 +37,7 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 
 		boolean debug = false;
 
-		LikelihoodAnalysisGtPair zzz = new LikelihoodAnalysisGtPair(args);
+		LogisticRegressionGtPair zzz = new LogisticRegressionGtPair(args);
 
 		if (debug) {
 			zzz.setDebug(debug);
@@ -49,13 +49,13 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 		Timer.showStdErr("End");
 	}
 
-	public LikelihoodAnalysisGtPair(String args[]) {
+	public LogisticRegressionGtPair(String args[]) {
 		super(args);
 		numGtAlt = 3;
 		numGtNull = 2;
 	}
 
-	public LikelihoodAnalysisGtPair(String phenoCovariatesFileName, String vcfFileName) {
+	public LogisticRegressionGtPair(String phenoCovariatesFileName, String vcfFileName) {
 		super(phenoCovariatesFileName, vcfFileName);
 		numGtAlt = 3;
 		numGtNull = 2;
@@ -357,7 +357,7 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + id);
 		} else {
 			// Show error
@@ -366,7 +366,7 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 					+ "\n\tLR.alt  : " + logRegrAlt //
 					+ "\n\tLL.null : " + llNull //
 					+ "\n\tLL.alt  : " + llAlt //
-					);
+			);
 		}
 
 		countModel(logRegrAlt, logRegrNull);
@@ -403,17 +403,17 @@ public class LikelihoodAnalysisGtPair extends LikelihoodAnalysisGt {
 		//---
 
 		IntStream.range(0, keys.size()) //
-		.parallel() //
-		.forEach(i -> {
-			for (int j = i + 1; j < keys.size(); j++) {
-				String keyi = keys.get(i);
-				String keyj = keys.get(j);
-				Genotype gti = gtByKey.get(keyi);
-				Genotype gtj = gtByKey.get(keyj);
+				.parallel() //
+				.forEach(i -> {
+					for (int j = i + 1; j < keys.size(); j++) {
+						String keyi = keys.get(i);
+						String keyj = keys.get(j);
+						Genotype gti = gtByKey.get(keyi);
+						Genotype gtj = gtByKey.get(keyj);
 
-				logLikelihood(gti, gtj);
-			}
-		});
+						logLikelihood(gti, gtj);
+					}
+				});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

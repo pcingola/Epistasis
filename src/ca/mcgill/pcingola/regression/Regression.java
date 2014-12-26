@@ -71,7 +71,6 @@ public abstract class Regression extends Energy {
 		if (rand != null) initModelRand();
 		else if (zeroThetaBeforeLearn) Arrays.fill(theta, 0.0);
 
-		// if (minimizer == null) minimizer = new GradientDecent(this);
 		if (minimizer == null) minimizer = new SteepestDecent(this);
 		minimizer.setDebug(debug);
 		minimizer.run();

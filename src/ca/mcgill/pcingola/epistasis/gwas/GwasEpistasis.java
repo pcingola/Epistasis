@@ -19,7 +19,7 @@ import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
-import ca.mcgill.pcingola.epistasis.likelihood.LikelihoodAnalysisGtPair;
+import ca.mcgill.pcingola.epistasis.likelihood.LogisticRegressionGtPair;
 import ca.mcgill.pcingola.epistasis.likelihood.MarkerPairLikelihood;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 import ca.mcgill.pcingola.epistasis.pdb.PdbGenomeMsas;
@@ -59,7 +59,7 @@ public class GwasEpistasis {
 	List<Genotype> gtsSplitI, gtsSplitJ;
 	Map<String, Transcript> trancriptById; // Transcript by (incomplete) transcript ID (no version number is used)
 	Map<String, Marker> llmarkerById = new HashMap<String, Marker>(); // log-likelihood markers by ID
-	Map<Long, LikelihoodAnalysisGtPair> llAnByThreadId = new HashMap<>();
+	Map<Long, LogisticRegressionGtPair> llAnByThreadId = new HashMap<>();
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	PdbGenomeMsas pdbGenomeMsas;
 	InteractionLikelihood interactionLikelihood;
@@ -98,13 +98,13 @@ public class GwasEpistasis {
 	/**
 	 * Get a likelihood analysis object for each thread
 	 */
-	LikelihoodAnalysisGtPair getLikelihoodAnalysis2() {
+	LogisticRegressionGtPair getLikelihoodAnalysis2() {
 		long threadId = Thread.currentThread().getId();
 
-		LikelihoodAnalysisGtPair llan = llAnByThreadId.get(threadId);
+		LogisticRegressionGtPair llan = llAnByThreadId.get(threadId);
 
 		if (llan == null) {
-			llan = new LikelihoodAnalysisGtPair(phenoCovariatesFile, vcfFile);
+			llan = new LogisticRegressionGtPair(phenoCovariatesFile, vcfFile);
 			llan.init();
 			llAnByThreadId.put(threadId, llan);
 		}
@@ -151,7 +151,7 @@ public class GwasEpistasis {
 		//---
 		// Likelihood based on logistic regression
 		//---
-		LikelihoodAnalysisGtPair llan = getLikelihoodAnalysis2();
+		LogisticRegressionGtPair llan = getLikelihoodAnalysis2();
 		GwasResult gwasRes = llan.logLikelihood(genoi, genoj);
 
 		// Log likelihood form logistic regression is too low?
