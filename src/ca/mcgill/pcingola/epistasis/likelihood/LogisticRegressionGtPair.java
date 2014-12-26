@@ -151,7 +151,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Set samples
 		lrAlt.setSamplesAddIntercept(xAlt, phenoNonSkip);
 		lrAlt.setDebug(debug);
-		//		setAvgThetaAltModel(lrAlt);
+		setAvgThetaAltModel(lrAlt);
 
 		this.lrAlt = lrAlt;
 
