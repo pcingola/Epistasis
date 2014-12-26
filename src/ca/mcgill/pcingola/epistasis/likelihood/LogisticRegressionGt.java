@@ -465,6 +465,7 @@ public class LogisticRegressionGt {
 			}
 
 			lrAlt.setModel(theta);
+			Gpr.debug("Avg theta (Nll model): " + Gpr.toString(theta));
 		}
 	}
 
@@ -483,6 +484,7 @@ public class LogisticRegressionGt {
 			}
 
 			lrNull.setModel(theta);
+			Gpr.debug("Avg theta (Nll model): " + Gpr.toString(theta));
 		}
 	}
 

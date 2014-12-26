@@ -62,7 +62,7 @@ public class IRWLS extends Minimizer {
 		int n = logReg.getNumSamples();
 		for (int i = 0; i < n; i++) {
 			w[i] = mu[i] * (1.0 - mu[i]);
-			zeta[i] = eta[i] + (y[i] - mu[i]) / w[i];
+			zeta[i] = eta[i] + (y[i] - mu[i]) / w[i]; // TODO: This might be Int or NaN!?
 		}
 
 		if (debug) {
@@ -76,19 +76,16 @@ public class IRWLS extends Minimizer {
 		// Step II: Solve weighted least square problem
 		WeightedLinearRegression wlr = new WeightedLinearRegression();
 		if (!wlr.regress(zeta, logReg.getSamplesX(), w)) {
-
 			String msg = "Cannot perform regression:" //
-					+ "\n\teta  (" + eta.length + "): " + Gpr.toStringHead(eta) // 
-					+ "\n\tmu   (" + mu.length + "): " + Gpr.toStringHead(mu) // 
-					+ "\n\tw    (" + w.length + "): " + Gpr.toStringHead(w) // 
+					+ "\n\teta  (" + eta.length + "): " + Gpr.toStringHead(eta) //
+					+ "\n\tmu   (" + mu.length + "): " + Gpr.toStringHead(mu) //
+					+ "\n\tw    (" + w.length + "): " + Gpr.toStringHead(w) //
 					+ "\n\tzeta (" + zeta.length + "): " + Gpr.toStringHead(zeta) //
 					+ "\n\tEnergy: " + energy//
 					+ "\n\tIRWLS: " + this //
 			;
 			Gpr.debug(msg);
-
-			throw new RuntimeException(msg); // Remove this line!
-			//return false;
+			return false;
 		}
 
 		// Set new coefficients
