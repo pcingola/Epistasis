@@ -8,7 +8,7 @@
 
 debug			:= false
 timeout			:= 5 * day
-#system			:= 'cluster'
+system			:= 'cluster'
 cpus			:= ( system == 'local' ? 24 : 4 )
 
 # Which step/s to perform
