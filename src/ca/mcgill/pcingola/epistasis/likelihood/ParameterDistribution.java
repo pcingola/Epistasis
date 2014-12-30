@@ -7,7 +7,7 @@ package ca.mcgill.pcingola.epistasis.likelihood;
  */
 public class ParameterDistribution {
 
-	public double p(double param) {
+	public double p(double x) {
 		throw new RuntimeException("Unimplemented!");
 	}
 }

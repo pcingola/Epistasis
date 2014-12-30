@@ -99,10 +99,10 @@ public class ParameterDistributionModel implements Iterable<ParameterDistributio
 		StringBuilder sb = new StringBuilder();
 
 		int paramNum = 0;
-		sb.append("Distributions " + model + "\n");
+		sb.append("Distributions '" + model + "'" + (theta != null ? ": " + p(theta) : "") + "\n");
 		for (ParameterDistribution pd : this) {
 			sb.append("\t" + paramNum //
-					+ (theta != null ? theta[paramNum] + "\t" + pd.p(theta[paramNum]) : "") //
+					+ (theta != null ? "\t" + theta[paramNum] + "\t" + pd.p(theta[paramNum]) : "") //
 					+ "\t" + pd //
 					+ "\n");
 			paramNum++;

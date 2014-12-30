@@ -23,6 +23,16 @@ public class MixOfGaussians extends ParameterDistribution {
 	}
 
 	@Override
+	public double p(double x) {
+		double p = 0;
+
+		for (int i = 0; i < lambdas.size(); i++)
+			p += lambdas.get(i) * disributions.get(i).p(x);
+
+		return p;
+	}
+
+	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
 
