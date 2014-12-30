@@ -17,6 +17,7 @@ public class GwasResult {
 	public static boolean debug = false;
 
 	public Genotype genoi, genoj;
+	public String genoiId, genojId;
 	public byte gtij[]; // Genotype data used to fit the logistic regression
 
 	public double logLikelihoodRatioLogReg = 0.0; // Log likelihood ratio from Logistic Regression model
@@ -28,9 +29,9 @@ public class GwasResult {
 	public LogisticRegression logisticRegressionNull; // Logistc regression Null model
 	public LogisticRegression logisticRegressionAlt; // Logistc regression Alt model
 
-	public double bayesFactorLogReg = 0.0; // Bayes factor for logistic regression
 	public double bayesFactor = 0.0; // Total bayes factor
 	public double log10BayesFactor = 0.0; // log10( BF )
+	public double bayesFactorLogReg = 0.0; // Bayes factor for logistic regression
 	public double log10BayesFactorLogReg = 0.0; // log10( BF ), only logistic regression term
 
 	public GwasResult() {
@@ -59,7 +60,7 @@ public class GwasResult {
 	 *
 	 * Notes:
 	 * 		i) The integrals are approximated using Laplace's method
-	 * 		ii) We do not use a reatio of logReg.likelihoodIntegralLaplaceApproximation() method due to numerical stability issues.
+	 * 		ii) We do not use a ratio of logReg.likelihoodIntegralLaplaceApproximation() method due to numerical stability issues.
 	 *
 	 * @param h1 = P(theta_1 | M_1)		 This is the prior distribution (Alt model) evaluated at theta_1* (max likelihood theta_1)
 	 * @param h0 = P(theta_0 | M_0)		 This is the prior distribution (Null model) evaluated at theta_0* (max likelihood theta_0)
@@ -91,10 +92,13 @@ public class GwasResult {
 
 		int num = 3; // First 3 fields are useless info (time, variantNumber, index)
 		log10BayesFactor = parseValueDouble(fields[num++]);
+		bayesFactor = Math.pow(10, log10BayesFactor);
 
 		double logLikTotal = parseValueDouble(fields[num++]);
 
 		log10BayesFactorLogReg = parseValueDouble(fields[num++]);
+		bayesFactorLogReg = Math.pow(10, log10BayesFactorLogReg);
+
 		pvalueLogReg = parseValueDouble(fields[num++]);
 		logLikelihoodRatioLogReg = parseValueDouble(fields[num++]);
 
@@ -105,11 +109,11 @@ public class GwasResult {
 		likelihoodMsaAlt = parseValueDouble(fields[num++]);
 		likelihoodMsaNull = parseValueDouble(fields[num++]);
 
-		String gti = fields[num++]; // Genotype_i.ID
-		genoi = new Genotype(genome, gti);
+		genoiId = fields[num++]; // Genotype_i.ID
+		genoi = new Genotype(genome, genoiId);
 
-		String gtj = fields[num++]; // Genotype_j.ID
-		genoj = new Genotype(genome, gtj);
+		genojId = fields[num++]; // Genotype_j.ID
+		genoj = new Genotype(genome, genojId);
 
 		if (fields.length > num) {
 			// Annotations
@@ -125,7 +129,7 @@ public class GwasResult {
 			logisticRegressionNull = new LogisticRegression(thetaNull.length - 1);
 			logisticRegressionNull.setTheta(thetaNull);
 
-			if (debug) Gpr.debug(gti + "\t" + gtj + "\t" + logLikTotal //
+			if (debug) Gpr.debug(genoiId + "\t" + genojId + "\t" + logLikTotal //
 					+ "\n\tAlt  : " + Gpr.toString(thetaAlt) //
 					+ "\n\tNull : " + Gpr.toString(thetaNull) //
 			);
@@ -183,6 +187,9 @@ public class GwasResult {
 			;
 		}
 
+		if (genoi != null) genoiId = genoi.getId();
+		if (genoj != null) genojId = genoj.getId();
+
 		return "log(BF): " + log10BayesFactor //
 				+ "\tll_total: " + llt //
 				// Logistic regression information
@@ -195,8 +202,8 @@ public class GwasResult {
 				+ "\tllr_MSA: " + logLikelihoodRatioMsa //
 				+ "\tlik_MSA_ALT: " + likelihoodMsaAlt //
 				+ "\tlik_MSA_NULL: " + likelihoodMsaNull //
-				+ "\t" + (genoi != null ? genoi.getId() : "") //
-				+ "\t" + (genoj != null ? genoj.getId() : "") //
+				+ "\t" + (genoiId != null ? genoiId : "") //
+				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
 		;
 
