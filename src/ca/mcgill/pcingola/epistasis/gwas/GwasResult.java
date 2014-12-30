@@ -1,5 +1,6 @@
 package ca.mcgill.pcingola.epistasis.gwas;
 
+import ca.mcgill.mcb.pcingola.interval.Genome;
 import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.pcingola.epistasis.Genotype;
@@ -13,6 +14,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
 public class GwasResult {
 
 	public static double LL_SHOW_LOGREG_MODEL = 0.0; // 6.0;
+	public static boolean debug = false;
 
 	public Genotype genoi, genoj;
 	public byte gtij[]; // Genotype data used to fit the logistic regression
@@ -30,6 +32,13 @@ public class GwasResult {
 	public double bayesFactor = 0.0; // Total bayes factor
 	public double log10BayesFactor = 0.0; // log10( BF )
 	public double log10BayesFactorLogReg = 0.0; // log10( BF ), only logistic regression term
+
+	public GwasResult() {
+	}
+
+	public GwasResult(Genome genome, String line) {
+		parse(genome, line);
+	}
 
 	/**
 	 * Calculate "total" Bayes factor (BF_logReg * BF_MSA)
@@ -77,6 +86,83 @@ public class GwasResult {
 		return ll;
 	}
 
+	void parse(Genome genome, String line) {
+		String fields[] = line.split("\t");
+
+		int num = 3; // First 3 fields are useless info (time, variantNumber, index)
+		log10BayesFactor = parseValueDouble(fields[num++]);
+
+		double logLikTotal = parseValueDouble(fields[num++]);
+
+		log10BayesFactorLogReg = parseValueDouble(fields[num++]);
+		pvalueLogReg = parseValueDouble(fields[num++]);
+		logLikelihoodRatioLogReg = parseValueDouble(fields[num++]);
+
+		parseValueDouble(fields[num++]); // logisticRegressionAlt.LogLik
+		parseValueDouble(fields[num++]); // logisticRegressionNull.LogLik
+
+		logLikelihoodRatioMsa = parseValueDouble(fields[num++]);
+		likelihoodMsaAlt = parseValueDouble(fields[num++]);
+		likelihoodMsaNull = parseValueDouble(fields[num++]);
+
+		String gti = fields[num++]; // Genotype_i.ID
+		genoi = new Genotype(genome, gti);
+
+		String gtj = fields[num++]; // Genotype_j.ID
+		genoj = new Genotype(genome, gtj);
+
+		if (fields.length > num) {
+			// Annotations
+			genoi.setAnnotataions(fields[num++]);
+			genoj.setAnnotataions(fields[num++]);
+
+			// Logistic regression parameters
+			double thetaAlt[] = parseValueDoubleArray(fields[num++]);
+			logisticRegressionAlt = new LogisticRegression(thetaAlt.length - 1);
+			logisticRegressionAlt.setTheta(thetaAlt);
+
+			double thetaNull[] = parseValueDoubleArray(fields[num++]);
+			logisticRegressionNull = new LogisticRegression(thetaNull.length - 1);
+			logisticRegressionNull.setTheta(thetaNull);
+
+			if (debug) Gpr.debug(gti + "\t" + gtj + "\t" + logLikTotal //
+					+ "\n\tAlt  : " + Gpr.toString(thetaAlt) //
+					+ "\n\tNull : " + Gpr.toString(thetaNull) //
+			);
+		}
+	}
+
+	/**
+	 * Parse 'key: value' pair
+	 */
+	String parseValue(String field) {
+		String kv[] = field.split(":");
+		return kv[1].trim();
+	}
+
+	/**
+	 * Parse 'key: value' as a double
+	 */
+	double parseValueDouble(String field) {
+		return Gpr.parseDoubleSafe(parseValue(field));
+	}
+
+	/**
+	 * Parse an array of doubles
+	 */
+	double[] parseValueDoubleArray(String field) {
+		String str = parseValue(field);
+		str = str.replace('[', ' ').replace(']', ' ').replace(',', '\t').trim();
+
+		String vals[] = str.split("\t");
+		double vect[] = new double[vals.length];
+
+		for (int i = 0; i < vals.length; i++)
+			vect[i] = Gpr.parseDoubleSafe(vals[i]);
+
+		return vect;
+	}
+
 	public double pvalueLogReg() {
 		int deltaDf = logisticRegressionAlt.getTheta().length - logisticRegressionNull.getTheta().length;
 		pvalueLogReg = FisherExactTest.get().chiSquareCDFComplementary(logLikelihoodRatioLogReg, deltaDf);
@@ -109,8 +195,8 @@ public class GwasResult {
 				+ "\tllr_MSA: " + logLikelihoodRatioMsa //
 				+ "\tlik_MSA_ALT: " + likelihoodMsaAlt //
 				+ "\tlik_MSA_NULL: " + likelihoodMsaNull //
-				+ "\t" + genoi.getId() //
-				+ "\t" + genoj.getId() //
+				+ "\t" + (genoi != null ? genoi.getId() : "") //
+				+ "\t" + (genoj != null ? genoj.getId() : "") //
 				+ additionalStr //
 		;
 

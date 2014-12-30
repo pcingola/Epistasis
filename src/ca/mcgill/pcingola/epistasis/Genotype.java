@@ -1,6 +1,8 @@
 package ca.mcgill.pcingola.epistasis;
 
+import ca.mcgill.mcb.pcingola.interval.Genome;
 import ca.mcgill.mcb.pcingola.interval.Marker;
+import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
 
@@ -15,6 +17,11 @@ public class Genotype extends GenomicCoordinates {
 
 	protected int minorAlleleCount;
 	protected byte gt[];
+
+	public Genotype(Genome genome, String str) {
+		super(null, 0, 0, "");
+		parse(genome, str);
+	}
 
 	public Genotype(Marker parent, int start, int end, String id, byte gt[]) {
 		super(parent, start, end, id);
@@ -56,5 +63,17 @@ public class Genotype extends GenomicCoordinates {
 
 		return gt;
 
+	}
+
+	/**
+	 * Parse a string formatted as '1:7724803_G/A'
+	 */
+	void parse(Genome genome, String str) {
+		String f1[] = str.split(":");
+
+		parent = genome.getOrCreateChromosome(f1[0]);
+
+		String f2[] = f1[1].split("_");
+		start = end = Gpr.parseIntSafe(f2[0]);
 	}
 }

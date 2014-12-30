@@ -160,6 +160,8 @@ public class LogisticRegression extends Regression {
 		if (!predictNeedsUpdate) return out;
 
 		if (out == null) {
+			if (samplesX == null) return null;
+
 			out = new double[samplesX.length];
 			h = new double[samplesX.length];
 		}
