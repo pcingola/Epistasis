@@ -12,7 +12,7 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class GwasResult {
 
-	public static double LL_SHOW_LOGREG_MODEL = 6.0;
+	public static double LL_SHOW_LOGREG_MODEL = 0.0; // 6.0;
 
 	public Genotype genoi, genoj;
 	public byte gtij[]; // Genotype data used to fit the logistic regression
@@ -92,9 +92,8 @@ public class GwasResult {
 		if (logLikelihoodRatioLogReg >= LL_SHOW_LOGREG_MODEL) {
 			additionalStr = "\t" + genoi.getAnnotataions() //
 					+ "\t" + genoj.getAnnotataions() //
-					+ "\n\tAlt  : " + Gpr.toString(logisticRegressionAlt.getTheta()) //
-					+ "\n\tNull :             " + Gpr.toString(logisticRegressionNull.getTheta()) //
-
+					+ "\tLogReg_Alt: " + Gpr.toString(logisticRegressionAlt.getTheta()) //
+					+ "\tLogReg_Null: " + Gpr.toString(logisticRegressionNull.getTheta()) //
 			;
 		}
 
