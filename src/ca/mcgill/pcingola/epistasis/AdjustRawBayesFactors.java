@@ -15,7 +15,7 @@ import ca.mcgill.pcingola.epistasis.likelihood.ParameterDistributionModel;
 public class AdjustRawBayesFactors {
 
 	public static boolean debug = false;
-	public static boolean quiet = true;
+	public static boolean quiet = false;
 	public static final double LOG_10 = Math.log(10);
 
 	// This models and the parameters (alpha and beta) are found empirically
@@ -23,7 +23,7 @@ public class AdjustRawBayesFactors {
 	// the Ln[Odds] formula
 	public static final double LL_MSA_APPROX_ALPHA = 0.1947;
 	public static final double LL_MSA_APPROX_BETA = -1.0174;
-	public static final double LL_MSA_MAX_LOG_ODDS = 6.0; // Cap LL_MSA to this value (largest seen in real data is arround 3) 
+	public static final double LL_MSA_MAX_LOG_ODDS = 4.0; // Cap LL_MSA to this value (largest seen in real data is arround 3) 
 
 	String gwasThetaDistributionFile;
 	String gwasResutsFile;
