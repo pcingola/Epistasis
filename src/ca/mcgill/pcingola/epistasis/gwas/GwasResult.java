@@ -132,7 +132,7 @@ public class GwasResult {
 			if (debug) Gpr.debug(genoiId + "\t" + genojId + "\t" + logLikTotal //
 					+ "\n\tAlt  : " + Gpr.toString(thetaAlt) //
 					+ "\n\tNull : " + Gpr.toString(thetaNull) //
-			);
+					);
 		}
 	}
 
@@ -184,7 +184,7 @@ public class GwasResult {
 					+ "\t" + genoj.getAnnotataions() //
 					+ "\tLogReg_Alt: " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\tLogReg_Null: " + Gpr.toString(logisticRegressionNull.getTheta()) //
-			;
+					;
 		}
 
 		if (genoi != null) genoiId = genoi.getId();
@@ -205,7 +205,7 @@ public class GwasResult {
 				+ "\t" + (genoiId != null ? genoiId : "") //
 				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
-		;
+				;
 
 	}
 }

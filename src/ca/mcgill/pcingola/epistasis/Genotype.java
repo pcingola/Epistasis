@@ -19,7 +19,7 @@ public class Genotype extends GenomicCoordinates {
 	protected byte gt[];
 
 	public Genotype(Genome genome, String str) {
-		super(null, 0, 0, "");
+		super(null, 0, 0, str);
 		parse(genome, str);
 	}
 
