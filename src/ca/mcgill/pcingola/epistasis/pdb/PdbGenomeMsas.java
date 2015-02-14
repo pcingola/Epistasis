@@ -257,8 +257,7 @@ public class PdbGenomeMsas extends SnpEff {
 		//---
 		// Initialize SnpEff
 		//---
-
-		String argsSnpEff[] = { "eff", "-v", "-c", configFile, genomeVer };
+		String argsSnpEff[] = { "eff", "-c", configFile, genomeVer };
 		args = argsSnpEff;
 		setGenomeVer(genomeVer);
 		parseArgs(argsSnpEff);
