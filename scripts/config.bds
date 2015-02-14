@@ -1,0 +1,61 @@
+#!/usr/bin/env bds
+
+#-------------------------------------------------------------------------------
+# Epistasis project: Configuraion options
+#
+#															Pablo Cingolani 2014
+#-------------------------------------------------------------------------------
+
+# Runtime parameters
+timeout			:= 5 * day
+
+# Parameters
+snpEffDir		:= "$HOME/snpEff"
+dir				:= "$snpEffDir/epistasis_new"
+aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
+aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
+genome			:= "hg19"
+genomeEnsembl	:= "GRCh37.75"
+llGeneLines		:=	5
+
+# Data files
+aaContact		:= "$dir/aa.contact.txt"
+aaContactSeq	:= "$dir/aa.contact.sequence.txt"
+aaContactBest	:= "$dir/aa.contact.best.txt"
+aaFreqs			:= "$dir/aa.frequencies.txt"
+aa2Freqs		:= "$dir/aa.contact.frequencies.txt"
+aaNextProt		:= "$dir/aa.contact.nextProt.txt"
+idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
+idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
+idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
+interactions    := "$dir/interactions.txt"
+interactionsNull:= "$dir/interactions.NON_INTERACTING.txt"
+lik				:= "$dir/likelihood.contact.txt"
+likAll			:= "$dir/likelihood.all.txt"
+likNull			:= "$dir/likelihood.null.txt"
+lik3			:= "$dir/likelihood_aa3.contact.txt"
+likNull3		:= "$dir/likelihood_aa3.null.txt"
+msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
+msaBest			:= "$dir/msas.best.fa"
+pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
+pheno			:= "$dir/pheno.txt"
+qhat			:= "$dir/Qhat.txt"
+qhat2			:= "$dir/Qhat2.txt"
+snpeffConfig	:= "$snpEffDir/snpEff.config"
+tree			:= "$dir/hg19.100way.nh"
+vcf				:= "$dir/gwas.vcf"
+
+bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
+
+# Commands
+javaNativeLibs      := "$dir/lib"
+javaGC		        := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
+javaMem		        := "4G"
+javaMemXL	        := "10G"
+java		        := "java -Xmx$javaMem $javaGC "
+javaXL		        := "java -Xmx$javaMemXL $javaGC "
+cmdEpistasis        := "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+cmdEpistasisXL      := "$javaXL -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
+cmdTable2Matrix     := "$dir/scripts/aaTable2Matrix.pl"
+cmdPdbCompoundLines := "$dir/scripts/pdbCompoundLines.sh"
+

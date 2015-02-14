@@ -6,219 +6,11 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
-debug			:= false
-timeout			:= 5 * day
+include 'config.bds'
+
+# Some basic parameters
 system			:= 'local'
 cpus			:= ( system == 'local' ? 4 : 4 )
-
-# Which step/s to perform
-step1			:= false
-step2			:= false
-step3			:= false
-step4			:= false
-step5			:= false
-step6			:= false
-step7			:= false
-
-# Parameters
-snpEffDir		:= "$HOME/snpEff"
-dir				:= "$snpEffDir/epistasis_new"
-aaContactDist	:= 3.0	# Distance between AA to be considered 'in contact'
-aaMinSepration	:= 25	# Number of AA separation to consider them for distance analysis
-genome			:= "hg19"
-genomeEnsembl	:= "GRCh37.75"
-llGeneLines		:=	5
-
-# Data files
-aaContact		:= "$dir/aa.contact.txt"
-aaContactSeq	:= "$dir/aa.contact.sequence.txt"
-aaContactBest	:= "$dir/aa.contact.best.txt"
-aaFreqs			:= "$dir/aa.frequencies.txt"
-aa2Freqs		:= "$dir/aa.contact.frequencies.txt"
-aaNextProt		:= "$dir/aa.contact.nextProt.txt"
-idMap			:= "$dir/idMap_ensemblId_refseq_pdbId.txt"
-idMapConfirmed	:= "$dir/idMap_ensemblId_refseq_pdbId.confirmed.txt"
-idMapBest		:= "$dir/idMap_ensemblId_refseq_pdbId.best.txt"
-interactions    := "$dir/interactions.txt"
-interactionsNull:= "$dir/interactions.NON_INTERACTING.txt"
-lik				:= "$dir/likelihood.contact.txt"
-likAll			:= "$dir/likelihood.all.txt"
-likNull			:= "$dir/likelihood.null.txt"
-lik3			:= "$dir/likelihood_aa3.contact.txt"
-likNull3		:= "$dir/likelihood_aa3.null.txt"
-msa				:= "$snpEffDir/db/multiz100way/refGene.exonAA.fa"
-msaBest			:= "$dir/msas.best.fa"
-pdbDir			:= "$snpEffDir/db/pdb/pdb_hires_human"
-pheno			:= "$dir/pheno.txt"
-qhat			:= "$dir/Qhat.txt"
-qhat2			:= "$dir/Qhat2.txt"
-snpeffConfig	:= "$snpEffDir/snpEff.config"
-tree			:= "$dir/hg19.100way.nh"
-vcf				:= "$dir/gwas.vcf"
-
-bgNum			:= 10 * 1000 * 1000	# Number of iterations for background calculation
-
-# Commands
-javaNativeLibs      := "$dir/lib"
-javaGC		        := ( system != 'local' ? '-XX:ParallelGCThreads=2' : '')
-javaMem		        := "4G"
-javaMemXL	        := "10G"
-java		        := "java -Xmx$javaMem $javaGC "
-javaXL		        := "java -Xmx$javaMemXL $javaGC "
-cmdEpistasis        := "$java -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
-cmdEpistasisXL      := "$javaXL -Djava.library.path=$javaNativeLibs -jar $HOME/snpEff/Epistasis.jar"
-cmdTable2Matrix     := "$dir/scripts/aaTable2Matrix.pl"
-cmdPdbCompoundLines := "$dir/scripts/pdbCompoundLines.sh"
-
-# Change parameters if we are debugging (smaller datasets)
-if( debug ) {
-	println "DEBUG MODE: Setting 'debug' paths"
-	genome = "testHg19Chr1"
-	msa  = "$dir/head.fa"
-	qhat = "$dir/Qhat_head.txt"
-	bgNum = 1000
-}
-
-# #-------------------------------------------------------------------------------
-# # Analize gene-gene interaction log-likelihood(MSA)
-# #-------------------------------------------------------------------------------
-# 
-# void geneGeneLogLik(string dirOut, string interactions) {
-# 	println "\nEstimate log-Likelihood for all gene-gene combinations: $likAll"
-# 
-# 	dirOut.mkdir()
-# 	if( system == 'local' ) {
-# 		# Launch one process
-# 		out := "$dirOut/likelihood.txt"
-# 		task( out <- interactions ) {
-# 			sys $cmdEpistasis likelihoodAll -1 $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $interactions $dirOut > $out
-# 		}
-# 	} else {
-# 		# Read interactions and split into small files
-# 		pairs := readInteractions( interactions, dirOut )
-# 
-# 		# Split into small lists
-# 		sys rm -vf $dirOut/genes_pairs_list.* || true
-# 		filesPairs := pairs.splitToFile( "$dirOut/genes_pairs_list.", llGeneLines )
-# 
-# 		# Launch a task for eah file
-# 		for( string file : filesPairs ) {
-# 			out := "$dirOut/likelihood." + file.baseName()
-# 			println "\t$out"
-# 			task( out <- file ) {
-# 				sys $cmdEpistasis likelihoodAll $cpus $tree $msaBest $idMapBest $qhat $aaFreqs $qhat2 $aa2Freqs $file $dirOut > $out
-# 			}
-# 		}
-# 	}
-# }
-# 
-# #-------------------------------------------------------------------------------
-# # Calculate best scores from pre-calculated LL(MSA) on gene-gene pairs
-# #-------------------------------------------------------------------------------
-# void geneGeneLogLikMatrix(string geneGeneDir) {
-# 	geneGene := sys find $geneGeneDir -iname "*.txt"
-# 	geneGeneList := geneGene.lines()
-# 
-# 	print "calculating likelihoodGeneGeneMatrix: '$geneGeneDir'\n"
-# 	maxSplit := 10
-# 	for( int split=0 ; split < maxSplit ; split++ ) {
-# 		sl := geneGeneList.split(split, maxSplit)
-# 		files := sl.join(" ")
-# 		len := sl.size()
-# 
-# 		out := "$geneGeneDir/likelihoodGeneGeneMatrix.$split.$maxSplit.txt"
-# 		print "\t$out\tnumber of files: $len\n"
-# 		task( out <- sl ) {
-# 			sys $cmdEpistasis likelihoodGeneGeneMatrix $tree $msaBest $files | tee $out
-# 		}
-# 	}
-# }
-# 
-# #-------------------------------------------------------------------------------
-# # Likelihood for interactions from a variant in a VCF file and all other 
-# # sites withn a protein
-# #-------------------------------------------------------------------------------
-# 
-# void likelihoodvcf(string vcfFile, string dirOut, int numSplits) {
-# 	println "\nLogLikelihood of MSA (interaction) using VCF file '$vcfFile'"
-# 	dirOut.mkdir()
-# 
-# 	for( int i=0 ; i < numSplits ; i++ ) {
-# 		println "\t$i / $numSplits"
-# 
-# 		base := vcfFile.baseName(".vcf")
-# 		outputFile := "$dirOut/likelihood.$numSplits.$i.txt"
-# 		task( outputFile <- [vcfFile, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-# 			sys $cmdEpistasisXL likelihoodvcf $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcfFile $numSplits $i $dirOut > $outputFile
-# 		}
-# 	}
-# }
-# 
-# #-------------------------------------------------------------------------------
-# # Read gene-gene interactions
-# #-------------------------------------------------------------------------------
-# string[] readInteractions(string intFile, string dirGenesLike) {
-# 	string[] pairs
-# 	string gene1, gene2
-# 
-# 	# Keep interactions that haven't been calculated so far
-# 	for( string gg : intFile.read().lines() ) {
-# 		(gene1, gene2) = gg.split('\t')
-# 		if( gene2 < gene1 )		(gene1, gene2) = [gene2, gene1]
-# 
-# 		# Does 'gene likelihood' file exist?
-# 		if( ! "$dirGenesLike/$gene1/$gene2.txt".exists() )	pairs += "$gene1\t$gene2"
-# 	}
-# 
-# 	return pairs
-# }
-# 
-# #-------------------------------------------------------------------------------
-# # Get part of 'splitNum' out of 'maxSplitNum' from a list
-# #-------------------------------------------------------------------------------
-# string[] split(string[] list, int splitNum, int maxSplitNum) {
-# 	string[] newList
-# 	idx := 0
-# 
-# 	for(string s : list) {
-# 		if( (idx % maxSplitNum) == splitNum )	newList += s
-# 		idx++
-# 	}
-# 
-# 	return newList
-# }
-# 
-# #-------------------------------------------------------------------------------
-# # Split a list into small files
-# # Return file names
-# #-------------------------------------------------------------------------------
-# string[] splitToFile( string[] list, string baseName, int linesPerFile) {
-# 	println "Splitting into $linesPerFile line per file:"
-# 	string[] fileNames
-# 	string[] thisFileLines
-# 
-# 	# Split liens
-# 	for( string line : list ) {
-# 		# Enough lines to create a new file?
-# 		if( thisFileLines.size() >= linesPerFile ) {
-# 		 	fileName := baseName + fileNames.size()
-# 			fileName.write( thisFileLines.join("\n") )
-# 			fileNames += fileName
-# 			thisFileLines = []
-# 		}
-# 
-# 		thisFileLines += line
-# 	}
-# 
-# 	# Write last list
-# 	if( ! thisFileLines.isEmpty() ) {
-# 	 	fileName := baseName + fileNames.size()
-# 		fileName.write( thisFileLines.join("\n") )
-# 		fileNames += fileName
-# 	}
-# 
-# 	return fileNames
-# }
 
 #-------------------------------------------------------------------------------
 # Main
@@ -379,7 +171,6 @@ wait
 # Part 4: Estimate transition matrices Q from sequence alignment and phylegenetic tree
 #---
 
-if( step4 ) {
 	task( msaBest <- [tree, msa, idMapBest, idMapBest] ) sys $cmdEpistasis filterMsa $tree $msa $idMapBest > $msaBest
 	wait 
 
@@ -397,13 +188,11 @@ if( step4 ) {
 		sys grep "^PI_AA_PAIR" $qhat2.log | cut -f 3,5 > $aa2Freqs
 	}
 	wait
-}
 
----
+#---
 # Part 6: GWAS
 #---
 
-if( step6 ) {
 	println "\nGWAS analysis using epistasis data"
 
 	# GWAs using interaction (MSA) data
@@ -420,7 +209,6 @@ if( step6 ) {
 			}
 		}
 	}
-}
 
 # Done
 wait
