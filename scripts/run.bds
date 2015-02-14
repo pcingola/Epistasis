@@ -8,9 +8,20 @@
 
 include 'config.bds'
 
+fast	:= true		help Use a faster set of parameters
+
 # Some basic parameters
-system			:= 'local'
-cpus			:= ( system == 'local' ? 4 : 4 )
+system	:= 'local'
+cpus	:= ( system == 'local' ? 4 : 4 )
+
+if( fast ) {
+    println "Fast mode: Setting 'debug' paths"
+    genome = "testHg19Chr1"
+    msa  = "$dir/head.fa"
+    qhat = "$dir/Qhat_head.txt"
+    bgNum = 1000
+
+}
 
 #-------------------------------------------------------------------------------
 # Main
