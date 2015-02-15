@@ -9,6 +9,7 @@
 include 'config.bds'
 include 'parameter_estimation.bds'
 include 'gwas.bds'
+include 'model_analysis.bds'
 
 # Command line options
 model	:= false	help Run several analysis using LL(MSA) and other models
@@ -23,8 +24,19 @@ dirGwasOut		:= "$dir/gwas"	help GWAS output directory
 # Main
 #-------------------------------------------------------------------------------
 
-# What do we execute?
 if( param ) parameterEstimation()
+
+if( model ) {
+	analysisNextProt()
+	analysisMiVarinf()
+	analysisTransitions()
+	analysisLikelihood()
+	analysisGeneGene()
+	analysisClinvar()
+	analysisInteracting()
+	analysisCompountProteins()
+}
+
 if( gwas ) gwasAnalysis(dirGwasOut, gwasNumSplits)
 
 # Done
