@@ -7,7 +7,7 @@
 #-------------------------------------------------------------------------------
 
 # Command line options
-fast			:= true		help Use a faster set of parameters
+fast			:= false		help Use a faster set of parameters
 
 # Runtime parameters
 timeout			:= 5 * day
