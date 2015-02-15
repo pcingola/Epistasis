@@ -65,7 +65,6 @@ cmdEpistasisXL      := "$javaXL -Djava.library.path=$javaNativeLibs -jar $HOME/s
 cmdTable2Matrix     := "$dir/scripts/aaTable2Matrix.pl"
 cmdPdbCompoundLines := "$dir/scripts/pdbCompoundLines.sh"
 
-
 # Parameters for faster processing (usefull for debugging)
 if( fast ) {
     println "Fast mode: Setting parameters"
