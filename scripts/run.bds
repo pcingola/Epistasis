@@ -67,7 +67,7 @@ wait
 
 println "\nEstimate Q: '$qhat'"
 task( qhat <- [tree, msaBest, idMapBest] )	{
-	sys echo $cmdEpistasis Qhat $tree $msaBest $idMapBest > $qhat.log
+	sys echo $cmdEpistasis Qhat $tree $msaBest $idMapBest 
 	sys $cmdEpistasis Qhat $tree $msaBest $idMapBest > $qhat.log
 	sys grep "^Q_HAT_MATRIX" $qhat.log | cut -f 2- > $qhat
 }
@@ -75,7 +75,7 @@ wait
 
 println "\nEstimate Q2 (400x400): '$qhat2'"
 task( qhat2 <- [tree, msaBest, idMapBest, aaContactBest] ) {
-	sys $cmdEpistasis Qhat2 $tree $msaBest $idMapBest $aaContactBest
+	sys $cmdEpistasis Qhat2 $tree $msaBest $idMapBest $aaContactBest > $qhat2.log
 	sys grep "^Q_HAT2_MATRIX" $qhat2.log | cut -f 2- > $qhat2
 	sys grep "^PI_AA_PAIR" $qhat2.log | cut -f 3,5 > $aa2Freqs
 }
