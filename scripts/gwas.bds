@@ -6,7 +6,7 @@
 #															Pablo Cingolani 2014
 #-------------------------------------------------------------------------------
 
-void gwasAnalysis(strnig dirGwasOut, int numSplits) {
+void gwasAnalysis(string dirGwasOut, int numSplits) {
 	println "\nGWAS analysis using epistasis data"
 
 	# GWAs using interaction (MSA) data
