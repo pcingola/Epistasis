@@ -11,9 +11,9 @@ include 'parameter_estimation.bds'
 include 'gwas.bds'
 
 # Command line options
-model	:= false	help Several analysis using LL(MSA) and other models
-gwas	:= false	help Perform GWAS
-param	:= false	help Parameter estimation
+model	:= false	help Run several analysis using LL(MSA) and other models
+gwas	:= false	help Run GWAS analysis
+param	:= false	help Run parameter estimation
 
 # GWAs using interaction (MSA) data
 gwasNumSplits	:= 30			help Split GWAS data into 30 'splits'
