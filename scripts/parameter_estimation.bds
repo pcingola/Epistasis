@@ -1,0 +1,77 @@
+#!/usr/bin/env bds
+
+#-------------------------------------------------------------------------------
+# Epistasis project: Parameter estimation pipeline
+#
+#															Pablo Cingolani 2014
+#-------------------------------------------------------------------------------
+
+void parameterEstimation() {
+	#---
+	# Part 1: Mapping between Pbd, MSA and genome. Select AA in contact
+	#---
+
+	# Confirm mappings between Pdb <-> Genome by making sure that 
+	# protein sequences match (within cerain error rate)
+	println "\nMap Pdb entries to transcripts: '$idMapConfirmed'"
+	task( idMapConfirmed <- [pdbDir, idMap] )	sys $cmdEpistasis mapPdbGenome $snpeffConfig $genome $pdbDir $idMap > $idMapConfirmed
+	wait
+
+	# Calculate amino acids "in contact" within the same protein
+	# using PDB atomic positions
+	println "\nCalculate AA in contact within proteins: '$aaContact'"
+	tmp := "$aaContact.tmp"
+	task( aaContact <- [pdbDir, idMapConfirmed] ) {
+		sys $cmdEpistasis pdbdist $aaContactDist $aaMinSepration $pdbDir $idMapConfirmed > $tmp
+		sys cat $tmp | grep "^AA_IN_CONTACT" | cut -f 2- | sort | uniq > $aaContact
+	}
+	wait
+
+	# Add MSA sequences to the previously calculated 'Aa in contact' file
+	println "\nAdd MSA information to AA in contact: '$aaContactSeq'"
+	task( aaContactSeq <- aaContact )	sys $cmdEpistasisXL addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
+	wait
+
+	#---
+	# Part 2: Select best mappings to use for parameter estimation
+	#---
+
+	# Find "best ID Mappings": For each gene, select one transcript and one PDB entry 
+	# that has longer Aa sequences (for PDB and transcript), as well as the 
+	# most 'AA in contact'
+	println "\nCalculate 'best' mapping: '$idMapBest'"
+	task( idMapBest <- [aaContactSeq, idMapConfirmed] )	sys $cmdEpistasis mapPdbGenomeBest $idMapConfirmed $aaContactSeq > $idMapBest
+	wait
+
+	# Filter AA in contact' file according to 'ID best map'
+	println "\nFilter 'AA in contact' using 'best' mapping: '$aaContactBest'"
+	task( aaContactBest <- [aaContactSeq, idMapBest] )	sys $cmdEpistasis aaFilterIdMap $idMapBest $aaContactSeq > $aaContactBest
+	wait
+
+	task( msaBest <- [tree, msa, idMapBest, idMapBest] ) sys $cmdEpistasisXL filterMsa $tree $msa $idMapBest > $msaBest
+	wait 
+
+	#---
+	# Part 3: Estimate transition matrices Q and AA frequencies (\hat{Pi}) from sequence alignment and phylegenetic tree
+	#---
+
+	# Calculate AA frequencies
+	println "\nCalculating AA frequencies: '$aaFreqs'"
+	task( aaFreqs <- [tree, msa, idMapBest] )	sys $cmdEpistasisXL aaFreqs $tree $msa $idMapBest > $aaFreqs
+	wait
+
+	println "\nEstimate Q: '$qhat'"
+	task( qhat <- [tree, msaBest, idMapBest] )	{
+		sys $cmdEpistasis Qhat $tree $msaBest $idMapBest > $qhat.log
+		sys grep "^Q_HAT_MATRIX" $qhat.log | cut -f 2- > $qhat
+	}
+	wait
+
+	println "\nEstimate Q2 (400x400): '$qhat2'"
+	task( qhat2 <- [tree, msaBest, idMapBest, aaContactBest] ) {
+		sys $cmdEpistasisXL Qhat2 $tree $msaBest $idMapBest $aaContactBest > $qhat2.log
+		sys grep "^Q_HAT2_MATRIX" $qhat2.log | cut -f 2- > $qhat2
+		sys grep "^PI_AA_PAIR" $qhat2.log | cut -f 3,5 > $aa2Freqs
+	}
+	wait
+}

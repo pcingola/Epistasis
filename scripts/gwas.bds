@@ -1,0 +1,26 @@
+#!/usr/bin/env bds
+
+#-------------------------------------------------------------------------------
+# Epistasis project: GWAS analysis
+#
+#															Pablo Cingolani 2014
+#-------------------------------------------------------------------------------
+
+void gwasAnalysis(strnig dirGwasOut, int numSplits) {
+	println "\nGWAS analysis using epistasis data"
+
+	# GWAs using interaction (MSA) data
+	dirGwasOut.mkdir()
+	for( int i=0 ; i < numSplits ; i++ ) {
+		for( int j=i ; j < numSplits ; j++ ) {
+			println "\t$i $j / $numSplits"
+			gwasOut := "$dirGwasOut/gwas.$numSplits.$i.$j.txt"
+
+			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
+				sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
+			}
+		}
+	}
+
+	wait
+}
