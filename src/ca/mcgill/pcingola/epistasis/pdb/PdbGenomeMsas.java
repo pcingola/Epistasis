@@ -143,6 +143,7 @@ public class PdbGenomeMsas extends SnpEff {
 	 * Return a list of maps that are confirmed (i.e. AA sequence matches between transcript and PDB)
 	 */
 	public List<IdMapperEntry> checkSequencePdbGenome(String pdbFile, boolean show) {
+		System.err.println(pdbFile);
 		Structure pdbStruct = readPdbFile(pdbFile);
 		String pdbId = pdbStruct.getPDBCode();
 
