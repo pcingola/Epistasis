@@ -67,7 +67,6 @@ wait
 
 println "\nEstimate Q: '$qhat'"
 task( qhat <- [tree, msaBest, idMapBest] )	{
-	sys echo $cmdEpistasis Qhat $tree $msaBest $idMapBest 
 	sys $cmdEpistasis Qhat $tree $msaBest $idMapBest > $qhat.log
 	sys grep "^Q_HAT_MATRIX" $qhat.log | cut -f 2- > $qhat
 }
