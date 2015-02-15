@@ -27,6 +27,7 @@ import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.snpEffect.commandLine.SnpEff;
 import ca.mcgill.mcb.pcingola.stats.CountByType;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.IdMapper;
 import ca.mcgill.pcingola.epistasis.IdMapperEntry;
 import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
@@ -265,7 +266,11 @@ public class PdbGenomeMsas extends SnpEff {
 		loadConfig();
 
 		// Load SnpEff database
-		if (genomeVer != null) loadDb();
+		if (genomeVer != null) {
+			Timer.showStdErr("Loading SnpEff's database: " + genomeVer);
+			loadDb();
+			Timer.showStdErr("Done.");
+		}
 
 		// Initialize trancriptById
 		trancriptById = new HashMap<>();
