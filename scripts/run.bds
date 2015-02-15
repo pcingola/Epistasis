@@ -34,7 +34,7 @@ wait
 
 # Add MSA sequences to the previously calculated 'Aa in contact' file
 println "\nAdd MSA information to AA in contact: '$aaContactSeq'"
-task( aaContactSeq <- aaContact )	sys $cmdEpistasis addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
+task( aaContactSeq <- aaContact )	sys $cmdEpistasisXL addMsaSeqs $snpeffConfig $genome $tree $msa $idMapConfirmed $aaContact > $aaContactSeq
 wait
 
 # Find "best ID Mappings": For each gene, select one transcript and one PDB entry 
