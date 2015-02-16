@@ -39,6 +39,7 @@ public class PdbInteracionAnalysis {
 	public static boolean debug = false;
 	public static boolean verbose = false;
 
+	boolean brief = false;
 	int neighbours;
 	double distanceThreshold;
 	double sumLl = 0;
@@ -180,7 +181,7 @@ public class PdbInteracionAnalysis {
 					gene2 = ((Gene) tr2.getParent()).getGeneName();
 
 					// Calculate LL(MSA)
-					String llstr = interactionLikelihood.logLikelihoodRatioStr(msa1.msaId, msa1.msaIdx, msa2.msaId, msa2.msaIdx, false, neighbours);
+					String llstr = interactionLikelihood.logLikelihoodRatioStr(msa1.msaId, msa1.msaIdx, msa2.msaId, msa2.msaIdx, brief, neighbours);
 
 					if (llstr != null) {
 
