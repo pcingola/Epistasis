@@ -361,7 +361,7 @@ void analysisCompoundProteins() {
 	for(int neigh=0; neigh <= maxNeigh ; neigh++ ) {
 		llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.$aaContactDist.txt"
 		task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound], cpus := 1) {
-			sys $cmdEpistasis likelihoodpdbinteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $aaContactDist $neigh > $llCompound
+			sys $cmdEpistasis likelihoodPdbInteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $aaContactDist $neigh > $llCompound
 		}
 	}
 
@@ -369,7 +369,7 @@ void analysisCompoundProteins() {
 	for(int neigh=0; neigh <= maxNeigh ; neigh++ ) {
 		llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.$distTh.txt"
 		task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound], cpus := 1) {
-			sys $cmdEpistasis likelihoodpdbinteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $distTh $neigh > $llCompound
+			sys $cmdEpistasis likelihoodPdbInteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $distTh $neigh > $llCompound
 		}
 	}
 }

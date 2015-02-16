@@ -192,7 +192,7 @@ public class PdbInteracionAnalysis {
 						System.out.println(dmin //
 								+ "\t" + llstr //
 								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName1 + "[" + aaIdx1 + "]" //
-								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName2 + "[" + aaIdx1 + "]" //
+								+ "\t" + pdbStruct.getPDBCode() + ":" + chainName2 + "[" + aaIdx2 + "]" //
 								+ "\t" + gene1 //
 								+ "\t" + gene2 //
 								+ "\t" + mi //
