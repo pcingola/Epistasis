@@ -34,7 +34,7 @@ if( model ) {
 	analysisGeneGene()
 	analysisClinvar()
 	analysisInteracting()
-	analysisCompountProteins()
+	analysisCompoundProteins()
 }
 
 if( gwas ) gwasAnalysis(dirGwasOut, gwasNumSplits)

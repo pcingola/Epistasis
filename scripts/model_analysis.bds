@@ -338,7 +338,7 @@ void analysisInteracting() {
 #-------------------------------------------------------------------------------
 # Find LL(MSA) on interacting proteins (COMPOUND entries in pdb)
 #-------------------------------------------------------------------------------
-void analysisCompountProteins() {
+void analysisCompoundProteins() {
 
 	# Select a set of pdb entries having interacting protein structures ('COMPOUND' entries)
 	# Find ID map for those entries
@@ -356,7 +356,7 @@ void analysisCompountProteins() {
 	task( msasCompound <- [tree, msa, idMapPdbCompound] )	sys $cmdEpistasisXL filterMsa $tree $msa $idMapPdbCompound > $msasCompound
 
 	# Calculate LL(MSA) of AA in contact vs AA not in contact
-	# USe different neighborhood values
+	# Use different neighborhood values
 	for(int neigh=1; neigh < 5 ; neigh++ ) {
 		llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.$aaContactDist.txt"
 		task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound], cpus := 1) {
