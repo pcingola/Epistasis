@@ -365,12 +365,12 @@ void analysisCompoundProteins() {
 		}
 	}
 
-#	distTh := "-30.0"	# AA not in contact (distance more than 30 Angstrom)
-#	for(int neigh=1; neigh < maxNeigh ; neigh++ ) {
-#		llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.$distTh.txt"
-#		task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound], cpus := 1) {
-#			sys $cmdEpistasis likelihoodpdbinteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $distTh $neigh | tee $llCompound
-#		}
-#	}
+	distTh := "-30.0"	# AA not in contact (distance more than 30 Angstrom)
+	for(int neigh=1; neigh <= maxNeigh ; neigh++ ) {
+		llCompound := "$dir/likelihood.pdb_compound.neigh_$neigh.$distTh.txt"
+		task( llCompound <- [pdbCompoundList, idMapPdbCompound, msasCompound], cpus := 1) {
+			sys $cmdEpistasis likelihoodpdbinteract $snpeffConfig $genome $tree $msasCompound $pdbDir $idMapConfirmed $qhat $aaFreqs $qhat2 $aa2Freqs $pdbCompound $distTh $neigh | tee $llCompound
+		}
+	}
 }
 

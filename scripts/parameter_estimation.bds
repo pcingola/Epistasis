@@ -57,7 +57,7 @@ void parameterEstimation() {
 
 	# Calculate AA frequencies
 	println "\nCalculating AA frequencies: '$aaFreqs'"
-	task( aaFreqs <- [tree, msa, idMapBest] )	sys $cmdEpistasisXL aaFreqs $tree $msa $idMapBest > $aaFreqs
+	task( aaFreqs <- [tree, msa, idMapBest] )	sys $cmdEpistasisXL aaFreqs $tree $msa $idMapBest | cut -f 2- > $aaFreqs
 	wait
 
 	println "\nEstimate Q: '$qhat'"
