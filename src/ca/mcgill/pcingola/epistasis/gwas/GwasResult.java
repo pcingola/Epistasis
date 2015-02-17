@@ -1,8 +1,12 @@
 package ca.mcgill.pcingola.epistasis.gwas;
 
+import org.apache.commons.math3.linear.Array2DRowRealMatrix;
+import org.apache.commons.math3.linear.LUDecomposition;
+
 import ca.mcgill.mcb.pcingola.interval.Genome;
 import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
+import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 
@@ -13,12 +17,22 @@ import ca.mcgill.pcingola.regression.LogisticRegression;
  */
 public class GwasResult {
 
+	public static final double EPSILON = 1e-6;
+
+	public static final int MIN_SHARED_VARIANTS = 5;
 	public static double LL_SHOW_LOGREG_MODEL = 0.0; // 6.0;
 	public static boolean debug = false;
 
+	String id;
 	public Genotype genoi, genoj;
 	public String genoiId, genojId;
 	public byte gtij[]; // Genotype data used to fit the logistic regression
+	double pheno[]; // Phenotypes
+	int countGtij; // Count number of samples having non-Ref and non-Missing genotypes in both variants
+
+	int countSkip; // Number of samples skipped
+	boolean skip[]; // Samples to skip (e.g. missing genotype or missing phenotype info
+	String skipKey; // A string symbolizing the skipped samples. Used for caching results (null model)
 
 	public double logLikelihoodRatioLogReg = 0.0; // Log likelihood ratio from Logistic Regression model
 	public double pvalueLogReg = 1.0; // P-value from log-likelihood ratio in logistic regression model
@@ -39,6 +53,20 @@ public class GwasResult {
 
 	public GwasResult(Genome genome, String line) {
 		parse(genome, line);
+	}
+
+	public GwasResult(Genotype genoi, double pheno[]) {
+		this.genoi = genoi;
+		genoj = null;
+		this.pheno = pheno;
+		id = genoi.getId();
+	}
+
+	public GwasResult(Genotype genoi, Genotype genoj, double pheno[]) {
+		this.genoi = genoi;
+		this.genoj = genoj;
+		this.pheno = pheno;
+		id = genoi.getId() + "-" + genoj.getId();
 	}
 
 	/**
@@ -79,6 +107,136 @@ public class GwasResult {
 		bayesFactorLogReg = twopik * Math.sqrt(detH0 / detH1) * Math.exp(diffLl);
 
 		return bayesFactorLogReg;
+	}
+
+	/**
+	 * Which samples should be skipped?
+	 */
+	public String calcSkip() {
+		if (genoj == null) return calcSkipSingle(); // Single variant
+		return calcSkipPair(); // Pair of variants
+	}
+
+	/**
+	 * Which samples should be skipped? Either missing genotype or missing phenotype
+	 * Also: Calculate gti * gtj vector and count number of positive entries
+	 * (i.e. number of samples that have non-Ref (and non-Missing) genotypes in both variants)
+	 */
+	String calcSkipPair() {
+		// Initialize
+		int numSamples = getNumSamples();
+		byte gti[] = genoi.getGt();
+		byte gtj[] = genoi.getGt();
+
+		skip = new boolean[numSamples];
+		gtij = new byte[numSamples];
+		countSkip = 0;
+		countGtij = 0;
+		char skipChar[] = new char[numSamples];
+
+		// Which samples should be skipped?
+		byte gtij[] = new byte[numSamples];
+		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
+			skip[vcfSampleNum] = (gti[vcfSampleNum] < 0) || (gtj[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
+
+			// Should we skip this sample?
+			if (skip[vcfSampleNum]) {
+				countSkip++;
+				skipChar[vcfSampleNum] = '1';
+			} else {
+				// Calculate gt[i] * gt[j]
+				gtij[vcfSampleNum] = (byte) (gti[vcfSampleNum] * gtj[vcfSampleNum]);
+				if (gtij[vcfSampleNum] > 0) countGtij++; // Is it a non-Ref and non-Missing entry?
+				skipChar[vcfSampleNum] = '0';
+			}
+		}
+
+		skipKey = new String(skipChar);
+		return skipKey;
+	}
+
+	/**
+	 * Which samples should be skipped? Either missing genotype or missing phenotype
+	 * Note: Create 'cache' key
+	 */
+	String calcSkipSingle() {
+		int numSamples = getNumSamples();
+		skip = new boolean[numSamples];
+		char skipChar[] = new char[numSamples];
+		countSkip = 0;
+		byte[] gt = genoi.getGt();
+		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
+			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
+			if (skip[vcfSampleNum]) {
+				countSkip++;
+				skipChar[vcfSampleNum] = '1';
+			} else skipChar[vcfSampleNum] = '0';
+		}
+
+		skipKey = new String(skipChar);
+		return skipKey;
+	}
+
+	public int getCountSkip() {
+		return countSkip;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	int getNumSamples() {
+		return genoi.numberSamples();
+	}
+
+	public boolean[] getSkip() {
+		return skip;
+	}
+
+	public String getSkipKey() {
+		return skipKey;
+	}
+
+	/**
+	 * Are these vectors linearly dependent?
+	 */
+	boolean linearDependency() {
+		byte gti[] = genoi.getGt();
+		byte gtj[] = genoj.getGt();
+
+		int len = gti.length - countSkip;
+		int n = 3;
+		byte M[][] = new byte[n][len];
+
+		// Create a matrix 'M'
+		for (int i = 0, idx = 0; i < gti.length; i++) {
+			if (skip[i]) continue;
+
+			M[0][idx] = gti[i];
+			M[1][idx] = gtj[i];
+			M[2][idx] = gtij[i];
+			idx++;
+		}
+
+		// Calculate M^t * M
+		double MM[][] = new double[n][n];
+		for (int i = 0; i < n; i++) {
+			for (int j = 0; j < n; j++) {
+				int sum = 0;
+
+				for (int h = 0; h < len; h++)
+					sum += M[i][h] * M[j][h];
+
+				MM[i][j] = sum;
+			}
+		}
+
+		// Is det( M^T * M ) zero?
+		Array2DRowRealMatrix MMr = new Array2DRowRealMatrix(MM);
+		double detMM = (new LUDecomposition(MMr)).getDeterminant();
+		if (debug) Gpr.debug("det(MM): " + detMM + "\tMM:\n" + Gpr.toString(MM));
+
+		return Math.abs(detMM) < EPSILON;
 	}
 
 	public double logLik() {
@@ -167,10 +325,47 @@ public class GwasResult {
 		return vect;
 	}
 
+	/**
+	 * Return phenotypes (only the ones that should not be skipped)
+	 */
+	public double[] phenoNoSkip() {
+		int totalSamples = getNumSamples() - countSkip;
+		double phenoNoSkip[] = new double[totalSamples];
+
+		int idx = 0;
+		for (int i = 0; i < getNumSamples(); i++)
+			if (!skip[i]) phenoNoSkip[idx++] = pheno[i];
+
+		return phenoNoSkip;
+	}
+
 	public double pvalueLogReg() {
 		int deltaDf = logisticRegressionAlt.getTheta().length - logisticRegressionNull.getTheta().length;
 		pvalueLogReg = FisherExactTest.get().chiSquareCDFComplementary(logLikelihoodRatioLogReg, deltaDf);
 		return pvalueLogReg;
+	}
+
+	/**
+	 * Should we filter out this variant pair?
+	 */
+	public boolean shouldFilter() {
+		// No samples has both variants? Then there is not much to do.
+		// To few shared variants? We probably don't have enough statistical
+		// power anyways (not worth analyzing)
+		if (countGtij < MIN_SHARED_VARIANTS) {
+			if (debug) Timer.show(id + "\t" + id + "\tLL_ratio: 1.0\tNot enough shared genotypes: " + countGtij);
+			return true; // Not enough shared variants? Log-likelihood is probably close to zero, not worths spending time on this
+		}
+
+		// Are gti[], gtj[] and gtij[] linearly dependent?
+		// If so, the model will not converge because the parameter (beta) for at least one of the gt[] will be 'NA'
+		if (linearDependency()) {
+			if (debug) Timer.show(id + "\tLL_ratio: 1.0\tLinear dependency ");
+			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
+		}
+
+		return false;
+
 	}
 
 	@Override
@@ -206,6 +401,5 @@ public class GwasResult {
 				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
 				;
-
 	}
 }

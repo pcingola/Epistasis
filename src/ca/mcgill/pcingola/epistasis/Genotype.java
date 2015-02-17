@@ -49,20 +49,27 @@ public class Genotype extends GenomicCoordinates {
 	byte[] minorAllele(byte gt[]) {
 		// Count alleles
 		minorAlleleCount = 0;
+		int countNonMIssing = 0;
 		for (int i = 0; i < gt.length; i++)
-			if (gt[i] > 0) minorAlleleCount += gt[i]; // Don't count '-1' (i.e. missing genotypes)
+			if (gt[i] > 0) {
+				minorAlleleCount += gt[i]; // Don't count '-1' (i.e. missing genotypes)
+				countNonMIssing++;
+			}
 
-		if (minorAlleleCount <= gt.length) return gt; // OK, gt[] is mainor allele
+		if (minorAlleleCount <= countNonMIssing) return gt; // OK, gt[] is minor allele
 
 		// Convert to minor allele
 		for (int i = 0; i < gt.length; i++)
 			if (gt[i] >= 0) gt[i] = (byte) (2 - gt[i]);
 
 		// Convert to minor allele
-		minorAlleleCount = 2 * gt.length - minorAlleleCount;
+		minorAlleleCount = 2 * countNonMIssing - minorAlleleCount;
 
 		return gt;
+	}
 
+	public int numberSamples() {
+		return gt.length;
 	}
 
 	/**

@@ -11,6 +11,7 @@ import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
+import ca.mcgill.pcingola.epistasis.gwas.GwasResult;
 import ca.mcgill.pcingola.regression.LogisticRegression;
 import ca.mcgill.pcingola.regression.LogisticRegressionIrwls;
 
@@ -79,20 +80,19 @@ public class LogisticRegressionGt {
 	/**
 	 * Calculate logistic regression's null model (or retrieve it form a cache)
 	 */
-	protected double calcNullModel(int countSkip, boolean skip[], char skipChar[], double phenoNonSkip[]) {
-		String skipStr = new String(skipChar);
-
+	protected double calcNullModel(GwasResult gwasResult, double phenoNonSkip[]) {
 		// Is logLikelihood cached?
-		Double llNull = llNullCache.get(skipStr);
+		String skipKey = gwasResult.getSkipKey();
+		Double llNull = llNullCache.get(skipKey);
 		if (llNull != null) return llNull;
 
-		// Not found in cache? Create model and claculate it
-		LogisticRegression lrNull = createNullModel(skip, countSkip, phenoNonSkip);
+		// Not found in cache? Create model and calculate it
+		LogisticRegression lrNull = createNullModel(gwasResult.getSkip(), gwasResult.getCountSkip(), phenoNonSkip);
 		this.lrNull = lrNull;
 		lrNull.learn();
 
 		llNull = lrNull.logLikelihood();
-		llNullCache.put(skipStr, llNull); // Add to cache
+		llNullCache.put(skipKey, llNull); // Add to cache
 
 		return llNull;
 	}
@@ -111,32 +111,23 @@ public class LogisticRegressionGt {
 			if (!s.equals(sampleIds[snum])) { throw new RuntimeException("Sample names do not match:" //
 					+ "\n\tSample [" + snum + "] in VCF file        :  '" + s + "'" //
 					+ "\n\tSample [" + snum + "] in phenotypes file :  '" + sampleIds[snum] + "'" //
-					); }
+			); }
 			snum++;
 		}
-	}
-
-	double[] copyNonSkip(double d[], boolean skip[], int countSkip) {
-		int totalSamples = numSamples - countSkip;
-		double dd[] = new double[totalSamples];
-
-		int idx = 0;
-		for (int i = 0; i < numSamples; i++)
-			if (!skip[i]) dd[idx++] = d[i];
-
-		return dd;
 	}
 
 	/**
 	 * Create alternative model
 	 */
-	protected LogisticRegression createAltModel(boolean skip[], int countSkip, byte gt[], double phenoNonSkip[]) {
+	protected LogisticRegression createAltModel(GwasResult gwasResult, double phenoNonSkip[]) {
 		LogisticRegression lrAlt = new LogisticRegressionIrwls(numCovariates + 1); // Add genotype
 
 		// Copy all covariates (except one that are skipped)
-		int totalSamples = numSamples - countSkip;
+		int totalSamples = numSamples - gwasResult.getCountSkip();
 		double xAlt[][] = new double[totalSamples][numCovariates + 1];
 
+		boolean skip[] = gwasResult.getSkip();
+		byte gt[] = gwasResult.genoi.getGt();
 		int idx = 0;
 		double gtmax = Double.NEGATIVE_INFINITY, gtmin = Double.POSITIVE_INFINITY;
 		for (int i = 0; i < numSamples; i++) {
@@ -214,7 +205,7 @@ public class LogisticRegressionGt {
 		for (int i = 0; i < theta.length; i++) {
 			if (Double.isNaN(theta[i]) // Is it NaN?
 					|| Double.isInfinite(theta[i]) // Id it infinite?
-					) return true;
+			) return true;
 		}
 		return false;
 	}
@@ -287,33 +278,20 @@ public class LogisticRegressionGt {
 	 * Fit models and calculate log likelihood ratio using 'genotypes' (gt) for the Alt model
 	 */
 	protected double logLikelihood(Genotype geno) {
-		//---
-		// Which samples should be skipped? Either missing genotype or missing phenotype
-		//---
-		boolean skip[] = new boolean[numSamples];
-		char skipChar[] = new char[numSamples];
-		int countSkip = 0;
-		byte[] gt = geno.getGt();
-		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
-			skip[vcfSampleNum] = (gt[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
-			if (skip[vcfSampleNum]) {
-				countSkip++;
-				skipChar[vcfSampleNum] = '1';
-			} else skipChar[vcfSampleNum] = '0';
-		}
+		GwasResult gwasResult = new GwasResult(geno, pheno);
+		gwasResult.calcSkip();
 
 		//---
 		// Create and fit logistic models, calculate log likelihood
 		//---
-
 		// Phenotypes without 'skipped' entries
-		double phenoNonSkip[] = copyNonSkip(pheno, skip, countSkip);
+		double phenoNonSkip[] = gwasResult.phenoNoSkip();
 
 		// Calculate 'Null' model (or retrieve from cache)
-		double llNull = calcNullModel(countSkip, skip, skipChar, phenoNonSkip);
+		double llNull = calcNullModel(gwasResult, phenoNonSkip);
 
 		// Create and calculate 'Alt' model
-		LogisticRegression lrAlt = createAltModel(skip, countSkip, gt, phenoNonSkip);
+		LogisticRegression lrAlt = createAltModel(gwasResult, phenoNonSkip);
 		lrAlt.learn();
 
 		double llAlt = lrAlt.logLikelihood();
@@ -341,7 +319,7 @@ public class LogisticRegressionGt {
 						+ "\tLL_null: " + llNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ "\tModel Alt  : " + lrAlt //
-						);
+				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\tCache size: " + llNullCache.size() + "\t" + geno.getId());
 		} else throw new RuntimeException("Likelihood ratio is infinite! ID: " + geno.getId() + ", LL.null: " + llNull + ", LL.alt: " + llAlt);
 
