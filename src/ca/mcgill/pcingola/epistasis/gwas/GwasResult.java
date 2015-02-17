@@ -290,7 +290,7 @@ public class GwasResult {
 			if (debug) Gpr.debug(genoiId + "\t" + genojId + "\t" + logLikTotal //
 					+ "\n\tAlt  : " + Gpr.toString(thetaAlt) //
 					+ "\n\tNull : " + Gpr.toString(thetaNull) //
-			);
+					);
 		}
 	}
 
@@ -349,9 +349,6 @@ public class GwasResult {
 	 * Should we filter out this variant pair?
 	 */
 	public boolean shouldFilter() {
-
-		debug = true;
-
 		// No samples has both variants? Then there is not much to do.
 		// To few shared variants? We probably don't have enough statistical
 		// power anyways (not worth analyzing)
@@ -389,7 +386,7 @@ public class GwasResult {
 					+ "\t" + genoj.getAnnotataions() //
 					+ "\tLogReg_Alt: " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\tLogReg_Null: " + Gpr.toString(logisticRegressionNull.getTheta()) //
-			;
+					;
 		}
 
 		if (genoi != null) genoiId = genoi.getId();
@@ -410,7 +407,7 @@ public class GwasResult {
 				+ "\t" + (genoiId != null ? genoiId : "") //
 				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
-		;
+				;
 	}
 
 	/**
