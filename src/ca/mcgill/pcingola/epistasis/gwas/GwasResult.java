@@ -349,6 +349,9 @@ public class GwasResult {
 	 * Should we filter out this variant pair?
 	 */
 	public boolean shouldFilter() {
+
+		debug = true;
+
 		// No samples has both variants? Then there is not much to do.
 		// To few shared variants? We probably don't have enough statistical
 		// power anyways (not worth analyzing)
