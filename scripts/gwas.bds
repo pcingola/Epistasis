@@ -7,7 +7,7 @@
 #-------------------------------------------------------------------------------
 
 void gwasAnalysis(string dirGwasOut, int numSplits) {
-	println "\nGWAS analysis using epistasis data"
+	println "\nGWAS analysis using epistasis data (cpus = $cpus)"
 
 	# GWAs using interaction (MSA) data
 	dirGwasOut.mkdir()
