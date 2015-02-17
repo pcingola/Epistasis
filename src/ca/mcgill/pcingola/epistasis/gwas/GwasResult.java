@@ -364,8 +364,15 @@ public class GwasResult {
 			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
-		return false;
+		// Is gti[] (or gtj[]) having non-zero entries at the same places as gtij[] ?
+		// If so, the model will converge to high oposing parameters
+		// between gti[] (or gtj[]) and gtij[] (probably meaningless)
+		if (variantDependency()) {
+			if (debug) Timer.show(id + "\tLL_ratio: 1.0\tLinear dependency ");
+			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
+		}
 
+		return false;
 	}
 
 	@Override
@@ -401,5 +408,30 @@ public class GwasResult {
 				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
 				;
+	}
+
+	/**
+	 * Are these vectors linearly dependent?
+	 */
+	boolean variantDependency() {
+		byte gti[] = genoi.getGt();
+		byte gtj[] = genoj.getGt();
+
+		boolean eqI = true;
+		boolean eqJ = true;
+		for (int i = 0; i < gti.length; i++) {
+			boolean isVariantI = (gti[i] > 0);
+			boolean isVariantJ = (gtj[i] > 0);
+			boolean isVariantIj = (gtij[i] > 0);
+
+			eqI &= (isVariantI == isVariantIj); // Are all variant entries in gti[] equal to variant entries in gtij[]?
+			eqJ &= (isVariantJ == isVariantIj); // Are all variant entries in gtj[] equal to variant entries in gtij[]?
+
+			// If both are different, we are done
+			if (!eqI && !eqJ) return false;
+		}
+
+		// All entries in either gti[] or gtj[] are non-zero in the same positions as gtij[]
+		return true;
 	}
 }
