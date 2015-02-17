@@ -4,7 +4,7 @@ echo Rmoving old files
 rm -rvf nohup.out epistasis.bds.* run.bds.* 
 
 echo Process is run as nohup
-nohup `dirname $0`/run.bds -model &
+nohup `dirname $0`/run.bds -gwas &
 
 echo
 echo
