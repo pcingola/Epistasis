@@ -135,7 +135,7 @@ public class GwasResult {
 		char skipChar[] = new char[numSamples];
 
 		// Which samples should be skipped?
-		byte gtij[] = new byte[numSamples];
+		gtij = new byte[numSamples];
 		for (int vcfSampleNum = 0; vcfSampleNum < numSamples; vcfSampleNum++) {
 			skip[vcfSampleNum] = (gti[vcfSampleNum] < 0) || (gtj[vcfSampleNum] < 0) || (pheno[vcfSampleNum] < 0);
 
