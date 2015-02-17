@@ -290,7 +290,7 @@ public class GwasResult {
 			if (debug) Gpr.debug(genoiId + "\t" + genojId + "\t" + logLikTotal //
 					+ "\n\tAlt  : " + Gpr.toString(thetaAlt) //
 					+ "\n\tNull : " + Gpr.toString(thetaNull) //
-					);
+			);
 		}
 	}
 
@@ -360,7 +360,7 @@ public class GwasResult {
 		// Are gti[], gtj[] and gtij[] linearly dependent?
 		// If so, the model will not converge because the parameter (beta) for at least one of the gt[] will be 'NA'
 		if (linearDependency()) {
-			if (debug) Timer.show(id + "\tLL_ratio: 1.0\tLinear dependency ");
+			if (debug) Timer.show(id + "\tLinear dependency");
 			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
@@ -368,7 +368,7 @@ public class GwasResult {
 		// If so, the model will converge to high oposing parameters
 		// between gti[] (or gtj[]) and gtij[] (probably meaningless)
 		if (variantDependency()) {
-			if (debug) Timer.show(id + "\tLL_ratio: 1.0\tLinear dependency ");
+			if (debug) Timer.show(id + "\tVariant match on every gtij[]");
 			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
@@ -386,7 +386,7 @@ public class GwasResult {
 					+ "\t" + genoj.getAnnotataions() //
 					+ "\tLogReg_Alt: " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\tLogReg_Null: " + Gpr.toString(logisticRegressionNull.getTheta()) //
-					;
+			;
 		}
 
 		if (genoi != null) genoiId = genoi.getId();
@@ -407,7 +407,7 @@ public class GwasResult {
 				+ "\t" + (genoiId != null ? genoiId : "") //
 				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
-				;
+		;
 	}
 
 	/**
