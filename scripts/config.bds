@@ -11,13 +11,13 @@ fast			:= false		help Use a faster set of parameters
 
 # Runtime parameters
 timeout			:= 5 * day
-system			:= 'local'
+system			:= 'cluster'
 cpus			:= ( system != 'local' ? 2 : cpusLocal )	# Set number of CPUs for cluster
 
 
 # Parameters
 snpEffDir		:= "$HOME/snpEff"
-dir				:= "$snpEffDir/epistasis_new"
+dir				:= "$snpEffDir/epistasis"
 aaContactDist	:= 3.0	help Distance between AA to be considered 'in contact'
 aaMinSepration	:= 25	help Number of AA separation to consider them for distance analysis
 genome			:= "hg19"
