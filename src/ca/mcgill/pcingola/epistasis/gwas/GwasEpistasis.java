@@ -136,13 +136,13 @@ public class GwasEpistasis {
 
 			// Parallel on split_j
 			IntStream.range(minJ, gtsSplitJ.size()) //
-			.parallel() //
-			.forEach(j -> {
-				GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
-				double llTot = gwasRes.logLik();
-				if (llTot > logLikelihoodRatioLogRegThreshold) countLl.inc();
-				if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-			});
+					.parallel() //
+					.forEach(j -> {
+						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
+						double llTot = gwasRes.logLik();
+						if (llTot > logLikelihoodRatioLogRegThreshold) countLl.inc();
+						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+					});
 		}
 	}
 
@@ -154,8 +154,7 @@ public class GwasEpistasis {
 		// Likelihood based on logistic regression
 		//---
 		LogisticRegressionGtPair llan = getLikelihoodAnalysis2();
-		GwasResult gwasRes;
-		gwasRes = llan.logLikelihood(genoi, genoj);
+		GwasResult gwasRes = llan.logLikelihood(genoi, genoj);
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
@@ -297,7 +296,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-				);
+		);
 	}
 
 	/**

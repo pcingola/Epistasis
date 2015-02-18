@@ -106,7 +106,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 	/**
 	 * Create null model
 	 */
-	LogisticRegression createNullModel(GwasResult gwasResult, double phenoNonSkip[]) {
+	protected LogisticRegression createNullModel(GwasResult gwasResult, double phenoNonSkip[]) {
 		LogisticRegression lrNull = new LogisticRegressionIrwls(numCovariates + 2); // Null model: Include "simple" genotypes
 
 		// Copy all covariates (except one that are skipped)
@@ -142,7 +142,6 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 	 * Calculate log likelihood
 	 */
 	public GwasResult logLikelihood(Genotype genoi, Genotype genoj) {
-
 		//---
 		// Create 'result' object
 		//---
@@ -151,6 +150,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Should we filter this pair out?
 		gwasResult.calcSkip();
 		if (gwasResult.shouldFilter()) return gwasResult;
+		Gpr.debug("CALC LOG REG!");
 
 		//---
 		// Create and fit logistic models, calculate log likelihood
@@ -216,7 +216,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 				);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + gwasResult.getId());
 		} else {
-			// Show error
+			// Logitic regression is infinite: Show error
 			Gpr.debug("ERROR: Likelihood ratio is infinite! ID: " + gwasResult.getId() //
 					+ "\n\tLR.null : " + logRegrNull //
 					+ "\n\tLR.alt  : " + logRegrAlt //

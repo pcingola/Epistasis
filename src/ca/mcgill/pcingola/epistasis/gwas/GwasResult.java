@@ -20,7 +20,7 @@ public class GwasResult {
 	public static final double EPSILON = 1e-6;
 
 	public static final int MIN_SHARED_VARIANTS = 5;
-	public static double LL_SHOW_LOGREG_MODEL = 0.0; // 6.0;
+	public static double LL_SHOW_LOGREG_MODEL = 0.001; // 6.0;
 	public static boolean debug = false;
 
 	String id;
@@ -290,7 +290,7 @@ public class GwasResult {
 			if (debug) Gpr.debug(genoiId + "\t" + genojId + "\t" + logLikTotal //
 					+ "\n\tAlt  : " + Gpr.toString(thetaAlt) //
 					+ "\n\tNull : " + Gpr.toString(thetaNull) //
-					);
+			);
 		}
 	}
 
@@ -372,6 +372,7 @@ public class GwasResult {
 			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
+		Gpr.debug("DO NOT FILTER: " + id);
 		return false;
 	}
 
@@ -386,7 +387,7 @@ public class GwasResult {
 					+ "\t" + genoj.getAnnotataions() //
 					+ "\tLogReg_Alt: " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\tLogReg_Null: " + Gpr.toString(logisticRegressionNull.getTheta()) //
-					;
+			;
 		}
 
 		if (genoi != null) genoiId = genoi.getId();
@@ -407,7 +408,7 @@ public class GwasResult {
 				+ "\t" + (genoiId != null ? genoiId : "") //
 				+ "\t" + (genojId != null ? genojId : "") //
 				+ additionalStr //
-				;
+		;
 	}
 
 	/**
