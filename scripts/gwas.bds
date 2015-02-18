@@ -17,7 +17,7 @@ void gwasAnalysis(string dirGwasOut, int numSplits) {
 			gwasOut := "$dirGwasOut/gwas.$numSplits.$i.$j.txt"
 
 			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-				sys $cmdEpistasisXL gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
+				sys $cmdEpistasis gwas $cpus $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j > $gwasOut
 			}
 		}
 	}
