@@ -116,7 +116,9 @@ public class GwasResult {
 	 */
 	public String calcSkip() {
 		if (genoj == null) return calcSkipSingle(); // Single variant
-		return calcSkipPair(); // Pair of variants
+
+		calcSkipPair(); // Pair of variants
+		return null;
 	}
 
 	/**
@@ -124,7 +126,7 @@ public class GwasResult {
 	 * Also: Calculate gti * gtj vector and count number of positive entries
 	 * (i.e. number of samples that have non-Ref (and non-Missing) genotypes in both variants)
 	 */
-	String calcSkipPair() {
+	void calcSkipPair() {
 		// Initialize
 		int numSamples = getNumSamples();
 		byte gti[] = genoi.getGt();
@@ -134,7 +136,6 @@ public class GwasResult {
 		gtij = new byte[numSamples];
 		countSkip = 0;
 		countGtij = 0;
-		char skipChar[] = new char[numSamples];
 
 		// Which samples should be skipped?
 		gtij = new byte[numSamples];
@@ -144,17 +145,12 @@ public class GwasResult {
 			// Should we skip this sample?
 			if (skip[vcfSampleNum]) {
 				countSkip++;
-				skipChar[vcfSampleNum] = '1';
 			} else {
 				// Calculate gt[i] * gt[j]
 				gtij[vcfSampleNum] = (byte) (gti[vcfSampleNum] * gtj[vcfSampleNum]);
 				if (gtij[vcfSampleNum] > 0) countGtij++; // Is it a non-Ref and non-Missing entry?
-				skipChar[vcfSampleNum] = '0';
 			}
 		}
-
-		skipKey = new String(skipChar);
-		return skipKey;
 	}
 
 	/**
@@ -341,23 +337,29 @@ public class GwasResult {
 		return phenoNoSkip;
 	}
 
+	/**
+	 * Calculate p-value form logistic regression
+	 */
+	protected double pvalueLogReg() {
+		int deltaDf = logisticRegressionAlt.getTheta().length - logisticRegressionNull.getTheta().length;
+		pvalueLogReg = FisherExactTest.get().chiSquareCDFComplementary(logLikelihoodRatioLogReg, deltaDf);
+		return pvalueLogReg;
+	}
+
+	/**
+	 * Set logistic regression's Alt and Null models
+	 */
 	public void setLogRegModels(LogisticRegression logRegrAlt, LogisticRegression logRegrNull) {
 		logisticRegressionAlt = logRegrAlt;
 		logisticRegressionNull = logRegrNull;
 
 		// Calculate likelihood ratio
-		likelihoodLogRegNull = logRegrNull.logLikelihood();
 		likelihoodLogRegAlt = logRegrAlt.logLikelihood();
+		likelihoodLogRegNull = logRegrNull.logLikelihood();
 		logLikelihoodRatioLogReg = 2.0 * (likelihoodLogRegAlt - likelihoodLogRegNull);
 
 		// Calculate p-value
 		pvalueLogReg();
-	}
-
-	public double pvalueLogReg() {
-		int deltaDf = logisticRegressionAlt.getTheta().length - logisticRegressionNull.getTheta().length;
-		pvalueLogReg = FisherExactTest.get().chiSquareCDFComplementary(logLikelihoodRatioLogReg, deltaDf);
-		return pvalueLogReg;
 	}
 
 	/**
