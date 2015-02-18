@@ -148,10 +148,8 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 
 		// Should we filter this pair out?
 		gwasResult.calcSkip();
-		if (gwasResult.shouldFilter()) {
-			Gpr.debug("Filtered out: " + gwasResult.getId());
-			return gwasResult;
-		}
+		if (gwasResult.shouldFilter()) return gwasResult;
+
 		//---
 		// Create and fit logistic models, calculate log likelihood
 		//---
