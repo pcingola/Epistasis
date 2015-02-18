@@ -190,7 +190,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 			Gpr.toFile(fileName, "" //
 					+ "Alt : " + Gpr.toString(logRegrAlt.getTheta()) + "\n" //
 					+ "Null: " + Gpr.toString(logRegrNull.getTheta()) //
-			); //
+					); //
 		}
 
 		//---
@@ -208,7 +208,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 						+ "\tLL_null: " + gwasResult.likelihoodLogRegNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
-				);
+						);
 			} else if (verbose) Timer.show(count + "\tLL_ratio: " + gwasResult.logLikelihoodRatioLogReg + "\t" + gwasResult.getId());
 		} else {
 			// Logitic regression is infinite: Show error
@@ -217,7 +217,7 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 					+ "\n\tLR.alt  : " + logRegrAlt //
 					+ "\tLL_alt    : " + gwasResult.likelihoodLogRegAlt //
 					+ "\tLL_null   : " + gwasResult.likelihoodLogRegNull //
-			);
+					);
 		}
 
 		return gwasResult;
@@ -278,17 +278,17 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//---
 
 		IntStream.range(0, keys.size()) //
-				.parallel() //
-				.forEach(i -> {
-					for (int j = i + 1; j < keys.size(); j++) {
-						String keyi = keys.get(i);
-						String keyj = keys.get(j);
-						Genotype gti = gtByKey.get(keyi);
-						Genotype gtj = gtByKey.get(keyj);
+		.parallel() //
+		.forEach(i -> {
+			for (int j = i + 1; j < keys.size(); j++) {
+				String keyi = keys.get(i);
+				String keyj = keys.get(j);
+				Genotype gti = gtByKey.get(keyi);
+				Genotype gtj = gtByKey.get(keyj);
 
-						logLikelihood(gti, gtj);
-					}
-				});
+				logLikelihood(gti, gtj);
+			}
+		});
 
 		Timer.show("Done VCF file: " + gtByKey.size() + " entries");
 

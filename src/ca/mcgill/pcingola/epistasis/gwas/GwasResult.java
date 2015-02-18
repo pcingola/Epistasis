@@ -410,10 +410,10 @@ public class GwasResult {
 		if (genoi != null) genoiId = genoi.getId();
 		if (genoj != null) genojId = genoj.getId();
 
-		return "log(BF): " + log10BayesFactor //
+		return "log10(BF): " + log10BayesFactor //
 				+ "\tll_total: " + llt //
 				// Logistic regression information
-				+ "\tlog(BF_LogReg): " + log10BayesFactorLogReg //
+				+ "\tlog10(BF_LogReg): " + log10BayesFactorLogReg //
 				+ "\tp-value(LogReg): " + pvalueLogReg //
 				+ "\tllr_LogReg: " + logLikelihoodRatioLogReg //
 				+ "\tll_LogReg_ALT: " + (logisticRegressionAlt != null ? "" + logisticRegressionAlt.logLikelihood() : "") //

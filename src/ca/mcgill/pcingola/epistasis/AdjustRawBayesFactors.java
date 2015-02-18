@@ -39,7 +39,9 @@ public class AdjustRawBayesFactors {
 		logOdds /= LOG_10; // Convert from Ln to Log10
 		if (logOdds > 10) Gpr.debug("logOdds: " + logOdds + "\t" + gr.logLikelihoodRatioMsa);
 
+		// Cap estimate to LL_MSA_MAX_LOG_ODDS
 		logOdds = Math.min(logOdds, LL_MSA_MAX_LOG_ODDS);
+
 		return logOdds;
 	}
 
