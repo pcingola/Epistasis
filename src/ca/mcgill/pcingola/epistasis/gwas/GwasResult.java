@@ -34,6 +34,8 @@ public class GwasResult {
 	boolean skip[]; // Samples to skip (e.g. missing genotype or missing phenotype info
 	String skipKey; // A string symbolizing the skipped samples. Used for caching results (null model)
 
+	public double likelihoodLogRegAlt = 0.0; // Likelihood from logistic regression (ALT model)
+	public double likelihoodLogRegNull = 0.0; // Likelihood from logistic regression (NULL model)
 	public double logLikelihoodRatioLogReg = 0.0; // Log likelihood ratio from Logistic Regression model
 	public double pvalueLogReg = 1.0; // P-value from log-likelihood ratio in logistic regression model
 
@@ -339,6 +341,19 @@ public class GwasResult {
 		return phenoNoSkip;
 	}
 
+	public void setLogRegModels(LogisticRegression logRegrAlt, LogisticRegression logRegrNull) {
+		logisticRegressionAlt = logRegrAlt;
+		logisticRegressionNull = logRegrNull;
+
+		// Calculate likelihood ratio
+		likelihoodLogRegNull = logRegrNull.logLikelihood();
+		likelihoodLogRegAlt = logRegrAlt.logLikelihood();
+		logLikelihoodRatioLogReg = 2.0 * (likelihoodLogRegAlt - likelihoodLogRegNull);
+
+		// Calculate p-value
+		pvalueLogReg();
+	}
+
 	public double pvalueLogReg() {
 		int deltaDf = logisticRegressionAlt.getTheta().length - logisticRegressionNull.getTheta().length;
 		pvalueLogReg = FisherExactTest.get().chiSquareCDFComplementary(logLikelihoodRatioLogReg, deltaDf);
@@ -372,7 +387,6 @@ public class GwasResult {
 			return true; // Linear dependency? Log-likelihood is exactly zero (by definition).
 		}
 
-		Gpr.debug("DO NOT FILTER: " + id);
 		return false;
 	}
 

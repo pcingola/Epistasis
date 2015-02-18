@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
-import ca.mcgill.mcb.pcingola.probablility.FisherExactTest;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
@@ -150,12 +149,10 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		// Should we filter this pair out?
 		gwasResult.calcSkip();
 		if (gwasResult.shouldFilter()) return gwasResult;
-		Gpr.debug("CALC LOG REG!");
 
 		//---
 		// Create and fit logistic models, calculate log likelihood
 		//---
-
 		// Phenotypes without 'skipped' entries
 		double phenoNonSkip[] = gwasResult.phenoNoSkip();
 
@@ -163,15 +160,13 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//LogisticRegression logRegrNull = createNullModel(skip, countSkip, phenoNonSkip, gti, gtj);
 		LogisticRegression logRegrNull = createNullModel(gwasResult, phenoNonSkip);
 		logRegrNull.learn();
-		double llNull = logRegrNull.logLikelihood();
 
 		// Create and calculate 'Alt' model
 		LogisticRegression logRegrAlt = createAltModel(gwasResult, phenoNonSkip);
 		logRegrAlt.learn();
-		double llAlt = logRegrAlt.logLikelihood();
 
-		// Calculate likelihood ratio
-		double ll = 2.0 * (llAlt - llNull);
+		// Set models and calculate likelihood ratio
+		gwasResult.setLogRegModels(logRegrAlt, logRegrNull);
 
 		//---
 		// Save as TXT table (only used for debugging)
@@ -198,37 +193,29 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 		//---
 		// Stats
 		//---
-		if (Double.isFinite(ll)) {
-			logLikMax = Math.max(logLikMax, ll);
+		if (Double.isFinite(gwasResult.logLikelihoodRatioLogReg)) {
+			logLikMax = Math.max(logLikMax, gwasResult.logLikelihoodRatioLogReg);
 
 			if (debug) {
-				// Calculate p-value
-				double pval = FisherExactTest.get().chiSquareCDFComplementary(ll, deltaDf);
-
 				Timer.show(count //
 						+ "\t" + gwasResult.getId() //
-						+ "\tLL_ratio: " + ll //
-						+ "\tp-value: " + pval //
-						+ "\tLL_alt: " + llAlt //
-						+ "\tLL_null: " + llNull //
+						+ "\tLL_ratio: " + gwasResult.logLikelihoodRatioLogReg //
+						+ "\tp-value: " + gwasResult.pvalueLogReg //
+						+ "\tLL_alt: " + gwasResult.likelihoodLogRegAlt //
+						+ "\tLL_null: " + gwasResult.likelihoodLogRegNull //
 						+ "\tLL_ratio_max: " + logLikMax //
 						+ (verbose ? "\n\tModel Alt  : " + logRegrAlt + "\n\tModel Null : " + logRegrNull : "") //
 				);
-			} else if (verbose) Timer.show(count + "\tLL_ratio: " + ll + "\t" + gwasResult.getId());
+			} else if (verbose) Timer.show(count + "\tLL_ratio: " + gwasResult.logLikelihoodRatioLogReg + "\t" + gwasResult.getId());
 		} else {
 			// Logitic regression is infinite: Show error
 			Gpr.debug("ERROR: Likelihood ratio is infinite! ID: " + gwasResult.getId() //
 					+ "\n\tLR.null : " + logRegrNull //
 					+ "\n\tLR.alt  : " + logRegrAlt //
-					+ "\n\tLL.null : " + llNull //
-					+ "\n\tLL.alt  : " + llAlt //
+					+ "\tLL_alt    : " + gwasResult.likelihoodLogRegAlt //
+					+ "\tLL_null   : " + gwasResult.likelihoodLogRegNull //
 			);
 		}
-
-		// Get all data into GwasData structure
-		gwasResult.logLikelihoodRatioLogReg = ll;
-		gwasResult.logisticRegressionAlt = logRegrAlt;
-		gwasResult.logisticRegressionNull = logRegrNull;
 
 		return gwasResult;
 	}

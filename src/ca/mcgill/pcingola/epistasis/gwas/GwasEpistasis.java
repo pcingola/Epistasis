@@ -158,10 +158,11 @@ public class GwasEpistasis {
 
 		// Log likelihood form logistic regression is too low?
 		// => Don't bother to calculate next part
-		if (gwasRes.logLikelihoodRatioLogReg < logLikelihoodRatioLogRegThreshold) return gwasRes;
-
-		// Calculate p-value form logistic regression likelihood test
-		gwasRes.pvalueLogReg();
+		if (gwasRes.logLikelihoodRatioLogReg < logLikelihoodRatioLogRegThreshold) {
+			Gpr.debug("FILTER OUT:" + gwasRes.logLikelihoodRatioLogReg);
+			return gwasRes;
+		}
+		Gpr.debug("PASSED:" + gwasRes.logLikelihoodRatioLogReg);
 
 		//---
 		// Likelihood based on interaction
