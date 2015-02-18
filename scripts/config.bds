@@ -12,7 +12,7 @@ fast			:= false		help Use a faster set of parameters
 # Runtime parameters
 timeout			:= 5 * day
 system			:= 'local'
-cpus			:= ( system != 'local' ? 4 : cpusLocal )	# Set number of CPUs for cluster
+cpus			:= ( system != 'local' ? 2 : cpusLocal )	# Set number of CPUs for cluster
 
 
 # Parameters
