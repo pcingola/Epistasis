@@ -51,8 +51,8 @@ public class Genotype extends GenomicCoordinates {
 		minorAlleleCount = 0;
 		int countNonMIssing = 0;
 		for (int i = 0; i < gt.length; i++)
-			if (gt[i] > 0) {
-				minorAlleleCount += gt[i]; // Don't count '-1' (i.e. missing genotypes)
+			if (gt[i] >= 0) { // Skip missing alleles
+				minorAlleleCount += gt[i]; // Allele count
 				countNonMIssing++;
 			}
 

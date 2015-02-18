@@ -123,8 +123,6 @@ public class GwasEpistasis {
 		//---
 		Counter count = new Counter();
 		Counter countLl = new Counter();
-		Gpr.debug("Split_I size: " + gtsSplitI.size());
-		Gpr.debug("Split_J size: " + gtsSplitJ.size());
 		for (int idxi = 0; idxi < gtsSplitI.size(); idxi++) {
 
 			// Split_i info

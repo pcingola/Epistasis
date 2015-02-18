@@ -130,7 +130,7 @@ public class GwasResult {
 		// Initialize
 		int numSamples = getNumSamples();
 		byte gti[] = genoi.getGt();
-		byte gtj[] = genoi.getGt();
+		byte gtj[] = genoj.getGt();
 
 		skip = new boolean[numSamples];
 		gtij = new byte[numSamples];
@@ -399,7 +399,8 @@ public class GwasResult {
 		// Show LR model
 		double llt = logLik();
 		if (logLikelihoodRatioLogReg >= LL_SHOW_LOGREG_MODEL) {
-			additionalStr = "\t" + genoi.getAnnotataions() //
+			additionalStr = "" //
+					+ "\t" + genoi.getAnnotataions() //
 					+ "\t" + genoj.getAnnotataions() //
 					+ "\tLogReg_Alt: " + Gpr.toString(logisticRegressionAlt.getTheta()) //
 					+ "\tLogReg_Null: " + Gpr.toString(logisticRegressionNull.getTheta()) //
@@ -421,8 +422,10 @@ public class GwasResult {
 				+ "\tllr_MSA: " + logLikelihoodRatioMsa //
 				+ "\tlik_MSA_ALT: " + likelihoodMsaAlt //
 				+ "\tlik_MSA_NULL: " + likelihoodMsaNull //
+				// Genotype IDs
 				+ "\t" + (genoiId != null ? genoiId : "") //
 				+ "\t" + (genojId != null ? genojId : "") //
+				// Additional info
 				+ additionalStr //
 		;
 	}

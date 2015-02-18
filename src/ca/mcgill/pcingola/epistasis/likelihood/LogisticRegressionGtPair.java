@@ -148,8 +148,10 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 
 		// Should we filter this pair out?
 		gwasResult.calcSkip();
-		if (gwasResult.shouldFilter()) return gwasResult;
-
+		if (gwasResult.shouldFilter()) {
+			Gpr.debug("Filtered out: " + gwasResult.getId());
+			return gwasResult;
+		}
 		//---
 		// Create and fit logistic models, calculate log likelihood
 		//---
@@ -184,10 +186,13 @@ public class LogisticRegressionGtPair extends LogisticRegressionGt {
 			Gpr.debug("Writing 'null data' table to :" + fileName);
 			Gpr.toFile(fileName, logRegrNull.toStringSamples());
 
-			// ALT model
-			fileName = Gpr.HOME + "/lr_test." + idd + ".alt.model.txt";
+			// Models
+			fileName = Gpr.HOME + "/lr_test." + idd + ".models.txt";
 			Gpr.debug("Writing 'alt model' to :" + fileName);
-			Gpr.toFile(fileName, logRegrAlt.toStringModel());
+			Gpr.toFile(fileName, "" //
+					+ "Alt : " + Gpr.toString(logRegrAlt.getTheta()) + "\n" //
+					+ "Null: " + Gpr.toString(logRegrNull.getTheta()) //
+			); //
 		}
 
 		//---
