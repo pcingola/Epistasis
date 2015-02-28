@@ -1,49 +1,9 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
-A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/bds.aux
-A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
-A level-1 auxiliary file: appendix/algorithm_details.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
-Repeated entry---line 793 of file mcgilletd.bib
- : @article{langmead2009ultrafast
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 803 of file mcgilletd.bib
- : @article{li2010fast
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 813 of file mcgilletd.bib
- : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 849 of file mcgilletd.bib
- : @article{li2008mapping
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1353 of file mcgilletd.bib
- : @article{langmead2009ultrafast
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1363 of file mcgilletd.bib
- : @article{li2010fast
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1373 of file mcgilletd.bib
- : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1465 of file mcgilletd.bib
- : @article{li2008mapping
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1476 of file mcgilletd.bib
- : @article{li2011improving
- :                         ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1704 of file mcgilletd.bib
  : @article{wu2011rare
  :                    ,
@@ -52,69 +12,50 @@ Repeated entry---line 1863 of file mcgilletd.bib
  : @book{durbin1998biological
  :                           ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2039 of file mcgilletd.bib
- : @article{mckenna2010genome
- :                           ,
+Repeated entry---line 2182 of file mcgilletd.bib
+ : @article{mani2008defining
+ :                          ,
 I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "REF"
-Warning--I didn't find a database entry for "REF:GIANT"
-Warning--I didn't find a database entry for "Emerson"
-Warning--I didn't find a database entry for "REF:web_GATK"
-Warning--I didn't find a database entry for "Siva2008"
-Warning--I didn't find a database entry for "Cantor2010"
-Warning--I didn't find a database entry for "Combarros2009"
-Warning--I didn't find a database entry for "Zuk2012"
-Warning--I didn't find a database entry for "Manollio2009"
-Warning--I didn't find a database entry for "Jostins2013"
-Warning--I didn't find a database entry for "Phillips2008"
-Warning--I didn't find a database entry for "Mani2008"
-Warning--I didn't find a database entry for "Venkatesan2008"
-Warning--I didn't find a database entry for "Shoemaker2007"
-Warning--I didn't find a database entry for "Pazos1997"
-Warning--I didn't find a database entry for "Goh2000"
-Warning--I didn't find a database entry for "Ruiz2013"
-Warning--I didn't find a database entry for "Juan2013"
-Warning--I didn't find a database entry for "Goodman"
-Warning--I didn't find a database entry for "Santiveri2010"
-You've used 46 entries,
+You've used 26 entries,
             2118 wiz_defined-function locations,
-            814 strings with 12519 characters,
-and the built_in function-call counts, 16803 in all, are:
-= -- 1625
-> -- 953
-< -- 5
-+ -- 384
-- -- 330
-* -- 1364
-:= -- 2882
-add.period$ -- 139
-call.type$ -- 46
-change.case$ -- 294
+            667 strings with 8741 characters,
+and the built_in function-call counts, 9422 in all, are:
+= -- 912
+> -- 527
+< -- 2
++ -- 211
+- -- 182
+* -- 785
+:= -- 1622
+add.period$ -- 78
+call.type$ -- 26
+change.case$ -- 164
 chr.to.int$ -- 0
-cite$ -- 46
-duplicate$ -- 529
-empty$ -- 1177
-format.name$ -- 330
-if$ -- 3355
+cite$ -- 26
+duplicate$ -- 288
+empty$ -- 669
+format.name$ -- 182
+if$ -- 1867
 int.to.chr$ -- 0
-int.to.str$ -- 46
-missing$ -- 50
-newline$ -- 233
-num.names$ -- 92
-pop$ -- 244
+int.to.str$ -- 26
+missing$ -- 29
+newline$ -- 133
+num.names$ -- 52
+pop$ -- 133
 preamble$ -- 1
-purify$ -- 252
+purify$ -- 141
 quote$ -- 0
-skip$ -- 362
+skip$ -- 187
 stack$ -- 0
-substring$ -- 1100
-swap$ -- 70
-text.length$ -- 5
+substring$ -- 644
+swap$ -- 28
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 176
+type$ -- 98
 warning$ -- 0
-while$ -- 161
-width$ -- 48
-write$ -- 504
-(There were 12 error messages)
+while$ -- 93
+width$ -- 28
+write$ -- 286
+(There were 3 error messages)

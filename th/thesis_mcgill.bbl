@@ -1,43 +1,15 @@
 \begin{thebibliography}{10}
 
-\bibitem{ackermann2012systematic}
-Marit Ackermann and Andreas Beyer.
-\newblock Systematic detection of epistatic interactions based on allele pair
-  frequencies.
-\newblock {\em PLoS genetics}, 8(2):e1002463, 2012.
-
-\bibitem{altschul1990basic}
-S.F. Altschul, W.~Gish, W.~Miller, E.W. Myers, D.J. Lipman, et~al.
-\newblock Basic local alignment search tool.
-\newblock {\em Journal of molecular biology}, 215(3):403--410, 1990.
-
-\bibitem{auwera2013fastq}
-Geraldine~A Auwera, Mauricio~O Carneiro, Christopher Hartl, Ryan Poplin,
-  Guillermo del Angel, Ami Levy-Moonshine, Tadeusz Jordan, Khalid Shakir, David
-  Roazen, Joel Thibault, et~al.
-\newblock From fastq data to high-confidence variant calls: The genome analysis
-  toolkit best practices pipeline.
-\newblock {\em Current protocols in bioinformatics}, pages 11--10, 2013.
-
 \bibitem{balding2006tutorial}
 D.J. Balding.
 \newblock A tutorial on statistical methods for population association studies.
 \newblock {\em Nature Reviews Genetics}, 7(10):781--791, 2006.
 
-\bibitem{cingolani2012program}
-P.~Cingolani, A.~Platts, M.~Coon, T.~Nguyen, L.~Wang, S.J. Land, X.~Lu, D.M.
-  Ruden, et~al.
-\newblock A program for annotating and predicting the effects of single
-  nucleotide polymorphisms, snpeff: Snps in the genome of drosophila
-  melanogaster strain w1118; iso-2; iso-3.
-\newblock {\em Fly}, 6(2):0--1, 2012.
-
-\bibitem{cingolani2012using}
-Pablo Cingolani, Viral~M Patel, Melissa Coon, Tung Nguyen, Susan~J Land,
-  Douglas~M Ruden, and Xiangyi Lu.
-\newblock Using drosophila melanogaster as a model for genotoxic chemical
-  mutational studies with a new program, snpsift.
-\newblock {\em Toxicogenomics in non-mammalian species}, page~92, 2012.
+\bibitem{cantor2010prioritizing}
+Rita~M Cantor, Kenneth Lange, and Janet~S Sinsheimer.
+\newblock Prioritizing gwas results: a review of statistical methods and
+  recommendations for their application.
+\newblock {\em The American Journal of Human Genetics}, 86(1):6--22, 2010.
 
 \bibitem{clarke2011basic}
 G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
@@ -45,40 +17,15 @@ G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
 \newblock Basic statistical analysis in genetic case-control studies.
 \newblock {\em Nature protocols}, 6(2):121--133, 2011.
 
-\bibitem{collins2004finishing}
-FS~Collins, ES~Lander, J.~Rogers, RH~Waterston, and I.~Conso.
-\newblock Finishing the euchromatic sequence of the human genome.
-\newblock {\em Nature}, 431(7011):931--945, 2004.
+\bibitem{combarros2009epistasis}
+Onofre Combarros, Mario Cortina-Borja, A~David Smith, and Donald~J Lehmann.
+\newblock Epistasis in sporadic alzheimer's disease.
+\newblock {\em Neurobiology of aging}, 30(9):1333--1349, 2009.
 
-\bibitem{cordell2002epistasis}
-Heather~J Cordell.
-\newblock Epistasis: what it means, what it doesn't mean, and statistical
-  methods to detect it in humans.
-\newblock {\em Human molecular genetics}, 11(20):2463--2468, 2002.
-
-\bibitem{cordell2009detecting}
-Heather~J Cordell.
-\newblock Detecting gene--gene interactions that underlie human diseases.
-\newblock {\em Nature Reviews Genetics}, 10(6):392--404, 2009.
-
-\bibitem{culverhouse2002perspective}
-Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
-\newblock A perspective on epistasis: limits of models displaying no main
-  effect.
-\newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
-
-\bibitem{depristo2011framework}
-M.A. DePristo, E.~Banks, R.~Poplin, K.V. Garimella, J.R. Maguire, C.~Hartl,
-  A.A. Philippakis, G.~Del~Angel, M.A. Rivas, M.~Hanna, et~al.
-\newblock A framework for variation discovery and genotyping using
-  next-generation dna sequencing data.
-\newblock {\em Nature genetics}, 43(5):491--498, 2011.
-
-\bibitem{dunn2008mutual}
-Stanley~D Dunn, Lindi~M Wahl, and Gregory~B Gloor.
-\newblock Mutual information without the influence of phylogeny or entropy
-  dramatically improves residue contact prediction.
-\newblock {\em Bioinformatics}, 24(3):333--340, 2008.
+\bibitem{de2013emerging}
+David de~Juan, Florencio Pazos, and Alfonso Valencia.
+\newblock Emerging methods in protein co-evolution.
+\newblock {\em Nature Reviews Genetics}, 14(4):249--261, 2013.
 
 \bibitem{durbin1998biological}
 R.~Durbin.
@@ -91,26 +38,27 @@ Joseph Felsenstein and Joseph Felenstein.
 \newblock {\em Inferring phylogenies}, volume~2.
 \newblock Sinauer Associates Sunderland, 2004.
 
-\bibitem{ferragina2000opportunistic}
-P.~Ferragina and G.~Manzini.
-\newblock Opportunistic data structures with applications.
-\newblock In {\em Foundations of Computer Science, 2000. Proceedings. 41st
-  Annual Symposium on}, pages 390--398. IEEE, 2000.
-
 \bibitem{gao2010classification}
 Hong Gao, Julie~M Granka, and Marcus~W Feldman.
 \newblock On the classification of epistatic interactions.
 \newblock {\em Genetics}, 184(3):827--837, 2010.
 
-\bibitem{gibson2012rare}
-G.~Gibson.
-\newblock Rare and common variants: twenty arguments.
-\newblock {\em Nature Reviews Genetics}, 13(2):135--145, 2012.
+\bibitem{goh2000co}
+Chern-Sing Goh, Andrew~A Bogan, Marcin Joachimiak, Dirk Walther, and Fred~E
+  Cohen.
+\newblock Co-evolution of proteins with their interaction partners.
+\newblock {\em Journal of molecular biology}, 299(2):283--293, 2000.
 
-\bibitem{hartl1997principles}
-D.L. Hartl and A.G. Clark.
-\newblock {\em Principles of population genetics}.
-\newblock Sinauer associates Sunderland, Massachusetts, 2007.
+\bibitem{goodman1999toward}
+Steven~N Goodman.
+\newblock Toward evidence-based medical statistics. 2: The bayes factor.
+\newblock {\em Annals of internal medicine}, 130(12):1005--1013, 1999.
+
+\bibitem{jostins2013using}
+Luke Jostins, Adam~P Levine, and Jeffrey~C Barrett.
+\newblock Using genetic prediction from known complex disease loci to guide the
+  design of next-generation sequencing experiments.
+\newblock {\em PloS one}, 8(10):e76328, 2013.
 
 \bibitem{kass1995bayes}
 Robert~E Kass and Adrian~E Raftery.
@@ -118,96 +66,62 @@ Robert~E Kass and Adrian~E Raftery.
 \newblock {\em Journal of the american statistical association},
   90(430):773--795, 1995.
 
-\bibitem{kennedy2001}
-Martin~Alexander Kennedy.
-\newblock Mendelian genetic disorders.
-\newblock {\em ENCYCLOPEDIA OF LIFE SCIENCES}, 2001.
+\bibitem{mani2008defining}
+Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
+  Frederick~P Roth.
+\newblock Defining genetic interaction.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  105(9):3461--3466, 2008.
 
-\bibitem{koo2013review}
-Ching~Lee Koo, Mei~Jing Liew, Mohd~Saberi Mohamad, and Abdul~Hakim
-  Mohamed~Salleh.
-\newblock A review for detecting gene-gene interactions using machine learning
-  methods in genetic epidemiology.
-\newblock {\em BioMed research international}, 2013, 2013.
-
-\bibitem{langmead2012fast}
-B.~Langmead and S.L. Salzberg.
-\newblock Fast gapped-read alignment with bowtie 2.
-\newblock {\em Nature Methods}, 2012.
-
-\bibitem{langmead2009ultrafast}
-B.~Langmead, C.~Trapnell, M.~Pop, and S.L. Salzberg.
-\newblock {Ultrafast and memory-efficient alignment of short DNA sequences to
-  the human genome}.
-\newblock {\em Genome Biol}, 10(3):R25, 2009.
-
-\bibitem{li2008methods}
-B.~Li and S.M. Leal.
-\newblock Methods for detecting associations with rare variants for common
-  diseases: application to analysis of sequence data.
-\newblock {\em The American Journal of Human Genetics}, 83(3):311--321, 2008.
-
-\bibitem{li2011improving}
-H.~Li.
-\newblock Improving snp discovery by base alignment quality.
-\newblock {\em Bioinformatics}, 27(8):1157--1158, 2011.
-
-\bibitem{li2011statistical}
-H.~Li.
-\newblock A statistical framework for snp calling, mutation discovery,
-  association mapping and population genetical parameter estimation from
-  sequencing data.
-\newblock {\em Bioinformatics}, 27(21):2987--2993, 2011.
-
-\bibitem{li2010fast}
-H.~Li and R.~Durbin.
-\newblock {Fast and accurate short-read alignment with Burrows-Wheeler
-  transform}.
-\newblock {\em Bioinformatics}, 25(5), 2009.
-
-\bibitem{li2010fastlong}
-H.~Li and R.~Durbin.
-\newblock {Fast and accurate long-read alignment with Burrows-Wheeler
-  transform}.
-\newblock {\em Bioinformatics}, 26(5):589, 2010.
-
-\bibitem{li2008mapping}
-H.~Li, J.~Ruan, and R.~Durbin.
-\newblock {Mapping short DNA sequencing reads and calling variants using
-  mapping quality scores}.
-\newblock {\em Genome research}, 18(11):1851, 2008.
+\bibitem{manolio2009finding}
+Teri~A Manolio, Francis~S Collins, Nancy~J Cox, David~B Goldstein, Lucia~A
+  Hindorff, David~J Hunter, Mark~I McCarthy, Erin~M Ramos, Lon~R Cardon,
+  Aravinda Chakravarti, et~al.
+\newblock Finding the missing heritability of complex diseases.
+\newblock {\em Nature}, 461(7265):747--753, 2009.
 
 \bibitem{marks2012protein}
 Debora~S Marks, Thomas~A Hopf, and Chris Sander.
 \newblock Protein structure prediction from sequence variation.
 \newblock {\em Nature biotechnology}, 30(11):1072--1080, 2012.
 
-\bibitem{mckenna2010genome}
-A.~McKenna, M.~Hanna, E.~Banks, A.~Sivachenko, K.~Cibulskis, A.~Kernytsky,
-  K.~Garimella, D.~Altshuler, S.~Gabriel, M.~Daly, et~al.
-\newblock The genome analysis toolkit: a mapreduce framework for analyzing
-  next-generation dna sequencing data.
-\newblock {\em Genome research}, 20(9):1297--1303, 2010.
+\bibitem{pazos1997correlated}
+Florencio Pazos, Manuela Helmer-Citterich, Gabriele Ausiello, and Alfonso
+  Valencia.
+\newblock Correlated mutations contain information about protein-protein
+  interaction.
+\newblock {\em Journal of molecular biology}, 271(4):511--523, 1997.
 
-\bibitem{mckinney2006machine}
-Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
-\newblock Machine learning for detecting gene-gene interactions.
-\newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
+\bibitem{phillips2008epistasis}
+Patrick~C Phillips.
+\newblock Epistasis—the essential role of gene interactions in the structure
+  and evolution of genetic systems.
+\newblock {\em Nature Reviews Genetics}, 9(11):855--867, 2008.
 
-\bibitem{napolitano2013bioinformatic}
-Francesco Napolitano, Renato Mariani-Costantini, and Roberto Tagliaferri.
-\newblock Bioinformatic pipelines in python with leaf.
-\newblock {\em BMC bioinformatics}, 14(1):201, 2013.
+\bibitem{ruiz2013coevolution}
+Mario~X Ruiz-Gonz{\'a}lez and Mario~A Fares.
+\newblock Coevolution analyses illuminate the dependencies between amino acid
+  sites in the chaperonin system groes-l.
+\newblock {\em BMC evolutionary biology}, 13(1):156, 2013.
 
-\bibitem{patterson2006population}
-N.~Patterson, A.L. Price, and D.~Reich.
-\newblock Population structure and eigenanalysis.
-\newblock {\em PLoS genetics}, 2(12):e190, 2006.
+\bibitem{santiveri2010tryptophan}
+Clara~M Santiveri and M~Jim{\'e}nez.
+\newblock Tryptophan residues: Scarce in proteins but strong stabilizers of
+  $\beta$-hairpin peptides.
+\newblock {\em Peptide Science}, 94(6):779--790, 2010.
 
-\bibitem{sadedin2012bpipe}
-Simon~P Sadedin, Bernard Pope, and Alicia Oshlack.
-\newblock Bpipe: a tool for running and managing bioinformatics pipelines.
-\newblock {\em Bioinformatics}, 28(11):1525--1526, 2012.
+\bibitem{shoemaker2007deciphering}
+Benjamin~A Shoemaker and Anna~R Panchenko.
+\newblock Deciphering protein--protein interactions. part i. experimental
+  techniques and databases.
+\newblock {\em PLoS computational biology}, 3(3):e42, 2007.
+
+\bibitem{venkatesan2009empirical}
+Kavitha Venkatesan, Jean-Francois Rual, Alexei Vazquez, Ulrich Stelzl, Irma
+  Lemmens, Tomoko Hirozane-Kishikawa, Tong Hao, Martina Zenkner, Xiaofeng Xin,
+  Kwang-Il Goh, et~al.
+\newblock An empirical framework for binary interactome mapping.
+\newblock {\em Nature methods}, 6(1):83--90, 2009.
 
 \bibitem{visscher2012five}
 Peter~M Visscher, Matthew~A Brown, Mark~I McCarthy, and Jian Yang.
@@ -220,17 +134,6 @@ Jon Wakefield.
   p-values.
 \newblock {\em Genetic epidemiology}, 33(1):79--86, 2009.
 
-\bibitem{wang2010annovar}
-K.~Wang, M.~Li, and H.~Hakonarson.
-\newblock Annovar: functional annotation of genetic variants from
-  high-throughput sequencing data.
-\newblock {\em Nucleic acids research}, 38(16):e164--e164, 2010.
-
-\bibitem{watson1953molecular}
-J.D. Watson and F.H.C. Crick.
-\newblock Molecular structure of nucleic acids.
-\newblock {\em Nature}, 171(4356):737--738, 1953.
-
 \bibitem{wu2011rare}
 M.C. Wu, S.~Lee, T.~Cai, Y.~Li, M.~Boehnke, and X.~Lin.
 \newblock Rare-variant association testing for sequencing data with the
@@ -242,30 +145,11 @@ Ziheng Yang.
 \newblock {\em Computational molecular evolution}, volume 284.
 \newblock Oxford University Press Oxford, 2006.
 
-\bibitem{zhang2007bayesian}
-Yu~Zhang and Jun~S Liu.
-\newblock Bayesian inference of epistatic interactions in case-control studies.
-\newblock {\em Nature genetics}, 39(9):1167--1173, 2007.
-
-\bibitem{zhao2006test}
-Jinying Zhao, Li~Jin, and Momiao Xiong.
-\newblock Test for interaction between two unlinked loci.
-\newblock {\em The American Journal of Human Genetics}, 79(5):831--845, 2006.
-
 \bibitem{zuk2012mystery}
 O.~Zuk, E.~Hechter, S.R. Sunyaev, and E.S. Lander.
 \newblock The mystery of missing heritability: Genetic interactions create
   phantom heritability.
 \newblock {\em Proceedings of the National Academy of Sciences},
   109(4):1193--1198, 2012.
-
-\bibitem{zuk2014searching}
-Or~Zuk, Stephen~F Schaffner, Kaitlin Samocha, Ron Do, Eliana Hechter, Sekar
-  Kathiresan, Mark~J Daly, Benjamin~M Neale, Shamil~R Sunyaev, and Eric~S
-  Lander.
-\newblock Searching for missing heritability: Designing rare variant
-  association studies.
-\newblock {\em Proceedings of the National Academy of Sciences},
-  111(4):E455--E464, 2014.
 
 \end{thebibliography}

@@ -147,11 +147,11 @@
 	\include{chapters/bds}
 	\include{chapters/snpeff}
 	\include{chapters/gwas}
+	\include{chapters/conclusions}
 \else
 	% Only show the chapter we are currently working on
-	\include{chapters/conclusions}
+	\include{chapters/gwas}
 \fi
-
 
 \ifthesis
 	% Show all appendices & bibliography in 'thesis' mode
@@ -160,16 +160,15 @@
 	% Appendices
 	%-----------------------------------------------------------------------------
 	\ETDAppendix{Appendix A}{ \include{appendix/algorithm_details} }%
-	
-	%-----------------------------------------------------------------------------
-	% Bibliography. You need to run the following command: "bibtex thesis_mcgill"
-	%-----------------------------------------------------------------------------
-	\bibHeading{References}
-	\bibliographystyle{plain}
-	\bibliography{mcgilletd}		% File: mcgilletd.bib
-
 \else
 	% Skip all appendices and bibliography
 \fi
+	
+%-----------------------------------------------------------------------------
+% Bibliography. You need to run the following command: "bibtex thesis_mcgill"
+%-----------------------------------------------------------------------------
+\bibHeading{References}
+\bibliographystyle{plain}
+\bibliography{mcgilletd}		% File: mcgilletd.bib
 
 \end{document}
