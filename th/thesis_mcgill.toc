@@ -32,6 +32,31 @@
 \contentsline {subsection}{\numberline {1.5.1}Epistatic GWAS }{28}
 \contentsline {section}{\numberline {1.6}Thesis roadmap and Contributions}{30}
 \contentsline {subsection}{\numberline {1.6.1}Other contributions}{32}
-\contentsline {extrachapter}{Appendix A}{35}
-\contentsline {section}{\numberline {A.1}Algorithm details}{36}
-\contentsline {extrachapter}{References}{37}
+\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{35}
+\contentsline {section}{\numberline {2.1}Preface}{35}
+\contentsline {section}{\numberline {2.2}Introduction}{36}
+\contentsline {section}{\numberline {2.3}Methods}{40}
+\contentsline {subsection}{\numberline {2.3.1}Language overview}{41}
+\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{41}
+\contentsline {subsection}{\numberline {2.3.3}Robustness}{43}
+\contentsline {paragraph}{Lazy processing..}{44}
+\contentsline {paragraph}{Absolute serialization..}{45}
+\contentsline {paragraph}{Limitations..}{45}
+\contentsline {subsection}{\numberline {2.3.4}Other features}{46}
+\contentsline {paragraph}{Automatic logging..}{46}
+\contentsline {paragraph}{Automatic command line parsing..}{47}
+\contentsline {paragraph}{Task re-execution..}{48}
+\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{48}
+\contentsline {paragraph}{Process identification.}{49}
+\contentsline {paragraph}{Timeout enforcement.}{49}
+\contentsline {paragraph}{Logging.}{51}
+\contentsline {paragraph}{Exit status.}{51}
+\contentsline {paragraph}{Signal handling.}{51}
+\contentsline {section}{\numberline {2.4}Results}{51}
+\contentsline {paragraph}{Architecture independence.}{53}
+\contentsline {paragraph}{Robustness..}{55}
+\contentsline {paragraph}{Scalability..}{55}
+\contentsline {section}{\numberline {2.5}Discussion}{56}
+\contentsline {extrachapter}{Appendix A}{58}
+\contentsline {section}{\numberline {A.1}Algorithm details}{59}
+\contentsline {extrachapter}{References}{60}
