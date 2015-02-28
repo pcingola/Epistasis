@@ -73,6 +73,17 @@
 \contentsline {paragraph}{Experimental sources of evidence:.}{78}
 \contentsline {paragraph}{Combining sources of evidence:.}{79}
 \contentsline {section}{\numberline {3.5} Clinical effect of variants}{80}
-\contentsline {extrachapter}{Appendix A}{89}
-\contentsline {section}{\numberline {A.1}Algorithm details}{90}
-\contentsline {extrachapter}{References}{91}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{89}
+\contentsline {section}{\numberline {4.1}Preface}{89}
+\contentsline {section}{\numberline {4.2}Introduction}{89}
+\contentsline {section}{\numberline {4.3}Methods}{93}
+\contentsline {subsection}{\numberline {4.3.1}Markov model}{94}
+\contentsline {subsection}{\numberline {4.3.2}GWAS model}{97}
+\contentsline {section}{\numberline {4.4}Results}{101}
+\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{101}
+\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{103}
+\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{106}
+\contentsline {section}{\numberline {4.5}Discussion}{106}
+\contentsline {extrachapter}{Appendix A}{108}
+\contentsline {section}{\numberline {A.1}Algorithm details}{109}
+\contentsline {extrachapter}{References}{110}

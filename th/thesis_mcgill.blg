@@ -1,144 +1,149 @@
-This is BibTeX, Version 0.99c (Web2C 7.5.6)
+This is BibTeX, Version 0.99d (TeX Live 2013)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/annotations.aux
-A level-1 auxiliary file: chapters/codingAnnotations.aux
-A level-1 auxiliary file: chapters/noncodingAnnotations.aux
-A level-1 auxiliary file: chapters/networkAnnotations.aux
-A level-1 auxiliary file: chapters/chipSeq.aux
-A level-1 auxiliary file: chapters/diabetes_network.aux
+Case mismatch error between cite keys cordell2009 and Cordell2009
+---line 127 of file chapters/intro.aux
+ : \citation{cordell2009
+ :                      }
+I'm skipping whatever remains of this command
+Case mismatch error between cite keys cordell2009 and Cordell2009
+---line 136 of file chapters/intro.aux
+ : \citation{cordell2009
+ :                      }
+I'm skipping whatever remains of this command
+A level-1 auxiliary file: chapters/bds.aux
+A level-1 auxiliary file: chapters/snpeff.aux
+A level-1 auxiliary file: chapters/gwas.aux
 A level-1 auxiliary file: appendix/algorithm_details.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
-Repeated entry---line 906 of file mcgilletd.bib
+Repeated entry---line 793 of file mcgilletd.bib
  : @article{langmead2009ultrafast
  :                               ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 916 of file mcgilletd.bib
+Repeated entry---line 803 of file mcgilletd.bib
  : @article{li2010fast
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 926 of file mcgilletd.bib
+Repeated entry---line 813 of file mcgilletd.bib
  : @article{li2010fastlong
  :                        ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 938 of file mcgilletd.bib
- : @article{li2009sequence
- :                        ,
+Repeated entry---line 849 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 974 of file mcgilletd.bib
- : @article{li2010baq
- :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 998 of file mcgilletd.bib
- : @article{park2009chip
- :                      ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1010 of file mcgilletd.bib
- : @article{zhang2008model
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1021 of file mcgilletd.bib
- : @article{pepke2009computation
- :                              ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1032 of file mcgilletd.bib
- : @article{teemu10practical
- :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1040 of file mcgilletd.bib
- : @article{fullwood2009chip
- :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1052 of file mcgilletd.bib
- : @article{song7chip
- :                   ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1060 of file mcgilletd.bib
- : @article{wilbanks2010evaluation
- :                                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1071 of file mcgilletd.bib
- : @article{fejes2008findpeaks
- :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1083 of file mcgilletd.bib
- : @article{jothi2008genome
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1095 of file mcgilletd.bib
- : @article{hu2010detection
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1107 of file mcgilletd.bib
- : @article{szalkowski2010rapid
- :                             ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1116 of file mcgilletd.bib
- : @article{ghosh2010statistical
- :                              ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1127 of file mcgilletd.bib
- : @article{ji2008integrated
- :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1139 of file mcgilletd.bib
- : @article{jiao2010probabilistic
+Repeated entry---line 1353 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
  :                               ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1149 of file mcgilletd.bib
- : @article{ wikiWnt
- :                  ,
+Repeated entry---line 1363 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1156 of file mcgilletd.bib
- : @article{ wntHome
- :                  ,
+Repeated entry---line 1373 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
 I'm skipping whatever remains of this entry
-Warning--empty journal in lin2007robust
-Warning--empty year in song7chip
-Warning--empty year in teemu10practical
-Warning--empty journal in wntHome
-Warning--empty year in wntHome
-Warning--empty journal in wikiWnt
-You've used 26 entries,
+Repeated entry---line 1465 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1476 of file mcgilletd.bib
+ : @article{li2011improving
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1695 of file mcgilletd.bib
+ : @article{wu2011rare
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1854 of file mcgilletd.bib
+ : @book{durbin1998biological
+ :                           ,
+I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "SnpEff"
+Warning--I didn't find a database entry for "SnpSift"
+Warning--I didn't find a database entry for "REF"
+Warning--I didn't find a database entry for "Keitel2009"
+Warning--I didn't find a database entry for "REF:GIANT"
+Warning--I didn't find a database entry for "Emerson"
+Warning--I didn't find a database entry for "REF:web_GATK"
+Warning--I didn't find a database entry for "Culverhouse2002"
+Warning--I didn't find a database entry for "Cordell2009"
+Warning--I didn't find a database entry for "cordell2002"
+Warning--I didn't find a database entry for "ackerman2012"
+Warning--I didn't find a database entry for "Zhang2009"
+Warning--I didn't find a database entry for "Zhao2006"
+Warning--I didn't find a database entry for "McKinney2011"
+Warning--I didn't find a database entry for "koo2013"
+Warning--I didn't find a database entry for "Zuk2014"
+Warning--I didn't find a database entry for "Auwera2013"
+Warning--I didn't find a database entry for "Sadedin2012"
+Warning--I didn't find a database entry for "Napolitano2013"
+Warning--I didn't find a database entry for "McKenna2010"
+Warning--I didn't find a database entry for "Cingolani2012b"
+Warning--I didn't find a database entry for "Cingolani2012a"
+Warning--I didn't find a database entry for "Siva2008"
+Warning--I didn't find a database entry for "Visscher2012"
+Warning--I didn't find a database entry for "Wu2011"
+Warning--I didn't find a database entry for "Gao2009"
+Warning--I didn't find a database entry for "Gao"
+Warning--I didn't find a database entry for "Cantor2010"
+Warning--I didn't find a database entry for "Combarros2009"
+Warning--I didn't find a database entry for "Zuk2012"
+Warning--I didn't find a database entry for "Manollio2009"
+Warning--I didn't find a database entry for "Jostins2013"
+Warning--I didn't find a database entry for "Gao2010"
+Warning--I didn't find a database entry for "Phillips2008"
+Warning--I didn't find a database entry for "Mani2008"
+Warning--I didn't find a database entry for "Venkatesan2008"
+Warning--I didn't find a database entry for "Shoemaker2007"
+Warning--I didn't find a database entry for "Pazos1997"
+Warning--I didn't find a database entry for "Goh2000"
+Warning--I didn't find a database entry for "Ruiz2013"
+Warning--I didn't find a database entry for "Juan2013"
+Warning--I didn't find a database entry for "Goodman"
+Warning--I didn't find a database entry for "Santiveri2010"
+You've used 30 entries,
             2118 wiz_defined-function locations,
-            656 strings with 8629 characters,
-and the built_in function-call counts, 8750 in all, are:
-= -- 818
-> -- 532
-< -- 0
-+ -- 210
-- -- 184
-* -- 702
-:= -- 1557
-add.period$ -- 77
-call.type$ -- 26
-change.case$ -- 169
+            772 strings with 9971 characters,
+and the built_in function-call counts, 10711 in all, are:
+= -- 1035
+> -- 593
+< -- 3
++ -- 240
+- -- 204
+* -- 859
+:= -- 1839
+add.period$ -- 91
+call.type$ -- 30
+change.case$ -- 184
 chr.to.int$ -- 0
-cite$ -- 32
-duplicate$ -- 277
-empty$ -- 590
-format.name$ -- 184
-if$ -- 1712
+cite$ -- 30
+duplicate$ -- 343
+empty$ -- 768
+format.name$ -- 204
+if$ -- 2142
 int.to.chr$ -- 0
-int.to.str$ -- 26
-missing$ -- 26
-newline$ -- 132
-num.names$ -- 52
-pop$ -- 141
+int.to.str$ -- 30
+missing$ -- 34
+newline$ -- 153
+num.names$ -- 60
+pop$ -- 159
 preamble$ -- 1
-purify$ -- 143
+purify$ -- 158
 quote$ -- 0
-skip$ -- 188
+skip$ -- 232
 stack$ -- 0
-substring$ -- 457
-swap$ -- 23
-text.length$ -- 0
+substring$ -- 698
+swap$ -- 42
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 104
-warning$ -- 6
-while$ -- 78
-width$ -- 28
-write$ -- 275
-(There were 21 error messages)
+type$ -- 112
+warning$ -- 0
+while$ -- 103
+width$ -- 32
+write$ -- 329
+(There were 13 error messages)

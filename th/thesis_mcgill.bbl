@@ -1,58 +1,84 @@
 \begin{thebibliography}{10}
 
-\bibitem{abdallah2011mathematical}
-C.T. Abdallah.
-\newblock Mathematical controllability of genomic networks.
-\newblock {\em Proceedings of the National Academy of Sciences},
-  108(42):17243--17244, 2011.
+\bibitem{altschul1990basic}
+S.F. Altschul, W.~Gish, W.~Miller, E.W. Myers, D.J. Lipman, et~al.
+\newblock Basic local alignment search tool.
+\newblock {\em Journal of molecular biology}, 215(3):403--410, 1990.
 
-\bibitem{cowan2011nodal}
-N.J. Cowan, E.J. Chastain, D.A. Vilhena, J.S. Freudenberg, and C.T. Bergstrom.
-\newblock Nodal dynamics, not degree distributions, determine the structural
-  controllability of complex networks.
-\newblock {\em Arxiv preprint arXiv:1106.2573}, 2011.
+\bibitem{balding2006tutorial}
+D.J. Balding.
+\newblock A tutorial on statistical methods for population association studies.
+\newblock {\em Nature Reviews Genetics}, 7(10):781--791, 2006.
 
-\bibitem{fejes2008findpeaks}
-A.P. Fejes, G.~Robertson, M.~Bilenky, R.~Varhol, M.~Bainbridge, and S.J.M.
-  Jones.
-\newblock {FindPeaks 3.1: a tool for identifying areas of enrichment from
-  massively parallel short-read sequencing technology}.
-\newblock {\em Bioinformatics}, 24(15):1729, 2008.
+\bibitem{cingolani2012program}
+P.~Cingolani, A.~Platts, M.~Coon, T.~Nguyen, L.~Wang, S.J. Land, X.~Lu, D.M.
+  Ruden, et~al.
+\newblock A program for annotating and predicting the effects of single
+  nucleotide polymorphisms, snpeff: Snps in the genome of drosophila
+  melanogaster strain w1118; iso-2; iso-3.
+\newblock {\em Fly}, 6(2):0--1, 2012.
 
-\bibitem{fullwood2009chip}
-M.J. Fullwood and Y.~Ruan.
-\newblock {ChIP-based methods for the identification of long-range chromatin
-  interactions}.
-\newblock {\em Journal of cellular biochemistry}, 107(1):30--39, 2009.
+\bibitem{clarke2011basic}
+G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
+  Zondervan.
+\newblock Basic statistical analysis in genetic case-control studies.
+\newblock {\em Nature protocols}, 6(2):121--133, 2011.
 
-\bibitem{ghosh2010statistical}
-D.~Ghosh and Z.S. Qin.
-\newblock {Statistical Issues in the Analysis of ChIP-Seq and RNA-Seq Data}.
-\newblock {\em Genes}, 1(2):317--334, 2010.
+\bibitem{collins2004finishing}
+FS~Collins, ES~Lander, J.~Rogers, RH~Waterston, and I.~Conso.
+\newblock Finishing the euchromatic sequence of the human genome.
+\newblock {\em Nature}, 431(7011):931--945, 2004.
 
-\bibitem{hu2010detection}
-M.~Hu, J.~Yu, J.M.G. Taylor, A.M. Chinnaiyan, and Z.S. Qin.
-\newblock {On the detection and refinement of transcription factor binding
-  sites using ChIP-Seq data}.
-\newblock {\em Nucleic acids research}, 38(7):2154, 2010.
+\bibitem{depristo2011framework}
+M.A. DePristo, E.~Banks, R.~Poplin, K.V. Garimella, J.R. Maguire, C.~Hartl,
+  A.A. Philippakis, G.~Del~Angel, M.A. Rivas, M.~Hanna, et~al.
+\newblock A framework for variation discovery and genotyping using
+  next-generation dna sequencing data.
+\newblock {\em Nature genetics}, 43(5):491--498, 2011.
 
-\bibitem{ji2008integrated}
-H.~Ji, H.~Jiang, W.~Ma, D.S. Johnson, R.M. Myers, and W.H. Wong.
-\newblock {An integrated software system for analyzing ChIP-chip and ChIP-seq
-  data}.
-\newblock {\em Nature Biotechnology}, 26(11):1293--1300, 2008.
+\bibitem{dunn2008mutual}
+Stanley~D Dunn, Lindi~M Wahl, and Gregory~B Gloor.
+\newblock Mutual information without the influence of phylogeny or entropy
+  dramatically improves residue contact prediction.
+\newblock {\em Bioinformatics}, 24(3):333--340, 2008.
 
-\bibitem{jiao2010probabilistic}
-S.~Jiao, C.P. Bailey, S.~Zhang, and I.~Ladunga.
-\newblock {Probabilistic Peak Calling and Controlling False Discovery Rate
-  Estimations in Transcription Factor Binding Site Mapping from ChIP-seq.}
-\newblock {\em Methods in molecular biology (Clifton, NJ)}, 674:161--177, 2010.
+\bibitem{durbin1998biological}
+R.~Durbin.
+\newblock {\em Biological sequence analysis: probabilistic models of proteins
+  and nucleic acids}.
+\newblock Cambridge Univ Pr, 1998.
 
-\bibitem{jothi2008genome}
-R.~Jothi, S.~Cuddapah, A.~Barski, K.~Cui, and K.~Zhao.
-\newblock {Genome-wide identification of in vivo protein-DNA binding sites from
-  ChIP-Seq data}.
-\newblock {\em Nucleic acids research}, 36(16):5221, 2008.
+\bibitem{felsenstein2004inferring}
+Joseph Felsenstein and Joseph Felenstein.
+\newblock {\em Inferring phylogenies}, volume~2.
+\newblock Sinauer Associates Sunderland, 2004.
+
+\bibitem{ferragina2000opportunistic}
+P.~Ferragina and G.~Manzini.
+\newblock Opportunistic data structures with applications.
+\newblock In {\em Foundations of Computer Science, 2000. Proceedings. 41st
+  Annual Symposium on}, pages 390--398. IEEE, 2000.
+
+\bibitem{gibson2012rare}
+G.~Gibson.
+\newblock Rare and common variants: twenty arguments.
+\newblock {\em Nature Reviews Genetics}, 13(2):135--145, 2012.
+
+\bibitem{hartl1997principles}
+D.L. Hartl and A.G. Clark.
+\newblock {\em Principles of population genetics}.
+\newblock Sinauer associates Sunderland, Massachusetts, 2007.
+
+\bibitem{kass1995bayes}
+Robert~E Kass and Adrian~E Raftery.
+\newblock Bayes factors.
+\newblock {\em Journal of the american statistical association},
+  90(430):773--795, 1995.
+
+\bibitem{langmead2012fast}
+B.~Langmead and S.L. Salzberg.
+\newblock Fast gapped-read alignment with bowtie 2.
+\newblock {\em Nature Methods}, 2012.
 
 \bibitem{langmead2009ultrafast}
 B.~Langmead, C.~Trapnell, M.~Pop, and S.L. Salzberg.
@@ -60,11 +86,23 @@ B.~Langmead, C.~Trapnell, M.~Pop, and S.L. Salzberg.
   the human genome}.
 \newblock {\em Genome Biol}, 10(3):R25, 2009.
 
-\bibitem{li2010baq}
+\bibitem{li2008methods}
+B.~Li and S.M. Leal.
+\newblock Methods for detecting associations with rare variants for common
+  diseases: application to analysis of sequence data.
+\newblock {\em The American Journal of Human Genetics}, 83(3):311--321, 2008.
+
+\bibitem{li2011improving}
 H.~Li.
-\newblock {Mathematical Notes on SAMtools Algorithms}.
-\newblock {\em http://lh3lh3.users.sourceforge.net/download/samtools.pdf},
-  2010.
+\newblock Improving snp discovery by base alignment quality.
+\newblock {\em Bioinformatics}, 27(8):1157--1158, 2011.
+
+\bibitem{li2011statistical}
+H.~Li.
+\newblock A statistical framework for snp calling, mutation discovery,
+  association mapping and population genetical parameter estimation from
+  sequencing data.
+\newblock {\em Bioinformatics}, 27(21):2987--2993, 2011.
 
 \bibitem{li2010fast}
 H.~Li and R.~Durbin.
@@ -78,73 +116,62 @@ H.~Li and R.~Durbin.
   transform}.
 \newblock {\em Bioinformatics}, 26(5):589, 2010.
 
-\bibitem{li2009sequence}
-H.~Li, B.~Handsaker, A.~Wysoker, T.~Fennell, J.~Ruan, N.~Homer, G.~Marth,
-  G.~Abecasis, and R.~Durbin.
-\newblock {The sequence alignment/map format and SAMtools}.
-\newblock {\em Bioinformatics}, 25(16):2078, 2009.
+\bibitem{li2008mapping}
+H.~Li, J.~Ruan, and R.~Durbin.
+\newblock {Mapping short DNA sequencing reads and calling variants using
+  mapping quality scores}.
+\newblock {\em Genome research}, 18(11):1851, 2008.
 
-\bibitem{lin2007robust}
-F.~Lin.
-\newblock Robust control design an optimal control approach.
-\newblock 2007.
+\bibitem{marks2012protein}
+Debora~S Marks, Thomas~A Hopf, and Chris Sander.
+\newblock Protein structure prediction from sequence variation.
+\newblock {\em Nature biotechnology}, 30(11):1072--1080, 2012.
 
-\bibitem{liu2011controllability}
-Y.Y. Liu, J.J. Slotine, and A.L. Barab{\'a}si.
-\newblock Controllability of complex networks.
-\newblock {\em Nature}, 473(7346):167--173, 2011.
+\bibitem{mckenna2010genome}
+A.~McKenna, M.~Hanna, E.~Banks, A.~Sivachenko, K.~Cibulskis, A.~Kernytsky,
+  K.~Garimella, D.~Altshuler, S.~Gabriel, M.~Daly, et~al.
+\newblock The genome analysis toolkit: a mapreduce framework for analyzing
+  next-generation dna sequencing data.
+\newblock {\em Genome research}, 20(9):1297--1303, 2010.
 
-\bibitem{park2009chip}
-P.J. Park.
-\newblock {ChIP--seq: advantages and challenges of a maturing technology}.
-\newblock {\em Nature Reviews Genetics}, 10(10):669--680, 2009.
+\bibitem{patterson2006population}
+N.~Patterson, A.L. Price, and D.~Reich.
+\newblock Population structure and eigenanalysis.
+\newblock {\em PLoS genetics}, 2(12):e190, 2006.
 
-\bibitem{pepke2009computation}
-S.~Pepke, B.~Wold, and A.~Mortazavi.
-\newblock {Computation for ChIP-seq and RNA-seq studies}.
-\newblock {\em Nature methods}, 6:S22--S32, 2009.
+\bibitem{wakefield2009bayes}
+Jon Wakefield.
+\newblock Bayes factors for genome-wide association studies: comparison with
+  p-values.
+\newblock {\em Genetic epidemiology}, 33(1):79--86, 2009.
 
-\bibitem{song7chip}
-W.~Song, W.~Jianmin, Z.~Wei, P.~Stanley, and C.~Cheng.
-\newblock {ChIP-PaM: an algorithm to identify protein-DNA interaction using
-  ChIP-Seq data}.
-\newblock {\em Theoretical Biology and Medical Modelling}, 7.
+\bibitem{wang2010annovar}
+K.~Wang, M.~Li, and H.~Hakonarson.
+\newblock Annovar: functional annotation of genetic variants from
+  high-throughput sequencing data.
+\newblock {\em Nucleic acids research}, 38(16):e164--e164, 2010.
 
-\bibitem{szalkowski2010rapid}
-A.M. Szalkowski and C.D. Schmid.
-\newblock {Rapid innovation in ChIP-seq peak-calling algorithms is
-  outdistancing benchmarking efforts}.
-\newblock {\em Briefings in Bioinformatics}, 2010.
+\bibitem{watson1953molecular}
+J.D. Watson and F.H.C. Crick.
+\newblock Molecular structure of nucleic acids.
+\newblock {\em Nature}, 171(4356):737--738, 1953.
 
-\bibitem{taniguchi2006critical}
-C.M. Taniguchi, B.~Emanuelli, and C.R. Kahn.
-\newblock Critical nodes in signalling pathways: insights into insulin action.
-\newblock {\em Nature Reviews Molecular Cell Biology}, 7(2):85--96, 2006.
+\bibitem{wu2011rare}
+M.C. Wu, S.~Lee, T.~Cai, Y.~Li, M.~Boehnke, and X.~Lin.
+\newblock Rare-variant association testing for sequencing data with the
+  sequence kernel association test.
+\newblock {\em The American Journal of Human Genetics}, 2011.
 
-\bibitem{teemu10practical}
-L.~Teemu, R.~Sunil, T.~Soile, L.~Riitta, and A.~Tero.
-\newblock {A practical comparison of methods for detecting transcription factor
-  binding sites in ChIP-seq experiments}.
-\newblock {\em BMC Genomics}, 10.
+\bibitem{yang2006computational}
+Ziheng Yang.
+\newblock {\em Computational molecular evolution}, volume 284.
+\newblock Oxford University Press Oxford, 2006.
 
-\bibitem{wntHome}
-Stanford University.
-\newblock Wnt home --- stanford university, nussel lab.
-
-\bibitem{wikiWnt}
-Wikipedia.
-\newblock Wnt signaling pathway --- {W}ikipedia{,} the free encyclopedia.
-\newblock 2004.
-
-\bibitem{wilbanks2010evaluation}
-E.G. Wilbanks and M.T. Facciotti.
-\newblock {Evaluation of algorithm performance in ChIP-seq peak detection}.
-\newblock {\em PloS one}, 5(7):e11471, 2010.
-
-\bibitem{zhang2008model}
-Y.~Zhang, T.~Liu, C.A. Meyer, J.~Eeckhoute, D.S. Johnson, B.E. Bernstein,
-  C.~Nussbaum, R.M. Myers, M.~Brown, W.~Li, et~al.
-\newblock {Model-based analysis of ChIP-Seq (MACS)}.
-\newblock {\em Genome biology}, 9(9):R137, 2008.
+\bibitem{zuk2012mystery}
+O.~Zuk, E.~Hechter, S.R. Sunyaev, and E.S. Lander.
+\newblock The mystery of missing heritability: Genetic interactions create
+  phantom heritability.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  109(4):1193--1198, 2012.
 
 \end{thebibliography}

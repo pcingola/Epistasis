@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 13:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 13:14
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -381,36 +381,1656 @@ Package caption Info: End \AtBeginDocument code.
 
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-\openout2 = `chapters/conclusions.aux'.
+Overfull \hbox (84.34917pt too wide) in paragraph at lines 111--112
+[]\OT1/cmr/m/n/12 Abstract...abstract...abstract...abstract...abstract...abstra
+ct...abstract...abstract...abstract 
+ []
 
-
-(./chapters/conclusions.tex
-***************************
-CHAPTER 1.
-***************************
 [2
+
+
+]
+Overfull \hbox (84.34917pt too wide) in paragraph at lines 121--122
+[]\OT1/cmr/m/n/12 Abstract...abstract...abstract...abstract...abstract...abstra
+ct...abstract...abstract...abstract 
+ []
+
+[3
+
+] (./thesis_mcgill.toc
+LaTeX Font Info:    Try loading font information for U+msa on input line 1.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 1.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [4
+
+
+])
+\tf@toc=\write5
+\openout5 = `thesis_mcgill.toc'.
+
+ [5]
+(./thesis_mcgill.lot)
+\tf@lot=\write6
+\openout6 = `thesis_mcgill.lot'.
+
+ [6
+
+
+
+] (./thesis_mcgill.lof
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+)
+\tf@lof=\write7
+\openout7 = `thesis_mcgill.lof'.
+
+ [7
 
 
 
 ]
-Overfull \hbox (7.84853pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/n/12 Our mod-els com-bine geno-type in-for-ma-tion and co-evolutiona
-ry meth-
- []
+\openout2 = `chapters/intro.aux'.
+
+ (./chapters/intro.tex
+***************************
+CHAPTER 1.
+***************************
+
+LaTeX Warning: Citation `SnpEff' on page 1 undefined on input line 17.
+
+
+LaTeX Warning: Citation `SnpSift' on page 1 undefined on input line 17.
+
+[1
+
+
+
+] [2]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Citation `REF' on page 3 undefined on input line 31.
 
 [3]
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
 
+Overfull \hbox (12.05196pt too wide) in paragraph at lines 37--38
+[]\OT1/cmr/m/n/12 or Sin-gle nu-cleotide poly-mor-phism (SNP)
  []
 
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 [4]
+
+LaTeX Warning: Reference `sec:' on page 5 undefined on input line 53.
+
+
+LaTeX Warning: Reference `sec:' on page 5 undefined on input line 55.
+
+[5]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-) [5] (./thesis_mcgill.aux (./chapters/conclusions.aux))
+
+
+LaTeX Warning: Citation `Keitel2009' on page 6 undefined on input line 59.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `REF' on page 6 undefined on input line 59.
+
+
+LaTeX Warning: Citation `REF' on page 6 undefined on input line 61.
+
+
+LaTeX Warning: Citation `REF' on page 6 undefined on input line 61.
+
+
+Overfull \hbox (17.37488pt too wide) in paragraph at lines 61--62
+[]\OT1/cmr/m/n/12 Diseases hav-ing sim-ple in-her-i-tance pat-terns, such as Cy
+s-tic fi-bro-sis, Phenylke-
+ []
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+Overfull \hbox (22.46231pt too wide) in paragraph at lines 63--64
+[]\OT1/cmr/m/n/12 In com-plex dis-eases (or com-plex traits), such as di-a-bete
+s, can-cer or Alzheimers,
+ []
+
+[6]
+
+LaTeX Warning: Citation `REF' on page 7 undefined on input line 69.
+
+
+Overfull \hbox (5.46388pt too wide) in paragraph at lines 69--70
+[]\OT1/cmr/m/n/12 Diabetes symp-toms in-clude fre-quent uri-na-tion, thirst, an
+d con-stant hunger,
+ []
+
+
+LaTeX Warning: Citation `REF' on page 7 undefined on input line 71.
+
+
+LaTeX Warning: Citation `REF' on page 7 undefined on input line 71.
+
+[7]
+
+LaTeX Warning: Citation `REF:GIANT' on page 8 undefined on input line 75.
+
+
+LaTeX Warning: Citation `Emerson' on page 8 undefined on input line 77.
+
+
+Overfull \hbox (3.51183pt too wide) in paragraph at lines 79--80
+[]\OT1/cmr/m/n/12 The en-vi-ron-men-tal vari-ance $\OML/cmm/m/it/12 Var\OT1/cmr
+/m/n/12 [\OML/cmm/m/it/12 E\OT1/cmr/m/n/12 ]$ is the phe-no-typic vari-ance at-
+tributable
+ []
+
+
+LaTeX Warning: Citation `zuk2012mystery' on page 8 undefined on input line 81.
+
+[8]
+
+LaTeX Warning: Citation `zuk2012mystery' on page 9 undefined on input line 85.
+
+
+LaTeX Warning: Citation `zuk2012mystery' on page 9 undefined on input line 85.
+
+
+LaTeX Warning: Citation `zuk2012mystery' on page 9 undefined on input line 85.
+
+
+LaTeX Warning: Reference `sec:' on page 9 undefined on input line 87.
+
+
+LaTeX Warning: Citation `zuk2012mystery' on page 9 undefined on input line 87.
+
+
+LaTeX Warning: Citation `zuk2012mystery' on page 9 undefined on input line 87.
+
+[9]
+
+LaTeX Warning: Reference `sec:' on page 10 undefined on input line 91.
+
+
+LaTeX Warning: Reference `sec:' on page 10 undefined on input line 91.
+
+
+LaTeX Warning: Citation `watson1953molecular' on page 10 undefined on input lin
+e 97.
+
+
+LaTeX Warning: Citation `collins2004finishing' on page 10 undefined on input li
+ne 97.
+
+
+LaTeX Warning: Citation `REF' on page 10 undefined on input line 99.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `REF' on page 10 undefined on input line 99.
+
+[10] [11]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [12]
+
+LaTeX Warning: Citation `REF' on page 13 undefined on input line 117.
+
+
+LaTeX Warning: Citation `REF' on page 13 undefined on input line 117.
+
+
+Overfull \hbox (16.17772pt too wide) in paragraph at lines 117--118
+\OT1/cmr/m/n/12 [[]], which is a vari-a-tion of the global se-quence align-ment
+ so-lu-tion from Needleman-
+ []
+
+
+LaTeX Warning: Citation `altschul1990basic' on page 13 undefined on input line 
+119.
+
+
+LaTeX Warning: Citation `REF' on page 13 undefined on input line 123.
+
+[13]
+
+LaTeX Warning: Citation `durbin1998biological' on page 14 undefined on input li
+ne 125.
+
+
+LaTeX Warning: Citation `ferragina2000opportunistic' on page 14 undefined on in
+put line 125.
+
+
+LaTeX Warning: Citation `li2010fast' on page 14 undefined on input line 125.
+
+
+LaTeX Warning: Citation `li2010fast' on page 14 undefined on input line 125.
+
+
+LaTeX Warning: Citation `li2010fast' on page 14 undefined on input line 127.
+
+
+LaTeX Warning: Citation `li2010fastlong' on page 14 undefined on input line 127
+.
+
+
+LaTeX Warning: Citation `langmead2009ultrafast' on page 14 undefined on input l
+ine 127.
+
+
+LaTeX Warning: Citation `langmead2012fast' on page 14 undefined on input line 1
+27.
+
+
+LaTeX Warning: Citation `li2010fast' on page 14 undefined on input line 127.
+
+
+LaTeX Warning: Citation `langmead2009ultrafast' on page 14 undefined on input l
+ine 127.
+
+
+LaTeX Warning: Citation `li2010fastlong' on page 14 undefined on input line 127
+.
+
+
+LaTeX Warning: Citation `langmead2012fast' on page 14 undefined on input line 1
+27.
+
+[14]
+
+LaTeX Warning: Citation `li2011statistical' on page 15 undefined on input line 
+133.
+
+
+LaTeX Warning: Citation `li2008mapping' on page 15 undefined on input line 135.
+
+
+
+LaTeX Warning: Reference `sec:mapq' on page 15 undefined on input line 139.
+
+
+LaTeX Warning: Citation `li2008mapping' on page 15 undefined on input line 139.
+
+
+[15]
+
+LaTeX Warning: Citation `REF' on page 16 undefined on input line 141.
+
+
+LaTeX Warning: Citation `depristo2011framework' on page 16 undefined on input l
+ine 143.
+
+
+LaTeX Warning: Citation `depristo2011framework' on page 16 undefined on input l
+ine 143.
+
+
+LaTeX Warning: Citation `li2011improving' on page 16 undefined on input line 14
+3.
+
+
+LaTeX Warning: Citation `li2011improving' on page 16 undefined on input line 14
+3.
+
+
+LaTeX Warning: Citation `durbin1998biological' on page 16 undefined on input li
+ne 143.
+
+
+LaTeX Warning: Citation `REF:web_GATK' on page 16 undefined on input line 143.
+
+
+LaTeX Warning: Citation `mckenna2010genome' on page 16 undefined on input line 
+145.
+
+
+LaTeX Warning: Citation `depristo2011framework' on page 16 undefined on input l
+ine 145.
+
+[16] [17] [18]
+Overfull \hbox (41.62686pt too wide) detected at line 195
+[]
+ []
+
+[19]
+
+LaTeX Warning: Citation `balding2006tutorial' on page 20 undefined on input lin
+e 197.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 20 undefined on input line 19
+7.
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 20 undefined on input lin
+e 197.
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 20 undefined on input lin
+e 199.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 20 undefined on input line 19
+9.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 20 undefined on input line 19
+9.
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 20 undefined on input lin
+e 203.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 20 undefined on input line 20
+3.
+
+[20]
+
+LaTeX Warning: Citation `balding2006tutorial' on page 21 undefined on input lin
+e 205.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 21 undefined on input line 20
+5.
+
+
+LaTeX Warning: Reference `sec:popStruct' on page 21 undefined on input line 205
+.
+
+
+LaTeX Warning: Reference `sec:popStruct' on page 21 undefined on input line 205
+.
+
+
+Overfull \hbox (11.34142pt too wide) in paragraph at lines 205--206
+\OT1/cmr/m/n/12 QQ-plot is used (i.e. plot-ting the $\OML/cmm/m/it/12 y \OT1/cm
+r/m/n/12 = \OMS/cmsy/m/n/12 ^^@\OML/cmm/m/it/12 log\OT1/cmr/m/n/12 (\OML/cmm/m/
+it/12 p[]\OT1/cmr/m/n/12 )$ vs $\OML/cmm/m/it/12 x \OT1/cmr/m/n/12 = \OMS/cmsy/
+m/n/12 ^^@\OML/cmm/m/it/12 log\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 rank\OT1/cmr/m/
+n/12 (\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 (\
+OML/cmm/m/it/12 N \OT1/cmr/m/n/12 +
+ []
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 21 undefined on input lin
+e 209.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 21 undefined on input line 20
+9.
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 21 undefined on input lin
+e 209.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 21 undefined on input line 20
+9.
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 21 undefined on input lin
+e 211.
+
+
+LaTeX Warning: Citation `clarke2011basic' on page 21 undefined on input line 21
+1.
+
+
+LaTeX Warning: Citation `hartl1997principles' on page 21 undefined on input lin
+e 215.
+
+
+LaTeX Warning: Citation `hartl1997principles' on page 21 undefined on input lin
+e 215.
+
+[21]
+
+LaTeX Warning: Citation `hartl1997principles' on page 22 undefined on input lin
+e 217.
+
+
+LaTeX Warning: Citation `hartl1997principles' on page 22 undefined on input lin
+e 217.
+
+
+LaTeX Warning: Citation `patterson2006population' on page 22 undefined on input
+ line 221.
+
+[22]
+
+LaTeX Warning: Citation `hartl1997principles' on page 23 undefined on input lin
+e 223.
+
+
+LaTeX Warning: Citation `balding2006tutorial' on page 23 undefined on input lin
+e 223.
+
+
+LaTeX Warning: Citation `hartl1997principles' on page 23 undefined on input lin
+e 223.
+
+
+LaTeX Warning: Citation `patterson2006population' on page 23 undefined on input
+ line 225.
+
+
+LaTeX Warning: Reference `sec:lin' on page 23 undefined on input line 225.
+
+
+LaTeX Warning: Citation `patterson2006population' on page 23 undefined on input
+ line 225.
+
+
+LaTeX Warning: Citation `patterson2006population' on page 23 undefined on input
+ line 227.
+
+[23]
+
+LaTeX Warning: Citation `hartl1997principles' on page 24 undefined on input lin
+e 233.
+
+
+LaTeX Warning: Citation `gibson2012rare' on page 24 undefined on input line 233
+.
+
+
+Overfull \hbox (5.1279pt too wide) in paragraph at lines 233--234
+[]\OT1/cmr/m/n/12 There are three main mod-els for dis-ease sus-cep-ti-bil-ity 
+[[], []]:i) the Common-
+ []
+
+
+LaTeX Warning: Citation `li2008methods' on page 24 undefined on input line 237.
+
+
+
+LaTeX Warning: Reference `sec:single' on page 24 undefined on input line 237.
+
+
+LaTeX Warning: Citation `li2008methods' on page 24 undefined on input line 237.
+
+
+
+LaTeX Warning: Citation `wu2011rare' on page 24 undefined on input line 237.
+
+
+LaTeX Warning: Citation `li2008methods' on page 24 undefined on input line 239.
+
+
+
+LaTeX Warning: Citation `wu2011rare' on page 24 undefined on input line 239.
+
+[24]
+
+LaTeX Warning: Citation `Culverhouse2002' on page 25 undefined on input line 24
+3.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 249.
+
+
+LaTeX Warning: Citation `Cordell2009' on page 25 undefined on input line 251.
+
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 251.
+
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 251.
+
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 251.
+
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 251.
+
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 251.
+
+
+LaTeX Warning: Citation `REF' on page 25 undefined on input line 251.
+
+[25]
+
+LaTeX Warning: Citation `marks2012protein' on page 26 undefined on input line 2
+57.
+
+
+LaTeX Warning: Citation `marks2012protein' on page 26 undefined on input line 2
+57.
+
+
+LaTeX Warning: Citation `dunn2008mutual' on page 26 undefined on input line 257
+.
+
+
+LaTeX Warning: Citation `dunn2008mutual' on page 26 undefined on input line 257
+.
+
+[26]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [27]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Citation `cordell2009' on page 28 undefined on input line 269.
+
+
+LaTeX Warning: Citation `cordell2002' on page 28 undefined on input line 269.
+
+[28]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 275.
+
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 275.
+
+
+LaTeX Warning: Citation `ackerman2012' on page 29 undefined on input line 275.
+
+
+LaTeX Warning: Citation `Zhang2009' on page 29 undefined on input line 277.
+
+
+LaTeX Warning: Citation `Zhao2006' on page 29 undefined on input line 279.
+
+
+LaTeX Warning: Citation `McKinney2011' on page 29 undefined on input line 281.
+
+
+LaTeX Warning: Citation `koo2013' on page 29 undefined on input line 281.
+
+
+LaTeX Warning: Citation `McKinney2011' on page 29 undefined on input line 281.
+
+
+LaTeX Warning: Citation `cordell2009' on page 29 undefined on input line 285.
+
+[29]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [30] [31]
+Overfull \hbox (3.01802pt too wide) in paragraph at lines 335--336
+\OT1/cmr/m/n/12 evolutionary ap-proach for de-tect-ing epistatic in-ter-ac-tion
+s in genome-
+ []
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+Overfull \hbox (6.30827pt too wide) in paragraph at lines 352--353
+\OT1/cmr/m/n/12 Part 2: Nat-u-ral se-lec-tion of metastable epi-al-le-les in ho
+n-ey-bee castes",
+ []
+
+[32]
+Overfull \hbox (32.24504pt too wide) in paragraph at lines 353--354
+[]\OT1/cmr/m/n/12 Arko S, et al. ``Lead ex-po-sure in-duces changes in 5-hydrox
+ymethylcytosine
+ []
+
+Missing character: There is no √ in font cmr12!
+Missing character: There is no © in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no ± in font cmr12!
+[33]
+Missing character: There is no √ in font cmr12!
+Missing character: There is no ∫ in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no ° in font cmr12!
+) [34]
+\openout2 = `chapters/bds.aux'.
+
+ (./chapters/bds.tex
+***************************
+CHAPTER 2.
+***************************
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+[35
+
+
+
+]
+
+LaTeX Warning: Citation `Zuk2014' on page 36 undefined on input line 25.
+
+[36]
+
+LaTeX Warning: Citation `Auwera2013' on page 37 undefined on input line 27.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+[37]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Citation `Sadedin2012' on page 38 undefined on input line 29.
+
+
+LaTeX Warning: Citation `Napolitano2013' on page 38 undefined on input line 29.
+
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `Sadedin2012' on page 38 undefined on input line 29.
+
+[38]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [39]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [40]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [41]
+(/usr/local/texlive/2013/texmf-dist/tex/latex/listings/lstlang1.sty
+File: lstlang1.sty 2004/09/05 1.3 listings language file
+)
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ú in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ù in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ú in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ù in font cmtt10!
+ [42]
+Missing character: There is no ‚ in font cmtt12!
+Missing character: There is no Ä in font cmtt12!
+Missing character: There is no ì in font cmtt12!
+Missing character: There is no ‚ in font cmtt12!
+Missing character: There is no Ä in font cmtt12!
+Missing character: There is no ô in font cmtt12!
+
+[43]
+
+LaTeX Warning: Citation `Napolitano2013' on page 44 undefined on input line 75.
+
+
+Missing character: There is no ‚ in font cmtt12!
+Missing character: There is no Ä in font cmtt12!
+Missing character: There is no ì in font cmtt12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+[44]
+Overfull \hbox (75.13216pt too wide) in paragraph at lines 85--86
+\OT1/cmr/m/n/12 gram-ming. Ex-ten-sive doc-u-men-ta-tion is avail-able at http:
+//pcingola.github.io/BigDataScript. 
+ []
+
+[45]
+Missing character: There is no ‚ in font cmtt12!
+Missing character: There is no Ä in font cmtt12!
+Missing character: There is no ì in font cmtt12!
+Missing character: There is no ‚ in font cmtt12!
+Missing character: There is no Ä in font cmtt12!
+Missing character: There is no ì in font cmtt12!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ú in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ù in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ú in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ù in font cmtt10!
+ [46]
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ú in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ù in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ò in font cmtt10!
+Missing character: There is no ‚ in font cmtt10!
+Missing character: There is no Ä in font cmtt10!
+Missing character: There is no ò in font cmtt10!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Reference `fig:bdspipeline' on page 47 undefined on input line 1
+14.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no î in font cmr12!
+
+Overfull \hbox (19.82693pt too wide) in paragraph at lines 116--117
+ \OT1/cmr/bx/n/12 Au-to-matic com-mand line pars-ing..[] \OT1/cmr/m/n/12 Pro-gr
+am-ming flex-i-ble data pipelines
+ []
+
+[47]
+
+LaTeX Warning: Reference `fig:bdsexec' on page 48 undefined on input line 124.
+
+
+LaTeX Warning: Reference `fig:bdsexec' on page 48 undefined on input line 124.
+
+
+LaTeX Warning: Reference `fig:bdsexec' on page 48 undefined on input line 124.
+
+
+LaTeX Warning: Reference `fig:bdsexec' on page 48 undefined on input line 124.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+[48]
+
+LaTeX Warning: Reference `fig:bdsexec' on page 49 undefined on input line 128.
+
+
+LaTeX Warning: Reference `fig:bdsexec' on page 49 undefined on input line 128.
+
+<bds_figure_3_small.png, id=190, 1148.29pt x 1656.1875pt>
+File: bds_figure_3_small.png Graphic file (type png)
+
+<use bds_figure_3_small.png>
+Package pdftex.def Info: bds_figure_3_small.png used on input line 132.
+(pdftex.def)             Requested size: 341.43306pt x 492.4376pt.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [49] [50 <./bds_figure_3_small.png>]
+<bds_figure_1_small.png, id=199, 1053.9375pt x 752.8125pt>
+File: bds_figure_1_small.png Graphic file (type png)
+
+<use bds_figure_1_small.png>
+Package pdftex.def Info: bds_figure_1_small.png used on input line 149.
+(pdftex.def)             Requested size: 341.43306pt x 243.88004pt.
+ [51] [52 <./bds_figure_1_small.png>]
+
+LaTeX Warning: Citation `McKenna2010' on page 53 undefined on input line 160.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `Cingolani2012b' on page 53 undefined on input line 160
+.
+
+
+LaTeX Warning: Citation `Cingolani2012a' on page 53 undefined on input line 160
+.
+
+
+LaTeX Warning: Reference `fig:bdspipeline' on page 53 undefined on input line 1
+60.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+Overfull \hbox (40.15758pt too wide) in paragraph at lines 160--161
+\OT1/cmtt/m/n/12 include/bio/seq \OT1/cmr/m/n/12 di-rec-tory of our projects so
+urce code (https://github.com/pcingola/
+ []
+
+<bds_figure_2_small.png, id=206, 2489.3pt x 2434.09375pt>
+File: bds_figure_2_small.png Graphic file (type png)
+
+<use bds_figure_2_small.png>
+Package pdftex.def Info: bds_figure_2_small.png used on input line 164.
+(pdftex.def)             Requested size: 341.43306pt x 333.86253pt.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Reference `fig:bdstablearch' on page 53 undefined on input line 
+169.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+[53] [54 <./bds_figure_2_small.png>]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Reference `fig:bdstablearch' on page 55 undefined on input line 
+173.
+
+<bds_table_1.png, id=214, 1205.50375pt x 231.86626pt>
+File: bds_table_1.png Graphic file (type png)
+ <use bds_table_1.png>
+Package pdftex.def Info: bds_table_1.png used on input line 177.
+(pdftex.def)             Requested size: 398.33858pt x 76.61516pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 177--178
+ [][] 
+ []
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Reference `fig:bdstablescale' on page 55 undefined on input line
+ 182.
+
+
+Overfull \hbox (3.80072pt too wide) in paragraph at lines 182--183
+ \OT1/cmr/bx/n/12 Scal-a-bil-ity..[] \OT1/cmr/m/n/12 To as-sess BDSs scal-a-bil
+-ity, we ran ex-actly the same pipeline
+ []
+
+<bds_table_2.png, id=215, 587.19376pt x 134.5025pt>
+File: bds_table_2.png Graphic file (type png)
+ <use bds_table_2.png>
+Package pdftex.def Info: bds_table_2.png used on input line 186.
+(pdftex.def)             Requested size: 284.52756pt x 65.1741pt.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+[55 <./bds_table_1.png>] [56 <./bds_table_2.png>]) [57]
+\openout2 = `chapters/snpeff.aux'.
+
+ (./chapters/snpeff.tex
+***************************
+CHAPTER 3.
+***************************
+[58
+
+
+
+]
+
+LaTeX Warning: Citation `wang2010annovar' on page 59 undefined on input line 22
+.
+
+
+LaTeX Warning: Citation `cingolani2012program' on page 59 undefined on input li
+ne 24.
+
+[59] [60]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [61] [62]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [63]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+ [64]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [65]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [66]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [67]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [68]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [69]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [70]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [71]
+Overfull \hbox (8.55783pt too wide) in paragraph at lines 100--101
+[]\OT1/cmr/m/n/12 Accurate im-pact as-sess-ment of cod-
+ []
+
+
+Overfull \hbox (4.7809pt too wide) in paragraph at lines 102--103
+[]\OT1/cmr/m/n/12 Computational vari-ant an-no-ta-tion may even-
+ []
+
+[72] [73] [74]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [75]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [76] [77] [78] [79] [80]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [81]
+Overfull \hbox (11.50409pt too wide) in paragraph at lines 156--157
+\OT1/cmr/m/n/12 pact vari-ants based on sim-ple cri-te-ria (such as pre-ma-ture
+ stops, frameshifts,
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 163
+ []
+
+[82]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+Underfull \vbox (badness 10000) detected at line 172
+ []
+
+[83]
+Underfull \vbox (badness 10000) detected at line 172
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 172
+ []
+
+[84]
+Underfull \vbox (badness 10000) detected at line 202
+ []
+
+[85]
+Underfull \vbox (badness 10000) detected at line 202
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 202
+ []
+
+[86]
+Underfull \vbox (badness 10000) detected at line 202
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 202
+ []
+
+[87]) [88]
+\openout2 = `chapters/gwas.aux'.
+
+ (./chapters/gwas.tex
+***************************
+CHAPTER 4.
+***************************
+
+LaTeX Warning: Citation `Siva2008' on page 89 undefined on input line 14.
+
+
+LaTeX Warning: Citation `Visscher2012' on page 89 undefined on input line 16.
+
+
+LaTeX Warning: Citation `Wu2011' on page 89 undefined on input line 16.
+
+
+LaTeX Warning: Citation `Gao2009' on page 89 undefined on input line 18.
+
+
+LaTeX Warning: Citation `Gao' on page 89 undefined on input line 18.
+
+
+LaTeX Warning: Citation `Cantor2010' on page 89 undefined on input line 18.
+
+
+LaTeX Warning: Citation `Combarros2009' on page 89 undefined on input line 18.
+
+
+LaTeX Warning: Citation `Zuk2012' on page 89 undefined on input line 18.
+
+
+LaTeX Warning: Citation `Manollio2009' on page 89 undefined on input line 18.
+
+[89
+
+
+
+]
+
+LaTeX Warning: Citation `REF' on page 90 undefined on input line 20.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `Jostins2013' on page 90 undefined on input line 20.
+
+
+LaTeX Warning: Citation `Gao2010' on page 90 undefined on input line 22.
+
+
+LaTeX Warning: Citation `Phillips2008' on page 90 undefined on input line 22.
+
+
+LaTeX Warning: Citation `Gao2010' on page 90 undefined on input line 22.
+
+
+LaTeX Warning: Citation `Phillips2008' on page 90 undefined on input line 22.
+
+
+LaTeX Warning: Citation `Mani2008' on page 90 undefined on input line 22.
+
+
+LaTeX Warning: Citation `Phillips2008' on page 90 undefined on input line 22.
+
+
+LaTeX Warning: Citation `Mani2008' on page 90 undefined on input line 22.
+
+[90]
+
+LaTeX Warning: Citation `REF' on page 91 undefined on input line 24.
+
+
+LaTeX Warning: Citation `REF' on page 91 undefined on input line 24.
+
+
+LaTeX Warning: Citation `Venkatesan2008' on page 91 undefined on input line 24.
+
+
+
+LaTeX Warning: Citation `Shoemaker2007' on page 91 undefined on input line 26.
+
+
+LaTeX Warning: Citation `marks2012protein' on page 91 undefined on input line 2
+6.
+
+
+LaTeX Warning: Citation `Pazos1997' on page 91 undefined on input line 26.
+
+
+LaTeX Warning: Citation `Goh2000' on page 91 undefined on input line 26.
+
+
+LaTeX Warning: Citation `Ruiz2013' on page 91 undefined on input line 26.
+
+
+LaTeX Warning: Citation `Pazos1997' on page 91 undefined on input line 26.
+
+
+LaTeX Warning: Citation `Goh2000' on page 91 undefined on input line 26.
+
+[91]
+
+LaTeX Warning: Citation `Juan2013' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `marks2012protein' on page 92 undefined on input line 2
+8.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+
+LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+[92]
+
+LaTeX Warning: Reference `fig:gwaspipeline' on page 93 undefined on input line 
+40.
+
+
+LaTeX Warning: Citation `REF' on page 93 undefined on input line 40.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+<gwas_epistasis_pipeline.png, id=338, 969.6225pt x 526.96875pt>
+File: gwas_epistasis_pipeline.png Graphic file (type png)
+
+<use gwas_epistasis_pipeline.png>
+Package pdftex.def Info: gwas_epistasis_pipeline.png used on input line 44.
+(pdftex.def)             Requested size: 341.43306pt x 185.5595pt.
+
+
+LaTeX Warning: Citation `yang2006computational' on page 93 undefined on input l
+ine 51.
+
+
+LaTeX Warning: Citation `felsenstein2004inferring' on page 93 undefined on inpu
+t line 51.
+
+
+LaTeX Warning: Citation `yang2006computational' on page 93 undefined on input l
+ine 51.
+
+[93] [94 <./gwas_epistasis_pipeline.png>]
+
+LaTeX Warning: Citation `REF' on page 95 undefined on input line 57.
+
+
+LaTeX Warning: Citation `durbin1998biological' on page 95 undefined on input li
+ne 59.
+
+[95]
+Overfull \hbox (101.38873pt too wide) in alignment at lines 61--66
+ [][][] []
+ []
+
+
+LaTeX Warning: Citation `felsenstein2004inferring' on page 96 undefined on inpu
+t line 68.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `balding2006tutorial' on page 96 undefined on input lin
+e 82.
+
+[96]
+Overfull \hbox (59.03569pt too wide) detected at line 86
+\OML/cmm/m/it/12 p[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/
+cmm/m/it/12 d[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 g[]\OT1/cmr/m/n/12 ) = \OML/c
+mm/m/it/12 ^^^\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^R[] \OT1/cmr/m/n/12 + \OML/cm
+m/m/it/12 ^^R[]g[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^R[]c[] \OT1/cmr/m/n/12 
++ \OML/cmm/m/it/12 ^^R[]c[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 :::\OT1/cmr/m/n/
+12 ) = [] = \OML/cmm/m/it/12 ^^^\OT1/cmr/m/n/12 ([][])
+ []
+
+
+LaTeX Warning: Citation `REF' on page 97 undefined on input line 88.
+
+
+Overfull \hbox (10.50598pt too wide) detected at line 92
+\OML/cmm/m/it/12 L\OT1/cmr/m/n/12 ([]) = [] [] = [] [] = [] []
+ []
+
+[97]
+Overfull \hbox (84.77843pt too wide) in alignment at lines 100--105
+ [][][] []
+ []
+
+
+LaTeX Warning: Citation `REF' on page 98 undefined on input line 119.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+
+LaTeX Warning: Citation `REF' on page 98 undefined on input line 119.
+
+
+LaTeX Warning: Citation `kass1995bayes' on page 98 undefined on input line 121.
+
+
+
+LaTeX Warning: Citation `wakefield2009bayes' on page 98 undefined on input line
+ 121.
+
+
+LaTeX Warning: Citation `REF' on page 98 undefined on input line 129.
+
+[98]
+Overfull \hbox (58.39912pt too wide) in alignment at lines 131--141
+ [][][] []
+ []
+
+
+LaTeX Warning: Citation `kass1995bayes' on page 99 undefined on input line 143.
+
+
+
+LaTeX Warning: Reference `eq:laplace' on page 99 undefined on input line 156.
+
+
+LaTeX Warning: Reference `eq:bf2' on page 99 undefined on input line 156.
+
+
+LaTeX Warning: Reference `eq:laplace' on page 99 undefined on input line 156.
+
+
+LaTeX Warning: Reference `eq:laplace' on page 99 undefined on input line 158.
+
+[99]
+
+LaTeX Warning: Citation `Goodman' on page 100 undefined on input line 169.
+
+[100]
+
+LaTeX Warning: Reference `fig:S3' on page 101 undefined on input line 171.
+
+
+LaTeX Warning: Reference `fig:S3' on page 101 undefined on input line 171.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `REF' on page 101 undefined on input line 180.
+
+[101]
+
+LaTeX Warning: Reference `fig:S1' on page 102 undefined on input line 182.
+
+
+LaTeX Warning: Reference `tab:S1' on page 102 undefined on input line 182.
+
+
+LaTeX Warning: Citation `REF' on page 102 undefined on input line 184.
+
+
+LaTeX Warning: Reference `fig:S2' on page 102 undefined on input line 184.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+LaTeX Warning: Citation `Santiveri2010' on page 102 undefined on input line 186
+.
+
+[102]
+
+LaTeX Warning: Reference `fig:gwasf2' on page 103 undefined on input line 192.
+
+<gwas_figure_2.png, id=374, 1027.84pt x 1027.84pt>
+File: gwas_figure_2.png Graphic file (type png)
+ <use gwas_figure_2.png>
+Package pdftex.def Info: gwas_figure_2.png used on input line 196.
+(pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+
+LaTeX Warning: Reference `f:' on page 103 undefined on input line 201.
+
+[103 <./gwas_figure_2.png>]
+<gwas_figure_3A.png, id=379, 1027.84pt x 1027.84pt>
+File: gwas_figure_3A.png Graphic file (type png)
+ <use gwas_figure_3A.png>
+Package pdftex.def Info: gwas_figure_3A.png used on input line 205.
+(pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+
+<gwas_figure_3B.png, id=380, 1027.84pt x 1027.84pt>
+File: gwas_figure_3B.png Graphic file (type png)
+ <use gwas_figure_3B.png>
+Package pdftex.def Info: gwas_figure_3B.png used on input line 211.
+(pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
+
+
+LaTeX Warning: Citation `REF' on page 104 undefined on input line 215.
+
+
+LaTeX Warning: Citation `REF' on page 104 undefined on input line 215.
+
+
+LaTeX Warning: Citation `REF' on page 104 undefined on input line 215.
+
+[104 <./gwas_figure_3A.png>]
+
+LaTeX Warning: Reference `fig:S5' on page 105 undefined on input line 217.
+
+
+LaTeX Warning: Citation `REF' on page 105 undefined on input line 219.
+
+
+LaTeX Warning: Reference `t:' on page 105 undefined on input line 219.
+
+
+LaTeX Warning: Reference `tab:S4A' on page 105 undefined on input line 219.
+
+
+LaTeX Warning: Reference `tab:S4B' on page 105 undefined on input line 219.
+
+
+LaTeX Warning: Reference `fig:S4' on page 105 undefined on input line 219.
+
+
+Overfull \hbox (4.6612pt too wide) in paragraph at lines 219--220
+\OT1/cmr/m/n/12 Clin-Var database [[]] ac-cord-ing to their clin-i-cal sig-nif-
+i-cance at-tribute (CLNSIG).
+ []
+
+<gwas_figure_jmol_epistasis.png, id=385, 785.93625pt x 721.69624pt>
+File: gwas_figure_jmol_epistasis.png Graphic file (type png)
+
+<use gwas_figure_jmol_epistasis.png>
+Package pdftex.def Info: gwas_figure_jmol_epistasis.png used on input line 223.
+
+(pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 223--224
+ [][] 
+ []
+
+[105 <./gwas_figure_3B.png>]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ¶ in font cmr12!
+) [106] [107 <./gwas_figure_jmol_epistasis.png>]
+[108
+
+
+]
+\openout2 = `appendix/algorithm_details.aux'.
+
+ (./appendix/algorithm_details.tex) [109
+
+] (./thesis_mcgill.bbl
+Underfull \hbox (badness 1242) in paragraph at lines 10--14
+[]\OT1/cmr/m/n/12 N.J. Cowan, E.J. Chas-tain, D.A. Vil-hena, J.S. Freuden-berg,
+ and
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 64--68
+[]\OT1/cmr/m/n/12 H. Li.  Math-e-mat-i-cal Notes on SAM-tools Al-go-rithms.
+ []
+
+[110
+
+
+
+
+] [111] [112]) (./thesis_mcgill.aux (./chapters/intro.aux)
+(./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
+(./appendix/algorithm_details.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -460,25 +2080,62 @@ kvoptions.sty    2011/06/30 v3.11 Key value format for package options (HO)
 kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
 etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-chapters/conclusions.tex
+    umsa.fd    2013/01/14 v3.01 AMS symbols A
+    umsb.fd    2013/01/14 v3.01 AMS symbols B
+chapters/intro.tex
+  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
+chapters/bds.tex
+lstlang1.sty    2004/09/05 1.3 listings language file
+bds_figure_3_small.png    Graphic file (type png)
+bds_figure_1_small.png    Graphic file (type png)
+bds_figure_2_small.png    Graphic file (type png)
+bds_table_1.png    Graphic file (type png)
+bds_table_2.png    Graphic file (type png)
+chapters/snpeff.tex
+chapters/gwas.tex
+gwas_epistasis_pipeline.png    Graphic file (type png)
+gwas_figure_2.png    Graphic file (type png)
+gwas_figure_3A.png    Graphic file (type png)
+gwas_figure_3B.png    Graphic file (type png)
+gwas_figure_jmol_epistasis.png    Graphic file (type png)
+appendix/algorithm_details.tex
+thesis_mcgill.bbl
  ***********
+
+
+LaTeX Warning: There were undefined references.
+
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 5351 strings out of 493315
- 78269 string characters out of 6137904
- 164399 words of memory out of 5000000
- 8725 multiletter control sequences out of 15000+600000
- 5251 words of font info for 20 fonts, out of 8000000 for 9000
+ 5753 strings out of 493315
+ 84276 string characters out of 6137904
+ 181399 words of memory out of 5000000
+ 9054 multiletter control sequences out of 15000+600000
+ 10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,5n,40p,1756b,228s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,42p,2564b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
-/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
-Output written on thesis_mcgill.pdf (5 pages, 52505 bytes).
+></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
+/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
+live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
+ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
+e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
+/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
+2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
+013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
+Output written on thesis_mcgill.pdf (119 pages, 1571689 bytes).
 PDF statistics:
- 32 PDF objects out of 1000 (max. 8388607)
- 21 compressed objects within 1 object stream
+ 466 PDF objects out of 1000 (max. 8388607)
+ 310 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
