@@ -97,6 +97,11 @@ P.~Ferragina and G.~Manzini.
 \newblock In {\em Foundations of Computer Science, 2000. Proceedings. 41st
   Annual Symposium on}, pages 390--398. IEEE, 2000.
 
+\bibitem{gao2010classification}
+Hong Gao, Julie~M Granka, and Marcus~W Feldman.
+\newblock On the classification of epistatic interactions.
+\newblock {\em Genetics}, 184(3):827--837, 2010.
+
 \bibitem{gibson2012rare}
 G.~Gibson.
 \newblock Rare and common variants: twenty arguments.
@@ -203,6 +208,11 @@ N.~Patterson, A.L. Price, and D.~Reich.
 Simon~P Sadedin, Bernard Pope, and Alicia Oshlack.
 \newblock Bpipe: a tool for running and managing bioinformatics pipelines.
 \newblock {\em Bioinformatics}, 28(11):1525--1526, 2012.
+
+\bibitem{visscher2012five}
+Peter~M Visscher, Matthew~A Brown, Mark~I McCarthy, and Jian Yang.
+\newblock Five years of gwas discovery.
+\newblock {\em The American Journal of Human Genetics}, 90(1):7--24, 2012.
 
 \bibitem{wakefield2009bayes}
 Jon Wakefield.

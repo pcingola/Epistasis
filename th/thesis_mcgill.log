@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 14:08
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 14:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -809,26 +809,13 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
-
-LaTeX Warning: Citation `sadedin2012bpipe' on page 38 undefined on input line 2
-9.
-
-
-LaTeX Warning: Citation `napolitano2013bioinformatic' on page 38 undefined on i
-nput line 29.
-
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
-LaTeX Warning: Citation `sadedin2012bpipe' on page 38 undefined on input line 2
-9.
-
-[38]
+ [38]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -871,10 +858,6 @@ Missing character: There is no € in font cmtt12!
 Missing character: There is no ™ in font cmtt12!
 
 [43]
-
-LaTeX Warning: Citation `napolitano2013bioinformatic' on page 44 undefined on i
-nput line 75.
-
 Missing character: There is no â in font cmtt12!
 Missing character: There is no € in font cmtt12!
 Missing character: There is no “ in font cmtt12!
@@ -890,7 +873,7 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[44]
+ [44]
 Overfull \hbox (75.13216pt too wide) in paragraph at lines 85--86
 \OT1/cmr/m/n/12 gram-ming. Ex-ten-sive doc-u-men-ta-tion is avail-able at http:
 //pcingola.github.io/BigDataScript. 
@@ -1223,16 +1206,16 @@ CHAPTER 4.
 LaTeX Warning: Citation `Siva2008' on page 89 undefined on input line 14.
 
 
-LaTeX Warning: Citation `Visscher2012' on page 89 undefined on input line 16.
+LaTeX Warning: Citation `visscher2012five' on page 89 undefined on input line 1
+6.
 
 
-LaTeX Warning: Citation `Wu2011' on page 89 undefined on input line 16.
+LaTeX Warning: Citation `gao2010classification' on page 89 undefined on input l
+ine 18.
 
 
-LaTeX Warning: Citation `Gao2009' on page 89 undefined on input line 18.
-
-
-LaTeX Warning: Citation `Gao' on page 89 undefined on input line 18.
+LaTeX Warning: Citation `gao2010classification' on page 89 undefined on input l
+ine 18.
 
 
 LaTeX Warning: Citation `Cantor2010' on page 89 undefined on input line 18.
@@ -1261,13 +1244,15 @@ Missing character: There is no ™ in font cmr12!
 LaTeX Warning: Citation `Jostins2013' on page 90 undefined on input line 20.
 
 
-LaTeX Warning: Citation `Gao2010' on page 90 undefined on input line 22.
+LaTeX Warning: Citation `gao2010classification' on page 90 undefined on input l
+ine 22.
 
 
 LaTeX Warning: Citation `Phillips2008' on page 90 undefined on input line 22.
 
 
-LaTeX Warning: Citation `Gao2010' on page 90 undefined on input line 22.
+LaTeX Warning: Citation `gao2010classification' on page 90 undefined on input l
+ine 22.
 
 
 LaTeX Warning: Citation `Phillips2008' on page 90 undefined on input line 22.
@@ -1675,10 +1660,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5730 strings out of 493315
- 84008 string characters out of 6137904
+ 5727 strings out of 493315
+ 84004 string characters out of 6137904
  181399 words of memory out of 5000000
- 9026 multiletter control sequences out of 15000+600000
+ 9023 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,42p,2564b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1697,7 +1682,7 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (120 pages, 1575108 bytes).
+Output written on thesis_mcgill.pdf (120 pages, 1575341 bytes).
 PDF statistics:
  469 PDF objects out of 1000 (max. 8388607)
  312 compressed objects within 4 object streams

@@ -61,16 +61,11 @@ Warning--I didn't find a database entry for "REF:GIANT"
 Warning--I didn't find a database entry for "Emerson"
 Warning--I didn't find a database entry for "REF:web_GATK"
 Warning--I didn't find a database entry for "Siva2008"
-Warning--I didn't find a database entry for "Visscher2012"
-Warning--I didn't find a database entry for "Wu2011"
-Warning--I didn't find a database entry for "Gao2009"
-Warning--I didn't find a database entry for "Gao"
 Warning--I didn't find a database entry for "Cantor2010"
 Warning--I didn't find a database entry for "Combarros2009"
 Warning--I didn't find a database entry for "Zuk2012"
 Warning--I didn't find a database entry for "Manollio2009"
 Warning--I didn't find a database entry for "Jostins2013"
-Warning--I didn't find a database entry for "Gao2010"
 Warning--I didn't find a database entry for "Phillips2008"
 Warning--I didn't find a database entry for "Mani2008"
 Warning--I didn't find a database entry for "Venkatesan2008"
@@ -81,45 +76,45 @@ Warning--I didn't find a database entry for "Ruiz2013"
 Warning--I didn't find a database entry for "Juan2013"
 Warning--I didn't find a database entry for "Goodman"
 Warning--I didn't find a database entry for "Santiveri2010"
-You've used 44 entries,
+You've used 46 entries,
             2118 wiz_defined-function locations,
-            813 strings with 12308 characters,
-and the built_in function-call counts, 16071 in all, are:
-= -- 1552
-> -- 912
+            814 strings with 12519 characters,
+and the built_in function-call counts, 16803 in all, are:
+= -- 1625
+> -- 953
 < -- 5
-+ -- 368
-- -- 316
-* -- 1301
-:= -- 2757
-add.period$ -- 133
-call.type$ -- 44
-change.case$ -- 281
++ -- 384
+- -- 330
+* -- 1364
+:= -- 2882
+add.period$ -- 139
+call.type$ -- 46
+change.case$ -- 294
 chr.to.int$ -- 0
-cite$ -- 44
-duplicate$ -- 507
-empty$ -- 1126
-format.name$ -- 316
-if$ -- 3210
+cite$ -- 46
+duplicate$ -- 529
+empty$ -- 1177
+format.name$ -- 330
+if$ -- 3355
 int.to.chr$ -- 0
-int.to.str$ -- 44
-missing$ -- 48
-newline$ -- 223
-num.names$ -- 88
-pop$ -- 235
+int.to.str$ -- 46
+missing$ -- 50
+newline$ -- 233
+num.names$ -- 92
+pop$ -- 244
 preamble$ -- 1
-purify$ -- 241
+purify$ -- 252
 quote$ -- 0
-skip$ -- 348
+skip$ -- 362
 stack$ -- 0
-substring$ -- 1049
-swap$ -- 68
+substring$ -- 1100
+swap$ -- 70
 text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 168
+type$ -- 176
 warning$ -- 0
-while$ -- 153
-width$ -- 46
-write$ -- 482
+while$ -- 161
+width$ -- 48
+write$ -- 504
 (There were 12 error messages)
