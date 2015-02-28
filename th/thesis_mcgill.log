@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 12:58
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 13:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -290,11 +290,7 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 LaTeX Warning: Unused global option(s):
     [letterpaper].
 
-(./thesis_mcgill.aux (./chapters/gwas.aux
-
-LaTeX Warning: Label `fig:gwasf3a' multiply defined.
-
-))
+(./thesis_mcgill.aux (./chapters/conclusions.aux))
 \openout1 = `thesis_mcgill.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
@@ -309,7 +305,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
 LaTeX Font Info:    ... okay on input line 71.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
 LaTeX Font Info:    ... okay on input line 71.
- ABD: EverySelectfont initializing macros
+
+ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 71.
 
 **************************************
@@ -384,428 +381,32 @@ Package caption Info: End \AtBeginDocument code.
 
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-\openout2 = `chapters/gwas.aux'.
+\openout2 = `chapters/conclusions.aux'.
 
 
-(./chapters/gwas.tex
+(./chapters/conclusions.tex
 ***************************
 CHAPTER 1.
 ***************************
-
-LaTeX Warning: Citation `Siva2008' on page 2 undefined on input line 14.
-
-
-LaTeX Warning: Citation `Visscher2012' on page 2 undefined on input line 16.
-
-
-LaTeX Warning: Citation `Wu2011' on page 2 undefined on input line 16.
-
-
-LaTeX Warning: Citation `Gao2009' on page 2 undefined on input line 18.
-
-
-LaTeX Warning: Citation `Gao' on page 2 undefined on input line 18.
-
-
-LaTeX Warning: Citation `Cantor2010' on page 2 undefined on input line 18.
-
-
-LaTeX Warning: Citation `Combarros2009' on page 2 undefined on input line 18.
-
-
-LaTeX Warning: Citation `Zuk2012' on page 2 undefined on input line 18.
-
-
-LaTeX Warning: Citation `Manollio2009' on page 2 undefined on input line 18.
-
 [2
 
 
 
 ]
-
-LaTeX Warning: Citation `REF' on page 3 undefined on input line 20.
-
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-
-LaTeX Warning: Citation `Jostins2013' on page 3 undefined on input line 20.
-
-
-LaTeX Warning: Citation `Gao2010' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation `Phillips2008' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation `Gao2010' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation `Phillips2008' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation `Mani2008' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation `Phillips2008' on page 3 undefined on input line 22.
-
-
-LaTeX Warning: Citation `Mani2008' on page 3 undefined on input line 22.
+Overfull \hbox (7.84853pt too wide) in paragraph at lines 22--23
+\OT1/cmr/m/n/12 Our mod-els com-bine geno-type in-for-ma-tion and co-evolutiona
+ry meth-
+ []
 
 [3]
-
-LaTeX Warning: Citation `REF' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Citation `REF' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Citation `Venkatesan2008' on page 4 undefined on input line 24.
-
-
-LaTeX Warning: Citation `Shoemaker2007' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Citation `marks2012protein' on page 4 undefined on input line 26
-.
-
-
-LaTeX Warning: Citation `Pazos1997' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Citation `Goh2000' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Citation `Ruiz2013' on page 4 undefined on input line 26.
-
-LaTeX Font Info:    Try loading font information for U+msa on input line 26.
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 26.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-LaTeX Warning: Citation `Pazos1997' on page 4 undefined on input line 26.
-
-
-LaTeX Warning: Citation `Goh2000' on page 4 undefined on input line 26.
-
-[4]
-
-LaTeX Warning: Citation `Juan2013' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `marks2012protein' on page 5 undefined on input line 28
-.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
-
-LaTeX Warning: Citation `REF' on page 5 undefined on input line 28.
-
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[5]
-
-LaTeX Warning: Citation `REF' on page 6 undefined on input line 40.
-
+ [4]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-<gwas_epistasis_pipeline.png, id=24, 969.6225pt x 526.96875pt>
-File: gwas_epistasis_pipeline.png Graphic file (type png)
-
-<use gwas_epistasis_pipeline.png>
-Package pdftex.def Info: gwas_epistasis_pipeline.png used on input line 44.
-(pdftex.def)             Requested size: 341.43306pt x 185.5595pt.
-
-
-LaTeX Warning: Citation `yang2006computational' on page 6 undefined on input li
-ne 51.
-
-
-LaTeX Warning: Citation `felsenstein2004inferring' on page 6 undefined on input
- line 51.
-
-
-LaTeX Warning: Citation `yang2006computational' on page 6 undefined on input li
-ne 51.
-
-[6] [7 <./gwas_epistasis_pipeline.png>]
-
-LaTeX Warning: Citation `REF' on page 8 undefined on input line 57.
-
-
-LaTeX Warning: Citation `durbin1998biological' on page 8 undefined on input lin
-e 59.
-
-[8]
-Overfull \hbox (101.38873pt too wide) in alignment at lines 61--66
- [][][] []
- []
-
-
-LaTeX Warning: Citation `felsenstein2004inferring' on page 9 undefined on input
- line 68.
-
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-
-LaTeX Warning: Citation `balding2006tutorial' on page 9 undefined on input line
- 82.
-
-[9]
-Overfull \hbox (59.03569pt too wide) detected at line 86
-\OML/cmm/m/it/12 p[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/
-cmm/m/it/12 d[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 g[]\OT1/cmr/m/n/12 ) = \OML/c
-mm/m/it/12 ^^^\OT1/cmr/m/n/12 (\OML/cmm/m/it/12 ^^R[] \OT1/cmr/m/n/12 + \OML/cm
-m/m/it/12 ^^R[]g[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^R[]c[] \OT1/cmr/m/n/12 
-+ \OML/cmm/m/it/12 ^^R[]c[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 :::\OT1/cmr/m/n/
-12 ) = [] = \OML/cmm/m/it/12 ^^^\OT1/cmr/m/n/12 ([][])
- []
-
-
-LaTeX Warning: Citation `REF' on page 10 undefined on input line 88.
-
-
-Overfull \hbox (10.50598pt too wide) detected at line 92
-\OML/cmm/m/it/12 L\OT1/cmr/m/n/12 ([]) = [] [] = [] [] = [] []
- []
-
-[10]
-Overfull \hbox (84.77843pt too wide) in alignment at lines 100--105
- [][][] []
- []
-
-
-LaTeX Warning: Citation `REF' on page 11 undefined on input line 119.
-
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-
-LaTeX Warning: Citation `REF' on page 11 undefined on input line 119.
-
-
-LaTeX Warning: Citation `kass1995bayes' on page 11 undefined on input line 121.
-
-
-
-LaTeX Warning: Citation `wakefield2009bayes' on page 11 undefined on input line
- 121.
-
-
-LaTeX Warning: Citation `REF' on page 11 undefined on input line 129.
-
-[11]
-Overfull \hbox (58.39912pt too wide) in alignment at lines 131--141
- [][][] []
- []
-
-
-LaTeX Warning: Citation `kass1995bayes' on page 12 undefined on input line 143.
-
-
-[12]
-
-LaTeX Warning: Citation `Goodman' on page 13 undefined on input line 169.
-
-[13]
-
-LaTeX Warning: Reference `fig:S3' on page 14 undefined on input line 171.
-
-
-LaTeX Warning: Reference `fig:S3' on page 14 undefined on input line 171.
-
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-
-LaTeX Warning: Citation `REF' on page 14 undefined on input line 180.
-
-[14]
-
-LaTeX Warning: Reference `fig:S1' on page 15 undefined on input line 182.
-
-
-LaTeX Warning: Reference `tab:S1' on page 15 undefined on input line 182.
-
-
-LaTeX Warning: Citation `REF' on page 15 undefined on input line 184.
-
-
-LaTeX Warning: Reference `fig:S2' on page 15 undefined on input line 184.
-
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-
-LaTeX Warning: Citation `Santiveri2010' on page 15 undefined on input line 186.
-
-
-[15] <gwas_figure_2.png, id=65, 1027.84pt x 1027.84pt>
-File: gwas_figure_2.png Graphic file (type png)
- <use gwas_figure_2.png>
-Package pdftex.def Info: gwas_figure_2.png used on input line 196.
-(pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-
-
-LaTeX Warning: Reference `f:' on page 16 undefined on input line 201.
-
-[16 <./gwas_figure_2.png>] <gwas_figure_3A.png, id=70, 1027.84pt x 1027.84pt>
-File: gwas_figure_3A.png Graphic file (type png)
-
-<use gwas_figure_3A.png>
-Package pdftex.def Info: gwas_figure_3A.png used on input line 205.
-(pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
- <gwas_figure_3B.png, id=71, 1027.84pt x 1027.84pt>
-File: gwas_figure_3B.png Graphic file (type png)
-
-<use gwas_figure_3B.png>
-Package pdftex.def Info: gwas_figure_3B.png used on input line 211.
-(pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
-
-
-LaTeX Warning: Citation `REF' on page 17 undefined on input line 215.
-
-
-LaTeX Warning: Citation `REF' on page 17 undefined on input line 215.
-
-
-LaTeX Warning: Citation `REF' on page 17 undefined on input line 215.
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 215.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 215.
- [17 <./gwas_figure_3A.png>]
-
-LaTeX Warning: Reference `fig:S5' on page 18 undefined on input line 217.
-
-
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 219.
-
-
-LaTeX Warning: Reference `t:' on page 18 undefined on input line 219.
-
-
-LaTeX Warning: Reference `tab:S4A' on page 18 undefined on input line 219.
-
-
-LaTeX Warning: Reference `tab:S4B' on page 18 undefined on input line 219.
-
-
-LaTeX Warning: Reference `fig:S4' on page 18 undefined on input line 219.
-
-
-Overfull \hbox (4.6612pt too wide) in paragraph at lines 219--220
-\OT1/cmr/m/n/12 Clin-Var database [[]] ac-cord-ing to their clin-i-cal sig-nif-
-i-cance at-tribute (CLNSIG).
- []
-
-<gwas_figure_jmol_epistasis.png, id=76, 785.93625pt x 721.69624pt>
-File: gwas_figure_jmol_epistasis.png Graphic file (type png)
-
-<use gwas_figure_jmol_epistasis.png>
-Package pdftex.def Info: gwas_figure_jmol_epistasis.png used on input line 223.
-
-(pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
-
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 223--224
- [][] 
- []
-
-[18 <./gwas_figure_3B.png>]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ¦ in font cmr12!
-) [19] [20 <./gwas_figure_jmol_epistasis.png>]
-(./thesis_mcgill.aux (./chapters/gwas.aux))
+) [5] [6] (./thesis_mcgill.aux (./chapters/conclusions.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -855,48 +456,25 @@ kvoptions.sty    2011/06/30 v3.11 Key value format for package options (HO)
 kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
 etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-chapters/gwas.tex
-    umsa.fd    2013/01/14 v3.01 AMS symbols A
-    umsb.fd    2013/01/14 v3.01 AMS symbols B
-gwas_epistasis_pipeline.png    Graphic file (type png)
-gwas_figure_2.png    Graphic file (type png)
-gwas_figure_3A.png    Graphic file (type png)
-gwas_figure_3B.png    Graphic file (type png)
-  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
-gwas_figure_jmol_epistasis.png    Graphic file (type png)
+chapters/conclusions.tex
  ***********
-
-
-LaTeX Warning: There were undefined references.
-
-
-LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5486 strings out of 493315
- 80411 string characters out of 6137904
- 166399 words of memory out of 5000000
- 8832 multiletter control sequences out of 15000+600000
- 9466 words of font info for 37 fonts, out of 8000000 for 9000
+ 5351 strings out of 493315
+ 78269 string characters out of 6137904
+ 164399 words of memory out of 5000000
+ 8725 multiletter control sequences out of 15000+600000
+ 5251 words of font info for 20 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,11n,40p,1698b,284s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,5n,40p,1756b,219s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
-sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
-ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loc
-al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (20 pages, 644106 bytes).
+></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb>
+Output written on thesis_mcgill.pdf (6 pages, 52679 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
- 83 compressed objects within 1 object stream
+ 35 PDF objects out of 1000 (max. 8388607)
+ 23 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 26 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
