@@ -8,6 +8,7 @@
 \usepackage{listings}
 \usepackage{color}
 \usepackage{caption}
+\usepackage{framed}
 
 \input{def_mcgill}
 
@@ -79,7 +80,7 @@
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
 \newif\ifthesis
 \thesistrue
-%\thesisfalse
+\thesisfalse
 
 \ifthesis
 	% Only show these sections when we are building the 'thesis' version
@@ -144,9 +145,10 @@
 	% Show all chapters on 'thesis' mode
 	\include{chapters/intro}
 	\include{chapters/bds}
+	\include{chapters/snpeff}
 \else
 	% Only show the chapter we are currently working on
-	\include{chapters/bds}
+	\include{chapters/gwas}
 \fi
 
 

@@ -57,6 +57,22 @@
 \contentsline {paragraph}{Robustness..}{55}
 \contentsline {paragraph}{Scalability..}{55}
 \contentsline {section}{\numberline {2.5}Discussion}{56}
-\contentsline {extrachapter}{Appendix A}{58}
-\contentsline {section}{\numberline {A.1}Algorithm details}{59}
-\contentsline {extrachapter}{References}{60}
+\contentsline {chapter}{\numberline {3}SnpEff: Genomic variant annotation and prioritization}{58}
+\contentsline {section}{\numberline {3.1}Preface}{58}
+\contentsline {section}{\numberline {3.2}Epilogue?}{59}
+\contentsline {subsection}{\numberline {3.2.1}Data structures for annotations}{59}
+\contentsline {section}{\numberline {3.3}Background}{60}
+\contentsline {section}{\numberline {3.4}Genetic variants}{63}
+\contentsline {subsection}{\numberline {3.4.1}Types of genetic annotations}{65}
+\contentsline {subsection}{\numberline {3.4.2}Coding variant annotation}{66}
+\contentsline {subsection}{\numberline {3.4.3}Loss of function variants}{68}
+\contentsline {subsection}{\numberline {3.4.4}Variants with low or moderate impact}{70}
+\contentsline {subsection}{\numberline {3.4.5}Non-coding variant annotation}{73}
+\contentsline {subsection}{\numberline {3.4.6}Impact assessment of non-coding variants}{77}
+\contentsline {paragraph}{Computational sources of evidence:.}{77}
+\contentsline {paragraph}{Experimental sources of evidence:.}{78}
+\contentsline {paragraph}{Combining sources of evidence:.}{79}
+\contentsline {section}{\numberline {3.5} Clinical effect of variants}{80}
+\contentsline {extrachapter}{Appendix A}{89}
+\contentsline {section}{\numberline {A.1}Algorithm details}{90}
+\contentsline {extrachapter}{References}{91}
