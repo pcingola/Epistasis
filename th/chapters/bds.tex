@@ -1,0 +1,19 @@
+
+%-----------------------------------------------------------------------------
+\chapter{BigDataScript: A scripting language for data pipelines \label{ch:bds}}
+%-----------------------------------------------------------------------------
+
+%---
+\section{Preface}
+%---
+
+The overall goal in this thesis is to find genetic loci related to complex disease. In order to have enough statistical power to find these risk loci, we need to sequence thousands of cases and controls (i.e. patients and healthy individuals). Obviously the first step is to find all these patients, obtain patient’s consent, take samples and keep track of clinically relevant variables (such as age, sex, BMI, and glycemic traits). Just by the sheer number of patients involved, it’s easy to see that the logistics are challenging, to say the least. 
+
+Once the sequencing of each patient’s DNA is performed, we need to process the raw sequencing information by performing what is known as “primary sequencing analysis”, which involves mapping reads to the reference genome, calling variants, as well as performing several types of quality controls. The term “primary analysis” makes it sound as if this step is simple,but it is not.  Managing such volume of information is a huge task that requires large computational resources, and coordinating the process involved at every stage of the analysis is not trivial, even if the jobs are relatively easy to parallelize. 
+
+As an example of the complexity and data volumes involved in these analysis pipelines, mapping the raw reads to the reference genome (i.e. the first stage of the primary analysis) for our T2D sequencing data is estimated to take over 12,000 CPU hours, that is over 32 CPU/years, under the most optimistic assumptions. At this magnitude hardware and failures become a significant issue since the probability of one or more nodes malfunction, while the data is being processed, is quite high.
+
+We designed and implemented a simple script-like programming language called BigDataScript (BDS), with a clean and minimalist syntax to develop and manage pipeline execution and provide robustness to various types of software and hardware failures as well as portability.  This programming language specifically tailored for data processing pipelines, improves abstraction from hardware resources and assists with robustness. Hardware abstraction allows BDS pipelines to run without modification on a wide range of computer architectures, from a small laptop to multi-core servers, server farms, clusters, clouds or even whole datacenters. BDS achieves robustness by incorporating the concepts of absolute serialization and lazy processing, thus allowing pipelines to recover from errors. By abstracting pipeline concepts at programming language level, BDS simplifies implementation, execution and management of complex bioinformatics pipelines, resulting in reduced development and debugging cycles as well as cleaner code. BDS was used to create data analysis pipelines required for our research, including the ones described throughout this thesis, and is currently used by other research groups and  sequencing facilities in both academic and private environments.
+
+The rest of the chapter is published in: Cingolani, Pablo, Rob Sladek, and Mathieu Blanchette. ``BigDataScript: a scripting language for data pipelines." Bioinformatics 31.1 (2015): 10-16.
+

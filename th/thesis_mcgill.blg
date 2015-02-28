@@ -1,0 +1,144 @@
+This is BibTeX, Version 0.99c (Web2C 7.5.6)
+The top-level auxiliary file: thesis_mcgill.aux
+A level-1 auxiliary file: chapters/intro.aux
+A level-1 auxiliary file: chapters/annotations.aux
+A level-1 auxiliary file: chapters/codingAnnotations.aux
+A level-1 auxiliary file: chapters/noncodingAnnotations.aux
+A level-1 auxiliary file: chapters/networkAnnotations.aux
+A level-1 auxiliary file: chapters/chipSeq.aux
+A level-1 auxiliary file: chapters/diabetes_network.aux
+A level-1 auxiliary file: appendix/algorithm_details.aux
+The style file: plain.bst
+Database file #1: mcgilletd.bib
+Repeated entry---line 906 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 916 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 926 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 938 of file mcgilletd.bib
+ : @article{li2009sequence
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 974 of file mcgilletd.bib
+ : @article{li2010baq
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 998 of file mcgilletd.bib
+ : @article{park2009chip
+ :                      ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1010 of file mcgilletd.bib
+ : @article{zhang2008model
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1021 of file mcgilletd.bib
+ : @article{pepke2009computation
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1032 of file mcgilletd.bib
+ : @article{teemu10practical
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1040 of file mcgilletd.bib
+ : @article{fullwood2009chip
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1052 of file mcgilletd.bib
+ : @article{song7chip
+ :                   ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1060 of file mcgilletd.bib
+ : @article{wilbanks2010evaluation
+ :                                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1071 of file mcgilletd.bib
+ : @article{fejes2008findpeaks
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1083 of file mcgilletd.bib
+ : @article{jothi2008genome
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1095 of file mcgilletd.bib
+ : @article{hu2010detection
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1107 of file mcgilletd.bib
+ : @article{szalkowski2010rapid
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1116 of file mcgilletd.bib
+ : @article{ghosh2010statistical
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1127 of file mcgilletd.bib
+ : @article{ji2008integrated
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1139 of file mcgilletd.bib
+ : @article{jiao2010probabilistic
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1149 of file mcgilletd.bib
+ : @article{ wikiWnt
+ :                  ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1156 of file mcgilletd.bib
+ : @article{ wntHome
+ :                  ,
+I'm skipping whatever remains of this entry
+Warning--empty journal in lin2007robust
+Warning--empty year in song7chip
+Warning--empty year in teemu10practical
+Warning--empty journal in wntHome
+Warning--empty year in wntHome
+Warning--empty journal in wikiWnt
+You've used 26 entries,
+            2118 wiz_defined-function locations,
+            656 strings with 8629 characters,
+and the built_in function-call counts, 8750 in all, are:
+= -- 818
+> -- 532
+< -- 0
++ -- 210
+- -- 184
+* -- 702
+:= -- 1557
+add.period$ -- 77
+call.type$ -- 26
+change.case$ -- 169
+chr.to.int$ -- 0
+cite$ -- 32
+duplicate$ -- 277
+empty$ -- 590
+format.name$ -- 184
+if$ -- 1712
+int.to.chr$ -- 0
+int.to.str$ -- 26
+missing$ -- 26
+newline$ -- 132
+num.names$ -- 52
+pop$ -- 141
+preamble$ -- 1
+purify$ -- 143
+quote$ -- 0
+skip$ -- 188
+stack$ -- 0
+substring$ -- 457
+swap$ -- 23
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 104
+warning$ -- 6
+while$ -- 78
+width$ -- 28
+write$ -- 275
+(There were 21 error messages)

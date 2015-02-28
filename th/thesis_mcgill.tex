@@ -1,0 +1,133 @@
+\documentclass[12pt,Bold,letterpaper,TexShade]{mcgilletdclass}
+
+\usepackage{epsfig}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{listings}
+
+\input{def_mcgill}
+
+\addtolength{\hoffset}{0pt}		% Have you configured your TeX system for proper page alignment? See the McGillETD documentation
+\addtolength{\voffset}{0pt}
+
+%-----------------------------------------------------------------------------
+% Student info
+%-----------------------------------------------------------------------------
+\SetTitle{\huge{Computational challenges in genome wide association studies: data processing, variant annotation and epistasis}}
+\SetAuthor{Pablo Cingolani}
+\SetDegreeType{PhD.}
+\SetDepartment{School of Computer Science - Bioinformatics}
+\SetUniversity{McGill University}
+\SetUniversityAddr{Montreal,Quebec}
+\SetThesisDate{March 2015}
+\SetRequirements{A thesis submitted to McGill University in partial fulfillment of the requirements of the degree of Doctor of Philosophy}
+\SetCopyright{Pablo Cingolani 2015}
+
+\makeindex[keylist]
+\makeindex[abbr]
+\listfiles
+\begin{document}
+
+%-----------------------------------------------------------------------------
+% Input any special commands below
+%-----------------------------------------------------------------------------
+
+\maketitle
+
+% Conditional expression for faster build during "development" cycle
+% See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
+\newif\ifthesis
+\thesistrue
+\thesisfalse
+
+\ifthesis
+	% Only show these sections when we are building the 'thesis' version
+	
+	\begin{romanPagenumber}{2}
+	
+	%-----------------------------------------------------------------------------
+	% Acknowledgements
+	%-----------------------------------------------------------------------------
+	
+	%\SetAcknowledgeName{\MakeUppercase{Acknowledgements}}
+	%\SetAcknowledgeText{
+	%I would like to thank my feet for all their support, my arms for always being by my side and my fingers, who I can always count on.
+	%}
+	%
+	%\Acknowledge
+	
+	
+	%-----------------------------------------------------------------------------
+	%         English Abstract
+	%-----------------------------------------------------------------------------
+	
+	
+	\SetAbstractEnName{\MakeUppercase{Abstract}}%
+	\SetAbstractEnText{ 
+	Abstract...abstract...abstract...abstract...abstract...abstract...abstract...abstract...abstract
+	}
+	\AbstractEn%
+	
+	%-----------------------------------------------------------------------------
+	%         French Abstract
+	%-----------------------------------------------------------------------------
+	
+	\SetAbstractFrName{\MakeUppercase{ABR\'{E}G\'{E}}}%
+	\SetAbstractFrText{ 
+	Abstract...abstract...abstract...abstract...abstract...abstract...abstract...abstract...abstract
+	}%
+	\AbstractFr%
+	
+	%-----------------------------------------------------------------------------
+	% Tables
+	%-----------------------------------------------------------------------------
+	
+	\TOCHeading{\MakeUppercase{Table of Contents}}
+	\LOTHeading{\MakeUppercase{List of Tables}}
+	\LOFHeading{\MakeUppercase{List of Figures}}
+	\tableofcontents 
+	\listoftables 
+	\listoffigures
+	
+	\end{romanPagenumber}
+
+\else
+	% Skip all the previous sections
+\fi
+
+%-----------------------------------------------------------------------------
+% Chapters
+%-----------------------------------------------------------------------------
+
+\ifthesis
+	% Show all chapters on 'thesis' mode
+	\include{chapters/intro}
+	\include{chapters/bds}
+\else
+	% Only show the chapter we are currently working on
+	\include{chapters/bds}
+\fi
+
+
+\ifthesis
+	% Show all appendices & bibliography in 'thesis' mode
+
+	%-----------------------------------------------------------------------------
+	% Appendices
+	%-----------------------------------------------------------------------------
+	\ETDAppendix{Appendix A}{ \include{appendix/algorithm_details} }%
+	
+	%-----------------------------------------------------------------------------
+	% Bibliography. You need to run the following command: "bibtex thesis_mcgill"
+	%-----------------------------------------------------------------------------
+	\bibHeading{References}
+	\bibliographystyle{plain}
+	\bibliography{mcgilletd}		% File: mcgilletd.bib
+
+\else
+	% Skip all appendices and bibliography
+\fi
+
+\end{document}
