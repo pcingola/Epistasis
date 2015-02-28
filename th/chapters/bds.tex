@@ -72,19 +72,19 @@ In addition to supporting explicitly defined task dependencies, BDS also automat
 
 BDS provides two different mechanisms that help create robust pipelines: lazy processing and absolute serialization. When a processing pipeline fails, BDS automatically cleans up all stale output files to ensure that rerunning the pipeline will produce a correct output. If a BDS program is interrupted, typically by pressing Ctrl-C on the console, all scheduled tasks and running jobs are terminated or deallocated from the cluster. In addition to immediately releasing computing resources, a clean stop means that users do not have to manually dequeue tasks, which allows them to focus on the problem at hand without having to worry about restoring a clean state.
 
-Lazy processing. Complex processing pipelines are bound to fail owing to unexpected reasons that range from data format problems to hardware failures. Rerunning a pipeline from scratch means wasting days on recalculating results that have already been processed. One common approach, when using general-purpose scripting languages, is to edit the script and comment out some steps to save processing time, which is inelegant and error prone. A better approach is to develop pipelines that incorporate the concept of lazy processing (Napolitano et al., 2013), a concept popularized by the \texttt{make} command (Feldman, 1979) used to compile programs, and which simply means the work is not done a task invoking a fictitious command \texttt{myProcess} defined to require 2 CPUs twice. This concept is at the core of many of the pipeline programming tools, such as SnakeMake, Ruffus, Leaf and Bpipe. By design, when lazy processing pipelines are rerun using the same dataset, they avoid unnecessary work. In the extreme case, if a lazy processing pipeline is run on an already successfully processed dataset, it should not perform any processing at all.
+\paragraph{Lazy processing.} Complex processing pipelines are bound to fail owing to unexpected reasons that range from data format problems to hardware failures. Rerunning a pipeline from scratch means wasting days on recalculating results that have already been processed. One common approach, when using general-purpose scripting languages, is to edit the script and comment out some steps to save processing time, which is inelegant and error prone. A better approach is to develop pipelines that incorporate the concept of lazy processing (Napolitano et al., 2013), a concept popularized by the \texttt{make} command (Feldman, 1979) used to compile programs, and which simply means the work is not done a task invoking a fictitious command \texttt{myProcess} defined to require 2 CPUs twice. This concept is at the core of many of the pipeline programming tools, such as SnakeMake, Ruffus, Leaf and Bpipe. By design, when lazy processing pipelines are rerun using the same dataset, they avoid unnecessary work. In the extreme case, if a lazy processing pipeline is run on an already successfully processed dataset, it should not perform any processing at all.
 
 BDS facilitates the creation of lazy processing pipelines by means of the dependency operator (\texttt{<-}) and conditional task execution (see Listing 1, line 5 for an example). The task is defined as \texttt{task (out <– in)}, meaning that it is executed only if \texttt{out} file needs to be updated with respect to \texttt{in} file: for example, if \texttt{output.file} file does not exist, has zero length, is an empty directory or has been modified before \texttt{input.file}.
 
-Absolute serialization. This refers to the ability to save and recover a snapshot of the current execution state, compiled program, variables, scopes and program counter, a concept similar to ‘continuations’ (Reynolds, 1993). BDS can perform an absolute serialization of the current running state and environment, producing ‘checkpoint files’ from which the program can be re-executed, either on the same computer or on any other computer, exactly from the point where execution terminated. Checkpoint files (or \texttt{checkpoints} for short) also allow all variables and the execution stack to be inspected for debugging purposes (\texttt{bds -i checkpoint.chp}). The most common use of checkpoints is when a task execution fails. On reaching a \texttt{wait} statement, if one or more tasks have failed, BDS creates a checkpoint, reports the reasons for task execution failure and terminates. Using the checkpoint, pipeline execution can be resumed from the point where it terminated (in this case, at the most recently executed \texttt{wait} statement) and can properly re-execute pending tasks (i.e. the tasks that previously failed execution).
+\paragraph{Absolute serialization.} This refers to the ability to save and recover a snapshot of the current execution state, compiled program, variables, scopes and program counter, a concept similar to ‘continuations’ (Reynolds, 1993). BDS can perform an absolute serialization of the current running state and environment, producing ‘checkpoint files’ from which the program can be re-executed, either on the same computer or on any other computer, exactly from the point where execution terminated. Checkpoint files (or \texttt{checkpoints} for short) also allow all variables and the execution stack to be inspected for debugging purposes (\texttt{bds -i checkpoint.chp}). The most common use of checkpoints is when a task execution fails. On reaching a \texttt{wait} statement, if one or more tasks have failed, BDS creates a checkpoint, reports the reasons for task execution failure and terminates. Using the checkpoint, pipeline execution can be resumed from the point where it terminated (in this case, at the most recently executed \texttt{wait} statement) and can properly re-execute pending tasks (i.e. the tasks that previously failed execution).
 
-Limitations. BDS is designed to afford robustness to the most common types of pipeline execution failures. However, events such as full cluster failures, emergency shutdowns, head node hardware failures or network problems isolating a subset of nodes may result in BDS being unable to exit cleanly, leading to an inconsistent pipeline state. These problems can be mitigated by a special purpose \texttt{checkpoint} statement that, as the name suggests, allows the programmer to explicitly create checkpoints. Given that the overhead of creating checkpoints is minimal (a few milliseconds compared with hours of processing time for a typical pipeline), carefully crafted checkpoint statements within the pipeline code can be useful to prevent losing processed data, mitigate damage and minimize the overhead when rerun, which can be critical for long running pipelines.
+\paragraph{Limitations.} BDS is designed to afford robustness to the most common types of pipeline execution failures. However, events such as full cluster failures, emergency shutdowns, head node hardware failures or network problems isolating a subset of nodes may result in BDS being unable to exit cleanly, leading to an inconsistent pipeline state. These problems can be mitigated by a special purpose \texttt{checkpoint} statement that, as the name suggests, allows the programmer to explicitly create checkpoints. Given that the overhead of creating checkpoints is minimal (a few milliseconds compared with hours of processing time for a typical pipeline), carefully crafted checkpoint statements within the pipeline code can be useful to prevent losing processed data, mitigate damage and minimize the overhead when rerun, which can be critical for long running pipelines.
 
 \subsection{Other features}
 
 Here we mention some selected features that are useful in pipeline programming. Extensive documentation is available at http://pcingola.github.io/BigDataScript.
 
-Automatic logging. Logging all actions performed in pipelines is important for three reasons: (i) it helps debugging; (ii) it improves repeatability; and (iii) it performs audits in cases where detailed documentation and logging are required by regulatory authorities (such as clinical trials).
+\paragraph{Automatic logging.} Logging all actions performed in pipelines is important for three reasons: (i) it helps debugging; (ii) it improves repeatability; and (iii) it performs audits in cases where detailed documentation and logging are required by regulatory authorities (such as clinical trials).
 
 \begin{lstlisting}[
    language=Python,
@@ -113,9 +113,9 @@ task ( mainOut <- outs, mem=10*G ) {
 
 Creating log files is simple, but it adds boilerplate code and increases the complexity of the pipeline. BDS performs automatic logging in three different ways. First, it directs all process StdOut/StdErr output to the console. Second, as having a single output can be confusing when dealing with thousands of processes running in parallel, BDS automatically logs each process’s outputs (StdOut and StdErr) and exit codes in separate clearly identified files. Third, BDS creates a report showing both an overview and details of pipeline execution (Fig. 1).
 
-Automatic command line parsing. Programming flexible data pipelines often involves parsing command-line inputs—a relatively simple but tedious task. BDS simplifies this task by automatically assigning values to variables specified through the command line. As an example, if the program in Listing 1 is called \texttt{pipeline.bds}, then invoking the program as \texttt{pipeline.bds -in another.file} will automatically replace the value of variable \texttt{in} with \texttt{another.file}.
+\paragraph{Automatic command line parsing.} Programming flexible data pipelines often involves parsing command-line inputs—a relatively simple but tedious task. BDS simplifies this task by automatically assigning values to variables specified through the command line. As an example, if the program in Listing 1 is called \texttt{pipeline.bds}, then invoking the program as \texttt{pipeline.bds -in another.file} will automatically replace the value of variable \texttt{in} with \texttt{another.file}.
 
-Task re-execution. Tasks can be re-executed automatically on failure. The number of retries can be configured globally (as a command-line argument) or by a task (using the \texttt{retry} variable). Only after failing \texttt{retry+1} times will a task will be considered to have failed.
+\paragraph{Task re-execution.} Tasks can be re-executed automatically on failure. The number of retries can be configured globally (as a command-line argument) or by a task (using the \texttt{retry} variable). Only after failing \texttt{retry+1} times will a task will be considered to have failed.
 
 \subsection{BDS implementation}
 
@@ -127,24 +127,29 @@ When recovering from a checkpoint, the scopes and RAST are deserialized (i.e. re
 
 When a task statement is invoked, process requirements, such as memory, CPUs and timeouts, can optionally be specified. Depending on the architecture, BDS either checks that the underlying system has appropriate resources (CPUs and memory) to run the process (e.g. local computer or ssh-farm) or relies on the cluster management system to appropriately allocate the task. If all task requirements are met, a script file is created (Fig. 2D), and the task is executed by running an instance of bds-exec, a program that controls execution (Fig. 2E). This indirection is necessary for five reasons, which are described in detail below: (i) process identification, (ii) timeout enforcement, (iii) logging, (iv) exit status report and (v) signal handling.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=12cm]{bds_figure_3_small.png}
+    \caption{BDS report showing pipeline’s task execution timeline}
+    \label{fig:bdsreport}
+\end{figure}
 
+\paragraph{Process identification} means that bds-exec reports its process ID (PID), so that BDS can kill all child processes if the BDS script execution is terminated for some reason (e.g. the Ctrl-C key is pressed at the console).
 
-Fig. 1. BDS report showing pipeline’s task execution timeline
+\paragraph{Timeout enforcement} has to be performed by bds-exec as many underlying systems do not have this capability (e.g. a process running on a server). When a timeout occurs, bds-exec sends a kill signal to all child processes and reports a timeout error exit status that propagates to the user terminal and log files.
 
-Process identification means that bds-exec reports its process ID (PID), so that BDS can kill all child processes if the BDS script execution is terminated for some reason (e.g. the Ctrl-C key is pressed at the console).
+\paragraph{Logging} a process means that bds-exec redirects stdout and stderr to separate log files. These files are also monitored by the main BDS process, which shows the output on the console. As there might be thousands of processes running at the same time and operating systems have hard limits on the number of simultaneous file descriptors available for each user, opening all log files is not an option. To overcome this limit, BDS polls log file sizes, only opening and reading the ones that change.
 
-Timeout enforcement has to be performed by bds-exec as many underlying systems do not have this capability (e.g. a process running on a server). When a timeout occurs, bds-exec sends a kill signal to all child processes and reports a timeout error exit status that propagates to the user terminal and log files.
+\paragraph{Exit status} has to be collected to make sure a process finished successfully. Unfortunately, there is no unified way to do this, and some cluster systems do not provide this information directly. By saving the exit status to a file, bds-exec achieves two goals: (i) unified exit status collection and (ii) exit status logging.
 
-Logging a process means that bds-exec redirects stdout and stderr to separate log files. These files are also monitored by the main BDS process, which shows the output on the console. As there might be thousands of processes running at the same time and operating systems have hard limits on the number of simultaneous file descriptors available for each user, opening all log files is not an option. To overcome this limit, BDS polls log file sizes, only opening and reading the ones that change.
+\paragraph{Signal handling} is also enforced by bds-exec making sure that a kill signal correctly propagated to all subprocesses, but not to parent processes. This is necessary because there is no limit on the number of indirect processes that a task can run, and Unix/Posix systems do not provide a unified way to obtain all nested child processes. To be able to keep track of all subprocesses, bds-exec creates a process group and spawns the subprocess in it. When receiving a signal from the operating system, bds-exec traps the signal and propagates a kill signal to the process group.
 
-Exit status has to be collected to make sure a process finished successfully. Unfortunately, there is no unified way to do this, and some cluster systems do not provide this information directly. By saving the exit status to a file, bds-exec achieves two goals: (i) unified exit status collection and (ii) exit status logging.
-
-Signal handling is also enforced by bds-exec making sure that a kill signal correctly propagated to all subprocesses, but not to parent processes. This is necessary because there is no limit on the number of indirect processes that a task can run, and Unix/Posix systems do not provide a unified way to obtain all nested child processes. To be able to keep track of all subprocesses, bds-exec creates a process group and spawns the subprocess in it. When receiving a signal from the operating system, bds-exec traps the signal and propagates a kill signal to the process group.
-
-
-
-Fig. 2. Execution example. (A) Script \texttt{pipeline.bds}. (B) The script is executed from a terminal. The GO executable invokes main BDS, written in JAVA, performs lexing, parsing, compilation to AST and runs AST. (C) When the task statement is run, appropriate checks are performed. (D) A shell script \texttt{task1.sh} is created, and a bds-exec process is fired. (E) bds-exec reports PID, executed the script \texttt{task1.sh} while capturing stdout and stderr as well as monitoring timeouts and OS signals. When a process finishes execution, the exit status is logged
-
+\begin{figure}
+    \centering
+    \includegraphics[width=12cm]{bds_figure_1_small.png}
+    \caption{Execution example. (A) Script \texttt{pipeline.bds}. (B) The script is executed from a terminal. The GO executable invokes main BDS, written in JAVA, performs lexing, parsing, compilation to AST and runs AST. (C) When the task statement is run, appropriate checks are performed. (D) A shell script \texttt{task1.sh} is created, and a bds-exec process is fired. (E) bds-exec reports PID, executed the script \texttt{task1.sh} while capturing stdout and stderr as well as monitoring timeouts and OS signals. When a process finishes execution, the exit status is logged}
+    \label{fig:bdsexec}
+\end{figure}
 
 %---
 \section{Results}
@@ -154,22 +159,35 @@ To illustrate the use of BDS in a real-life scenario, we present an implementati
 
 The example pipeline we created follows current best practices in sequencing data analysis (McKenna et al., 2010), which involves the following steps: (i) map reads to a reference genome using BWA (Li and Durbin, 2009), (ii) call variants using GATK’s HaplotypeCaller and (iii) annotate variants using SnpEff (Cingolani et al., 2012b) and SnpSift (Cingolani et al., 2012a). The pipeline makes efficient use of computational resources by making sure tasks are parallelized whenever possible. Figure 3 shows a flowchart of our implementation, while the pipeline’s source code is available at \texttt{include/bio/seq} directory of our project’s source code (https://github.com/pcingola/ BigDataScript).
 
+\begin{figure}
+    \centering
+    \includegraphics[width=12cm]{bds_figure_2_small.png}
+    \caption{Whole-genome sequencing analysis pipeline’s flow chart, showing how computations are split across many nodes}
+    \label{fig:bdsexec}
+\end{figure}
 
-Fig. 3. Whole-genome sequencing analysis pipeline’s flow chart, showing how computations are split across many nodes
-
-Architecture independence. We ran the exact same BDS pipeline on (i) a laptop computer; (ii) a multi-core server (24 cores, 256 GB shared RAM); (iii) a server farm (5 servers, 2 cores each); (iv) a 1200-core cluster; and (v) the Amazon AWS Cloud computing infrastructure (Table 1). For the purpose of this example and to accommodate the fact that running the pipeline on a laptop using the entire dataset would be prohibitive, we limited our experiment to reads that map to chromosome 20. The architectures involved were based on different operating systems and spanned about three orders of magnitude in terms of the number of CPUs (from 4 to 1200) and RAM (from 8GB to 12TB). BDS can also create a cluster from a ‘server farm’ by coordinating raw SSH connections to a set of computers. This minimalistic setup only requires that the computers have access to a shared disk, typically using NFS, which is a common practice in companies and university networks.
+\paragraph{Architecture independence}. We ran the exact same BDS pipeline on (i) a laptop computer; (ii) a multi-core server (24 cores, 256 GB shared RAM); (iii) a server farm (5 servers, 2 cores each); (iv) a 1200-core cluster; and (v) the Amazon AWS Cloud computing infrastructure (Table 1). For the purpose of this example and to accommodate the fact that running the pipeline on a laptop using the entire dataset would be prohibitive, we limited our experiment to reads that map to chromosome 20. The architectures involved were based on different operating systems and spanned about three orders of magnitude in terms of the number of CPUs (from 4 to 1200) and RAM (from 8GB to 12TB). BDS can also create a cluster from a ‘server farm’ by coordinating raw SSH connections to a set of computers. This minimalistic setup only requires that the computers have access to a shared disk, typically using NFS, which is a common practice in companies and university networks.
 
 In all cases, the overhead required to run the BDS script itself accounted for 52 ms per task, which is negligible compared with typical pipeline runtimes of several hours.
 
-Robustness. To assess BDS’s robustness, we ran the pipeline on a cluster where 􏰠10% of the nodes have induced hardware failures. As opposed to software failures, which are usually detected by cluster management systems, hardware node failures are typically more difficult to detect and recover from. In addition, we elevated the cluster load to 495% to make sure the pipeline was running on less than ideal conditions. As shown in Table 1, the pipeline finished successfully without any human intervention and required only 30% more time than in the ideal case scenario because BDS had to rerun several failed tasks. This shows how BDS pipelines can be robust and recover from multiple failures by using lazy processing and absolute serialization mechanisms.
+\paragraph{Robustness.} To assess BDS’s robustness, we ran the pipeline on a cluster where 10\% of the nodes have induced hardware failures. As opposed to software failures, which are usually detected by cluster management systems, hardware node failures are typically more difficult to detect and recover from. In addition, we elevated the cluster load to 495\% to make sure the pipeline was running on less than ideal conditions. As shown in Table 1, the pipeline finished successfully without any human intervention and required only 30\% more time than in the ideal case scenario because BDS had to rerun several failed tasks. This shows how BDS pipelines can be robust and recover from multiple failures by using lazy processing and absolute serialization mechanisms.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{bds_table_1.png}
+    \caption{Architecture independence example. Notes: Running the same BDS-based pipeline, a sequence variant calling and analysis pipeline, on the same dataset (chr20) but different architectures, operating systems and cluster management systems.}
+    \label{fig:bdsexec}
+\end{figure}
 
-Table 1. Architecture independence example. Notes: Running the same BDS-based pipeline, a sequence variant calling and analysis pipeline, on the same dataset (chr20) but different architectures, operating systems and cluster management systems. 
-
-Scalability. To assess BDS’s scalability, we ran exactly the same pipeline on two datasets that vary in size by several orders of magnitude (Table 2): (i) a relatively small dataset (chromosome 20 subset, 2GB) that would typically be used for development, testing and debugging and (ii) a high-depth whole-genome sequencing dataset (over 200 coverage, roughly 1.5 TB).
+\paragraph{Scalability.} To assess BDS’s scalability, we ran exactly the same pipeline on two datasets that vary in size by several orders of magnitude (Table 2): (i) a relatively small dataset (chromosome 20 subset, 2GB) that would typically be used for development, testing and debugging and (ii) a high-depth whole-genome sequencing dataset (over 200 coverage, roughly 1.5 TB).
  
+\begin{figure}
+    \centering
+    \includegraphics[width=10cm]{bds_table_2.png}
+    \caption{Scaling dataset sized by a factor of ~1000. Notes: The same sample pipeline run on dataset of 2 GB (reads mapping to human chromosome 20) and 1.5 TB (whole-genome data set). Computational times vary according to system’s resources, utilization factor and induced hardware failures.}
+    \label{fig:bdsexec}
+\end{figure}
 
-Table 2. Scaling dataset sized by a factor of ~1000. Notes: The same sample pipeline run on dataset of 2 GB (reads mapping to human chromosome 20) and 1.5 TB (whole-genome data set). Computational times vary according to system’s resources, utilization factor and induced hardware failures. 
 
 %---
 \section{Discussion}
