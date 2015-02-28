@@ -1,9 +1,23 @@
 \begin{thebibliography}{10}
 
+\bibitem{ackermann2012systematic}
+Marit Ackermann and Andreas Beyer.
+\newblock Systematic detection of epistatic interactions based on allele pair
+  frequencies.
+\newblock {\em PLoS genetics}, 8(2):e1002463, 2012.
+
 \bibitem{altschul1990basic}
 S.F. Altschul, W.~Gish, W.~Miller, E.W. Myers, D.J. Lipman, et~al.
 \newblock Basic local alignment search tool.
 \newblock {\em Journal of molecular biology}, 215(3):403--410, 1990.
+
+\bibitem{auwera2013fastq}
+Geraldine~A Auwera, Mauricio~O Carneiro, Christopher Hartl, Ryan Poplin,
+  Guillermo del Angel, Ami Levy-Moonshine, Tadeusz Jordan, Khalid Shakir, David
+  Roazen, Joel Thibault, et~al.
+\newblock From fastq data to high-confidence variant calls: The genome analysis
+  toolkit best practices pipeline.
+\newblock {\em Current protocols in bioinformatics}, pages 11--10, 2013.
 
 \bibitem{balding2006tutorial}
 D.J. Balding.
@@ -18,6 +32,13 @@ P.~Cingolani, A.~Platts, M.~Coon, T.~Nguyen, L.~Wang, S.J. Land, X.~Lu, D.M.
   melanogaster strain w1118; iso-2; iso-3.
 \newblock {\em Fly}, 6(2):0--1, 2012.
 
+\bibitem{cingolani2012using}
+Pablo Cingolani, Viral~M Patel, Melissa Coon, Tung Nguyen, Susan~J Land,
+  Douglas~M Ruden, and Xiangyi Lu.
+\newblock Using drosophila melanogaster as a model for genotoxic chemical
+  mutational studies with a new program, snpsift.
+\newblock {\em Toxicogenomics in non-mammalian species}, page~92, 2012.
+
 \bibitem{clarke2011basic}
 G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
   Zondervan.
@@ -28,6 +49,23 @@ G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
 FS~Collins, ES~Lander, J.~Rogers, RH~Waterston, and I.~Conso.
 \newblock Finishing the euchromatic sequence of the human genome.
 \newblock {\em Nature}, 431(7011):931--945, 2004.
+
+\bibitem{cordell2002epistasis}
+Heather~J Cordell.
+\newblock Epistasis: what it means, what it doesn't mean, and statistical
+  methods to detect it in humans.
+\newblock {\em Human molecular genetics}, 11(20):2463--2468, 2002.
+
+\bibitem{cordell2009detecting}
+Heather~J Cordell.
+\newblock Detecting gene--gene interactions that underlie human diseases.
+\newblock {\em Nature Reviews Genetics}, 10(6):392--404, 2009.
+
+\bibitem{culverhouse2002perspective}
+Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
+\newblock A perspective on epistasis: limits of models displaying no main
+  effect.
+\newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
 
 \bibitem{depristo2011framework}
 M.A. DePristo, E.~Banks, R.~Poplin, K.V. Garimella, J.R. Maguire, C.~Hartl,
@@ -74,6 +112,18 @@ Robert~E Kass and Adrian~E Raftery.
 \newblock Bayes factors.
 \newblock {\em Journal of the american statistical association},
   90(430):773--795, 1995.
+
+\bibitem{kennedy2001}
+Martin~Alexander Kennedy.
+\newblock Mendelian genetic disorders.
+\newblock {\em ENCYCLOPEDIA OF LIFE SCIENCES}, 2001.
+
+\bibitem{koo2013review}
+Ching~Lee Koo, Mei~Jing Liew, Mohd~Saberi Mohamad, and Abdul~Hakim
+  Mohamed~Salleh.
+\newblock A review for detecting gene-gene interactions using machine learning
+  methods in genetic epidemiology.
+\newblock {\em BioMed research international}, 2013, 2013.
 
 \bibitem{langmead2012fast}
 B.~Langmead and S.L. Salzberg.
@@ -134,10 +184,25 @@ A.~McKenna, M.~Hanna, E.~Banks, A.~Sivachenko, K.~Cibulskis, A.~Kernytsky,
   next-generation dna sequencing data.
 \newblock {\em Genome research}, 20(9):1297--1303, 2010.
 
+\bibitem{mckinney2006machine}
+Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
+\newblock Machine learning for detecting gene-gene interactions.
+\newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
+
+\bibitem{napolitano2013bioinformatic}
+Francesco Napolitano, Renato Mariani-Costantini, and Roberto Tagliaferri.
+\newblock Bioinformatic pipelines in python with leaf.
+\newblock {\em BMC bioinformatics}, 14(1):201, 2013.
+
 \bibitem{patterson2006population}
 N.~Patterson, A.L. Price, and D.~Reich.
 \newblock Population structure and eigenanalysis.
 \newblock {\em PLoS genetics}, 2(12):e190, 2006.
+
+\bibitem{sadedin2012bpipe}
+Simon~P Sadedin, Bernard Pope, and Alicia Oshlack.
+\newblock Bpipe: a tool for running and managing bioinformatics pipelines.
+\newblock {\em Bioinformatics}, 28(11):1525--1526, 2012.
 
 \bibitem{wakefield2009bayes}
 Jon Wakefield.
@@ -167,11 +232,30 @@ Ziheng Yang.
 \newblock {\em Computational molecular evolution}, volume 284.
 \newblock Oxford University Press Oxford, 2006.
 
+\bibitem{zhang2007bayesian}
+Yu~Zhang and Jun~S Liu.
+\newblock Bayesian inference of epistatic interactions in case-control studies.
+\newblock {\em Nature genetics}, 39(9):1167--1173, 2007.
+
+\bibitem{zhao2006test}
+Jinying Zhao, Li~Jin, and Momiao Xiong.
+\newblock Test for interaction between two unlinked loci.
+\newblock {\em The American Journal of Human Genetics}, 79(5):831--845, 2006.
+
 \bibitem{zuk2012mystery}
 O.~Zuk, E.~Hechter, S.R. Sunyaev, and E.S. Lander.
 \newblock The mystery of missing heritability: Genetic interactions create
   phantom heritability.
 \newblock {\em Proceedings of the National Academy of Sciences},
   109(4):1193--1198, 2012.
+
+\bibitem{zuk2014searching}
+Or~Zuk, Stephen~F Schaffner, Kaitlin Samocha, Ron Do, Eliana Hechter, Sekar
+  Kathiresan, Mark~J Daly, Benjamin~M Neale, Shamil~R Sunyaev, and Eric~S
+  Lander.
+\newblock Searching for missing heritability: Designing rare variant
+  association studies.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  111(4):E455--E464, 2014.
 
 \end{thebibliography}

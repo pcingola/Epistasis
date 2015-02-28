@@ -2,16 +2,6 @@ This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
-Case mismatch error between cite keys cordell2009 and Cordell2009
----line 127 of file chapters/intro.aux
- : \citation{cordell2009
- :                      }
-I'm skipping whatever remains of this command
-Case mismatch error between cite keys cordell2009 and Cordell2009
----line 136 of file chapters/intro.aux
- : \citation{cordell2009
- :                      }
-I'm skipping whatever remains of this command
 A level-1 auxiliary file: chapters/bds.aux
 A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
@@ -54,36 +44,22 @@ Repeated entry---line 1476 of file mcgilletd.bib
  : @article{li2011improving
  :                         ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1695 of file mcgilletd.bib
+Repeated entry---line 1704 of file mcgilletd.bib
  : @article{wu2011rare
  :                    ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 1854 of file mcgilletd.bib
+Repeated entry---line 1863 of file mcgilletd.bib
  : @book{durbin1998biological
  :                           ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "SnpEff"
-Warning--I didn't find a database entry for "SnpSift"
+Repeated entry---line 2039 of file mcgilletd.bib
+ : @article{mckenna2010genome
+ :                           ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "REF"
-Warning--I didn't find a database entry for "Keitel2009"
 Warning--I didn't find a database entry for "REF:GIANT"
 Warning--I didn't find a database entry for "Emerson"
 Warning--I didn't find a database entry for "REF:web_GATK"
-Warning--I didn't find a database entry for "Culverhouse2002"
-Warning--I didn't find a database entry for "Cordell2009"
-Warning--I didn't find a database entry for "cordell2002"
-Warning--I didn't find a database entry for "ackerman2012"
-Warning--I didn't find a database entry for "Zhang2009"
-Warning--I didn't find a database entry for "Zhao2006"
-Warning--I didn't find a database entry for "McKinney2011"
-Warning--I didn't find a database entry for "koo2013"
-Warning--I didn't find a database entry for "Zuk2014"
-Warning--I didn't find a database entry for "Auwera2013"
-Warning--I didn't find a database entry for "Sadedin2012"
-Warning--I didn't find a database entry for "Napolitano2013"
-Warning--I didn't find a database entry for "McKenna2010"
-Warning--I didn't find a database entry for "Cingolani2012b"
-Warning--I didn't find a database entry for "Cingolani2012a"
 Warning--I didn't find a database entry for "Siva2008"
 Warning--I didn't find a database entry for "Visscher2012"
 Warning--I didn't find a database entry for "Wu2011"
@@ -105,45 +81,45 @@ Warning--I didn't find a database entry for "Ruiz2013"
 Warning--I didn't find a database entry for "Juan2013"
 Warning--I didn't find a database entry for "Goodman"
 Warning--I didn't find a database entry for "Santiveri2010"
-You've used 30 entries,
+You've used 44 entries,
             2118 wiz_defined-function locations,
-            772 strings with 9971 characters,
-and the built_in function-call counts, 10711 in all, are:
-= -- 1035
-> -- 593
-< -- 3
-+ -- 240
-- -- 204
-* -- 859
-:= -- 1839
-add.period$ -- 91
-call.type$ -- 30
-change.case$ -- 184
+            813 strings with 12308 characters,
+and the built_in function-call counts, 16071 in all, are:
+= -- 1552
+> -- 912
+< -- 5
++ -- 368
+- -- 316
+* -- 1301
+:= -- 2757
+add.period$ -- 133
+call.type$ -- 44
+change.case$ -- 281
 chr.to.int$ -- 0
-cite$ -- 30
-duplicate$ -- 343
-empty$ -- 768
-format.name$ -- 204
-if$ -- 2142
+cite$ -- 44
+duplicate$ -- 507
+empty$ -- 1126
+format.name$ -- 316
+if$ -- 3210
 int.to.chr$ -- 0
-int.to.str$ -- 30
-missing$ -- 34
-newline$ -- 153
-num.names$ -- 60
-pop$ -- 159
+int.to.str$ -- 44
+missing$ -- 48
+newline$ -- 223
+num.names$ -- 88
+pop$ -- 235
 preamble$ -- 1
-purify$ -- 158
+purify$ -- 241
 quote$ -- 0
-skip$ -- 232
+skip$ -- 348
 stack$ -- 0
-substring$ -- 698
-swap$ -- 42
-text.length$ -- 3
+substring$ -- 1049
+swap$ -- 68
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 112
+type$ -- 168
 warning$ -- 0
-while$ -- 103
-width$ -- 32
-write$ -- 329
-(There were 13 error messages)
+while$ -- 153
+width$ -- 46
+write$ -- 482
+(There were 12 error messages)

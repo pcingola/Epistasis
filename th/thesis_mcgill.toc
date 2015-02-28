@@ -85,5 +85,4 @@
 \contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{106}
 \contentsline {section}{\numberline {4.5}Discussion}{106}
 \contentsline {extrachapter}{Appendix A}{108}
-\contentsline {section}{\numberline {A.1}Algorithm details}{109}
-\contentsline {extrachapter}{References}{110}
+\contentsline {extrachapter}{References}{109}
