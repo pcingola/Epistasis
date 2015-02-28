@@ -2,8 +2,19 @@
 \@writefile{toc}{\contentsline {chapter}{\numberline {1}BigDataScript: A scripting language for data pipelines }{2}}
 \newlabel{ch:bds}{{1}{2}}
 \@writefile{toc}{\contentsline {section}{\numberline {1.1}Preface}{2}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}Introduction}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}Methods}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.1}Language overview}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.2}Abstraction from resources}{9}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.1}\texttt  {pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5)}{9}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.3}Robustness}{11}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.4}Other features}{13}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {1.2}\texttt  {pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt  {myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt  {myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt  {myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt  {myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt  {myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt  {mainOut <– outs}).}{13}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {1.3.5}BDS implementation}{16}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Results}{18}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}Discussion}{20}}
 \@setckpt{chapters/bds}{
-\setcounter{page}{4}
+\setcounter{page}{22}
 \setcounter{equation}{0}
 \setcounter{enumi}{0}
 \setcounter{enumii}{0}
@@ -14,7 +25,7 @@
 \setcounter{QZ@ptcnt}{12}
 \setcounter{part}{0}
 \setcounter{chapter}{1}
-\setcounter{section}{1}
+\setcounter{section}{5}
 \setcounter{subsection}{0}
 \setcounter{subsubsection}{0}
 \setcounter{paragraph}{0}
@@ -23,11 +34,12 @@
 \setcounter{table}{0}
 \setcounter{QZ@TmpCnt}{1}
 \setcounter{parentequation}{0}
-\setcounter{lstnumber}{1}
+\setcounter{lstnumber}{20}
+\setcounter{ContinuedFloat}{0}
 \setcounter{lemma}{0}
 \setcounter{theorem}{0}
 \setcounter{corollary}{0}
 \setcounter{definition}{0}
 \setcounter{propo}{0}
-\setcounter{lstlisting}{0}
+\setcounter{lstlisting}{2}
 }

@@ -6,6 +6,8 @@
 \usepackage{amssymb}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{color}
+\usepackage{caption}
 
 \input{def_mcgill}
 
@@ -28,13 +30,50 @@
 \makeindex[keylist]
 \makeindex[abbr]
 \listfiles
+
+%-----------------------------------------------------------------------------
+% Code linsting options
+%-----------------------------------------------------------------------------
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  numbers=left,
+  stepnumber=1,
+  firstnumber=1,
+  numberfirstline=true
+  tabsize=3
+}
+
+\renewcommand\lstlistingname{Listing}
+\renewcommand\lstlistlistingname{Listings}
+
+%-----------------------------------------------------------------------------
+% Document stats here
+%-----------------------------------------------------------------------------
+
 \begin{document}
+
+\maketitle
 
 %-----------------------------------------------------------------------------
 % Input any special commands below
 %-----------------------------------------------------------------------------
-
-\maketitle
 
 % Conditional expression for faster build during "development" cycle
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
