@@ -50,9 +50,9 @@ When samples are sequenced, the DNA is compared to the ``reference genome". Most
 
 \end{description}
 
-As humans have two copies of each chromosome, variants could affect zero, one or two of the chromosomes and are called ``homozygous reference", ``heterozygous", and ``homozygous alternative" respectively. Variants are also be classified on how common they are within the population: common, low frequency, or rare (see sections \ref{sec:}). How these types of genetic variants influence traits or risk of disease is a topic of intense research that will be discussed throughout this thesis.
+As humans have two copies of each chromosome, variants could affect zero, one or two of the chromosomes and are called ``homozygous reference", ``heterozygous", and ``homozygous alternative" respectively. Variants are also be classified on how common they are within the population: common, low frequency, or rare (see sections \ref{sec:comonrare}). How these types of genetic variants influence traits or risk of disease is a topic of intense research that will be discussed throughout this thesis.
 
-Proteins are composed by chains of amino acids and, as explained by the central dogma of biology,  DNA is the template that instructs cellular machinery how to produce proteins. There are 4 bases in the DNA. There are 20 amino acids, which are the building blocks of all proteins. Each of the twenty amino acids is encoded by a group of three DNA bases called ``codon''. More than one codon can code for the same amino acid (i.e. $4^3=64$ codons $ > 20 $ amino acids) allowing for code redundancy. Additionally, there are codons that mark the end of the protein, these are called ``STOP" codons and signal molecular machinery to end the transcription process. So variations in DNA may sometimes have direct effects on the protein product. We will talk about this in section \ref{sec:} and Chapter 3 where we cover the topic of ``functional annotations".
+Proteins are composed by chains of amino acids and, as explained by the central dogma of biology,  DNA is the template that instructs cellular machinery how to produce proteins. There are 4 bases in the DNA. There are 20 amino acids, which are the building blocks of all proteins. Each of the twenty amino acids is encoded by a group of three DNA bases called ``codon''. More than one codon can code for the same amino acid (i.e. $4^3=64$ codons $ > 20 $ amino acids) allowing for code redundancy. Additionally, there are codons that mark the end of the protein, these are called ``STOP" codons and signal molecular machinery to end the transcription process. So variations in DNA may sometimes have direct effects on the protein product. We will talk about this in section \ref{sec:funann} and Chapter 3 where we cover the topic of ``functional annotations".
 
 \subsection{DNA and disease}
 
@@ -84,11 +84,11 @@ Focusing on narrow sense heritability, the concept of ``explained heritability" 
 
 Until recently, it was widely assumed by the research community that the problem of missing heritability lied in finding the appropriate genetic variants to account for the numerator of the equation ($h^2_{known}$) \cite{zuk2012mystery}. However, in a series of theorems published recently, it has been proposed that there is a problem in the way the denominator is estimated \cite{zuk2012mystery}. The authors created a limiting pathway model ($LP(k)$) that accounts for epistasis (gene-gene interactions) in $k$ biological pathways. They showed that a severe inflation of $h^2_{all}$ estimators occurs even for small values of $k$ (e.g. $k \in [2,10]$). As a result, genetic variants estimated to account only for $20\%$ of heritability, could actually account for as much as $80\%$ using an appropriate model \cite{zuk2012mystery}.
 
-Even though this result is encouraging, the problem is now shifted to detecting epistatic interactions, a problem that we analyze in section \ref{sec:} and Chapter 4. In the same work \cite{zuk2012mystery}, the authors show an example of power calculation assuming relatively large genetic effect that would require sequencing roughly $5,000$ individuals to detect links to genetic variants, which is a large but nowadays not uncommon, sample size. Nevertheless other estimates place the sample size requirements as high as  $500,000$ individuals \cite{zuk2012mystery}. Even though this sounds as an extremely large number of samples, it is quickly becoming possible thanks to large technological advances and cost reductions in sequencing and genotyping technologies.
+Even though this result is encouraging, the problem is now shifted to detecting epistatic interactions, a problem that we analyse in section \ref{sec:epi} and Chapter 4. In the same work \cite{zuk2012mystery}, the authors show an example of power calculation assuming relatively large genetic effect that would require sequencing roughly $5,000$ individuals to detect links to genetic variants, which is a large but nowadays not uncommon, sample size. Nevertheless other estimates place the sample size requirements as high as  $500,000$ individuals \cite{zuk2012mystery}. Even though this sounds as an extremely large number of samples, it is quickly becoming possible thanks to large technological advances and cost reductions in sequencing and genotyping technologies.
 
 \subsection{Conclusions}
 
-Although some genetic causes of complex traits, such as type II diabetes, have been found, only a small portion of the phenotypic variance can be explained. This might indicate that many risk variants are yet to be discovered. Recent studies on the topic of missing heritability report that these ``difficult to find genetic variants" might be in epistatic interaction (analyzed in section \ref{sec:}) or rare variants (see section \ref{sec:}), analysis of either them requires more complex statistical models and larger sample sizes. In Chapter 4 of this thesis, we focus on methods for finding epistatic interactions related to complex disease and develop computationally tractable algorithms that can process data from sequencing experiments involving large number of samples in a reasonable amount of time.
+Although some genetic causes of complex traits, such as type II diabetes, have been found, only a small portion of the phenotypic variance can be explained. This might indicate that many risk variants are yet to be discovered. Recent studies on the topic of missing heritability report that these ``difficult to find genetic variants" might be in epistatic interaction (analyzed in section \ref{sec:epigwas}) or rare variants (see section \ref{sec:comonrare}), analysis of either them requires more complex statistical models and larger sample sizes. In Chapter 4 of this thesis, we focus on methods for finding epistatic interactions related to complex disease and develop computationally tractable algorithms that can process data from sequencing experiments involving large number of samples in a reasonable amount of time.
 
 %---
 \section{Identification of genetic variants}
@@ -128,7 +128,7 @@ Efficient indexing and heuristic algorithms can decrease mapping time considerab
 
 It is worth noting that the mapping problem appears as a consequence of the technological limitations of sequencers.  Having long, highly accurate reads, the problem becomes much easier to solve.  As an extreme example, having only one read which is as long as a chromosome and has no errors requires no mapping processing.  
 
-\subsection{Mapping quality}
+\subsection{Mapping quality \label{sec:mapq}}
 
 Sequencers not only provide sequence information, but also provide an error estimate for each base \cite{li2011statistical}.  This is often referred as a quality ($Q$) value, which is the probability of an error, measured in negative decibels $Q = -10 \; log_{10}(p)$.
 
@@ -145,7 +145,7 @@ Aligning sequences that contain InDels (gaps) is more difficult than ungapped al
 Finally, the error probabilities inferred by the sequencers are far from perfect.  Once the variants have been called, empirical error probabilities can be easily calculated \cite{mckenna2010genome} by comparing sequenced variants to a set of ``gold standard variants" (i.e. variants that have been extensively validated).  This allows to re-calibrate or re-estimate the error profile of the reads.  This is know as a re-calibration step, and usually improves the number of false positives calls \cite{depristo2011framework}.
 
 %---
-\section{Functional annotations of genomic variants}
+\section{Functional annotations of genomic variants \label{sec:funann}}
 %---
 
 Once DNA is sequenced, reads are mapped and variants are called as described in previous sections, variants identified are annotated in order to gain biological insight. For instance, we would like to know if it is located in a gene and if so whether the variant could be deleterious to the functionality of the protein encoded by the gene. This is the focus of Chapter 3 of my thesis.
@@ -176,7 +176,7 @@ In Chapter 3 we show two software packages we designed for efficiently performin
 
 A genome wide association study aims at identifying genetic variants associated to a particular phenotype. First, the genomes (or exome, depending on the study design) of affected individuals (cases) and healthy individuals (controls) need to be sequenced, variants called, annotated and filtered. Then, the goal is to find variants that exhibit some statistical association with the trait or phenotype of interest, which could be a disease status (e.g. diabetes vs healthy), a biomedical measurement (e.g. cholesterol level), or any measurable characteristic (e.g. height). Since the genome is so large, patterns of mutations that suggest correlation may be encountered by chance, so we need to establish statistical significance in order to distinguish true association from spurious ones. Like most studies, we will focus on SNVs, but most methods can be extended to other genomic variants.
 
-\subsection{Single variant tests and models}
+\subsection{Single variant tests and models \label{sec:single}}
 
 Let's imagine that there is only one variant in the whole genome for the cohort we are analyzing. Since each individual has two sets of chromosomes, the variant can be present in one, both, or neither chromosomes. When a variant is in both chromosomes is said to be ``homozygous'', whereas if present in only one of the chromosomes, it is said to be ``heterozygous". So the number of times a non-reference allele is present in an individual, is $ N_{nr} = \{0, 1,2\}$.
 
@@ -204,13 +204,13 @@ In a real case scenario there are thousands or millions of variants. We can exte
 
 In order to check if the null hypothesis of a significance tests is adequate, a QQ-plot is used (i.e. plotting the $y = -log(p_{value})$ vs $x = -log[ rank(p_{value}) / (N+1) ]$, where $N$ is the total number of variants). Adherence of the p-values to a 45 degree line on most of the range implies few systematic sources of association \cite{balding2006tutorial, clarke2011basic}. If the p-values have a higher slope than the $y=x$ line, there might be ``inflation", possibly due to co-factors, such as population structure (see section \ref{sec:popStruct}). If the inflation is not too high (e.g. less than $5\%$), this bias can be corrected by shifting the p-values towards the 45 degree slope. More sophisticated methods are explained in section \ref{sec:popStruct}.
 
-\subsection{Continuous traits and correcting for co-factors}
+\subsection{Continuous traits and correcting for co-factors \label{sec:cofactors}}
 
 Methods analyzed so far are suitable for binary ``traits" or ``phenotypes" (e.g. disease vs. healthy individuals). Statistical methods that link genetic information to traits can also be used on continuous or ``quantitative" traits (e.g. weight, height, cholesterol level, etc.). A linear regression can be used assuming the traits are approximately normally distributed \cite{balding2006tutorial, clarke2011basic}. A significance test ($p_{value}$) for linear models can be calculated using an $F$ statistic, but more sophisticated methods are also available \cite{balding2006tutorial, clarke2011basic}.
 
 Using linear models, it is easy to include known co-factors to correct for biases or inflation. For instance, if it is known that a risk increases with age or that males are more susceptible than females, age and sex can be added to the linear equation in order to correct for these effects \cite{balding2006tutorial,clarke2011basic}. In a similar manner, we can add co-factors to binary traits using logistic regression.
 
-\subsection{Population structure}
+\subsection{Population structure \label{sec:popStruct}}
 
 It is widely accepted that humans started in Africa and migrated to Europe, then to Asia and later to America \cite{hartl1997principles}. Out of an initial population, a few individuals migrate and colonize a new territory. This implies that the genetic variety of the new colony is significantly reduced, compared to the previous population, since the genetic pool is only a small ``founder population". The ``Out of Africa" hypothesis implies that each new migration produced a reduction in genetic variety, also known as a ``population bottleneck'' \cite{hartl1997principles}.
 
@@ -222,11 +222,11 @@ Imagine that we have a cohort of individuals drawn from two populations ($P_A$ a
 
 A population that is a mixture of two or more populations, is known as an ``admixed population''. For instance the ``African-American'' population is a mixture of, roughly, $80\%$ African and $20\%$ European genomes \cite{hartl1997principles,balding2006tutorial}. This means that analyzing a cohort of African-American individuals, we would get population structure as a confounding variable because of population admixture \cite{hartl1997principles}. Obviously, in this case we cannot analyze each population separately, because each individual in the sample is a mixture of two populations.
 
-The admixed population problem can be studied by performing a correction using the eigen-structure of the sample covariance matrix \cite{patterson2006population}. Samples can be arranged as a matrix $C$ where each row is a sample and each column represents a position in the genome where there is a variant. The numbers $C_{i,j}$ in the matrix indicate whether a sample (row $i$) has a non-reference allele at a genomic position (column $j$). Since the allele can be present in zero, one, or two chromosomes in each individual, the possible values for $C_{i,j}$ are $\{0, 1, 2\}$. The covariance matrix is calculated as $M= \hat{C}^T . \hat{C}$, where $\hat{C}$ is the matrix $C$ corrected to have zero mean columns. Usually, the first two to ten principal components of $M$ are used as factors in linear models (see section \ref{sec:lin}) to correct for population structure \cite{patterson2006population}.
+The admixed population problem can be studied by performing a correction using the eigen-structure of the sample covariance matrix \cite{patterson2006population}. Samples can be arranged as a matrix $C$ where each row is a sample and each column represents a position in the genome where there is a variant. The numbers $C_{i,j}$ in the matrix indicate whether a sample (row $i$) has a non-reference allele at a genomic position (column $j$). Since the allele can be present in zero, one, or two chromosomes in each individual, the possible values for $C_{i,j}$ are $\{0, 1, 2\}$. The covariance matrix is calculated as $M= \hat{C}^T . \hat{C}$, where $\hat{C}$ is the matrix $C$ corrected to have zero mean columns. Usually, the first two to ten principal components of $M$ are used as factors in linear models (see section \ref{sec:cofactors}) to correct for population structure \cite{patterson2006population}.
 
 Whether a cohort has any population structure and needs correction or not, can be tested using two methods: a) plotting the projections of the first two principal components and empirically observing the number of clusters in the chart, or b) using a statistic of the eigenvalues of $M$ based on Tracy-Widom's distribution \cite{patterson2006population}.
 
-\subsection{Common and Rare variants}
+\subsection{Common and Rare variants\label{sec:comonrare}}
 
 The ``allele frequency" (AF) is defined as the frequency a variant appears in a population. Variants are usually categorized according to AF into three groups: i) Common variants ($AF \geq 5\%$), ``low frequency" ($1\% < AF < 5\%$), and iii) ``rare variants" ($AF < 1\%$). Common variants originated earlier in the population while rare variants are either relatively recent or selected against.
 
@@ -243,7 +243,7 @@ Several techniques allow weighting rare variants by collapsing them using a kern
 In this section we introduced the basic concepts and methodologies used in GWAS. Although fairly mature, there is still heavy research and continuous improvement on GWAS statistical methods. Not only it is well known that traditional (i.e. single marker) GWAS methods fail under non-additive models \cite{culverhouse2002perspective}, but also variants so far discovered using these methods do not account for all the expected phenotypic variance attributed to genetic causes (i.e. missing heritability). As other authors pointed out, this might be because we need to look for epistatic variants which are not taken into account using these methods. In the next section, and in Chapter 4, we cover the topic of epistatic GWAS analysis.
 
 %---
-\section{Epistasis}
+\section{Epistasis \label{sec:epi}}
 %---
 
 Proteins are the most important part of the cell composing up to 50\% of a cell’s dry weight compared to 3\% of the DNA \cite{alberts1995molecular}. Proteins perform their functions mainly by interacting with other proteins, forming complex pathways that lead to a vast array of cellular functions including catalysis of chemical reactions, cell signaling, and structural conformation of the cell. The 3-dimensional structure of the protein, also called ``tertiary structure", is tailored to bind to other proteins in a specific manner to accomplish a functionality. 
@@ -260,7 +260,7 @@ A proper albeit more complex statistical analysis takes into account MSA’s phy
 
 We propose to make use of co-evolutionary information to increase the interaction priors in a GWAS model. Since the goal is to increase GWAS priors instead of pinpointing the exact interaction loci, we can relax coevolutionary methods requirements to design computationally tractable models. In Chapter 4, we introduce an epistatic GWAS approach that while combining coevolutionary and sequencing information it is efficient enough to be applied to GWAS-scale, large cohort, datasets.
 
-\subsection{Epistatic GWAS }
+\subsection{Epistatic GWAS \label{sec:epigwas}}
 
 Arguably, the most common model linking binary phenotypes (disease vs. healthy) to genotypes is the logistic regression model which relates log odds probability of disease using multiple regression, $ln(\frac{p}{1-p}) = \hat{\beta}^T \hat{g}$, where $p$ is the probability of disease, $\hat{g}$ are the model’s input variables (usually including genotype, sex, age, population structure, etc.), and $\hat{\beta}$ are the logistic regression coefficients. 
 
