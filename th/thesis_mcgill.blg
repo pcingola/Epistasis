@@ -97,11 +97,10 @@ Repeated entry---line 2952 of file mcgilletd.bib
  : @article{davydov2010identifying
  :                                ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "Emerson"
 Warning--empty journal in schneider2013genome
 You've used 151 entries,
             2118 wiz_defined-function locations,
-            1286 strings with 36467 characters,
+            1284 strings with 36453 characters,
 and the built_in function-call counts, 65370 in all, are:
 = -- 6132
 > -- 4533
