@@ -36,6 +36,18 @@ Michael~J Bamshad, Sarah~B Ng, Abigail~W Bigham, Holly~K Tabor, Mary~J Emond,
 \newblock Exome sequencing as a tool for mendelian disease gene discovery.
 \newblock {\em Nature Reviews Genetics}, 12(11):745--755, 2011.
 
+\bibitem{broyden1970convergence}
+Charles~George Broyden.
+\newblock The convergence of a class of double-rank minimization algorithms 1.
+  general considerations.
+\newblock {\em IMA Journal of Applied Mathematics}, 6(1):76--90, 1970.
+
+\bibitem{burger2010disentangling}
+Lukas Burger and Erik van Nimwegen.
+\newblock Disentangling direct from indirect co-evolution of residues in
+  protein alignments.
+\newblock {\em PLoS computational biology}, 6(1):e1000633, 2010.
+
 \bibitem{cantor2010prioritizing}
 Rita~M Cantor, Kenneth Lange, and Janet~S Sinsheimer.
 \newblock Prioritizing gwas results: a review of statistical methods and
@@ -56,6 +68,12 @@ Pablo Cingolani, Viral~M Patel, Melissa Coon, Tung Nguyen, Susan~J Land,
 \newblock Using drosophila melanogaster as a model for genotoxic chemical
   mutational studies with a new program, snpsift.
 \newblock {\em Toxicogenomics in non-mammalian species}, page~92, 2012.
+
+\bibitem{clark2014multidimensional}
+Greg~W Clark, Sharon~H Ackerman, Elisabeth~R Tillier, and Domenico~L Gatti.
+\newblock Multidimensional mutual information methods for the analysis of
+  covariation in multiple sequence alignments.
+\newblock {\em BMC bioinformatics}, 15(1):157, 2014.
 
 \bibitem{clarke2011basic}
 G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
@@ -97,6 +115,14 @@ Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
 \newblock A perspective on epistasis: limits of models displaying no main
   effect.
 \newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
+
+\bibitem{daubechies2010iteratively}
+Ingrid Daubechies, Ronald DeVore, Massimo Fornasier, and C~Sinan
+  G{\"u}nt{\"u}rk.
+\newblock Iteratively reweighted least squares minimization for sparse
+  recovery.
+\newblock {\em Communications on Pure and Applied Mathematics}, 63(1):1--38,
+  2010.
 
 \bibitem{de2013emerging}
 David de~Juan, Florencio Pazos, and Alfonso Valencia.
@@ -173,11 +199,29 @@ David Haussler, Stephen~J O'Brien, Oliver~A Ryder, F~Keith Barker, Michele
   vertebrate species.
 \newblock {\em Journal of Heredity}, 100(6):659--674, 2009.
 
+\bibitem{jones2012psicov}
+David~T Jones, Daniel~WA Buchan, Domenico Cozzetto, and Massimiliano Pontil.
+\newblock Psicov: precise structural contact prediction using sparse inverse
+  covariance estimation on large multiple sequence alignments.
+\newblock {\em Bioinformatics}, 28(2):184--190, 2012.
+
 \bibitem{jostins2013using}
 Luke Jostins, Adam~P Levine, and Jeffrey~C Barrett.
 \newblock Using genetic prediction from known complex disease loci to guide the
   design of next-generation sequencing experiments.
 \newblock {\em PloS one}, 8(10):e76328, 2013.
+
+\bibitem{karolchik2014ucsc}
+Donna Karolchik, Galt~P Barber, Jonathan Casper, Hiram Clawson, Melissa~S
+  Cline, Mark Diekhans, Timothy~R Dreszer, Pauline~A Fujita, Luvina Guruvadoo,
+  Maximilian Haeussler, et~al.
+\newblock The ucsc genome browser database: 2014 update.
+\newblock {\em Nucleic acids research}, 42(D1):D764--D770, 2014.
+
+\bibitem{kass1993bayes}
+Robert~E Kass.
+\newblock Bayes factors in practice.
+\newblock {\em The Statistician}, pages 551--560, 1993.
 
 \bibitem{kass1995bayes}
 Robert~E Kass and Adrian~E Raftery.
@@ -196,6 +240,13 @@ Ching~Lee Koo, Mei~Jing Liew, Mohd~Saberi Mohamad, and Abdul~Hakim
 \newblock A review for detecting gene-gene interactions using machine learning
   methods in genetic epidemiology.
 \newblock {\em BioMed research international}, 2013, 2013.
+
+\bibitem{landrum2013clinvar}
+Melissa~J Landrum, Jennifer~M Lee, George~R Riley, Wonhee Jang, Wendy~S
+  Rubinstein, Deanna~M Church, and Donna~R Maglott.
+\newblock Clinvar: public archive of relationships among sequence variation and
+  human phenotype.
+\newblock {\em Nucleic acids research}, page gkt1113, 2013.
 
 \bibitem{langmead2012fast}
 B.~Langmead and S.L. Salzberg.
@@ -244,6 +295,12 @@ H.~Li, J.~Ruan, and R.~Durbin.
   mapping quality scores}.
 \newblock {\em Genome research}, 18(11):1851, 2008.
 
+\bibitem{lonsdale2013genotype}
+John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo,
+  Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, et~al.
+\newblock The genotype-tissue expression (gtex) project.
+\newblock {\em Nature genetics}, 45(6):580--585, 2013.
+
 \bibitem{mani2008defining}
 Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
   Frederick~P Roth.
@@ -274,6 +331,15 @@ A.~McKenna, M.~Hanna, E.~Banks, A.~Sivachenko, K.~Cibulskis, A.~Kernytsky,
 Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
 \newblock Machine learning for detecting gene-gene interactions.
 \newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
+
+\bibitem{morcos2011direct}
+Faruck Morcos, Andrea Pagnani, Bryan Lunt, Arianna Bertolino, Debora~S Marks,
+  Chris Sander, Riccardo Zecchina, Jos{\'e}~N Onuchic, Terence Hwa, and Martin
+  Weigt.
+\newblock Direct-coupling analysis of residue coevolution captures native
+  contacts across many protein families.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  108(49):E1293--E1301, 2011.
 
 \bibitem{morris2012large}
 Andrew~P Morris, Benjamin~F Voight, Tanya~M Teslovich, Teresa Ferreira,
@@ -319,6 +385,13 @@ Patrick~C Phillips.
   and evolution of genetic systems.
 \newblock {\em Nature Reviews Genetics}, 9(11):855--867, 2008.
 
+\bibitem{price2006principal}
+Alkes~L Price, Nick~J Patterson, Robert~M Plenge, Michael~E Weinblatt, Nancy~A
+  Shadick, and David Reich.
+\newblock Principal components analysis corrects for stratification in
+  genome-wide association studies.
+\newblock {\em Nature genetics}, 38(8):904--909, 2006.
+
 \bibitem{ruiz2013coevolution}
 Mario~X Ruiz-Gonz{\'a}lez and Mario~A Fares.
 \newblock Coevolution analyses illuminate the dependencies between amino acid
@@ -351,6 +424,21 @@ Benjamin~A Shoemaker and Anna~R Panchenko.
 Temple~F Smith and Michael~S Waterman.
 \newblock Identification of common molecular subsequences.
 \newblock {\em Journal of molecular biology}, 147(1):195--197, 1981.
+
+\bibitem{stark2006biogrid}
+Chris Stark, Bobby-Joe Breitkreutz, Teresa Reguly, Lorrie Boucher, Ashton
+  Breitkreutz, and Mike Tyers.
+\newblock Biogrid: a general repository for interaction datasets.
+\newblock {\em Nucleic acids research}, 34(suppl 1):D535--D539, 2006.
+
+\bibitem{subramanian2005gene}
+Aravind Subramanian, Pablo Tamayo, Vamsi~K Mootha, Sayan Mukherjee, Benjamin~L
+  Ebert, Michael~A Gillette, Amanda Paulovich, Scott~L Pomeroy, Todd~R Golub,
+  Eric~S Lander, et~al.
+\newblock Gene set enrichment analysis: a knowledge-based approach for
+  interpreting genome-wide expression profiles.
+\newblock {\em Proceedings of the National Academy of Sciences of the United
+  States of America}, 102(43):15545--15550, 2005.
 
 \bibitem{GATK}
 GATK team.
@@ -391,6 +479,13 @@ K.~Wang, M.~Li, and H.~Hakonarson.
 J.D. Watson and F.H.C. Crick.
 \newblock Molecular structure of nucleic acids.
 \newblock {\em Nature}, 171(4356):737--738, 1953.
+
+\bibitem{weigt2009identification}
+Martin Weigt, Robert~A White, Hendrik Szurmant, James~A Hoch, and Terence Hwa.
+\newblock Identification of direct residue contacts in protein--protein
+  interaction by message passing.
+\newblock {\em Proceedings of the National Academy of Sciences}, 106(1):67--72,
+  2009.
 
 \bibitem{wood2014defining}
 Andrew~R Wood, Tonu Esko, Jian Yang, Sailaja Vedantam, Tune~H Pers, Stefan

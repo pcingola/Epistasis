@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 19:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 20:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1648,7 +1648,8 @@ LaTeX Warning: Citation `manolio2009finding' on page 89 undefined on input line
 
 ]
 
-LaTeX Warning: Citation `REF' on page 90 undefined on input line 20.
+LaTeX Warning: Citation `de2013emerging' on page 90 undefined on input line 20.
+
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -1687,10 +1688,12 @@ LaTeX Warning: Citation `mani2008defining' on page 90 undefined on input line 2
 
 [90]
 
-LaTeX Warning: Citation `REF' on page 91 undefined on input line 24.
+LaTeX Warning: Citation `shoemaker2007deciphering' on page 91 undefined on inpu
+t line 24.
 
 
-LaTeX Warning: Citation `REF' on page 91 undefined on input line 24.
+LaTeX Warning: Citation `shoemaker2007deciphering' on page 91 undefined on inpu
+t line 24.
 
 
 LaTeX Warning: Citation `venkatesan2009empirical' on page 91 undefined on input
@@ -1732,32 +1735,44 @@ LaTeX Warning: Citation `marks2012protein' on page 92 undefined on input line 2
 8.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+LaTeX Warning: Citation `de2013emerging' on page 92 undefined on input line 28.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+
+LaTeX Warning: Citation `weigt2009identification' on page 92 undefined on input
+ line 28.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+LaTeX Warning: Citation `morcos2011direct' on page 92 undefined on input line 2
+8.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+LaTeX Warning: Citation `jones2012psicov' on page 92 undefined on input line 28
+.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+LaTeX Warning: Citation `clark2014multidimensional' on page 92 undefined on inp
+ut line 28.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+LaTeX Warning: Citation `clark2014multidimensional' on page 92 undefined on inp
+ut line 28.
 
 
-LaTeX Warning: Citation `REF' on page 92 undefined on input line 28.
+LaTeX Warning: Citation `clark2014multidimensional' on page 92 undefined on inp
+ut line 28.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 [92]
 
-LaTeX Warning: Citation `REF' on page 93 undefined on input line 40.
+LaTeX Warning: Citation `cingolani2012program' on page 93 undefined on input li
+ne 40.
+
+
+LaTeX Warning: Citation `cingolani2012using' on page 93 undefined on input line
+ 40.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -1783,7 +1798,8 @@ ine 51.
 
 [93] [94 <./gwas_epistasis_pipeline.png>]
 
-LaTeX Warning: Citation `REF' on page 95 undefined on input line 57.
+LaTeX Warning: Citation `burger2010disentangling' on page 95 undefined on input
+ line 57.
 
 
 LaTeX Warning: Citation `durbin1998biological' on page 95 undefined on input li
@@ -1819,7 +1835,8 @@ m/m/it/12 ^^R[]g[] \OT1/cmr/m/n/12 + \OML/cmm/m/it/12 ^^R[]c[] \OT1/cmr/m/n/12
  []
 
 
-LaTeX Warning: Citation `REF' on page 97 undefined on input line 88.
+LaTeX Warning: Citation `price2006principal' on page 97 undefined on input line
+ 88.
 
 
 Overfull \hbox (10.50598pt too wide) detected at line 92
@@ -1832,7 +1849,8 @@ Overfull \hbox (84.77843pt too wide) in alignment at lines 100--105
  []
 
 
-LaTeX Warning: Citation `REF' on page 98 undefined on input line 119.
+LaTeX Warning: Citation `daubechies2010iteratively' on page 98 undefined on inp
+ut line 119.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -1844,7 +1862,8 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
 
-LaTeX Warning: Citation `REF' on page 98 undefined on input line 119.
+LaTeX Warning: Citation `broyden1970convergence' on page 98 undefined on input 
+line 119.
 
 
 LaTeX Warning: Citation `kass1995bayes' on page 98 undefined on input line 121.
@@ -1855,7 +1874,8 @@ LaTeX Warning: Citation `wakefield2009bayes' on page 98 undefined on input line
  121.
 
 
-LaTeX Warning: Citation `REF' on page 98 undefined on input line 129.
+LaTeX Warning: Citation `kass1993bayes' on page 98 undefined on input line 129.
+
 
 [98]
 Overfull \hbox (58.39912pt too wide) in alignment at lines 131--141
@@ -1882,7 +1902,8 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-LaTeX Warning: Citation `REF' on page 101 undefined on input line 180.
+LaTeX Warning: Citation `karolchik2014ucsc' on page 101 undefined on input line
+ 180.
 
 [101]
 
@@ -1892,7 +1913,8 @@ LaTeX Warning: Reference `fig:S1' on page 102 undefined on input line 182.
 LaTeX Warning: Reference `tab:S1' on page 102 undefined on input line 182.
 
 
-LaTeX Warning: Citation `REF' on page 102 undefined on input line 184.
+LaTeX Warning: Citation `burger2010disentangling' on page 102 undefined on inpu
+t line 184.
 
 
 LaTeX Warning: Reference `fig:S2' on page 102 undefined on input line 184.
@@ -1979,20 +2001,24 @@ Package pdftex.def Info: gwas_figure_3B.png used on input line 211.
 (pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
 
 
-LaTeX Warning: Citation `REF' on page 104 undefined on input line 215.
+LaTeX Warning: Citation `stark2006biogrid' on page 104 undefined on input line 
+215.
 
 
-LaTeX Warning: Citation `REF' on page 104 undefined on input line 215.
+LaTeX Warning: Citation `subramanian2005gene' on page 104 undefined on input li
+ne 215.
 
 
-LaTeX Warning: Citation `REF' on page 104 undefined on input line 215.
+LaTeX Warning: Citation `lonsdale2013genotype' on page 104 undefined on input l
+ine 215.
 
 [104 <./gwas_figure_3A.png>]
 
 LaTeX Warning: Reference `fig:S5' on page 105 undefined on input line 217.
 
 
-LaTeX Warning: Citation `REF' on page 105 undefined on input line 219.
+LaTeX Warning: Citation `landrum2013clinvar' on page 105 undefined on input lin
+e 219.
 
 
 LaTeX Warning: Reference `t:' on page 105 undefined on input line 219.
@@ -2078,19 +2104,19 @@ on of
 
 
 
-] [114] [115] [116]
+] [114] [115] [116] [117]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [117]
-Underfull \hbox (badness 2142) in paragraph at lines 367--372
+ [118]
+Underfull \hbox (badness 2142) in paragraph at lines 455--460
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[118] [119]) (./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/bds.aux)
+[119] [120]) (./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/bds.aux)
 (./chapters/snpeff.aux) (./chapters/gwas.aux) (./chapters/conclusions.aux)
 (./appendix/algorithm_details.aux))
 
@@ -2172,10 +2198,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5748 strings out of 493315
- 84550 string characters out of 6137904
+ 5762 strings out of 493315
+ 84851 string characters out of 6137904
  181399 words of memory out of 5000000
- 9037 multiletter control sequences out of 15000+600000
+ 9051 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,42p,2564b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -2194,10 +2220,10 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (128 pages, 1590980 bytes).
+Output written on thesis_mcgill.pdf (129 pages, 1595166 bytes).
 PDF statistics:
- 495 PDF objects out of 1000 (max. 8388607)
- 330 compressed objects within 4 object streams
+ 498 PDF objects out of 1000 (max. 8388607)
+ 332 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

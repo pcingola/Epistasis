@@ -61,48 +61,55 @@ Repeated entry---line 2182 of file mcgilletd.bib
  : @article{mani2008defining
  :                          ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 2334 of file mcgilletd.bib
+ : @article{morcos2011direct
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2367 of file mcgilletd.bib
+ : @article{burger2010disentangling
+ :                                 ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "Emerson"
-Warning--I didn't find a database entry for "REF"
 Warning--empty journal in schneider2013genome
-You've used 73 entries,
+You've used 87 entries,
             2118 wiz_defined-function locations,
-            920 strings with 18033 characters,
-and the built_in function-call counts, 28105 in all, are:
-= -- 2675
-> -- 1756
-< -- 5
-+ -- 705
-- -- 620
-* -- 2376
-:= -- 4856
-add.period$ -- 220
-call.type$ -- 73
-change.case$ -- 513
+            993 strings with 21366 characters,
+and the built_in function-call counts, 34614 in all, are:
+= -- 3289
+> -- 2211
+< -- 7
++ -- 888
+- -- 786
+* -- 2954
+:= -- 5962
+add.period$ -- 262
+call.type$ -- 87
+change.case$ -- 635
 chr.to.int$ -- 0
-cite$ -- 74
-duplicate$ -- 820
-empty$ -- 1866
-format.name$ -- 620
-if$ -- 5542
+cite$ -- 88
+duplicate$ -- 998
+empty$ -- 2251
+format.name$ -- 786
+if$ -- 6824
 int.to.chr$ -- 0
-int.to.str$ -- 73
-missing$ -- 76
-newline$ -- 368
-num.names$ -- 146
-pop$ -- 424
+int.to.str$ -- 87
+missing$ -- 90
+newline$ -- 438
+num.names$ -- 174
+pop$ -- 523
 preamble$ -- 1
-purify$ -- 444
+purify$ -- 552
 quote$ -- 0
-skip$ -- 563
+skip$ -- 697
 stack$ -- 0
-substring$ -- 1774
-swap$ -- 96
-text.length$ -- 5
+substring$ -- 2191
+swap$ -- 134
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 284
+type$ -- 340
 warning$ -- 1
-while$ -- 258
-width$ -- 75
-write$ -- 796
-(There were 13 error messages)
+while$ -- 312
+width$ -- 89
+write$ -- 950
+(There were 15 error messages)
