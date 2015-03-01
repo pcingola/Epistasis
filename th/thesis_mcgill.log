@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 MAR 2015 09:04
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 MAR 2015 09:21
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -760,12 +760,6 @@ Overfull \hbox (75.13216pt too wide) in paragraph at lines 85--86
  []
 
 [45]
-Missing character: There is no â in font cmtt12!
-Missing character: There is no € in font cmtt12!
-Missing character: There is no “ in font cmtt12!
-Missing character: There is no â in font cmtt12!
-Missing character: There is no € in font cmtt12!
-Missing character: There is no “ in font cmtt12!
 Missing character: There is no â in font cmtt10!
 Missing character: There is no € in font cmtt10!
 Missing character: There is no œ in font cmtt10!
@@ -831,14 +825,20 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [49] [50 <./bds_figure_3_small.png>]
+
+Overfull \hbox (1.89452pt too wide) in paragraph at lines 137--138
+[]\OT1/cmr/bx/n/12 Process iden-ti-fi-ca-tion \OT1/cmr/m/n/12 means that bds-ex
+ec re-ports its pro-cess ID (PID),
+ []
+
+[49] [50 <./bds_figure_3_small.png>]
 <bds_figure_1_small.png, id=186, 1053.9375pt x 752.8125pt>
 File: bds_figure_1_small.png Graphic file (type png)
 
 <use bds_figure_1_small.png>
 Package pdftex.def Info: bds_figure_1_small.png used on input line 149.
 (pdftex.def)             Requested size: 341.43306pt x 243.88004pt.
- [51] [52 <./bds_figure_1_small.png>]
+ [51 <./bds_figure_1_small.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -854,7 +854,7 @@ Overfull \hbox (40.15758pt too wide) in paragraph at lines 160--161
 urce code (https://github.com/pcingola/
  []
 
-<bds_figure_2_small.png, id=194, 2489.3pt x 2434.09375pt>
+<bds_figure_2_small.png, id=190, 2489.3pt x 2434.09375pt>
 File: bds_figure_2_small.png Graphic file (type png)
 
 <use bds_figure_2_small.png>
@@ -872,12 +872,12 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [53] [54 <./bds_figure_2_small.png>]
+ [52] [53 <./bds_figure_2_small.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-<bds_table_1.png, id=201, 1205.50375pt x 231.86626pt>
+<bds_table_1.png, id=198, 1205.50375pt x 231.86626pt>
 File: bds_table_1.png Graphic file (type png)
  <use bds_table_1.png>
 Package pdftex.def Info: bds_table_1.png used on input line 177.
@@ -896,7 +896,7 @@ Overfull \hbox (3.80072pt too wide) in paragraph at lines 182--183
 -ity, we ran ex-actly the same pipeline
  []
 
-<bds_table_2.png, id=202, 587.19376pt x 134.5025pt>
+<bds_table_2.png, id=199, 587.19376pt x 134.5025pt>
 File: bds_table_2.png Graphic file (type png)
  <use bds_table_2.png>
 Package pdftex.def Info: bds_table_2.png used on input line 186.
@@ -907,49 +907,57 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+
+[54 <./bds_table_1.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
-[55 <./bds_table_1.png>] [56 <./bds_table_2.png>]) [57]
+ [55 <./bds_table_2.png>]) [56]
 \openout2 = `chapters/snpeff.aux'.
 
  (./chapters/snpeff.tex
 ***************************
 CHAPTER 3.
 ***************************
-[58
+[57
 
 
 
-] [59] [60]
+] [58] [59]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [61] [62]
+ [60] [61]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+ [62]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
  [63]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
+Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
+Missing character: There is no ™ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
  [64]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -967,14 +975,14 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
  [67]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
  [68]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -986,13 +994,6 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
  [70]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
- [71]
 Overfull \hbox (8.55783pt too wide) in paragraph at lines 100--101
 []\OT1/cmr/m/n/12 Accurate im-pact as-sess-ment of cod-
  []
@@ -1002,7 +1003,7 @@ Overfull \hbox (4.7809pt too wide) in paragraph at lines 102--103
 []\OT1/cmr/m/n/12 Computational vari-ant an-no-ta-tion may even-
  []
 
-[72] [73] [74] [75]
+[71] [72] [73] [74]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -1015,14 +1016,14 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [76] [77] [78] [79] [80]
+ [75] [76] [77] [78] [79]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [81]
+ [80]
 Overfull \hbox (11.50409pt too wide) in paragraph at lines 156--157
 \OT1/cmr/m/n/12 pact vari-ants based on sim-ple cri-te-ria (such as pre-ma-ture
  stops, frameshifts,
@@ -1032,7 +1033,7 @@ Overfull \hbox (11.50409pt too wide) in paragraph at lines 156--157
 Underfull \vbox (badness 10000) detected at line 163
  []
 
-[82]
+[81]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -1040,15 +1041,23 @@ Missing character: There is no ™ in font cmr12!
 Underfull \vbox (badness 10000) detected at line 172
  []
 
-[83]
+[82]
 Underfull \vbox (badness 10000) detected at line 172
  []
 
 
 Underfull \vbox (badness 10000) detected at line 172
+ []
+
+[83]
+Underfull \vbox (badness 10000) detected at line 202
  []
 
 [84]
+Underfull \vbox (badness 10000) detected at line 202
+ []
+
+
 Underfull \vbox (badness 10000) detected at line 202
  []
 
@@ -1060,22 +1069,14 @@ Underfull \vbox (badness 10000) detected at line 202
 Underfull \vbox (badness 10000) detected at line 202
  []
 
-[86]
-Underfull \vbox (badness 10000) detected at line 202
- []
-
-
-Underfull \vbox (badness 10000) detected at line 202
- []
-
-[87]) [88]
+[86]) [87]
 \openout2 = `chapters/gwas.aux'.
 
  (./chapters/gwas.tex
 ***************************
 CHAPTER 4.
 ***************************
-[89
+[88
 
 
 
@@ -1083,23 +1084,23 @@ CHAPTER 4.
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [90] [91]
+ [89] [90]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [92]
+ [91]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-<gwas_epistasis_pipeline.png, id=325, 969.6225pt x 526.96875pt>
+<gwas_epistasis_pipeline.png, id=322, 969.6225pt x 526.96875pt>
 File: gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use gwas_epistasis_pipeline.png>
 Package pdftex.def Info: gwas_epistasis_pipeline.png used on input line 44.
 (pdftex.def)             Requested size: 341.43306pt x 185.5595pt.
- [93] [94 <./gwas_epistasis_pipeline.png>]
-[95]
+ [92] [93 <./gwas_epistasis_pipeline.png>]
+[94]
 Overfull \hbox (101.38873pt too wide) in alignment at lines 61--66
  [][][] []
  []
@@ -1110,7 +1111,7 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[96]
+[95]
 Overfull \hbox (59.03569pt too wide) detected at line 86
 \OML/cmm/m/it/12 p[] \OT1/cmr/m/n/12 = \OML/cmm/m/it/12 P\OT1/cmr/m/n/12 (\OML/
 cmm/m/it/12 d[]\OMS/cmsy/m/n/12 j\OML/cmm/m/it/12 g[]\OT1/cmr/m/n/12 ) = \OML/c
@@ -1125,7 +1126,7 @@ Overfull \hbox (10.50598pt too wide) detected at line 92
 \OML/cmm/m/it/12 L\OT1/cmr/m/n/12 ([]) = [] [] = [] [] = [] []
  []
 
-[97]
+[96]
 Overfull \hbox (84.77843pt too wide) in alignment at lines 100--105
  [][][] []
  []
@@ -1139,30 +1140,30 @@ Missing character: There is no “ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
-[98]
+[97]
 Overfull \hbox (58.39912pt too wide) in alignment at lines 131--141
  [][][] []
  []
 
-[99] [100]
+[98] [99]
 
-LaTeX Warning: Reference `fig:S3' on page 101 undefined on input line 171.
+LaTeX Warning: Reference `fig:S3' on page 100 undefined on input line 171.
 
 
-LaTeX Warning: Reference `fig:S3' on page 101 undefined on input line 171.
+LaTeX Warning: Reference `fig:S3' on page 100 undefined on input line 171.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[101]
+[100]
 
-LaTeX Warning: Reference `fig:S1' on page 102 undefined on input line 182.
-
-
-LaTeX Warning: Reference `tab:S1' on page 102 undefined on input line 182.
+LaTeX Warning: Reference `fig:S1' on page 101 undefined on input line 182.
 
 
-LaTeX Warning: Reference `fig:S2' on page 102 undefined on input line 184.
+LaTeX Warning: Reference `tab:S1' on page 101 undefined on input line 182.
+
+
+LaTeX Warning: Reference `fig:S2' on page 101 undefined on input line 184.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -1194,7 +1195,7 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[102] <gwas_figure_2.png, id=361, 1027.84pt x 1027.84pt>
+[101] <gwas_figure_2.png, id=358, 1027.84pt x 1027.84pt>
 File: gwas_figure_2.png Graphic file (type png)
 
 <use gwas_figure_2.png>
@@ -1212,8 +1213,8 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [103 <./gwas_figure_2.png>]
-<gwas_figure_3A.png, id=366, 1027.84pt x 1027.84pt>
+ [102 <./gwas_figure_2.png>]
+<gwas_figure_3A.png, id=363, 1027.84pt x 1027.84pt>
 File: gwas_figure_3A.png Graphic file (type png)
  <use gwas_figure_3A.png>
 Package pdftex.def Info: gwas_figure_3A.png used on input line 205.
@@ -1231,27 +1232,27 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-<gwas_figure_3B.png, id=367, 1027.84pt x 1027.84pt>
+<gwas_figure_3B.png, id=364, 1027.84pt x 1027.84pt>
 File: gwas_figure_3B.png Graphic file (type png)
  <use gwas_figure_3B.png>
 Package pdftex.def Info: gwas_figure_3B.png used on input line 211.
 (pdftex.def)             Requested size: 284.52756pt x 284.53105pt.
 
-[104 <./gwas_figure_3A.png>]
+[103 <./gwas_figure_3A.png>]
 
-LaTeX Warning: Reference `fig:S5' on page 105 undefined on input line 217.
-
-
-LaTeX Warning: Reference `t:' on page 105 undefined on input line 219.
+LaTeX Warning: Reference `fig:S5' on page 104 undefined on input line 217.
 
 
-LaTeX Warning: Reference `tab:S4A' on page 105 undefined on input line 219.
+LaTeX Warning: Reference `t:' on page 104 undefined on input line 219.
 
 
-LaTeX Warning: Reference `tab:S4B' on page 105 undefined on input line 219.
+LaTeX Warning: Reference `tab:S4A' on page 104 undefined on input line 219.
 
 
-LaTeX Warning: Reference `fig:S4' on page 105 undefined on input line 219.
+LaTeX Warning: Reference `tab:S4B' on page 104 undefined on input line 219.
+
+
+LaTeX Warning: Reference `fig:S4' on page 104 undefined on input line 219.
 
 
 Overfull \hbox (10.03607pt too wide) in paragraph at lines 219--220
@@ -1259,7 +1260,7 @@ Overfull \hbox (10.03607pt too wide) in paragraph at lines 219--220
 i-cance at-tribute (CLNSIG).
  []
 
-<gwas_figure_jmol_epistasis.png, id=372, 785.93625pt x 721.69624pt>
+<gwas_figure_jmol_epistasis.png, id=369, 785.93625pt x 721.69624pt>
 File: gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use gwas_figure_jmol_epistasis.png>
@@ -1271,11 +1272,11 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 223--224
  [][] 
  []
 
-[105 <./gwas_figure_3B.png>]
+[104 <./gwas_figure_3B.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
-) [106] [107 <./gwas_figure_jmol_epistasis.png>]
+) [105] [106 <./gwas_figure_jmol_epistasis.png>]
 \openout2 = `chapters/conclusions.aux'.
 
 
@@ -1283,7 +1284,7 @@ Missing character: There is no ¦ in font cmr12!
 ***************************
 CHAPTER 5.
 ***************************
-[108
+[107
 
 
 
@@ -1293,7 +1294,7 @@ Overfull \hbox (7.84853pt too wide) in paragraph at lines 22--23
 ry meth-
  []
 
-[109]
+[108]
 Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
@@ -1301,11 +1302,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--33
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[110]
+[109]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-) [111] (./thesis_mcgill.bbl
+) [110] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -1317,36 +1318,36 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[112
+[111
 
 
 
-] [113]
+] [112]
 Underfull \hbox (badness 1043) in paragraph at lines 140--146
 []\OT1/cmr/m/n/12 Kristian Cibul-skis, Michael S Lawrence, Scott L Carter, An-d
 rey
  []
 
-[114] [115] [116]
+[113] [114] [115]
 Underfull \hbox (badness 1769) in paragraph at lines 399--404
 []\OT1/cmr/m/n/12 Fereydoun Hor-moz-di-ari, Iman Ha-ji-ra-souliha, An-drew McPh
 er-son,
  []
 
-[117] [118] [119] [120]
+[116] [117] [118] [119]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [121]
+ [120]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [122] [123]
+ [121] [122]
 Underfull \hbox (badness 1270) in paragraph at lines 829--834
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[124] [125] [126]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[123] [124] [125]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
 (./chapters/conclusions.aux))
 
@@ -1431,7 +1432,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  6105 strings out of 493315
  90827 string characters out of 6137904
- 187759 words of memory out of 5000000
+ 190773 words of memory out of 5000000
  9402 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -1451,10 +1452,10 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (129 pages, 1606505 bytes).
+Output written on thesis_mcgill.pdf (128 pages, 1606263 bytes).
 PDF statistics:
- 498 PDF objects out of 1000 (max. 8388607)
- 332 compressed objects within 4 object streams
+ 495 PDF objects out of 1000 (max. 8388607)
+ 330 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

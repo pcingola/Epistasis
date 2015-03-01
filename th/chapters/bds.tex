@@ -54,7 +54,7 @@ Pipeline programming requires effective task management, particularly the abilit
 
 \begin{lstlisting}[
    language=Python,
-   caption={\texttt{pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5)}
+   caption={\texttt{pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5).}
 ]
 #!/usr/bin/env bds
 in := “input.file”
@@ -88,7 +88,7 @@ Here we mention some selected features that are useful in pipeline programming. 
 
 \begin{lstlisting}[
    language=Python,
-   caption={\texttt{pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt{myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt{myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt{myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt{myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt{myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt{mainOut <– outs}).}
+   caption={\texttt{pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt{myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt{myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt{myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt{myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt{myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt{mainOut <- outs}).}
    ]
 #!/usr/bin/env bds
 // Step 1: Parallel processing of input files
@@ -134,15 +134,15 @@ When a task statement is invoked, process requirements, such as memory, CPUs and
     \label{fig:bdsreport}
 \end{figure}
 
-\paragraph{Process identification} means that bds-exec reports its process ID (PID), so that BDS can kill all child processes if the BDS script execution is terminated for some reason (e.g. the Ctrl-C key is pressed at the console).
+\textbf{Process identification} means that bds-exec reports its process ID (PID), so that BDS can kill all child processes if the BDS script execution is terminated for some reason (e.g. the Ctrl-C key is pressed at the console).
 
-\paragraph{Timeout enforcement} has to be performed by bds-exec as many underlying systems do not have this capability (e.g. a process running on a server). When a timeout occurs, bds-exec sends a kill signal to all child processes and reports a timeout error exit status that propagates to the user terminal and log files.
+\textbf{Timeout enforcement} has to be performed by bds-exec as many underlying systems do not have this capability (e.g. a process running on a server). When a timeout occurs, bds-exec sends a kill signal to all child processes and reports a timeout error exit status that propagates to the user terminal and log files.
 
-\paragraph{Logging} a process means that bds-exec redirects stdout and stderr to separate log files. These files are also monitored by the main BDS process, which shows the output on the console. As there might be thousands of processes running at the same time and operating systems have hard limits on the number of simultaneous file descriptors available for each user, opening all log files is not an option. To overcome this limit, BDS polls log file sizes, only opening and reading the ones that change.
+\textbf{Logging} a process means that bds-exec redirects stdout and stderr to separate log files. These files are also monitored by the main BDS process, which shows the output on the console. As there might be thousands of processes running at the same time and operating systems have hard limits on the number of simultaneous file descriptors available for each user, opening all log files is not an option. To overcome this limit, BDS polls log file sizes, only opening and reading the ones that change.
 
-\paragraph{Exit status} has to be collected to make sure a process finished successfully. Unfortunately, there is no unified way to do this, and some cluster systems do not provide this information directly. By saving the exit status to a file, bds-exec achieves two goals: (i) unified exit status collection and (ii) exit status logging.
+\textbf{Exit status} has to be collected to make sure a process finished successfully. Unfortunately, there is no unified way to do this, and some cluster systems do not provide this information directly. By saving the exit status to a file, bds-exec achieves two goals: (i) unified exit status collection and (ii) exit status logging.
 
-\paragraph{Signal handling} is also enforced by bds-exec making sure that a kill signal correctly propagated to all subprocesses, but not to parent processes. This is necessary because there is no limit on the number of indirect processes that a task can run, and Unix/Posix systems do not provide a unified way to obtain all nested child processes. To be able to keep track of all subprocesses, bds-exec creates a process group and spawns the subprocess in it. When receiving a signal from the operating system, bds-exec traps the signal and propagates a kill signal to the process group.
+\textbf{Signal handling} is also enforced by bds-exec making sure that a kill signal correctly propagated to all subprocesses, but not to parent processes. This is necessary because there is no limit on the number of indirect processes that a task can run, and Unix/Posix systems do not provide a unified way to obtain all nested child processes. To be able to keep track of all subprocesses, bds-exec creates a process group and spawns the subprocess in it. When receiving a signal from the operating system, bds-exec traps the signal and propagates a kill signal to the process group.
 
 \begin{figure}
     \centering

@@ -35,52 +35,47 @@
 \contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{41}
 \contentsline {subsection}{\numberline {2.3.3}Robustness}{43}
 \contentsline {paragraph}{Lazy processing..}{44}
-\contentsline {paragraph}{Absolute serialization..}{45}
+\contentsline {paragraph}{Absolute serialization..}{44}
 \contentsline {paragraph}{Limitations..}{45}
-\contentsline {subsection}{\numberline {2.3.4}Other features}{46}
+\contentsline {subsection}{\numberline {2.3.4}Other features}{45}
 \contentsline {paragraph}{Automatic logging..}{46}
 \contentsline {paragraph}{Automatic command line parsing..}{47}
-\contentsline {paragraph}{Task re-execution..}{48}
-\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{48}
-\contentsline {paragraph}{Process identification.}{49}
-\contentsline {paragraph}{Timeout enforcement.}{49}
-\contentsline {paragraph}{Logging.}{51}
-\contentsline {paragraph}{Exit status.}{51}
-\contentsline {paragraph}{Signal handling.}{51}
-\contentsline {section}{\numberline {2.4}Results}{51}
-\contentsline {paragraph}{Architecture independence.}{53}
-\contentsline {paragraph}{Robustness..}{55}
-\contentsline {paragraph}{Scalability..}{55}
-\contentsline {section}{\numberline {2.5}Discussion}{56}
-\contentsline {chapter}{\numberline {3}SnpEff: Genomic variant annotation and prioritization}{58}
-\contentsline {section}{\numberline {3.1}Preface}{58}
-\contentsline {section}{\numberline {3.2}Epilogue?}{59}
-\contentsline {subsection}{\numberline {3.2.1}Data structures for annotations}{59}
-\contentsline {section}{\numberline {3.3}Background}{60}
-\contentsline {section}{\numberline {3.4}Genetic variants}{63}
-\contentsline {subsection}{\numberline {3.4.1}Types of genetic annotations}{65}
-\contentsline {subsection}{\numberline {3.4.2}Coding variant annotation}{66}
-\contentsline {subsection}{\numberline {3.4.3}Loss of function variants}{68}
-\contentsline {subsection}{\numberline {3.4.4}Variants with low or moderate impact}{70}
-\contentsline {subsection}{\numberline {3.4.5}Non-coding variant annotation}{73}
-\contentsline {subsection}{\numberline {3.4.6}Impact assessment of non-coding variants}{77}
-\contentsline {paragraph}{Computational sources of evidence:.}{77}
-\contentsline {paragraph}{Experimental sources of evidence:.}{78}
-\contentsline {paragraph}{Combining sources of evidence:.}{79}
-\contentsline {section}{\numberline {3.5} Clinical effect of variants}{80}
-\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{89}
-\contentsline {section}{\numberline {4.1}Preface}{89}
-\contentsline {section}{\numberline {4.2}Introduction}{89}
-\contentsline {section}{\numberline {4.3}Methods}{93}
-\contentsline {subsection}{\numberline {4.3.1}Markov model}{94}
-\contentsline {subsection}{\numberline {4.3.2}GWAS model}{97}
-\contentsline {section}{\numberline {4.4}Results}{101}
-\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{101}
-\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{103}
-\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{106}
-\contentsline {section}{\numberline {4.5}Discussion}{106}
-\contentsline {chapter}{\numberline {5}Conclusions }{108}
-\contentsline {section}{\numberline {5.1}Contributions}{108}
-\contentsline {section}{\numberline {5.2}Future work}{110}
-\contentsline {section}{\numberline {5.3}Perspectives}{111}
-\contentsline {extrachapter}{References}{112}
+\contentsline {paragraph}{Task re-execution..}{47}
+\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{47}
+\contentsline {section}{\numberline {2.4}Results}{52}
+\contentsline {paragraph}{Architecture independence.}{52}
+\contentsline {paragraph}{Robustness..}{54}
+\contentsline {paragraph}{Scalability..}{54}
+\contentsline {section}{\numberline {2.5}Discussion}{55}
+\contentsline {chapter}{\numberline {3}SnpEff: Genomic variant annotation and prioritization}{57}
+\contentsline {section}{\numberline {3.1}Preface}{57}
+\contentsline {section}{\numberline {3.2}Epilogue?}{58}
+\contentsline {subsection}{\numberline {3.2.1}Data structures for annotations}{58}
+\contentsline {section}{\numberline {3.3}Background}{59}
+\contentsline {section}{\numberline {3.4}Genetic variants}{62}
+\contentsline {subsection}{\numberline {3.4.1}Types of genetic annotations}{64}
+\contentsline {subsection}{\numberline {3.4.2}Coding variant annotation}{65}
+\contentsline {subsection}{\numberline {3.4.3}Loss of function variants}{67}
+\contentsline {subsection}{\numberline {3.4.4}Variants with low or moderate impact}{69}
+\contentsline {subsection}{\numberline {3.4.5}Non-coding variant annotation}{72}
+\contentsline {subsection}{\numberline {3.4.6}Impact assessment of non-coding variants}{76}
+\contentsline {paragraph}{Computational sources of evidence:.}{76}
+\contentsline {paragraph}{Experimental sources of evidence:.}{77}
+\contentsline {paragraph}{Combining sources of evidence:.}{78}
+\contentsline {section}{\numberline {3.5} Clinical effect of variants}{79}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{88}
+\contentsline {section}{\numberline {4.1}Preface}{88}
+\contentsline {section}{\numberline {4.2}Introduction}{88}
+\contentsline {section}{\numberline {4.3}Methods}{92}
+\contentsline {subsection}{\numberline {4.3.1}Markov model}{93}
+\contentsline {subsection}{\numberline {4.3.2}GWAS model}{96}
+\contentsline {section}{\numberline {4.4}Results}{100}
+\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{100}
+\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{102}
+\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{105}
+\contentsline {section}{\numberline {4.5}Discussion}{105}
+\contentsline {chapter}{\numberline {5}Conclusions }{107}
+\contentsline {section}{\numberline {5.1}Contributions}{107}
+\contentsline {section}{\numberline {5.2}Future work}{109}
+\contentsline {section}{\numberline {5.3}Perspectives}{110}
+\contentsline {extrachapter}{References}{111}
