@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 21:15
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 21:36
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -386,21 +386,10 @@ Package caption Info: End \AtBeginDocument code.
 
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-Overfull \hbox (84.34917pt too wide) in paragraph at lines 111--112
-[]\OT1/cmr/m/n/12 Abstract...abstract...abstract...abstract...abstract...abstra
-ct...abstract...abstract...abstract 
- []
-
 [2
 
 
-]
-Overfull \hbox (84.34917pt too wide) in paragraph at lines 121--122
-[]\OT1/cmr/m/n/12 Abstract...abstract...abstract...abstract...abstract...abstra
-ct...abstract...abstract...abstract 
- []
-
-[3
+] [3
 
 ] (./thesis_mcgill.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 1.
@@ -1448,7 +1437,7 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (129 pages, 1592129 bytes).
+Output written on thesis_mcgill.pdf (129 pages, 1592063 bytes).
 PDF statistics:
  498 PDF objects out of 1000 (max. 8388607)
  332 compressed objects within 4 object streams
