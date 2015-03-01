@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 21:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 22:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -924,21 +924,85 @@ CHAPTER 3.
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [61] [62]
+
+
+LaTeX Warning: Citation `goecks2010galaxy' on page 61 undefined on input line 3
+5.
+
+
+LaTeX Warning: Citation `flicek2012ensembl' on page 61 undefined on input line 
+35.
+
+[61]
+
+LaTeX Warning: Citation `10002012integrated' on page 62 undefined on input line
+ 37.
+
+
+LaTeX Warning: Citation `encode2012integrated' on page 62 undefined on input li
+ne 37.
+
+
+LaTeX Warning: Citation `bernstein2010nih' on page 62 undefined on input line 3
+7.
+
+
+LaTeX Warning: Citation `mclaren2010deriving' on page 62 undefined on input lin
+e 37.
+
+
+LaTeX Warning: Citation `paila2013gemini' on page 62 undefined on input line 37
+.
+
+
+LaTeX Warning: Citation `habegger2012vat' on page 62 undefined on input line 37
+.
+
+[62]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [63]
+
+
+LaTeX Warning: Citation `ng2009targeted' on page 63 undefined on input line 45.
+
+
+[63]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+
+
+LaTeX Warning: Citation `nielsen2011genotype' on page 64 undefined on input lin
+e 47.
+
+
+LaTeX Warning: Citation `li2009sequence' on page 64 undefined on input line 47.
+
+
+
+LaTeX Warning: Citation `wang2007penncnv' on page 64 undefined on input line 47
+.
+
+
+LaTeX Warning: Citation `coin2010cnvhap' on page 64 undefined on input line 47.
+
+
+
+LaTeX Warning: Citation `hormozdiari2011simultaneous' on page 64 undefined on i
+nput line 47.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
- [64]
+
+LaTeX Warning: Citation `danecek2011variant' on page 64 undefined on input line
+ 47.
+
+[64]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -966,10 +1030,25 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
  [67]
+
+LaTeX Warning: Citation `yamaguchi2008distribution' on page 68 undefined on inp
+ut line 72.
+
+
+LaTeX Warning: Citation `scheper2007translation' on page 68 undefined on input 
+line 72.
+
+
+LaTeX Warning: Citation `nagy1998rule' on page 68 undefined on input line 72.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [68]
+
+LaTeX Warning: Citation `brogna2009nonsense' on page 68 undefined on input line
+ 72.
+
+[68]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -977,52 +1056,229 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+
+
+LaTeX Warning: Citation `maiti2009mutation' on page 70 undefined on input line 
+82.
+
+
+LaTeX Warning: Citation `agamy2010mutations' on page 70 undefined on input line
+ 82.
+
+
+LaTeX Warning: Citation `macarthur2012systematic' on page 70 undefined on input
+ line 84.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [70]
+[70]
+
+LaTeX Warning: Citation `kumar2009predicting' on page 71 undefined on input lin
+e 92.
+
+
+LaTeX Warning: Citation `altschul1997gapped' on page 71 undefined on input line
+ 92.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+
+LaTeX Warning: Citation `adzhubei2010method' on page 71 undefined on input line
+ 92.
+
+
+LaTeX Warning: Citation `uniprot2013update' on page 71 undefined on input line 
+92.
+
+
+LaTeX Warning: Citation `joosten2011series' on page 71 undefined on input line 
+92.
+
+
+LaTeX Warning: Citation `rope2011using' on page 71 undefined on input line 92.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [71]
+
+LaTeX Warning: Citation `liu2011dbnsfp' on page 71 undefined on input line 92.
+
+
+LaTeX Warning: Citation `choi2012predicting' on page 71 undefined on input line
+ 92.
+
+[71]
+
+LaTeX Warning: Citation `choi2012predicting' on page 72 undefined on input line
+ 94.
+
+
+LaTeX Warning: Citation `lane2012nextprot' on page 72 undefined on input line 1
+00.
+
+
 Overfull \hbox (8.55783pt too wide) in paragraph at lines 100--101
 []\OT1/cmr/m/n/12 Accurate im-pact as-sess-ment of cod-
  []
+
+
+LaTeX Warning: Citation `whitcomb1996hereditary' on page 72 undefined on input 
+line 102.
 
 
 Overfull \hbox (4.7809pt too wide) in paragraph at lines 102--103
 []\OT1/cmr/m/n/12 Computational vari-ant an-no-ta-tion may even-
  []
 
-[72] [73] [74]
+[72]
+
+LaTeX Warning: Citation `coulombe2009fine' on page 73 undefined on input line 1
+04.
+
+
+LaTeX Warning: Citation `sabarinathan2013rnasnp' on page 73 undefined on input 
+line 104.
+
+
+LaTeX Warning: Citation `sauna2011understanding' on page 73 undefined on input 
+line 104.
+
+
+LaTeX Warning: Citation `hindorff2009potential' on page 73 undefined on input l
+ine 110.
+
+[73] [74]
+
+LaTeX Warning: Citation `celniker2009unlocking' on page 75 undefined on input l
+ine 114.
+
+
+LaTeX Warning: Citation `ascano2012identification' on page 75 undefined on inpu
+t line 114.
+
+
+LaTeX Warning: Citation `hafner2012genome' on page 75 undefined on input line 1
+14.
+
+
+LaTeX Warning: Citation `helwak2013mapping' on page 75 undefined on input line 
+114.
+
+
+LaTeX Warning: Citation `rhee2012chip' on page 75 undefined on input line 114.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [75]
+
+LaTeX Warning: Citation `liu2012mirsnp' on page 75 undefined on input line 116.
+
+
+[75]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ™ in font cmr12!
+
+
+LaTeX Warning: Citation `ward2012interpreting' on page 76 undefined on input li
+ne 118.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+[76]
+
+LaTeX Warning: Citation `siepel2005evolutionarily' on page 77 undefined on inpu
+t line 124.
+
+
+LaTeX Warning: Citation `garber2009identifying' on page 77 undefined on input l
+ine 124.
+
+
+LaTeX Warning: Citation `pollard2010detection' on page 77 undefined on input li
+ne 124.
+
+
+LaTeX Warning: Citation `davydov2010identifying' on page 77 undefined on input 
+line 124.
+
+
+LaTeX Warning: Citation `raj2013common' on page 77 undefined on input line 124.
+
+
+
+LaTeX Warning: Citation `bryne2008jaspar' on page 77 undefined on input line 12
+6.
+
+
+LaTeX Warning: Citation `fairbrother2002predictive' on page 77 undefined on inp
+ut line 126.
+
+
+LaTeX Warning: Citation `ziebarth2011polymirts' on page 77 undefined on input l
+ine 126.
+
+
+LaTeX Warning: Citation `ray2013compendium' on page 77 undefined on input line 
+126.
+
+[77]
+
+LaTeX Warning: Citation `anders2011dorina' on page 78 undefined on input line 1
+28.
+
+
+LaTeX Warning: Citation `yang2011starbase' on page 78 undefined on input line 1
+28.
+
+
+LaTeX Warning: Citation `ward2012haploreg' on page 78 undefined on input line 1
+30.
+
+
+LaTeX Warning: Citation `boyle2012annotation' on page 78 undefined on input lin
+e 130.
+
+[78] [79] [80]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [76] [77] [78] [79] [80]
+
+
+LaTeX Warning: Citation `cibulskis2013sensitive' on page 81 undefined on input 
+line 148.
+
+
+LaTeX Warning: Citation `larson2012somaticsniper' on page 81 undefined on input
+ line 148.
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
- [81]
+[81]
+
+LaTeX Warning: Citation `riggs2013towards' on page 82 undefined on input line 1
+56.
+
+
+LaTeX Warning: Citation `bell2011carrier' on page 82 undefined on input line 15
+6.
+
+
 Overfull \hbox (11.50409pt too wide) in paragraph at lines 156--157
 \OT1/cmr/m/n/12 pact vari-ants based on sim-ple cri-te-ria (such as pre-ma-ture
  stops, frameshifts,
  []
+
+
+LaTeX Warning: Citation `cormen2001introduction' on page 82 undefined on input 
+line 162.
 
 
 Underfull \vbox (badness 10000) detected at line 163
@@ -1032,6 +1288,18 @@ Underfull \vbox (badness 10000) detected at line 163
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+
+
+LaTeX Warning: Citation `pruitt2007ncbi' on page 83 undefined on input line 169
+.
+
+
+LaTeX Warning: Citation `hsu2006ucsc' on page 83 undefined on input line 169.
+
+
+LaTeX Warning: Citation `curwen2004ensembl' on page 83 undefined on input line 
+169.
+
 
 Underfull \vbox (badness 10000) detected at line 172
  []
@@ -1415,10 +1683,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5764 strings out of 493315
- 84896 string characters out of 6137904
+ 5828 strings out of 493315
+ 86176 string characters out of 6137904
  181399 words of memory out of 5000000
- 9053 multiletter control sequences out of 15000+600000
+ 9117 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,42p,2564b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1437,7 +1705,7 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (129 pages, 1592063 bytes).
+Output written on thesis_mcgill.pdf (129 pages, 1593476 bytes).
 PDF statistics:
  498 PDF objects out of 1000 (max. 8388607)
  332 compressed objects within 4 object streams

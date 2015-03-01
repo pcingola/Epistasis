@@ -21,6 +21,10 @@ Repeated entry---line 813 of file mcgilletd.bib
  : @article{li2010fastlong
  :                        ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 825 of file mcgilletd.bib
+ : @article{li2009sequence
+ :                        ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 849 of file mcgilletd.bib
  : @article{li2008mapping
  :                       ,
@@ -44,6 +48,14 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 1476 of file mcgilletd.bib
  : @article{li2011improving
  :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1626 of file mcgilletd.bib
+ : @article{kumar2009predicting
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1659 of file mcgilletd.bib
+ : @article{rope2011using
+ :                       ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 1704 of file mcgilletd.bib
  : @article{wu2011rare
@@ -69,47 +81,63 @@ Repeated entry---line 2367 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 2525 of file mcgilletd.bib
+ : @article{wang2010annovar
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2712 of file mcgilletd.bib
+ : @article{adzhubei2010method
+ :                            ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2930 of file mcgilletd.bib
+ : @article{garber2009identifying
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2952 of file mcgilletd.bib
+ : @article{davydov2010identifying
+ :                                ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "Emerson"
 Warning--empty journal in schneider2013genome
-You've used 87 entries,
+You've used 151 entries,
             2118 wiz_defined-function locations,
-            993 strings with 21366 characters,
-and the built_in function-call counts, 34614 in all, are:
-= -- 3289
-> -- 2211
-< -- 7
-+ -- 888
-- -- 786
-* -- 2954
-:= -- 5962
-add.period$ -- 262
-call.type$ -- 87
-change.case$ -- 635
+            1286 strings with 36467 characters,
+and the built_in function-call counts, 65370 in all, are:
+= -- 6132
+> -- 4533
+< -- 12
++ -- 1817
+- -- 1638
+* -- 5801
+:= -- 11273
+add.period$ -- 454
+call.type$ -- 151
+change.case$ -- 1233
 chr.to.int$ -- 0
-cite$ -- 88
-duplicate$ -- 998
-empty$ -- 2251
-format.name$ -- 786
-if$ -- 6824
+cite$ -- 152
+duplicate$ -- 1754
+empty$ -- 3992
+format.name$ -- 1638
+if$ -- 12778
 int.to.chr$ -- 0
-int.to.str$ -- 87
-missing$ -- 90
-newline$ -- 438
-num.names$ -- 174
-pop$ -- 523
+int.to.str$ -- 151
+missing$ -- 155
+newline$ -- 758
+num.names$ -- 302
+pop$ -- 1012
 preamble$ -- 1
-purify$ -- 552
+purify$ -- 1087
 quote$ -- 0
-skip$ -- 697
+skip$ -- 1241
 stack$ -- 0
-substring$ -- 2191
-swap$ -- 134
-text.length$ -- 7
+substring$ -- 4086
+swap$ -- 251
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 340
+type$ -- 594
 warning$ -- 1
-while$ -- 312
-width$ -- 89
-write$ -- 950
-(There were 15 error messages)
+while$ -- 554
+width$ -- 154
+write$ -- 1653
+(There were 22 error messages)
