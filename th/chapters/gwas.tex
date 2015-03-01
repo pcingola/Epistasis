@@ -43,7 +43,7 @@ Our epistatic GWAS pipeline (Figure \ref{fig:gwaspipeline}) consists of the foll
 
 \begin{figure}
     \centering
-    \includegraphics[width=12cm]{gwas_epistasis_pipeline.png}
+    \includegraphics[width=14cm]{gwas_epistasis_pipeline.png}
     \caption{Complete pipeline}
     \label{fig:gwaspipeline}
 \end{figure}
@@ -62,9 +62,8 @@ Given a multiple sequence alignment $\mathcal{M}_{sa}$, and the corresponding ph
 
 \begin{eqnarray*}
 P(L_k |  a_k ) 
-& = & \sum_{a_i, a_j}{ P(a_k | a_i, a_j, t_1, t_2) P(L_i, L_k | a_i, a_j)  }
-% = \sum_{a_i, a_j}{ P(a_k | a_i, t_1) P(L_i | a_i) P(a_k | a_j, t_2) P( L_k | a_j) } \\
-= \sum_{a_i, a_j}{ P(a_i | a_k, t_1) P(L_i | a_i ) P(a_j | a_k, t_2) P( L_k | a_j) }
+& = & \sum_{a_i, a_j}{ P(a_k | a_i, a_j, t_1, t_2) P(L_i, L_k | a_i, a_j)  } \\
+& = & \sum_{a_i, a_j}{ P(a_i | a_k, t_1) P(L_i | a_i ) P(a_j | a_k, t_2) P( L_k | a_j) }
 \end{eqnarray*}
 
 This algorithm for propagating likelihoods from leaf nodes to the root is known as Felsestein's algorithm \cite{felsenstein2004inferring}. We can compute the likelihood of the whole $\mathcal{M}_{sa}$ as the product of the likelihoods of the root nodes for all positions in the alignment. This assumes independence of amino acids at each position, which is a necessary simplification in order for the problem to be tractable.
@@ -83,15 +82,20 @@ Both the Markov epistatic model and Felsenstein’s algorithm calculation requir
 
 Given $N_S$ samples (individuals), we use the standard notation for phenotypes and code them as $d_s=1$ meaning that the individual $s$ is affected by disease and $d_s=0$ if the individual is "healthy". Let $\bar{d} = [d_1, ..., d_{N_s}]$ be a phenotype vector and $g_{s,i} \in \{0,1,2\}$ a genomic variant for sample $s$, loci $i$ (we assume there are $N_V$ variants). A logistic model of disease risk \cite{balding2006tutorial} is
 
-\[
-p_{s,i} = P( d_s | g_{s,i} ) = \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ... ) = \frac{1}{1 + e^{\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ...}} = \phi( \bar{\theta}^T \bar{g}_{s,i})
-\]
+\begin{eqnarray*}
+p_{s,i} & = & P( d_s | g_{s,i} ) \\
+& = & \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ... ) \\
+& = & \frac{1}{1 + e^{\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ...}} \\
+& = & \phi( \bar{\theta}^T \bar{g}_{s,i})
+\end{eqnarray*}
 
 where $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for each individual $s$ (this covariates usually include sex, age and eigenvalues form population structure analysis \cite{price2006principal}), $\bar{g}_{s,i} = [ 1, g_{s,i} , c_{s,1}, c_{s,2}, ... , c_{s,N_C} ]$, and $\bar{\theta} = [\theta_1, \theta_2, ..., \theta_m] $. The parameters $\bar{\theta}$ are obtained by solving the maximum likelihood equation
 
-\[
-L( \bar{\theta} ) = \prod_{s=1}^{N_S}{ P( d_s | \bar{\theta}, g_{s,i} ) } = \prod_{s=1}^{N_S}{ p_{s,i}^{d_s} (1-p_{s,i})^{1-d_s} } = \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
-\]
+\begin{eqnarray*}
+L( \bar{\theta} ) & = & \prod_{s=1}^{N_S}{ P( d_s | \bar{\theta}, g_{s,i} ) } \\
+& = & \prod_{s=1}^{N_S}{ p_{s,i}^{d_s} (1-p_{s,i})^{1-d_s} } \\
+& = & \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
+\end{eqnarray*}
 
 where $p_{s,i} = P( d_s | \bar{\theta}, g_{s,i} )$ is the probability of individual $s$ disease outcome, given a genomic variant.
 
@@ -100,10 +104,8 @@ Using this model, we have two hypotheses: i) the null hypothesis, $H_0$, assumes
 Next, we extend the logistic model to accommodate interacting loci. For an individual (sample $s$), we model interactions between two genetic loci $i$ and $j$, having genotypes $g_{s,i}$ and $g_{s,j}$, by extending the logistic model with $N_{cov}$ covariates $c_{s,j}$ as
 
 \begin{eqnarray*}
-P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] 
-%\\
-%\Rightarrow  P( d_s | g_{s,i},g_{s,j}, H_1) & = & 
-= \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
+P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
+& = & \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
 \end{eqnarray*}
 
 where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. An implicit assumption in this equation is that $g_{s,i}$ and $g_{s,j}$ are not correlated (i.e. in an LD-Block). This can be enforced by limiting the application of this model to variants either in different chromosomes or over ~1M bases apart. The null hypothesis $H_0$ assumes that variants act independently
@@ -195,7 +197,7 @@ Using $Q$ and $Q_2$, we calculated the log likelihood ratio $LL(MSA)$ of known `
 
 \begin{figure}
     \centering
-    \includegraphics[width=10cm]{gwas_figure_2.png}
+    \includegraphics[width=12cm]{gwas_figure_2.png}
     \caption{LL(MSA) in contact vs ‘null’ within protein}
     \label{fig:gwasf2}
 \end{figure}
@@ -204,13 +206,14 @@ We then computed $LL(MSA)$ to interacting amino acids from  different proteins. 
 
 \begin{figure}
     \centering
-    \includegraphics[width=10cm]{gwas_figure_3A.png}
-	\caption{A) LL(MSA) in contact vs ‘null’ interacting amino acids in co-crystalized proteins (from Pdb), roughly 40\% of interacting records have $LL(MSA) > 1$. B) Log odds ratio of cummulative LL(MSA) probability (interacting / non-interacting).}
+    \includegraphics[width=12cm]{gwas_figure_3A.png}
+	\caption{A) LL(MSA) in contact vs ‘null’ interacting amino acids in co-crystalized proteins (from Pdb), roughly 40\% of interacting records have $LL(MSA) > 1$.}
     \label{fig:gwasf3a}
 \end{figure}
 \begin{figure}
     \centering
-    \includegraphics[width=10cm]{gwas_figure_3B.png}
+    \includegraphics[width=12cm]{gwas_figure_3B.png}
+	\caption{B) Log odds ratio of cummulative LL(MSA) probability (interacting / non-interacting).}
     \label{fig:gwasf3b}
 \end{figure}
 
@@ -231,6 +234,8 @@ We also applied $LL(MSA)$ to separate clinically relevant variants from ClinVar 
 
 We run the epistatic GWAS analysis on a real dataset for Type 2 diabetes, consisting of over 13,000 samples and 1.2 million variants (detailed results to be published in a separate paper). The complete analysis takes less than 2 days using less than 1,000 CPUs in our cluster. This shows that an epistatic GWAS analysis of large cohort sequencing data is feasible using current computational resources.
 
+\textbf{[This section is not finished in the paper]}
+
 %---
 \section{Discussion}
 %---
@@ -238,3 +243,5 @@ We run the epistatic GWAS analysis on a real dataset for Type 2 diabetes, consis
 In this paper, we propose a novel methodology for genome wide analysis of variants located in putative epistatic sites. Due to the large number of statistical tests required in epistatic analysis, and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples which can overcome the reduction in statistical power. Our analysis methods have been optimized and parallelized to be suitable for large scale sequencing genomic studies.
 We show the application of these methods to a large scale exome sequencing study for type II …..
 
+
+\textbf{[This section is not finished in the paper]}

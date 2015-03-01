@@ -69,13 +69,13 @@
 \contentsline {section}{\numberline {4.3}Methods}{92}
 \contentsline {subsection}{\numberline {4.3.1}Markov model}{93}
 \contentsline {subsection}{\numberline {4.3.2}GWAS model}{96}
-\contentsline {section}{\numberline {4.4}Results}{100}
-\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{100}
+\contentsline {section}{\numberline {4.4}Results}{101}
+\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{101}
 \contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{102}
-\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{105}
-\contentsline {section}{\numberline {4.5}Discussion}{105}
-\contentsline {chapter}{\numberline {5}Conclusions }{107}
-\contentsline {section}{\numberline {5.1}Contributions}{107}
-\contentsline {section}{\numberline {5.2}Future work}{109}
-\contentsline {section}{\numberline {5.3}Perspectives}{110}
-\contentsline {extrachapter}{References}{111}
+\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{106}
+\contentsline {section}{\numberline {4.5}Discussion}{106}
+\contentsline {chapter}{\numberline {5}Conclusions }{109}
+\contentsline {section}{\numberline {5.1}Contributions}{109}
+\contentsline {section}{\numberline {5.2}Future work}{111}
+\contentsline {section}{\numberline {5.3}Perspectives}{112}
+\contentsline {extrachapter}{References}{113}
