@@ -63,8 +63,8 @@
 \contentsline {paragraph}{Experimental sources of evidence:.}{77}
 \contentsline {paragraph}{Combining sources of evidence:.}{78}
 \contentsline {section}{\numberline {3.5} Clinical effect of variants}{79}
-\contentsline {section}{\numberline {3.6}MATERIALS}{87}
-\contentsline {section}{\numberline {3.7}PROCEDURE I: Analysis of coding variants}{89}
+\contentsline {section}{\numberline {3.6}Materials}{87}
+\contentsline {section}{\numberline {3.7}Procedure I: Analysis of coding variants}{89}
 \contentsline {paragraph}{Step 1. Primary variant annotation and quality control.}{90}
 \contentsline {paragraph}{Step 2. Counting variants in case and control subjects.}{92}
 \contentsline {paragraph}{Step 3. Filtering variants.}{93}
@@ -72,12 +72,12 @@
 \contentsline {paragraph}{Software Integration (Optional).}{97}
 \contentsline {paragraph}{GATK.}{97}
 \contentsline {paragraph}{Galaxy.}{98}
-\contentsline {section}{\numberline {3.8}PROCEDURE II: Analysis of non-coding variants}{98}
+\contentsline {section}{\numberline {3.8}Procedure II: Analysis of non-coding variants}{98}
 \contentsline {paragraph}{Step 1. Annotating variants.}{99}
 \contentsline {paragraph}{Step 2. Adding custom regulatory information.}{100}
 \contentsline {paragraph}{Step 3. Adding conservation information.}{100}
-\contentsline {section}{\numberline {3.9}TROUBLESHOOTING}{102}
-\contentsline {section}{\numberline {3.10}ACKNOWLEDGEMENTS}{102}
+\contentsline {section}{\numberline {3.9}Troubleshooting}{102}
+\contentsline {section}{\numberline {3.10}Acknowledgements}{102}
 \contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{103}
 \contentsline {section}{\numberline {4.1}Preface}{103}
 \contentsline {section}{\numberline {4.2}Introduction}{103}
