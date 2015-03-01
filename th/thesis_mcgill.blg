@@ -1,9 +1,50 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
+A level-1 auxiliary file: chapters/intro.aux
+A level-1 auxiliary file: chapters/bds.aux
+A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
+A level-1 auxiliary file: chapters/conclusions.aux
+A level-1 auxiliary file: appendix/algorithm_details.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
+Repeated entry---line 793 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 803 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 813 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 849 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1353 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1363 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1373 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1465 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1476 of file mcgilletd.bib
+ : @article{li2011improving
+ :                         ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 1704 of file mcgilletd.bib
  : @article{wu2011rare
  :                    ,
@@ -12,50 +53,56 @@ Repeated entry---line 1863 of file mcgilletd.bib
  : @book{durbin1998biological
  :                           ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 2039 of file mcgilletd.bib
+ : @article{mckenna2010genome
+ :                           ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 2182 of file mcgilletd.bib
  : @article{mani2008defining
  :                          ,
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "Emerson"
 Warning--I didn't find a database entry for "REF"
-You've used 26 entries,
+Warning--empty journal in schneider2013genome
+You've used 73 entries,
             2118 wiz_defined-function locations,
-            667 strings with 8741 characters,
-and the built_in function-call counts, 9422 in all, are:
-= -- 912
-> -- 527
-< -- 2
-+ -- 211
-- -- 182
-* -- 785
-:= -- 1622
-add.period$ -- 78
-call.type$ -- 26
-change.case$ -- 164
+            920 strings with 18033 characters,
+and the built_in function-call counts, 28105 in all, are:
+= -- 2675
+> -- 1756
+< -- 5
++ -- 705
+- -- 620
+* -- 2376
+:= -- 4856
+add.period$ -- 220
+call.type$ -- 73
+change.case$ -- 513
 chr.to.int$ -- 0
-cite$ -- 26
-duplicate$ -- 288
-empty$ -- 669
-format.name$ -- 182
-if$ -- 1867
+cite$ -- 74
+duplicate$ -- 820
+empty$ -- 1866
+format.name$ -- 620
+if$ -- 5542
 int.to.chr$ -- 0
-int.to.str$ -- 26
-missing$ -- 29
-newline$ -- 133
-num.names$ -- 52
-pop$ -- 133
+int.to.str$ -- 73
+missing$ -- 76
+newline$ -- 368
+num.names$ -- 146
+pop$ -- 424
 preamble$ -- 1
-purify$ -- 141
+purify$ -- 444
 quote$ -- 0
-skip$ -- 187
+skip$ -- 563
 stack$ -- 0
-substring$ -- 644
-swap$ -- 28
-text.length$ -- 2
+substring$ -- 1774
+swap$ -- 96
+text.length$ -- 5
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 98
-warning$ -- 0
-while$ -- 93
-width$ -- 28
-write$ -- 286
-(There were 3 error messages)
+type$ -- 284
+warning$ -- 1
+while$ -- 258
+width$ -- 75
+write$ -- 796
+(There were 13 error messages)
