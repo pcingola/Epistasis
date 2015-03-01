@@ -75,15 +75,14 @@ A variant that leads to the loss of a stop codon, sometimes called aread-through
 
 The effect of the loss of a start codon depends on the location of a replacement start codon with respect to the translation start site and reading frame of the native protein. If the new start codon maintains the reading frame, the only consequence may be the loss of a few amino acids in the protein transcript; however, in many cases, the new start codon will not be in-frame, thus producing a frame-shifted protein that is later degraded. In addition, the new start codon may lack an appropriate regulatory context (for example, if there is no Kozak sequence nearby or if it disrupts 5’ UTR folding) leading to reduced expression of an N-terminally truncated protein. Consequently, losing a start codon is thought to be highly deleterious in most cases, due to the potential that it may reduce both protein production and activity.
 
-	\textit{Caveats}
+\textbf{Caveats}
+	\begin{enumerate}[label=\roman*]
 	
-	\begin{description}
+	\item \textit{Rare amino acids.} Through a process called translational recoding, a UGA ``Stop" codon located in the appropriate mRNA context (determined by both primary mRNA sequence and secondary structure) may be translated to incorporate a selenocysteine amino acid (Sec / U). In humans, this occurs at approximately 100 codons located in mRNAs whose 3’ UTR contains a Selenocysteine insertion sequence element (SECIS). Since the translation machinery goes so far to encode these special rare amino acids, the expectation is that mutations at those sites would be highly deleterious. This is supported by evidence that reduced efficiency of selenocysteine incorporation is linked to severe clinical outcomes, such as early onset myopathy  \cite{maiti2009mutation} and progressive cerebral atrophy  \cite{agamy2010mutations}.
 	
-	\item[Rare amino acids.] Through a process called translational recoding, a UGA ``Stop" codon located in the appropriate mRNA context (determined by both primary mRNA sequence and secondary structure) may be translated to incorporate a selenocysteine amino acid (Sec / U). In humans, this occurs at approximately 100 codons located in mRNAs whose 3’ UTR contains a Selenocysteine insertion sequence element (SECIS). Since the translation machinery goes so far to encode these special rare amino acids, the expectation is that mutations at those sites would be highly deleterious. This is supported by evidence that reduced efficiency of selenocysteine incorporation is linked to severe clinical outcomes, such as early onset myopathy  \cite{maiti2009mutation} and progressive cerebral atrophy  \cite{agamy2010mutations}.
+	\item \textit{False-positives in LOF predictions.} Variants predicted to result in a LOF sometimes actually produce proteins that are partially functional  \cite{macarthur2012systematic}. In fact, an apparently healthy individual is typically heterozygous for around 100 predicted LOF variants, and homozygous for roughly 10 variants, but many of those are unlikely to completely abolish the protein function. Indeed, these variants are enriched toward the 3’ end of the gene, where they are likely to be less deleterious. 
 	
-	\item[False-positives in LOF predictions.] Variants predicted to result in a LOF sometimes actually produce proteins that are partially functional  \cite{macarthur2012systematic}. In fact, an apparently healthy individual is typically heterozygous for around 100 predicted LOF variants, and homozygous for roughly 10 variants, but many of those are unlikely to completely abolish the protein function. Indeed, these variants are enriched toward the 3’ end of the gene, where they are likely to be less deleterious. 
-	
-	\end{description}
+	\end{enumerate}
 
 \subsection{Variants with low or moderate impact}
 
@@ -93,17 +92,16 @@ Once missense and frame-preserving indel variants are identified, a more detaile
 
 In most cases these algorithms apply best to SNVs since these are common in populations and there is more genomic sequence andexperimental data available to refine the statistical methods. However, some recently developed algorithms are capable of assessing variants other than SNVs, including PROVEAN \cite{choi2012predicting}, which extends SIFT to assess the functional impact of indels.
 
-	\textit{Caveats}
+\textbf{Caveats}
+	\begin{enumerate}[label=\roman*]
 	
-	\begin{description}
+	\item \textit{Imprecise models of protein function.} Accurate impact assessment of coding variants remains an open problem and most computational predictions are riddled with both false positives and false negatives. While both missense variants and frame-preserving indels are broadly cataloged as having moderate effects, this is mostly due to lack of a comprehensive model and the extremely complex computations that would be required for an in-depth analysis (such as protein structure predictions). In these cases, proteomic information can be revealing. SnpEff adds annotations from curated proteomic databases, such as NextProt  \cite{lane2012nextprot}, which can help to elucidate if a mutation alters a critical protein amino acid or domain (such as amino acids that are post-translationally modified as part of a signaling cascade or that are form the active site of an enzyme) resulting in a protein may no longer function.
 	
-	\item[Imprecise models of protein function.] Accurate impact assessment of coding variants remains an open problem and most computational predictions are riddled with both false positives and false negatives. While both missense variants and frame-preserving indels are broadly cataloged as having moderate effects, this is mostly due to lack of a comprehensive model and the extremely complex computations that would be required for an in-depth analysis (such as protein structure predictions). In these cases, proteomic information can be revealing. SnpEff adds annotations from curated proteomic databases, such as NextProt  \cite{lane2012nextprot}, which can help to elucidate if a mutation alters a critical protein amino acid or domain (such as amino acids that are post-translationally modified as part of a signaling cascade or that are form the active site of an enzyme) resulting in a protein may no longer function.
+	\item \textit{Gain of deleterious function.} Computational variant annotation may eventually be able to fairly accurately predict the molecular impact of a variant in terms of the degree to which it translates in a loss of function for the encoded protein. However, gains of function, including the acquired ability to interact with new partners and disrupt their function, remain vastly more difficult to tackle, although a several such variants have been linked to disease, such as hereditary pancreatitis  \cite{whitcomb1996hereditary}.
 	
-	\item[Gain of deleterious function.] Computational variant annotation may eventually be able to fairly accurately predict the molecular impact of a variant in terms of the degree to which it translates in a loss of function for the encoded protein. However, gains of function, including the acquired ability to interact with new partners and disrupt their function, remain vastly more difficult to tackle, although a several such variants have been linked to disease, such as hereditary pancreatitis  \cite{whitcomb1996hereditary}.
+	\item \textit{Unanticipated effects of synonymous variants.} In most cases, synonymous variants are regarded as non-deleterious (or low impact); however, one needs to seriously consider the possibility that they may have greater functional effects by altering mRNA splicing  \cite{coulombe2009fine} or secondary structure  \cite{sabarinathan2013rnasnp}. Synonymous SNVs may also alter translation efficiency, by changing a frequently used to a rarely used codon and have been linked to changes in protein expression  \cite{sauna2011understanding}.
 	
-	\item[Unanticipated effects of synonymous variants.] In most cases, synonymous variants are regarded as non-deleterious (or low impact); however, one needs to seriously consider the possibility that they may have greater functional effects by altering mRNA splicing  \cite{coulombe2009fine} or secondary structure  \cite{sabarinathan2013rnasnp}. Synonymous SNVs may also alter translation efficiency, by changing a frequently used to a rarely used codon and have been linked to changes in protein expression  \cite{sauna2011understanding}.
-	
-	\end{description}
+	\end{enumerate}
 
 \subsection{Non-coding variant annotation}
 
@@ -129,15 +127,14 @@ In human, genome-wide computational predictions of transcription factor binding 
 
 \paragraph{Combining sources of evidence:} Despite the variety of computational and experimental sources of evidence available, impact assessment for non-coding variants remains relatively crude, due to the fact that biological models of gene regulation remain fairly simple. Nonetheless, significant steps forward have been made recently, and two web-based tools, HaploReg  \cite{ward2012haploreg} and RegulomeDb  \cite{boyle2012annotation}, perform SNV and indel impact assessment for variants from dbSNV on the basis of a broad body of computational and experimental evidence. Both use pre-computed scores for variants from dbSnp and therefore cannot be used for rare variants, but they are extremely valuable for exploration by associating the variant of interest with a variant in dbSnp via linkage disequilibrium. 
 
-\textit{Caveats}
-
-	\begin{description}
+\textbf{Caveats}
+	\begin{enumerate}[label=\roman*]
 	
-	\item[Sparseness of functional sites within ChIP-seq peaks.] Even if a noncoding variant is located in a region that contains a ChIP-seq peak for a given TF and has all the hallmark signatures of regulatory chromatin, the likelihood that it is deleterious remains low, because most DNA bases contained within a peak are non-functional. 
+	\item \textit{Sparseness of functional sites within ChIP-seq peaks.} Even if a noncoding variant is located in a region that contains a ChIP-seq peak for a given TF and has all the hallmark signatures of regulatory chromatin, the likelihood that it is deleterious remains low, because most DNA bases contained within a peak are non-functional. 
 	
-	\item[Gain of function mutations.] While this section, has focused on variants causing the loss of a functional regulatory element, genetic variants may also create new or more effective transcription factor binding sites. These are substantially harder to detect as they can occur in regions that show no evidence of function in individuals possessing the reference allele, and show little conservation across species. Furthermore, computational methods to predict gain of affinity for a given TF caused by a variant have insufficient specificity to be of much use on their own. 
+	\item \textit{Gain of function mutations.} While this section, has focused on variants causing the loss of a functional regulatory element, genetic variants may also create new or more effective transcription factor binding sites. These are substantially harder to detect as they can occur in regions that show no evidence of function in individuals possessing the reference allele, and show little conservation across species. Furthermore, computational methods to predict gain of affinity for a given TF caused by a variant have insufficient specificity to be of much use on their own. 
 	
-	\end{description}
+	\end{enumerate}
 
 %---
 \section{ Clinical effect of variants}
@@ -149,13 +146,12 @@ Another important application of variant detection and annotation is in the stud
 
 Once variants are called, variant annotation focuses on somatic variants that are not present in the germline genome, which is the new ``reference genome". Although SnpEff was originally developed for the study of germline genomes, it also contains modules that allow the annotation of cancer mutations. A seemingly simple approach would be to create a new reference genome using the individual’s germline genome, and then annotate somatic mutations by comparison to this new reference. Unfortunately, this approach would be laborious and computationally expensive, so a preferred solution is to compare each genome to the reference human genome, and reconcile shared differences by creating a germline genome ``on the fly" only for those regions that require it (i.e. variants that are shared by the germline and cancer genome are disregarded). This optimization reduces the processing time from hours to only a few seconds, making it viable for analysis of hundreds of samples simultaneously.
 
-\textit{Caveats}
+\textbf{Caveats}
+	\begin{enumerate}[label=\roman*]
 
-	\begin{description}
-
-	\item[Annotation accuracy.] Biological knowledge, as well as molecular and phenotypic evidence supports the identification of certain groups of high impact variants based on simple criteria (such as premature stops, frameshifts, start lost and rare amino acid mutations); however, it is often hard to predict whether non-synonymous variants will have equally large effects on an organism's health. Even when the accepted ``rules of thumb" used in the primary annotation indicate that protein function is impaired, we should consider that these predictions may be based on a small number of model genes and will require appropriate wet-lab validation or confirmatory studies in cohorts. In addition, as more human genomes are sequenced, it is likely that some genetic variants that have been linked to Mendelian diseases will be found in healthy individuals  \cite{riggs2013towards}; and in many cases, may not actually be disease-causing mutations  \cite{bell2011carrier}.
+	\item \textit{Annotation accuracy.} Biological knowledge, as well as molecular and phenotypic evidence supports the identification of certain groups of high impact variants based on simple criteria (such as premature stops, frameshifts, start lost and rare amino acid mutations); however, it is often hard to predict whether non-synonymous variants will have equally large effects on an organism's health. Even when the accepted ``rules of thumb" used in the primary annotation indicate that protein function is impaired, we should consider that these predictions may be based on a small number of model genes and will require appropriate wet-lab validation or confirmatory studies in cohorts. In addition, as more human genomes are sequenced, it is likely that some genetic variants that have been linked to Mendelian diseases will be found in healthy individuals  \cite{riggs2013towards}; and in many cases, may not actually be disease-causing mutations  \cite{bell2011carrier}.
 	
-	\end{description}
+	\end{enumerate}
 
 \textbf{BOX 1: Data structures and computational efficiency}
 \begin{framed}
