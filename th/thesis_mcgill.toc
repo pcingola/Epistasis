@@ -34,18 +34,18 @@
 \contentsline {subsection}{\numberline {2.3.1}Language overview}{41}
 \contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{41}
 \contentsline {subsection}{\numberline {2.3.3}Robustness}{43}
-\contentsline {paragraph}{Lazy processing..}{44}
-\contentsline {paragraph}{Absolute serialization..}{44}
-\contentsline {paragraph}{Limitations..}{45}
+\contentsline {paragraph}{Lazy processing.}{44}
+\contentsline {paragraph}{Absolute serialization.}{44}
+\contentsline {paragraph}{Limitations.}{45}
 \contentsline {subsection}{\numberline {2.3.4}Other features}{45}
-\contentsline {paragraph}{Automatic logging..}{46}
-\contentsline {paragraph}{Automatic command line parsing..}{47}
-\contentsline {paragraph}{Task re-execution..}{47}
+\contentsline {paragraph}{Automatic logging.}{46}
+\contentsline {paragraph}{Automatic command line parsing.}{47}
+\contentsline {paragraph}{Task re-execution.}{47}
 \contentsline {subsection}{\numberline {2.3.5}BDS implementation}{47}
 \contentsline {section}{\numberline {2.4}Results}{52}
 \contentsline {paragraph}{Architecture independence.}{52}
-\contentsline {paragraph}{Robustness..}{54}
-\contentsline {paragraph}{Scalability..}{54}
+\contentsline {paragraph}{Robustness.}{54}
+\contentsline {paragraph}{Scalability.}{54}
 \contentsline {section}{\numberline {2.5}Discussion}{55}
 \contentsline {chapter}{\numberline {3}SnpEff: Genomic variant annotation and prioritization}{57}
 \contentsline {section}{\numberline {3.1}Preface}{57}
