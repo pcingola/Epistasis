@@ -198,7 +198,7 @@ Variant annotation and sequence ontology. Recent efforts have been made to stand
 \end{framed}
 
 %---
-\section{MATERIALS}
+\section{Materials}
 %---
 
 In this protocol we show how to analyse genomic variants using the SnpEff pipeline.
@@ -244,7 +244,7 @@ curl -v -L http://sourceforge.net/projects/snpeff/files/protocols.zip \
 \end{lstlisting}
 
 %---
-\section{PROCEDURE I: Analysis of coding variants}
+\section{Procedure I: Analysis of coding variants}
 %---
 
 The goal in this example is to use SnpEff to find a mutation causing a Mendelian recessive trait. This will be done using a dataset of variant calls for chromosome 7 from a pedigree of 17 healthy individuals, sequenced by Complete Genomics, in which a coding variant causing cystic fibrosis was artificially introduced in three siblings (see Materials). For the purpose of this example, we assume that we do not know the causative variant, but that we know that we are dealing with a Mendelian recessive disorder, where the three siblings are affected (cases), but the 14 parents and grandparents are not (controls).
@@ -376,7 +376,7 @@ Note: We assumed GATK is installed in \texttt{\$HOME/tools/gatk/} and the refere
 \end{figure}
 
 %---
-\section{PROCEDURE II: Analysis of non-coding variants}
+\section{Procedure II: Analysis of non-coding variants}
 %---
 
 This example shows how to perform basic annotation of non-coding variants. It is based on a short list of 20 non-coding that were identified by sequencing a 700 kb region surrounding the gene T-box transcription factor (TBX5) in 260 patients with congenital heart disease 67. TBX5 is a transcription factor that plays a well-established dosage-dependent role in heart and limb development. Coding mutations in TBX5 have been frequently identified in patients with Holt–Oram syndrome, which is associated with abnormal hand, forearm and cardiac development.
@@ -421,10 +421,10 @@ SnpSift \texttt{filter} supports a flexible syntax to create Boolean expressions
 
 The principles illustrated in our example for a small set of SNVs can be applied to millions of variants from whole genome sequencing experiments. Similarly, although we filtered the SNVs using \texttt{custom} ChIP-seq data that provided in the original study 67, regulatory information from public Encode or Epigenome Roadmap datasets could be used in a first line investigation before generating our own Chip- seq or RNA-seq data using disease-relevant cells and tissues.
 
-\section{TROUBLESHOOTING}
+\section{Troubleshooting}
 
 Complete documentation for SnpEff, together with troubleshooting instructions are available at http://snpeff.sourceforge.net/SnpEff\_manual.html.
 
-\section{ACKNOWLEDGEMENTS}
+\section{Acknowledgements}
 
 We thank Louis Létourneau and Adrian Platts, for their valuable suggestions for improving SnpEff. This work was funded by the National Institute of Diabetes \& Digestive \& Kidney diseases (NIDDK 5-U01- DK085545-02) and the Canadian Institutes for Health Research (CIHR MOP-102703).
