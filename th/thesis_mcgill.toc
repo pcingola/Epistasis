@@ -63,19 +63,34 @@
 \contentsline {paragraph}{Experimental sources of evidence:.}{77}
 \contentsline {paragraph}{Combining sources of evidence:.}{78}
 \contentsline {section}{\numberline {3.5} Clinical effect of variants}{79}
-\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{88}
-\contentsline {section}{\numberline {4.1}Preface}{88}
-\contentsline {section}{\numberline {4.2}Introduction}{88}
-\contentsline {section}{\numberline {4.3}Methods}{92}
-\contentsline {subsection}{\numberline {4.3.1}Markov model}{93}
-\contentsline {subsection}{\numberline {4.3.2}GWAS model}{96}
-\contentsline {section}{\numberline {4.4}Results}{101}
-\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{101}
-\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{102}
-\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{106}
-\contentsline {section}{\numberline {4.5}Discussion}{106}
-\contentsline {chapter}{\numberline {5}Conclusions }{109}
-\contentsline {section}{\numberline {5.1}Contributions}{109}
-\contentsline {section}{\numberline {5.2}Future work}{111}
-\contentsline {section}{\numberline {5.3}Perspectives}{112}
-\contentsline {extrachapter}{References}{113}
+\contentsline {section}{\numberline {3.6}MATERIALS}{87}
+\contentsline {section}{\numberline {3.7}PROCEDURE I: Analysis of coding variants}{89}
+\contentsline {paragraph}{Step 1. Primary variant annotation and quality control.}{90}
+\contentsline {paragraph}{Step 2. Counting variants in case and control subjects.}{92}
+\contentsline {paragraph}{Step 3. Filtering variants.}{93}
+\contentsline {paragraph}{Step 4. Using clinical databases..}{95}
+\contentsline {paragraph}{Software Integration (Optional).}{97}
+\contentsline {paragraph}{GATK.}{97}
+\contentsline {paragraph}{Galaxy.}{98}
+\contentsline {section}{\numberline {3.8}PROCEDURE II: Analysis of non-coding variants}{98}
+\contentsline {paragraph}{Step 1. Annotating variants.}{99}
+\contentsline {paragraph}{Step 2. Adding custom regulatory information.}{100}
+\contentsline {paragraph}{Step 3. Adding conservation information.}{100}
+\contentsline {section}{\numberline {3.9}TROUBLESHOOTING}{102}
+\contentsline {section}{\numberline {3.10}ACKNOWLEDGEMENTS}{102}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{103}
+\contentsline {section}{\numberline {4.1}Preface}{103}
+\contentsline {section}{\numberline {4.2}Introduction}{103}
+\contentsline {section}{\numberline {4.3}Methods}{107}
+\contentsline {subsection}{\numberline {4.3.1}Markov model}{108}
+\contentsline {subsection}{\numberline {4.3.2}GWAS model}{111}
+\contentsline {section}{\numberline {4.4}Results}{116}
+\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{116}
+\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{117}
+\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{121}
+\contentsline {section}{\numberline {4.5}Discussion}{121}
+\contentsline {chapter}{\numberline {5}Conclusions }{124}
+\contentsline {section}{\numberline {5.1}Contributions}{124}
+\contentsline {section}{\numberline {5.2}Future work}{126}
+\contentsline {section}{\numberline {5.3}Perspectives}{127}
+\contentsline {extrachapter}{References}{128}

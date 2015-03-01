@@ -1,12 +1,52 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
+A level-1 auxiliary file: chapters/intro.aux
+A level-1 auxiliary file: chapters/bds.aux
 A level-1 auxiliary file: chapters/snpeff.aux
+A level-1 auxiliary file: chapters/gwas.aux
+A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
+Repeated entry---line 793 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 803 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 813 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 825 of file mcgilletd.bib
  : @article{li2009sequence
  :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 849 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1353 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1363 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1373 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1465 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1476 of file mcgilletd.bib
+ : @article{li2011improving
+ :                         ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 1626 of file mcgilletd.bib
  : @article{kumar2009predicting
@@ -16,9 +56,29 @@ Repeated entry---line 1659 of file mcgilletd.bib
  : @article{rope2011using
  :                       ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 1704 of file mcgilletd.bib
+ : @article{wu2011rare
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1863 of file mcgilletd.bib
+ : @book{durbin1998biological
+ :                           ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 2039 of file mcgilletd.bib
  : @article{mckenna2010genome
  :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2182 of file mcgilletd.bib
+ : @article{mani2008defining
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2334 of file mcgilletd.bib
+ : @article{morcos2011direct
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2367 of file mcgilletd.bib
+ : @article{burger2010disentangling
+ :                                 ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 2525 of file mcgilletd.bib
  : @article{wang2010annovar
@@ -36,45 +96,46 @@ Repeated entry---line 2952 of file mcgilletd.bib
  : @article{davydov2010identifying
  :                                ,
 I'm skipping whatever remains of this entry
-You've used 69 entries,
+Warning--empty journal in schneider2013genome
+You've used 151 entries,
             2118 wiz_defined-function locations,
-            879 strings with 21012 characters,
-and the built_in function-call counts, 33540 in all, are:
-= -- 3090
-> -- 2562
-< -- 5
-+ -- 1028
-- -- 942
-* -- 3122
-:= -- 5807
-add.period$ -- 207
-call.type$ -- 69
-change.case$ -- 654
+            1283 strings with 36423 characters,
+and the built_in function-call counts, 65370 in all, are:
+= -- 6132
+> -- 4533
+< -- 12
++ -- 1817
+- -- 1638
+* -- 5801
+:= -- 11273
+add.period$ -- 454
+call.type$ -- 151
+change.case$ -- 1233
 chr.to.int$ -- 0
-cite$ -- 69
-duplicate$ -- 811
-empty$ -- 1879
-format.name$ -- 942
-if$ -- 6474
+cite$ -- 152
+duplicate$ -- 1754
+empty$ -- 3992
+format.name$ -- 1638
+if$ -- 12778
 int.to.chr$ -- 0
-int.to.str$ -- 69
-missing$ -- 70
-newline$ -- 348
-num.names$ -- 138
-pop$ -- 535
+int.to.str$ -- 151
+missing$ -- 155
+newline$ -- 758
+num.names$ -- 302
+pop$ -- 1012
 preamble$ -- 1
-purify$ -- 586
+purify$ -- 1087
 quote$ -- 0
-skip$ -- 583
+skip$ -- 1241
 stack$ -- 0
-substring$ -- 2055
-swap$ -- 122
-text.length$ -- 5
+substring$ -- 4086
+swap$ -- 251
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 274
-warning$ -- 0
-while$ -- 262
-width$ -- 71
-write$ -- 760
-(There were 8 error messages)
+type$ -- 594
+warning$ -- 1
+while$ -- 554
+width$ -- 154
+write$ -- 1653
+(There were 22 error messages)
