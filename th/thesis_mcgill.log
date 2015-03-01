@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  28 FEB 2015 22:56
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 MAR 2015 09:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -267,12 +267,20 @@ Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
 \FrameRule=\dimen132
 \FrameSep=\dimen133
 )
+(/usr/local/texlive/2013/texmf-dist/tex/latex/enumitem/enumitem.sty
+Package: enumitem 2011/09/28 v3.5.2 Customized lists
+\labelindent=\skip83
+\enit@outerparindent=\dimen134
+\enit@toks=\toks22
+\enit@inbox=\box33
+\enitdp@description=\count113
+)
 (./def_mcgill.tex
-\c@lemma=\count113
-\c@theorem=\count114
-\c@corollary=\count115
-\c@definition=\count116
-\c@propo=\count117
+\c@lemma=\count114
+\c@theorem=\count115
+\c@corollary=\count116
+\c@definition=\count117
+\c@propo=\count118
 )
 \keylist@idxfile=\write3
 \openout3 = `keylist.idx'.
@@ -295,41 +303,40 @@ LaTeX Warning: Unused global option(s):
 
 LaTeX Warning: Label `fig:gwasf3a' multiply defined.
 
-) (./chapters/conclusions.aux) (./appendix/algorithm_details.aux))
+) (./chapters/conclusions.aux))
 \openout1 = `thesis_mcgill.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 71.
-LaTeX Font Info:    ... okay on input line 71.
-
-ABD: EverySelectfont initializing macros
-LaTeX Info: Redefining \selectfont on input line 71.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 72.
+LaTeX Font Info:    ... okay on input line 72.
+ ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 72.
 
 **************************************
 * Executing Begin Document Statement *
 **************************************
 (/usr/local/texlive/2013/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count118
-\scratchdimen=\dimen134
-\scratchbox=\box33
-\nofMPsegments=\count119
-\nofMParguments=\count120
-\everyMPshowfont=\toks22
-\MPscratchCnt=\count121
-\MPscratchDim=\dimen135
-\MPnumerator=\count122
-\makeMPintoPDFobject=\count123
-\everyMPtoPDFconversion=\toks23
+\scratchcounter=\count119
+\scratchdimen=\dimen135
+\scratchbox=\box34
+\nofMPsegments=\count120
+\nofMParguments=\count121
+\everyMPshowfont=\toks23
+\MPscratchCnt=\count122
+\MPscratchDim=\dimen136
+\MPnumerator=\count123
+\makeMPintoPDFobject=\count124
+\everyMPtoPDFconversion=\toks24
 ) (/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -378,7 +385,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count124
+\c@lstlisting=\count125
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: End \AtBeginDocument code.
 
@@ -386,12 +393,7 @@ Package caption Info: End \AtBeginDocument code.
 
 
 {/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
-[2
-
-
-] [3
-
-] (./thesis_mcgill.toc
+(./thesis_mcgill.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 1.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -401,53 +403,15 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 1.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [4
+) [2
 
 
-] [5])
+
+])
 \tf@toc=\write5
 \openout5 = `thesis_mcgill.toc'.
 
-
-[6] (./thesis_mcgill.lot)
-\tf@lot=\write6
-\openout6 = `thesis_mcgill.lot'.
-
- [7
-
-
-
-] (./thesis_mcgill.lof
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ™ in font cmr12!
-)
-\tf@lof=\write7
-\openout7 = `thesis_mcgill.lof'.
-
- [8
-
-
-
-] [9]
+ [3]
 \openout2 = `chapters/intro.aux'.
 
 
@@ -552,20 +516,20 @@ Overfull \hbox (3.51183pt too wide) in paragraph at lines 83--84
 tributable
  []
 
-[8] [9] [10]
+[8] [9]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [11]
+ [10] [11]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [12] [13] [14] [15] [16] [17] [18] [19]
+ [12] [13] [14] [15] [16] [17] [18]
 Overfull \hbox (41.62686pt too wide) detected at line 199
 []
  []
 
-[20]
+[19] [20]
 Overfull \hbox (11.34142pt too wide) in paragraph at lines 209--210
 \OT1/cmr/m/n/12 QQ-plot is used (i.e. plot-ting the $\OML/cmm/m/it/12 y \OT1/cm
 r/m/n/12 = \OMS/cmsy/m/n/12 ^^@\OML/cmm/m/it/12 log\OT1/cmr/m/n/12 (\OML/cmm/m/
@@ -600,11 +564,45 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [30]
+
+Underfull \hbox (badness 10000) in paragraph at lines 297--299
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 308--310
+
+ []
+
+[30]
+Underfull \hbox (badness 10000) in paragraph at lines 317--319
+
+ []
+
 [31]
-Overfull \hbox (3.01802pt too wide) in paragraph at lines 339--340
+Underfull \hbox (badness 10000) in paragraph at lines 339--340
+
+ []
+
+
+Overfull \hbox (3.01802pt too wide) in paragraph at lines 344--345
 \OT1/cmr/m/n/12 evolutionary ap-proach for de-tect-ing epistatic in-ter-ac-tion
 s in genome-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 347--349
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--353
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 350--353
+
  []
 
 [32]
@@ -618,22 +616,32 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-Overfull \hbox (6.30827pt too wide) in paragraph at lines 356--357
+Overfull \hbox (6.30827pt too wide) in paragraph at lines 359--360
 \OT1/cmr/m/n/12 Part 2: Nat-u-ral se-lec-tion of metastable epi-al-le-les in ho
 n-ey-bee castes",
  []
 
 
-Overfull \hbox (32.24504pt too wide) in paragraph at lines 357--358
+Overfull \hbox (32.24504pt too wide) in paragraph at lines 360--361
 []\OT1/cmr/m/n/12 Arko S, et al. ``Lead ex-po-sure in-duces changes in 5-hydrox
 ymethylcytosine
  []
 
+
+Underfull \hbox (badness 10000) in paragraph at lines 363--364
+
+ []
+
+[33]
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no © in font cmr12!
-[33]
 Missing character: There is no Î in font cmr12!
 Missing character: There is no ± in font cmr12!
+
+Underfull \hbox (badness 10000) in paragraph at lines 376--377
+
+ []
+
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no º in font cmr12!
 Missing character: There is no Ã in font cmr12!
@@ -811,7 +819,7 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [48] <bds_figure_3_small.png, id=197, 1148.29pt x 1656.1875pt>
+ [48] <bds_figure_3_small.png, id=177, 1148.29pt x 1656.1875pt>
 File: bds_figure_3_small.png Graphic file (type png)
 
 <use bds_figure_3_small.png>
@@ -824,7 +832,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
  [49] [50 <./bds_figure_3_small.png>]
-<bds_figure_1_small.png, id=206, 1053.9375pt x 752.8125pt>
+<bds_figure_1_small.png, id=186, 1053.9375pt x 752.8125pt>
 File: bds_figure_1_small.png Graphic file (type png)
 
 <use bds_figure_1_small.png>
@@ -846,7 +854,7 @@ Overfull \hbox (40.15758pt too wide) in paragraph at lines 160--161
 urce code (https://github.com/pcingola/
  []
 
-<bds_figure_2_small.png, id=214, 2489.3pt x 2434.09375pt>
+<bds_figure_2_small.png, id=194, 2489.3pt x 2434.09375pt>
 File: bds_figure_2_small.png Graphic file (type png)
 
 <use bds_figure_2_small.png>
@@ -869,7 +877,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-<bds_table_1.png, id=221, 1205.50375pt x 231.86626pt>
+<bds_table_1.png, id=201, 1205.50375pt x 231.86626pt>
 File: bds_table_1.png Graphic file (type png)
  <use bds_table_1.png>
 Package pdftex.def Info: bds_table_1.png used on input line 177.
@@ -888,7 +896,7 @@ Overfull \hbox (3.80072pt too wide) in paragraph at lines 182--183
 -ity, we ran ex-actly the same pipeline
  []
 
-<bds_table_2.png, id=222, 587.19376pt x 134.5025pt>
+<bds_table_2.png, id=202, 587.19376pt x 134.5025pt>
 File: bds_table_2.png Graphic file (type png)
  <use bds_table_2.png>
 Package pdftex.def Info: bds_table_2.png used on input line 186.
@@ -1084,7 +1092,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-<gwas_epistasis_pipeline.png, id=345, 969.6225pt x 526.96875pt>
+<gwas_epistasis_pipeline.png, id=325, 969.6225pt x 526.96875pt>
 File: gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use gwas_epistasis_pipeline.png>
@@ -1186,7 +1194,7 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[102] <gwas_figure_2.png, id=380, 1027.84pt x 1027.84pt>
+[102] <gwas_figure_2.png, id=361, 1027.84pt x 1027.84pt>
 File: gwas_figure_2.png Graphic file (type png)
 
 <use gwas_figure_2.png>
@@ -1205,7 +1213,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
  [103 <./gwas_figure_2.png>]
-<gwas_figure_3A.png, id=385, 1027.84pt x 1027.84pt>
+<gwas_figure_3A.png, id=366, 1027.84pt x 1027.84pt>
 File: gwas_figure_3A.png Graphic file (type png)
  <use gwas_figure_3A.png>
 Package pdftex.def Info: gwas_figure_3A.png used on input line 205.
@@ -1223,7 +1231,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 
-<gwas_figure_3B.png, id=386, 1027.84pt x 1027.84pt>
+<gwas_figure_3B.png, id=367, 1027.84pt x 1027.84pt>
 File: gwas_figure_3B.png Graphic file (type png)
  <use gwas_figure_3B.png>
 Package pdftex.def Info: gwas_figure_3B.png used on input line 211.
@@ -1251,7 +1259,7 @@ Overfull \hbox (10.03607pt too wide) in paragraph at lines 219--220
 i-cance at-tribute (CLNSIG).
  []
 
-<gwas_figure_jmol_epistasis.png, id=391, 785.93625pt x 721.69624pt>
+<gwas_figure_jmol_epistasis.png, id=372, 785.93625pt x 721.69624pt>
 File: gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use gwas_figure_jmol_epistasis.png>
@@ -1297,15 +1305,7 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-) [111] [112
-
-
-]
-\openout2 = `appendix/algorithm_details.aux'.
-
-
-No file appendix/algorithm_details.tex.
-(./thesis_mcgill.bbl
+) [111] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -1317,40 +1317,38 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[113
+[112
 
 
 
-
-
-] [114]
+] [113]
 Underfull \hbox (badness 1043) in paragraph at lines 140--146
 []\OT1/cmr/m/n/12 Kristian Cibul-skis, Michael S Lawrence, Scott L Carter, An-d
 rey
  []
 
-[115] [116] [117]
+[114] [115] [116]
 Underfull \hbox (badness 1769) in paragraph at lines 399--404
 []\OT1/cmr/m/n/12 Fereydoun Hor-moz-di-ari, Iman Ha-ji-ra-souliha, An-drew McPh
 er-son,
  []
 
-[118] [119] [120] [121]
+[117] [118] [119] [120]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [122]
+ [121]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [123] [124]
+ [122] [123]
 Underfull \hbox (badness 1270) in paragraph at lines 829--834
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[125] [126] [127]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[124] [125] [126]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
-(./chapters/conclusions.aux) (./appendix/algorithm_details.aux))
+(./chapters/conclusions.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -1387,6 +1385,7 @@ listings.cfg    2007/02/22 1.4 listings configuration
  caption.sty    2013/05/02 v3.3-89 Customizing captions (AR)
 caption3.sty    2013/05/02 v1.6-88 caption3 kernel (AR)
   framed.sty    2011/10/22 v 0.96: framed or shaded text with page breaks
+enumitem.sty    2011/09/28 v3.5.2 Customized lists
 def_mcgill.tex
 lstlang1.sty    2004/09/05 1.3 listings language file
 supp-pdf.mkii
@@ -1430,10 +1429,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 5831 strings out of 493315
- 86201 string characters out of 6137904
- 181399 words of memory out of 5000000
- 9120 multiletter control sequences out of 15000+600000
+ 6105 strings out of 493315
+ 90827 string characters out of 6137904
+ 187759 words of memory out of 5000000
+ 9402 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,42p,2579b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1452,10 +1451,10 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (136 pages, 1611036 bytes).
+Output written on thesis_mcgill.pdf (129 pages, 1606505 bytes).
 PDF statistics:
- 520 PDF objects out of 1000 (max. 8388607)
- 347 compressed objects within 4 object streams
+ 498 PDF objects out of 1000 (max. 8388607)
+ 332 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

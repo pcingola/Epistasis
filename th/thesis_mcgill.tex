@@ -9,6 +9,7 @@
 \usepackage{color}
 \usepackage{caption}
 \usepackage{framed}
+\usepackage{enumitem}
 
 \input{def_mcgill}
 
@@ -84,55 +85,59 @@
 
 % Final version?
 \newif\iffinal
-\finalfalse
 \finaltrue
+\finalfalse
 
 \ifthesis
 	% Only show these sections when we are building the 'thesis' version
 	
 	\begin{romanPagenumber}{2}
 	
-	%-----------------------------------------------------------------------------
-	% Acknowledgements
-	%-----------------------------------------------------------------------------
-	
-	%\SetAcknowledgeName{\MakeUppercase{Acknowledgements}}
-	%\SetAcknowledgeText{
-	%I would like to thank my feet for all their support, my arms for always being by my side and my fingers, who I can always count on.
-	%}
-	%
-	%\Acknowledge
-	
-	
-	%-----------------------------------------------------------------------------
-	%         English Abstract
-	%-----------------------------------------------------------------------------
-	
-	
-	\SetAbstractEnName{\MakeUppercase{Abstract}}%
-	\SetAbstractEnText{ 
-	}
-	\AbstractEn%
-	
-	%-----------------------------------------------------------------------------
-	%         French Abstract
-	%-----------------------------------------------------------------------------
-	
-	\SetAbstractFrName{\MakeUppercase{ABR\'{E}G\'{E}}}%
-	\SetAbstractFrText{ 
-	}
-	\AbstractFr%
-	
-	%-----------------------------------------------------------------------------
-	% Tables
-	%-----------------------------------------------------------------------------
-	
-	\TOCHeading{\MakeUppercase{Table of Contents}}
-	\LOTHeading{\MakeUppercase{List of Tables}}
-	\LOFHeading{\MakeUppercase{List of Figures}}
-	\tableofcontents 
-	\listoftables 
-	\listoffigures
+	\iffinal
+		%-----------------------------------------------------------------------------
+		% Acknowledgements
+		%-----------------------------------------------------------------------------
+		
+		%\SetAcknowledgeName{\MakeUppercase{Acknowledgements}}
+		%\SetAcknowledgeText{
+		%I would like to thank my feet for all their support, my arms for always being by my side and my fingers, who I can always count on.
+		%}
+		%
+		%\Acknowledge
+		
+		%-----------------------------------------------------------------------------
+		%         English Abstract
+		%-----------------------------------------------------------------------------
+		
+		\SetAbstractEnName{\MakeUppercase{Abstract}}%
+		\SetAbstractEnText{ 
+		}
+		\AbstractEn%
+		
+		%-----------------------------------------------------------------------------
+		%         French Abstract
+		%-----------------------------------------------------------------------------
+		
+		\SetAbstractFrName{\MakeUppercase{ABR\'{E}G\'{E}}}%
+		\SetAbstractFrText{ 
+		}
+		\AbstractFr%
+		
+		%-----------------------------------------------------------------------------
+		% Tables
+		%-----------------------------------------------------------------------------
+		
+		\TOCHeading{\MakeUppercase{Table of Contents}}
+		\LOTHeading{\MakeUppercase{List of Tables}}
+		\LOFHeading{\MakeUppercase{List of Figures}}
+		\tableofcontents 
+		\listoftables 
+		\listoffigures
+	\else
+		% Not the final version? Only show TOC (skip list of figures, tables, abstract, etc.)
+		\TOCHeading{\MakeUppercase{Table of Contents}}
+		\tableofcontents 
+	\fi
 	
 	\end{romanPagenumber}
 
@@ -162,13 +167,15 @@
 	%-----------------------------------------------------------------------------
 	% Appendices
 	%-----------------------------------------------------------------------------
-	\ETDAppendix{Appendix A}{ \include{appendix/algorithm_details} }%
+	%\ETDAppendix{Appendix A}{ \include{appendix/algorithm_details} }%
 \else
 	% Skip all appendices and bibliography
 \fi
 	
 %-----------------------------------------------------------------------------
-% Bibliography. You need to run the following command: "bibtex thesis_mcgill"
+% Bibliography. You need to run the following 
+% command: 
+%       bibtex thesis_mcgill
 %-----------------------------------------------------------------------------
 \bibHeading{References}
 \bibliographystyle{plain}

@@ -6,7 +6,6 @@ A level-1 auxiliary file: chapters/bds.aux
 A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
 A level-1 auxiliary file: chapters/conclusions.aux
-A level-1 auxiliary file: appendix/algorithm_details.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
 Repeated entry---line 793 of file mcgilletd.bib
@@ -100,7 +99,7 @@ I'm skipping whatever remains of this entry
 Warning--empty journal in schneider2013genome
 You've used 151 entries,
             2118 wiz_defined-function locations,
-            1284 strings with 36453 characters,
+            1283 strings with 36423 characters,
 and the built_in function-call counts, 65370 in all, are:
 = -- 6132
 > -- 4533

@@ -75,7 +75,7 @@ In recent years, over 80 genetic loci related to T2D have been identified \cite{
 We all know that ``tall parents tend to have tall children", which is an informal way to say that height is a highly heritable trait. It is said that there are 30 cm from the tallest 5\% to the shortest 5\% of the population and genetics are accountable for 80\% to 90\% of this variation, which means that 27cm of variance are assumed to be ``carried" by DNA variants from parents to offspring. Since 2010 the GIANT consortia has been investigating the genetic component of complex traits like height, body mass index (BMI) and waist to hip ratio (WHR). Even though they found many variants associated those traits, their findings only explain 10\% of the phenotypic variance which corresponds to only a few centimeters in height \cite{wood2014defining}.
 
 In order to calculate heritability, we need to be able to measure it, so we need a formal definition. Heritability is defined as the proportion of phenotypic variance that is attributed to genetic variations. The total phenotypic variation is assumed to be caused by a combination of ``environmental" and genetic variations $Var[P] = Var[G] + Var[E] + 2 Cov[G, E]$ 
-\ifthesis
+\iffinal
 \footnote{Although the referenced paper's notation does not seem absolutely consistent, we quote Emerson \textit{``A foolish consistency is the hobgoblin of little minds"} and proceed...}
 \fi
 .
@@ -295,86 +295,91 @@ Although all these models have advantages under some assumptions, none of them s
 The original research presented in this thesis covers topics related to the computational and statistical methodologies related to the analysis of sequencing variants to unveil genetic links to complex disease. Broadly speaking, we address three types of problems: (i) Data processing of large datasets from high throughput biological experiments such as resequencing in the context of a GWAS (Chapter 2); (ii) functional annotations, i.e. calculating variant’s impact at molecular, cellular or even clinical level (Chapter 3); (iii) identification of genetic risk factors for complex disease using models that combine population-level and evolutionary-level data to detect putative epistatic interactions (Chapter 4). It should be pointed out that the chapters are ordered similar to the analysis steps we used when analyzing our data for type II diabetes, starting from raw sequencing data and ending with GWAS analysis. When applicable, background material specific to each chapter is presented in a preface, together with an explanation of how that chapter ties in with the rest of the thesis.
 
 This thesis comprises text and figures of scientific articles which have either been published, submitted for publication, or ready to be submitted (waiting upon data embargo restrictions):
+\\
 
 \begin{description}
 	
-	\item[Chapter 2] For this paper, PC conceptualized the idea and performed the language design and implementation. RS \& MB helped in designing robustness testing procedures. PC, RS \& MB wrote the manuscript. 
+	\item[Chapter 2] ~ 
 	
-	
-		\begin{itemize}
+		\begin{enumerate}[resume]
 		\item \textbf{Cingolani, Pablo}, Rob Sladek, and Mathieu Blanchette. ``BigDataScript: a scripting language for data pipelines." Bioinformatics 31.1 (2015): 10-16.
-		\end{itemize}
+		\end{enumerate}
+
+		For this paper, PC conceptualized the idea and performed the language design and implementation. RS \& MB helped in designing robustness testing procedures. PC, RS \& MB wrote the manuscript.
+		\\
 	
+	\item[Chapter 3] ~
 	
-	\item[Chapter 3] For this paper, PC designed, implemented and tested SnpEff \& SnpSift. RS \& MB suggested several extensions for common research use cases. PC, RS \& MB wrote the manuscript. The manuscript was submitted to Nature Protocols, and the editor suggested for it to be published after the main T2D paper is accepted for publication (see next paragraph).
-	
-		\begin{itemize}
-		\item \textbf{Cingolani, Pablo}, Rob Sladek, and Mathieu Blanchette. ``Genomic variant annotation and prioritization" Ready for submission (waiting on consortia paper submission).
-		\end{itemize}
-	
-	The following studies are T2D (type II diabetes) consortia projects which used SnpEff and SnpSift extensibly, several modules were designed with these projects in mind. This are part of a large consortia involving several institutions:
-	
-		\begin{itemize}
+		\begin{enumerate}[resume]
+			\item \textbf{Cingolani, Pablo}, Rob Sladek, and Mathieu Blanchette. ``Genomic variant annotation and prioritization" Ready for submission (waiting on consortia paper submission).
+		\end{enumerate}
 		
-		\item McCarthy M., et al (T2D Genes Consortia). ``Variation in protein-coding sequence and predisposition to type 2 diabetes", Ready for submission.
-		
-		\item Mahajan, Anubha, et al. ``Identification and Functional Characterization of G6PC2 Coding Variants Influencing Glycemic Traits Define an Effector Transcript at the G6PC2-ABCB11 Locus." PLoS genetics 11.1 (2015): e1004876-e1004876.
-		
-		\end{itemize}
+		For this paper, PC designed, implemented and tested SnpEff \& SnpSift. RS \& MB suggested several extensions for common research use cases. PC, RS \& MB wrote the manuscript. The manuscript was submitted to Nature Protocols, and the editor suggested for it to be published after the main T2D paper is accepted for publication (see next paragraph).
+		\\
+
+		The following studies are T2D (type II diabetes) consortia projects which used SnpEff and SnpSift extensibly, several modules were designed with these projects in mind. This are part of a large consortia involving several institutions:
 	
-	The original SnpEff and SnpSift publications are provided in the appendices:
-	
-		\begin{itemize}
+		\begin{enumerate}[resume]
 		
-		\item \textbf{Cingolani, Pablo}, et al. ``A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3." Fly 6.2 (2012): 80-92.
+			\item McCarthy M., et al (T2D Genes Consortia). ``Variation in protein-coding sequence and predisposition to type 2 diabetes", Ready for submission.
+			
+			\item Mahajan, Anubha, et al. ``Identification and Functional Characterization of G6PC2 Coding Variants Influencing Glycemic Traits Define an Effector Transcript at the G6PC2-ABCB11 Locus." PLoS genetics 11.1 (2015): e1004876-e1004876.
 		
-		\item \textbf{Cingolani, Pablo}, et al. ``Using Drosophila melanogaster as a model for genotoxic chemical mutational studies with a new program, SnpSift." Toxicogenomics in non-mammalian species (2012): 92.
+		\end{enumerate}
+	
+		The original SnpEff and SnpSift publications are provided in the appendices:
+	
+		\begin{enumerate}[resume]
 		
-		\end{itemize}
+			\item \textbf{Cingolani, Pablo}, et al. ``A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain w1118; iso-2; iso-3." Fly 6.2 (2012): 80-92.
+			
+			\item \textbf{Cingolani, Pablo}, et al. ``Using Drosophila melanogaster as a model for genotoxic chemical mutational studies with a new program, SnpSift." Toxicogenomics in non-mammalian species (2012): 92.
+		
+		\end{enumerate}
+		~ \\
 	
+	\item[Chapter 4] ~
 	
-	\item[Chapter 4] For this paper, PC designed the methodology under the supervision of MB and RS. PC implemented the algorithms. PC, RS \& MB wrote the manuscript. This work uses data from the T2D consortia, thus it cannot be published until the main T2D paper is accepted for publication (according to T2D data embargo).
-	
-		\begin{itemize}
+		\begin{enumerate}[resume]
 		\item \textbf{Cingolani, Pablo}, Rob Sladek, and Mathieu Blanchette. ``A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies" Ready for submission (data embargo restrictions).
-		\end{itemize}
+		\end{enumerate}
 	
+		For this paper, PC designed the methodology under the supervision of MB and RS. PC implemented the algorithms. PC, RS \& MB wrote the manuscript. This work uses data from the T2D consortia, thus it cannot be published until the main T2D paper is accepted for publication (according to T2D data embargo).
+		\\
 	
-\end{description}
+	\item[Other contributions] ~	\linebreak
+		Other scientific articles (grouped by topic) published, submitted for publication, or ready to be submitted, not mentioned in this thesis:
+		\\
 
-\subsection{Other contributions}
+	\item[Epigenetics] ~
 
-Other scientific articles (grouped by topic) published, submitted for publication, or ready to be submitted, not mentioned in this thesis:
-
-\begin{description}
-
-	\item Epigenetics 
-
-	\begin{itemize}
-		\item \textbf{Cingolani, Pablo}, et al. ``Intronic Non-CG DNA hydroxymethylation and alternative mRNA splicing in honey bees." BMC genomics 14.1 (2013): 666.
-		\item Senut, Marie-Claude, et al. ``Lead exposure disrupts global DNA methylation in human embryonic stem cells and alters their neuronal differentiation." Toxicological Sciences (2014).
-		\item Ruden D., ``Epigenetics as an answer to Darwin’s ‘special difficulty’ Part 2: Natural selection of metastable epialleles in honeybee castes", Submitted.
-		\item Arko S, et al. ``Lead exposure induces changes in 5-hydroxymethylcytosine clusters in CpG islands in human embryonic stem cells and umbilical cord blood", Submitted.
-		\item Senut, Marie-Claude, et al. ``Epigenetics of early-life lead exposure and effects on brain development." Epigenomics 4.6 (2012): 665-674.
-	\end{itemize}	
+		\begin{enumerate}[resume]
+			\item \textbf{Cingolani, Pablo}, et al. ``Intronic Non-CG DNA hydroxymethylation and alternative mRNA splicing in honey bees." BMC genomics 14.1 (2013): 666.
+			\item Senut, Marie-Claude, et al. ``Lead exposure disrupts global DNA methylation in human embryonic stem cells and alters their neuronal differentiation." Toxicological Sciences (2014).
+			\item Ruden D., ``Epigenetics as an answer to Darwin’s ‘special difficulty’ Part 2: Natural selection of metastable epialleles in honeybee castes", Submitted.
+			\item Arko S, et al. ``Lead exposure induces changes in 5-hydroxymethylcytosine clusters in CpG islands in human embryonic stem cells and umbilical cord blood", Submitted.
+			\item Senut, Marie-Claude, et al. ``Epigenetics of early-life lead exposure and effects on brain development." Epigenomics 4.6 (2012): 665-674.
+		\end{enumerate}
+		~ \\
 	
-	\item GWAS \& Disease 
+	\item[GWAS \& Disease] ~
 	
-	\begin{itemize}
-		\item Oualkacha, Karim, et al. ``Adjusted sequence kernel association test for rare variants controlling for cryptic and family relatedness." Genetic epidemiology 37.4 (2013): 366-376.
-		\item Bongfen, Silayuv E., et al. ``An N-ethyl-N-nitrosourea (ENU)-induced dominant negative mutation in the JAK3 kinase protects against cerebral malaria." PloS one 7.2 (2012): e31012.
-		\item Hawn, Thomas R., et al. ``Host-directed therapeutics for tuberculosis: can we harness the host?." Microbiology and Molecular Biology Reviews 77.4 (2013): 608-627.
-		\item Meunier, Charles, et al. ``Positional mapping and candidate gene analysis of the mouse Ccs3 locus that regulates differential susceptibility to carcinogen-induced colorectal cancer." PloS one 8.3 (2013): e58733.
-		\item Caignard, Grégory, et al. ``Genome-wide mouse mutagenesis reveals CD45-mediated T cell function as critical in protective immunity to HSV-1." PLoS pathogens 9.9 (2013): e1003637.
-		\item Bouttier M., et al. ``Genomics analysis reveals elevated LXRα signaling reduces M. tuberculosis viability", Submitted.
-		\item Bouttier M., et al. ``Genomic analysis of enhancers engaged in M. tuberculosis-infected macrophages reveals that LXR signaling reduces mycobacterial burden", Submitted.
-	\end{itemize}	
+		\begin{enumerate}[resume]
+			\item Oualkacha, Karim, et al. ``Adjusted sequence kernel association test for rare variants controlling for cryptic and family relatedness." Genetic epidemiology 37.4 (2013): 366-376.
+			\item Bongfen, Silayuv E., et al. ``An N-ethyl-N-nitrosourea (ENU)-induced dominant negative mutation in the JAK3 kinase protects against cerebral malaria." PloS one 7.2 (2012): e31012.
+			\item Hawn, Thomas R., et al. ``Host-directed therapeutics for tuberculosis: can we harness the host?." Microbiology and Molecular Biology Reviews 77.4 (2013): 608-627.
+			\item Meunier, Charles, et al. ``Positional mapping and candidate gene analysis of the mouse Ccs3 locus that regulates differential susceptibility to carcinogen-induced colorectal cancer." PloS one 8.3 (2013): e58733.
+			\item Caignard, Grégory, et al. ``Genome-wide mouse mutagenesis reveals CD45-mediated T cell function as critical in protective immunity to HSV-1." PLoS pathogens 9.9 (2013): e1003637.
+			\item Bouttier M., et al. ``Genomics analysis reveals elevated LXRα signaling reduces M. tuberculosis viability", Submitted.
+			\item Bouttier M., et al. ``Genomic analysis of enhancers engaged in M. tuberculosis-infected macrophages reveals that LXR signaling reduces mycobacterial burden", Submitted.
+		\end{enumerate}	
+		~ \\
 	
-	\item Other 
+	\item[Other] ~
 
-	\begin{itemize}
-		\item \textbf{Cingolani, Pablo}, and Jesus Alcala-Fdez. ``jFuzzyLogic: a robust and flexible Fuzzy-Logic inference system language implementation." FUZZ-IEEE. 2012.
-		\item \textbf{Cingolani, Pablo}, and Jesús Alcalá-Fdez. ``jFuzzyLogic: a java library to design fuzzy logic controllers according to the standard for fuzzy control programming."International Journal of Computational Intelligence Systems 
-	\end{itemize}	
+		\begin{enumerate}[resume]
+			\item \textbf{Cingolani, Pablo}, and Jesus Alcala-Fdez. ``jFuzzyLogic: a robust and flexible Fuzzy-Logic inference system language implementation." FUZZ-IEEE. 2012.
+			\item \textbf{Cingolani, Pablo}, and Jesús Alcalá-Fdez. ``jFuzzyLogic: a java library to design fuzzy logic controllers according to the standard for fuzzy control programming."International Journal of Computational Intelligence Systems 
+		\end{enumerate}	
 
 \end{description}
