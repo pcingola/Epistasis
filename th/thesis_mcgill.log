@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 MAR 2015 09:44
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  1 MAR 2015 09:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -818,7 +818,12 @@ File: bds_figure_3_small.png Graphic file (type png)
 
 <use bds_figure_3_small.png>
 Package pdftex.def Info: bds_figure_3_small.png used on input line 132.
-(pdftex.def)             Requested size: 341.43306pt x 492.4376pt.
+(pdftex.def)             Requested size: 398.33858pt x 574.51897pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 132--133
+ [][] 
+ []
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -837,8 +842,12 @@ File: bds_figure_1_small.png Graphic file (type png)
 
 <use bds_figure_1_small.png>
 Package pdftex.def Info: bds_figure_1_small.png used on input line 149.
-(pdftex.def)             Requested size: 341.43306pt x 243.88004pt.
- [51 <./bds_figure_1_small.png>]
+(pdftex.def)             Requested size: 398.33858pt x 284.53246pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 149--150
+ [][] 
+ []
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -854,25 +863,31 @@ Overfull \hbox (40.15758pt too wide) in paragraph at lines 160--161
 urce code (https://github.com/pcingola/
  []
 
-<bds_figure_2_small.png, id=190, 2489.3pt x 2434.09375pt>
+<bds_figure_2_small.png, id=187, 2489.3pt x 2434.09375pt>
 File: bds_figure_2_small.png Graphic file (type png)
 
 <use bds_figure_2_small.png>
 Package pdftex.def Info: bds_figure_2_small.png used on input line 164.
-(pdftex.def)             Requested size: 341.43306pt x 333.86253pt.
+(pdftex.def)             Requested size: 398.33858pt x 389.5001pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 164--165
+ [][] 
+ []
+
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
+[51] [52 <./bds_figure_1_small.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [52] [53 <./bds_figure_2_small.png>]
+ [53 <./bds_figure_2_small.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -901,15 +916,14 @@ Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
-[54 <./bds_table_1.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [55 <./bds_table_2.png>]) [56]
+
+[54] [55 <./bds_table_1.png> <./bds_table_2.png>]) [56]
 \openout2 = `chapters/snpeff.aux'.
 
  (./chapters/snpeff.tex
@@ -1427,7 +1441,7 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (130 pages, 1608192 bytes).
+Output written on thesis_mcgill.pdf (130 pages, 1608214 bytes).
 PDF statistics:
  501 PDF objects out of 1000 (max. 8388607)
  334 compressed objects within 4 object streams

@@ -42,8 +42,8 @@
 \contentsline {paragraph}{Automatic command line parsing.}{47}
 \contentsline {paragraph}{Task re-execution.}{47}
 \contentsline {subsection}{\numberline {2.3.5}BDS implementation}{47}
-\contentsline {section}{\numberline {2.4}Results}{52}
-\contentsline {paragraph}{Architecture independence.}{52}
+\contentsline {section}{\numberline {2.4}Results}{51}
+\contentsline {paragraph}{Architecture independence.}{53}
 \contentsline {paragraph}{Robustness.}{54}
 \contentsline {paragraph}{Scalability.}{54}
 \contentsline {section}{\numberline {2.5}Discussion}{55}
