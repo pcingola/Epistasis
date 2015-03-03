@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  3 MAR 2015 14:03
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  3 MAR 2015 14:12
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -5350,13 +5350,292 @@ Overfull \hbox (20.0pt too wide) in paragraph at lines 31--32
  []
 
 
+! LaTeX Error: Environment figure undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.33 \begin{figure}
+                   
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Undefined control sequence.
+l.35     \includegraphics
+                         [width=14cm]{snpeff_table1.png}
+The control sequence at the end of the top line
+of your error message was never \def'ed. If you have
+misspelled it (e.g., `\hobx'), type `I' and the correct
+spelling (e.g., `I\hbox'). Otherwise just continue,
+and I'll forget about whatever was undefined.
+
+
 ! LaTeX Error: Missing \begin{document}.
 
 See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.33 A
+l.35     \includegraphics[
+                          width=14cm]{snpeff_table1.png}
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+Missing character: There is no [ in font nullfont!
+Missing character: There is no w in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no = in font nullfont!
+Missing character: There is no 1 in font nullfont!
+Missing character: There is no 4 in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no m in font nullfont!
+Missing character: There is no ] in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no f in font nullfont!
+Missing character: There is no f in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.35     \includegraphics[width=14cm]{snpeff_
+                                             table1.png}
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+l.35 ...udegraphics[width=14cm]{snpeff_table1.png}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+
+! LaTeX Error: \caption outside float.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.36     \caption
+                 {# SNP, a description of the single nucleotide polymorphism...
+
+You're in trouble here.  Try typing  <return>  to proceed.
+If that doesn't work, type  X <return>  to quit.
+
+! You can't use `macro parameter character #' in math mode.
+l.36     \caption{#
+                    SNP, a description of the single nucleotide polymorphism...
+Sorry, but I'm not programmed to handle this case;
+I'll just pretend that you didn't ask for it.
+If you're in the wrong mode, you might be able to
+return to the right one by typing `I}' or `I$' or `I\par'.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.37 ...C/T indicates that C is replaced by T in $
+                                                  w^{1118}$ ; iso-2; iso-3 a...
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+Missing character: There is no w in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...T indicates that C is replaced by T in $w^
+                                                  {1118}$ ; iso-2; iso-3 at ...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no ; in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no 3 in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no h in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no p in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no G in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no e in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.37 ...}$ ; iso-2; iso-3 at this position). Gene_
+                                                  name, official gene symbol...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no w in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...ns a SNP, the old (reference) and new ($w^
+                                                  {1118}$ ; iso-2; iso-3) co...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+Missing character: There is no ; in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no 2 in font nullfont!
+Missing character: There is no ; in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no - in font nullfont!
+Missing character: There is no 3 in font nullfont!
+Missing character: There is no ) in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no s in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no r in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no n in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no i in font nullfont!
+Missing character: There is no c in font nullfont!
+Missing character: There is no a in font nullfont!
+Missing character: There is no t in font nullfont!
+Missing character: There is no e in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no . in font nullfont!
+Missing character: There is no C in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no d in font nullfont!
+Missing character: There is no o in font nullfont!
+Missing character: There is no n in font nullfont!
+! Missing $ inserted.
+<inserted text> 
+                $
+l.38 ...iso-2; iso-3) codons are indicated. Codon_
+                                                  Num (CDS), the codon numbe...
+I've inserted a begin-math/end-math symbol since I think
+you left one out. Proceed, with fingers crossed.
+
+! Extra }, or forgotten $.
+l.39 ..., the size of the protein in amino acids.}
+                                                  
+I've deleted a group-closing symbol because it seems to be
+spurious, as in `$x}$'. But perhaps the } is legitimate and
+you forgot something else, as in `\hbox{$x}'. In such cases
+the way to recover is to insert both the forgotten and the
+deleted material, e.g., by typing `I$}'.
+
+
+! LaTeX Error: \begin{document} ended by \end{figure}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.41 \end{figure}
+                 
+Your command was ignored.
+Type  I <command> <return>  to replace it with another command,
+or  <return>  to continue without it.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.41 \end{figure}
+                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+! Missing } inserted.
+<inserted text> 
+                }
+l.41 \end{figure}
+                 
+I've inserted something that you may have forgotten.
+(See the <inserted text> above.)
+With luck, this will get me unwedged. But if you
+really didn't forget anything, try typing `2' now; then
+my insertion and my current dilemma will both disappear.
+
+
+Overfull \hbox (927.15836pt too wide) in paragraph at lines 35--42
+[]$[]\OML/cmm/m/it/10 able\/cmr/m/n/10 1\OML/cmm/m/it/10 :png[]$$[]$
+ []
+
+
+Overfull \hbox (499.98175pt too wide) in paragraph at lines 35--42
+[]\OML/cmm/m/it/10 ame; officialgenesymbolofgene:Effect; descriptionofSNP\/cmr/
+m/n/10 (\OML/cmm/m/it/10 e:g:; upstreamoftranscriptionstartsiteatposition \OMS/
+cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (366.21153pt too wide) in paragraph at lines 35--42
+\/cmr/m/n/10 541)\OML/cmm/m/it/10 :Old[]A=new=AA; aminoacidchange; ifany; inone
+lettercode:Old[]odon=New[]o \OMS/cmsy/m/n/10 ^^@
+ []
+
+
+Overfull \hbox (265.36076pt too wide) in paragraph at lines 35--42
+\OML/cmm/m/it/10 don; ifacodoncontainsaSNP; theold\/cmr/m/n/10 (\OML/cmm/m/it/1
+0 reference\/cmr/m/n/10 )\OML/cmm/m/it/10 andnew\/cmr/m/n/10 ($$[]$
+ []
+
+
+Overfull \hbox (455.10109pt too wide) in paragraph at lines 35--42
+[]\OML/cmm/m/it/10 um\/cmr/m/n/10 (\OML/cmm/m/it/10 CDS\/cmr/m/n/10 )\OML/cmm/m
+/it/10 ; thecodonnumberofthecodingsequence\/cmr/m/n/10 (\OML/cmm/m/it/10 CDS\/c
+mr/m/n/10 )\OML/cmm/m/it/10 :CDS[]ize; thesizeoftheproteininaminoacids:[]$ 
+ []
+
+
+! LaTeX Error: Missing \begin{document}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.43 A
        simple walk-through example on how to analyze sequencing data to calc...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -5657,7 +5936,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 33--34
+Overfull \hbox (20.0pt too wide) in paragraph at lines 43--44
 []
  []
 
@@ -5668,7 +5947,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.35 H
+l.45 H
       ere, we report the results of SnpEff (version 1.9.6) analyses of the \...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -6179,27 +6458,27 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 35--36
+Overfull \hbox (20.0pt too wide) in paragraph at lines 45--46
 []
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 35--36
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 45--46
 []\/cmr/m/n/10 3
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 35--36
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 45--46
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 35--36
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 45--46
 \OML/cmm/m/it/10 w[]$
  []
 
 ! Undefined control sequence.
-l.38 \section
+l.48 \section
              {Results}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -6214,7 +6493,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.38 \section{R
+l.48 \section{R
                esults}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -6227,7 +6506,7 @@ Missing character: There is no l in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 38--40
+Overfull \hbox (20.0pt too wide) in paragraph at lines 48--50
 [] 
  []
 
@@ -6238,7 +6517,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.41 \textbf{Formats used in SnpEff.}
+l.51 \textbf{Formats used in SnpEff.}
                                       To understand the potential effects of...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -6956,37 +7235,37 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 Missing character: There is no 8 in font nullfont!
 
-Overfull \hbox (60.94559pt too wide) in paragraph at lines 41--42
+Overfull \hbox (60.94559pt too wide) in paragraph at lines 51--52
 []\OT1/cmr/bx/n/10 Formats
  []
 
 
-Overfull \hbox (22.5846pt too wide) in paragraph at lines 41--42
+Overfull \hbox (22.5846pt too wide) in paragraph at lines 51--52
 \OT1/cmr/bx/n/10 used
  []
 
 
-Overfull \hbox (9.58328pt too wide) in paragraph at lines 41--42
+Overfull \hbox (9.58328pt too wide) in paragraph at lines 51--52
 \OT1/cmr/bx/n/10 in
  []
 
 
-Overfull \hbox (36.6248pt too wide) in paragraph at lines 41--42
+Overfull \hbox (36.6248pt too wide) in paragraph at lines 51--52
 \OT1/cmr/bx/n/10 SnpEff.
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 41--42
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 51--52
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 41--42
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 51--52
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 41--42
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 51--52
 []\/cmr/m/n/10 2
  []
 
@@ -6997,7 +7276,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.43 I
+l.53 I
       nput formats supported by SnpEff are variant call format (VCF), 9 tab ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -7099,7 +7378,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no l in font nullfont!
 Missing character: There is no s in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 43--44
+Overfull \hbox (20.0pt too wide) in paragraph at lines 53--54
 []
  []
 
@@ -7110,7 +7389,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.45 P
+l.55 P
       ileup format. 8 VCF was created by the 1,000 Genomes project and it is...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -7300,7 +7579,7 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 45--46
+Overfull \hbox (20.0pt too wide) in paragraph at lines 55--56
 []
  []
 
@@ -7311,7 +7590,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.47 S
+l.57 S
       npEff also supports two output formats, TXT and VCF. The information p...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -7723,7 +8002,7 @@ Missing character: There is no . in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 47--48
+Overfull \hbox (20.0pt too wide) in paragraph at lines 57--58
 []
  []
 
@@ -7734,7 +8013,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.49 W
+l.59 W
       henever multiple transcripts for a gene exist, the effect and annotati...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -8275,12 +8554,12 @@ Missing character: There is no 3 in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 49--50
+Overfull \hbox (20.0pt too wide) in paragraph at lines 59--60
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 49--50
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 59--60
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -8291,7 +8570,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.51 P
+l.61 P
       redicted effects are with respect to protein coding genes.  Variants a...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -8526,7 +8805,7 @@ Missing character: There is no p in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 51--52
+Overfull \hbox (20.0pt too wide) in paragraph at lines 61--62
 []
  []
 
@@ -8537,7 +8816,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.53 A
+l.63 A
       ccording to SnpEff (version 1.9.6), the largest number of SNPs in $w^{...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -9298,12 +9577,12 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 53--54
+Overfull \hbox (20.0pt too wide) in paragraph at lines 63--64
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 53--54
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 63--64
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -9314,7 +9593,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.55 H
+l.65 H
       eterozygosity is not considered in the $w^{1118}$ ; iso-2; iso-3 seque...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -9467,12 +9746,12 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 Missing character: There is no 1 in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 55--56
+Overfull \hbox (20.0pt too wide) in paragraph at lines 65--66
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 55--56
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 65--66
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -9483,7 +9762,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.57 T
+l.67 T
       he SnpEff website (http://snpeff.sourceforge.net/SnpSift.  html) has a...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -9654,7 +9933,7 @@ Missing character: There is no a in font nullfont!
 Missing character: There is no m in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 57--58
+Overfull \hbox (20.0pt too wide) in paragraph at lines 67--68
 []
  []
 
@@ -9665,7 +9944,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.59 \textbf{SNPs that generate new start codons.}
+l.69 \textbf{SNPs that generate new start codons.}
                                                    There are 297 SNPs that p...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -10987,52 +11266,52 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (47.78595pt too wide) in paragraph at lines 59--60
+Overfull \hbox (47.78595pt too wide) in paragraph at lines 69--70
 []\OT1/cmr/bx/n/10 SNPs
  []
 
 
-Overfull \hbox (20.92348pt too wide) in paragraph at lines 59--60
+Overfull \hbox (20.92348pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 that
  []
 
 
-Overfull \hbox (21.24295pt too wide) in paragraph at lines 59--60
+Overfull \hbox (21.24295pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 gen-
  []
 
 
-Overfull \hbox (13.84023pt too wide) in paragraph at lines 59--60
+Overfull \hbox (13.84023pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 er-
  []
 
 
-Overfull \hbox (15.33324pt too wide) in paragraph at lines 59--60
+Overfull \hbox (15.33324pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 ate
  []
 
 
-Overfull \hbox (19.96518pt too wide) in paragraph at lines 59--60
+Overfull \hbox (19.96518pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 new
  []
 
 
-Overfull \hbox (23.8068pt too wide) in paragraph at lines 59--60
+Overfull \hbox (23.8068pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 start
  []
 
 
-Overfull \hbox (37.43867pt too wide) in paragraph at lines 59--60
+Overfull \hbox (37.43867pt too wide) in paragraph at lines 69--70
 \OT1/cmr/bx/n/10 codons.
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 59--60
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 69--70
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 59--60
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 69--70
 []\/cmr/m/n/10 2
  []
 
@@ -11043,7 +11322,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.61 G
+l.71 G
       ene ontology (GO) pathway analysis of the genes affected by the 297 st...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -11904,12 +12183,12 @@ Missing character: There is no , in font nullfont!
 Missing character: There is no 1 in font nullfont!
 Missing character: There is no 7 in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 61--62
+Overfull \hbox (20.0pt too wide) in paragraph at lines 71--72
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 61--62
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 71--72
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -11920,7 +12199,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.63 O
+l.73 O
       ur previous analyses suggest that most of the SNPs that we identified ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -12681,12 +12960,12 @@ Missing character: There is no g in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 63--64
+Overfull \hbox (20.0pt too wide) in paragraph at lines 73--74
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 63--64
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 73--74
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -12697,7 +12976,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.65 A
+l.75 A
       n example of a start-gained SNP is found in the 5' UTR of Ecdysone ind...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -13381,7 +13660,7 @@ Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 65--66
+Overfull \hbox (20.0pt too wide) in paragraph at lines 75--76
 []
  []
 
@@ -13392,7 +13671,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.67 I
+l.77 I
       t is interesting that a BLASTp search of the protein database reveals ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -13833,7 +14112,7 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 67--68
+Overfull \hbox (20.0pt too wide) in paragraph at lines 77--78
 []
  []
 
@@ -13844,7 +14123,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.69 \textbf{SNPs that generate new stop codons.}
+l.79 \textbf{SNPs that generate new stop codons.}
                                                   Another surprise in our Sn...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -14604,52 +14883,52 @@ Missing character: There is no w in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (47.78595pt too wide) in paragraph at lines 69--70
+Overfull \hbox (47.78595pt too wide) in paragraph at lines 79--80
 []\OT1/cmr/bx/n/10 SNPs
  []
 
 
-Overfull \hbox (20.92348pt too wide) in paragraph at lines 69--70
+Overfull \hbox (20.92348pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 that
  []
 
 
-Overfull \hbox (21.24295pt too wide) in paragraph at lines 69--70
+Overfull \hbox (21.24295pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 gen-
  []
 
 
-Overfull \hbox (13.84023pt too wide) in paragraph at lines 69--70
+Overfull \hbox (13.84023pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 er-
  []
 
 
-Overfull \hbox (15.33324pt too wide) in paragraph at lines 69--70
+Overfull \hbox (15.33324pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 ate
  []
 
 
-Overfull \hbox (19.96518pt too wide) in paragraph at lines 69--70
+Overfull \hbox (19.96518pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 new
  []
 
 
-Overfull \hbox (21.1471pt too wide) in paragraph at lines 69--70
+Overfull \hbox (21.1471pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 stop
  []
 
 
-Overfull \hbox (37.43867pt too wide) in paragraph at lines 69--70
+Overfull \hbox (37.43867pt too wide) in paragraph at lines 79--80
 \OT1/cmr/bx/n/10 codons.
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 69--70
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 79--80
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 69--70
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 79--80
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -14660,7 +14939,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.71 A
+l.81 A
       n important consideration with stop-gained and stop-lost SNPs is wheth...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -16012,7 +16291,7 @@ Missing character: There is no s in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 71--72
+Overfull \hbox (20.0pt too wide) in paragraph at lines 81--82
 []
  []
 
@@ -16023,7 +16302,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.73 A
+l.83 A
       n example of an essential protein-coding gene in Category 4, where the...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -16973,17 +17252,17 @@ Missing character: There is no 6 in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 73--74
+Overfull \hbox (20.0pt too wide) in paragraph at lines 83--84
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 73--74
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 83--84
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 73--74
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 83--84
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -16994,7 +17273,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.75 A
+l.85 A
       n example of a stop-lost gene in class c, where the C-terminus is not ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -17637,12 +17916,12 @@ Missing character: There is no u in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 75--76
+Overfull \hbox (20.0pt too wide) in paragraph at lines 85--86
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 75--76
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 85--86
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -17653,7 +17932,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.77 T
+l.87 T
       here are also five stop-lost SNPs in $w^{1118}$ ; iso-2; iso-3 (Table ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -18560,12 +18839,12 @@ Missing character: There is no m in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 77--78
+Overfull \hbox (20.0pt too wide) in paragraph at lines 87--88
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 77--78
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 87--88
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -18576,7 +18855,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.79 N
+l.89 N
       ot much is known about the functions of several genes with in-frame st...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -19205,7 +19484,7 @@ Missing character: There is no . in font nullfont!
 Missing character: There is no 3 in font nullfont!
 Missing character: There is no 0 in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 79--80
+Overfull \hbox (20.0pt too wide) in paragraph at lines 89--90
 []
  []
 
@@ -19216,7 +19495,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.81 S
+l.91 S
       ome of the stop-lost SNPs have interesting consequences. For example, ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -19677,17 +19956,17 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 81--82
+Overfull \hbox (20.0pt too wide) in paragraph at lines 91--92
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 81--82
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 91--92
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 81--82
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 91--92
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -19698,7 +19977,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.83 W
+l.93 W
       e found that CG13958 homologs have variable C-terminal amino acids in ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -20526,12 +20805,12 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 83--84
+Overfull \hbox (20.0pt too wide) in paragraph at lines 93--94
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 83--84
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 93--94
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -20542,7 +20821,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.85 S
+l.95 S
       ynonymous and non-synonymous SNPs in $w^{1118}$ ; iso-2; iso-3. There ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -21046,27 +21325,27 @@ Missing character: There is no 1 in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 85--86
+Overfull \hbox (20.0pt too wide) in paragraph at lines 95--96
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 85--86
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 95--96
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 85--86
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 95--96
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 85--86
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 95--96
 []\/cmr/m/n/10 0
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 85--86
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 95--96
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -21077,7 +21356,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.87 W
+l.97 W
       e examined the distribution of synonymous and nonsynonymous SNPs genom...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -21611,18 +21890,18 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 87--88
+Overfull \hbox (20.0pt too wide) in paragraph at lines 97--98
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 87--88
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 97--98
 \OML/cmm/m/it/10 w[]$
  []
 
 ! Undefined control sequence.
-l.90 \section
-             {Discussion}
+l.100 \section
+              {Discussion}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
 misspelled it (e.g., `\hobx'), type `I' and the correct
@@ -21636,8 +21915,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.90 \section{D
-               iscussion}
+l.100 \section{D
+                iscussion}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
 
@@ -21652,7 +21931,7 @@ Missing character: There is no i in font nullfont!
 Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 90--92
+Overfull \hbox (20.0pt too wide) in paragraph at lines 100--102
 [] 
  []
 
@@ -21663,8 +21942,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.93 I
-      n this paper, we used SnpEff to categorize the \~356,660 SNPs in $w^{1...
+l.103 I
+       n this paper, we used SnpEff to categorize the \~356,660 SNPs in $w^{...
 
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -22615,27 +22894,27 @@ Missing character: There is no . in font nullfont!
 Missing character: There is no 3 in font nullfont!
 Missing character: There is no 4 in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 93--94
+Overfull \hbox (20.0pt too wide) in paragraph at lines 103--104
 []
  []
 
 
-Overfull \hbox (5.00002pt too wide) in paragraph at lines 93--94
+Overfull \hbox (5.00002pt too wide) in paragraph at lines 103--104
 []\/cmr/m/n/10 3
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 93--94
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 103--104
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 93--94
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 103--104
 \OML/cmm/m/it/10 w[]$
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 93--94
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 103--104
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -22646,8 +22925,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.95 M
-      any of the stop-gained and stoplost SNPs in $w^{1118}$ ; iso-2; iso-3 ...
+l.105 M
+       any of the stop-gained and stoplost SNPs in $w^{1118}$ ; iso-2; iso-3...
 
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -23197,12 +23476,12 @@ Missing character: There is no . in font nullfont!
 Missing character: There is no 3 in font nullfont!
 Missing character: There is no 8 in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 95--96
+Overfull \hbox (20.0pt too wide) in paragraph at lines 105--106
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 95--96
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 105--106
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -23213,8 +23492,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.97 T
-      he stop-gained and stop-lost SNPs in essential genes, if they are vali...
+l.107 T
+       he stop-gained and stop-lost SNPs in essential genes, if they are val...
 
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -24495,7 +24774,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no , in font nullfont!
 Missing character: There is no a in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 97--98
+Overfull \hbox (20.0pt too wide) in paragraph at lines 107--108
 []
  []
 
@@ -24506,8 +24785,8 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.99 H
-      ow might prions be involved in revealing cryptic genetic stop-lost SNP...
+l.109 H
+       ow might prions be involved in revealing cryptic genetic stop-lost SN...
 
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -24984,7 +25263,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 99--100
+Overfull \hbox (20.0pt too wide) in paragraph at lines 109--110
 []
  []
 
@@ -24995,7 +25274,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.101 I
+l.111 I
        t is attractive to speculate that a similar prion-mediated evolutiona...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -25481,7 +25760,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 101--102
+Overfull \hbox (20.0pt too wide) in paragraph at lines 111--112
 []
  []
 
@@ -25492,7 +25771,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.103 T
+l.113 T
        he many potential start-gained SNPs in Drosophila might also have evo...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -26507,12 +26786,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 103--104
+Overfull \hbox (20.0pt too wide) in paragraph at lines 113--114
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 103--104
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 113--114
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -26523,7 +26802,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.105 F
+l.115 F
        inally, we recently upgraded SnpEff further by including over 320 dat...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -27104,12 +27383,12 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no r in font nullfont!
 Missing character: There is no y in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 105--106
+Overfull \hbox (20.0pt too wide) in paragraph at lines 115--116
 []
  []
 
 ! Undefined control sequence.
-l.108 \section
+l.118 \section
               {Methods}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -27124,7 +27403,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.108 \section{M
+l.118 \section{M
                 ethods}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -27137,7 +27416,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no s in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 108--110
+Overfull \hbox (20.0pt too wide) in paragraph at lines 118--120
 [] 
  []
 
@@ -27148,7 +27427,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.111 \textbf{SnpEff overview.}
+l.121 \textbf{SnpEff overview.}
                                 The program is divided in two main parts (i)...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -27607,12 +27886,12 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (53.43037pt too wide) in paragraph at lines 111--112
+Overfull \hbox (53.43037pt too wide) in paragraph at lines 121--122
 []\OT1/cmr/bx/n/10 SnpEff
  []
 
 
-Overfull \hbox (47.222pt too wide) in paragraph at lines 111--112
+Overfull \hbox (47.222pt too wide) in paragraph at lines 121--122
 \OT1/cmr/bx/n/10 overview.
  []
 
@@ -27623,7 +27902,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.113 P
+l.123 P
        art (ii) Effect calculations can be performed once the user has downl...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -28254,7 +28533,7 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 113--114
+Overfull \hbox (20.0pt too wide) in paragraph at lines 123--124
 []
  []
 
@@ -28265,7 +28544,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.115 \textbf{SnpEff algorithms.}
+l.125 \textbf{SnpEff algorithms.}
                                   In order to be able to process thousands o...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -28793,22 +29072,22 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (53.43037pt too wide) in paragraph at lines 115--116
+Overfull \hbox (53.43037pt too wide) in paragraph at lines 125--126
 []\OT1/cmr/bx/n/10 SnpEff
  []
 
 
-Overfull \hbox (12.61797pt too wide) in paragraph at lines 115--116
+Overfull \hbox (12.61797pt too wide) in paragraph at lines 125--126
 \OT1/cmr/bx/n/10 al-
  []
 
 
-Overfull \hbox (15.33325pt too wide) in paragraph at lines 115--116
+Overfull \hbox (15.33325pt too wide) in paragraph at lines 125--126
 \OT1/cmr/bx/n/10 go-
  []
 
 
-Overfull \hbox (36.10536pt too wide) in paragraph at lines 115--116
+Overfull \hbox (36.10536pt too wide) in paragraph at lines 125--126
 \OT1/cmr/bx/n/10 rithms.
  []
 
@@ -28819,7 +29098,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.117 Q
+l.127 Q
        uerying an interval tree requires O (log n + m) time, where n is the ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -29020,7 +29299,7 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 117--118
+Overfull \hbox (20.0pt too wide) in paragraph at lines 127--128
 []
  []
 
@@ -29031,7 +29310,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.119 I
+l.129 I
        n order to create this the interval forest, genomic information can b...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -29446,7 +29725,7 @@ Missing character: There is no B in font nullfont!
 Missing character: There is no L in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 119--120
+Overfull \hbox (20.0pt too wide) in paragraph at lines 129--130
 []
  []
 
@@ -29457,7 +29736,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.121 \textbf{SnpEff accuracy.}
+l.131 \textbf{SnpEff accuracy.}
                                 As part of our standard development cycle, w...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -29720,22 +29999,22 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no e in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (53.43037pt too wide) in paragraph at lines 121--122
+Overfull \hbox (53.43037pt too wide) in paragraph at lines 131--132
 []\OT1/cmr/bx/n/10 SnpEff
  []
 
 
-Overfull \hbox (14.53462pt too wide) in paragraph at lines 121--122
+Overfull \hbox (14.53462pt too wide) in paragraph at lines 131--132
 \OT1/cmr/bx/n/10 ac-
  []
 
 
-Overfull \hbox (15.33325pt too wide) in paragraph at lines 121--122
+Overfull \hbox (15.33325pt too wide) in paragraph at lines 131--132
 \OT1/cmr/bx/n/10 cu-
  []
 
 
-Overfull \hbox (23.74292pt too wide) in paragraph at lines 121--122
+Overfull \hbox (23.74292pt too wide) in paragraph at lines 131--132
 \OT1/cmr/bx/n/10 racy.
  []
 
@@ -29746,7 +30025,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.123 \textbf{SnpEff integration.}
+l.133 \textbf{SnpEff integration.}
                                    SnpEff provides integration with third pa...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -30069,27 +30348,27 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (53.43037pt too wide) in paragraph at lines 123--124
+Overfull \hbox (53.43037pt too wide) in paragraph at lines 133--134
 []\OT1/cmr/bx/n/10 SnpEff
  []
 
 
-Overfull \hbox (13.4166pt too wide) in paragraph at lines 123--124
+Overfull \hbox (13.4166pt too wide) in paragraph at lines 133--134
 \OT1/cmr/bx/n/10 in-
  []
 
 
-Overfull \hbox (13.57632pt too wide) in paragraph at lines 123--124
+Overfull \hbox (13.57632pt too wide) in paragraph at lines 133--134
 \OT1/cmr/bx/n/10 te-
  []
 
 
-Overfull \hbox (19.9096pt too wide) in paragraph at lines 123--124
+Overfull \hbox (19.9096pt too wide) in paragraph at lines 133--134
 \OT1/cmr/bx/n/10 gra-
  []
 
 
-Overfull \hbox (22.99988pt too wide) in paragraph at lines 123--124
+Overfull \hbox (22.99988pt too wide) in paragraph at lines 133--134
 \OT1/cmr/bx/n/10 tion.
  []
 
@@ -30100,7 +30379,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.125 D
+l.135 D
        ata access. SnpEff Data can be accessed from the Supplemental data fi...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -30203,12 +30482,12 @@ Missing character: There is no . in font nullfont!
 Missing character: There is no R in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 125--126
+Overfull \hbox (20.0pt too wide) in paragraph at lines 135--136
 []
  []
 
 
-Overfull \hbox (23.87277pt too wide) in paragraph at lines 125--126
+Overfull \hbox (23.87277pt too wide) in paragraph at lines 135--136
 \OML/cmm/m/it/10 w[]$
  []
 
@@ -30219,7 +30498,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.127 D
+l.137 D
        isclosure of Potential Conflicts of Interest No potential conflicts o...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -30310,12 +30589,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no d in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 127--128
+Overfull \hbox (20.0pt too wide) in paragraph at lines 137--138
 []
  []
 
 ! Undefined control sequence.
-l.131 \section
+l.141 \section
               {Acknowledgements}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -30330,7 +30609,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.131 \section{A
+l.141 \section{A
                 cknowledgements}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -30352,7 +30631,7 @@ Missing character: There is no n in font nullfont!
 Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 131--133
+Overfull \hbox (20.0pt too wide) in paragraph at lines 141--143
 [] 
  []
 
@@ -30363,7 +30642,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.134 T
+l.144 T
        his work was supported by a Michigan Core Technology grant from the S...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -30662,7 +30941,7 @@ Missing character: There is no y in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no e in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 134--135
+Overfull \hbox (20.0pt too wide) in paragraph at lines 144--145
 []
  []
 
@@ -30673,7 +30952,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.136 S
+l.146 S
        tate University, NIH R01 grants (ES012933) to D.M.R. and DK071073 to ...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -30872,7 +31151,7 @@ Missing character: There is no K in font nullfont!
 Missing character: There is no ) in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 136--137
+Overfull \hbox (20.0pt too wide) in paragraph at lines 146--147
 []
  []
 
@@ -30883,7 +31162,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.138 N
+l.148 N
        ote Supplemental material can be found at: http://www.landesbioscienc...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -30985,12 +31264,12 @@ Missing character: There is no 6 in font nullfont!
 Missing character: There is no 9 in font nullfont!
 Missing character: There is no 5 in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 138--139
+Overfull \hbox (20.0pt too wide) in paragraph at lines 148--149
 []
  []
 
 ! Undefined control sequence.
-l.141 \section
+l.151 \section
               {Epilogue}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -31005,7 +31284,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.141 \section{E
+l.151 \section{E
                 pilogue}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -31019,7 +31298,7 @@ Missing character: There is no g in font nullfont!
 Missing character: There is no u in font nullfont!
 Missing character: There is no e in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 141--143
+Overfull \hbox (20.0pt too wide) in paragraph at lines 151--153
 [] 
  []
 
@@ -31030,7 +31309,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.144 A
+l.154 A
        t the beginning of my Ph.D., functional annotation of genomic variant...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -31507,12 +31786,12 @@ Missing character: There is no e in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 144--145
+Overfull \hbox (20.0pt too wide) in paragraph at lines 154--155
 []
  []
 
 ! Undefined control sequence.
-l.146 \subsection
+l.156 \subsection
                  {Data structures for annotations}
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -31527,7 +31806,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.146 \subsection{D
+l.156 \subsection{D
                    ata structures for annotations}
 You're in trouble here.  Try typing  <return>  to proceed.
 If that doesn't work, type  X <return>  to quit.
@@ -31561,7 +31840,7 @@ Missing character: There is no o in font nullfont!
 Missing character: There is no n in font nullfont!
 Missing character: There is no s in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 146--147
+Overfull \hbox (20.0pt too wide) in paragraph at lines 156--157
 []
  []
 
@@ -31572,7 +31851,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.148 A
+l.158 A
         very simple approach used by ANNOVAR \cite{wang2010annovar} is to cr...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -31615,7 +31894,7 @@ Missing character: There is no [ in font nullfont!
 ! Undefined control sequence.
 <write> ...: Citation `\@citeb ' on page \thepage 
                                                   \space undefined\on@line .
-l.148 ...ch used by ANNOVAR \cite{wang2010annovar}
+l.158 ...ch used by ANNOVAR \cite{wang2010annovar}
                                                    is to create an index by ...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -31624,7 +31903,7 @@ spelling (e.g., `I\hbox'). Otherwise just continue,
 and I'll forget about whatever was undefined.
 
 
-LaTeX Warning: Citation `wang2010annovar' on page  undefined on input line 148.
+LaTeX Warning: Citation `wang2010annovar' on page  undefined on input line 158.
 
 
 Missing character: There is no ] in font nullfont!
@@ -31900,27 +32179,27 @@ Missing character: There is no t in font nullfont!
 Missing character: There is no s in font nullfont!
 Missing character: There is no . in font nullfont!
 
-Overfull \hbox (20.0pt too wide) in paragraph at lines 148--149
+Overfull \hbox (20.0pt too wide) in paragraph at lines 158--159
 []
  []
 
 
-Overfull \hbox (5.43053pt too wide) in paragraph at lines 148--149
+Overfull \hbox (5.43053pt too wide) in paragraph at lines 158--159
 []
  []
 
 
-Overfull \hbox (9.12497pt too wide) in paragraph at lines 148--149
+Overfull \hbox (9.12497pt too wide) in paragraph at lines 158--159
 \OML/cmm/m/it/10 N$
  []
 
 
-Overfull \hbox (21.6857pt too wide) in paragraph at lines 148--149
+Overfull \hbox (21.6857pt too wide) in paragraph at lines 158--159
 \OML/cmm/m/it/10 O\/cmr/m/n/10 (\OML/cmm/m/it/10 n\/cmr/m/n/10 )$
  []
 
 
-Overfull \hbox (6.00235pt too wide) in paragraph at lines 148--149
+Overfull \hbox (6.00235pt too wide) in paragraph at lines 158--159
 \OML/cmm/m/it/10 n$
  []
 
@@ -31931,7 +32210,7 @@ See the LaTeX manual or LaTeX Companion for explanation.
 Type  H <return>  for immediate help.
  ...                                              
                                                   
-l.150 A
+l.160 A
        nother approach \cite{cingolani2012program} is to use an ``interval f...
 
 You're in trouble here.  Try typing  <return>  to proceed.
@@ -31957,7 +32236,7 @@ Missing character: There is no [ in font nullfont!
 ! Undefined control sequence.
 <write> ...: Citation `\@citeb ' on page \thepage 
                                                   \space undefined\on@line .
-l.150 Another approach \cite{cingolani2012program}
+l.160 Another approach \cite{cingolani2012program}
                                                    is to use an ``interval f...
 The control sequence at the end of the top line
 of your error message was never \def'ed. If you have
@@ -31967,7 +32246,7 @@ and I'll forget about whatever was undefined.
 
 
 LaTeX Warning: Citation `cingolani2012program' on page  undefined on input line
- 150.
+ 160.
 
 Missing character: There is no ] in font nullfont!
 Missing character: There is no i in font nullfont!
@@ -32548,10 +32827,10 @@ Missing character: There is no . in font nullfont!
 
  
 Here is how much of TeX's memory you used:
- 19 strings out of 494985
- 253 string characters out of 6180357
- 52094 words of memory out of 5000000
- 3334 multiletter control sequences out of 15000+600000
+ 21 strings out of 494985
+ 268 string characters out of 6180357
+ 53094 words of memory out of 5000000
+ 3336 multiletter control sequences out of 15000+600000
  3948 words of font info for 15 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  18i,2n,21p,2090b,87s stack positions out of 5000i,500n,10000p,200000b,80000s

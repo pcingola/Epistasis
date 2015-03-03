@@ -30,6 +30,13 @@ When we re-sequenced the $w^{1118}$ ; iso-2; iso-3 genome in 2009, 1 bioinformat
 
 SnpEff, an abbreviation of ``SNP effect," is a multi-platform open source variant effect predictor program. SnpEff annotates variants and predicts the coding effects of genetic variations, such as SNPs, insertions and deletions (INDELs) and multiple nucleotide polymorphisms (MNPs) (http://SnpEff.sourceforge.net/).  The main features of SnpEff include: (1) speed—the ability to make thousands of predictions per second; (2) flexibility—the ability to add custom genomes and annotations; (3) the ability to integrate with Galaxy, an open access and web-based platform for computational bioinformatic research (http://gmod.org/wiki/ Galaxy); (4) compatibility with multiple species and multiple codon usage tables (e.g., mitochondrial genomes); (5) integration with Genome Analysis Toolkit (GATK); 4 and (6) ability to perform non-coding annotations. When SnpEff was integrated into the GATK, it replaced the ANNOVAR program for variant analyses.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_table1.png}
+    \caption{\# SNP, a description of the single nucleotide polymorphism (SNP) indicating chromosome arm (chr2L), coordinate in genome (10006682), and nucleotide change (e.g., C/T indicates that C is replaced by T in $w^{1118}$ ; iso-2; iso-3 at this position). Gene\_name, official gene symbol of gene. Effect, description of SNP (e.g., upstream of transcription start site at position 541). Old\_AA/new\_AA, amino acid change, if any, in one letter code. Old\_codon/New\_codon, if a codon contains a SNP, the old (reference) and new ($w^{1118}$ ; iso-2; iso-3) codons are indicated. Codon\_Num (CDS), the codon number of the coding sequence (CDS). CDS\_size, the size of the protein in amino acids.}
+    \label{fig:snpeffTab1}
+\end{figure}
+
 A simple walk-through example on how to analyze sequencing data to calculate variants and their effects is shown in Listing SL1. This example is intended for illustration purposes only since many additional steps are routinely used in re-sequencing data analysis pipelines, but design of a fully featured pipeline is beyond the scope of this paper.
 
 Here, we report the results of SnpEff (version 1.9.6) analyses of the \~356,660 candidate SNPs that we identified in $w^{1118}$ ; iso-2; iso-3 with respect to the y 1 ; cn 1 bw 1 sp 1 reference strain as reported in our previous paper. 1 This is of great interest to the Drosophila community because thousands of transposon insertion stocks 5 and hundreds of deficiency stocks 6,7 were generated in the $w^{1118}$ ; iso-2; iso-3 genetic background. The large number and potential severity of many SNPs in the two laboratory strains was a surprising finding, and the possible evolutionary implications of this finding are discussed.
@@ -52,11 +59,27 @@ Predicted effects are with respect to protein coding genes.  Variants affecting 
 
 According to SnpEff (version 1.9.6), the largest number of SNPs in $w^{1118}$ ; iso-2; iso-3 are in introns (130,126) followed by those in upstream (76,155), downstream (71,645) and intergenic (51,783) regions (Fig. 1). ``Upstream" is defined as 5 kilobase (kb) upstream of the most distal transcription start site and ``downstream" is defined as 5 kb downstream of the most distal polyA addition site, but these default variables can be easily adjusted.  SnpEff also found thousands of SNPs within the exons. For example, there are 3,718 SNPs in the 3' untranslated regions (3' UTR) and 2,508 SNPs in the 5' untranslated regions (5' UTR).  The SNPs in the upstream, downstream, 5' and 3' UTR regions might affect transcription or translation, but the actual effects have to be confirmed case-by-case. In the next few sections, we present examples of several types of SNPs that might affect the protein function.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_table2.png}
+    \caption{Detailed effect list from SnpEff}
+    \label{fig:snpeffTab2}
+\end{figure}
+
 Heterozygosity is not considered in the $w^{1118}$ ; iso-2; iso-3 sequence because the stock was isogenized and only high quality (i.e., homozygous SNPs) were used for this analysis. 1 
 
 The SnpEff website (http://snpeff.sourceforge.net/SnpSift.  html) has a frequently asked questions (FAQ) section that addresses most issues that a user might have in operating this program.
 
 \textbf{SNPs that generate new start codons.} There are 297 SNPs that potentially generate a new translation initiation codon in the 5' UTR (start-gained SNPs). The most common translation initiation codon is AUG, which is coded by ATG in the genome.  To be thorough, we also included CUG and UUG codons, which code for leucine, as these codons can also be used to initiate translation in rare genes in Drosophila and mammals. 10,11 There are 60 genes with ATG start-gained SNPs (Table 5), 99 genes with CTG start-gained SNPs and 120 genes with TTG startgained SNPs in $w^{1118}$ ; iso-2; iso-3, all by definition in 5' UTR regions, compared with the reference genome (the reading frame is indicated on the SnpEff table). Most of the ATG start-gained SNPs are within 1 kb of the annotated translation start (Table 5), but this probably reflects the fact that most 5' UTR sequences are less than 1 kb long. Less than expected by chance, only \~25\% of the ATG start-gain SNPs are in the same reading frame as the annotated translation start point (Table 5). Since 33\% of in frame ATG start-gained SNPs are expected by chance, this suggests that there might be weak selection against this class of SNPs. Of the 60 genes with ATG start-gained SNPs, five genes have two ATG start-gained SNPs and one gene has three startgained SNPs; the remaining 54 genes have a single start-gained SNP. Since SnpEff does not take into account the Kozak consensus sequence flanking the AUG site, 5'-ACC AUG G-3', that is generally required for efficient translation, 12 and thus further assessment is required to determine whether a start-gained SNP is actually used.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=8cm]{snpeff_table3.png}
+    \caption{Information provided by SnpEff in tab separaOutput format
+(TXT)}
+    \label{fig:snpeffTab3}
+\end{figure}
+
 
 Gene ontology (GO) pathway analysis of the genes affected by the 297 start-gain SNPs in $w^{1118}$ ; iso-2; iso-3 was done using DAVID (Database for Annotation, Visualization and Integrated Discovery). 13,14 We found that the GO categories ``tissue morphogenesis," ``immunoglobulin like," ``developmental protein," and ``alternative splicing" are significantly enriched after multiplecomparisons correction by false-discovery rate (FDR < 0.001; Table 6). These categories are interesting because they predominantly contain proteins that show a wide degree of intra- and interspecies variability. For example, the immunoglobulin loci, which are highly divergent among humans and in other vertebrates, are used for antigen recognition. 15 Also, developmental proteins and proteins involved in tissue morphogenesis often have both conserved domains, such as the Hox domain, and highly divergent domains that maintain morphological diversity within a species, such as the trans-activation domains. 16,17
 
@@ -70,7 +93,36 @@ It is interesting that a BLASTp search of the protein database reveals that the 
 
 An important consideration with stop-gained and stop-lost SNPs is whether the C-terminal amino acids in the longest version of the protein that not present in the shortest version of the protein are conserved in other Drosophila species. If the additional C-terminal amino acids are not conserved, then these amino acids might not affect the essential function of the protein but they might exert modulatory effects. If the additional C-terminal amino acids are conserved in multiple Drosophila species, then their loss might adversely affect the function of the protein. Therefore, in Table 7, we further classify the stop-gained and stop-lost SNPs into four categories: Category 1, including 23 genes, with both the N-terminal and novel C-terminal regions conserved among Drosophila species and other organisms; Category 2, including only one gene, with the entire gene sequence not conserved even among other Drosophila species; Category 3, with two genes, with the novel C-termini not conserved among other Drosophila species. In this category, the N-termini are conserved among Drosophila species, but this conservation is not maintained beyond the Drosophila genus (this class is likely a novel gene that arose in the Drosophila genus); and Category 4, including seven genes, with the novel C-terminal regions conserved among other Drosophila species but not beyond the Drosophila genus. In this category, the N-terminus is conserved beyond the Drosophila genus (this class probably has a C-terminal domain with a modulatory role in the Drosophila genus but not beyond the genus).
 
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_table4.png}
+    \caption{Information provided by SnpEff in variant call format (VCF)}
+    \label{fig:snpeffTab3}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_fig1.png}
+    \caption{Classification of SNPs in $w^{1118}$ ; iso-2; iso-3. The number of NSPs in each class is shown above the bar. The quality score was arbitrarily set at 70 and above for this graph.}
+    \label{fig:snpeffTab3}
+\end{figure}
+
 An example of an essential protein-coding gene in Category 4, where the novel C-terminus is not conserved outside the Drosophila genus, is oceliless (oc), also known as orthodenticle (otd) (Fig. 3). The oc/otd gene has two in-frame stop-gained SNPs in $w^{1118}$ ; iso-2; iso-3. The oc/otd gene is a Hox-family transcription factor required for photoreceptor development in the compound eye and the light-sensing ocellus, embryonic development and brain segmentation. 23,24 The Hox domain is 60 amino acids, 59 of which are identical with the human Otd protein. The Hox domains, which arose before invertebrates and vertebrates split several hundred million years ago, are among the most conserved protein domains in bilaterally-symmetric organisms in evolution. 25 The two stop-gained SNPs are in the non-conserved C-terminal region of Oc/Otd, which is thought to have a transcriptional-regulatory function. Since both strains are viable, both oc/otd genes are apparently functional although they encode a protein with 489 amino acids in $w^{1118}$ ; iso-2; iso-3, and a protein with 543 amino acids in the reference genome (Table 6).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_table5.png}
+    \caption{60 Genes with start-gaineded SNPs with ATGs}
+    \label{fig:snpeffTab3}
+\end{figure}
+
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_table6.png}
+    \caption{Genes with start-gained SNP GO categories in $w^{1118}$ ; iso-2; iso-3}
+    \label{fig:snpeffTab3}
+\end{figure}
 
 An example of a stop-lost gene in class c, where the C-terminus is not conserved even among the Drosophila genera, is CG13958 that encodes a protein of unknown function (Fig. 4). In $w^{1118}$ ; iso-2; iso-3, CG13958 encodes a protein of 48 amino acids but in the reference genome it encodes a protein with 84 amino acids.  When BLASTp was done with the non-redundant (nr) data set, there was not much homology beyond the 38 th amino acid within the Drosophila genus. However, there was a near perfect (37/38) identity of the first 38 amino acids in four other Drosophila species: Drosophila grimshawi, Drosophila yakuba, Drosophila erecta and Drosophila virilus (Fig. 4). This protein likely arose in the Drosophila genus since it has no known homologs outside of this genus.
 

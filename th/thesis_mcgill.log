@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  3 MAR 2015 13:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  3 MAR 2015 14:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -418,55 +418,94 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
 
-Overfull \hbox (53.88286pt too wide) in paragraph at lines 30--31
+Overfull \hbox (53.88286pt too wide) in paragraph at lines 31--32
 \OT1/cmr/m/n/12 DELs) and mul-ti-ple nu-cleotide poly-mor-phisms (MNPs) (http:/
 /SnpEff.sourceforge.net/).
  []
 
 
-Overfull \hbox (11.43881pt too wide) in paragraph at lines 30--31
+Overfull \hbox (11.43881pt too wide) in paragraph at lines 31--32
 \OT1/cmr/m/n/12 based plat-form for com-pu-ta-tional bioin-for-matic re-search 
 (http://gmod.org/wiki/
  []
 
-[4] [5] [6] [7] [8] [9]
-Overfull \hbox (6.30415pt too wide) in paragraph at lines 70--71
+[4] <snpeff_table1.png, id=20, 1869.98625pt x 400.49625pt>
+File: snpeff_table1.png Graphic file (type png)
+
+<use snpeff_table1.png>
+Package pdftex.def Info: snpeff_table1.png used on input line 35.
+(pdftex.def)             Requested size: 398.33858pt x 85.31056pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 35--36
+ [][] 
+ []
+
+[5 <./snpeff_table1.png>] [6]
+<snpeff_table2.png, id=27, 1086.0575pt x 983.675pt>
+File: snpeff_table2.png Graphic file (type png)
+ <use snpeff_table2.png>
+Package pdftex.def Info: snpeff_table2.png used on input line 64.
+(pdftex.def)             Requested size: 398.33858pt x 360.78702pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 64--65
+ [][] 
+ []
+
+[7] [8 <./snpeff_table2.png>]
+<snpeff_table3.png, id=35, 637.38126pt x 895.345pt>
+File: snpeff_table3.png Graphic file (type png)
+ <use snpeff_table3.png>
+Package pdftex.def Info: snpeff_table3.png used on input line 77.
+(pdftex.def)             Requested size: 227.62204pt x 319.74187pt.
+
+[9] [10 <./snpeff_table3.png>] [11] [12]
+Overfull \hbox (6.30415pt too wide) in paragraph at lines 94--95
 []\OT1/cmr/m/n/12 An im-por-tant con-sid-er-a-tion with stop-gained and stop-lo
 st SNPs is whether
  []
 
-[10] [11] [12]
+<snpeff_table4.png, id=48, 1866.975pt x 544.0325pt>
+File: snpeff_table4.png Graphic file (type png)
+ <use snpeff_table4.png>
+Package pdftex.def Info: snpeff_table4.png used on input line 98.
+(pdftex.def)             Requested size: 398.33858pt x 116.06816pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 98--99
+ [][] 
+ []
+
+[13] [14 <./snpeff_table4.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
- [13]
+ [15]
 Missing character: There is no Ï in font cmr12!
 Missing character: There is no ‰ in font cmr12!
 Missing character: There is no Ï in font cmr12!
 Missing character: There is no ‰ in font cmr12!
- [14] [15] [16]
-Overfull \hbox (10.71661pt too wide) in paragraph at lines 104--105
+ [16] [17] [18] [19]
+Overfull \hbox (10.71661pt too wide) in paragraph at lines 135--136
 []\OT1/cmr/m/n/12 Finally, we re-cently up-graded SnpEff fur-ther by in-clud-in
 g over 320 databases
  []
 
 
-Overfull \hbox (17.40079pt too wide) in paragraph at lines 104--105
+Overfull \hbox (17.40079pt too wide) in paragraph at lines 135--136
 \OT1/cmr/m/n/12 source-forge.net/SnpSift.html). Sources of in-for-ma-tion for c
 re-at-ing these databases
  []
 
-[17] [18] [19]
+[20] [21]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
-Overfull \hbox (34.28163pt too wide) in paragraph at lines 137--138
+ [22]
+Overfull \hbox (34.28163pt too wide) in paragraph at lines 168--169
 []\OT1/cmr/m/n/12 Note Sup-ple-men-tal ma-te-rial can be found at: http://www.l
 andesbioscience.com/
  []
 
-[20]) [21] (./thesis_mcgill.bbl
+) [23] [24] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -478,7 +517,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[22
+[25
 
 
 
@@ -488,22 +527,22 @@ Underfull \hbox (badness 1043) in paragraph at lines 114--120
 rey
  []
 
-[23] [24] [25] [26]
+[26] [27] [28] [29]
 Underfull \hbox (badness 1769) in paragraph at lines 338--343
 []\OT1/cmr/m/n/12 Fereydoun Hor-moz-di-ari, Iman Ha-ji-ra-souliha, An-drew McPh
 er-son,
  []
 
-[27] [28] [29]
+[30] [31] [32]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [30]
+ [33]
 Underfull \hbox (badness 1270) in paragraph at lines 659--664
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[31] [32] [33]) (./thesis_mcgill.aux (./chapters/snpeff.aux))
+[34] [35] [36]) (./thesis_mcgill.aux (./chapters/snpeff.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -557,28 +596,35 @@ epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 chapters/snpeff.tex
     umsa.fd    2013/01/14 v3.01 AMS symbols A
     umsb.fd    2013/01/14 v3.01 AMS symbols B
+snpeff_table1.png    Graphic file (type png)
+snpeff_table2.png    Graphic file (type png)
+snpeff_table3.png    Graphic file (type png)
+snpeff_table4.png    Graphic file (type png)
 thesis_mcgill.bbl
  ***********
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 5795 strings out of 494985
- 85401 string characters out of 6180357
+ 5824 strings out of 494985
+ 85949 string characters out of 6180357
  167933 words of memory out of 5000000
- 8907 multiletter control sequences out of 15000+600000
+ 8931 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,6n,40p,2109b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,6n,40p,2109b,288s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
 onts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (33 pages, 154419 bytes).
+Output written on thesis_mcgill.pdf (36 pages, 479485 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 92 compressed objects within 1 object stream
+ 147 PDF objects out of 1000 (max. 8388607)
+ 98 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 21 words of extra memory for PDF output out of 10000 (max. 10000000)
 
