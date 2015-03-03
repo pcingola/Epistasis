@@ -33,7 +33,7 @@ SnpEff, an abbreviation of ``SNP effect," is a multi-platform open source varian
 \begin{figure}
     \centering
     \includegraphics[width=14cm]{snpeff_table1.png}
-    \caption{\# SNP, a description of the single nucleotide polymorphism (SNP) indicating chromosome arm (chr2L), coordinate in genome (10006682), and nucleotide change (e.g., C/T indicates that C is replaced by T in $w^{1118}$ ; iso-2; iso-3 at this position). Gene\_name, official gene symbol of gene. Effect, description of SNP (e.g., upstream of transcription start site at position 541). Old\_AA/new\_AA, amino acid change, if any, in one letter code. Old\_codon/New\_codon, if a codon contains a SNP, the old (reference) and new ($w^{1118}$ ; iso-2; iso-3) codons are indicated. Codon\_Num (CDS), the codon number of the coding sequence (CDS). CDS\_size, the size of the protein in amino acids.}
+    \caption{Output of SnpEff.\# SNP, a description of the single nucleotide polymorphism (SNP) indicating chromosome arm (chr2L), coordinate in genome (10006682), and nucleotide change (e.g., C/T indicates that C is replaced by T in $w^{1118}$ ; iso-2; iso-3 at this position). Gene\_name, official gene symbol of gene. Effect, description of SNP (e.g., upstream of transcription start site at position 541). Old\_AA/new\_AA, amino acid change, if any, in one letter code. Old\_codon/New\_codon, if a codon contains a SNP, the old (reference) and new ($w^{1118}$ ; iso-2; iso-3) codons are indicated. Codon\_Num (CDS), the codon number of the coding sequence (CDS). CDS\_size, the size of the protein in amino acids.}
     \label{fig:snpeffTab1}
 \end{figure}
 
@@ -75,7 +75,7 @@ The SnpEff website (http://snpeff.sourceforge.net/SnpSift.  html) has a frequent
 \begin{figure}
     \centering
     \includegraphics[width=8cm]{snpeff_table3.png}
-    \caption{Information provided by SnpEff in tab separaOutput format
+    \caption{Information provided by SnpEff in tab separated output format
 (TXT)}
     \label{fig:snpeffTab3}
 \end{figure}
@@ -96,7 +96,7 @@ An important consideration with stop-gained and stop-lost SNPs is whether the C-
 \begin{figure}
     \centering
     \includegraphics[width=14cm]{snpeff_table4.png}
-    \caption{Information provided by SnpEff in variant call format (VCF)}
+    \caption{Information provided by SnpEff in variant call format (VCF). The information is added to the INFO fields using an tag 'EFF'. The format for each effect is ``\texttt{Effect (Effect\_Impact | Codon\_Change | Amino\_Acid\_change | Gene\_Name | Gene\_BioType | Coding | Transcript | Exon [ | ERRORS | WARNINGS ])}".}
     \label{fig:snpeffTab3}
 \end{figure}
 
@@ -112,15 +112,14 @@ An example of an essential protein-coding gene in Category 4, where the novel C-
 \begin{figure}
     \centering
     \includegraphics[width=14cm]{snpeff_table5.png}
-    \caption{60 Genes with start-gaineded SNPs with ATGs}
+    \caption{60 Genes with start-gaineded SNPs with ATGs. Bases from TSS, bases from translation start site not including the ATG start-gained SNP. (+), in same reading frame as annotated ATG. (-), in different reading frame as annotated ATG.}
     \label{fig:snpeffTab3}
 \end{figure}
-
 
 \begin{figure}
     \centering
     \includegraphics[width=14cm]{snpeff_table6.png}
-    \caption{Genes with start-gained SNP GO categories in $w^{1118}$ ; iso-2; iso-3}
+    \caption{Genes with start-gained SNP GO categories in $w^{1118}$ ; iso-2; iso-3. Results of Gene ontology analysis for 297 start-gained SNPs in $w^{1118}$ ; iso-2; iso-3. Bottom, the genes in the indicated gene ontology category is listed.}
     \label{fig:snpeffTab3}
 \end{figure}
 
@@ -130,9 +129,30 @@ There are also five stop-lost SNPs in $w^{1118}$ ; iso-2; iso-3 (Table 6). All o
 
 Not much is known about the functions of several genes with in-frame stop-gained SNPs. The pdm3 gene is expressed in the larval and adult nervous system, and it encodes a highlyconserved Hox domain, but no phenotypic data are available (www.flybase.org). No phenotypic data are available for either CG13958 or CG4975. The protein encoding CG13958 has no known conserved domain, and its peak expression is observed within 06–24 h of embryogenes, during early larval stages, at stages throughout the pupal period, and in the adult male (www.  flybase.org). The protein encoded by CG4975 has an Armadillolike helical domain and an Ataxin-10 domain and has expression in the hind gut during the late larval and periods (www.flybase.  org). 30
 
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_fig2.png}
+    \caption{Analysis of Eip63E start-gained SNP in $w^{1118}$ ; iso-2; iso-3. (A), Location of the start-gained SNP at the Eip63E locus. Notice that the reading frame is the same as the normal translation start site (TSS). (B), Conservation of 60 amino acid N-terminal region of Eip63E in $w^{1118}$ ; iso-2; iso-3 with Drosophila yakuba orthologous gene. The other sequenced Drosophila species do not have this N-terminal sequence (not shown).}
+    \label{fig:snpeffTab3}
+\end{figure}
+
 Some of the stop-lost SNPs have interesting consequences. For example, a stop-lost SNP in $w^{1118}$ ; iso-2; iso-3 is in the CG13958 gene and causes an extension of eight amino acids before the next stop codon in 3' UTR sequence is reached (Fig. 5). Since the C-termini of CG13958 vary in $w^{1118}$ ; iso-2; iso-3 and the reference strains of Drosophila melanogaster, it is conceivable that the C-terminus might also fluctuate in other Drosophila species. To test this idea, we investigated the C-terminal regions of CG13958 homologs in other Drosophila species.
 
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_table7.png}
+    \caption{Stop gained and stop lost in $w^{1118}$ ; iso-2; iso-3. Stop gained, gene with stop gained SNP. Location, amino acid number changed to a stop codon (e.g., 255K/*, indicates lysine at amino acid changed to a stop codon). Length, the length of the protein in amino acids. Phenotype, not determined (ND), withdrawn (no longer considered a gene by FlyBase), and NPC (non-protein coding, such as a rRNA). For stop lost SNPs (bottom), */L (+9 aa) indicates that the next in frame stop is after nine additional amino acids are added. a-d refer to SNP categories 1–4 (see text).}
+    \label{fig:snpeffTab3}
+\end{figure}
+
 We found that CG13958 homologs have variable C-terminal amino acids in different species of Drosophila. When the CG13958 protein is analyzed by protein Basic Local Alignment Search Tool (BLASTp) with the non-redundant (nr) protein database (http://www.ncbi.nlm.nih.gov/), at least two Drosophila species have extended C-terminal amino acids and at least three Drosophila species have missing amino acids at the C-termini (Fig. 5). For example, Drosophila pseudoobscura has three of the extended amino acids found in $w^{1118}$ ; iso-2; iso-3 and Drosophila mojavenais has four of them. In contrast, Drosophila simulans is missing the last terminal amino acid, Drosophila erecta is missing the last two terminal amino acids, and Drosophila yakuba is missing the last three amino acids found in the reference strain (Fig. 5). The large number of stop-gain and stop-lost SNPs in Drosophila likely has important implications on the evolution of protein function (see Discussion).
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_fig3.png}
+    \caption{Oc/Otd has two stop-gained SNPs in $w^{1118}$ ; iso-2; iso-3. (A) Location of the two stop gained SNPs in oc/otd. (B) Protein BLAST of Oc/Otd against the non-redundant (nr) protein database shows that only the 60 amino Hox domain flanking amino acid 100 is conserved from Drosophila to humans. The color coding shows the alignment scores.}
+    \label{fig:snpeffTab3}
+\end{figure}
 
 Synonymous and non-synonymous SNPs in $w^{1118}$ ; iso-2; iso-3. There are 15,842 synonymous SNPs and 4,467 nonsynonymous SNPs in annotated coding regions in $w^{1118}$ ; iso-2; iso-3 (Fig. 1). A synonymous SNP (silent SNP) is defined as a SNP that does not change the amino acid in the protein, whereas a nonsynonymous SNP does. The genome-wide normalized N/S ratio (dN/dS), also called ω (i.e., ω = dN/dS), is by definition normalized to 1 in most evolutionary studies. 31 The non-normalized N/S ratio is \~0.28 in $w^{1118}$ ; iso-2; iso-3 compared with the reference genome, y 1 ; cn 1 bw 1 sp 1 (i.e., N/S = 4,467/15,842; Table 1).
 
@@ -146,13 +166,29 @@ In this paper, we used SnpEff to categorize the \~356,660 SNPs in $w^{1118}$ ; i
 
 Many of the stop-gained and stoplost SNPs in $w^{1118}$ ; iso-2; iso-3 occur in essential genes that apparently still function after amino acid truncations caused by the stop-gained SNPs (Table 6). These non-critical effects of the stop-gained SNPs are worth noting because nonsense codons in the transcribed mRNAs generally result in nonfunctional protein products. For example, some genetic disorders, such as thalassemia and Duchenne muscular dystrophy (DMD), result from nonsense SNPs. 35-37 Also, nonsense SNP-mediated RNA decay exists in yeast, Drosophila and humans, and usually ensures that mRNAs with premature stop codons are degraded. 38
 
-The stop-gained and stop-lost SNPs in essential genes, if they are validated, could have profound evolutionary implications and suggest the involvement of prions, analogous to [PSI + ], in the retention and selection of these SNPs.  Brian Cox, a geneticist working with the yeast Saccharomyces cerevisiae, discovered [PSI + ] in 1965 as a non-genetically transmissible trait with a cytoplasmic pattern of inheritance similar to mitochondria. 39 He isolated a yeast strain auxotrophic for adenine due to a nonsense mutation is able to survive in media lacking adenine when [PSI + ] is present. 39 Reed Wickner showed in 1994 that [PSI + ] resulted from a prion form of the translation termination factor, Sup35. 40 Lindquist and colleagues showed in 2008 that the [PSI + ] prion provides survival advantages in sev eral stressful environments, such as high SNPs in oc/otd. (B) Protein BLAST of Oc/Otd against the non-redundant (nr) protein database shows salt conditions. 41 They have speculated that only the 60 amino Hox domain flanking amino acid 100 is conserved from Drosophila to humans. The color coding shows the alignment scores.  that Sup35 is an evolutionary capacitor + that, when inactivated in the PSI form, releases cryptic genetic variation that allow expression of novel C-terminal amino acids in hundreds of would allow a modified protein with the new C-terminal tail to proteins, some of which are beneficial in stressful environments. 41 be always expressed, even when the prion is lost. 41 Therefore, a
+The stop-gained and stop-lost SNPs in essential genes, if they are validated, could have profound evolutionary implications and suggest the involvement of prions, analogous to [PSI^+ ], in the retention and selection of these SNPs.  Brian Cox, a geneticist working with the yeast Saccharomyces cerevisiae, discovered [PSI^+ ] in 1965 as a non-genetically transmissible trait with a cytoplasmic pattern of inheritance similar to mitochondria. 39 He isolated a yeast strain auxotrophic for adenine due to a nonsense mutation is able to survive in media lacking adenine when [PSI^+] is present. 39 Reed Wickner showed in 1994 that [PSI^+ ] resulted from a prion form of the translation termination factor, Sup35. 40 Lindquist and colleagues showed in 2008 that the [PSI^+ ] prion provides survival advantages in several stressful environments, such as high salt conditions. 41 They have speculated that Sup35 is an evolutionary capacitor that, when inactivated in the PSI^+ form, releases cryptic genetic variation that allow expression of novel C-terminal amino acids in hundreds of proteins, some of which are beneficial in stressful environments. 
 
-How might prions be involved in revealing cryptic genetic stop-lost SNP would more likely occur in a strain with benefivariation in the 5' and 3' UTRs? While most prions are thought cial codons in the 3' UTR because the cryptic C-terminal amino to not directly mutate DNA sequences, they could provide an acids encoded by these nucleotides would provide a selective environment that would make the retention and selection of advantage in stressful (i.e., [PSI + ]) environments when they are beneficial SNPs more likely. For example, a stop-lost SNP translated.
+How might prions be involved in revealing cryptic genetic variation in the 5' and 3' UTRs? While most prions are thought to not directly mutate DNA sequences, they could provide an environment that would make the retention and selection of beneficial SNPs more likely. For example, a stop-lost SNP would allow a modified protein with the new C-terminal tail to be always expressed, even when the prion is lost. 41 Therefore, a stop-lost SNP would more likely occur in a strain with beneficial codons in the 3' UTR because the cryptic C-terminal amino acids encoded by these nucleotides would provide a selective advantage in stressful (i.e., [PSI^+]) environments when they are translated.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_fig4.png}
+    \caption{
+CG34326 has one stop-gained SNP in $w^{1118}$ ; iso-2; iso-3 in the non-conserved C-terminal region. (A) Protein BLAST of CG34326 against the non-redundant (nr) protein database shows that only the 38 N-terminal amino acids are conserved among Drosophila species and not beyond Drosophila. The colored lines represent the homologs from the following organisms: Drosophila melanogaster, Drosophila grimshawi, Drosophila yakuba, Drosophila erecta, Drosophila virilus, Ixodes
+scapularis, Ixodes scapularis and Nycticebus coucang. (B) Aligment of Drosophila melanogaster CG34326 with orthologous gene from Drosophila grimshawi. (C) Aligment of Drosophila melanogaster CG34326 with orthologous gene from Drosophila yakuba.}
+    \label{fig:snpeffTab3}
+\end{figure}
 
 It is attractive to speculate that a similar prion-mediated evolutionary mechanism might occur in Drosophila, for both stoploss and stop-gained SNPs, and that this might help explain the large number of SNPs that we see in these categories. We note that Drosophila has several Sup35 orthologs, some of which have N-terminal repeats that are known to be potentially prion-forming domains. 41 We acknowledge that this is a highly speculative explanation for the high numbers of start-gained and stop-lost SNPs, but we believe that it is worthy of further investigation.
 
 The many potential start-gained SNPs in Drosophila might also have evolutionary implications. Similar to the cryptic genetic variation that is revealed by stop-lost mutations in the 3' UTR, start-gained SNPs reveal cryptic genetic variation in the 5' UTR. Uncovering the cryptic genetic variation in times of environmental stress, such as by inducing transcription initiation at start sites upstream of the normally-used transcription start sites, could be one mechanism to facilitate the use of potential start-gained SNPs. Further mutations and selection of the potential start-gained SNPs, such as by introducing better Kozak consensus sequences or more commonly used 5'-AUG-3' translation initiation codons, can stabilize the cryptic genetic variation further if it leads to improved survival or reproductive fitness in a stressful environment. While amino acid extensions and deletions in known essential genes occur only 8 times in $w^{1118}$ ; iso-2; iso-3 compared with the reference strain (Table 7), as laboratories begin to sequence hundreds or even thousands of individuals in a population, extensions and deletions are likely to be found in a large proportion of functional genes.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_fig6.png}
+    \caption{Nonsynonymous to synonymous ratios along the chromosome arms in $w^{1118}$ ; iso-2; iso-3. (A) Left, Nonsynonymous SNPs at 1 Mbp intervals along the 2L chromosome arm (black) and synonymous SNPs (gray). Right, N/S ratios (NS/Syn) along the chromosome arms. Notice that N/S ratios are higher near the centromere and telomere (see text). (B–F) as in (A), but for chromosome arms 2R, 3L, 3R, 4 and X.}
+    \label{fig:snpeffTab3}
+\end{figure}
 
 Finally, we recently upgraded SnpEff further by including over 320 databases for different reference genome versions that can be analyzed (http://snpeff.  sourceforge.net/SnpSift.html). Sources of information for creating these databases are ENSEMBL, UCSC Genome Bioinformatics website as well as organism specific databases, such as FlyBase (Drosophila melanogaster), WormBase (C.  elegans) and TAIR (Arabidopsis thaliana), to name a few. The program SnpEff is open access and additional genomes can be added and assistance in using SnpEff can be provided upon request. Rapid analyses of whole-genome sequencing data should now be feasible to perform by any laboratory
 
@@ -169,6 +205,13 @@ Part (ii) Effect calculations can be performed once the user has downloaded, or 
 Querying an interval tree requires O (log n + m) time, where n is the number of intervals in the tree and m is the number of intervals in the result. Having a hash of trees, optimizes the search by reducing the number of intervals per tree.
 
 In order to create this the interval forest, genomic information can be parsed from three main annotation formats: GTF (version 2.2), GFF (versions 3 and 2), UCSC Genome Bioinformatics website RefSeqTables and tab separated text files (TXT). Once the interval forest is created, the structure is serialized and compressed (GZIP) into a binary database. There are over 250 genomic binary databases that are currently distributed with SnpEff, which include all genomes from ENSEMBL.
+
+\begin{figure}
+    \centering
+    \includegraphics[width=14cm]{snpeff_fig5.png}
+    \caption{CG13958 has a stop lost SNP in w 1118 ; iso-2; iso-3. The top comparison shows the alignment of the Drosophila melanogaster reference genome with $w^{1118}$ ; iso-2; iso-3. Notice that the stop lost causes an extension of 9 amino acids. The second through sixth comparisons shows the alignment of Drosophila simulans, Drosophila erecta, Drosophila yakuba, Drosophila mojavensis and Drosophila pseudoobscura pseudoobscura (Sbjct) with the Drosophila melanogaster reference genome (Dm-ref). The number of terminal amino acids missing or gained is shown (-1 to +3). }
+    \label{fig:snpeffTab3}
+\end{figure}
 
 \textbf{SnpEff accuracy.} As part of our standard development cycle, we perform accuracy testing by comparing SnpEff to ENSEMBL ``Variant effect predictor," which we consider it is the ``gold standard." Current unity testing includes over a hundred test cases with thousands of variants each to ensure predictions are accurate.
 
