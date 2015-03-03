@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  3 MAR 2015 15:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  3 MAR 2015 16:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -326,6 +326,9 @@ LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
 
 LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
 
+
+LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
+
 ))
 \openout1 = `thesis_mcgill.aux'.
 
@@ -605,73 +608,8 @@ Missing character: There is no Ï in font cmr12!
 Missing character: There is no ‰ in font cmr12!
 Missing character: There is no Ï in font cmr12!
 Missing character: There is no ‰ in font cmr12!
-[19 <./snpeff_table7.png>] [20 <./snpeff_fig3.png>] [21]
-! Missing $ inserted.
-<inserted text> 
-                $
-l.169 ...involvement of prions, analogous to [PSI^
-                                                  + ], in the retention and ...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.170 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-
-Overfull \hbox (543.14316pt too wide) in paragraph at lines 169--170
-\OT1/cmr/m/n/12 ment of pri-ons, anal-o-gous to [PSI$[]]\OML/cmm/m/it/12 ; inth
-eretentionandselectionoftheseSNPs:BrianCox; ageneticistworkingwiththeyeastSacch
-aromycescerevisiae; discovered\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 PSI[]\OT1/cmr/m
-/n/12 ]\OML/cmm/m/it/12 in\OT1/cmr/m/n/12 1965\OML/cmm/m/it/12 asanon \OMS/cmsy
-/m/n/12 ^^@
- []
-
-
-Overfull \hbox (2981.54808pt too wide) in paragraph at lines 169--170
-\OML/cmm/m/it/12 geneticallytransmissibletraitwithacytoplasmicpatternofinherita
-ncesimilartomitochondria:\OT1/cmr/m/n/12 39\OML/cmm/m/it/12 Heisolatedayeaststr
-ainauxotrophicforadenineduetoanonsensemutationisabletosurviveinmedialackingaden
-inewhen\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 PSI[]\OT1/cmr/m/n/12 ]\OML/cmm/m/it/12
- ispresent:\OT1/cmr/m/n/12 39\OML/cmm/m/it/12 ReedWicknershowedin\OT1/cmr/m/n/1
-2 1994\OML/cmm/m/it/12 that\OT1/cmr/m/n/12 [\OML/cmm/m/it/12 PSI[]\OT1/cmr/m/n/
-12 ]\OML/cmm/m/it/12 resultedfromaprionformofthetranslationterminationfactor; S
-up\OT1/cmr/m/n/12 35\OML/cmm/m/it/12 :\OT1/cmr/m/n/12 40\OML/cmm/m/it/12 Lindqu
-istandcolleaguesshowedin\OT1/cmr/m/n/12 2008\OML/cmm/m/it/12 thatthe\OT1/cmr/m/
-n/12 [\OML/cmm/m/it/12 PSI[]\OT1/cmr/m/n/12 ]\OML/cmm/m/it/12 prionprovidessurv
-ivaladvantagesinseveralstressfulenvironments; suchashighsaltconditions:\OT1/cmr
-/m/n/12 41\OML/cmm/m/it/12 TheyhavespeculatedthatSup\OT1/cmr/m/n/12 35\OML/cmm/
-m/it/12 isanevolutionarycapacitorthat; wheninactivatedinthePSI[]form; releasesc
-rypticgeneticvariationthatallowexpressionofnovelC \OMS/cmsy/m/n/12 ^^@
- []
-
-
-Overfull \hbox (109.49039pt too wide) in paragraph at lines 169--170
-\OML/cmm/m/it/12 terminalaminoacidsinhundredsofproteins; someofwhicharebenefici
-alinstressfulenvironments:$ 
- []
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.171 ...ctive advantage in stressful (i.e., [PSI^
-                                                  +]) environments when they...
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-! Missing $ inserted.
-<inserted text> 
-                $
-l.172 
-      
-I've inserted a begin-math/end-math symbol since I think
-you left one out. Proceed, with fingers crossed.
-
-[22] <snpeff_fig4.png, id=89, 1381.16pt x 937.5025pt>
+[19 <./snpeff_table7.png>] [20 <./snpeff_fig3.png>] [21] [22]
+<snpeff_fig4.png, id=88, 1381.16pt x 937.5025pt>
 File: snpeff_fig4.png Graphic file (type png)
  <use snpeff_fig4.png>
 Package pdftex.def Info: snpeff_fig4.png used on input line 175.
@@ -681,10 +619,10 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 175--178
  [][] 
  []
 
-[23 <./snpeff_fig4.png>] <snpeff_fig6.png, id=93, 600.2425pt x 996.72375pt>
+[23] [24 <./snpeff_fig4.png>]
+<snpeff_fig6.png, id=95, 600.2425pt x 996.72375pt>
 File: snpeff_fig6.png Graphic file (type png)
-
-<use snpeff_fig6.png>
+ <use snpeff_fig6.png>
 Package pdftex.def Info: snpeff_fig6.png used on input line 188.
 (pdftex.def)             Requested size: 398.33858pt x 661.47461pt.
 
@@ -713,8 +651,8 @@ Overfull \hbox (17.40079pt too wide) in paragraph at lines 193--194
 re-at-ing these databases
  []
 
-[24] [25 <./snpeff_fig6.png>] [26]
-<snpeff_fig5.png, id=104, 721.69624pt x 976.64874pt>
+[25] [26 <./snpeff_fig6.png>] [27]
+<snpeff_fig5.png, id=106, 721.69624pt x 976.64874pt>
 File: snpeff_fig5.png Graphic file (type png)
  <use snpeff_fig5.png>
 Package pdftex.def Info: snpeff_fig5.png used on input line 211.
@@ -727,17 +665,16 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 211--212
 
 LaTeX Warning: Float too large for page by 15.05107pt on input line 214.
 
-[27] [28 <./snpeff_fig5.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-
+[28] [29 <./snpeff_fig5.png>]
 Overfull \hbox (34.28163pt too wide) in paragraph at lines 233--234
 []\OT1/cmr/m/n/12 Note Sup-ple-men-tal ma-te-rial can be found at: http://www.l
 andesbioscience.com/
  []
 
-[29]) [30] (./thesis_mcgill.bbl
+) [30] [31] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -749,7 +686,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[31
+[32
 
 
 
@@ -759,22 +696,22 @@ Underfull \hbox (badness 1043) in paragraph at lines 114--120
 rey
  []
 
-[32] [33] [34] [35]
+[33] [34] [35] [36]
 Underfull \hbox (badness 1769) in paragraph at lines 338--343
 []\OT1/cmr/m/n/12 Fereydoun Hor-moz-di-ari, Iman Ha-ji-ra-souliha, An-drew McPh
 er-son,
  []
 
-[36] [37] [38]
+[37] [38] [39]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [39]
+ [40]
 Underfull \hbox (badness 1270) in paragraph at lines 659--664
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[40] [41] [42]) (./thesis_mcgill.aux (./chapters/snpeff.aux))
+[41] [42] [43]) (./thesis_mcgill.aux (./chapters/snpeff.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -861,10 +798,9 @@ r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texli
 ve/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texm
 f-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/t
-ype1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (42 pages, 2919736 bytes).
+onts/type1/public/amsfonts/cm/cmti12.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmtt12.pfb>
+Output written on thesis_mcgill.pdf (43 pages, 2907210 bytes).
 PDF statistics:
  186 PDF objects out of 1000 (max. 8388607)
  119 compressed objects within 2 object streams
