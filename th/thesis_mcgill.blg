@@ -1,11 +1,7 @@
-This is BibTeX, Version 0.99d (TeX Live 2013)
+This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/bds.aux
-A level-1 auxiliary file: chapters/snpeff.aux
-A level-1 auxiliary file: chapters/gwas.aux
-A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
 Repeated entry---line 793 of file mcgilletd.bib
@@ -68,18 +64,6 @@ Repeated entry---line 2039 of file mcgilletd.bib
  : @article{mckenna2010genome
  :                           ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2182 of file mcgilletd.bib
- : @article{mani2008defining
- :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2334 of file mcgilletd.bib
- : @article{morcos2011direct
- :                          ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2367 of file mcgilletd.bib
- : @article{burger2010disentangling
- :                                 ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2525 of file mcgilletd.bib
  : @article{wang2010annovar
  :                         ,
@@ -97,45 +81,45 @@ Repeated entry---line 2952 of file mcgilletd.bib
  :                                ,
 I'm skipping whatever remains of this entry
 Warning--empty journal in schneider2013genome
-You've used 151 entries,
+You've used 120 entries,
             2118 wiz_defined-function locations,
-            1283 strings with 36423 characters,
-and the built_in function-call counts, 65370 in all, are:
-= -- 6132
-> -- 4533
-< -- 12
-+ -- 1817
-- -- 1638
-* -- 5801
-:= -- 11273
-add.period$ -- 454
-call.type$ -- 151
-change.case$ -- 1233
+            1123 strings with 30369 characters,
+and the built_in function-call counts, 53404 in all, are:
+= -- 4969
+> -- 3846
+< -- 7
++ -- 1545
+- -- 1398
+* -- 4806
+:= -- 9250
+add.period$ -- 361
+call.type$ -- 120
+change.case$ -- 1024
 chr.to.int$ -- 0
-cite$ -- 152
-duplicate$ -- 1754
-empty$ -- 3992
-format.name$ -- 1638
-if$ -- 12778
+cite$ -- 121
+duplicate$ -- 1380
+empty$ -- 3171
+format.name$ -- 1398
+if$ -- 10378
 int.to.chr$ -- 0
-int.to.str$ -- 151
-missing$ -- 155
-newline$ -- 758
-num.names$ -- 302
-pop$ -- 1012
+int.to.str$ -- 120
+missing$ -- 122
+newline$ -- 603
+num.names$ -- 240
+pop$ -- 846
 preamble$ -- 1
-purify$ -- 1087
+purify$ -- 907
 quote$ -- 0
-skip$ -- 1241
+skip$ -- 975
 stack$ -- 0
-substring$ -- 4086
-swap$ -- 251
-text.length$ -- 12
+substring$ -- 3273
+swap$ -- 187
+text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 594
+type$ -- 474
 warning$ -- 1
-while$ -- 554
-width$ -- 154
-write$ -- 1653
-(There were 22 error messages)
+while$ -- 439
+width$ -- 123
+write$ -- 1312
+(There were 19 error messages)
