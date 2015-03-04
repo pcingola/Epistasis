@@ -58,14 +58,34 @@
 %  Parm 1 : File name (no extension)
 %  Parm 2 : Width
 %  Parm 3 : Caption
+%  Parm 4 : Figure name (for table of contents)
 \newcommand{\fig}[4]{
 \begin{figure}[ht]
     \begin{center}
         \begin{minipage}{#2}
             \includegraphics[ width={#2} ]{figs/#1}
             \FigureCaptionOpt{#3}{#4}
-            \label{f:#1}
+            \label{fig:#1}
         \end{minipage}
     \end{center}
 \end{figure}
 }
+
+% Define \fig
+% Include one of my figures (but the figure actually contains a table)
+%  Parm 1 : File name (no extension)
+%  Parm 2 : Width
+%  Parm 3 : Caption
+%  Parm 4 : Table name (for table of contents)
+\newcommand{\figtab}[4]{
+\begin{figure}[ht]
+    \begin{center}
+        \begin{minipage}{#2}
+            \includegraphics[ width={#2} ]{figs/#1}
+            \TableCaptionOpt{#3}{#4}
+            \label{tab:#1}
+        \end{minipage}
+    \end{center}
+\end{figure}
+}
+
