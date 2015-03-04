@@ -50,8 +50,8 @@
 \contentsline {paragraph}{Automatic command line parsing.}{73}
 \contentsline {paragraph}{Task re-execution.}{73}
 \contentsline {subsection}{\numberline {2.3.5}BDS implementation}{73}
-\contentsline {section}{\numberline {2.4}Results}{77}
-\contentsline {paragraph}{Architecture independence.}{79}
+\contentsline {section}{\numberline {2.4}Results}{78}
+\contentsline {paragraph}{Architecture independence.}{78}
 \contentsline {paragraph}{Robustness.}{80}
 \contentsline {paragraph}{Scalability.}{80}
 \contentsline {section}{\numberline {2.5}Discussion}{81}
@@ -60,25 +60,25 @@
 \contentsline {section}{\numberline {3.2}Abstract}{84}
 \contentsline {section}{\numberline {3.3}Introduction}{85}
 \contentsline {section}{\numberline {3.4}Results}{87}
-\contentsline {section}{\numberline {3.5}Discussion}{102}
-\contentsline {section}{\numberline {3.6}Methods}{106}
+\contentsline {section}{\numberline {3.5}Discussion}{100}
+\contentsline {section}{\numberline {3.6}Methods}{105}
 \contentsline {section}{\numberline {3.7}Acknowledgements}{109}
-\contentsline {section}{\numberline {3.8}Epilogue}{111}
-\contentsline {subsection}{\numberline {3.8.1}Data structures for annotations}{111}
-\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{113}
-\contentsline {section}{\numberline {4.1}Preface}{113}
-\contentsline {subsection}{\numberline {4.1.1}Type II diabetes}{113}
-\contentsline {section}{\numberline {4.2}Introduction}{114}
-\contentsline {section}{\numberline {4.3}Methods}{118}
-\contentsline {subsection}{\numberline {4.3.1}Markov model}{119}
-\contentsline {subsection}{\numberline {4.3.2}GWAS model}{122}
-\contentsline {section}{\numberline {4.4}Results}{127}
-\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{127}
-\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{128}
-\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{132}
-\contentsline {section}{\numberline {4.5}Discussion}{132}
-\contentsline {chapter}{\numberline {5}Conclusions }{135}
-\contentsline {section}{\numberline {5.1}Contributions}{135}
-\contentsline {section}{\numberline {5.2}Future work}{137}
-\contentsline {section}{\numberline {5.3}Perspectives}{138}
-\contentsline {extrachapter}{References}{139}
+\contentsline {section}{\numberline {3.8}Epilogue}{109}
+\contentsline {subsection}{\numberline {3.8.1}Data structures for annotations}{110}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{111}
+\contentsline {section}{\numberline {4.1}Preface}{111}
+\contentsline {subsection}{\numberline {4.1.1}Type II diabetes}{111}
+\contentsline {section}{\numberline {4.2}Introduction}{112}
+\contentsline {section}{\numberline {4.3}Methods}{116}
+\contentsline {subsection}{\numberline {4.3.1}Markov model}{117}
+\contentsline {subsection}{\numberline {4.3.2}GWAS model}{120}
+\contentsline {section}{\numberline {4.4}Results}{125}
+\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{125}
+\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{126}
+\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{130}
+\contentsline {section}{\numberline {4.5}Discussion}{130}
+\contentsline {chapter}{\numberline {5}Conclusions }{133}
+\contentsline {section}{\numberline {5.1}Contributions}{133}
+\contentsline {section}{\numberline {5.2}Future work}{135}
+\contentsline {section}{\numberline {5.3}Perspectives}{136}
+\contentsline {extrachapter}{References}{137}

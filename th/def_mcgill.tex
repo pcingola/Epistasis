@@ -56,18 +56,30 @@
 % Define \fig
 % Include one of my figures, in the standard way
 %  Parm 1 : File name (no extension)
-%  Parm 2 : Width
-%  Parm 3 : Caption
-%  Parm 4 : Figure name (for table of contents)
-\newcommand{\fig}[4]{
-\begin{figure}[ht]
-    \begin{center}
-        \begin{minipage}{#2}
-            \includegraphics[ width={#2} ]{figs/#1}
-            \FigureCaptionOpt{#3}{#4}
-            \label{fig:#1}
-        \end{minipage}
-    \end{center}
+%  Parm 2 : Label (without 'fig:')
+%  Parm 3 : Width
+%  Parm 4 : Caption
+%  Parm 5 : Figure name (for table of contents)
+
+% \newcommand{\fig}[5]{
+% \begin{figure}[ht]
+%     \begin{center}
+%         \begin{minipage}{#3}
+%             \includegraphics[ width={#3} ]{figs/#1}
+%             \FigureCaptionOpt{#4}{#5}
+%             \label{fig:#2}
+%         \end{minipage}
+%     \end{center}
+% \end{figure}
+% }
+
+\newcommand{\fig}[5]{
+\begin{figure}
+  \begin{center}
+    \includegraphics[ width={#3} ]{figs/#1}
+    \FigureCaptionOpt{#4}{#5}
+    \label{fig:#2}
+  \end{center}
 \end{figure}
 }
 
@@ -77,15 +89,14 @@
 %  Parm 2 : Width
 %  Parm 3 : Caption
 %  Parm 4 : Table name (for table of contents)
-\newcommand{\figtab}[4]{
-\begin{figure}[ht]
-    \begin{center}
-        \begin{minipage}{#2}
-            \includegraphics[ width={#2} ]{figs/#1}
-            \TableCaptionOpt{#3}{#4}
-            \label{tab:#1}
-        \end{minipage}
-    \end{center}
+\newcommand{\figtab}[5]{
+\begin{figure}
+  \renewcommand{\figurename}{Table }
+  \begin{center}
+    \includegraphics[ width={#3} ]{figs/#1}
+    \TableCaptionOpt{#4}{#5}
+    \label{tab:#2}
+  \end{center}
 \end{figure}
 }
 

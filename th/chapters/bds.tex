@@ -127,12 +127,7 @@ When recovering from a checkpoint, the scopes and RAST are deserialized (i.e. re
 
 When a task statement is invoked, process requirements, such as memory, CPUs and timeouts, can optionally be specified. Depending on the architecture, BDS either checks that the underlying system has appropriate resources (CPUs and memory) to run the process (e.g. local computer or ssh-farm) or relies on the cluster management system to appropriately allocate the task. If all task requirements are met, a script file is created (Fig. \ref{fig:bdsexec}D), and the task is executed by running an instance of bds-exec, a program that controls execution (Fig. \ref{fig:bdsexec}E). This indirection is necessary for five reasons, which are described in detail below: (i) process identification, (ii) timeout enforcement, (iii) logging, (iv) exit status report and (v) signal handling.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=14cm]{bds_figure_3_small.png}
-    \caption{BDS report showing pipeline’s task execution timeline}
-    \label{fig:bdsreport}
-\end{figure}
+\fig{bds_figure_3_small}{bdsreport}{14cm}{BDS report showing pipeline’s task execution timeline}{BDS report showing pipeline’s task execution timeline}
 
 \textbf{Process identification} means that bds-exec reports its process ID (PID), so that BDS can kill all child processes if the BDS script execution is terminated for some reason (e.g. the Ctrl-C key is pressed at the console).
 
@@ -144,12 +139,7 @@ When a task statement is invoked, process requirements, such as memory, CPUs and
 
 \textbf{Signal handling} is also enforced by bds-exec making sure that a kill signal correctly propagated to all subprocesses, but not to parent processes. This is necessary because there is no limit on the number of indirect processes that a task can run, and Unix/Posix systems do not provide a unified way to obtain all nested child processes. To be able to keep track of all subprocesses, bds-exec creates a process group and spawns the subprocess in it. When receiving a signal from the operating system, bds-exec traps the signal and propagates a kill signal to the process group.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=14cm]{bds_figure_1_small.png}
-    \caption{Execution example. (A) Script \texttt{pipeline.bds}. (B) The script is executed from a terminal. The GO executable invokes main BDS, written in JAVA, performs lexing, parsing, compilation to AST and runs AST. (C) When the task statement is run, appropriate checks are performed. (D) A shell script \texttt{task1.sh} is created, and a bds-exec process is fired. (E) bds-exec reports PID, executed the script \texttt{task1.sh} while capturing stdout and stderr as well as monitoring timeouts and OS signals. When a process finishes execution, the exit status is logged}
-    \label{fig:bdsexec}
-\end{figure}
+\fig{bds_figure_1_small}{bdsexec}{14cm}{Execution example. (A) Script \texttt{pipeline.bds}. (B) The script is executed from a terminal. The GO executable invokes main BDS, written in JAVA, performs lexing, parsing, compilation to AST and runs AST. (C) When the task statement is run, appropriate checks are performed. (D) A shell script \texttt{task1.sh} is created, and a bds-exec process is fired. (E) bds-exec reports PID, executed the script \texttt{task1.sh} while capturing stdout and stderr as well as monitoring timeouts and OS signals. When a process finishes execution, the exit status is logged}{Execution example \texttt{pipeline.bds}}
 
 %---
 \section{Results}
@@ -159,35 +149,19 @@ To illustrate the use of BDS in a real-life scenario, we present an implementati
 
 The example pipeline we created follows current best practices in sequencing data analysis \cite{mckenna2010genome}, which involves the following steps: (i) map reads to a reference genome using BWA (Li and Durbin, 2009), (ii) call variants using GATK’s HaplotypeCaller and (iii) annotate variants using SnpEff \cite{cingolani2012program} and SnpSift \cite{cingolani2012using}. The pipeline makes efficient use of computational resources by making sure tasks are parallelized whenever possible. Figure \ref{fig:bdspipeline} shows a flowchart of our implementation, while the pipeline’s source code is available at \texttt{include/bio/seq} directory of our project’s source code (https://github.com/pcingola/ BigDataScript).
 
-\begin{figure}
-    \centering
-    \includegraphics[width=14cm]{bds_figure_2_small.png}
-    \caption{Whole-genome sequencing analysis pipeline’s flow chart, showing how computations are split across many nodes}
-    \label{fig:bdspipeline}
-\end{figure}
+\fig{bds_figure_2_small}{bdspipeline}{14cm}{Whole-genome sequencing analysis pipeline's flow chart, showing how computations are split across many nodes}{Whole-genome sequencing analysis pipeline's flow chart}
 
-\paragraph{Architecture independence} We ran the exact same BDS pipeline on (i) a laptop computer; (ii) a multi-core server (24 cores, 256 GB shared RAM); (iii) a server farm (5 servers, 2 cores each); (iv) a 1200-core cluster; and (v) the Amazon AWS Cloud computing infrastructure (Table \ref{fig:bdstablearch}). For the purpose of this example and to accommodate the fact that running the pipeline on a laptop using the entire dataset would be prohibitive, we limited our experiment to reads that map to chromosome 20. The architectures involved were based on different operating systems and spanned about three orders of magnitude in terms of the number of CPUs (from 4 to 1200) and RAM (from 8GB to 12TB). BDS can also create a cluster from a ‘server farm’ by coordinating raw SSH connections to a set of computers. This minimalistic setup only requires that the computers have access to a shared disk, typically using NFS, which is a common practice in companies and university networks.
+\paragraph{Architecture independence} We ran the exact same BDS pipeline on (i) a laptop computer; (ii) a multi-core server (24 cores, 256 GB shared RAM); (iii) a server farm (5 servers, 2 cores each); (iv) a 1200-core cluster; and (v) the Amazon AWS Cloud computing infrastructure (Table \ref{tab:bdstablearch}). For the purpose of this example and to accommodate the fact that running the pipeline on a laptop using the entire dataset would be prohibitive, we limited our experiment to reads that map to chromosome 20. The architectures involved were based on different operating systems and spanned about three orders of magnitude in terms of the number of CPUs (from 4 to 1200) and RAM (from 8GB to 12TB). BDS can also create a cluster from a ‘server farm’ by coordinating raw SSH connections to a set of computers. This minimalistic setup only requires that the computers have access to a shared disk, typically using NFS, which is a common practice in companies and university networks.
 
 In all cases, the overhead required to run the BDS script itself accounted for 52 ms per task, which is negligible compared with typical pipeline runtimes of several hours.
 
-\paragraph{Robustness} To assess BDS’s robustness, we ran the pipeline on a cluster where 10\% of the nodes have induced hardware failures. As opposed to software failures, which are usually detected by cluster management systems, hardware node failures are typically more difficult to detect and recover from. In addition, we elevated the cluster load to 495\% to make sure the pipeline was running on less than ideal conditions. As shown in Table \ref{fig:bdstablearch}, the pipeline finished successfully without any human intervention and required only 30\% more time than in the ideal case scenario because BDS had to rerun several failed tasks. This shows how BDS pipelines can be robust and recover from multiple failures by using lazy processing and absolute serialization mechanisms.
+\paragraph{Robustness} To assess BDS’s robustness, we ran the pipeline on a cluster where 10\% of the nodes have induced hardware failures. As opposed to software failures, which are usually detected by cluster management systems, hardware node failures are typically more difficult to detect and recover from. In addition, we elevated the cluster load to 495\% to make sure the pipeline was running on less than ideal conditions. As shown in Table \ref{tab:bdstablearch}, the pipeline finished successfully without any human intervention and required only 30\% more time than in the ideal case scenario because BDS had to rerun several failed tasks. This shows how BDS pipelines can be robust and recover from multiple failures by using lazy processing and absolute serialization mechanisms.
 
-\begin{figure}
-    \centering
-    \includegraphics[width=14cm]{bds_table_1.png}
-    \caption{Architecture independence example. Notes: Running the same BDS-based pipeline, a sequence variant calling and analysis pipeline, on the same dataset (chr20) but different architectures, operating systems and cluster management systems.}
-    \label{fig:bdstablearch}
-\end{figure}
+\figtab{bds_table_1}{bdstablearch}{14cm}{Architecture independence example. Notes: Running the same BDS-based pipeline, a sequence variant calling and analysis pipeline, on the same dataset (chr20) but different architectures, operating systems and cluster management systems.}{Architecture independence example}
 
-\paragraph{Scalability} To assess BDS’s scalability, we ran exactly the same pipeline on two datasets that vary in size by several orders of magnitude (Table \ref{fig:bdstablescale}): (i) a relatively small dataset (chromosome 20 subset, 2GB) that would typically be used for development, testing and debugging and (ii) a high-depth whole-genome sequencing dataset (over 200 coverage, roughly 1.5 TB).
+\paragraph{Scalability} To assess BDS’s scalability, we ran exactly the same pipeline on two datasets that vary in size by several orders of magnitude (Table \ref{tab:bdstablescale}): (i) a relatively small dataset (chromosome 20 subset, 2GB) that would typically be used for development, testing and debugging and (ii) a high-depth whole-genome sequencing dataset (over 200 coverage, roughly 1.5 TB).
  
-\begin{figure}
-    \centering
-    \includegraphics[width=10cm]{bds_table_2.png}
-    \caption{Scaling dataset sized by a factor of ~1000. Notes: The same sample pipeline run on dataset of 2 GB (reads mapping to human chromosome 20) and 1.5 TB (whole-genome data set). Computational times vary according to system’s resources, utilization factor and induced hardware failures.}
-    \label{fig:bdstablescale}
-\end{figure}
-
+\figtab{bds_table_2}{bdstablescale}{14cm}{Scaling dataset sized by a factor of ~1000. Notes: The same sample pipeline run on dataset of 2 GB (reads mapping to human chromosome 20) and 1.5 TB (whole-genome data set). Computational times vary according to system’s resources, utilization factor and induced hardware failures.}{Scaling dataset sized by a factor of ~1000}
 
 %---
 \section{Discussion}
