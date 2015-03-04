@@ -2,95 +2,83 @@
 \contentsline {section}{\numberline {1.1}Motivation}{1}
 \contentsline {subsection}{\numberline {1.1.1}Reference genome and genetic variants}{3}
 \contentsline {subsection}{\numberline {1.1.2}DNA and disease}{6}
-\contentsline {subsection}{\numberline {1.1.3}Type II diabetes}{7}
-\contentsline {subsection}{\numberline {1.1.4}Missing heritability}{8}
-\contentsline {subsection}{\numberline {1.1.5}Conclusions}{10}
-\contentsline {section}{\numberline {1.2}Identification of genetic variants}{10}
-\contentsline {subsection}{\numberline {1.2.1}Sequencing data}{11}
-\contentsline {subsection}{\numberline {1.2.2}Sequence alignment}{13}
-\contentsline {subsection}{\numberline {1.2.3}Read mapping}{13}
-\contentsline {subsection}{\numberline {1.2.4}Mapping quality }{15}
-\contentsline {subsection}{\numberline {1.2.5}Variant calling}{15}
-\contentsline {section}{\numberline {1.3}Functional annotations of genomic variants }{17}
-\contentsline {subsection}{\numberline {1.3.1}Functional annotations of coding variant}{17}
-\contentsline {subsection}{\numberline {1.3.2}Non-coding annotations}{18}
-\contentsline {subsection}{\numberline {1.3.3}Conclusions}{18}
-\contentsline {section}{\numberline {1.4}Genome wide association studies}{19}
-\contentsline {subsection}{\numberline {1.4.1}Single variant tests and models }{19}
-\contentsline {subsection}{\numberline {1.4.2}Multiple variant tests}{20}
-\contentsline {subsection}{\numberline {1.4.3}Continuous traits and correcting for co-factors }{21}
-\contentsline {subsection}{\numberline {1.4.4}Population structure }{22}
-\contentsline {subsection}{\numberline {1.4.5}Population as confounding variable }{22}
-\contentsline {subsection}{\numberline {1.4.6}Common and Rare variants}{24}
-\contentsline {subsection}{\numberline {1.4.7}Rare variants test}{24}
-\contentsline {subsection}{\numberline {1.4.8}Conclusions}{25}
-\contentsline {section}{\numberline {1.5}Epistasis }{25}
-\contentsline {subsection}{\numberline {1.5.1}Epistatic GWAS }{28}
-\contentsline {section}{\numberline {1.6}Thesis roadmap and Contributions}{30}
-\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{35}
-\contentsline {section}{\numberline {2.1}Preface}{35}
-\contentsline {section}{\numberline {2.2}Introduction}{36}
-\contentsline {section}{\numberline {2.3}Methods}{40}
-\contentsline {subsection}{\numberline {2.3.1}Language overview}{41}
-\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{41}
-\contentsline {subsection}{\numberline {2.3.3}Robustness}{43}
-\contentsline {paragraph}{Lazy processing.}{44}
-\contentsline {paragraph}{Absolute serialization.}{44}
-\contentsline {paragraph}{Limitations.}{45}
-\contentsline {subsection}{\numberline {2.3.4}Other features}{45}
-\contentsline {paragraph}{Automatic logging.}{46}
-\contentsline {paragraph}{Automatic command line parsing.}{47}
-\contentsline {paragraph}{Task re-execution.}{47}
-\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{47}
-\contentsline {section}{\numberline {2.4}Results}{51}
-\contentsline {paragraph}{Architecture independence.}{53}
-\contentsline {paragraph}{Robustness.}{54}
-\contentsline {paragraph}{Scalability.}{54}
-\contentsline {section}{\numberline {2.5}Discussion}{55}
-\contentsline {chapter}{\numberline {3}SnpEff: Genomic variant annotation and prioritization}{57}
-\contentsline {section}{\numberline {3.1}Preface}{57}
-\contentsline {section}{\numberline {3.2}Epilogue?}{58}
-\contentsline {subsection}{\numberline {3.2.1}Data structures for annotations}{58}
-\contentsline {section}{\numberline {3.3}Background}{59}
-\contentsline {section}{\numberline {3.4}Genetic variants}{62}
-\contentsline {subsection}{\numberline {3.4.1}Types of genetic annotations}{64}
-\contentsline {subsection}{\numberline {3.4.2}Coding variant annotation}{65}
-\contentsline {subsection}{\numberline {3.4.3}Loss of function variants}{67}
-\contentsline {subsection}{\numberline {3.4.4}Variants with low or moderate impact}{69}
-\contentsline {subsection}{\numberline {3.4.5}Non-coding variant annotation}{72}
-\contentsline {subsection}{\numberline {3.4.6}Impact assessment of non-coding variants}{76}
-\contentsline {paragraph}{Computational sources of evidence:.}{76}
-\contentsline {paragraph}{Experimental sources of evidence:.}{77}
-\contentsline {paragraph}{Combining sources of evidence:.}{78}
-\contentsline {section}{\numberline {3.5} Clinical effect of variants}{79}
-\contentsline {section}{\numberline {3.6}Materials}{87}
-\contentsline {section}{\numberline {3.7}Procedure I: Analysis of coding variants}{89}
-\contentsline {paragraph}{Step 1. Primary variant annotation and quality control.}{90}
-\contentsline {paragraph}{Step 2. Counting variants in case and control subjects.}{92}
-\contentsline {paragraph}{Step 3. Filtering variants.}{93}
-\contentsline {paragraph}{Step 4. Using clinical databases..}{95}
-\contentsline {paragraph}{Software Integration (Optional).}{97}
-\contentsline {paragraph}{GATK.}{97}
-\contentsline {paragraph}{Galaxy.}{98}
-\contentsline {section}{\numberline {3.8}Procedure II: Analysis of non-coding variants}{98}
-\contentsline {paragraph}{Step 1. Annotating variants.}{99}
-\contentsline {paragraph}{Step 2. Adding custom regulatory information.}{100}
-\contentsline {paragraph}{Step 3. Adding conservation information.}{100}
-\contentsline {section}{\numberline {3.9}Troubleshooting}{102}
-\contentsline {section}{\numberline {3.10}Acknowledgements}{102}
-\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{103}
-\contentsline {section}{\numberline {4.1}Preface}{103}
-\contentsline {section}{\numberline {4.2}Introduction}{103}
-\contentsline {section}{\numberline {4.3}Methods}{107}
-\contentsline {subsection}{\numberline {4.3.1}Markov model}{108}
-\contentsline {subsection}{\numberline {4.3.2}GWAS model}{111}
-\contentsline {section}{\numberline {4.4}Results}{116}
-\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{116}
-\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{117}
-\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{121}
-\contentsline {section}{\numberline {4.5}Discussion}{121}
-\contentsline {chapter}{\numberline {5}Conclusions }{124}
-\contentsline {section}{\numberline {5.1}Contributions}{124}
-\contentsline {section}{\numberline {5.2}Future work}{126}
-\contentsline {section}{\numberline {5.3}Perspectives}{127}
-\contentsline {extrachapter}{References}{128}
+\contentsline {subsection}{\numberline {1.1.3}Missing heritability}{7}
+\contentsline {subsection}{\numberline {1.1.4}Conclusions}{9}
+\contentsline {section}{\numberline {1.2}Identification of genetic variants}{9}
+\contentsline {subsection}{\numberline {1.2.1}Sequencing data}{10}
+\contentsline {subsection}{\numberline {1.2.2}Sequence alignment}{12}
+\contentsline {subsection}{\numberline {1.2.3}Read mapping}{12}
+\contentsline {subsection}{\numberline {1.2.4}Mapping quality }{14}
+\contentsline {subsection}{\numberline {1.2.5}Variant calling}{14}
+\contentsline {section}{\numberline {1.3}Functional annotations of genomic variants }{16}
+\contentsline {subsection}{\numberline {1.3.1}Genetic variants}{19}
+\contentsline {subsection}{\numberline {1.3.2}Types of genetic annotations}{21}
+\contentsline {subsection}{\numberline {1.3.3}Coding variant annotation}{22}
+\contentsline {subsection}{\numberline {1.3.4}Loss of function variants}{24}
+\contentsline {subsection}{\numberline {1.3.5}Variants with low or moderate impact}{26}
+\contentsline {subsection}{\numberline {1.3.6}Non-coding variant annotation}{29}
+\contentsline {subsection}{\numberline {1.3.7}Impact assessment of non-coding variants}{33}
+\contentsline {paragraph}{Computational sources of evidence:.}{33}
+\contentsline {paragraph}{Experimental sources of evidence:.}{34}
+\contentsline {paragraph}{Combining sources of evidence:.}{35}
+\contentsline {subsection}{\numberline {1.3.8}Clinical effect of variants}{36}
+\contentsline {subsection}{\numberline {1.3.9}Conclusions}{45}
+\contentsline {section}{\numberline {1.4}Genome wide association studies}{45}
+\contentsline {subsection}{\numberline {1.4.1}Single variant tests and models }{45}
+\contentsline {subsection}{\numberline {1.4.2}Multiple variant tests}{46}
+\contentsline {subsection}{\numberline {1.4.3}Continuous traits and correcting for co-factors }{47}
+\contentsline {subsection}{\numberline {1.4.4}Population structure }{48}
+\contentsline {subsection}{\numberline {1.4.5}Population as confounding variable }{48}
+\contentsline {subsection}{\numberline {1.4.6}Common and Rare variants}{50}
+\contentsline {subsection}{\numberline {1.4.7}Rare variants test}{50}
+\contentsline {subsection}{\numberline {1.4.8}Conclusions}{51}
+\contentsline {section}{\numberline {1.5}Epistasis }{51}
+\contentsline {subsection}{\numberline {1.5.1}Epistatic GWAS }{54}
+\contentsline {section}{\numberline {1.6}Thesis roadmap and Contributions}{56}
+\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{61}
+\contentsline {section}{\numberline {2.1}Preface}{61}
+\contentsline {section}{\numberline {2.2}Introduction}{62}
+\contentsline {section}{\numberline {2.3}Methods}{66}
+\contentsline {subsection}{\numberline {2.3.1}Language overview}{67}
+\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{67}
+\contentsline {subsection}{\numberline {2.3.3}Robustness}{69}
+\contentsline {paragraph}{Lazy processing.}{70}
+\contentsline {paragraph}{Absolute serialization.}{70}
+\contentsline {paragraph}{Limitations.}{71}
+\contentsline {subsection}{\numberline {2.3.4}Other features}{71}
+\contentsline {paragraph}{Automatic logging.}{72}
+\contentsline {paragraph}{Automatic command line parsing.}{73}
+\contentsline {paragraph}{Task re-execution.}{73}
+\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{73}
+\contentsline {section}{\numberline {2.4}Results}{77}
+\contentsline {paragraph}{Architecture independence.}{79}
+\contentsline {paragraph}{Robustness.}{80}
+\contentsline {paragraph}{Scalability.}{80}
+\contentsline {section}{\numberline {2.5}Discussion}{81}
+\contentsline {chapter}{\numberline {3}A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain $w^{1118} ; iso-2; iso-3$}{83}
+\contentsline {section}{\numberline {3.1}Preface}{83}
+\contentsline {section}{\numberline {3.2}Abstract}{84}
+\contentsline {section}{\numberline {3.3}Introduction}{85}
+\contentsline {section}{\numberline {3.4}Results}{87}
+\contentsline {section}{\numberline {3.5}Discussion}{102}
+\contentsline {section}{\numberline {3.6}Methods}{106}
+\contentsline {section}{\numberline {3.7}Acknowledgements}{109}
+\contentsline {section}{\numberline {3.8}Epilogue}{111}
+\contentsline {subsection}{\numberline {3.8.1}Data structures for annotations}{111}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{113}
+\contentsline {section}{\numberline {4.1}Preface}{113}
+\contentsline {subsection}{\numberline {4.1.1}Type II diabetes}{113}
+\contentsline {section}{\numberline {4.2}Introduction}{114}
+\contentsline {section}{\numberline {4.3}Methods}{118}
+\contentsline {subsection}{\numberline {4.3.1}Markov model}{119}
+\contentsline {subsection}{\numberline {4.3.2}GWAS model}{122}
+\contentsline {section}{\numberline {4.4}Results}{127}
+\contentsline {subsection}{\numberline {4.4.1}Markov epistatic model}{127}
+\contentsline {subsection}{\numberline {4.4.2}Epistatic model validation}{128}
+\contentsline {subsection}{\numberline {4.4.3}Epistatic GWAS analysis}{132}
+\contentsline {section}{\numberline {4.5}Discussion}{132}
+\contentsline {chapter}{\numberline {5}Conclusions }{135}
+\contentsline {section}{\numberline {5.1}Contributions}{135}
+\contentsline {section}{\numberline {5.2}Future work}{137}
+\contentsline {section}{\numberline {5.3}Perspectives}{138}
+\contentsline {extrachapter}{References}{139}

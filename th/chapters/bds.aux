@@ -1,51 +1,51 @@
 \relax 
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{35}}
-\newlabel{ch:bds}{{2}{35}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Preface}{35}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{61}}
+\newlabel{ch:bds}{{2}{61}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Preface}{61}}
 \citation{zuk2014searching}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Introduction}{36}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Introduction}{62}}
 \citation{auwera2013fastq}
 \citation{sadedin2012bpipe}
 \citation{napolitano2013bioinformatic}
 \citation{sadedin2012bpipe}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Methods}{40}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Language overview}{41}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{41}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}\texttt  {pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5).}{42}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}Robustness}{43}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Methods}{66}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Language overview}{67}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{67}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}\texttt  {pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5).}{68}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}Robustness}{69}}
 \citation{napolitano2013bioinformatic}
-\@writefile{toc}{\contentsline {paragraph}{Lazy processing.}{44}}
-\@writefile{toc}{\contentsline {paragraph}{Absolute serialization.}{44}}
-\@writefile{toc}{\contentsline {paragraph}{Limitations.}{45}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Other features}{45}}
-\@writefile{toc}{\contentsline {paragraph}{Automatic logging.}{46}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}\texttt  {pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt  {myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt  {myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt  {myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt  {myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt  {myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt  {mainOut <- outs}).}{46}}
-\@writefile{toc}{\contentsline {paragraph}{Automatic command line parsing.}{47}}
-\@writefile{toc}{\contentsline {paragraph}{Task re-execution.}{47}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{47}}
-\@writefile{lof}{\contentsline {figure}{\numberline {{2--1}}{\ignorespaces BDS report showing pipeline’s task execution timeline\relax }}{50}}
+\@writefile{toc}{\contentsline {paragraph}{Lazy processing.}{70}}
+\@writefile{toc}{\contentsline {paragraph}{Absolute serialization.}{70}}
+\@writefile{toc}{\contentsline {paragraph}{Limitations.}{71}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Other features}{71}}
+\@writefile{toc}{\contentsline {paragraph}{Automatic logging.}{72}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}\texttt  {pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt  {myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt  {myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt  {myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt  {myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt  {myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt  {mainOut <- outs}).}{72}}
+\@writefile{toc}{\contentsline {paragraph}{Automatic command line parsing.}{73}}
+\@writefile{toc}{\contentsline {paragraph}{Task re-execution.}{73}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{73}}
+\@writefile{lof}{\contentsline {figure}{\numberline {{2--1}}{\ignorespaces BDS report showing pipeline’s task execution timeline\relax }}{76}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:bdsreport}{{{2--1}}{50}}
+\newlabel{fig:bdsreport}{{{2--1}}{76}}
 \citation{mckenna2010genome}
 \citation{cingolani2012program}
 \citation{cingolani2012using}
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Results}{51}}
-\@writefile{lof}{\contentsline {figure}{\numberline {{2--2}}{\ignorespaces Execution example. (A) Script \texttt  {pipeline.bds}. (B) The script is executed from a terminal. The GO executable invokes main BDS, written in JAVA, performs lexing, parsing, compilation to AST and runs AST. (C) When the task statement is run, appropriate checks are performed. (D) A shell script \texttt  {task1.sh} is created, and a bds-exec process is fired. (E) bds-exec reports PID, executed the script \texttt  {task1.sh} while capturing stdout and stderr as well as monitoring timeouts and OS signals. When a process finishes execution, the exit status is logged\relax }}{52}}
-\newlabel{fig:bdsexec}{{{2--2}}{52}}
-\@writefile{lof}{\contentsline {figure}{\numberline {{2--3}}{\ignorespaces Whole-genome sequencing analysis pipeline’s flow chart, showing how computations are split across many nodes\relax }}{53}}
-\newlabel{fig:bdspipeline}{{{2--3}}{53}}
-\@writefile{toc}{\contentsline {paragraph}{Architecture independence.}{53}}
-\@writefile{toc}{\contentsline {paragraph}{Robustness.}{54}}
-\@writefile{toc}{\contentsline {paragraph}{Scalability.}{54}}
-\@writefile{lof}{\contentsline {figure}{\numberline {{2--4}}{\ignorespaces Architecture independence example. Notes: Running the same BDS-based pipeline, a sequence variant calling and analysis pipeline, on the same dataset (chr20) but different architectures, operating systems and cluster management systems.\relax }}{55}}
-\newlabel{fig:bdstablearch}{{{2--4}}{55}}
-\@writefile{lof}{\contentsline {figure}{\numberline {{2--5}}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace  {}1000. Notes: The same sample pipeline run on dataset of 2 GB (reads mapping to human chromosome 20) and 1.5 TB (whole-genome data set). Computational times vary according to system’s resources, utilization factor and induced hardware failures.\relax }}{55}}
-\newlabel{fig:bdstablescale}{{{2--5}}{55}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Discussion}{55}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Results}{77}}
+\@writefile{lof}{\contentsline {figure}{\numberline {{2--2}}{\ignorespaces Execution example. (A) Script \texttt  {pipeline.bds}. (B) The script is executed from a terminal. The GO executable invokes main BDS, written in JAVA, performs lexing, parsing, compilation to AST and runs AST. (C) When the task statement is run, appropriate checks are performed. (D) A shell script \texttt  {task1.sh} is created, and a bds-exec process is fired. (E) bds-exec reports PID, executed the script \texttt  {task1.sh} while capturing stdout and stderr as well as monitoring timeouts and OS signals. When a process finishes execution, the exit status is logged\relax }}{78}}
+\newlabel{fig:bdsexec}{{{2--2}}{78}}
+\@writefile{lof}{\contentsline {figure}{\numberline {{2--3}}{\ignorespaces Whole-genome sequencing analysis pipeline’s flow chart, showing how computations are split across many nodes\relax }}{79}}
+\newlabel{fig:bdspipeline}{{{2--3}}{79}}
+\@writefile{toc}{\contentsline {paragraph}{Architecture independence.}{79}}
+\@writefile{toc}{\contentsline {paragraph}{Robustness.}{80}}
+\@writefile{toc}{\contentsline {paragraph}{Scalability.}{80}}
+\@writefile{lof}{\contentsline {figure}{\numberline {{2--4}}{\ignorespaces Architecture independence example. Notes: Running the same BDS-based pipeline, a sequence variant calling and analysis pipeline, on the same dataset (chr20) but different architectures, operating systems and cluster management systems.\relax }}{81}}
+\newlabel{fig:bdstablearch}{{{2--4}}{81}}
+\@writefile{lof}{\contentsline {figure}{\numberline {{2--5}}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace  {}1000. Notes: The same sample pipeline run on dataset of 2 GB (reads mapping to human chromosome 20) and 1.5 TB (whole-genome data set). Computational times vary according to system’s resources, utilization factor and induced hardware failures.\relax }}{81}}
+\newlabel{fig:bdstablescale}{{{2--5}}{81}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Discussion}{81}}
 \@setckpt{chapters/bds}{
-\setcounter{page}{57}
+\setcounter{page}{83}
 \setcounter{equation}{0}
-\setcounter{enumi}{21}
+\setcounter{enumi}{20}
 \setcounter{enumii}{0}
 \setcounter{enumiii}{0}
 \setcounter{enumiv}{0}
