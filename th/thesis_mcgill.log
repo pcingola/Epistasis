@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 MAR 2015 07:21
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 MAR 2015 07:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -299,38 +299,7 @@ LaTeX Warning: Unused global option(s):
     [letterpaper].
 
 (./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/bds.aux)
-(./chapters/snpeff.aux
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-
-LaTeX Warning: Label `fig:snpeffTab3' multiply defined.
-
-) (./chapters/gwas.aux
+(./chapters/snpeff.aux) (./chapters/gwas.aux
 
 LaTeX Warning: Label `fig:gwasf3a' multiply defined.
 
@@ -1744,10 +1713,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6209 strings out of 493315
- 92898 string characters out of 6137904
+ 6219 strings out of 493315
+ 93040 string characters out of 6137904
  190773 words of memory out of 5000000
- 9493 multiletter control sequences out of 15000+600000
+ 9503 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,42p,2578b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1766,7 +1735,7 @@ e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/local/texlive/2
 013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (160 pages, 4396648 bytes).
+Output written on thesis_mcgill.pdf (160 pages, 4396708 bytes).
 PDF statistics:
  610 PDF objects out of 1000 (max. 8388607)
  400 compressed objects within 4 object streams
