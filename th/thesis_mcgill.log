@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  4 MAR 2015 10:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  4 MAR 2015 15:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1676,6 +1676,9 @@ thesis_mcgill.bbl
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
  6345 strings out of 494985
@@ -1699,7 +1702,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (158 pages, 4387973 bytes).
+Output written on thesis_mcgill.pdf (158 pages, 4387951 bytes).
 PDF statistics:
  604 PDF objects out of 1000 (max. 8388607)
  396 compressed objects within 4 object streams
