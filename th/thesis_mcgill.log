@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  5 MAR 2015 13:38
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  5 MAR 2015 14:58
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -399,7 +399,11 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 1.
 
 (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [2
+)
+
+LaTeX Warning: Reference `sec:introRef' on page 3 undefined on input line 3.
+
+[2
 
 
 
@@ -410,8 +414,7 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
  [3] [4]
 \openout2 = `chapters/intro.aux'.
 
-
-(./chapters/intro.tex
+ (./chapters/intro.tex
 ***************************
 CHAPTER 1.
 ***************************
@@ -419,7 +422,11 @@ CHAPTER 1.
 
 
 
-] [2]
+]
+
+LaTeX Warning: Reference `sec:introRef' on page 2 undefined on input line 25.
+
+[2]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -484,12 +491,6 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-
-Overfull \hbox (17.37488pt too wide) in paragraph at lines 61--62
-[]\OT1/cmr/m/n/12 Diseases hav-ing sim-ple in-her-i-tance pat-terns, such as Cy
-s-tic fi-bro-sis, Phenylke-
- []
-
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -506,33 +507,31 @@ Overfull \hbox (3.51183pt too wide) in paragraph at lines 75--76
 tributable
  []
 
-[7] [8]
+[7] [8] [9] [10]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [9] [10]
+ [11] [12] [13]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [11] [12] [13] [14] [15] [16]
+ [14] [15] [16]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
  [17] [18]
+
+LaTeX Warning: Reference `sec:' on page 19 undefined on input line 177.
+
+[19]
+
+LaTeX Warning: Reference `sec:introRef' on page 20 undefined on input line 179.
+
+
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [19]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
- [20]
+[20]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -546,22 +545,8 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-
-[22]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-
-Overfull \hbox (13.98462pt too wide) in paragraph at lines 198--199
+ [22]
+Overfull \hbox (13.98462pt too wide) in paragraph at lines 196--197
 \OT1/cmr/m/n/12 tran-script (or iso-form), due to al-ter-na-tive pro-mot-ers, s
 plic-ing, or polyadeny-
  []
@@ -574,6 +559,12 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
  [25]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
@@ -581,82 +572,29 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [26]
+ [26] [27] [28] [29] [30]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [27] [28] [29] [30] [31]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [32] [33] [34] [35] [36]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [37]
-Overfull \hbox (24.55951pt too wide) in paragraph at lines 286--287
+ [31] [32] [33] [34] [35] [36]
+Overfull \hbox (24.55951pt too wide) in paragraph at lines 284--285
 \OT1/cmr/m/n/12 im-pact vari-ants based on sim-ple cri-te-ria (such as pre-ma-t
 ure stops, frameshifts,
  []
 
-[38]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-
-Underfull \vbox (badness 10000) detected at line 302
+[37] [38]
+Overfull \hbox (2.30153pt too wide) in paragraph at lines 295--296
+[]\OT1/cmr/m/n/12 VCF (Vari-ant Call For-mat): This for-mat, in-tro-duced by th
+e 1000 Genomes
  []
 
-[39]
-Underfull \vbox (badness 10000) detected at line 302
- []
-
-
-Underfull \vbox (badness 10000) detected at line 302
- []
-
-[40]
-Underfull \vbox (badness 10000) detected at line 332
- []
-
-[41]
-Underfull \vbox (badness 10000) detected at line 332
- []
-
-
-Underfull \vbox (badness 10000) detected at line 332
- []
-
-[42]
-Underfull \vbox (badness 10000) detected at line 332
- []
-
-
-Underfull \vbox (badness 10000) detected at line 332
- []
-
-[43] [44] [45]
-Overfull \hbox (41.62686pt too wide) detected at line 360
+[39] [40] [41]
+Overfull \hbox (41.62686pt too wide) detected at line 346
 []
  []
 
-[46]
-Overfull \hbox (11.34142pt too wide) in paragraph at lines 370--371
+[42]
+Overfull \hbox (11.34142pt too wide) in paragraph at lines 356--357
 \OT1/cmr/m/n/12 QQ-plot is used (i.e. plot-ting the $\OML/cmm/m/it/12 y \OT1/cm
 r/m/n/12 = \OMS/cmsy/m/n/12 ^^@\OML/cmm/m/it/12 log\OT1/cmr/m/n/12 (\OML/cmm/m/
 it/12 p[]\OT1/cmr/m/n/12 )$ vs $\OML/cmm/m/it/12 x \OT1/cmr/m/n/12 = \OMS/cmsy/
@@ -665,115 +603,87 @@ n/12 (\OML/cmm/m/it/12 p[]\OT1/cmr/m/n/12 )\OML/cmm/m/it/12 =\OT1/cmr/m/n/12 (\
 OML/cmm/m/it/12 N \OT1/cmr/m/n/12 +
  []
 
-[47] [48] [49] [50]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [51] [52]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [53]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [54]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 440.
+[43] [44] [45] [46] [47] [48] [49]
+Overfull \hbox (1.24179pt too wide) in paragraph at lines 406--407
+[]\OT1/cmr/m/n/12 A proper al-beit more com-plex sta-tis-ti-cal anal-y-sis take
+s into ac-count MSA's
+ []
 
+[50]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 422.
 
-(/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
+ (/usr/share/texlive/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 440.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 422.
+ [51]
 
+LaTeX Warning: Reference `ref:gwas' on page 52 undefined on input line 432.
 
-LaTeX Warning: Reference `ref:gwas' on page 55 undefined on input line 450.
-
-[55]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-
-Underfull \hbox (badness 10000) in paragraph at lines 458--460
+[52]
+Underfull \hbox (badness 10000) in paragraph at lines 440--442
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 469--471
-
- []
-
-[56]
-Underfull \hbox (badness 10000) in paragraph at lines 478--484
+Underfull \hbox (badness 10000) in paragraph at lines 451--453
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 491--492
+Underfull \hbox (badness 10000) in paragraph at lines 460--466
 
  []
 
-[57]
-Underfull \hbox (badness 10000) in paragraph at lines 502--503
+[53]
+Underfull \hbox (badness 10000) in paragraph at lines 473--474
 
  []
 
 
-Overfull \hbox (3.01802pt too wide) in paragraph at lines 507--508
+Underfull \hbox (badness 10000) in paragraph at lines 484--485
+
+ []
+
+[54]
+Overfull \hbox (3.01802pt too wide) in paragraph at lines 489--490
 \OT1/cmr/m/n/12 evolutionary ap-proach for de-tect-ing epistatic in-ter-ac-tion
 s in genome-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 510--512
+Underfull \hbox (badness 10000) in paragraph at lines 492--494
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 513--516
+Underfull \hbox (badness 10000) in paragraph at lines 495--498
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 513--516
+Underfull \hbox (badness 10000) in paragraph at lines 495--498
 
  []
 
-[58]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
 
-Overfull \hbox (6.30827pt too wide) in paragraph at lines 522--523
-\OT1/cmr/m/n/12 Part 2: Nat-u-ral se-lec-tion of metastable epi-al-le-les in ho
-n-ey-bee castes",
- []
-
-
-Overfull \hbox (32.24504pt too wide) in paragraph at lines 523--524
+Overfull \hbox (32.24504pt too wide) in paragraph at lines 505--506
 []\OT1/cmr/m/n/12 Arko S, et al. ``Lead ex-po-sure in-duces changes in 5-hydrox
 ymethylcytosine
  []
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 526--527
+[55]
+Underfull \hbox (badness 10000) in paragraph at lines 508--509
 
  []
 
-[59]
 Missing character: There is no √ in font cmr12!
 Missing character: There is no © in font cmr12!
 Missing character: There is no Œ in font cmr12!
 Missing character: There is no ± in font cmr12!
-
-Underfull \hbox (badness 10000) in paragraph at lines 539--540
+[56]
+Underfull \hbox (badness 10000) in paragraph at lines 521--522
 
  []
 
@@ -781,7 +691,7 @@ Missing character: There is no √ in font cmr12!
 Missing character: There is no ∫ in font cmr12!
 Missing character: There is no √ in font cmr12!
 Missing character: There is no ° in font cmr12!
-) [60]
+) [57]
 \openout2 = `chapters/bds.aux'.
 
  (./chapters/bds.tex
@@ -797,23 +707,38 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ú in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ù in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ú in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ù in font cmr12!
-[61
+[58
 
 
 
-] [62]
+] [59]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [60]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ò in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [61]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [62]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -821,57 +746,17 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
  [64]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [65]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [66]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [67]
 (/usr/share/texlive/texmf-dist/tex/latex/listings/lstlang1.sty
 File: lstlang1.sty 2013/08/26 1.5b listings language file
-)
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ú in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ù in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ú in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ù in font cmtt10!
- [68]
+) [65]
 Missing character: There is no ‚ in font cmtt12!
 Missing character: There is no Ä in font cmtt12!
 Missing character: There is no ì in font cmtt12!
 Missing character: There is no ‚ in font cmtt12!
 Missing character: There is no Ä in font cmtt12!
 Missing character: There is no ô in font cmtt12!
- [69]
+ [66]
 Missing character: There is no ‚ in font cmtt12!
 Missing character: There is no Ä in font cmtt12!
 Missing character: There is no ì in font cmtt12!
@@ -888,32 +773,13 @@ Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 
-[70]
+[67]
 Overfull \hbox (75.13216pt too wide) in paragraph at lines 85--86
 \OT1/cmr/m/n/12 gram-ming. Ex-ten-sive doc-u-men-ta-tion is avail-able at http:
 //pcingola.github.io/BigDataScript. 
  []
 
-[71]
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ú in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ù in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ú in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ù in font cmtt10!
- [72]
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ú in font cmtt10!
-Missing character: There is no ‚ in font cmtt10!
-Missing character: There is no Ä in font cmtt10!
-Missing character: There is no ù in font cmtt10!
+[68] [69]
 Missing character: There is no ‚ in font cmtt10!
 Missing character: There is no Ä in font cmtt10!
 Missing character: There is no ò in font cmtt10!
@@ -932,7 +798,7 @@ Overfull \hbox (16.07693pt too wide) in paragraph at lines 116--117
 m-ming flex-i-ble data pipelines
  []
 
-[73]
+[70]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ò in font cmr12!
@@ -948,7 +814,7 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [74] <figs/bds_figure_3_small.png, id=264, 1148.29pt x 1656.1875pt>
+ [71] <figs/bds_figure_3_small.png, id=255, 1148.29pt x 1656.1875pt>
 File: figs/bds_figure_3_small.png Graphic file (type png)
 
 <use figs/bds_figure_3_small.png>
@@ -971,8 +837,8 @@ Overfull \hbox (1.89452pt too wide) in paragraph at lines 132--133
 ec re-ports its pro-cess ID (PID),
  []
 
-[75] [76 <./figs/bds_figure_3_small.png>]
-<figs/bds_figure_1_small.png, id=274, 1053.9375pt x 752.8125pt>
+[72] [73 <./figs/bds_figure_3_small.png>]
+<figs/bds_figure_1_small.png, id=264, 1053.9375pt x 752.8125pt>
 File: figs/bds_figure_1_small.png Graphic file (type png)
 
 <use figs/bds_figure_1_small.png>
@@ -983,7 +849,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 142--142
  [] 
  []
 
-[77 <./figs/bds_figure_1_small.png>]
+[74 <./figs/bds_figure_1_small.png>]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -999,7 +865,7 @@ Overfull \hbox (40.15758pt too wide) in paragraph at lines 150--151
 urce code (https://github.com/pcingola/
  []
 
-<figs/bds_figure_2_small.png, id=278, 2489.3pt x 2434.09375pt>
+<figs/bds_figure_2_small.png, id=268, 2489.3pt x 2434.09375pt>
 File: figs/bds_figure_2_small.png Graphic file (type png)
 
 <use figs/bds_figure_2_small.png>
@@ -1016,12 +882,12 @@ Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[78] [79 <./figs/bds_figure_2_small.png>]
+[75] [76 <./figs/bds_figure_2_small.png>]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 
-<figs/bds_table_1.png, id=285, 1205.50375pt x 231.86626pt>
+<figs/bds_table_1.png, id=276, 1205.50375pt x 231.86626pt>
 File: figs/bds_table_1.png Graphic file (type png)
 
 <use figs/bds_table_1.png>
@@ -1035,7 +901,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 160--160
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-<figs/bds_table_2.png, id=286, 587.19376pt x 134.5025pt>
+<figs/bds_table_2.png, id=277, 587.19376pt x 134.5025pt>
 File: figs/bds_table_2.png Graphic file (type png)
 
 <use figs/bds_table_2.png>
@@ -1046,14 +912,14 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 164--164
  [] 
  []
 
-[80 <./figs/bds_table_1.png>]
+[77 <./figs/bds_table_1.png>]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [81 <./figs/bds_table_2.png>]) [82]
+ [78 <./figs/bds_table_2.png>]) [79]
 \openout2 = `chapters/snpeff.aux'.
 
 
@@ -1061,11 +927,11 @@ Missing character: There is no ô in font cmr12!
 ***************************
 CHAPTER 3.
 ***************************
-[83
+[80
 
 
 
-] [84]
+] [81]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -1099,7 +965,7 @@ Overfull \hbox (11.43881pt too wide) in paragraph at lines 31--32
 (http://gmod.org/wiki/
  []
 
-[85] <figs/snpeff_table1.png, id=306, 1869.98625pt x 400.49625pt>
+[82] <figs/snpeff_table1.png, id=297, 1869.98625pt x 400.49625pt>
 File: figs/snpeff_table1.png Graphic file (type png)
 
 <use figs/snpeff_table1.png>
@@ -1110,14 +976,14 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 33--33
  [] 
  []
 
-[86 <./figs/snpeff_table1.png>] [87]
+[83 <./figs/snpeff_table1.png>] [84]
 Overfull \hbox (17.17413pt too wide) in paragraph at lines 55--56
 []\OT1/cmr/m/n/12 According to SnpEff (ver-sion 1.9.6), the largest num-ber of 
 SNPs in $\OML/cmm/m/it/12 w[]\OT1/cmr/m/n/12 ; \OML/cmm/m/it/12 iso \OMS/cmsy/m
 /n/12 ^^@
  []
 
-<figs/snpeff_table2.png, id=314, 1086.0575pt x 983.675pt>
+<figs/snpeff_table2.png, id=304, 1086.0575pt x 983.675pt>
 File: figs/snpeff_table2.png Graphic file (type png)
 
 <use figs/snpeff_table2.png>
@@ -1128,20 +994,20 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 57--57
  [] 
  []
 
-[88] [89 <./figs/snpeff_table2.png>]
-<figs/snpeff_table3.png, id=321, 637.38126pt x 895.345pt>
+[85] [86 <./figs/snpeff_table2.png>]
+<figs/snpeff_table3.png, id=311, 637.38126pt x 895.345pt>
 File: figs/snpeff_table3.png Graphic file (type png)
 
 <use figs/snpeff_table3.png>
 Package pdftex.def Info: figs/snpeff_table3.png used on input line 65.
 (pdftex.def)             Requested size: 227.62204pt x 319.74187pt.
- [90] [91 <./figs/snpeff_table3.png>] [92] [93]
+ [87] [88 <./figs/snpeff_table3.png>] [89] [90]
 Overfull \hbox (6.30415pt too wide) in paragraph at lines 77--78
 []\OT1/cmr/m/n/12 An im-por-tant con-sid-er-a-tion with stop-gained and stop-lo
 st SNPs is whether
  []
 
-<figs/snpeff_table4.png, id=335, 1866.975pt x 544.0325pt>
+<figs/snpeff_table4.png, id=325, 1866.975pt x 544.0325pt>
 File: figs/snpeff_table4.png Graphic file (type png)
 
 <use figs/snpeff_table4.png>
@@ -1152,7 +1018,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 79--79
  [] 
  []
 
-<figs/snpeff_fig1.png, id=336, 1230.5975pt x 775.89874pt>
+<figs/snpeff_fig1.png, id=326, 1230.5975pt x 775.89874pt>
 File: figs/snpeff_fig1.png Graphic file (type png)
 
 <use figs/snpeff_fig1.png>
@@ -1163,8 +1029,8 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 81--81
  [] 
  []
 
-[94] [95 <./figs/snpeff_table4.png> <./figs/snpeff_fig1.png>]
-<figs/snpeff_table5.png, id=343, 1555.8125pt x 951.555pt>
+[91] [92 <./figs/snpeff_table4.png> <./figs/snpeff_fig1.png>]
+<figs/snpeff_table5.png, id=333, 1555.8125pt x 951.555pt>
 File: figs/snpeff_table5.png Graphic file (type png)
 
 <use figs/snpeff_table5.png>
@@ -1175,7 +1041,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 85--85
  [] 
  []
 
-<figs/snpeff_table6.png, id=344, 1871.99374pt x 745.78625pt>
+<figs/snpeff_table6.png, id=334, 1871.99374pt x 745.78625pt>
 File: figs/snpeff_table6.png Graphic file (type png)
 
 <use figs/snpeff_table6.png>
@@ -1186,12 +1052,12 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 87--87
  [] 
  []
 
-[96 <./figs/snpeff_table5.png>] [97 <./figs/snpeff_table6.png>]
+[93 <./figs/snpeff_table5.png>] [94 <./figs/snpeff_table6.png>]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
 
-<figs/snpeff_fig2.png, id=352, 1763.58875pt x 1021.8175pt>
+<figs/snpeff_fig2.png, id=342, 1763.58875pt x 1021.8175pt>
 File: figs/snpeff_fig2.png Graphic file (type png)
 
 <use figs/snpeff_fig2.png>
@@ -1202,8 +1068,8 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 95--95
  [] 
  []
 
-[98 <./figs/snpeff_fig2.png>]
-<figs/snpeff_table7.png, id=356, 1866.975pt x 897.3525pt>
+[95 <./figs/snpeff_fig2.png>]
+<figs/snpeff_table7.png, id=346, 1866.975pt x 897.3525pt>
 File: figs/snpeff_table7.png Graphic file (type png)
 
 <use figs/snpeff_table7.png>
@@ -1214,8 +1080,8 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 99--99
  [] 
  []
 
-[99 <./figs/snpeff_table7.png>]
-<figs/snpeff_fig3.png, id=361, 680.5425pt x 999.735pt>
+[96 <./figs/snpeff_table7.png>]
+<figs/snpeff_fig3.png, id=351, 680.5425pt x 999.735pt>
 File: figs/snpeff_fig3.png Graphic file (type png)
 
 <use figs/snpeff_fig3.png>
@@ -1233,8 +1099,8 @@ Overfull \hbox (0.85486pt too wide) in paragraph at lines 113--114
 m/n/12 ^^@
  []
 
-[100] [101 <./figs/snpeff_fig3.png>] [102]
-<figs/snpeff_fig4.png, id=371, 1381.16pt x 937.5025pt>
+[97] [98 <./figs/snpeff_fig3.png>] [99]
+<figs/snpeff_fig4.png, id=362, 1381.16pt x 937.5025pt>
 File: figs/snpeff_fig4.png Graphic file (type png)
 
 <use figs/snpeff_fig4.png>
@@ -1245,8 +1111,8 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 121--121
  [] 
  []
 
-[103] [104 <./figs/snpeff_fig4.png>]
-<figs/snpeff_fig6.png, id=378, 600.2425pt x 996.72375pt>
+[100] [101 <./figs/snpeff_fig4.png>]
+<figs/snpeff_fig6.png, id=369, 600.2425pt x 996.72375pt>
 File: figs/snpeff_fig6.png Graphic file (type png)
 
 <use figs/snpeff_fig6.png>
@@ -1272,8 +1138,8 @@ Overfull \hbox (17.40079pt too wide) in paragraph at lines 129--130
 re-at-ing these databases
  []
 
-[105] [106 <./figs/snpeff_fig6.png>]
-<figs/snpeff_fig5.png, id=386, 721.69624pt x 976.64874pt>
+[102] [103 <./figs/snpeff_fig6.png>]
+<figs/snpeff_fig5.png, id=376, 721.69624pt x 976.64874pt>
 File: figs/snpeff_fig5.png Graphic file (type png)
 
 <use figs/snpeff_fig5.png>
@@ -1284,7 +1150,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 145--145
  [] 
  []
 
-[107] [108 <./figs/snpeff_fig5.png>]
+[104] [105 <./figs/snpeff_fig5.png>]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -1294,7 +1160,7 @@ Overfull \hbox (34.28163pt too wide) in paragraph at lines 163--164
 andesbioscience.com/
  []
 
-[109]) [110]
+[106]) [107]
 \openout2 = `chapters/gwas.aux'.
 
  (./chapters/gwas.tex
@@ -1307,24 +1173,24 @@ Overfull \hbox (5.46388pt too wide) in paragraph at lines 16--17
 d con-stant hunger,
  []
 
-[111
+[108
 
 
 
-] [112]
+] [109]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [113] [114]
+ [110] [111]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [115]
+ [112]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [116]
-<figs/gwas_epistasis_pipeline.png, id=418, 969.6225pt x 526.96875pt>
+ [113]
+<figs/gwas_epistasis_pipeline.png, id=409, 969.6225pt x 526.96875pt>
 File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
@@ -1336,19 +1202,19 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 52--52
  [] 
  []
 
-[117 <./figs/gwas_epistasis_pipeline.png>] [118]
+[114 <./figs/gwas_epistasis_pipeline.png>] [115]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [119] [120]
+ [116] [117]
 Overfull \hbox (14.30777pt too wide) in alignment at lines 109--112
  [][][] []
  []
 
-[121]
+[118]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
@@ -1363,25 +1229,25 @@ Overfull \hbox (58.39912pt too wide) in alignment at lines 138--148
  [][][] []
  []
 
-[122] [123] [124]
+[119] [120] [121]
 
-LaTeX Warning: Reference `fig:S3' on page 125 undefined on input line 178.
+LaTeX Warning: Reference `fig:S3' on page 122 undefined on input line 178.
 
 
-LaTeX Warning: Reference `fig:S3' on page 125 undefined on input line 178.
+LaTeX Warning: Reference `fig:S3' on page 122 undefined on input line 178.
 
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[125]
+[122]
 
-LaTeX Warning: Reference `fig:S1' on page 126 undefined on input line 189.
-
-
-LaTeX Warning: Reference `tab:S1' on page 126 undefined on input line 189.
+LaTeX Warning: Reference `fig:S1' on page 123 undefined on input line 189.
 
 
-LaTeX Warning: Reference `fig:S2' on page 126 undefined on input line 191.
+LaTeX Warning: Reference `tab:S1' on page 123 undefined on input line 189.
+
+
+LaTeX Warning: Reference `fig:S2' on page 123 undefined on input line 191.
 
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
@@ -1413,7 +1279,7 @@ Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-<figs/gwas_figure_2.png, id=450, 1027.84pt x 1027.84pt>
+<figs/gwas_figure_2.png, id=440, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_2.png Graphic file (type png)
 
 <use figs/gwas_figure_2.png>
@@ -1431,12 +1297,12 @@ Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [126]
+ [123]
 
-LaTeX Warning: Reference `fig:gwasf3a' on page 127 undefined on input line 203.
+LaTeX Warning: Reference `fig:gwasf3a' on page 124 undefined on input line 203.
 
 
-<figs/gwas_figure_3A.png, id=454, 1027.84pt x 1027.84pt>
+<figs/gwas_figure_3A.png, id=445, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3A.png Graphic file (type png)
 
 <use figs/gwas_figure_3A.png>
@@ -1454,8 +1320,8 @@ Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [127 <./figs/gwas_figure_2.png>]
-<figs/gwas_figure_3B.png, id=459, 1027.84pt x 1027.84pt>
+ [124 <./figs/gwas_figure_2.png>]
+<figs/gwas_figure_3B.png, id=450, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3B.png Graphic file (type png)
 
 <use figs/gwas_figure_3B.png>
@@ -1463,20 +1329,20 @@ Package pdftex.def Info: figs/gwas_figure_3B.png used on input line 206.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
 
 
-LaTeX Warning: Reference `fig:S5' on page 128 undefined on input line 210.
+LaTeX Warning: Reference `fig:S5' on page 125 undefined on input line 210.
 
-[128 <./figs/gwas_figure_3A.png>] [129 <./figs/gwas_figure_3B.png>]
+[125 <./figs/gwas_figure_3A.png>] [126 <./figs/gwas_figure_3B.png>]
 
-LaTeX Warning: Reference `t:' on page 130 undefined on input line 212.
-
-
-LaTeX Warning: Reference `tab:S4A' on page 130 undefined on input line 212.
+LaTeX Warning: Reference `t:' on page 127 undefined on input line 212.
 
 
-LaTeX Warning: Reference `tab:S4B' on page 130 undefined on input line 212.
+LaTeX Warning: Reference `tab:S4A' on page 127 undefined on input line 212.
 
 
-LaTeX Warning: Reference `fig:S4' on page 130 undefined on input line 212.
+LaTeX Warning: Reference `tab:S4B' on page 127 undefined on input line 212.
+
+
+LaTeX Warning: Reference `fig:S4' on page 127 undefined on input line 212.
 
 
 Overfull \hbox (10.03607pt too wide) in paragraph at lines 212--213
@@ -1484,7 +1350,7 @@ Overfull \hbox (10.03607pt too wide) in paragraph at lines 212--213
 i-cance at-tribute (CLNSIG).
  []
 
-<figs/gwas_figure_jmol_epistasis.png, id=469, 785.93625pt x 721.69624pt>
+<figs/gwas_figure_jmol_epistasis.png, id=459, 785.93625pt x 721.69624pt>
 File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use figs/gwas_figure_jmol_epistasis.png>
@@ -1499,7 +1365,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 214--214
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ¶ in font cmr12!
-[130] [131 <./figs/gwas_figure_jmol_epistasis.png>]) [132]
+[127] [128 <./figs/gwas_figure_jmol_epistasis.png>]) [129]
 \openout2 = `chapters/conclusions.aux'.
 
 
@@ -1507,7 +1373,7 @@ Missing character: There is no ¶ in font cmr12!
 ***************************
 CHAPTER 5.
 ***************************
-[133
+[130
 
 
 
@@ -1517,7 +1383,7 @@ Overfull \hbox (7.84853pt too wide) in paragraph at lines 22--23
 ry meth-
  []
 
-[134]
+[131]
 Underfull \hbox (badness 10000) in paragraph at lines 32--33
 
  []
@@ -1525,11 +1391,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 32--33
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-[135]
+[132]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
-) [136] (./thesis_mcgill.bbl
+) [133] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1082) in paragraph at lines 4--9
 []\OT1/cmr/m/n/12 Dario Acam-pora, Vir-ginia Avan-tag-giato, Francesca Tuorto, 
 Paolo
@@ -1547,7 +1413,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 48--53
 
  []
 
-[137
+[134
 
 
 
@@ -1558,38 +1424,38 @@ Missing character: There is no ò in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [138]
+ [135]
 Underfull \hbox (badness 1043) in paragraph at lines 182--188
 []\OT1/cmr/m/n/12 Kristian Cibul-skis, Michael S Lawrence, Scott L Carter, An-d
 rey
  []
 
-[139] [140] [141]
-Underfull \hbox (badness 1259) in paragraph at lines 373--379
+[136] [137] [138]
+Underfull \hbox (badness 1259) in paragraph at lines 367--373
 []\OT1/cmr/m/n/12 Kevin M Flani-gan, Di-ane M Dunn, An-drew von Nieder-hausern,
 
  []
 
-[142] [143]
-Underfull \hbox (badness 1769) in paragraph at lines 488--493
+[139] [140]
+Underfull \hbox (badness 1769) in paragraph at lines 482--487
 []\OT1/cmr/m/n/12 Fereydoun Hor-moz-di-ari, Iman Ha-ji-ra-souliha, An-drew McPh
 er-son,
  []
 
-[144] [145] [146] [147]
+[141] [142] [143] [144]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [148]
+ [145]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no î in font cmr12!
- [149] [150] [151]
-Underfull \hbox (badness 1270) in paragraph at lines 1024--1029
+ [146] [147] [148]
+Underfull \hbox (badness 1270) in paragraph at lines 1006--1011
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[152] [153] [154]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[149] [150] [151]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
 (./chapters/conclusions.aux))
 
@@ -1680,15 +1546,18 @@ thesis_mcgill.bbl
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
- 6346 strings out of 494985
- 94539 string characters out of 6180357
+ 6339 strings out of 494985
+ 94435 string characters out of 6180357
  187006 words of memory out of 5000000
- 9394 multiletter control sequences out of 15000+600000
+ 9387 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
- 38i,11n,44p,2578b,1573s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,44p,2563b,1575s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></us
 r/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/shar
 e/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/texl
@@ -1703,10 +1572,10 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (158 pages, 4387949 bytes).
+Output written on thesis_mcgill.pdf (155 pages, 4382281 bytes).
 PDF statistics:
- 604 PDF objects out of 1000 (max. 8388607)
- 396 compressed objects within 4 object streams
+ 594 PDF objects out of 1000 (max. 8388607)
+ 389 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

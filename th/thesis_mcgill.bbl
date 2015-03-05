@@ -288,12 +288,6 @@ Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
   effect.
 \newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
 
-\bibitem{curwen2004ensembl}
-Val Curwen, Eduardo Eyras, T~Daniel Andrews, Laura Clarke, Emmanuel Mongin,
-  Steven~MJ Searle, and Michele Clamp.
-\newblock The ensembl automatic gene annotation system.
-\newblock {\em Genome research}, 14(5):942--950, 2004.
-
 \bibitem{danecek2011variant}
 Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis~A Albers, Eric Banks,
   Mark~A DePristo, Robert~E Handsaker, Gerton Lunter, Gabor~T Marth, Stephen~T
@@ -496,12 +490,6 @@ Douglas~A Hosack, Glynn Dennis~Jr, Brad~T Sherman, H~Clifford Lane, Richard~A
   Lempicki, et~al.
 \newblock Identifying biological themes within lists of genes with ease.
 \newblock {\em Genome Biol}, 4(10):R70, 2003.
-
-\bibitem{hsu2006ucsc}
-Fan Hsu, W~James Kent, Hiram Clawson, Robert~M Kuhn, Mark Diekhans, and David
-  Haussler.
-\newblock The ucsc known genes.
-\newblock {\em Bioinformatics}, 22(9):1036--1046, 2006.
 
 \bibitem{ivanov2011identification}
 Ivaylo~P Ivanov, Andrew~E Firth, Audrey~M Michel, John~F Atkins, and Pavel~V
@@ -842,12 +830,6 @@ Alkes~L Price, Nick~J Patterson, Robert~M Plenge, Michael~E Weinblatt, Nancy~A
 \newblock Principal components analysis corrects for stratification in
   genome-wide association studies.
 \newblock {\em Nature genetics}, 38(8):904--909, 2006.
-
-\bibitem{pruitt2007ncbi}
-Kim~D Pruitt, Tatiana Tatusova, and Donna~R Maglott.
-\newblock Ncbi reference sequences (refseq): a curated non-redundant sequence
-  database of genomes, transcripts and proteins.
-\newblock {\em Nucleic acids research}, 35(suppl 1):D61--D65, 2007.
 
 \bibitem{raj2013common}
 Towfique Raj, Manik Kuchroo, Joseph~M Replogle, Soumya Raychaudhuri, Barbara~E

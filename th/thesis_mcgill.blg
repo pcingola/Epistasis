@@ -107,45 +107,45 @@ I'm skipping whatever remains of this entry
 Warning--empty journal in begun1992levels
 Warning--empty journal in brenner1965genetic
 Warning--empty journal in schneider2013genome
-You've used 185 entries,
+You've used 182 entries,
             2118 wiz_defined-function locations,
-            1467 strings with 44104 characters,
-and the built_in function-call counts, 79894 in all, are:
-= -- 7507
-> -- 5516
+            1455 strings with 43568 characters,
+and the built_in function-call counts, 78563 in all, are:
+= -- 7380
+> -- 5427
 < -- 13
-+ -- 2215
-- -- 1992
-* -- 7100
-:= -- 13777
-add.period$ -- 556
-call.type$ -- 185
-change.case$ -- 1504
++ -- 2178
+- -- 1960
+* -- 6977
+:= -- 13550
+add.period$ -- 547
+call.type$ -- 182
+change.case$ -- 1479
 chr.to.int$ -- 0
-cite$ -- 188
-duplicate$ -- 2134
-empty$ -- 4893
-format.name$ -- 1992
-if$ -- 15605
+cite$ -- 185
+duplicate$ -- 2101
+empty$ -- 4810
+format.name$ -- 1960
+if$ -- 15347
 int.to.chr$ -- 0
-int.to.str$ -- 185
-missing$ -- 189
-newline$ -- 928
-num.names$ -- 370
-pop$ -- 1225
+int.to.str$ -- 182
+missing$ -- 186
+newline$ -- 913
+num.names$ -- 364
+pop$ -- 1206
 preamble$ -- 1
-purify$ -- 1324
+purify$ -- 1302
 quote$ -- 0
-skip$ -- 1504
+skip$ -- 1483
 stack$ -- 0
-substring$ -- 5060
-swap$ -- 292
+substring$ -- 4962
+swap$ -- 289
 text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 730
+type$ -- 718
 warning$ -- 3
-while$ -- 682
-width$ -- 188
-write$ -- 2023
+while$ -- 670
+width$ -- 185
+write$ -- 1990
 (There were 24 error messages)
