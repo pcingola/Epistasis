@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  4 MAR 2015 15:06
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.3.3)  5 MAR 2015 13:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -686,7 +686,11 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 440.
- [55]
+
+
+LaTeX Warning: Reference `ref:gwas' on page 55 undefined on input line 450.
+
+[55]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -1676,15 +1680,12 @@ thesis_mcgill.bbl
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 6345 strings out of 494985
- 94529 string characters out of 6180357
+ 6346 strings out of 494985
+ 94539 string characters out of 6180357
  187006 words of memory out of 5000000
- 9393 multiletter control sequences out of 15000+600000
+ 9394 multiletter control sequences out of 15000+600000
  10501 words of font info for 41 fonts, out of 8000000 for 9000
  36 hyphenation exceptions out of 8191
  38i,11n,44p,2578b,1573s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1702,7 +1703,7 @@ m/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy
 </usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/
 share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/
 texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on thesis_mcgill.pdf (158 pages, 4387951 bytes).
+Output written on thesis_mcgill.pdf (158 pages, 4387949 bytes).
 PDF statistics:
  604 PDF objects out of 1000 (max. 8388607)
  396 compressed objects within 4 object streams

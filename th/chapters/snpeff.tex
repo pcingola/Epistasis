@@ -129,7 +129,7 @@ The many potential start-gained SNPs in Drosophila might also have evolutionary 
 Finally, we recently upgraded SnpEff further by including over 320 databases for different reference genome versions that can be analyzed (http://snpeff.  sourceforge.net/SnpSift.html). Sources of information for creating these databases are ENSEMBL, UCSC Genome Bioinformatics website as well as organism specific databases, such as FlyBase (Drosophila melanogaster), WormBase (C.  elegans) and TAIR (Arabidopsis thaliana), to name a few. The program SnpEff is open access and additional genomes can be added and assistance in using SnpEff can be provided upon request. Rapid analyses of whole-genome sequencing data should now be feasible to perform by any laboratory
 
 %---
-\section{Methods}
+\section{Methods \label{sec:snpeffMethods}}
 %---
 
 \textbf{SnpEff overview.} The program is divided in two main parts (i) database build and (ii) effect calculation. Part (i) Database build is usually not run by the user, because many databases containing genomic annotations are available. Databases are build using a reference genome, a FASTA file, and an annotation file, usually GTF, GFF or RefSeq table, provided by ENSEMBL, UCSC Genome Bioinformatics website or other specific websites, such as FlyBase, WormBase and TAIR. SnpEff databases are gzip serialized objects that represent genomic annotations.
