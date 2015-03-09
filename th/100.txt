@@ -1,0 +1,100 @@
+Primate	Human                    Homo sapiens                   Feb 2009  GRCh37/hg19                                   Reference species
+Primate	Chimp                    Pan troglodytes                Feb 2011  CSAC 2.1.4/panTro4                            Syntenic net        
+Primate	Gorilla                  Gorilla gorilla gorilla        May 2011  gorGor3.1/gorGor3                             Reciprocal best net 
+Primate	Orangutan                Pongo pygmaeus abelii          July 2007 WUGSC 2.0.2/ponAbe2                           Reciprocal best net 
+Primate	Gibbon                   Nomascus leucogenys            Oct 2012  GGSC Nleu3.0/nomLeu3                          Syntenic net        
+Primate	Rhesus                   Macaca mulatta                 Oct 2010  BGI CR_1.0/rheMac3                            Syntenic net        
+Primate	Crab-eating macaque      Macaca fascicularis            Jun 2013  Macaca_fascicularis_5.0/macFas5               Syntenic net        
+Primate	Baboon                   Papio hamadryas                Nov 2008  Baylor Pham_1.0/papHam1                       Reciprocal best net 
+Primate	Green monkey             Chlorocebus sabaeus            Jun 2013  Chlorocebus_sabeus 1.0/chlSab1                Syntenic net        
+Primate	Marmoset                 Callithrix jacchus             Mar 2009  WUGSC 3.2/calJac3                             Syntenic net        
+Primate	Squirrel monkey          Saimiri boliviensis            Oct 2011  Broad/saiBol1                                 Syntenic net        
+Primate	Bushbaby                 Otolemur garnettii             Mar 2011  Broad/otoGar3                                 Syntenic net        
+Euarchontoglires	Chinese tree shrew       Tupaia chinensis               Jan 2013  TupChi_1.0/tupChi1                            Syntenic net        
+Euarchontoglires	Squirrel                 Spermophilus tridecemlineatus  Nov 2011  Broad/speTri2                                 Syntenic net        
+Euarchontoglires	Lesser Egyptian jerboa   Jaculus jaculus                May 2012  JacJac1.0/jacJac1                             Syntenic net        
+Euarchontoglires	Prairie vole             Microtus ochrogaster           Oct 2012  MicOch1.0/micOch1                             Syntenic net        
+Euarchontoglires	Chinese hamster          Cricetulus griseus             Jul 2013  C_griseus_v1.0/criGri1                        Syntenic net        
+Euarchontoglires	Golden hamster           Mesocricetus auratus           Mar 2013  MesAur1.0/mesAur1                             Syntenic net        
+Euarchontoglires	Mouse                    Mus musculus                   Dec 2011  GRCm38/mm10                                   Syntenic net        
+Euarchontoglires	Rat                      Rattus norvegicus              Mar 2012  RGSC 5.0/rn5                                  Syntenic net        
+Euarchontoglires	Naked mole-rat           Heterocephalus glaber          Jan 2012  Broad HetGla_female_1.0/hetGla2               Syntenic net        
+Euarchontoglires	Guinea pig               Cavia porcellus                Feb 2008  Broad/cavPor3                                 Syntenic net        
+Euarchontoglires	Chinchilla               Chinchilla lanigera            May 2012  ChiLan1.0/chiLan1                             Syntenic net        
+Euarchontoglires	Brush-tailed rat         Octodon degus                  Apr 2012  OctDeg1.0/octDeg1                             Syntenic net        
+Euarchontoglires	Rabbit                   Oryctolagus cuniculus          Apr 2009  Broad/oryCun2                                 Syntenic net        
+Euarchontoglires	Pika                     Ochotona princeps              May 2012  OchPri3.0/ochPri3                             Syntenic net        
+Laurasiatheria	Pig                      Sus scrofa                     Aug 2011  SGSC Sscrofa10.2/susScr3                      Syntenic net        
+Laurasiatheria	Alpaca                   Vicugna pacos                  Mar 2013  Vicugna_pacos-2.0.1/vicPac2                   Syntenic net        
+Laurasiatheria	Bactrian camel           Camelus ferus                  Dec 2011  CB1/camFer1                                   Syntenic net        
+Laurasiatheria	Dolphin                  Tursiops truncatus             Oct 2011  Baylor Ttru_1.4/turTru2                       Reciprocal best net 
+Laurasiatheria	Killer whale             Orcinus orca                   Jan 2013  Oorc_1.1/orcOrc1                              Syntenic net        
+Laurasiatheria	Tibetan antelope         Pantholops hodgsonii           May 2013  PHO1.0/panHod1                                Syntenic net        
+Laurasiatheria	Cow                      Bos taurus                     Oct 2011  Baylor Btau_4.6.1/bosTau7                     Syntenic net        
+Laurasiatheria	Sheep                    Ovis aries                     Aug 2012  ISGC Oar_v3.1/oviAri3                         Syntenic net        
+Laurasiatheria	Domestic goat            Capra hircus                   May 2012  CHIR_1.0/capHir1                              Syntenic net        
+Laurasiatheria	Horse                    Equus caballus                 Sep 2007  Broad/equCab2                                 Syntenic net        
+Laurasiatheria	White rhinoceros         Ceratotherium simum            May 2012  CerSimSim1.0/cerSim1                          Syntenic net        
+Laurasiatheria	Cat                      Felis catus                    Sep 2011  ICGSC Felis_catus 6.2/felCat5                 Syntenic net        
+Laurasiatheria	Dog                      Canis lupus familiaris         Sep 2011  Broad CanFam3.1/canFam3                       Syntenic net        
+Laurasiatheria	Ferret                   Mustela putorius furo          Apr 2011  MusPutFur1.0/musFur1                          Syntenic net        
+Laurasiatheria	Panda                    Ailuropoda melanoleuca         Dec 2009  BGI-Shenzhen 1.0/ailMel1                      Syntenic net        
+Laurasiatheria	Pacific walrus           Odobenus rosmarus divergens    Jan 2013  Oros_1.0/odoRosDiv1                           Syntenic net        
+Laurasiatheria	Weddell seal             Leptonychotes weddellii        Mar 2013  LepWed1.0/lepWed1                             Reciprocal best net 
+Laurasiatheria	Black flying-fox         Pteropus alecto                Aug 2012  ASM32557v1/pteAle1                            Syntenic net        
+Laurasiatheria	Megabat                  Pteropus vampyrus              Jul 2008  Broad/pteVam1                                 Reciprocal best net 
+Laurasiatheria	David's myotis bat       Myotis davidii                 Aug 2012  ASM32734v1/myoDav1                            Syntenic net        
+Laurasiatheria	Microbat                 Myotis lucifugus               Jul 2010  Broad Institute Myoluc2.0/myoLuc2             Syntenic net        
+Laurasiatheria	Big brown bat            Eptesicus fuscus               Jul 2012  EptFus1.0/eptFus1                             Syntenic net        
+Laurasiatheria	Hedgehog                 Erinaceus europaeus            May 2012  EriEur2.0/eriEur2                             Syntenic net        
+Laurasiatheria	Shrew                    Sorex araneus                  Aug 2008  Broad/sorAra2                                 Syntenic net        
+Laurasiatheria	Star-nosed mole          Condylura cristata             Mar 2012  ConCri1.0/conCri1                             Syntenic net        
+Afrotheria	Elephant                 Loxodonta africana             Jul 2009  Broad/loxAfr3                                 Syntenic net        
+Afrotheria	Cape elephant shrew      Elephantulus edwardii          Aug 2012  EleEdw1.0/eleEdw1                             Syntenic net        
+Afrotheria	Manatee                  Trichechus manatus latirostris Oct 2011  Broad v1.0/triMan1                            Syntenic net        
+Afrotheria	Cape golden mole         Chrysochloris asiatica         Aug 2012  ChrAsi1.0/chrAsi1                             Syntenic net        
+Afrotheria	Tenrec                   Echinops telfairi              Nov 2012  Broad/echTel2                                 Syntenic net        
+Afrotheria	Aardvark                 Orycteropus afer afer          May 2012  OryAfe1.0/oryAfe1                             Syntenic net        
+Mammal	Armadillo                Dasypus novemcinctus           Dec 2011  Baylor/dasNov3                                Syntenic net        
+Mammal	Opossum                  Monodelphis domestica          Oct 2006  Broad/monDom5                                 Net                 
+Mammal	Tasmanian devil          Sarcophilus harrisii           Feb 2011  WTSI Devil_ref v7.0/sarHar1                   Net                 
+Mammal	Wallaby                  Macropus eugenii               Sep 2009  TWGS Meug_1.1/macEug2                         Reciprocal best net 
+Mammal	Platypus                 Ornithorhynchus anatinus       Mar 2007  WUGSC 5.0.1/ornAna1                           Reciprocal best net 
+Aves	Saker falcon             Falco cherrug                  Feb 2013  F_cherrug_v1.0/falChe1                        Net                 
+Aves	Peregrine falcon         Falco peregrinus               Feb 2013  F_peregrinus_v1.0/falPer1                     Net                 
+Aves	Collared flycatcher      Ficedula albicollis            Jun 2013  FicAlb1.5/ficAlb2                             Net                 
+Aves	White-throated sparrow   Zonotrichia albicollis         Apr 2013  ASM38545v1/zonAlb1                            Net                 
+Aves	Medium ground finch      Geospiza fortis                Apr 2012  GeoFor_1.0/geoFor1                            Net                 
+Aves	Zebra finch              Taeniopygia guttata            Feb 2013  WashU taeGut324/taeGut2                       Net                 
+Aves	Tibetan ground jay       Pseudopodoces humilis          Jan 2013  PseHum1.0/pseHum1                             Net                 
+Aves	Budgerigar               Melopsittacus undulatus        Sep 2011  WUSTL v6.3/melUnd1                            Net                 
+Aves	Parrot                   Amazona vittata                Jan 2013  AV1/amaVit1                                   Net                 
+Aves	Scarlet macaw            Ara macao                      Jun 2013  SMACv1.1/araMac1                              Net                 
+Aves	Rock pigeon              Columba livia                  Feb 2013  Cliv_1.0/colLiv1                              Net                 
+Aves	Mallard duck             Anas platyrhynchos             Apr 2013  BGI_duck_1.0/anaPla1                          Net                 
+Aves	Chicken                  Gallus gallus                  Nov 2011  ICGSC Gallus_gallus-4.0/galGal4               Net                 
+Aves	Turkey                   Meleagris gallopavo            Dec 2009  TGC Turkey_2.01/melGal1                       Net                 
+Sarcopterygii	American alligator       Alligator mississippiensis     Aug 2012  allMis0.2/allMis1                             Net                 
+Sarcopterygii	Green seaturtle          Chelonia mydas                 Mar 2013  CheMyd_1.0/cheMyd1                            Net                 
+Sarcopterygii	Painted turtle           Chrysemys picta bellii         Dec 2011  v3.0.1/chrPic1                                Net                 
+Sarcopterygii	Chinese softshell turtle Pelodiscus sinensis            Oct 2011  PelSin_1.0/pelSin1                            Net                 
+Sarcopterygii	Spiny softshell turtle   Apalone spinifera              May 2013  ASM38561v1/apaSpi1                            Net                 
+Sarcopterygii	Lizard                   Anolis carolinensis            May 2010  Broad AnoCar2.0/anoCar2                       Net                 
+Sarcopterygii	X. tropicalis            Xenopus tropicalis             Sep 2012  JGI 7.0/xenTro7                               Net                 
+Sarcopterygii	Coelacanth               Latimeria chalumnae            Aug 2011  Broad/latCha1                                 Net                 
+Fish	Tetraodon                Tetraodon nigroviridis         Mar 2007  Genoscope 8.0/tetNig2                         Net                 
+Fish	Fugu                     Takifugu rubripes              Oct 2011  FUGU5/fr3                                     Net                 
+Fish	Yellowbelly pufferfish   Takifugu flavidus              May 2013  version 1 of Takifugu flavidus genome/takFla1 Net                 
+Fish	Nile tilapia             Oreochromis niloticus          Jan 2011  Broad oreNil1.1/oreNil2                       Net                 
+Fish	Princess of Burundi      Neolamprologus brichardi       May 2011  NeoBri1.0/neoBri1                             Net                 
+Fish	Burton's mouthbreeder    Haplochromis burtoni           Oct 2011  AstBur1.0/hapBur1                             Net                 
+Fish	Zebra mbuna              Maylandia zebra                Mar 2012  MetZeb1.1/mayZeb1                             Net                 
+Fish	Pundamilia nyererei      Pundamilia nyererei            Oct 2011  PunNye1.0/punNye1                             Net                 
+Fish	Medaka                   Oryzias latipes                Oct 2005  NIG/UT MEDAKA1/oryLat2                        Net                 
+Fish	Southern platyfish       Xiphophorus maculatus          Jan 2012  Xiphophorus_maculatus-4.4.2/xipMac1           Net                 
+Fish	Stickleback              Gasterosteus aculeatus         Feb 2006  Broad/gasAcu1                                 Net                 
+Fish	Atlantic cod             Gadus morhua                   May 2010  Genofisk GadMor_May2010/gadMor1               Net                 
+Fish	Zebrafish                Danio rerio                    Jul 2010  Zv9/danRer7                                   Net                 
+Fish	Mexican tetra (cavefish) Astyanax mexicanus             Apr 2013  Astyanax_mexicanus-1.0.2/astMex1              Net                 
+Fish	Spotted gar              Lepisosteus oculatus           Dec 2011  LepOcu1/lepOcu1                               Net                 
+Fish	Lamprey                  Petromyzon marinus             Sep 2010  WUGSC 7.0/petMar2                             Net                 
