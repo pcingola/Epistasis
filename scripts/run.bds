@@ -17,7 +17,7 @@ gwas	:= false	help Run GWAS analysis
 param	:= false	help Run parameter estimation
 
 # GWAs using interaction (MSA) data
-gwasNumSplits	:= 50			help Split GWAS data into N 'splits'
+gwasNumSplits	:= 30			help Split GWAS data into N 'splits'
 dirGwasOut		:= "$dir/gwas"	help GWAS output directory
 
 #-------------------------------------------------------------------------------
