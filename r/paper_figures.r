@@ -1,6 +1,10 @@
 
 savePng <- T
 
+fig2 <- T
+fig3 <- T
+fig4 <- T
+
 #-------------------------------------------------------------------------------
 # Compare two distributions
 #-------------------------------------------------------------------------------
@@ -34,13 +38,9 @@ cummProbRatio <- function(x, ll.int, ll.non) {
 # Result files:
 #		./data/likelihood.*.values.txt.gz
 #-------------------------------------------------------------------------------
-figure2 <- function() {
-	# Load data 'in contact'
-	cat('Reding file: likelihood.contact.values.txt\n')
-    lc <- read.csv("likelihood.contact.values.txt")
+figure2 <- function(lc, la, lalcOdds, x) {
 
-	cat('Reding file: likelihood.null.values.txt\n')
-    la <- read.csv("likelihood.null.values.txt")
+	par(mar = c(5, 4, 4, 4) + 0.3)  # Leave space for z axis
 
 	# Convert to numbers
     lc <- as.numeric( lc[,1] )
@@ -55,8 +55,16 @@ figure2 <- function() {
 	cat('\tInteracting\t', summary(lc), '\n')
 	cat('\tNon-interacting\t', summary(la), '\n')
 
+	# Histograms
 	compareHist(lc, la, title, xlim, xlab, "Frequency", breaks)
-	legend("topleft", inset=.05, c('In contact', 'Not in contact'), fill=c( rgb(1,0,0,1/4), rgb(0,0,1,1/4)), horiz=F)
+	legend("topleft", inset=.05, c('In contact', 'Not in contact', 'Probability ratio'), fill=c( rgb(1,0,0,1/4), rgb(0,0,1,1/4), rgb(0,0,0,1)), horiz=F)
+
+	# Ratio of cummulative probabilities
+	par(new = TRUE)
+	plot(x, lalcOdds, type = "l", axes = FALSE, bty = "n", xlab = "", ylab = "")
+	axis(side=4, at = pretty(range(x)))
+	mtext("Probability ratio P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ]", side=4, line=3)
+	lines( supsmu(x, lalcOdds), col='gray', lty=2 )
 }
 
 #-------------------------------------------------------------------------------
@@ -67,27 +75,8 @@ figure2 <- function() {
 # Result files:
 #		./data/interactions/pdb/likelihood.pdb_compound.neigh_1.*.0.txt.gz
 #-------------------------------------------------------------------------------
-figure3 <- function() {
-	#---
-	# Figure 3.A: Compare LL(MSA) for proteins 'in contact' versus 'not in contact' (from PDB co-crystalized structures)
-	#---
-
-	windowSize <- 1							# Originally we calculated for different "windowSizes", but now we stick to windowSize=1
-	cat('Window size:', windowSize, '\n')
-
-	# Load data 'in contact'
-	fileNeigh <- paste('likelihood.pdb_compound.neigh_', windowSize, '.3.0.txt', sep='')
-	cat('Reding file:', fileNeigh, '\n')
-	d.int <- read.table(fileNeigh, header=F, sep='\t')
-
-	# Load data 'not in contact'
-	fileNeigh <- paste('likelihood.pdb_compound.neigh_', windowSize, '.-30.0.txt', sep='')
-	cat('Reding file:', fileNeigh, '\n')
-	d.non <- read.table(fileNeigh, header=F, sep='\t')
-
-	# Extract log-likelyhood
-	ll.int <- d.int[,5]
-	ll.non <- d.non[,5]
+figure3 <- function(ll.int, ll.non, or, orx) {
+	par(mar = c(5, 4, 4, 4) + 0.3)  # Leave space for z axis
 
 	#---
 	# Show density distributions
@@ -102,24 +91,23 @@ figure3 <- function() {
 	cat('\tNon-interacting\t', summary(ll.non), '\n')
 
 	compareHist(ll.int, ll.non, title, xlim, xlab, "Frequency", breaks)
-	legend("topleft", inset=.05, c('Interacting', 'Non-interacting'), fill=c( rgb(1,0,0,1/4), rgb(0,0,1,1/4)), horiz=F)
+	legend("topleft", inset=.05, c('Interacting', 'Not in contact', 'Log[Probability ratio]'), fill=c( rgb(1,0,0,1/4), rgb(0,0,1,1/4), rgb(0,0,0,1)), horiz=F)
 
 	#---
 	# Figure 3.B: Plot odds ratio (cummulative probability)
 	#---
-	#x <- seq( -10, 10, 0.05)
-	x <- seq( min(xlim), max(xlim), 0.05)
-	cr <- function(x) { cummProbRatio(x, ll.int, ll.non) }
-	y <- sapply(x, cr)
-	ly <- log(y) 
+	lor <- log(or) 
 
 	# Remove inacurrate numbers (too few points to calculate stats)
 	maxShow <- 10.7
-	y[ x > maxShow ] <- NA
-	ly[ x > maxShow ] <- NA
+	lor[ orX > maxShow ] <- NA
 
-	plot( x, ly, main="Log-Odds ratio LL(MSA)", sub='log{ P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ] }', cex=0.5, xlab='LL(MSA)', ylab='log( Odds )', ylim=c(0, 3))
-	lines( supsmu(x, ly), col='red' )
+	# Ratio of cummulative probabilities
+	par(new = TRUE)
+	plot( orX, lor, type = "l", axes = FALSE, bty = "n", xlab = "", ylab = "")
+	axis(side=4, at = pretty(range(orX)))
+	mtext("Log probability ratio log{ P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ] }", side=4, line=3)
+	lines( supsmu(orx, lor), col='gray', lty=2 )
 }
 
 #-------------------------------------------------------------------------------
@@ -137,7 +125,7 @@ figure4 <- function() {
 
 	# Log ratio
 	l <- log(r)
-    cat('Raw:\t\tMean:', mean(y), ' StdDev:', sd(y), ' Median:', median(y), '\n')
+    cat('Raw:\t\tMean:', mean(r), ' StdDev:', sd(r), ' Median:', median(r), '\n')
     cat('Log:\t\tMean:', mean(l), ' StdDev:', sd(l), ' Median:', median(l), '\n')
 
 	title <- 'Histogram of Log[R(ab,cd)] ratios'
@@ -153,9 +141,67 @@ figure4 <- function() {
 pngSize <- 1024
 if( savePng )	png(width=pngSize, height=pngSize)
 
-figure2()
-figure3()
-figure4()
+#---
+# Figure 2
+#---
+if( fig2 ) {
+	# Load data 
+	if( !exists('lc') ) {
+		cat('Reading file: likelihood.contact.values.txt\n')
+		lc <- read.csv("likelihood.contact.values.txt")
+
+		cat('Reading file: likelihood.null.values.txt\n')
+		la <- read.csv("likelihood.null.values.txt")
+
+		cat('Calculating probability ratio\n')
+		xlim <- c(-40,20)
+		lalcOddsX <- seq( min(xlim), max(xlim), 0.05)
+		cr <- function(x) { cummProbRatio(x, lc, la) }
+		lalcOdds <- sapply(lalcOddsX, cr)
+	}
+
+	figure2(lc, la, lalcOdds, lalcOddsX)
+}
+
+#---
+# Figure 3
+#---
+if( fig3 ) {
+	if( !exists('d.int') ) {
+		windowSize <- 1							# Originally we calculated for different "windowSizes", but now we stick to windowSize=1
+		cat('Window size:', windowSize, '\n')
+
+		# Load data 'in contact'
+		fileNeigh <- paste('likelihood.pdb_compound.neigh_', windowSize, '.3.0.txt', sep='')
+		cat('Reading file:', fileNeigh, '\n')
+		d.int <- read.table(fileNeigh, header=F, sep='\t')
+
+		# Load data 'not in contact'
+		fileNeigh <- paste('likelihood.pdb_compound.neigh_', windowSize, '.-30.0.txt', sep='')
+		cat('Reading file:', fileNeigh, '\n')
+		d.non <- read.table(fileNeigh, header=F, sep='\t')
+
+		# Extract log-likelyhood
+		ll.int <- d.int[,5]
+		ll.non <- d.non[,5]
+
+		cat('Calculating probability ratio\n')
+		xlim <- c(-40,20)
+		orX <- seq( min(xlim), max(xlim), 0.05)
+		cr <- function(x) { cummProbRatio(x, ll.int, ll.non) }
+		or <- sapply(orX, cr)
+	}
+
+	figure3(ll.int, ll.non, or, orX)
+}
+
+#---
+# Figure 4
+#---
+if( fig4 ) {
+	figure4()
+}
 
 # Close graphics device
 if( savePng )	dev.off()
+
