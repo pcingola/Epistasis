@@ -1,0 +1,21 @@
+AA1	AA	AA3	AA1	Polarity	Charge	Hydrophaty_index	Absorvance	epsilon	Weight_MW	Essential	Class
+A	Alanine	Ala	A	nonpolar	neutral	1.8			89	Nonessential	Aliphatic
+R	Arginine	Arg	R	Basic_polar	positive	−4.5			174	Nonessential	Basic
+N	Asparagine	Asn	N	polar	neutral	−3.5			132	Nonessential
+D	Aspartic_acid	Asp	D	acidic_polar	negative	−3.5			133	Nonessential	Acidic
+C	Cysteine	Cys	C	nonpolar	neutral	2.5	250	0.3	121	Nonessential	Hydroxyl/Sulfur/Selenium
+E	Glutamic_acid	Glu	E	acidic_polar	negative	−3.5			147	Nonessential	Acidic
+Q	Glutamine	Gln	Q	polar	neutral	−3.5			146	Nonessential
+G	Glycine	Gly	G	nonpolar	neutral	−0.4			75	Nonessential	Aliphatic
+H	Histidine	His	H	Basic_polar	positive(10%),neutral(90%)	−3.2	211	5.9	155	Essential	Basic
+I	Isoleucine	Ile	I	nonpolar	neutral	4.5			131	Essential	Aliphatic
+L	Leucine	Leu	L	nonpolar	neutral	3.8			131	Essential	Aliphatic
+K	Lysine	Lys	K	Basic_polar	positive	−3.9			146	Essential	Basic
+M	Methionine	Met	M	nonpolar	neutral	1.9			149	Essential	Hydroxyl/Sulfur/Selenium
+F	Phenylalanine	Phe	F	nonpolar	neutral	2.8	257,206,188	0.2,9.3,60.0	165	Essential	Aromatic
+P	Proline	Pro	P	nonpolar	neutral	−1.6			115	Nonessential	Cyclic
+S	Serine	Ser	S	polar	neutral	−0.8			105	Nonessential	Hydroxyl/Sulfur/Selenium
+T	Threonine	Thr	T	polar	neutral	−0.7			119	Essential	Hydroxyl/Sulfur/Selenium	Aromatic
+W	Tryptophan	Trp	W	nonpolar	neutral	−0.9	280,219	5.6,47.0	204	Essential	Aromatic
+Y	Tyrosine	Tyr	Y	polar	neutral	−1.3	274,222,193	1.4,8.0,48.0	181	Nonessential
+V	Valine	Val	V	nonpolar	neutral	4.2			117	Essential	Aliphatic
