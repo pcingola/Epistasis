@@ -125,19 +125,22 @@ figure3 <- function() {
 #-------------------------------------------------------------------------------
 # Figure 4: Histogram of ratios R(ab,cd) in comparisson between Q and Q2
 #
-# Data calculated using Epistasis.jar (run.bds)
 # Result files:
-#		./data/interactions/pdb/likelihood.pdb_compound.neigh_1.*.0.txt.gz
+#		./data/q_q2_compare.txt
 #-------------------------------------------------------------------------------
-figure3 <- function() {
-#-------------------------------------------------------------------------------
-# Show density
-#-------------------------------------------------------------------------------
-showDens <- function(y, title) {
-	l <- log(y)
+figure4 <- function() {
+    cat('Loading Q_Q2 compare data\n')
+    qcmp <- read.table('q_q2_compare.ratio.txt', sep='\t', header=F)
+
+	# Ratio
+	r <- as.vector(unlist(qcmp))
+
+	# Log ratio
+	l <- log(r)
     cat('Raw:\t\tMean:', mean(y), ' StdDev:', sd(y), ' Median:', median(y), '\n')
     cat('Log:\t\tMean:', mean(l), ' StdDev:', sd(l), ' Median:', median(l), '\n')
 
+	title <- 'Histogram of Log[R(ab,cd)] ratios'
     plot( density(l), main=title, xlab='Log[ R(ab,cd) ], Green: median, Blue: mean')
 	abline( v=median(l), col='green', lty=2, lwd=2);
 	abline( v=mean(l), col='blue', lty=2, lwd=2);
@@ -147,32 +150,12 @@ showDens <- function(y, title) {
 # Main
 #-------------------------------------------------------------------------------
 
-savePlot <- T
-
-if( savePlot ) { png( width=1024, height=1024 ) }
-
-#---
-# Load data
-#---
-if( ! exists('qcmp') ) {
-    cat('Loading Q_Q2 compare data\n')
-    qcmp <- read.table('q_q2_compare.ratio.txt', sep='\t', header=F)
-}
-
-r <- as.vector(unlist(qcmp))
-showDens(r, 'Histogram of Log[R(ab,cd)] ratios')
-
-
-if( savePlot ) { dev.off(); }
-#-------------------------------------------------------------------------------
-# Main
-#-------------------------------------------------------------------------------
-
 pngSize <- 1024
 if( savePng )	png(width=pngSize, height=pngSize)
 
 figure2()
 figure3()
+figure4()
 
 # Close graphics device
 if( savePng )	dev.off()
