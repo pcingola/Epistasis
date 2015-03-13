@@ -1,4 +1,4 @@
-This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
+This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
@@ -18,10 +18,6 @@ Repeated entry---line 803 of file mcgilletd.bib
 I'm skipping whatever remains of this entry
 Repeated entry---line 813 of file mcgilletd.bib
  : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 825 of file mcgilletd.bib
- : @article{li2009sequence
  :                        ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 849 of file mcgilletd.bib
@@ -107,45 +103,45 @@ I'm skipping whatever remains of this entry
 Warning--empty journal in begun1992levels
 Warning--empty journal in brenner1965genetic
 Warning--empty journal in schneider2013genome
-You've used 182 entries,
+You've used 174 entries,
             2118 wiz_defined-function locations,
-            1455 strings with 43568 characters,
-and the built_in function-call counts, 78563 in all, are:
-= -- 7380
-> -- 5427
+            1422 strings with 41481 characters,
+and the built_in function-call counts, 74448 in all, are:
+= -- 7010
+> -- 5093
 < -- 13
-+ -- 2178
-- -- 1960
-* -- 6977
-:= -- 13550
-add.period$ -- 547
-call.type$ -- 182
-change.case$ -- 1479
++ -- 2046
+- -- 1836
+* -- 6574
+:= -- 12830
+add.period$ -- 523
+call.type$ -- 174
+change.case$ -- 1394
 chr.to.int$ -- 0
-cite$ -- 185
-duplicate$ -- 2101
-empty$ -- 4810
-format.name$ -- 1960
-if$ -- 15347
+cite$ -- 177
+duplicate$ -- 2013
+empty$ -- 4588
+format.name$ -- 1836
+if$ -- 14565
 int.to.chr$ -- 0
-int.to.str$ -- 182
-missing$ -- 186
-newline$ -- 913
-num.names$ -- 364
-pop$ -- 1206
+int.to.str$ -- 174
+missing$ -- 178
+newline$ -- 873
+num.names$ -- 348
+pop$ -- 1137
 preamble$ -- 1
-purify$ -- 1302
+purify$ -- 1225
 quote$ -- 0
-skip$ -- 1483
+skip$ -- 1426
 stack$ -- 0
-substring$ -- 4962
-swap$ -- 289
+substring$ -- 4712
+swap$ -- 281
 text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 718
+type$ -- 686
 warning$ -- 3
-while$ -- 670
-width$ -- 185
-write$ -- 1990
-(There were 24 error messages)
+while$ -- 640
+width$ -- 177
+write$ -- 1902
+(There were 23 error messages)

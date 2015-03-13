@@ -213,14 +213,6 @@ G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
 \newblock Basic statistical analysis in genetic case-control studies.
 \newblock {\em Nature protocols}, 6(2):121--133, 2011.
 
-\bibitem{coin2010cnvhap}
-Lachlan~JM Coin, Julian~E Asher, Robin~G Walters, Julia S El-Sayed Moustafa,
-  Adam~J de~Smith, Rob Sladek, David~J Balding, Philippe Froguel, and
-  Alexandra~IF Blakemore.
-\newblock cnvhap: an integrative population and haplotype--based multiplatform
-  model of snps and cnvs.
-\newblock {\em Nature methods}, 7(7):541--546, 2010.
-
 \bibitem{collins2004finishing}
 FS~Collins, ES~Lander, J.~Rogers, RH~Waterston, and I.~Conso.
 \newblock Finishing the euchromatic sequence of the human genome.
@@ -438,14 +430,6 @@ L~Guariguata, DR~Whiting, I~Hambleton, J~Beagley, U~Linnenkamp, and JE~Shaw.
   2035.
 \newblock {\em Diabetes research and clinical practice}, 103(2):137--149, 2014.
 
-\bibitem{habegger2012vat}
-Lukas Habegger, Suganthi Balasubramanian, David~Z Chen, Ekta Khurana, Andrea
-  Sboner, Arif Harmanci, Joel Rozowsky, Declan Clarke, Michael Snyder, and Mark
-  Gerstein.
-\newblock Vat: a computational framework to functionally annotate variants in
-  personal genomes within a cloud-computing environment.
-\newblock {\em Bioinformatics}, 28(17):2267--2269, 2012.
-
 \bibitem{hafner2012genome}
 Markus Hafner, Steve Lianoglou, Thomas Tuschl, and Doron Betel.
 \newblock Genome-wide identification of mirna targets by par-clip.
@@ -477,13 +461,6 @@ Lucia~A Hindorff, Praveen Sethupathy, Heather~A Junkins, Erin~M Ramos,
   association loci for human diseases and traits.
 \newblock {\em Proceedings of the National Academy of Sciences},
   106(23):9362--9367, 2009.
-
-\bibitem{hormozdiari2011simultaneous}
-Fereydoun Hormozdiari, Iman Hajirasouliha, Andrew McPherson, Evan~E Eichler,
-  and S~Cenk Sahinalp.
-\newblock Simultaneous structural variation discovery among multiple paired-end
-  sequenced genomes.
-\newblock {\em Genome research}, 21(12):2203--2212, 2011.
 
 \bibitem{hosack2003identifying}
 Douglas~A Hosack, Glynn Dennis~Jr, Brad~T Sherman, H~Clifford Lane, Richard~A
@@ -635,12 +612,6 @@ H.~Li and R.~Durbin.
   transform}.
 \newblock {\em Bioinformatics}, 26(5):589, 2010.
 
-\bibitem{li2009sequence}
-H.~Li, B.~Handsaker, A.~Wysoker, T.~Fennell, J.~Ruan, N.~Homer, G.~Marth,
-  G.~Abecasis, and R.~Durbin.
-\newblock {The sequence alignment/map format and SAMtools}.
-\newblock {\em Bioinformatics}, 25(16):2078, 2009.
-
 \bibitem{li2008mapping}
 H.~Li, J.~Ruan, and R.~Durbin.
 \newblock {Mapping short DNA sequencing reads and calling variants using
@@ -718,13 +689,6 @@ Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
 \newblock Machine learning for detecting gene-gene interactions.
 \newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
 
-\bibitem{mclaren2010deriving}
-William McLaren, Bethan Pritchard, Daniel Rios, Yuan Chen, Paul Flicek, and
-  Fiona Cunningham.
-\newblock Deriving the consequences of genomic variants with the ensembl api
-  and snp effect predictor.
-\newblock {\em Bioinformatics}, 26(16):2069--2070, 2010.
-
 \bibitem{morcos2011direct}
 Faruck Morcos, Andrea Pagnani, Bryan Lunt, Arianna Bertolino, Debora~S Marks,
   Chris Sander, Riccardo Zecchina, Jos{\'e}~N Onuchic, Terence Hwa, and Martin
@@ -759,14 +723,6 @@ Saul~B Needleman and Christian~D Wunsch.
   amino acid sequence of two proteins.
 \newblock {\em Journal of molecular biology}, 48(3):443--453, 1970.
 
-\bibitem{ng2009targeted}
-Sarah~B Ng, Emily~H Turner, Peggy~D Robertson, Steven~D Flygare, Abigail~W
-  Bigham, Choli Lee, Tristan Shaffer, Michelle Wong, Arindam Bhattacharjee,
-  Evan~E Eichler, et~al.
-\newblock Targeted capture and massively parallel sequencing of 12 human
-  exomes.
-\newblock {\em Nature}, 461(7261):272--276, 2009.
-
 \bibitem{nielsen2011genotype}
 Rasmus Nielsen, Joshua~S Paul, Anders Albrechtsen, and Yun~S Song.
 \newblock Genotype and snp calling from next-generation sequencing data.
@@ -778,12 +734,6 @@ Jason O’Rawe, Tao Jiang, Guangqing Sun, Yiyang Wu, Wei Wang, Jingchu Hu, Paul
 \newblock Low concordance of multiple variant-calling pipelines: practical
   implications for exome and genome sequencing.
 \newblock {\em Genome med}, 5(3):28, 2013.
-
-\bibitem{paila2013gemini}
-Umadevi Paila, Brad~A Chapman, Rory Kirchner, and Aaron~R Quinlan.
-\newblock Gemini: integrative exploration of genetic variation and genome
-  annotations.
-\newblock {\em PLoS computational biology}, 9(7):e1003153, 2013.
 
 \bibitem{parks2004systematic}
 Annette~L Parks, Kevin~R Cook, Marcia Belvin, Nicholas~A Dompe, Robert Fawcett,
@@ -1031,14 +981,6 @@ K.~Wang, M.~Li, and H.~Hakonarson.
 \newblock Annovar: functional annotation of genetic variants from
   high-throughput sequencing data.
 \newblock {\em Nucleic acids research}, 38(16):e164--e164, 2010.
-
-\bibitem{wang2007penncnv}
-Kai Wang, Mingyao Li, Dexter Hadley, Rui Liu, Joseph Glessner, Struan~FA Grant,
-  Hakon Hakonarson, and Maja Bucan.
-\newblock Penncnv: an integrated hidden markov model designed for
-  high-resolution copy number variation detection in whole-genome snp
-  genotyping data.
-\newblock {\em Genome research}, 17(11):1665--1674, 2007.
 
 \bibitem{ward2012haploreg}
 Lucas~D Ward and Manolis Kellis.
