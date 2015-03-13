@@ -12,7 +12,7 @@
 \contentsline {subsection}{\numberline {1.3.2}Read mapping}{11}
 \contentsline {paragraph}{Local sequence alignment.}{12}
 \contentsline {paragraph}{Read mapping.}{12}
-\contentsline {paragraph}{Mapping quality .}{14}
+\contentsline {paragraph}{Mapping quality.}{14}
 \contentsline {subsection}{\numberline {1.3.3}Variant calling}{14}
 \contentsline {section}{\numberline {1.4}Functional annotations of genomic variants }{16}
 \contentsline {subsection}{\numberline {1.4.1}Variant types}{19}
