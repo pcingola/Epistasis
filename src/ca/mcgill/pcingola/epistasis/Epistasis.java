@@ -920,6 +920,10 @@ public class Epistasis implements CommandLine {
 		il.likelihoodAllAminAcidsInGenes(genesFile, outDir);
 	}
 
+	/**
+	 * Create a an image file (PNG) 
+	 * @param geneGeneFiles
+	 */
 	void runLikelihoodGeneGeneMatrix(String geneGeneFiles[]) {
 		load();
 
@@ -944,7 +948,6 @@ public class Epistasis implements CommandLine {
 				String matrixFile = geneGeneFile + ".matrix";
 				Timer.showStdErr("Saving matrix file '" + matrixFile + "'");
 				Gpr.toFile(matrixFile, trLikelihoodMatrix);
-
 			}
 		}
 	}

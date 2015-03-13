@@ -15,6 +15,11 @@ import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
+/**
+ * Creates an image form interactions between two transcripts
+ * 
+ * @author pcingola
+ */
 public class TrLikelihoodMatrix {
 
 	boolean debug;
@@ -134,7 +139,7 @@ public class TrLikelihoodMatrix {
 			String trId2 = f[0] + "_" + f[1];
 			Timer.showStdErr("Transcript IDs: " + trId1 + " \t" + trId2);
 
-			// Find MSAs and lengths and crete indexs
+			// Find MSAs and lengths and create index
 			idToIdx1 = msa2matrixIndex(trId1);
 			idxToId1 = reverseIndex(idToIdx1); // Create reverse index
 
