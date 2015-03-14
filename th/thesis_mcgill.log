@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  13 MAR 2015 09:36
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  13 MAR 2015 20:34
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1167,7 +1167,33 @@ d con-stant hunger,
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [107] [108]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ú in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ù in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ô in font cmr12!
+ [107]
+
+LaTeX Warning: Citation `shoemaker2007decipheringP2' on page 108 undefined on i
+nput line 44.
+
+[108]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
@@ -1175,376 +1201,9 @@ Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
- [110]
-<figs/gwas_epistasis_pipeline.png, id=414, 969.6225pt x 526.96875pt>
-File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
-
-<use figs/gwas_epistasis_pipeline.png>
-Package pdftex.def Info: figs/gwas_epistasis_pipeline.png used on input line 52
-.
-(pdftex.def)             Requested size: 398.33858pt x 216.49278pt.
-
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 52--52
- [] 
- []
-
-[111 <./figs/gwas_epistasis_pipeline.png>] [112]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
+Missing character: There is no ú in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [113] [114]
-Overfull \hbox (14.30777pt too wide) in alignment at lines 109--112
- [][][] []
- []
-
-[115]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
-
-Overfull \hbox (58.39912pt too wide) in alignment at lines 138--148
- [][][] []
- []
-
-[116] [117] [118]
-
-LaTeX Warning: Reference `fig:S3' on page 119 undefined on input line 178.
-
-
-LaTeX Warning: Reference `fig:S3' on page 119 undefined on input line 178.
-
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-[119]
-
-LaTeX Warning: Reference `fig:S1' on page 120 undefined on input line 189.
-
-
-LaTeX Warning: Reference `tab:S1' on page 120 undefined on input line 189.
-
-
-LaTeX Warning: Reference `fig:S2' on page 120 undefined on input line 191.
-
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-<figs/gwas_figure_2.png, id=446, 1027.84pt x 1027.84pt>
-File: figs/gwas_figure_2.png Graphic file (type png)
-
-<use figs/gwas_figure_2.png>
-Package pdftex.def Info: figs/gwas_figure_2.png used on input line 201.
-(pdftex.def)             Requested size: 341.43306pt x 341.431pt.
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [120]
-
-LaTeX Warning: Reference `fig:gwasf3a' on page 121 undefined on input line 203.
-
-
-<figs/gwas_figure_3.png, id=450, 1027.84pt x 1027.84pt>
-File: figs/gwas_figure_3.png Graphic file (type png)
-
-<use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 205.
-(pdftex.def)             Requested size: 341.43306pt x 341.431pt.
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [121 <./figs/gwas_figure_2.png (PNG copy)>]
-
-LaTeX Warning: Reference `fig:S5' on page 122 undefined on input line 209.
-
-[122 <./figs/gwas_figure_3.png (PNG copy)>]
-
-LaTeX Warning: Reference `t:' on page 123 undefined on input line 211.
-
-
-LaTeX Warning: Reference `tab:S4A' on page 123 undefined on input line 211.
-
-
-LaTeX Warning: Reference `tab:S4B' on page 123 undefined on input line 211.
-
-
-LaTeX Warning: Reference `fig:S4' on page 123 undefined on input line 211.
-
-
-Overfull \hbox (10.03607pt too wide) in paragraph at lines 211--212
-\OT1/cmr/m/n/12 Clin-Var database [[]] ac-cord-ing to their clin-i-cal sig-nif-
-i-cance at-tribute (CLNSIG).
- []
-
-<figs/gwas_figure_jmol_epistasis.png, id=457, 785.93625pt x 721.69624pt>
-File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
-
-<use figs/gwas_figure_jmol_epistasis.png>
-Package pdftex.def Info: figs/gwas_figure_jmol_epistasis.png used on input line
- 213.
-(pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
-
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 213--213
- [] 
- []
-
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ¶ in font cmr12!
-[123] [124 <./figs/gwas_figure_jmol_epistasis.png>]) [125]
-\openout2 = `chapters/conclusions.aux'.
-
-
-(./chapters/conclusions.tex
-***************************
-CHAPTER 5.
-***************************
-[126
-
-
-
-]
-Overfull \hbox (7.84853pt too wide) in paragraph at lines 22--23
-\OT1/cmr/m/n/12 Our mod-els com-bine geno-type in-for-ma-tion and co-evolutiona
-ry meth-
- []
-
-[127]
-Underfull \hbox (badness 10000) in paragraph at lines 32--33
-
- []
-
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-[128]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
-) [129] (./thesis_mcgill.bbl
-Underfull \hbox (badness 1082) in paragraph at lines 4--9
-[]\OT1/cmr/m/n/12 Dario Acam-pora, Vir-ginia Avan-tag-giato, Francesca Tuorto, 
-Paolo
- []
-
-
-Underfull \hbox (badness 1694) in paragraph at lines 11--15
-[]\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
-on of
- []
-
-
-Underfull \hbox (badness 1924) in paragraph at lines 48--53
-\OT1/cmr/m/n/12 An-dreas Kuntzagk, Niko-laus Ra-jew-sky, Markus Landthaler, and
-
- []
-
-[130
-
-
-
-]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ò in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [131]
-Underfull \hbox (badness 1043) in paragraph at lines 182--188
-[]\OT1/cmr/m/n/12 Kristian Cibul-skis, Michael S Lawrence, Scott L Carter, An-d
-rey
- []
-
-[132] [133] [134]
-Underfull \hbox (badness 1259) in paragraph at lines 359--365
-[]\OT1/cmr/m/n/12 Kevin M Flani-gan, Di-ane M Dunn, An-drew von Nieder-hausern,
-
- []
-
-[135] [136] [137] [138] [139]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ô in font cmr12!
- [140]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no î in font cmr12!
- [141] [142] [143]
-Underfull \hbox (badness 1270) in paragraph at lines 956--961
-\OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
- []
-
-[144] [145] [146]) (./thesis_mcgill.aux (./chapters/intro.aux)
-(./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
-(./chapters/conclusions.aux))
-
- *File List*
-mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
-  ifthen.sty    2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
-  report.cls    2007/10/19 v1.4h Standard LaTeX document class
-  size12.clo    2007/10/19 v1.4h Standard LaTeX file (size option)
-setspace.sty    2011/12/19 v6.7a set line spacing
-    ulem.sty    2012/05/18
- sectsty.sty    2002/02/25 v2.0.2 Commands to change all sectional heading styl
-es
-ragged2e.sty    2009/05/21 v2.1 ragged2e Package (MS)
-everysel.sty    2011/10/28 v1.2 EverySelectfont Package (MS)
-  epsfig.sty    1999/02/16 v1.7a (e)psfig emulation (SPQR)
-graphicx.sty    1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-  keyval.sty    1999/03/16 v1.13 key=value parser (DPC)
-graphics.sty    2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
-    trig.sty    1999/03/16 v1.09 sin cos tan (DPC)
-graphics.cfg    2010/04/23 v1.9 graphics configuration of TeX Live
-  pdftex.def    2011/05/27 v0.06d Graphics/color for pdfTeX
-infwarerr.sty    2010/04/08 v1.3 Providing info/warning/error messages (HO)
- ltxcmds.sty    2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
- amsmath.sty    2013/01/14 v2.14 AMS math features
- amstext.sty    2000/06/29 v2.01
-  amsgen.sty    1999/11/30 v2.0
-  amsbsy.sty    1999/11/29 v1.2d
-  amsopn.sty    1999/12/14 v2.01 operator names
-amsfonts.sty    2013/01/14 v3.01 Basic AMSFonts support
- amssymb.sty    2013/01/14 v3.01 AMS font symbols
-listings.sty    2007/02/22 1.4 (Carsten Heinz)
- lstmisc.sty    2007/02/22 1.4 (Carsten Heinz)
-listings.cfg    2007/02/22 1.4 listings configuration
-   color.sty    2005/11/14 v1.0j Standard LaTeX Color (DPC)
-   color.cfg    2007/01/18 v1.5 color configuration of teTeX/TeXLive
- caption.sty    2013/05/02 v3.3-89 Customizing captions (AR)
-caption3.sty    2013/05/02 v1.6-88 caption3 kernel (AR)
-  framed.sty    2011/10/22 v 0.96: framed or shaded text with page breaks
-enumitem.sty    2011/09/28 v3.5.2 Customized lists
-def_mcgill.tex
-lstlang1.sty    2004/09/05 1.3 listings language file
-supp-pdf.mkii
-pdftexcmds.sty    2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
-ifluatex.sty    2010/03/01 v1.3 Provides the ifluatex switch (HO)
-   ifpdf.sty    2011/01/30 v2.3 Provides the ifpdf switch (HO)
-epstopdf-base.sty    2010/02/09 v2.5 Base part for package epstopdf
-  grfext.sty    2010/08/19 v1.1 Manage graphics extensions (HO)
-kvdefinekeys.sty    2011/04/07 v1.3 Define keys (HO)
-kvoptions.sty    2011/06/30 v3.11 Key value format for package options (HO)
-kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
-etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
-    umsa.fd    2013/01/14 v3.01 AMS symbols A
-    umsb.fd    2013/01/14 v3.01 AMS symbols B
-chapters/intro.tex
-  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
-chapters/bds.tex
-lstlang1.sty    2004/09/05 1.3 listings language file
-figs/bds_figure_3_small.png
-figs/bds_figure_1_small.png
-figs/bds_figure_2_small.png
-figs/bds_table_1.png
-figs/bds_table_2.png
-chapters/snpeff.tex
-figs/snpeff_table1.png
-figs/snpeff_table2.png
-figs/snpeff_table3.png
-figs/snpeff_table4.png
-figs/snpeff_fig1.png
-figs/snpeff_table5.png
-figs/snpeff_table6.png
-figs/snpeff_fig2.png
-figs/snpeff_table7.png
-figs/snpeff_fig3.png
-figs/snpeff_fig4.png
-figs/snpeff_fig6.png
-figs/snpeff_fig5.png
-chapters/gwas.tex
-figs/gwas_epistasis_pipeline.png
-figs/gwas_figure_2.png
-figs/gwas_figure_3.png
-figs/gwas_figure_jmol_epistasis.png
-chapters/conclusions.tex
-thesis_mcgill.bbl
- ***********
-
-
-LaTeX Warning: There were undefined references.
-
- ) 
-Here is how much of TeX's memory you used:
- 6231 strings out of 493315
- 93710 string characters out of 6137904
- 190829 words of memory out of 5000000
- 9510 multiletter control sequences out of 15000+600000
- 10333 words of font info for 40 fonts, out of 8000000 for 9000
- 957 hyphenation exceptions out of 8191
- 38i,11n,44p,2563b,1552s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></u
-sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr
-/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/l
-ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/loc
-al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local/tex
-live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
-ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
-e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
-/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
-2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (155 pages, 4368206 bytes).
-PDF statistics:
- 586 PDF objects out of 1000 (max. 8388607)
- 386 compressed objects within 4 object streams
- 0 named destinations out of 1000 (max. 500000)
- 111 words of extra memory for PDF output out of 10000 (max. 10000000)
-
+Missing characte
