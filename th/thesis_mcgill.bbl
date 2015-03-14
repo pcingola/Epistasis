@@ -85,6 +85,11 @@ Chern-Sing Goh, Andrew~A Bogan, Marcin Joachimiak, Dirk Walther, and Fred~E
 \newblock Co-evolution of proteins with their interaction partners.
 \newblock {\em Journal of molecular biology}, 299(2):283--293, 2000.
 
+\bibitem{goodman1999toward}
+Steven~N Goodman.
+\newblock Toward evidence-based medical statistics. 2: The bayes factor.
+\newblock {\em Annals of internal medicine}, 130(12):1005--1013, 1999.
+
 \bibitem{guariguata2014global}
 L~Guariguata, DR~Whiting, I~Hambleton, J~Beagley, U~Linnenkamp, and JE~Shaw.
 \newblock Global estimates of diabetes prevalence for 2013 and projections for
@@ -159,6 +164,12 @@ Debora~S Marks, Thomas~A Hopf, and Chris Sander.
 \newblock Protein structure prediction from sequence variation.
 \newblock {\em Nature biotechnology}, 30(11):1072--1080, 2012.
 
+\bibitem{mccarthy2015T2D}
+et.~al. McCarthy, Mark.
+\newblock Variation in protein-coding sequence and predisposition to type 2
+  diabetes.
+\newblock {\em To be published}, 2015.
+
 \bibitem{mckinney2006machine}
 Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
 \newblock Machine learning for detecting gene-gene interactions.
@@ -206,6 +217,12 @@ Mario~X Ruiz-Gonz{\'a}lez and Mario~A Fares.
 \newblock Coevolution analyses illuminate the dependencies between amino acid
   sites in the chaperonin system groes-l.
 \newblock {\em BMC evolutionary biology}, 13(1):156, 2013.
+
+\bibitem{santiveri2010tryptophan}
+Clara~M Santiveri and M~Jim{\'e}nez.
+\newblock Tryptophan residues: Scarce in proteins but strong stabilizers of
+  $\beta$-hairpin peptides.
+\newblock {\em Peptide Science}, 94(6):779--790, 2010.
 
 \bibitem{shoemaker2007deciphering}
 Benjamin~A Shoemaker and Anna~R Panchenko.

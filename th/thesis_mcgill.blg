@@ -20,47 +20,45 @@ Repeated entry---line 2377 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "Goodman"
-Warning--I didn't find a database entry for "Santiveri2010"
-You've used 47 entries,
+You've used 50 entries,
             2118 wiz_defined-function locations,
-            787 strings with 14443 characters,
-and the built_in function-call counts, 19931 in all, are:
-= -- 1874
-> -- 1351
+            804 strings with 14883 characters,
+and the built_in function-call counts, 20783 in all, are:
+= -- 1963
+> -- 1378
 < -- 3
-+ -- 539
-- -- 486
-* -- 1784
-:= -- 3446
-add.period$ -- 141
-call.type$ -- 47
-change.case$ -- 373
++ -- 550
+- -- 494
+* -- 1842
+:= -- 3591
+add.period$ -- 150
+call.type$ -- 50
+change.case$ -- 386
 chr.to.int$ -- 0
-cite$ -- 47
-duplicate$ -- 533
-empty$ -- 1244
-format.name$ -- 486
-if$ -- 3888
+cite$ -- 50
+duplicate$ -- 565
+empty$ -- 1317
+format.name$ -- 494
+if$ -- 4062
 int.to.chr$ -- 0
-int.to.str$ -- 47
-missing$ -- 49
-newline$ -- 238
-num.names$ -- 94
-pop$ -- 296
+int.to.str$ -- 50
+missing$ -- 52
+newline$ -- 253
+num.names$ -- 100
+pop$ -- 305
 preamble$ -- 1
-purify$ -- 328
+purify$ -- 338
 quote$ -- 0
-skip$ -- 365
+skip$ -- 387
 stack$ -- 0
-substring$ -- 1280
-swap$ -- 64
+substring$ -- 1351
+swap$ -- 67
 text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 184
+type$ -- 196
 warning$ -- 0
-while$ -- 173
-width$ -- 49
-write$ -- 518
+while$ -- 183
+width$ -- 52
+write$ -- 550
 (There were 4 error messages)

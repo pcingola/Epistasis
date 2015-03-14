@@ -13,7 +13,7 @@ Diabetes symptoms include frequent urination, thirst, and constant hunger, high 
 
 In recent years, over 80 genetic loci related to T2D have been identified \cite{morris2012large, consortium2014genome}. Nevertheless, the overall effect sizes of these loci account for less than 10\% of the overall disease predisposition \cite{manolio2009finding}. This poses the question of why, given that so much efforts has been directed at finding the genetic components of this disease, the loci found so far have such modest effects. This lack of large genetic effects, known as the ``missing heritability" problem, does not only arise in T2D but also in almost all complex traits. In recent studies about missing heritability \cite{zuk2012mystery, zuk2014searching} it was proposed that this effect might be partly explained by taking into account epistasis (i.e. gene interactions).
 
-In this chapter, we propose a novel framework that takes into account putative epistatic interactions into genome wide association studies (GWAS). First we detect putative interactions by means of a co-evolutionary model that we developed based on Markov evolutionary theory. Then we fit the model's parameters using protein structural data (Pdb) an genome wide multiple sequence alignments (UCSC's 100-way). Finally, we perform genome wide association using of pairs of variants  from a sequencing study by incorporating the co-evolutionary model as priors in a Bayesian Framework.
+In this chapter, we propose a novel framework that takes into account putative epistatic interactions into genome wide association studies (GWAS). We detect putative interactions by means of a co-evolutionary model that we develop based on Markov evolutionary theory. We fit the co-evolutionary model's parameters using protein structural data (Pdb) an genome wide multiple sequence alignments (UCSC's 100-way). Once this model is parametrized, we perform genome wide association using of pairs of variants  from a sequencing study by incorporating the co-evolutionary model as priors in a Bayesian Framework.
 
 The rest of the chapter is published in: \textbf{P. Cingolani}, R. Sladek, M. Blanchette, ``A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies"
 
@@ -45,7 +45,10 @@ Approaches for epistatic GWAS do exist and they apply a wide array of methodolog
 
 In this work we propose methodologies to prioritize pairs of variants from sequencing experiments by combining genome wide association with epistatic interaction models. In a nutshell, our method uses recently computed 100-way vertebrate genome alignments to calculate interaction posterior probabilities for any given pair of residues in human proteins. This is achieved by contrasting the likelihood of the observed pair of alignment columns under a joint substitution model that models dependencies between interacting sites, and a null model of independent evolution.  These posterior probabilities are then used as priors to modulate the evidence of epistatic interaction derived from GWAS data. We engineer efficient algorithms that can be applied to GWAS-scale datasets of tens of thousands of samples.
 
-{\huge Add T2D?}
+Finally we apply this methods to a cohort of over $\sim 13,000$ individuals in a case/control study of type II diabetes \cite{mccarthy2015T2D}.
+%This multi-ethnic study covers exons of unrelated individuals from five major ancestral groups (European descent, South Asian, East Asian, Hispanic and African American descent) using an average sequencing coverage over $80 \times$ yielding $1.7M$ coding variants.
+The study was able to uncover many novel genes association with diabetes (published in a separate paper \cite{mccarthy2015T2D}). 
+{\huge In this study, we find candidates for interaction...}
 
 %---
 \section{Methods}
@@ -183,7 +186,7 @@ It is easy to see that the computational burden for detection of pairs of intera
 
 Fortunately these numbers can be reduced significantly. First, in this study, we only concentrate on non-synonymous coding variants. Second, if two variants for which the interaction term $(g_{s,i} g_{s,j})$ is zero in all samples, which usually happens for pairs of rare variants, there is no need to calculate the logistic regression since in the epistatic model has a trivial solution by setting $\theta_3$ to zero, thus we can skip these variant pairs. Third, if the variants and the epistatic term $[g_{s,i}, g_{s,j}, g_{s,i} g_{s,j}]$ are linearly dependent, the logistic regression result will be meaningless, so we can safely skip such variant pairs. Fourth, if one of the variants has high allele frequency respect to the other, all non-zero epistatic terms may lie in the same positions as non-zero genotypes from the low frequency variant, causing logistic regression estimates to artificially inflate the coefficients of the low frequency variant and the epistatic term thus creating an artificially high association (low p-value). So we filter out these variant pairs as well. Finally, we filter out all variants having Hardy-Weinberg p-value of less than $10^-6$, since these variants also artificially inflate the logistic regression coefficients. 
 
-After all filters have been applied, using a model GWAS data  which involves over 10,000 individuals and over 1 million variants, the number of variant pairs to be analyzed is less than 100 millions, as opposed to the naive estimation of $~10^{12}$ variant pairs. By means of the z-score relationship \cite{Goodman}, we set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF] =  8.0$ .
+After all filters have been applied, using a model GWAS data  which involves over 10,000 individuals and over 1 million variants, the number of variant pairs to be analyzed is less than 100 millions, as opposed to the naive estimation of $~10^{12}$ variant pairs. By means of the z-score relationship \cite{goodman1999toward}, we set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF] =  8.0$ .
 
 Calculating Bayes factors involves using prior parameter distributions. In order to estimate the distributions, we run the logistic regression fitting analysis and plot the parameter distributions for different levels of significance. As expected most parameters have unimodal distribution, except for $\theta_3$, which has a multimodal distribution (Figure \ref{S3}). For all parameters, except $\theta_3$, we use a normal distribution centered at the mean and variance was set to at least one ($\sigma=1)$ even though most times the variance is much smaller (this is done to avoid penalizing outliers too heavily and to have smooth derivatives near the maximum likelihood estimates). For $\theta_3$, which has a multimodal distribution, we fit mixed model parameters using an EM algorithm on high significant term ($BF_{raw} \ge 3$), as shown in Supplementary Figure / Table \ref{S3??}.
 
@@ -205,7 +208,7 @@ Estimating $Q_2$ requires information about amino acids that are known to be “
 
 The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:S2} and supplementary file \ref{fileQ2_hat.txt}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / Q(a,c) \cdot Q(b,d)$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. Figure \ref{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
 
-For example, the case with the highest rate ratio is \texttt{[V.I -> W.W]}' (i.e. amino acid 'V' switched to 'W' in the one sequence, and amino acid 'I' changed to 'W' in the other). In fact, the top 10 pairs are transitions to 'W.W' amino acid pairs. This makes sense considering (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{Santiveri2010}.
+For example, the case with the highest rate ratio is \texttt{[V.I -> W.W]}' (i.e. amino acid 'V' switched to 'W' in the one sequence, and amino acid 'I' changed to 'W' in the other). In fact, the top 10 pairs are transitions to 'W.W' amino acid pairs. This makes sense considering (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
 
 Another type of pair transitions with large ratio is the double transitions to a pair of phenylalanine amino acids from a pairs of hydrophobic amino acids (Lysine, Asparagine, Glutamine, Arginine, Aspartic acid and Glutamic acid). Phenylalanine-Phenylalanine interaction pairs are assumed to conform $\pi-\pi$ interactions which are predicted and experimentally observed to be favorable \cite{hunter1991pi}.
 
@@ -229,7 +232,11 @@ Let the two proteins considered have amino acid sequences $a_1...a_m$ and $b_1..
 
 \subsection{Epistatic GWAS analysis}
 
-We run the epistatic GWAS analysis on a real dataset for Type 2 Diabetes, consisting of over 13,000 samples and 1.2 million variants (detailed results to be published in a separate paper). The complete analysis takes less than 2 days using less than 1,000 CPUs in our cluster. This shows that an epistatic GWAS analysis of large cohort sequencing data is feasible using current computational resources.
+We apply this methods to a cohort of over $\sim 13,000$ individuals in a case/control study of type II diabetes \cite{mccarthy2015T2D}.
+This multi-ethnic study covers exons of unrelated individuals from five major ancestral groups (European descent, South Asian, East Asian, Hispanic and African American descent) using an average sequencing coverage over $80 \times$ yielding $1.7M$ coding variants.
+The complete analysis takes less than 5 days using a $1,000$ CPU-cluster, showing that an epistatic GWAS analysis of large cohort sequencing data is feasible using current computational resources.
+
+
 
 %---
 \section{Discussion}
