@@ -45,9 +45,9 @@ Approaches for epistatic GWAS do exist and they apply a wide array of methodolog
 
 In this work we propose methodologies to prioritize pairs of variants from sequencing experiments by combining genome wide association with epistatic interaction models. In a nutshell, our method uses recently computed 100-way vertebrate genome alignments to calculate interaction posterior probabilities for any given pair of residues in human proteins. This is achieved by contrasting the likelihood of the observed pair of alignment columns under a joint substitution model that models dependencies between interacting sites, and a null model of independent evolution.  These posterior probabilities are then used as priors to modulate the evidence of epistatic interaction derived from GWAS data. We engineer efficient algorithms that can be applied to GWAS-scale datasets of tens of thousands of samples.
 
-Finally we apply this methods to a cohort of over $\sim 13,000$ individuals in a case/control study of type II diabetes \cite{mccarthy2015T2D}.
+Finally we apply this methods to a cohort of $\sim 13,000$ individuals in a case-control study of type II diabetes (for study details, see \cite{mccarthy2015T2D}).
 %This multi-ethnic study covers exons of unrelated individuals from five major ancestral groups (European descent, South Asian, East Asian, Hispanic and African American descent) using an average sequencing coverage over $80 \times$ yielding $1.7M$ coding variants.
-The study was able to uncover many novel genes association with diabetes (published in a separate paper \cite{mccarthy2015T2D}). 
+We are able to uncover epistatic variants associated with diabetes.
 {\huge In this study, we find candidates for interaction...}
 
 %---
@@ -232,9 +232,16 @@ Let the two proteins considered have amino acid sequences $a_1...a_m$ and $b_1..
 
 \subsection{Epistatic GWAS analysis}
 
-We apply this methods to a cohort of over $\sim 13,000$ individuals in a case/control study of type II diabetes \cite{mccarthy2015T2D}.
+We apply this methods to a cohort of $\sim 13,000$ individuals in a case/control study of type II diabetes \cite{mccarthy2015T2D}.
 This multi-ethnic study covers exons of unrelated individuals from five major ancestral groups (European descent, South Asian, East Asian, Hispanic and African American descent) using an average sequencing coverage over $80 \times$ yielding $1.7M$ coding variants.
 The complete analysis takes less than 5 days using a $1,000$ CPU-cluster, showing that an epistatic GWAS analysis of large cohort sequencing data is feasible using current computational resources.
+
+
+
+
+
+
+
 
 
 

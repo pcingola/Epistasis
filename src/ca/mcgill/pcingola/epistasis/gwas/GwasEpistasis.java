@@ -18,7 +18,7 @@ import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.mcb.pcingola.vcf.VcfEntry;
 import ca.mcgill.pcingola.epistasis.Genotype;
 import ca.mcgill.pcingola.epistasis.coordinates.GenomicCoordinates;
-import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.likelihood.CoEvolutionLikelihood;
 import ca.mcgill.pcingola.epistasis.likelihood.LogisticRegressionGtPair;
 import ca.mcgill.pcingola.epistasis.likelihood.MarkerPairLikelihood;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
@@ -36,11 +36,10 @@ public class GwasEpistasis {
 	public static int SHOW_LINE_GENES_LL_EVERY = 100 * SHOW_EVERY_GENES_LL;
 	public static double SHOW_LINE_LL_MIN = 1.0;
 	public static int MINOR_ALLELE_COUNT = 5;
-	public static double LL_THRESHOLD_LOGREG = 6.0;
-	public static double LL_THRESHOLD_MSA = 0.0;
-	public static double LL_THRESHOLD_TOTAL = 5.0;
+	public static double LL_THRESHOLD_LOGREG = 6.0; // Log likelihood threshold for logistic regression
+	public static double LL_THRESHOLD_MSA = 0.0; // Log likelihood threshold for co-evolutionary model
+	public static double LL_THRESHOLD_TOTAL = 5.0; // Total Log likelihood threshold 
 
-	// Splits information
 	boolean analyzeAllPairs = false; // Use for testing and debugging
 	boolean debug = false;
 	boolean verbose = false;
@@ -62,11 +61,11 @@ public class GwasEpistasis {
 	Map<Long, LogisticRegressionGtPair> llAnByThreadId = new HashMap<>();
 	AutoHashMap<String, ArrayList<byte[]>> gtById; // Genotypes by ID
 	PdbGenomeMsas pdbGenomeMsas;
-	InteractionLikelihood interactionLikelihood;
+	CoEvolutionLikelihood coevolutionLikelihood;
 
-	public GwasEpistasis(PdbGenomeMsas pdbGenomeMsas, InteractionLikelihood interactionLikelihood, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
+	public GwasEpistasis(PdbGenomeMsas pdbGenomeMsas, CoEvolutionLikelihood coevolutionLikelihood, String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		this.pdbGenomeMsas = pdbGenomeMsas;
-		this.interactionLikelihood = interactionLikelihood;
+		this.coevolutionLikelihood = coevolutionLikelihood;
 		this.vcfFile = vcfFile;
 		this.phenoCovariatesFile = phenoCovariatesFile;
 		this.numSplits = numSplits;
@@ -172,7 +171,7 @@ public class GwasEpistasis {
 		// Likelihood based on epistatic interaction
 		String msaId1 = genoi.getMsaId(), msaId2 = genoj.getMsaId();
 		int msaIdx1 = genoi.getAaIdx(), msaIdx2 = genoj.getAaIdx();
-		interactionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, gwasRes);
+		coevolutionLikelihood.logLikelihoodRatio(msaId1, msaIdx1, msaId2, msaIdx2, gwasRes);
 
 		// Epistatic likelihood model too low? => Don't bother to calculate next part
 		if (gwasRes.logLik() < LL_THRESHOLD_TOTAL && gwasRes.logLikelihoodRatioMsa < llThresholdMsa) return gwasRes;
@@ -197,7 +196,7 @@ public class GwasEpistasis {
 		}
 
 		// Pre-calculate matrix exponentials
-		if (interactionLikelihood != null) interactionLikelihood.precalcExps();
+		if (coevolutionLikelihood != null) coevolutionLikelihood.precalcExps();
 	}
 
 	/**

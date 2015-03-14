@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.Epistasis;
-import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.likelihood.CoEvolutionLikelihood;
 
 /**
  * Test case likelihood ratio
@@ -39,7 +39,7 @@ public class TestCaseLikelihoodRatioMsa extends TestCase {
 		ep.setAaFreqsContactFile(aaFreqsContactFile);
 
 		ep.load();
-		InteractionLikelihood il = ep.newInteractionLikelihood();
+		CoEvolutionLikelihood il = ep.newInteractionLikelihood();
 		il.precalcExps();
 
 		Timer timer = new Timer();

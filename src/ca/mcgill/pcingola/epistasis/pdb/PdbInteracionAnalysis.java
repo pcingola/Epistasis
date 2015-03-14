@@ -27,7 +27,7 @@ import ca.mcgill.pcingola.epistasis.IdMapperEntry;
 import ca.mcgill.pcingola.epistasis.coordinates.MsaCoordinates;
 import ca.mcgill.pcingola.epistasis.coordinates.PdbCoordinate;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
-import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.likelihood.CoEvolutionLikelihood;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;
 
@@ -47,14 +47,14 @@ public class PdbInteracionAnalysis {
 	String pdbInteractionsFile;
 
 	IdMapper idMapper;
-	InteractionLikelihood interactionLikelihood;
+	CoEvolutionLikelihood interactionLikelihood;
 	MultipleSequenceAlignmentSet msas;
 	PdbGenomeMsas pdbGenomeMsas;
 
 	Map<String, String> pdbIdChainToMolecule;
 	Map<String, List<String>> pdbIdToChains;
 
-	public PdbInteracionAnalysis(InteractionLikelihood interactionLikelihood, double distanceThreshold, int neighbours, String pdbInteractionsFile) {
+	public PdbInteracionAnalysis(CoEvolutionLikelihood interactionLikelihood, double distanceThreshold, int neighbours, String pdbInteractionsFile) {
 		this.interactionLikelihood = interactionLikelihood;
 		this.distanceThreshold = distanceThreshold;
 		this.neighbours = neighbours;

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  14 MAR 2015 10:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  14 MAR 2015 11:28
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -434,7 +434,12 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no œ in font cmr12!
 
-[7] <figs/gwas_epistasis_pipeline.png, id=31, 969.6225pt x 526.96875pt>
+[7]
+Overfull \hbox (9.00151pt too wide) in paragraph at lines 48--52
+\OT1/cmr/m/n/24.88 study, we find can-di-dates for in-ter-ac-tion... 
+ []
+
+<figs/gwas_epistasis_pipeline.png, id=31, 969.6225pt x 526.96875pt>
 File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
@@ -573,16 +578,16 @@ Missing character: There is no € in font cmr12!
 Missing character: There is no œ in font cmr12!
 [23] [24 <./figs/gwas_figure_jmol_epistasis.png>]
 
-LaTeX Warning: Reference `t:' on page 25 undefined on input line 249.
+LaTeX Warning: Reference `t:' on page 25 undefined on input line 256.
 
 
-LaTeX Warning: Reference `tab:S4A' on page 25 undefined on input line 249.
+LaTeX Warning: Reference `tab:S4A' on page 25 undefined on input line 256.
 
 
-LaTeX Warning: Reference `tab:S4B' on page 25 undefined on input line 249.
+LaTeX Warning: Reference `tab:S4B' on page 25 undefined on input line 256.
 
 
-LaTeX Warning: Reference `f:S4' on page 25 undefined on input line 249.
+LaTeX Warning: Reference `f:S4' on page 25 undefined on input line 256.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -693,7 +698,7 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (31 pages, 679236 bytes).
+Output written on thesis_mcgill.pdf (31 pages, 679187 bytes).
 PDF statistics:
  164 PDF objects out of 1000 (max. 8388607)
  110 compressed objects within 2 object streams

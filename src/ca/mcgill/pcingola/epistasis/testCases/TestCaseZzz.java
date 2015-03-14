@@ -4,7 +4,7 @@ import junit.framework.TestCase;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.Epistasis;
-import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.likelihood.CoEvolutionLikelihood;
 import ca.mcgill.pcingola.epistasis.phylotree.LikelihoodTreeAa;
 
 /**
@@ -117,7 +117,7 @@ public class TestCaseZzz extends TestCase {
 		ep.setAaFreqsContactFile(aaFreqsContactFile);
 
 		ep.load();
-		InteractionLikelihood il = ep.newInteractionLikelihood();
+		CoEvolutionLikelihood il = ep.newInteractionLikelihood();
 		il.precalcExps();
 
 		LikelihoodTreeAa treeNull = il.getTreeNull();

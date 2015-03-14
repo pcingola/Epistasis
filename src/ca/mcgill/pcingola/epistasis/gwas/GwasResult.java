@@ -237,6 +237,9 @@ public class GwasResult {
 		return Math.abs(detMM) < EPSILON;
 	}
 
+	/**
+	 * Total log likelihood
+	 */
 	public double logLik() {
 		double ll = logLikelihoodRatioLogReg;
 		if (logLikelihoodRatioMsa > 0) ll += logLikelihoodRatioMsa;

@@ -22,7 +22,7 @@ import ca.mcgill.mcb.pcingola.util.Timer;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
 import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
 import ca.mcgill.pcingola.epistasis.gwas.GwasEpistasis;
-import ca.mcgill.pcingola.epistasis.likelihood.InteractionLikelihood;
+import ca.mcgill.pcingola.epistasis.likelihood.CoEvolutionLikelihood;
 import ca.mcgill.pcingola.epistasis.likelihood.TrLikelihoodMatrix;
 import ca.mcgill.pcingola.epistasis.msa.MsaDistanceVarInf;
 import ca.mcgill.pcingola.epistasis.msa.MsaSimilarity;
@@ -284,8 +284,8 @@ public class Epistasis implements CommandLine {
 		tree.load(phyloFileName);
 	}
 
-	public InteractionLikelihood newInteractionLikelihood() {
-		return new InteractionLikelihood(cpus, treeFile, aaContacts, Q, Q2, aaFreqs, aaFreqsContact, msas, idMapper, pdbGenomeMsas);
+	public CoEvolutionLikelihood newInteractionLikelihood() {
+		return new CoEvolutionLikelihood(cpus, treeFile, aaContacts, Q, Q2, aaFreqs, aaFreqsContact, msas, idMapper, pdbGenomeMsas);
 	}
 
 	/**
@@ -893,7 +893,7 @@ public class Epistasis implements CommandLine {
 	void runGwas(String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ) {
 		load();
 
-		InteractionLikelihood il = newInteractionLikelihood();
+		CoEvolutionLikelihood il = newInteractionLikelihood();
 		GwasEpistasis gwasEpistasis = new GwasEpistasis(pdbGenomeMsas, il, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 		gwasEpistasis.setDebug(debug);
 		gwasEpistasis.gwas();
@@ -905,7 +905,7 @@ public class Epistasis implements CommandLine {
 	void runLikelihood(int neighbours) {
 		load();
 
-		InteractionLikelihood il = newInteractionLikelihood();
+		CoEvolutionLikelihood il = newInteractionLikelihood();
 		il.likelihoodAaContacts(neighbours);
 	}
 
@@ -916,7 +916,7 @@ public class Epistasis implements CommandLine {
 	void runLikelihoodAll(String genesFile, String outDir) {
 		load();
 
-		InteractionLikelihood il = newInteractionLikelihood();
+		CoEvolutionLikelihood il = newInteractionLikelihood();
 		il.likelihoodAllAminAcidsInGenes(genesFile, outDir);
 	}
 
@@ -958,14 +958,14 @@ public class Epistasis implements CommandLine {
 	void runLikelihoodNull(int numSamples, int neighbours) {
 		load();
 
-		InteractionLikelihood il = newInteractionLikelihood();
+		CoEvolutionLikelihood il = newInteractionLikelihood();
 		il.likelihoodNullModel(numSamples, neighbours);
 	}
 
 	void runLikelihoodPdbInteract(double distThreshold, int neighbours, String pdbFileList) {
 		load();
 
-		InteractionLikelihood intll = newInteractionLikelihood();
+		CoEvolutionLikelihood intll = newInteractionLikelihood();
 		PdbInteracionAnalysis pdbInteracionAnalysis = new PdbInteracionAnalysis(intll, distThreshold, neighbours, pdbFileList);
 		pdbInteracionAnalysis.run();
 	}
@@ -977,7 +977,7 @@ public class Epistasis implements CommandLine {
 	void runLikelihoodVcf(String vcfFile, String outDir, int numSplits, int split) {
 		load();
 
-		InteractionLikelihood il = newInteractionLikelihood();
+		CoEvolutionLikelihood il = newInteractionLikelihood();
 		il.likelihoodVcf(vcfFile, outDir, pdbGenomeMsas, numSplits, split);
 	}
 
