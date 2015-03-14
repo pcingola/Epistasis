@@ -7,21 +7,15 @@
 \section{Preface}
 %---
 
-{ \huge [Empty: We will write the preface after the paper finalized]}
-
-\subsection{Type II diabetes}
-
 Although this thesis focusses on the development of computational approaches that could be applied to the study of a number of complex diseases, our focus has been on type II diabetes mellitus (T2D), a complex disease first described by the Egyptians in 1500 BCE. Later the Greeks in 230 BCE used the term ``diabetes" meaning ``pass through" (or ``siphon") denoting the constant thirst and frequent urination of the patients. In the 1700s the term ``mellitus" (from honey) was added to denote that the urine was sweet and would ``attracts ants".
 
 Diabetes symptoms include frequent urination, thirst, and constant hunger, high blood sugar (hyperglycemia) and insulin resistance. Long term complication from T2D may include eyesight problems, heart disease, strokes and kidney failure. Type II diabetes, is highly correlated with obesity and disease rate has increased dramatically during the last 50 years. According to the World Health Organisation the prevalence of diabetes is 9\% in adults and an estimated 1.5 millions deaths were caused by diabetes in 2012 \cite{guariguata2014global}, which is predicted to be the 7th leading cause of death by 2030. The costs associated to treating diabetes patients only in the U.S. are estimated around \$245 billion dollars.
 
-In recent years, over 80 genetic loci related to T2D have been identified \cite{morris2012large, consortium2014genome}. Nevertheless, the overall effect sizes of these loci account for less than 10\% of the overall disease predisposition \cite{manolio2009finding}. This poses the question of why, given that so much efforts has been directed at finding the genetic components of this disease, the loci found so far have such modest effects. This lack of large genetic effects do not only arise in T2D but also in almost all complex traits and could be explained by what is known as the ``missing heritability" problem.
+In recent years, over 80 genetic loci related to T2D have been identified \cite{morris2012large, consortium2014genome}. Nevertheless, the overall effect sizes of these loci account for less than 10\% of the overall disease predisposition \cite{manolio2009finding}. This poses the question of why, given that so much efforts has been directed at finding the genetic components of this disease, the loci found so far have such modest effects. This lack of large genetic effects, known as the ``missing heritability" problem, does not only arise in T2D but also in almost all complex traits. In recent studies about missing heritability \cite{zuk2012mystery, zuk2014searching} it was proposed that this effect might be partly explained by taking into account epistasis (i.e. gene interactions).
 
-A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies
-P. Cingolani, R.Sladek, M. Blanchette
+In this chapter, we propose a novel method to take into account epistatic models into genome wide association studies (GWAS).
 
-A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies
-P. Cingolani, R.Sladek, M. Blanchette
+The rest of the chapter is published in: \textbf{P. Cingolani}, R. Sladek, M. Blanchette, ``A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies"
 
 %---
 \section{Abstract}
@@ -35,23 +29,23 @@ Results: We propose a methodology to perform genome wide association on pairs of
 \section{Introduction}
 %---
 
-Genetic studies aim to discover how a phenotype of interest, such as disease risk or height, is affected by genetic background. Genome wide association studies (GWAS) are powerful techniques aimed to find statistical association between phenotype and genetic variants (mutations or polymorphisms) \cite{clarke2011basic}. Although several genetic variants related to different phenotypes have been found, variants discovered in GWAS so far can only explain a small part for the phenotypic inheritance. For instance, all genetic variants associated to height collectively account for few centimetres in the offspring’s height \cite{wood2014defining}, similarly all combined variants related to type 2 diabetes risk only explain 5\% to 10\% of the overall variance in disease predisposition \cite{morris2012large, consortium2014genome}. This problem is known as “missing heritability” \cite{manolio2009finding} and recent theories suggest that genetic interactions (epistasis) might play an important role in it \cite{zuk2012mystery, zuk2014searching}.
+Genetic studies aim to discover how a phenotype of interest, such as disease risk or height, is affected by genetic background. Genome wide association studies (GWAS) are powerful techniques aimed to find statistical association between phenotype and genetic variants (mutations or polymorphisms) \cite{clarke2011basic}. Although several genetic variants related to different phenotypes have been found, variants discovered in GWAS so far can only explain a small part for the phenotypic inheritance. For instance, all genetic variants associated to height collectively account for few centimetres in the offspring's height \cite{wood2014defining}, similarly all combined variants related to type 2 diabetes risk only explain 5\% to 10\% of the overall variance in disease predisposition \cite{morris2012large, consortium2014genome}. This problem is known as “missing heritability" \cite{manolio2009finding} and recent theories suggest that genetic interactions (epistasis) might play an important role in it \cite{zuk2012mystery, zuk2014searching}.
 
-The foundations for epistasis, broadly defined as “genetic interaction” \cite{gao2010classification},  have been proposed almost a hundred years ago by Bateson (1909) and Fisher (1918). It was the latter who coined the term to denote a “statistical deviation of multilocus genotype values from an additive linear model for the value of a phenotype” \cite{gao2010classification}. There is evidence of such interactions being involved in complex diseases. For instance an interaction between BACE1 and APOE4 having a significant association with Alzheimer’s disease has consistently been replicated in different studies \cite{combarros2009epistasis}. One of the main problems in finding association between interactions and disease is that out of the whole set of molecular interactions (the interactome) only a small part of it has been characterized \cite{venkatesan2009empirical}.
+The foundations for epistasis, broadly defined as “genetic interaction" \cite{gao2010classification},  have been proposed almost a hundred years ago by Bateson (1909) and Fisher (1918). It was the latter who coined the term to denote a “statistical deviation of multilocus genotype values from an additive linear model for the value of a phenotype" \cite{gao2010classification}. There is evidence of such interactions being involved in complex diseases. For instance an interaction between BACE1 and APOE4 having a significant association with Alzheimer's disease has consistently been replicated in different studies \cite{combarros2009epistasis}. One of the main problems in finding association between interactions and disease is that out of the whole set of molecular interactions (the interactome) only a small part of it has been characterized \cite{venkatesan2009empirical}.
 
 Interacting proteins can be identified experimentally through several types of approaches (Yeast-Two-Hybrid, Protein fragment complementation assay, Glutathione-s-transferase, Affinity purification coupled to mass spectrometry, Tandem affinity purification, etc. \cite{shoemaker2007deciphering}) and large databases of protein-protein interactions are now available for human \cite{stark2006biogrid, shoemaker2007deciphering}. Nevertheless, these methods predict the interaction between proteins and may not discern the exact residues mediating such interactions Furthermore, it is estimated that up to 80\% large of the human protein-protein interactions remains unknown \cite{venkatesan2009empirical}.
 
 These issues can be addressed using computational predictions of either pairs of interacting proteins or interacting residues \cite{shoemaker2007decipheringP2}. A type of approaches that has been gaining popularity recently is one that makes use of the plethora of genomic sequences available for species other than human in order to discover evolutionary evidence of selective pressure on individual residues to identify interacting sites and interfaces \cite{marks2012protein}. Interacting residues and their neighbors may then be subject to compensating epistasis, where a mutation at a residue in one protein may be compensated by another mutation at a residue in the second protein \cite{pazos1997correlated}. Assuming that evolutionary pressure acts on both interaction sites simultaneously, co-occurring compensatory mutations can become fixed in the population with higher probability than non-compensatory ones. In light of this hypothesis, we can use statistical methods on multiple sequence alignments (MSA) of proteins from different organisms to find coevolving sites. This types of approaches has been used to identify coevolving sites both within a protein (e.g. N-terminal and C-terminal domains in PKG protein \cite{goh2000co} or the GroES-L chaperoning system \cite{ruiz2013coevolution}, $\alpha$ and $\beta$ haemoglobin subunits \cite{pazos1997correlated}), and between interacting proteins (e.g. G-protein coupled receptors and protein ligands \cite{goh2000co}).
 
-Many methods exist to find putative interaction loci, both within and across proteins, based on evolutionary evidence (see \cite{de2013emerging} for a review). One of the simplest methods for inferring co-evolution uses mutual information ($MI$) between two loci \cite{marks2012protein} in a multiple sequence alignment ($\mathcal{M}_{sa}$). However, methods based on correlation or mutual information are known to have systematic biases due to phylogeny \cite{de2013emerging}, or sequence heterogeneity problems \cite{weigt2009identification}. More sophisticated methods, such as DCA \cite{morcos2011direct}, PSICOV \cite{jones2012psicov} or mdMI \cite{clark2014multidimensional} try to overcome these biases, however they are usually not suitable for GWAS-scale analysis for two main reasons: i) they require multiple alignments of a very large number of sequences (from $400$ to $25L$, where $L$ is the length of the protein \cite{clark2014multidimensional}), such depth is not usually available at whole genome scale; and ii) they are computationally demanding (e.g. running for minutes or even days for each interacting pair of proteins being considered), making them unsuitable for analyses involving millions of variants spanning over thousands of proteins. Furthermore, a recent study shows that overall agreement between methods is not high (65% or less) and predictive power is quite low (only 6% of he “top scoring pairs” are real interactions) \cite{clark2014multidimensional}.
+Many methods exist to find putative interaction loci, both within and across proteins, based on evolutionary evidence (see \cite{de2013emerging} for a review). One of the simplest methods for inferring co-evolution uses mutual information ($MI$) between two loci \cite{marks2012protein} in a multiple sequence alignment ($\mathcal{M}_{sa}$). However, methods based on correlation or mutual information are known to have systematic biases due to phylogeny \cite{de2013emerging}, or sequence heterogeneity problems \cite{weigt2009identification}. More sophisticated methods, such as DCA \cite{morcos2011direct}, PSICOV \cite{jones2012psicov} or mdMI \cite{clark2014multidimensional} try to overcome these biases, however they are usually not suitable for GWAS-scale analysis for two main reasons: i) they require multiple alignments of a very large number of sequences (from $400$ to $25L$, where $L$ is the length of the protein \cite{clark2014multidimensional}), such depth is not usually available at whole genome scale; and ii) they are computationally demanding (e.g. running for minutes or even days for each interacting pair of proteins being considered), making them unsuitable for analyses involving millions of variants spanning over thousands of proteins. Furthermore, a recent study shows that overall agreement between methods is not high (65% or less) and predictive power is quite low (only 6% of he “top scoring pairs" are real interactions) \cite{clark2014multidimensional}.
 
-Applying epistatic interaction models to GWAS studies is a challenging problem for several reasons: i) interaction models are by definition non-linear \cite{gao2010classification}; ii) analyzing all order $N$ variant combinations in a sequencing experiment requires great computational power and efficient algorithms because the number tests grows exponentially with $N$ \cite{phillips2008epistasis}; iii) multiple testing correction can render association tests underpowered for all but very large cohorts \cite{gao2010classification, phillips2008epistasis}; and iv) there is no consensus of what genetic interaction means \cite{mani2008defining}, which is reflected in the difficulty to find a unified model \cite{phillips2008epistasis,mani2008defining}. For all these reasons and due to the lack of sequencing cohorts large enough to detect these interactions, the application of epistatic models to sequencing studies has not been widespread. Furthermore, there is no clear consensus on the required sample size to detect epistatic interactions. Depending on phenotypic effect size and variant’s allele frequency some estimates assume in the order of 10,000 to 500,000 cases \cite{jostins2013using} to be required. Such cohorts are now becoming feasible due to improvements and cost reductions in sequencing technology.
+Applying epistatic interaction models to GWAS studies is a challenging problem for several reasons: i) interaction models are by definition non-linear \cite{gao2010classification}; ii) analyzing all order $N$ variant combinations in a sequencing experiment requires great computational power and efficient algorithms because the number tests grows exponentially with $N$ \cite{phillips2008epistasis}; iii) multiple testing correction can render association tests underpowered for all but very large cohorts \cite{gao2010classification, phillips2008epistasis}; and iv) there is no consensus of what genetic interaction means \cite{mani2008defining}, which is reflected in the difficulty to find a unified model \cite{phillips2008epistasis,mani2008defining}. For all these reasons and due to the lack of sequencing cohorts large enough to detect these interactions, the application of epistatic models to sequencing studies has not been widespread. Furthermore, there is no clear consensus on the required sample size to detect epistatic interactions. Depending on phenotypic effect size and variant's allele frequency some estimates assume in the order of 10,000 to 500,000 cases \cite{jostins2013using} to be required. Such cohorts are now becoming feasible due to improvements and cost reductions in sequencing technology.
 
-Approaches for epistatic GWAS do exist and they apply a wide array of methodologies, although we don’t intend write a comprehensive review, we mention a few examples. In \cite{zhao2006test} the authors infer probabilities by noting that interactions create linkage disequilibrium patterns in the disease population. A “Bayesian partitioning model” is applied in \cite{zhang2007bayesian}. In \cite{ackermann2012systematic} the authors look for over / under-represented allele pairs in a given population by performing an analysis of imbalanced allele pair frequencies. Finally, finding interacting variants can be viewed as an optimisation / attribute selection procedure, thus many machine learning methodologies have been proposed \cite{mckinney2006machine}.
+Approaches for epistatic GWAS do exist and they apply a wide array of methodologies, although we don't intend write a comprehensive review, we mention a few examples. In \cite{zhao2006test} the authors infer probabilities by noting that interactions create linkage disequilibrium patterns in the disease population. A “Bayesian partitioning model" is applied in \cite{zhang2007bayesian}. In \cite{ackermann2012systematic} the authors look for over / under-represented allele pairs in a given population by performing an analysis of imbalanced allele pair frequencies. Finally, finding interacting variants can be viewed as an optimisation / attribute selection procedure, thus many machine learning methodologies have been proposed \cite{mckinney2006machine}.
 
 In this work we propose methodologies to prioritize pairs of variants from sequencing experiments by combining genome wide association with epistatic interaction models. In a nutshell, our method uses recently computed 100-way vertebrate genome alignments to calculate interaction posterior probabilities for any given pair of residues in human proteins. This is achieved by contrasting the likelihood of the observed pair of alignment columns under a joint substitution model that models dependencies between interacting sites, and a null model of independent evolution.  These posterior probabilities are then used as priors to modulate the evidence of epistatic interaction derived from GWAS data. We engineer efficient algorithms that can be applied to GWAS-scale datasets of tens of thousands of samples.
 
-\huge{Add T2D?}
+{\huge Add T2D?}
 
 %---
 \section{Methods}
@@ -65,19 +59,19 @@ Our epistatic GWAS analysis pipeline involves three key steps, as shown in Figur
 
 In this section, we describe how we estimate two substitution rate matrices. The first is the usual $20 \times 20$ substitution rate matrix $Q$ describing the evolution of individual amino acids. The second, $Q_2$ is a $400 \times 400$ substitution rate matrix for pairs of interacting residues. 
 
-We used the 100-way vertebrate multiple sequence alignment and accompanying phylogenetic tree $T$ available from the UCSC Genome Browser \cite{karolchik2014ucsc}. This alignment includes the DNA sequences of 100 species whose genome is completely or nearly completely sequenced, with 6 Afrotheria, 14 Avians, 14 Euarchontoglires, 16 Fish, 25 Laurasiatheria, 5 Mammalians, 12 Primates and 8 Sarcopterygii. The multiple alignment is performed using ``multiz” algorithm \cite{blanchette2004aligning,kielbasa2011adaptive}.
+We used the 100-way vertebrate multiple sequence alignment and accompanying phylogenetic tree $T$ available from the UCSC Genome Browser \cite{karolchik2014ucsc}. This alignment includes the DNA sequences of 100 species whose genome is completely or nearly completely sequenced, with 6 Afrotheria, 14 Avians, 14 Euarchontoglires, 16 Fish, 25 Laurasiatheria, 5 Mammalians, 12 Primates and 8 Sarcopterygii. The multiple alignment is performed using ``multiz" algorithm \cite{blanchette2004aligning,kielbasa2011adaptive}.
 
-From the \~21,000 human protein structures (resolution less than 3 Angstrom) available in Protein Data Bank, we extracted a set of \~770,000 pairs of “within protein amino acids interactions” residues, defined as pairs of residues from the same protein where at least one pair of atoms is within 3 Angstrom or less. Similarly, from the set of \~5,700 models of co-crystallized complexes in PDB, we extracted a set of \~12,000 pairs of “protein-protein interacting” residues, defined as amino acids from different proteins that satisfy the same distance criterion.
+From the $\sim21,000$ human protein structures (resolution less than 3 Angstrom) available in Protein Data Bank, we extracted a set of $\sim770,000$ pairs of “within protein amino acids interactions" residues, defined as pairs of residues from the same protein where at least one pair of atoms is within 3 Angstrom or less. Similarly, from the set of $\sim5,700$ models of co-crystallized complexes in PDB, we extracted a set of $\sim12,000$ pairs of “protein-protein interacting" residues, defined as amino acids from different proteins that satisfy the same distance criterion.
 
-To derive rate matrix $Q$, we consider the complete set of $n \~ 22M$ protein coding sites present in the alignment (that unambiguously map to the genome) , irrespective of the presence or absence of contacts.  $Q$ is obtained following classical sequence evolution theory (\cite{yang2006computational} \cite{felsenstein2004inferring}). First, for each pair of species  $s_i$ and $s_j$, we obtain $c_i(a)$ defined as the count of amino acid $a$ in species $s_i$, and $c_{i,j}(a,b)$ defined as the number of sites that have had a transition from amino acid $a$ in $s_i$ to $b$ in $s_j$. Stationary probability of amino acid $a$ in genome $s_i$ is then defined as $\pi_i = c_i(a)/n$. Assuming a time reversible model, we get the frequency of change from $a$ to $b$: $f_{i,j}(a,b) = f_{j,i)(a,b) = (c_{i,j}(a,b) + c_{j,i}(a,b))/(2n)$. Let $P_{i,j}$ be the amino acid transition probability matrix from $s_i$ to $s_j$, i.e. $P_{i,j}(a,b)$ is the probability that $s_j$ has amino acid $b$ given than $s_i$ has amino acid $a$. Then $P$ is obtained through the relation $f_{i,j}(a,b) = \pi_i(a) \cdot P_{i,j}(a,b)$, or $P_{i,j}(a,b) =   f_{i,j}(a,b) /  \pi_i(a)$.  Let $t_{i,j}$ be the total branch length between $s_i$ and $s_j$ (obtained from the phylogenetic tree). Assuming time reversibility, we have $P_{i,j} = e^{Q \cdot t_{i,j}}$, and thus $Q=log[ P_{i,j}] / t_{i,j} ]$ \cite{yang2006computational}. Taking into account the estimation error, the equation becomes $\hat{Q(t_i+t_j) = Q=log[ P_{i,j}] / t_{i,j} ] + \Epsilon_{i,j}$, where $\Epsilon_{i,j}$ is an error matrix. Under the assumption that the mean error is zero, we can approximate the rate matrix by the calculating an average of all estimates: $\hat{Q} = \frac{1}{N(N-1)/2} \sum_{i < j} \hat{Q}_(t_i+t_j) = \sum_{t_i+t_j} \frac{1}{t_i+t_j} log[ \hat{P}_(t_i+t_j) ]$.
+To derive rate matrix $Q$, we consider the complete set of $n \sim22M$ protein coding sites present in the alignment (that unambiguously map to the genome), irrespective of the presence or absence of contacts. $Q$ is obtained following classical sequence evolution theory (\cite{yang2006computational} \cite{felsenstein2004inferring}). First, for each pair of species  $s_i$ and $s_j$, we obtain $c_i(a)$ defined as the count of amino acid $a$ in species $s_i$, and $c_{i,j}(a,b)$ defined as the number of sites that have had a transition from amino acid $a$ in $s_i$ to $b$ in $s_j$. Stationary probability of amino acid $a$ in genome $s_i$ is then defined as $\pi_i = c_i(a)/n$. Assuming a time reversible model, we get the frequency of change from $a$ to $b$: $f_{i,j}(a,b) = f_{j,i}(a,b) = (c_{i,j}(a,b) + c_{j,i}(a,b))/(2n)$. Let $P_{i,j}$ be the amino acid transition probability matrix from $s_i$ to $s_j$, i.e. $P_{i,j}(a,b)$ is the probability that $s_j$ has amino acid $b$ given than $s_i$ has amino acid $a$. Then $P$ is obtained through the relation $f_{i,j}(a,b) = \pi_i(a) \cdot P_{i,j}(a,b)$, or $P_{i,j}(a,b) =   f_{i,j}(a,b) /  \pi_i(a)$.  Let $t_{i,j}$ be the total branch length between $s_i$ and $s_j$ (obtained from the phylogenetic tree). Assuming time reversibility, we have $P_{i,j} = e^{Q \cdot t_{i,j}}$, and thus $Q=log[ P_{i,j} / t_{i,j} ]$ \cite{yang2006computational}. Taking into account the estimation error, the equation becomes $\hat{Q}(t_i+t_j) = Q = log[ P_{i,j} / t_{i,j} ] + \epsilon_{i,j}$, where $\epsilon_{i,j}$ is an error matrix. Under the assumption that the mean error is zero, we can approximate the rate matrix by the calculating an average of all estimates: $\hat{Q} = \frac{1}{N(N-1)/2} \sum_{i < j} \hat{Q}_(t_i+t_j) = \sum_{t_i+t_j} \frac{1}{t_i+t_j} log[ \hat{P}_(t_i+t_j) ]$.
 
 The much larger substitution matrix $Q_2$ describes the substitution rate from any pair of amino acid $(a,b)$ to any other pair $(c,d)$. It is derived similarly to $Q$, but considering only pairs of amino acids from the set of within protein interacting pairs of amino acids. We only take into account amino acids pairs within the same chain, that are separated by 20 amino acids or more from high resolution PDB structures of human proteins. 
 
-\substitution{Calculating likelihood of individual and pairs of alignment columns}
+\subsection{Calculating likelihood of individual and pairs of alignment columns}
 
 Given a substitution rate matrix $Q$, the likelihood $L_1(i)$ of an alignment column $i$ assigning an amino acid to each leaf in the tree $T$ is calculated using the well known Felsenstein algorithm \cite{felsenstein2004inferring}. This is achieved in time $O(N \cdot |\Sigma|^2)$, where $|\Sigma|=20$. Given matrix $Q_2$, the same algorithm can be used to compute the likelihood $L_2(i,j)$ of a pair of alignment columns $(i,j)$, but now in time $O(N \cdot |\Sigma|^4)$. 
 
-A test for co-evolution of two positions $i, $j$ of the same or different proteins is obtained using the likelihood ratio under the two models: 
+A test for co-evolution of two positions $i$, $j$ of the same or different proteins is obtained using the likelihood ratio under the two models: 
 
 \begin{eqnarray*}
 Lr_{MSA}(i,j) = \frac{P(i, j | M_{SA}, Q_2)}{P(a_i | M_{SA}, Q) \cdot P(a_j | M_{SA}, Q)}
@@ -87,21 +81,32 @@ where the denominator assumes that the amino acids $i$ and $j$ evolve independen
 
 Given a pair of columns in the multiple sequence alignment $\mathcal{M}_{sa}$, the corresponding phylegentic tree $\mathcal{T}$, we calculate the likelihood ratio by propagating the probabilities from the leaves up the root of the phylogenetic tree using Felsestein's algorithm \cite{felsenstein2004inferring} using transition matrices $Q$ and $Q_2$ for the null and alternative models respectively.
 
-Because the calculations described in this section will need to be performed on a very large number of pairs of sites, optimizations we required to ensure manageable running time. First, pre-calculation of  matrix exponentials $P(t) = e^{Qt}$ is necessary for all values of $t$ corresponding to individual branch lengths. Another optimization (“constant-tree caching”) is to cache likelihood values for subtrees of the phylogenetic tree where all nodes have the same amino acid values. This optimization results in speedup only if the phylogenetic tree remains constant throughout the genome.
+Because the calculations described in this section will need to be performed on a very large number of pairs of sites, optimizations we required to ensure manageable running time. First, pre-calculation of  matrix exponentials $P(t) = e^{Qt}$ is necessary for all values of $t$ corresponding to individual branch lengths. Another optimization (“constant-tree caching") is to cache likelihood values for subtrees of the phylogenetic tree where all nodes have the same amino acid values. This optimization results in speedup only if the phylogenetic tree remains constant throughout the genome.
 
 \subsection{GWAS model}
 
 Given $N_S$ samples (individuals), we use the standard notation for phenotypes and code them as $d_s=1$ meaning that the individual $s$ is affected by disease and $d_s=0$ if the individual is "healthy". Let $\bar{d} = [d_1, ..., d_{N_s}]$ be a phenotype vector and $g_{s,i} \in \{0,1,2\}$ a genomic variant for sample $s$, loci $i$ (we assume there are $N_V$ variants). A logistic model of disease risk \cite{balding2006tutorial} is
 
-\[
-p_{s,i} = P( d_s | g_{s,i} ) = \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ... ) = \frac{1}{1 + e^{\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ...}} = \phi( \bar{\theta}^T \bar{g}_{s,i})
-\]
+%\[
+%p_{s,i} = P( d_s | g_{s,i} ) = \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ... ) = \frac{1}{1 + e^{\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ...}} = \phi( \bar{\theta}^T \bar{g}_{s,i})
+%\]
+\begin{eqnarray*}
+    p_{s,i} & = & P( d_s | g_{s,i} ) \\
+    & = & \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ... ) \\
+    & = & \frac{1}{1 + e^{\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ...}} \\
+    & = & \phi( \bar{\theta}^T \bar{g}_{s,i})
+\end{eqnarray*}
 
 where $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for each individual $s$ (these covariates usually include sex, age and eigenvalues from population structure analysis \cite{price2006principal}), $\bar{g}_{s,i} = [ 1, g_{s,i} , c_{s,1}, c_{s,2}, ... , c_{s,N_C} ]$, and $\bar{\theta} = [\theta_1, \theta_2, ..., \theta_m] $. The parameter estimates $\bar{\theta}$ are obtained by solving the maximum likelihood equation
 
-\[
-L( \bar{\theta} ) = \prod_{s=1}^{N_S}{ P( d_s | \bar{\theta}, g_{s,i} ) } = \prod_{s=1}^{N_S}{ p_{s,i}^{d_s} (1-p_{s,i})^{1-d_s} } = \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
-\]
+%\[
+%L( \bar{\theta} ) = \prod_{s=1}^{N_S}{ P( d_s | \bar{\theta}, g_{s,i} ) } = \prod_{s=1}^{N_S}{ p_{s,i}^{d_s} (1-p_{s,i})^{1-d_s} } = \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
+%\]
+\begin{eqnarray*}
+    L( \bar{\theta} ) & = & \prod_{s=1}^{N_S}{ P( d_s | \bar{\theta}, g_{s,i} ) } \\
+    & = & \prod_{s=1}^{N_S}{ p_{s,i}^{d_s} (1-p_{s,i})^{1-d_s} } \\
+    & = & \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
+\end{eqnarray*}
 
 where $p_{s,i} = P( d_s | \bar{\theta}, g_{s,i} )$ is the probability of individual $s$ disease outcome, given a genomic variant.
 
@@ -110,20 +115,18 @@ Using this model, we have two hypotheses: i) the null hypothesis, $H_0$, assumes
 Next, we extend the logistic model to accommodate interacting loci. For an individual (sample $s$), we model interactions between two genetic loci $i$ and $j$, having genotypes $g_{s,i}$ and $g_{s,j}$, by extending the logistic model with $N_{cov}$ covariates $c_{s,j}$ as
 
 \begin{eqnarray*}
-P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] 
-%\\
-%\Rightarrow  P( d_s | g_{s,i},g_{s,j}, H_1) & = & 
-= \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
+    P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
+    & = & \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
 \end{eqnarray*}
 
-where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. An implicit assumption in this equation is that $g_{s,i}$ and $g_{s,j}$ are not correlated (e.g. they don’t sit in the same LD-Block). This can be enforced either by using haplotype structure information (e.g. from HapMap) or by limiting the application of the model to variants either in different chromosomes or over ~1M bases apart. The null hypothesis $H_0$ assumes that variants act independently
+where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. An implicit assumption in this equation is that $g_{s,i}$ and $g_{s,j}$ are not correlated (e.g. they don't sit in the same LD-Block). This can be enforced either by using haplotype structure information (e.g. from HapMap) or by limiting the application of the model to variants either in different chromosomes or over ~1M bases apart. The null hypothesis $H_0$ assumes that variants act independently
 
 \begin{eqnarray*}
-P( d_s | g_{s,i},g_{s,j}, H_0) & = & 
-\phi[ \theta_0' + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 c_{s,1} + ... ] 
-%\\
-%\Rightarrow  P( d_s | g_{s,i},g_{s,j}, H_1) & = & 
-= \phi( \bar{\theta}^T \bar{g}_{s,i,j}' )
+    P( d_s | g_{s,i},g_{s,j}, H_0) & = & 
+    \phi[ \theta_0' + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 c_{s,1} + ... ] 
+    %\\
+    %\Rightarrow  P( d_s | g_{s,i},g_{s,j}, H_1) & = & 
+    = \phi( \bar{\theta}^T \bar{g}_{s,i,j}' )
 \end{eqnarray*}
 
 where $\bar{g}_{s,i,j}' =  [1, g_{s,i}, g_{s,j}, c_{s,1} , c_{s,2}, ..., c_{s,N_{cov}} ]^T$. Since these models are not nested (i.e. $H_0$ is not included in $H_1$), we cannot directly apply Wilks theorem.
@@ -133,43 +136,43 @@ Logistic regression was implemented using several different algorithms to reach 
 Another way to compare the null hypothesis to the alternative hypothesis, is using a Bayesian formulation \cite{kass1995bayes, wakefield2009bayes}
 
 \begin{eqnarray*}
-P(H_1 | \mathcal{D}) & = & \frac{ P( \mathcal{D} | H_1) P(H_1) }{ P(\mathcal{D}) } = \frac{ \int{ P(\mathcal{D} | \theta , H_1) P( \theta | H_1)  d\theta } }{ P(\mathcal{D}) }  \\
-\Rightarrow  \frac{ P(H_1 | D)  }{ P(H_0 | D)  } & = & \frac{ \int{ P(\mathcal{D} | \theta , H_1) P( \theta | H_1)  d\theta } }{\int{ P(\mathcal{D} | \theta , H_0 ) P( \theta | H_0)  d\theta } } \frac{ P(H_1) }{ P(H_0)  }  
-=  B_F \frac{ P(H_1) }{ P(H_0)  }
+	P(H_1 | \mathcal{D}) & = & \frac{ P( \mathcal{D} | H_1) P(H_1) }{ P(\mathcal{D}) } = \frac{ \int{ P(\mathcal{D} | \theta , H_1) P( \theta | H_1)  d\theta } }{ P(\mathcal{D}) }  \\
+	\Rightarrow  \frac{ P(H_1 | D)  }{ P(H_0 | D)  } & = & \frac{ \int{ P(\mathcal{D} | \theta , H_1) P( \theta | H_1)  d\theta } }{\int{ P(\mathcal{D} | \theta , H_0 ) P( \theta | H_0)  d\theta } } \frac{ P(H_1) }{ P(H_0)  }  
+	=  B_F \frac{ P(H_1) }{ P(H_0)  }
 \end{eqnarray*}
 
-where $B_F$, the ratio of the two integrals, is the Bayes factor. Using a Bayesian formulation has two main advantages: i) the hypothesis are automatically corrected for model complexity since Bayes factor asymptotically converge to Bayesian Information Criteria (BIC) is implicitly within Bayes Factors \cire{kass1995bayes}, and ii) we can compare non-nested models. The Bayes factor for the epistatic model becomes:
+where $B_F$, the ratio of the two integrals, is the Bayes factor. Using a Bayesian formulation has two main advantages: i) the hypothesis are automatically corrected for model complexity since Bayes factor asymptotically converge to Bayesian Information Criteria (BIC) is implicitly within Bayes Factors \cite{kass1995bayes}, and ii) we can compare non-nested models. The Bayes factor for the epistatic model becomes:
 
 \begin{eqnarray}\label{eq:bf2}
-B_F = \frac
-{ \int{ \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_s)^{d_s} [ 1-\phi( \bar{\theta}^T \bar{g}_s) ]^{1-d_s} } P( \bar{\theta} | H_1)  d\theta } }
-{ \iint{ \prod_{s=1}^{N_S}{ 
-\phi( \bar{\theta}^T \bar{g}_{s,i}) 
-\phi( \bar{\theta'}^T \bar{g}_{s,j} ) )^{d_s} 
-[ 1-\phi( \bar{\theta}^T \bar{g}_{s,i}) \phi( \bar{\theta'}^T \bar{g}_{s,j} ) ]^{1-d_s} } 
-P( \bar{\theta} | H_0) 
-P( \bar{\theta}' | H_0)  
-d\theta d\theta' } }
+	B_F = \frac
+	{ \int{ \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_s)^{d_s} [ 1-\phi( \bar{\theta}^T \bar{g}_s) ]^{1-d_s} } P( \bar{\theta} | H_1)  d\theta } }
+	{ \iint{ \prod_{s=1}^{N_S}{ 
+	\phi( \bar{\theta}^T \bar{g}_{s,i}) 
+	\phi( \bar{\theta'}^T \bar{g}_{s,j} ) )^{d_s} 
+	[ 1-\phi( \bar{\theta}^T \bar{g}_{s,i}) \phi( \bar{\theta'}^T \bar{g}_{s,j} ) ]^{1-d_s} } 
+	P( \bar{\theta} | H_0) 
+	P( \bar{\theta}' | H_0)  
+	d\theta d\theta' } }
 \end{eqnarray}
 
 Unfortunately, calculating Bayes factors is not trivial and most of the times there are no closed form equations. Calculating the integrals using numerical algorithms is possible, but  imposes a significant computational burden thus making it impractical for large datasets, such as GWAS data, even using large computing clusters. We can approximate the integrals using Laplace's method  \cite{kass1995bayes}. If $g(x)$ has a minimum at $x_0$, it can be shown that
 
 \begin{eqnarray*}
-\int{e^{\lambda g(x)} h(x) dx} & \simeq & h(x_0) e^{\lambda g(x_0)} \sqrt{\frac{2 \pi}{\lambda g''(x_0)}} \\
+	\int{e^{\lambda g(x)} h(x) dx} & \simeq & h(x_0) e^{\lambda g(x_0)} \sqrt{\frac{2 \pi}{\lambda g''(x_0)}} \\
 \end{eqnarray*}
 
 The multivariate case, for $\bar{x} \in \Re^d$, is analogous, we just need a Hessian matrix instead of a second derivate of $g(\cdot)$
 
 \begin{eqnarray}\label{eq:laplace}
-\int{e^{\lambda g(\bar{x})} h(\bar{x}) d\bar{x}} & \simeq & h(\bar{x}_0) e^{\lambda g(\bar{x}_0)} 
-\left( \frac{2 \pi}{\lambda} \right)^{d/2} \left[ \frac{\partial^2 g(\bar{x}) }{\partial \bar{x} \partial \bar{x}^T} \right] ^{-1/2}
+	\int{e^{\lambda g(\bar{x})} h(\bar{x}) d\bar{x}} & \simeq & h(\bar{x}_0) e^{\lambda g(\bar{x}_0)} 
+	\left( \frac{2 \pi}{\lambda} \right)^{d/2} \left[ \frac{\partial^2 g(\bar{x}) }{\partial \bar{x} \partial \bar{x}^T} \right] ^{-1/2}
 \end{eqnarray}
 
 Using equation \ref{eq:laplace} we can try to approximate the complex integrals in equation \ref{eq:bf2} by the transformation $L(\bar{\theta}) = e^{\ell(\bar{\theta})}$, where $\ell(\cdot)$ is the log-likelihood of the data. So, we can use Laplace approximation by using Eq.\ref{eq:laplace}, at the point of the maximum likelihood. In order to do so, we need to calculate the Hessian matrix in Eq.\ref{eq:laplace}. Fortunately, for logistic models, we can make a few simplifications. Considering that $L(\bar{\theta}) = \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_s)^{d_s} [ 1-\phi( \bar{\theta}^T \bar{g}_s) ]^{1-d_i} }$, it can be shown that for genotype terms
 
 \begin{eqnarray*}
-\frac{ \partial^2 \ell(\bar{\theta}) }{ \partial\theta_i \partial\theta_j } 
-= \sum_s{ g_{s,i} g_{s,j} p_s (1-p_s) } 
+	\frac{ \partial^2 \ell(\bar{\theta}) }{ \partial\theta_i \partial\theta_j } 
+	= \sum_s{ g_{s,i} g_{s,j} p_s (1-p_s) } 
 \end{eqnarray*}
 
 Using analogous derivation for the covariates, we can find an analytic form of the Hessian, which completes the Laplace approximation formula.
@@ -178,7 +181,7 @@ Using analogous derivation for the covariates, we can find an analytic form of t
 
 It is easy to see that the computational burden for detection of pairs of interacting genetic loci affecting disease risk is significantly larger than in a standard (single variant) GWAS study. A priori all pairs of variants should are analyzed thus significantly increasing the number of statistical tests. This also reduces statistical power since the required p-value significance level would be orders of magnitude smaller. A naive approach would estimate that if a typical genetic sequencing study has $10^6$ variants, a GWAS on epistatic variants would square that number of statistical tests, thus p-values required for significance would be in the order of $0.05 / (10^6)^2 = 5 \cdot 10^{-14}$. 
 
-Fortunately these numbers can be reduced significantly. First, in this study, we only concentrate on non-synonymous coding variants. Second, if two variants for which the interaction term $(g_{s,i} g_{s,j}) is zero in all samples, which usually happens for pairs of rare variants, there is no need to calculate the logistic regression since in the epistatic model has a trivial solution by setting $\theta_3$ to zero, thus we can skip these variant pairs. Third, if the variants and the epistatic term $[g_{s,i}, g_{s,j}, g_{s,i} g_{s,j}]$ are linearly dependent, the logistic regression result will be meaningless, so we can safely skip such variant pairs. Fourth, if one of the variants has high allele frequency respect to the other, all non-zero epistatic terms may lie in the same positions as non-zero genotypes from the low frequency variant, causing logistic regression estimates to artificially inflate the coefficients of the low frequency variant and the epistatic term thus creating an artificially high association (low p-value). So we filter out these variant pairs as well. Finally, we filter out all variants having Hardy-Weinberg p-value of less than $10^-6$, since these variants also artificially inflate the logistic regression coefficients. 
+Fortunately these numbers can be reduced significantly. First, in this study, we only concentrate on non-synonymous coding variants. Second, if two variants for which the interaction term $(g_{s,i} g_{s,j})$ is zero in all samples, which usually happens for pairs of rare variants, there is no need to calculate the logistic regression since in the epistatic model has a trivial solution by setting $\theta_3$ to zero, thus we can skip these variant pairs. Third, if the variants and the epistatic term $[g_{s,i}, g_{s,j}, g_{s,i} g_{s,j}]$ are linearly dependent, the logistic regression result will be meaningless, so we can safely skip such variant pairs. Fourth, if one of the variants has high allele frequency respect to the other, all non-zero epistatic terms may lie in the same positions as non-zero genotypes from the low frequency variant, causing logistic regression estimates to artificially inflate the coefficients of the low frequency variant and the epistatic term thus creating an artificially high association (low p-value). So we filter out these variant pairs as well. Finally, we filter out all variants having Hardy-Weinberg p-value of less than $10^-6$, since these variants also artificially inflate the logistic regression coefficients. 
 
 After all filters have been applied, using a model GWAS data  which involves over 10,000 individuals and over 1 million variants, the number of variant pairs to be analyzed is less than 100 millions, as opposed to the naive estimation of $~10^{12}$ variant pairs. By means of the z-score relationship \cite{Goodman}, we set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF] =  8.0$ .
 
@@ -186,7 +189,7 @@ Calculating Bayes factors involves using prior parameter distributions. In order
 
 \subsection{Putting it all together}
 
-In summary, we first calculate the transitions matrices for the Markov models ($Q$ and $Q_2$) based on observations from protein structures (Pdb) and multiple sequence alignments (UCSC's 100-way). We analyze variants from genome sequencing data first by filtering only for non-synonymous variants, then analyzing all possible pairs of variants and filtering out those that are unsuitable for further analysis (e.g. in linear dependence, Hardy Weinberg p-value less than $10^-6$, etc.). From the pairs of variants that pass filtering, we fit two logistic regression models (null and alternative hypothesis), then calculate a p-value using the log-likelihood ratio, and keeping pairs of variants having p-values below a predefined threshold ($10^-6$). These pairs of variants are then analyzed under our co-evolutionary model, we find the corresponding columns in the multiple sequence alignment and calculate the likelihoods for the null and alternative models by means of Felsenstein's algorithm (using matrices $Q$ and $Q_2$ in respectively). Finally, likelihoods from co-evolutionary model and likelihoods from logistic regression models are incorporated into a Bayes Factor equation, which is calculated using Laplace’s approximation.
+In summary, we first calculate the transitions matrices for the Markov models ($Q$ and $Q_2$) based on observations from protein structures (Pdb) and multiple sequence alignments (UCSC's 100-way). We analyze variants from genome sequencing data first by filtering only for non-synonymous variants, then analyzing all possible pairs of variants and filtering out those that are unsuitable for further analysis (e.g. in linear dependence, Hardy Weinberg p-value less than $10^-6$, etc.). From the pairs of variants that pass filtering, we fit two logistic regression models (null and alternative hypothesis), then calculate a p-value using the log-likelihood ratio, and keeping pairs of variants having p-values below a predefined threshold ($10^-6$). These pairs of variants are then analyzed under our co-evolutionary model, we find the corresponding columns in the multiple sequence alignment and calculate the likelihoods for the null and alternative models by means of Felsenstein's algorithm (using matrices $Q$ and $Q_2$ in respectively). Finally, likelihoods from co-evolutionary model and likelihoods from logistic regression models are incorporated into a Bayes Factor equation, which is calculated using Laplace's approximation.
 
 %---
 \section{Results}
@@ -198,11 +201,11 @@ Our approach, which is summarized in Figure ??, involves three main components. 
 
 The approach described in Methods was used to obtain substitution rate matrix $Q$ for individual amino acids and $Q_2$ for pairs of physically interacting residues within the same protein. Unsurprisingly, $Q$ (or more precisely a transition matrix $P(t)$ obtained from $Q$) is very similar to well known transitions matrixes such as PAM \cite{} (Supplementary Figure \ref{f:S1} and Table \ref{tab:S1}).
 
-Estimating $Q_2$ requires information about amino acids that are known to be “interacting”. A pair of amino acids is considered to be “interacting” if any pair of atoms (one from each amino acid) has a distance of 3 Angstrom or less \cite{burger2010disentangling}. 
+Estimating $Q_2$ requires information about amino acids that are known to be “interacting". A pair of amino acids is considered to be “interacting" if any pair of atoms (one from each amino acid) has a distance of 3 Angstrom or less \cite{burger2010disentangling}. 
 
-The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:S2} and supplementary file \ref{fileQ2_hat.txt}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / Q(a,c) \cdot Q(b,d)$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. Figure \fig{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
+The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:S2} and supplementary file \ref{fileQ2_hat.txt}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / Q(a,c) \cdot Q(b,d)$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. Figure \ref{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
 
-For example, the case with the highest rate ratio is \testtt{[V.I -> W.W]}’ (i.e. amino acid ‘V’ switched to ‘W’ in the one sequence, and amino acid ‘I’ changed to ‘W’ in the other). In fact, the top 10 pairs are transitions to ‘W.W’ amino acid pairs. This makes sense considering (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{Santiveri2010}.
+For example, the case with the highest rate ratio is \texttt{[V.I -> W.W]}' (i.e. amino acid 'V' switched to 'W' in the one sequence, and amino acid 'I' changed to 'W' in the other). In fact, the top 10 pairs are transitions to 'W.W' amino acid pairs. This makes sense considering (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{Santiveri2010}.
 
 Another type of pair transitions with large ratio is the double transitions to a pair of phenylalanine amino acids from a pairs of hydrophobic amino acids (Lysine, Asparagine, Glutamine, Arginine, Aspartic acid and Glutamic acid). Phenylalanine-Phenylalanine interaction pairs are assumed to conform $\pi-\pi$ interactions which are predicted and experimentally observed to be favorable \cite{hunter1991pi}.
 
@@ -210,17 +213,17 @@ Another type of pair transitions with large ratio is the double transitions to a
 
 We first the ability of our co-evolutionary model to detect interacting sites located within the same protein by computing the likelihood ratio of the evolutionary history of a candidate pair of sites under an co-evolutionary model ($Q_2$) versus under independence ($Q$). Although such pairs of sites are unlikely to exhibit evidence of epistasis in GWAS studies (due to linkage), accurate prediction of interacting sites in a given protein are useful for many other purposes, such as protein structure prediction and prediction of the impact of individual mutations.  Figure \ref{f:} shows interacting sites tend to have higher likelihood ratio scores than non-interacting ones. Although the likelihood ratio score it itself cannot perfectly discriminate between the two classes, only 25.9% of non-interacting pairs have a likelihood ratio above the median likelihood ratio of interacting pairs. 
 
-\fig{gwas_figure_2}{gwasf2}{12cm}{Red & Blue:Histogram of LL(MSA) ``in contact” vs ‘null’ within amino acids within the protein (Pdb). Black: Cummulative probability ratios $R_{MSA} = P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ]$. Dotted grey: Smoothed $R_{MSA}$}{LL(MSA) in contact vs ‘null’ within protein}
+\fig{gwas_figure_2}{gwasf2}{12cm}{Red \& Blue:Histogram of LL(MSA) ``in contact" vs 'null' within amino acids within the protein (Pdb). Black: Cummulative probability ratios $R_{MSA} = P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ]$. Dotted grey: Smoothed $R_{MSA}$}{$LL(MSA)$ in contact vs 'null' within protein}
 
-To confirm that an evolutionary model estimated based on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on ?? pairs of interacting (<3 Angstrom) and ?? pairs of non-interacting (>30 Angstrom) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). As seen on Figure \ref{fig:}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2E^-{16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. These empirical distributions, allow us to approximate of the log odds of the “interacting” vs “non-interacting” amino acids distributions as $log_{odds}(x) = log[P(LL(MSA|Q2) \ge x) / P(LL(MSA|Q) \ge x]$, which fits well an exponential function $e^{0.195 x}-1.018$ where $\alpha = 0.195$ and $\beta = 1.018$. The log odds value is capped to 4.0 to avoid artificially increasing Bayes Factors. 
+To confirm that an evolutionary model estimated based on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on ?? pairs of interacting (<3 Angstrom) and ?? pairs of non-interacting (>30 Angstrom) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). As seen on Figure \ref{fig:}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2E^-{16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. These empirical distributions, allow us to approximate of the log odds of the “interacting" vs “non-interacting" amino acids distributions as $log_{odds}(x) = log[P(LL(MSA|Q2) \ge x) / P(LL(MSA|Q) \ge x]$, which fits well an exponential function $e^{0.195 x}-1.018$ where $\alpha = 0.195$ and $\beta = 1.018$. The log odds value is capped to 4.0 to avoid artificially increasing Bayes Factors. 
 
-\fig{gwas_figure_3}{gwas3a}{12cm}{A) LL(MSA) in contact vs ‘null’ interacting amino acids in co-crystalized proteins (from Pdb), roughly 40\% of interacting records have $LL(MSA) > 1$. B) Log odds ratio of cummulative LL(MSA) probability (interacting / non-interacting)}{LL(MSA) in contact vs ‘null’ interacting amino acids}
+\fig{gwas_figure_3}{gwas3a}{12cm}{A) LL(MSA) in contact vs 'null' interacting amino acids in co-crystalized proteins (from Pdb), roughly 40\% of interacting records have $LL(MSA) > 1$. B) Log odds ratio of cummulative LL(MSA) probability (interacting / non-interacting)}{LL(MSA) in contact vs 'null' interacting amino acids}
 
 Figure 4 shows the example of a predicted contact $LL(MSA) = 7.7$ between SENP1 and SUMO1 proteins detected by our method. The co-crystallized structure from PDB highlights the interacting amino acids (less than 3 Angstrom apart) and the corresponding $M_{SA}$ matched with the phylogenetic tree suggests co-evolutionary evidence.
 
-Although our approach aims at identifying contacting residues from different proteins, it can also be used to predict interactions between proteins as a whole. We extracted from BioGrid \cite{stark2006biogrid} a set of \~3,000 pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue ( GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets\}). We define “non-interacting” pairs of proteins as those not fulfilling any of the three conditions, and chose \~3,000 such pairs randomly.
+Although our approach aims at identifying contacting residues from different proteins, it can also be used to predict interactions between proteins as a whole. We extracted from BioGrid \cite{stark2006biogrid} a set of $\sim3,000$ pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue ( GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets\}). We define “non-interacting" pairs of proteins as those not fulfilling any of the three conditions, and chose $\sim3,000$ such pairs randomly.
 
-Let the two proteins considered have amino acid sequences $a_1...a_m$ and $b_1...b_n$. To obtain the prediction score for this pair of proteins, we identify the pair of length-$k$ substrings $a_i, a_{i+1}, …, a_{i+k-1}$ and $b_j, b_{j+1}, …, b_{j+k-1}$ that exhibit the strongest support for parallel or antiparallel interactions, i.e. for which $ \max \{ \sum_l=0^k-1 LL(a_{i+l},b_{j+l})$,  \sum_l=0^k-1 LL(a_{i+l},b_{j+k-1-l})$ is maximized. Empirically, the value of $k$ that seems to provide the best predictive power if $k=3$. We calculate the average likelihood ratio of three consecutive pairs of amino acids ($avg_3[LL(MSA)]$), either in the forward or reverse directions. For a given pair of genes, we calculate the highest $avg_3[LL(MSA)]$ and pick the highest number as representative for that pair. As shown in Figure \ref{S5}), prediction accuracy is quite good ($p-value < 2 10^{-42}), considering the modest amount of information considered.
+Let the two proteins considered have amino acid sequences $a_1...a_m$ and $b_1...b_n$. To obtain the prediction score for this pair of proteins, we identify the pair of length-$k$ substrings $a_i, a_{i+1}, …, a_{i+k-1}$ and $b_j, b_{j+1}, …, b_{j+k-1}$ that exhibit the strongest support for parallel or antiparallel interactions, i.e. for which $ \max \{ \sum_{l=0}^{k-1} LL(a_{i+l},b_{j+l}),  \sum_{l=0}^{k-1} LL(a_{i+l},b_{j+k-1-l})$ is maximized. Empirically, the value of $k$ that seems to provide the best predictive power if $k=3$. We calculate the average likelihood ratio of three consecutive pairs of amino acids ($avg_3[LL(MSA)]$), either in the forward or reverse directions. For a given pair of genes, we calculate the highest $avg_3[LL(MSA)]$ and pick the highest number as representative for that pair. As shown in Figure \ref{S5}), prediction accuracy is quite good ($p-value < 2 10^{-42}$), considering the modest amount of information considered.
 
 \fig{gwas_figure_jmol_epistasis}{gwas_jmol}{14cm}{Example of amino acid interaction between SENP1 and SUMO1 proteins detected by out method $LL(MSA) = 7.7$. A) PDB structure 2G4D, shows that the amino acids are in close proximity: amino acid \#441 in SENP1 (ASP/D) interacts with amino acid \#60 in SUMO1 (ASN/N). B) Multiple sequence alignment and phylogenetic tree shows putative compensatory amino acid substitution pair ``D-N" replaced by ``H-S" (colors added for visual reference).}{Example of amino acid interaction}
 
@@ -234,41 +237,32 @@ We run the epistatic GWAS analysis on a real dataset for Type 2 Diabetes, consis
 
 In this paper, we propose a novel methodology for genome wide analysis of variants located in putative epistatic sites. Due to the large number of statistical tests required in epistatic analysis, and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples which can overcome the reduction in statistical power. Our analysis methods have been optimized and parallelized to be suitable for large scale sequencing genomic studies.
 
-Our Markov epistatic model requires multiple sequence alignment and the corresponding phylogenetic tree. Both the tree and the number of sequences in the MSA should remain constant throughout the genome in order to take advantage of computational optimizations (matrix exponential precalculation and “constant tree caching”) that allow the algorithm to be applied at genome-wide scale. Some multiple sequence alignments (such as Pfam) usually have different number of sequences for each protein (thus different phylogenetic trees). This poses two main disadvantages for our methodology: i) we cannot benefit from the previously mentioned optimizations, since they require a constant phylogenetic tree throughout the whole genome; and ii) we would add the problem of reconciling different phylogenetic trees from two proteins, which may lead to inconsistencies. For this reasons, we selected UCSC’s multi-100way \cite{karolchik2014ucsc}, a genome wide multiple sequence alignment of 100 organisms, which has single genome wide phylogenetic tree.
+Our Markov epistatic model requires multiple sequence alignment and the corresponding phylogenetic tree. Both the tree and the number of sequences in the MSA should remain constant throughout the genome in order to take advantage of computational optimizations (matrix exponential precalculation and “constant tree caching") that allow the algorithm to be applied at genome-wide scale. Some multiple sequence alignments (such as Pfam) usually have different number of sequences for each protein (thus different phylogenetic trees). This poses two main disadvantages for our methodology: i) we cannot benefit from the previously mentioned optimizations, since they require a constant phylogenetic tree throughout the whole genome; and ii) we would add the problem of reconciling different phylogenetic trees from two proteins, which may lead to inconsistencies. For this reasons, we selected UCSC's multi-100way \cite{karolchik2014ucsc}, a genome wide multiple sequence alignment of 100 organisms, which has single genome wide phylogenetic tree.
 
-We applied our coevolutionary model to separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). Interestingly, amino acids that categorized as ``benign” or ``druggable” have higher scores ($LL(MSA)$ within protein). As shown in Table \ref{t:}, benign ClinVar variants have higher mean $LL(MSA)$ distribution than variants categorized as pathogenic (Supplementary Tables \ref{tab:S4A}, \ref{tab:S4B} and Figure \ref{f:S4}). We speculate that this effect might be caused because amino acids that can be compensated would be characterized as ``benign” whereas deleterious amino acids changes would not be compensated by mutation. 
+We applied our coevolutionary model to separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). Interestingly, amino acids that categorized as ``benign" or ``druggable" have higher scores ($LL(MSA)$ within protein). As shown in Table \ref{t:}, benign ClinVar variants have higher mean $LL(MSA)$ distribution than variants categorized as pathogenic (Supplementary Tables \ref{tab:S4A}, \ref{tab:S4B} and Figure \ref{f:S4}). We speculate that this effect might be caused because amino acids that can be compensated would be characterized as ``benign" whereas deleterious amino acids changes would not be compensated by mutation. 
 
 We show the application of these methods to a large scale exome sequencing study for Type II …..
 
 As future work, we plan to extend our method to analyze domain specific transition pairs, this would allow to obtain better estimates for known interaction domains. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot, in this case the epistatic information would be used as a function modifying the kernel, instead of a bayesian prior.
 
-%---
-\section{Chapter introduction text:}
-%---
-
-Markov model
-
-Viewing evolutionary mechanisms in light of Markov models makes the models tractable . This is also a reasonable hypothesis, because we can assume that a sequence at time $t$ will ``mutate" into a new sequence at time $t+1$ without influence from past sequences. Note that we use sequences of amino acids ($a_i \in \{a_1, ..., a_{20}\}$) instead of genomic coordinates for simplicity. For each amino acid in the sequence, there is a probability of mutating into another amino acid that is given by a probability transition matrix $P(t)$. This matrix $P(t)$ obviously depends on the time because given a longer period of time, there is a higher chance of a random mutation. For small times $P(t)$ can be approximated by a constant rate matrix $Q$, such that $P(t) = e^{tQ}$. 
- 
-Felsestein
-
-Given a multiple sequence alignment $\mathcal{M}_{sa}$, and the corresponding phylegentic tree $\mathcal{T}$, and the transition matrix $Q$, we would like to calculate the likelihood of the data $L(\mathcal{M}_{sa}, \mathcal{T} | Q)$. Imagine having a tree with two nodes. Let $P(L_k|a)$ denote the probability of all nodes below $k$, assuming events in branches are independent and using Markov's reversibility, we can show that \cite{durbin1998biological}
-
-\begin{eqnarray*}
-P(L_k |  a_k ) 
-& = & \sum_{a_i, a_j}{ P(a_k | a_i, a_j, t_1, t_2) P(L_i, L_k | a_i, a_j)  }
-% = \sum_{a_i, a_j}{ P(a_k | a_i, t_1) P(L_i | a_i) P(a_k | a_j, t_2) P( L_k | a_j) } \\
-= \sum_{a_i, a_j}{ P(a_i | a_k, t_1) P(L_i | a_i ) P(a_j | a_k, t_2) P( L_k | a_j) }
-\end{eqnarray*}
-
-This algorithm for propagating likelihoods from leaf nodes to the root is known as Felsestein's algorithm \cite{felsenstein2004inferring}. We can compute the likelihood of the whole $\mathcal{M}_{sa}$ as the product of the likelihoods of the root nodes for all positions in the alignment. This assumes independence of amino acids at each position, which is a necessary simplification in order for the problem to be tractable.
-
-
-
-
-
-
-
-
-
-
+% %---
+% \section{Chapter introduction text:}
+% %---
+% 
+% Markov model
+% 
+% Viewing evolutionary mechanisms in light of Markov models makes the models tractable . This is also a reasonable hypothesis, because we can assume that a sequence at time $t$ will ``mutate" into a new sequence at time $t+1$ without influence from past sequences. Note that we use sequences of amino acids ($a_i \in \{a_1, ..., a_{20}\}$) instead of genomic coordinates for simplicity. For each amino acid in the sequence, there is a probability of mutating into another amino acid that is given by a probability transition matrix $P(t)$. This matrix $P(t)$ obviously depends on the time because given a longer period of time, there is a higher chance of a random mutation. For small times $P(t)$ can be approximated by a constant rate matrix $Q$, such that $P(t) = e^{tQ}$. 
+%  
+% Felsestein
+% 
+% Given a multiple sequence alignment $\mathcal{M}_{sa}$, and the corresponding phylegentic tree $\mathcal{T}$, and the transition matrix $Q$, we would like to calculate the likelihood of the data $L(\mathcal{M}_{sa}, \mathcal{T} | Q)$. Imagine having a tree with two nodes. Let $P(L_k|a)$ denote the probability of all nodes below $k$, assuming events in branches are independent and using Markov's reversibility, we can show that \cite{durbin1998biological}
+% 
+% \begin{eqnarray*}
+% P(L_k |  a_k ) 
+% & = & \sum_{a_i, a_j}{ P(a_k | a_i, a_j, t_1, t_2) P(L_i, L_k | a_i, a_j)  }
+% % = \sum_{a_i, a_j}{ P(a_k | a_i, t_1) P(L_i | a_i) P(a_k | a_j, t_2) P( L_k | a_j) } \\
+% = \sum_{a_i, a_j}{ P(a_i | a_k, t_1) P(L_i | a_i ) P(a_j | a_k, t_2) P( L_k | a_j) }
+% \end{eqnarray*}
+% 
+% This algorithm for propagating likelihoods from leaf nodes to the root is known as Felsestein's algorithm \cite{felsenstein2004inferring}. We can compute the likelihood of the whole $\mathcal{M}_{sa}$ as the product of the likelihoods of the root nodes for all positions in the alignment. This assumes independence of amino acids at each position, which is a necessary simplification in order for the problem to be tractable.
+% 
