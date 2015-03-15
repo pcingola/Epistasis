@@ -31,30 +31,22 @@ These three Chapters (three steps) complete our journey from ``raw data" to ``bi
 
 Here we propose several improvements, extensions or future lines of work for each of the methods developed in this thesis (some of them are currently being developed / explored): \\
 
-\begin{enumerate}
-\item[BDS]
-	\begin{enumerate}
-	\item Native support for new clusters and frameworks (that now supported via ``Generic cluster"): LSF, Mesos, Kubertes.
-	\item Functional constructs: map, apply, filter. This allows for more compact and readable code.
-	\item Richer data structures: BDS currently supports maps and list but does not support user defined structures.
-	\end{enumerate}
+\paragraph{BigDataScript}
+Native support for new clusters and frameworks (that now supported via ``Generic cluster"): LSF, Mesos, Kubertes.
+Functional constructs: map, apply, filter. This allows for more compact and readable code.
+Richer data structures: BDS currently supports maps and list but does not support user defined structures.
 
-\item[SnpEff]
-	\begin{enumerate}
-	\item Creation of a new VCF annotation standard coordinated with the developer of other annotations tools (mainly ENSEMBL’s VEP and ANNOVAR).
-	\item GA4GH variant annotation specification \& API definition.
-	\item Haplotype effect predictions: Using phased (or ``read phasing") to calculate compound variant effects (e.g. consecutive phased SNPs forming an MNP or two compensating frame shifts).
-	\item Improved loss of functions predictions.
-	\item Improved splice predictions using information theoretic analysis of splice sites from several species.
-	\end{enumerate}
+\paragraph{Annotations}
+Creation of a new VCF annotation standard coordinated with the developer of other annotations tools (mainly ENSEMBL’s VEP and ANNOVAR).
+GA4GH variant annotation specification \& API definition.
+Haplotype effect predictions: Using phased (or ``read phasing") to calculate compound variant effects (e.g. consecutive phased SNPs forming an MNP or two compensating frame shifts).
+Improved loss of functions predictions.
+Improved splice predictions using information theoretic analysis of splice sites from several species.
 
-\item[GWAS Epistasis]
-	\begin{enumerate}
-	\item Further optimization in logistic regression analysis:faster computations boosts program performance significantly.
-	\item Analysis of context dependent Q2 matrices based on protein domains.
-	\item Improved calculation of Bayesian priors.
-	\end{enumerate}
-\end{enumerate}
+\paragraph{GWAS Epistasis}
+Further optimization in logistic regression analysis:faster computations boosts program performance significantly.
+Analysis of context dependent Q2 matrices based on protein domains.
+Improved calculation of Bayesian priors.
 
 %---
 \section{Perspectives}
