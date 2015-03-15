@@ -13,16 +13,14 @@ while( $l =<STDIN> ) {
 	# Show only if BF is increased by LL(MSA)
 	$deltaLogBf = $logBf - $logBfLogReg;
 
-	if( $deltaLogBf > 0 ) {
-		# Parse logistic regression coefficients
-		$thetaAlt = $t[19];
-		$thetaAlt =~ tr/\[\]//d;
-		@ths = split /,/, $thetaAlt;
-		$sumAbs = abs($ths[0]) + abs($ths[1]);
+	# Parse logistic regression coefficients
+	$thetaAlt = $t[19];
+	$thetaAlt =~ tr/\[\]//d;
+	@ths = split /,/, $thetaAlt;
+	$sumAbs = abs($ths[0]) + abs($ths[1]);
 
-		if( ( $absTh * $sumAbs ) < abs($ths[2]) ) {
-			if( $debug )	{ print "$deltaLogBf\t$ths[0]\t$ths[1]\t$ths[2]\t$l\n"; } 
-			else			{ print "$l\n"; }
-		}
+	if(($deltaLogBf > 0) || (($absTh * $sumAbs) < abs($ths[2]))) {
+		if( $debug )	{ print "$deltaLogBf\t$ths[0]\t$ths[1]\t$ths[2]\t$l\n"; } 
+		else			{ print "$l\n"; }
 	}
 }
