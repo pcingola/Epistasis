@@ -149,7 +149,7 @@ public abstract class Regression extends Energy {
 			for (int j = 0; j < size; j++)
 				samplesX[i][j] = in[i][j];
 
-			samplesX[i][size] = 1.0; // Add 'intercept' term
+			samplesX[i][size] = 1.0; // Add 'intercept' term (last term in the equation)
 		}
 
 		if (samplesY == null) samplesY = new double[out.length];

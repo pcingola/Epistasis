@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  14 MAR 2015 11:28
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  15 MAR 2015 15:45
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -406,17 +406,7 @@ d con-stant hunger,
 
 
 
-] [3]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
- [4]
+] [3] [4]
 LaTeX Font Info:    Try loading font information for U+msa on input line 38.
  (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
@@ -425,184 +415,143 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 38.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [5]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
- [6]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-
-[7]
-Overfull \hbox (9.00151pt too wide) in paragraph at lines 48--52
-\OT1/cmr/m/n/24.88 study, we find can-di-dates for in-ter-ac-tion... 
- []
-
-<figs/gwas_epistasis_pipeline.png, id=31, 969.6225pt x 526.96875pt>
+) [5] [6]
+[7] <figs/gwas_epistasis_pipeline.png, id=30, 969.6225pt x 526.96875pt>
 File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
-Package pdftex.def Info: figs/gwas_epistasis_pipeline.png used on input line 59
+Package pdftex.def Info: figs/gwas_epistasis_pipeline.png used on input line 56
 .
 (pdftex.def)             Requested size: 398.33858pt x 216.49278pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 59--59
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 56--56
  [] 
  []
 
-[8 <./figs/gwas_epistasis_pipeline.png>]
+[8 <./figs/gwas_epistasis_pipeline.png>] [9] [10] [11] [12] [13]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
+Missing character: There is no “ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
- [9] [10]
+Missing character: There is no “ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
- [11] [12]
-Overfull \hbox (14.30777pt too wide) in alignment at lines 120--123
+Missing character: There is no “ in font cmr12!
+
+Overfull \hbox (58.39912pt too wide) in alignment at lines 155--165
  [][][] []
  []
 
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no “ in font cmr12!
-[13]
-Overfull \hbox (58.39912pt too wide) in alignment at lines 149--159
- [][][] []
- []
+[14] [15] [16]
 
-[14] [15]
-
-LaTeX Warning: Reference `S3' on page 16 undefined on input line 191.
+LaTeX Warning: Reference `f:S1' on page 17 undefined on input line 201.
 
 
-LaTeX Warning: Reference `S3??' on page 16 undefined on input line 191.
-
-[16] [17]
-
-LaTeX Warning: Reference `f:S1' on page 18 undefined on input line 205.
+LaTeX Warning: Reference `tab:S1' on page 17 undefined on input line 201.
 
 
-LaTeX Warning: Reference `tab:S1' on page 18 undefined on input line 205.
-
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-
-LaTeX Warning: Reference `fig:S2' on page 18 undefined on input line 209.
+LaTeX Warning: Reference `fig:S2' on page 17 undefined on input line 205.
 
 
-LaTeX Warning: Reference `fileQ2_hat.txt' on page 18 undefined on input line 20
-9.
+LaTeX Warning: Reference `fileQ2_hat.txt' on page 17 undefined on input line 20
+5.
 
 
-LaTeX Warning: Reference `fig:q_q2_compare' on page 18 undefined on input line 
-209.
+LaTeX Warning: Reference `fig:q_q2_compare' on page 17 undefined on input line 
+205.
 
-[18]
+[17]
 
-LaTeX Warning: Reference `f:' on page 19 undefined on input line 217.
+LaTeX Warning: Reference `f:' on page 18 undefined on input line 213.
 
-<figs/gwas_figure_2.png, id=74, 1027.84pt x 1027.84pt>
+<figs/gwas_figure_2.png, id=71, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_2.png Graphic file (type png)
 
 <use figs/gwas_figure_2.png>
-Package pdftex.def Info: figs/gwas_figure_2.png used on input line 219.
+Package pdftex.def Info: figs/gwas_figure_2.png used on input line 215.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
 
 
-LaTeX Warning: Reference `fig:' on page 19 undefined on input line 221.
+LaTeX Warning: Reference `fig:' on page 18 undefined on input line 217.
 
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-[19] [20 <./figs/gwas_figure_2.png (PNG copy)>]
-<figs/gwas_figure_3.png, id=82, 1027.84pt x 1027.84pt>
+[18] [19 <./figs/gwas_figure_2.png (PNG copy)>]
+<figs/gwas_figure_3.png, id=79, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3.png Graphic file (type png)
 
 <use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 223.
+Package pdftex.def Info: figs/gwas_figure_3.png used on input line 219.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 227.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 223.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 227.
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ¦ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ¦ in font cmr12!
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 223.
 
-
-LaTeX Warning: Reference `S5' on page 21 undefined on input line 229.
-
-[21] [22 <./figs/gwas_figure_3.png (PNG copy)>]
-<figs/gwas_figure_jmol_epistasis.png, id=89, 785.93625pt x 721.69624pt>
+<figs/gwas_figure_jmol_epistasis.png, id=80, 785.93625pt x 721.69624pt>
 File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use figs/gwas_figure_jmol_epistasis.png>
 Package pdftex.def Info: figs/gwas_figure_jmol_epistasis.png used on input line
- 231.
+ 225.
 (pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 231--231
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 225--225
  [] 
  []
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
-Missing character: There is no œ in font cmr12!
-[23] [24 <./figs/gwas_figure_jmol_epistasis.png>]
-
-LaTeX Warning: Reference `t:' on page 25 undefined on input line 256.
-
-
-LaTeX Warning: Reference `tab:S4A' on page 25 undefined on input line 256.
-
-
-LaTeX Warning: Reference `tab:S4B' on page 25 undefined on input line 256.
-
-
-LaTeX Warning: Reference `f:S4' on page 25 undefined on input line 256.
-
+Missing character: There is no ¦ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
-[25]) [26] (./thesis_mcgill.bbl
+
+LaTeX Warning: Reference `S5' on page 20 undefined on input line 227.
+
+[20] [21 <./figs/gwas_figure_3.png (PNG copy)>] [22 <./figs/gwas_figure_jmol_ep
+istasis.png>] [23] [24]
+
+LaTeX Warning: Reference `S3' on page 25 undefined on input line 246.
+
+
+LaTeX Warning: Reference `S3??' on page 25 undefined on input line 246.
+
+<figs/gwas_13k_results_1.png, id=97, 1146.2825pt x 519.9425pt>
+File: figs/gwas_13k_results_1.png Graphic file (type png)
+
+<use figs/gwas_13k_results_1.png>
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 252.
+(pdftex.def)             Requested size: 398.33858pt x 180.68147pt.
+
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 252--252
+ [] 
+ []
+
+[25] [26 <./figs/gwas_13k_results_1.png>]
+
+LaTeX Warning: Reference `tab:S4A' on page 27 undefined on input line 268.
+
+
+LaTeX Warning: Reference `tab:S4B' on page 27 undefined on input line 268.
+
+
+LaTeX Warning: Reference `fig:S4' on page 27 undefined on input line 268.
+
+) [27] [28] (./thesis_mcgill.bbl
 Underfull \hbox (badness 2443) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
  []
 
-[27
+[29
 
 
 
-] [28] [29]
+] [30] [31]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
@@ -611,7 +560,7 @@ Underfull \hbox (badness 2142) in paragraph at lines 255--260
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[30] [31]) (./thesis_mcgill.aux (./chapters/gwas.aux))
+[32] [33]) (./thesis_mcgill.aux (./chapters/gwas.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -670,6 +619,7 @@ figs/gwas_figure_2.png
 figs/gwas_figure_3.png
   omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
 figs/gwas_figure_jmol_epistasis.png
+figs/gwas_13k_results_1.png
 thesis_mcgill.bbl
  ***********
 
@@ -678,13 +628,13 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5798 strings out of 493315
- 85929 string characters out of 6137904
- 172829 words of memory out of 5000000
- 9135 multiletter control sequences out of 15000+600000
+ 5809 strings out of 493315
+ 86207 string characters out of 6137904
+ 174829 words of memory out of 5000000
+ 9145 multiletter control sequences out of 15000+600000
  10165 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,11n,44p,1900b,331s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,11n,44p,1777b,334s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
@@ -698,10 +648,10 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (31 pages, 679187 bytes).
+Output written on thesis_mcgill.pdf (33 pages, 1128876 bytes).
 PDF statistics:
- 164 PDF objects out of 1000 (max. 8388607)
- 110 compressed objects within 2 object streams
+ 172 PDF objects out of 1000 (max. 8388607)
+ 114 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 21 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
