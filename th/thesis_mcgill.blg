@@ -2,6 +2,10 @@ This is BibTeX, Version 0.99d (TeX Live 2013/Debian)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
+A level-1 auxiliary file: chapters/bds.aux
+A level-1 auxiliary file: chapters/snpeff.aux
+A level-1 auxiliary file: chapters/gwas.aux
+A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
 Repeated entry---line 793 of file mcgilletd.bib
@@ -60,6 +64,18 @@ Repeated entry---line 2038 of file mcgilletd.bib
  : @article{mckenna2010genome
  :                           ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 2192 of file mcgilletd.bib
+ : @article{mani2008defining
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2344 of file mcgilletd.bib
+ : @article{morcos2011direct
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2377 of file mcgilletd.bib
+ : @article{burger2010disentangling
+ :                                 ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 2535 of file mcgilletd.bib
  : @article{wang2010annovar
  :                         ,
@@ -76,50 +92,56 @@ Repeated entry---line 2962 of file mcgilletd.bib
  : @article{davydov2010identifying
  :                                ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 3364 of file mcgilletd.bib
+ : @article{jones1998gabab
+ :                        ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 3534 of file mcgilletd.bib
  : @book{cormen2001introduction
  :                             ,
 I'm skipping whatever remains of this entry
+Warning--empty journal in begun1992levels
+Warning--empty journal in brenner1965genetic
 Warning--empty journal in schneider2013genome
-You've used 102 entries,
+You've used 175 entries,
             2118 wiz_defined-function locations,
-            1042 strings with 25852 characters,
-and the built_in function-call counts, 44348 in all, are:
-= -- 4147
-> -- 3122
-< -- 7
-+ -- 1256
-- -- 1130
-* -- 3928
-:= -- 7667
-add.period$ -- 307
-call.type$ -- 102
-change.case$ -- 841
+            1425 strings with 41894 characters,
+and the built_in function-call counts, 74878 in all, are:
+= -- 7037
+> -- 5151
+< -- 12
++ -- 2069
+- -- 1858
+* -- 6625
+:= -- 12924
+add.period$ -- 526
+call.type$ -- 175
+change.case$ -- 1407
 chr.to.int$ -- 0
-cite$ -- 103
-duplicate$ -- 1182
-empty$ -- 2677
-format.name$ -- 1130
-if$ -- 8654
+cite$ -- 178
+duplicate$ -- 2014
+empty$ -- 4602
+format.name$ -- 1858
+if$ -- 14631
 int.to.chr$ -- 0
-int.to.str$ -- 102
-missing$ -- 104
-newline$ -- 513
-num.names$ -- 204
-pop$ -- 699
+int.to.str$ -- 175
+missing$ -- 179
+newline$ -- 878
+num.names$ -- 350
+pop$ -- 1148
 preamble$ -- 1
-purify$ -- 742
+purify$ -- 1237
 quote$ -- 0
-skip$ -- 844
+skip$ -- 1423
 stack$ -- 0
-substring$ -- 2718
-swap$ -- 169
-text.length$ -- 7
+substring$ -- 4712
+swap$ -- 273
+text.length$ -- 12
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 402
-warning$ -- 1
-while$ -- 370
-width$ -- 105
-write$ -- 1114
-(There were 19 error messages)
+type$ -- 690
+warning$ -- 3
+while$ -- 640
+width$ -- 178
+write$ -- 1912
+(There were 23 error messages)
