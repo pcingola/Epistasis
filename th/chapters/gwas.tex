@@ -245,11 +245,11 @@ As shown in Figure \ref{S5}), prediction accuracy is quite good (p-value $< 2 \c
 We applied our methods to a cohort of $\sim 13,000$ individuals in a case-control study of type II diabetes \cite{mccarthy2015T2D}.
 This multi-ethnic study covers exons of unrelated individuals from five major ancestral groups (European descent, South Asian, East Asian, Hispanic and African American descent) using an average sequencing coverage over $80 \times$, yielding $1.7$ million coding variants. The filters described in Methods section resulted in a number of variant pairs being analyzed less than $50$ million. By means of the z-score relationship between Bayes Factor and p-values shown in \cite{goodman1999toward}, we can set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF] =  8.0$.
 
-\paragraph{Results} 
-Variant annotated and filtered according to the previous paragraphs lead to $\sim 32M$ pairs of variants having high log likelihood in out logistic regression model  ($LL_{LogReg} > 6$, in equation \ref{eq:gwasLogLikLogReg}) that were further analysed under co-evolutionary and Bayesian models.
-The complete analysis takes less than $2$ days using a $1,000$ CPU-cluster, thus that an epistatic GWAS analysis of large cohort sequencing data is feasible using current computational resources. 
+\paragraph{Results} Variant annotated and filtered according to the previous paragraphs lead to $\sim 32M$ pairs of variants having high log likelihood in our logistic regression model  ($LL_{LogReg} > 6$, in equation \ref{eq:gwasLogLikLogReg}) that were further analysed under co-evolutionary and Bayesian models.
+The complete analysis took less than $2$ days using a $1,000$ CPU-cluster, thus showing that an epistatic GWAS analysis is feasible using current computational resources. 
 
 \figtab{gwas_13k_results_1}{gwas_13k_results_1}{14cm}{Results from epistatic GWAS analysis of type II diabetes sequencing data. First column shows total $log_{10}(BF)$; second and third columns show p-value and (raw) Bayes factor for logistic regression model. For each variant in the putative interaction pair: genomic coordinate, gene and functional annotation are shown. Genes marked in red are manually curated gene sets form diabetes related pathways}{Results from epistatic GWAS analysis of type II diabetes sequencing data}.
+
 Table \ref{tab:gwas_13k_results_1} shows the main results from our GWAS epistatic analysis.
 Selected genes are shown in red in table \ref{tab:gwas_13k_results_1} belong to a hand curated set of genes either associated with diabetes or known to be in diabetes related pathway.{\huge does this look like something interesting?}
 
