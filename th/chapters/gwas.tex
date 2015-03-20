@@ -75,7 +75,7 @@ To derive rate matrix $Q$, we consider the complete set of $n \sim 22 \times 10^
 	            & =  & \frac{2}{N(N-1)} \sum_{i<j} \frac{1}{t_i+t_j} log[ \hat{P}_(t_i+t_j) ]
 \end{eqnarray*}
 
-The much larger substitution matrix $Q_2$ describes the substitution rate from any pair of amino acids $(a,b)$ to any other pair $(c,d)$. It is derived similarly to $Q$, but considering only pairs of amino acids from the set of within protein interacting pairs of amino acids. We only take into account amino acids pairs within the same chain, that are separated by 20 amino acids or more from high resolution PDB structures of human proteins. 
+The much larger substitution matrix $Q_2$ describes the substitution rate from any pair of amino acids $(a,b)$ to any other pair $(c,d)$. It is derived similarly to $Q$, but considering only pairs of amino acids from the set of within protein interacting pairs of amino acids. We only take into account amino acids pairs within the same chain, that are separated by 20 amino acids or more. 
 
 \subsection{Calculating likelihood of individual and pairs of alignment columns}
 
@@ -94,13 +94,13 @@ where the denominator assumes that the amino acids $i$ and $j$ evolve independen
 \end{eqnarray}
 
 
-Given a pair of columns in the multiple sequence alignment $M_{sa}$, the corresponding phylegentic tree $\mathcal{T}$, we calculate the likelihood ratio by propagating the probabilities from the leaves up the root of the phylogenetic tree using Felsestein's algorithm \cite{felsenstein2004inferring} using transition matrices $Q$ and $Q_2$ for the null and alternative models respectively.
+%Given a pair of columns in the multiple sequence alignment $M_{sa}$, the corresponding phylegentic tree $\mathcal{T}$, we calculate the likelihood ratio by propagating the probabilities from the leaves up the root of the phylogenetic tree using Felsestein's algorithm \cite{felsenstein2004inferring} using transition matrices $Q$ and $Q_2$ for the null and alternative models respectively.
 
-Because the calculations described in this section will need to be performed on a very large number of pairs of sites, optimizations we required to ensure manageable running time. First, pre-calculation of  matrix exponentials $P(t) = e^{Qt}$ is necessary for all values of $t$ corresponding to individual branch lengths. Another optimization (``constant-tree caching") is to cache likelihood values for subtrees of the phylogenetic tree where all nodes have the same amino acid values. This optimization results in speedup only if the phylogenetic tree remains constant throughout the genome.
+Because the calculations described in this section will need to be performed on a very large number of pairs of sites, optimizations we are required to ensure manageable running time. First, pre-calculation of  matrix exponentials $P(t) = e^{Qt}$ is necessary for all values of $t$ corresponding to individual branch lengths. Another optimization (``constant-tree caching") is used to cache likelihood values for subtrees of the phylogenetic tree where all nodes have the same amino acid values. This optimization results in speed-up only if the phylogenetic tree remains constant throughout the genome, which is the case in our model.
 
 \subsection{GWAS model}
 
-Given $N_S$ samples (individuals), we use the standard notation for phenotypes and code them as $d_s=1$ meaning that the individual $s$ is affected by disease and $d_s=0$ if the individual is "healthy". Let $\bar{d} = [d_1, ..., d_{N_s}]$ be a phenotype vector and $g_{s,i} \in \{0,1,2\}$ a genomic variant for sample $s$, loci $i$ (we assume there are $N_V$ variants). A logistic model of disease risk \cite{balding2006tutorial} is
+Consider a GWAS with $N_S$  samples (individuals) and $N_V$ variants, we use the standard notation for phenotypes and code them as $d_s=1$ when individual $s$ is affected by disease and $d_s=0$ if it is "healthy". Let $\bar{d} = [d_1, ..., d_{N_s}]$ be a phenotype vector and $g_{s,i} \in \{0,1,2\}$ a genomic variant for sample $s$ at locus $i$. A logistic model of disease risk \cite{balding2006tutorial} is
 
 \begin{eqnarray*}
     p_{s,i} & = & P( d_s | g_{s,i} ) \\
@@ -109,7 +109,7 @@ Given $N_S$ samples (individuals), we use the standard notation for phenotypes a
     & = & \phi( \bar{\theta}^T \bar{g}_{s,i})
 \end{eqnarray*}
 
-where $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for each individual $s$ (these covariates usually include sex, age and eigenvalues from population structure analysis \cite{price2006principal}), $\bar{g}_{s,i} = [ 1, g_{s,i} , c_{s,1}, c_{s,2}, ... , c_{s,N_C} ]$, and $\bar{\theta} = [\theta_1, \theta_2, ..., \theta_m] $. The parameter estimates $\bar{\theta}$ are obtained by solving the maximum likelihood equation
+, where $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for each individual $s$ (these covariates usually include sex, age and eigenvalues from population structure analysis \cite{price2006principal}), $\bar{g}_{s,i} = [ 1, g_{s,i} , c_{s,1}, c_{s,2}, ... , c_{s,N_C} ]$, and $\bar{\theta} = [\theta_1, \theta_2, ..., \theta_m] $. The parameter estimates $\bar{\theta}$ are obtained by solving the maximum likelihood equation
 
 \begin{eqnarray*}
     L( \bar{\theta} ) & = & \prod_{s=1}^{N_S}{ P( d_s | \bar{\theta}, g_{s,i} ) } \\
@@ -117,18 +117,18 @@ where $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covari
     & = & \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
 \end{eqnarray*}
 
-where $p_{s,i} = P( d_s | \bar{\theta}, g_{s,i} )$ is the probability of individual $s$ disease outcome, given a genomic variant.
+% where $p_{s,i} = P( d_s | \bar{\theta}, g_{s,i} )$ is the probability of individual $s$ disease outcome, given a genomic variant.
 
-Using this model, we have two hypotheses: i) the null hypothesis, $H_0$, assumes that genotype does not influence disease probability (i.e. $\theta_1 = 0$). ii) the alternate hypothesis, $H_1$, assumes that the genotype does influences disease probability. We can compare these two hypothesis using a likelihood ratio test, we define
+Using this model, we have two hypotheses: i) the null hypothesis, $H_0$, assumes that genotype does not influence disease probability (i.e. $\theta_1 = 0$). ii) the alternate hypothesis, $H_1$, assumes that the genotype does influence disease probability (i.e. $\theta_1 \neq 0$). We can compare these two hypotheses using a likelihood ratio test. We define
 
 \begin{eqnarray} \label{eq:gwasLogLikLogReg}
 	LR & = & \frac{L( \bar{\theta}_{alt} | H_1 ) }{ L( \bar{\theta}_{null} | H_0 ) }\\
 	LL & = & log \left[ LR \right] = log \left[ \frac{L( \bar{\theta}_{alt} | H_1 ) }{ L( \bar{\theta}_{null} | H_0 ) } \right]
 \end{eqnarray}
 
-where $\bar{\theta}_{null}$ and $\bar{\theta}_{alt}$ are the maximum likelihood estimates for null and alt model respectively. According to Wilk's theorem, the log likelihood ratio has a $\chi^2_1$ distribution, so we can easily calculate a p-value.
+, where $\bar{\theta}_{null}$ and $\bar{\theta}_{alt}$ are the maximum likelihood estimates for null and alternate model respectively. According to Wilk's theorem \cite{wilks1938large}, the log likelihood ratio has a $\chi^2_1$ distribution under the null hypothesis, so we can easily calculate a p-value.
 
-Next, we extend the logistic model to accommodate interacting loci. For an individual (sample $s$), we model interactions between two genetic loci $i$ and $j$, having genotypes $g_{s,i}$ and $g_{s,j}$, by extending the logistic model with $N_{cov}$ covariates $c_{s,j}$ as
+Next, we extend the logistic model to accommodate interacting loci. For an individual (sample $s$), we model interactions between two genetic loci $i$ and $j$, having genotypes $g_{s,i}$ and $g_{s,j}$, by extending the logistic model
 
 \begin{eqnarray} \label{eq:gwasLogRegH1}
     P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
@@ -136,16 +136,16 @@ Next, we extend the logistic model to accommodate interacting loci. For an indiv
     & = & \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
 \end{eqnarray}
 
-where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. An implicit assumption in this equation is that $g_{s,i}$ and $g_{s,j}$ are not correlated (e.g. they don't sit in the same LD-Block). This can be enforced either by using haplotype structure information (e.g. from HapMap) or by limiting the application of the model to variants either in different chromosomes or over ~1M bases apart. The null hypothesis $H_0$ assumes that variants act independently
+where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. An implicit assumption in this equation is that $g_{s,i}$ and $g_{s,j}$ are not correlated (e.g. they are not located in the same LD-Block). This can be enforced either by using haplotype structure information (e.g. from HapMap) or by limiting the application of the model to variants either in different chromosomes or sufficiently distant (say $> 1Mb$). The null hypothesis $H_0$ assumes that variants act independently
 
 \begin{eqnarray} \label{eq:gwasLogRegH0}
     P( d_s | g_{s,i},g_{s,j}, H_0) & = & \phi[ \theta_0' + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 c_{s,1} + ... ] \\
    & = & \phi( \bar{\theta}^T \bar{g}_{s,i,j}' )
 \end{eqnarray}
 
-where $\bar{g}_{s,i,j}' =  [1, g_{s,i}, g_{s,j}, c_{s,1} , c_{s,2}, ..., c_{s,N_{cov}} ]^T$. Since these models are not nested (i.e. $H_0$ is not included in $H_1$), we cannot directly apply Wilks theorem.
+where $\bar{g}_{s,i,j}' =  [1, g_{s,i}, g_{s,j}, c_{s,1} , c_{s,2}, ..., c_{s,N_{cov}} ]^T$.
 
-Logistic regression parameter fitting was implemented using several different algorithms to reach the desired performance. The fastest convergence is obtained using Iterative Reweighted Least Squares (IRWLS \cite{daubechies2010iteratively}) and Broyden–Fletcher–Goldfarb–Shanno algorithm (BFGS \cite{broyden1970convergence}) with some code optimizations. In most cases IRWLS converges faster, so it was selected as the default implementation in our analysis.
+We investigated several algorithms for logistic regression parameter fitting. The fastest convergence is obtained using Iterative Reweighted Least Squares (IRWLS \cite{daubechies2010iteratively}) and Broyden-Fletcher-Goldfarb-Shanno algorithm (BFGS \cite{broyden1970convergence}) with some code optimizations. In most cases, IRWLS converges faster, so it was selected as the default implementation in our analysis.
 
 Another way to compare the null hypothesis to the alternative hypothesis, is using a Bayesian formulation \cite{kass1995bayes, wakefield2009bayes}
 
@@ -155,7 +155,7 @@ Another way to compare the null hypothesis to the alternative hypothesis, is usi
 	=  B_F \frac{ P(H_1) }{ P(H_0)  }
 \end{eqnarray*}
 
-where $B_F$, the ratio of the two integrals, is the Bayes factor. Using a Bayesian formulation has two main advantages: i) the hypothesis are automatically corrected for model complexity since Bayes factor asymptotically converge to Bayesian Information Criteria (BIC) is implicitly within Bayes Factors \cite{kass1995bayes}, and ii) we can compare non-nested models. The Bayes factor for the epistatic model becomes:
+\noindent where $B_F$, the ratio of the two integrals, is the Bayes factor. Using a Bayesian formulation has two main advantages: i) the hypothesis are automatically corrected for model complexity since Bayes factor asymptotically converge to Bayesian Information Criteria (BIC) \cite{kass1995bayes}, and ii) we can compare non-nested models. The Bayes factor for the epistatic model becomes:
 
 \begin{eqnarray}\label{eq:bf2}
 	B_F = \frac
@@ -169,13 +169,13 @@ where $B_F$, the ratio of the two integrals, is the Bayes factor. Using a Bayesi
 	d\theta d\theta' } }
 \end{eqnarray}
 
-Unfortunately, calculating Bayes factors is not trivial and most of the times there are no closed form equations. Calculating the integrals using numerical algorithms is possible, but  imposes a significant computational burden thus making it impractical for large datasets, such as GWAS data, even using large computing clusters. We can approximate the integrals using Laplace's method  \cite{kass1995bayes}. If $g(x)$ has a minimum at $x_0$, it can be shown that
+Calculating Bayes factors is challenging and most of the times there are no closed form equations. Calculating the integrals using numerical algorithms is possible, but  imposes a significant computational burden thus making it impractical for large datasets, such as GWAS data, even using large computing clusters. We can approximate the integrals using Laplace's method  \cite{kass1995bayes}. If $g(x)$ has a maximum at $x_0$, it can be shown that
 
 \begin{eqnarray*}
-	\int{e^{\lambda g(x)} h(x) dx} & \simeq & h(x_0) e^{\lambda g(x_0)} \sqrt{\frac{2 \pi}{\lambda g''(x_0)}} \\
+	\int{e^{-\lambda g(x)} h(x) dx} & \simeq & h(x_0) e^{\lambda g(x_0)} \sqrt{\frac{2 \pi}{\lambda g''(x_0)}} \\
 \end{eqnarray*}
 
-The multivariate case, for $\bar{x} \in \Re^d$, is analogous, we just need a Hessian matrix instead of a second derivate of $g(\cdot)$
+The multivariate case, for $\bar{x} \in \Re^d$, is analogous: we just need a Hessian matrix instead of a second derivate of $g(\cdot)$
 
 \begin{eqnarray}\label{eq:laplace}
 	\int{e^{\lambda g(\bar{x})} h(\bar{x}) d\bar{x}} & \simeq & h(\bar{x}_0) e^{\lambda g(\bar{x}_0)} 
@@ -193,7 +193,7 @@ Using analogous derivation for the covariates, we can find an analytic form of t
 
 \subsection{Putting it all together}
 
-In summary, we first calculate the transitions matrices for the Markov models ($Q$ and $Q_2$) based on observations from protein structures (PDB) and multiple sequence alignments (UCSC's 100-way). We analyze variants from genome sequencing data first by filtering only for non-synonymous variants, then analyzing all possible pairs of variants and filtering out those that are unsuitable for further analysis (e.g. in linear dependence, Hardy Weinberg p-value less than $10^-6$, etc.). From the pairs of variants that pass filtering, we fit two logistic regression models (null and alternative hypothesis), then calculate a p-value using the log-likelihood ratio, and keeping pairs of variants having p-values below a predefined threshold ($10^-6$). These pairs of variants are then analyzed under our co-evolutionary model, we find the corresponding columns in the multiple sequence alignment and calculate the likelihoods for the null and alternative models by means of Felsenstein's algorithm (using matrices $Q$ and $Q_2$ in respectively). Finally, likelihoods from co-evolutionary model and likelihoods from logistic regression models are incorporated into a Bayes Factor equation, which is calculated using Laplace's approximation.
+In summary, we first calculate the transitions matrices for the Markov models ($Q$ and $Q_2$) based on observations from protein structures (PDB) and multiple sequence alignments (UCSC's 100-way). We analyze variants from genome sequencing data first by filtering only for non-synonymous variants, then analyzing all possible pairs of variants and filtering out those that are unsuitable for further analysis (e.g. in linear dependence, deviation from Hardy-Weinberg equilibrium having p-value less than $10^{-6}$, etc.). From the pairs of variants that pass filtering, we fit two logistic regression models (null and alternative hypothesis), then calculate a p-value using the log-likelihood ratio, and keeping pairs of variants having p-values below a predefined threshold ($10^{-6}$). These pairs of variants are then analyzed under our co-evolutionary model, we find the corresponding columns in the multiple sequence alignment and calculate the likelihoods for the null and alternative models by means of Felsenstein's algorithm (using matrices $Q$ and $Q_2$ in respectively). Finally, likelihoods from co-evolutionary model and likelihoods from logistic regression models are incorporated into a Bayes Factor equation, which is calculated using Laplace's approximation.
 
 %---
 \section{Results}
