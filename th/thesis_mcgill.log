@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  21 MAR 2015 08:53
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  21 MAR 2015 11:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -298,7 +298,7 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 LaTeX Warning: Unused global option(s):
     [letterpaper].
 
-(./thesis_mcgill.aux (./chapters/conclusions.aux))
+(./thesis_mcgill.aux (./chapters/gwas.aux))
 \openout1 = `thesis_mcgill.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 73.
@@ -428,12 +428,7 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 45.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [5] [6]
-[7]
-
-LaTeX Warning: Reference `fig:gwaspipeline' on page 8 undefined on input line 5
-9.
-
-<figs/gwas_epistasis_pipeline.png, id=30, 969.6225pt x 526.96875pt>
+[7] <figs/gwas_epistasis_pipeline.png, id=30, 969.6225pt x 526.96875pt>
 File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
@@ -445,112 +440,94 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 61--61
  [] 
  []
 
-[8 <./figs/gwas_epistasis_pipeline.png>]
+[8]
 
-LaTeX Warning: Command \r invalid in math mode on input line 69.
+LaTeX Warning: Command \r invalid in math mode on input line 71.
 
-[9] [10] [11] [12]
-Overfull \hbox (7.59596pt too wide) in paragraph at lines 148--149
+[9 <./figs/gwas_epistasis_pipeline.png>] [10] [11] [12]
+Overfull \hbox (7.59596pt too wide) in paragraph at lines 150--151
 \OT1/cmr/m/n/12 Squares (IR-WLS [[]]) and Broyden-Fletcher-Goldfarb-Shanno al-g
 o-rithm (BFGS
  []
 
 [13]
-Overfull \hbox (58.39912pt too wide) in alignment at lines 160--170
+Overfull \hbox (58.39912pt too wide) in alignment at lines 162--172
  [][][] []
  []
 
 [14]
 
-LaTeX Warning: Reference `eq:laplace' on page 15 undefined on input line 185.
+LaTeX Warning: Reference `S3' on page 15 undefined on input line 196.
 
 
-LaTeX Warning: Reference `eq:bf2' on page 15 undefined on input line 185.
+LaTeX Warning: Reference `S3??' on page 15 undefined on input line 196.
+
+[15] [16] [17]
+
+LaTeX Warning: Reference `f:S1' on page 18 undefined on input line 215.
 
 
-LaTeX Warning: Reference `eq:laplace' on page 15 undefined on input line 185.
+LaTeX Warning: Reference `tab:S1' on page 18 undefined on input line 215.
 
 
-LaTeX Warning: Reference `eq:laplace' on page 15 undefined on input line 185.
-
-
-LaTeX Warning: Reference `S3' on page 15 undefined on input line 194.
-
-
-LaTeX Warning: Reference `S3??' on page 15 undefined on input line 194.
-
-[15]
-
-LaTeX Warning: Reference `eq:gwasLogRegH1' on page 16 undefined on input line 1
-99.
-
-[16] [17]
-
-LaTeX Warning: Reference `f:S1' on page 18 undefined on input line 213.
-
-
-LaTeX Warning: Reference `tab:S1' on page 18 undefined on input line 213.
-
-
-LaTeX Warning: Reference `fig:S2' on page 18 undefined on input line 217.
+LaTeX Warning: Reference `fig:S2' on page 18 undefined on input line 219.
 
 
 LaTeX Warning: Reference `fileQ2_hat.txt' on page 18 undefined on input line 21
-7.
+9.
 
 
 LaTeX Warning: Reference `fig:q_q2_compare' on page 18 undefined on input line 
-217.
+219.
 
 [18]
 
-LaTeX Warning: Reference `f:' on page 19 undefined on input line 225.
+LaTeX Warning: Reference `f:' on page 19 undefined on input line 227.
 
 <figs/gwas_figure_2.png, id=74, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_2.png Graphic file (type png)
 
 <use figs/gwas_figure_2.png>
-Package pdftex.def Info: figs/gwas_figure_2.png used on input line 227.
+Package pdftex.def Info: figs/gwas_figure_2.png used on input line 229.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
 
 
-LaTeX Warning: Reference `fig:' on page 19 undefined on input line 229.
+LaTeX Warning: Reference `fig:' on page 19 undefined on input line 231.
 
 [19] [20 <./figs/gwas_figure_2.png (PNG copy)>]
 <figs/gwas_figure_3.png, id=82, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3.png Graphic file (type png)
 
 <use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 231.
+Package pdftex.def Info: figs/gwas_figure_3.png used on input line 234.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
 
 
-LaTeX Warning: Reference `fig:' on page 21 undefined on input line 233.
+LaTeX Warning: Reference `fig:' on page 21 undefined on input line 236.
 
 
-LaTeX Warning: Command \r invalid in math mode on input line 233.
+LaTeX Warning: Command \r invalid in math mode on input line 236.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 235.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 238.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 235.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 238.
 
 <figs/gwas_figure_jmol_epistasis.png, id=83, 785.93625pt x 721.69624pt>
 File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use figs/gwas_figure_jmol_epistasis.png>
 Package pdftex.def Info: figs/gwas_figure_jmol_epistasis.png used on input line
- 237.
+ 240.
 (pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 237--237
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 240--240
  [] 
  []
 
-[21] [22 <./figs/gwas_figure_3.png (PNG copy)>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
@@ -558,45 +535,33 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
 
+LaTeX Warning: Reference `S5' on page 21 undefined on input line 244.
 
-LaTeX Warning: Reference `S5' on page 23 undefined on input line 241.
-
-
-LaTeX Warning: Reference `eq:gwasLogLikLogReg' on page 23 undefined on input li
-ne 248.
-
-<figs/gwas_13k_results_1.png, id=91, 1146.2825pt x 519.9425pt>
+[21] [22 <./figs/gwas_figure_3.png (PNG copy)>] [23 <./figs/gwas_figure_jmol_ep
+istasis.png>] <figs/gwas_13k_results_1.png, id=95, 1146.2825pt x 519.9425pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
-Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 251.
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 253.
 (pdftex.def)             Requested size: 398.33858pt x 180.68147pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 251--251
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 253--253
  [] 
  []
 
+[24] [25 <./figs/gwas_13k_results_1.png>]
 
-LaTeX Warning: Reference `tab:gwas_13k_results_1' on page 23 undefined on input
- line 253.
-
-
-LaTeX Warning: Reference `tab:gwas_13k_results_1' on page 23 undefined on input
- line 254.
-
-[23] [24 <./figs/gwas_figure_jmol_epistasis.png>] [25 <./figs/gwas_13k_results_
-1.png>]
-
-LaTeX Warning: Reference `sec:gwasQ2' on page 26 undefined on input line 268.
+LaTeX Warning: Citation `haussler2009genome' on page 26 undefined on input line
+ 267.
 
 
-LaTeX Warning: Reference `tab:S4A' on page 26 undefined on input line 270.
+LaTeX Warning: Reference `tab:S4A' on page 26 undefined on input line 269.
 
 
-LaTeX Warning: Reference `tab:S4B' on page 26 undefined on input line 270.
+LaTeX Warning: Reference `tab:S4B' on page 26 undefined on input line 269.
 
 
-LaTeX Warning: Reference `fig:S4' on page 26 undefined on input line 270.
+LaTeX Warning: Reference `fig:S4' on page 26 undefined on input line 269.
 
 [26]) [27] (./thesis_mcgill.bbl
 Underfull \hbox (badness 2443) in paragraph at lines 4--8
@@ -688,8 +653,8 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 5812 strings out of 493315
- 86265 string characters out of 6137904
+ 5811 strings out of 493315
+ 86243 string characters out of 6137904
  172829 words of memory out of 5000000
  9147 multiletter control sequences out of 15000+600000
  10165 words of font info for 39 fonts, out of 8000000 for 9000
@@ -708,7 +673,7 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (32 pages, 1127138 bytes).
+Output written on thesis_mcgill.pdf (32 pages, 1127058 bytes).
 PDF statistics:
  169 PDF objects out of 1000 (max. 8388607)
  112 compressed objects within 2 object streams
