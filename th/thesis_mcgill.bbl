@@ -25,12 +25,6 @@ Charles~George Broyden.
   general considerations.
 \newblock {\em IMA Journal of Applied Mathematics}, 6(1):76--90, 1970.
 
-\bibitem{burger2010disentangling}
-Lukas Burger and Erik van Nimwegen.
-\newblock Disentangling direct from indirect co-evolution of residues in
-  protein alignments.
-\newblock {\em PLoS computational biology}, 6(1):e1000633, 2010.
-
 \bibitem{clark2014multidimensional}
 Greg~W Clark, Sharon~H Ackerman, Elisabeth~R Tillier, and Domenico~L Gatti.
 \newblock Multidimensional mutual information methods for the analysis of
@@ -64,6 +58,11 @@ Ingrid Daubechies, Ronald DeVore, Massimo Fornasier, and C~Sinan
 \newblock {\em Communications on Pure and Applied Mathematics}, 63(1):1--38,
   2010.
 
+\bibitem{dayhoff1978model}
+Margaret~O Dayhoff and Robert~M Schwartz.
+\newblock A model of evolutionary change in proteins.
+\newblock In {\em In Atlas of protein sequence and structure}. Citeseer, 1978.
+
 \bibitem{de2013emerging}
 David de~Juan, Florencio Pazos, and Alfonso Valencia.
 \newblock Emerging methods in protein co-evolution.
@@ -95,6 +94,14 @@ L~Guariguata, DR~Whiting, I~Hambleton, J~Beagley, U~Linnenkamp, and JE~Shaw.
 \newblock Global estimates of diabetes prevalence for 2013 and projections for
   2035.
 \newblock {\em Diabetes research and clinical practice}, 103(2):137--149, 2014.
+
+\bibitem{haussler2009genome}
+David Haussler, Stephen~J O'Brien, Oliver~A Ryder, F~Keith Barker, Michele
+  Clamp, Andrew~J Crawford, Robert Hanner, Olivier Hanotte, Warren~E Johnson,
+  Jimmy~A McGuire, et~al.
+\newblock Genome 10k: a proposal to obtain whole-genome sequence for 10 000
+  vertebrate species.
+\newblock {\em Journal of Heredity}, 100(6):659--674, 2009.
 
 \bibitem{hunter1991pi}
 Christopher~A Hunter, Juswinder Singh, and Janet~M Thornton.
