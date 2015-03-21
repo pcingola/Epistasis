@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  21 MAR 2015 17:49
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  21 MAR 2015 18:18
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -485,32 +485,32 @@ Package pdftex.def Info: figs/gwas_figure_2.png used on input line 238.
 
 LaTeX Warning: Reference `fig:' on page 20 undefined on input line 240.
 
-<figs/gwas_figure_3.png, id=79, 1027.84pt x 1027.84pt>
+[20] [21 <./figs/gwas_figure_2.png (PNG copy)>]
+<figs/gwas_figure_3.png, id=85, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3.png Graphic file (type png)
 
 <use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 243.
+Package pdftex.def Info: figs/gwas_figure_3.png used on input line 251.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
- [20] [21 <./figs/gwas_figure_2.png (PNG copy)>]
-[22 <./figs/gwas_figure_3.png (PNG copy)>]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 247.
+ [22 <./figs/gwas_figure_3.png (PNG copy)>]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 255.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 247.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 255.
 
 <figs/gwas_figure_jmol_epistasis.png, id=89, 785.93625pt x 721.69624pt>
 File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use figs/gwas_figure_jmol_epistasis.png>
 Package pdftex.def Info: figs/gwas_figure_jmol_epistasis.png used on input line
- 249.
+ 257.
 (pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 249--249
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 257--257
  [] 
  []
 
@@ -521,29 +521,29 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
 
-LaTeX Warning: Reference `S5' on page 23 undefined on input line 253.
+LaTeX Warning: Reference `S5' on page 23 undefined on input line 267.
 
 [23] [24 <./figs/gwas_figure_jmol_epistasis.png>]
 <figs/gwas_13k_results_1.png, id=98, 1146.2825pt x 519.9425pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
-Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 262.
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 276.
 (pdftex.def)             Requested size: 398.33858pt x 180.68147pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 262--262
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 276--276
  [] 
  []
 
-[25 <./figs/gwas_13k_results_1.png>] [26]
+[25] [26 <./figs/gwas_13k_results_1.png>]
 
-LaTeX Warning: Reference `tab:S4A' on page 27 undefined on input line 278.
-
-
-LaTeX Warning: Reference `tab:S4B' on page 27 undefined on input line 278.
+LaTeX Warning: Reference `tab:S4A' on page 27 undefined on input line 292.
 
 
-LaTeX Warning: Reference `fig:S4' on page 27 undefined on input line 278.
+LaTeX Warning: Reference `tab:S4B' on page 27 undefined on input line 292.
+
+
+LaTeX Warning: Reference `fig:S4' on page 27 undefined on input line 292.
 
 ) [27] (./thesis_mcgill.bbl
 Underfull \hbox (badness 2443) in paragraph at lines 4--8
@@ -652,7 +652,7 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (32 pages, 1128673 bytes).
+Output written on thesis_mcgill.pdf (32 pages, 1128855 bytes).
 PDF statistics:
  169 PDF objects out of 1000 (max. 8388607)
  112 compressed objects within 2 object streams

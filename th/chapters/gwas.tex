@@ -227,7 +227,7 @@ The approach described in Methods was used to obtain substitution rate matrix $Q
 
 The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:S2} and supplementary file \ref{fileQ2_hat.txt}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / ( Q(a,c) \cdot Q(b,d) )$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. Figure \ref{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
 
-For example, the case with the highest rate ratio is \texttt{[V.I -> W.W]}' (i.e. amino acid 'V' switched to 'W' in the one sequence, and amino acid 'I' changed to 'W' in the other). In fact, the top 10 pairs are all transitions to 'W-W' amino acid pairs. This makes sense considering that (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
+For example, the case with the highest rate ratio is \texttt{V.I -> W.W} (i.e. amino acid \texttt{V} switched to \texttt{W} in the one sequence, and amino acid \texttt{I} changed to \texttt{W} in the other). In fact, the top 10 pairs are all transitions to \texttt{W.W} amino acid pairs. This makes sense considering that (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
 
 Another type of pair transitions with large ratio is the double transitions to a pair of phenylalanine amino acids from a pairs of hydrophobic amino acids (Lysine, Asparagine, Glutamine, Arginine, Aspartic acid and Glutamic acid). Phenylalanine-Phenylalanine interaction pairs are assumed to conform $\pi-\pi$ interactions which are predicted and experimentally observed to be energetically favourable \cite{hunter1991pi}.
 
@@ -237,7 +237,15 @@ We first assessed the ability of our co-evolutionary model to detect interacting
 
 \fig{gwas_figure_2}{gwasf2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
 
-To confirm that an evolutionary model estimated based on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on $\sim 3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim 3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). As seen on Figure \ref{fig:}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2 \times 10^{-16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. These empirical distributions, allow us to approximate of the log odds of the ``interacting" vs ``non-interacting" amino acids distributions as $\ell_{odds}(x) = log[L_2(MSA(i), MSA(j)) \ge x) / [ L_1(MSA(i)) \times L_1(MSA(j)) \ge x]$, which fits well an exponential function $e^{\alpha x}- \beta$, where $\alpha = 0.195$ and $\beta = 1.018$ (in order to avoid bias, the log odds value is capped to $4.0$).
+To confirm that an evolutionary model estimated based on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on $\sim 3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim 3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). As seen on Figure \ref{fig:}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2 \times 10^{-16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. These empirical distributions, allow us to approximate of the log odds of the ``interacting" vs ``non-interacting" amino acids distributions as
+
+\begin{eqnarray*}
+O_{dds}(x) & = & \frac{P[ L_2(MSA(i), MSA(j)) \ge x ]}{P[ L_1(MSA(i) \times L_1(MSA(j) \ge x]} \\
+\ell_{odds}(x) & = & log\left[ \frac{P[ L_2(MSA(i), MSA(j)) \ge x ]}{P[ L_1(MSA(i) \times L_1(MSA(j) \ge x]} \right] \\
+    & \simeq &e^{\alpha x}- \beta \\
+\end{eqnarray*}
+
+\noindent where $\alpha = 0.195$ and $\beta = 1.018$ (in order to avoid bias, the log odds value is capped to $4.0$).
 
 \fig{gwas_figure_3}{gwas3a}{12cm}{
 Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids in different proteins (co-crystallized entries from PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey). Roughly 40\% of interacting records have log-likelyhood $> 1$}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (co-crystalized proteins).}
@@ -248,7 +256,13 @@ Although our approach aims at identifying contacting residues from different pro
 
 \fig{gwas_figure_jmol_epistasis}{gwas_jmol}{14cm}{Example of interaction between amino acid \#441 of \textit{Senp1} and \#60 of \textit{Sumo1} proteins detected by our method with $LL(M_{SA}) = 7.7$. A) PDB structure 2G4D, shows that the amino acids are in close proximity. B) Multiple sequence alignment and phylogenetic tree showing the putative compensatory amino acid substitution pair ``D-N" replaced by ``H-S".}{Example of amino acid interaction}
 
-Let the two proteins considered have amino acid sequences $A = a_1...a_m$ and $B = b_1...b_n$. To obtain the prediction score for this pair of proteins, we identify the pair of length-$k$ substrings $a_i, a_{i+1}, …, a_{i+k-1}$ and $b_j, b_{j+1}, …, b_{j+k-1}$ that exhibit the strongest support for parallel or anti-parallel interactions, i.e. for which $ \max \{ \sum_{l=0}^{k-1} LL(a_{i+l},b_{j+l}),  \sum_{l=0}^{k-1} LL(a_{i+l},b_{j+k-1-l})$ is maximized. Empirically, the value of $k$ that seems to provide the best predictive power if $k=3$. 
+Let the two proteins considered have amino acid sequences $A = a_1...a_m$ and $B = b_1...b_n$. To obtain the prediction score for this pair of proteins, we identify the pair of length-$k$ substrings $a_i, a_{i+1}, …, a_{i+k-1}$ and $b_j, b_{j+1}, …, b_{j+k-1}$ that exhibit the strongest support for parallel or anti-parallel interactions
+
+\[
+\max\left[ \sum_{l=0}^{k-1}{ \ell_C[ MSA(a_{i+l}) , MSA(b_{j+l}) ]},  \sum_{l=0}^{k-1}{\ell_C[ MSA(a_{i+l}) , MSA(b_{j+k-1-l})} \right]
+\]
+
+\noindent where $k=3$ was determined empirically to provide the best predictive power. 
 %We calculate the average likelihood ratio of three consecutive pairs of amino acids ($avg_3[LL(M_{SA})]$), either in the forward or reverse directions. For a given pair of genes, we calculate the highest $avg_3[LL(M_{SA})]$ and pick the highest number as representative for that pair. 
 As shown in Figure \ref{S5}), prediction accuracy is quite good (p-value $< 2 \cdot 10^{-42}$), considering the modest amount of information considered.
 
