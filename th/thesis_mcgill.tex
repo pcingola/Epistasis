@@ -82,13 +82,13 @@
 % Conditional expression for faster build during "development" cycle
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
 \newif\ifthesis
-%\thesistrue
-\thesisfalse
+\thesistrue
+%\thesisfalse
 
 % Final version?
 \newif\iffinal
-%\finaltrue
-\finalfalse
+\finaltrue
+%\finalfalse
 
 \ifthesis
 	% Only show these sections when we are building the 'thesis' version
@@ -130,10 +130,10 @@
 		%-----------------------------------------------------------------------------
 		
 		\TOCHeading{\MakeUppercase{Table of Contents}}
-		\LOTHeading{\MakeUppercase{List of Tables}}
-		\LOFHeading{\MakeUppercase{List of Figures}}
+		% \LOTHeading{\MakeUppercase{List of Tables}}
+		\LOFHeading{\MakeUppercase{List of Figures and Tables}}
 		\tableofcontents 
-		\listoftables 
+		%\listoftables 
 		\listoffigures
 	\else
 		% Not the final version? Only show TOC (skip list of figures, tables, abstract, etc.)
