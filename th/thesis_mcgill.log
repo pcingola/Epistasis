@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  21 MAR 2015 18:29
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  22 MAR 2015 11:27
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1132,15 +1132,15 @@ Overfull \hbox (50.49942pt too wide) in paragraph at lines 33--34
  []
 
 [106] [107] [108] [109]
-<figs/gwas_epistasis_pipeline.png, id=392, 969.6225pt x 526.96875pt>
+<figs/gwas_epistasis_pipeline.png, id=392, 967.615pt x 738.76pt>
 File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
 Package pdftex.def Info: figs/gwas_epistasis_pipeline.png used on input line 61
 .
-(pdftex.def)             Requested size: 398.33858pt x 216.49278pt.
+(pdftex.def)             Requested size: 455.24408pt x 347.57796pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 61--61
+Overfull \hbox (58.24408pt too wide) in paragraph at lines 61--61
  [] 
  []
 
@@ -1150,21 +1150,20 @@ Overfull \hbox (7.59596pt too wide) in paragraph at lines 149--150
 o-rithm (BFGS
  []
 
-[116]
+[116] [117]
 
-LaTeX Warning: Reference `S3' on page 117 undefined on input line 193.
-
-
-LaTeX Warning: Reference `S3??' on page 117 undefined on input line 193.
-
-[117] [118] [119]
-
-LaTeX Warning: Reference `f:S1' on page 120 undefined on input line 224.
+LaTeX Warning: Reference `S3' on page 118 undefined on input line 193.
 
 
-LaTeX Warning: Reference `tab:S1' on page 120 undefined on input line 224.
+LaTeX Warning: Reference `S3??' on page 118 undefined on input line 193.
 
-[120]
+[118] [119] [120]
+
+LaTeX Warning: Reference `f:S1' on page 121 undefined on input line 224.
+
+
+LaTeX Warning: Reference `tab:S1' on page 121 undefined on input line 224.
+
 
 LaTeX Warning: Reference `fig:S2' on page 121 undefined on input line 228.
 
@@ -1176,10 +1175,11 @@ LaTeX Warning: Reference `fileQ2_hat.txt' on page 121 undefined on input line 2
 LaTeX Warning: Reference `fig:q_q2_compare' on page 121 undefined on input line
  228.
 
+[121]
 
-LaTeX Warning: Reference `f:' on page 121 undefined on input line 236.
+LaTeX Warning: Reference `f:' on page 122 undefined on input line 236.
 
-[121] <figs/gwas_figure_2.png, id=433, 1027.84pt x 1027.84pt>
+<figs/gwas_figure_2.png, id=433, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_2.png Graphic file (type png)
 
 <use figs/gwas_figure_2.png>
@@ -1196,8 +1196,8 @@ File: figs/gwas_figure_3.png Graphic file (type png)
 <use figs/gwas_figure_3.png>
 Package pdftex.def Info: figs/gwas_figure_3.png used on input line 251.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
- [124 <./figs/gwas_figure_3.png (PNG copy)>]
-<figs/gwas_figure_jmol_epistasis.png, id=445, 785.93625pt x 721.69624pt>
+
+<figs/gwas_figure_jmol_epistasis.png, id=441, 785.93625pt x 721.69624pt>
 File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use figs/gwas_figure_jmol_epistasis.png>
@@ -1209,6 +1209,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 257--257
  [] 
  []
 
+[124] [125 <./figs/gwas_figure_3.png (PNG copy)>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
@@ -1216,10 +1217,11 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
 
-LaTeX Warning: Reference `S5' on page 125 undefined on input line 267.
 
-[125] [126 <./figs/gwas_figure_jmol_epistasis.png>]
-<figs/gwas_13k_results_1.png, id=453, 1146.2825pt x 519.9425pt>
+LaTeX Warning: Reference `S5' on page 126 undefined on input line 267.
+
+[126] [127 <./figs/gwas_figure_jmol_epistasis.png>]
+<figs/gwas_13k_results_1.png, id=456, 1146.2825pt x 519.9425pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
@@ -1230,7 +1232,7 @@ Overfull \hbox (1.33858pt too wide) in paragraph at lines 276--276
  [] 
  []
 
-[127] [128 <./figs/gwas_13k_results_1.png>]
+[128 <./figs/gwas_13k_results_1.png>]
 
 LaTeX Warning: Reference `tab:S4A' on page 129 undefined on input line 292.
 
@@ -1240,18 +1242,18 @@ LaTeX Warning: Reference `tab:S4B' on page 129 undefined on input line 292.
 
 LaTeX Warning: Reference `fig:S4' on page 129 undefined on input line 292.
 
-) [129]
+[129]) [130]
 \openout2 = `chapters/conclusions.aux'.
 
  (./chapters/conclusions.tex
 ***************************
 CHAPTER 5.
 ***************************
-[130
+[131
 
 
 
-] [131]
+] [132]
 Underfull \hbox (badness 10000) in paragraph at lines 34--35
 
  []
@@ -1259,11 +1261,11 @@ Underfull \hbox (badness 10000) in paragraph at lines 34--35
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-[132]
+[133]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
-) [133] [134] (./thesis_mcgill.bbl
+) [134] [135] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1082) in paragraph at lines 4--9
 []\OT1/cmr/m/n/12 Dario Acam-pora, Vir-ginia Avan-tag-giato, Francesca Tuorto, 
 Paolo
@@ -1281,7 +1283,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 48--53
 
  []
 
-[135
+[136
 
 
 
@@ -1292,31 +1294,31 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [136]
+ [137]
 Underfull \hbox (badness 1043) in paragraph at lines 178--184
 []\OT1/cmr/m/n/12 Kristian Cibul-skis, Michael S Lawrence, Scott L Carter, An-d
 rey
  []
 
-[137] [138] [139]
+[138] [139] [140]
 Underfull \hbox (badness 1259) in paragraph at lines 354--360
 []\OT1/cmr/m/n/12 Kevin M Flani-gan, Di-ane M Dunn, An-drew von Nieder-hausern,
 
  []
 
-[140] [141] [142] [143] [144] [145]
+[141] [142] [143] [144] [145] [146]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [146] [147] [148]
+ [147] [148] [149]
 Underfull \hbox (badness 1270) in paragraph at lines 969--974
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[149] [150] [151]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[150] [151] [152]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
 (./chapters/conclusions.aux))
 
@@ -1433,10 +1435,10 @@ ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (154 pages, 4815708 bytes).
+Output written on thesis_mcgill.pdf (155 pages, 4824010 bytes).
 PDF statistics:
- 585 PDF objects out of 1000 (max. 8388607)
- 384 compressed objects within 4 object streams
+ 588 PDF objects out of 1000 (max. 8388607)
+ 386 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  116 words of extra memory for PDF output out of 10000 (max. 10000000)
 

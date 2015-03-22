@@ -75,21 +75,21 @@
 \contentsline {section}{\numberline {4.3}Introduction}{106}
 \contentsline {section}{\numberline {4.4}Methods }{110}
 \contentsline {subsection}{\numberline {4.4.1}Substitution model for pairs of interacting amino acids }{110}
-\contentsline {subsection}{\numberline {4.4.2}Calculating likelihood of individual and pairs of alignment columns}{112}
-\contentsline {subsection}{\numberline {4.4.3}GWAS model}{113}
+\contentsline {subsection}{\numberline {4.4.2}Calculating likelihood of individual and pairs of alignment columns}{113}
+\contentsline {subsection}{\numberline {4.4.3}GWAS model}{114}
 \contentsline {paragraph}{Computational and statistical issues.}{118}
 \contentsline {subsection}{\numberline {4.4.4}Putting it all together}{119}
 \contentsline {section}{\numberline {4.5}Results}{120}
-\contentsline {subsection}{\numberline {4.5.1}Co-evolutionary substitution models}{120}
-\contentsline {subsection}{\numberline {4.5.2}Co-evolutionary model validation}{121}
-\contentsline {subsection}{\numberline {4.5.3}Epistatic GWAS analysis}{125}
-\contentsline {paragraph}{Results.}{127}
-\contentsline {section}{\numberline {4.6}Discussion}{127}
-\contentsline {chapter}{\numberline {5}Conclusions }{130}
-\contentsline {section}{\numberline {5.1}Contributions}{130}
-\contentsline {section}{\numberline {5.2}Future work}{132}
-\contentsline {paragraph}{BigDataScript.}{132}
-\contentsline {paragraph}{Variant annotations.}{132}
-\contentsline {paragraph}{GWAS Epistasis.}{133}
-\contentsline {section}{\numberline {5.3}Perspectives}{133}
-\contentsline {extrachapter}{References}{135}
+\contentsline {subsection}{\numberline {4.5.1}Co-evolutionary substitution models}{121}
+\contentsline {subsection}{\numberline {4.5.2}Co-evolutionary model validation}{122}
+\contentsline {subsection}{\numberline {4.5.3}Epistatic GWAS analysis}{126}
+\contentsline {paragraph}{Results.}{126}
+\contentsline {section}{\numberline {4.6}Discussion}{128}
+\contentsline {chapter}{\numberline {5}Conclusions }{131}
+\contentsline {section}{\numberline {5.1}Contributions}{131}
+\contentsline {section}{\numberline {5.2}Future work}{133}
+\contentsline {paragraph}{BigDataScript.}{133}
+\contentsline {paragraph}{Variant annotations.}{133}
+\contentsline {paragraph}{GWAS Epistasis.}{134}
+\contentsline {section}{\numberline {5.3}Perspectives}{134}
+\contentsline {extrachapter}{References}{136}
