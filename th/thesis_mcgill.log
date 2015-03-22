@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  22 MAR 2015 11:27
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  22 MAR 2015 17:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1189,27 +1189,27 @@ Package pdftex.def Info: figs/gwas_figure_2.png used on input line 238.
 
 LaTeX Warning: Reference `fig:' on page 122 undefined on input line 240.
 
-[122] [123 <./figs/gwas_figure_2.png (PNG copy)>]
-<figs/gwas_figure_3.png, id=440, 1027.84pt x 1027.84pt>
+[122] [123 <./figs/gwas_figure_2.png>]
+<figs/gwas_figure_3.png, id=441, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3.png Graphic file (type png)
 
 <use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 251.
+Package pdftex.def Info: figs/gwas_figure_3.png used on input line 253.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
 
-<figs/gwas_figure_jmol_epistasis.png, id=441, 785.93625pt x 721.69624pt>
+<figs/gwas_figure_jmol_epistasis.png, id=442, 785.93625pt x 721.69624pt>
 File: figs/gwas_figure_jmol_epistasis.png Graphic file (type png)
 
 <use figs/gwas_figure_jmol_epistasis.png>
 Package pdftex.def Info: figs/gwas_figure_jmol_epistasis.png used on input line
- 257.
+ 259.
 (pdftex.def)             Requested size: 398.33858pt x 365.7917pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 257--257
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 259--259
  [] 
  []
 
-[124] [125 <./figs/gwas_figure_3.png (PNG copy)>]
+[124] [125 <./figs/gwas_figure_3.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
@@ -1218,29 +1218,29 @@ Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
 
 
-LaTeX Warning: Reference `S5' on page 126 undefined on input line 267.
+LaTeX Warning: Reference `S5' on page 126 undefined on input line 269.
 
 [126] [127 <./figs/gwas_figure_jmol_epistasis.png>]
-<figs/gwas_13k_results_1.png, id=456, 1146.2825pt x 519.9425pt>
+<figs/gwas_13k_results_1.png, id=458, 1146.2825pt x 519.9425pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
-Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 276.
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 278.
 (pdftex.def)             Requested size: 398.33858pt x 180.68147pt.
 
-Overfull \hbox (1.33858pt too wide) in paragraph at lines 276--276
+Overfull \hbox (1.33858pt too wide) in paragraph at lines 278--278
  [] 
  []
 
 [128 <./figs/gwas_13k_results_1.png>]
 
-LaTeX Warning: Reference `tab:S4A' on page 129 undefined on input line 292.
+LaTeX Warning: Reference `tab:S4A' on page 129 undefined on input line 294.
 
 
-LaTeX Warning: Reference `tab:S4B' on page 129 undefined on input line 292.
+LaTeX Warning: Reference `tab:S4B' on page 129 undefined on input line 294.
 
 
-LaTeX Warning: Reference `fig:S4' on page 129 undefined on input line 292.
+LaTeX Warning: Reference `fig:S4' on page 129 undefined on input line 294.
 
 [129]) [130]
 \openout2 = `chapters/conclusions.aux'.
@@ -1435,9 +1435,9 @@ ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (155 pages, 4824010 bytes).
+Output written on thesis_mcgill.pdf (155 pages, 4829033 bytes).
 PDF statistics:
- 588 PDF objects out of 1000 (max. 8388607)
+ 590 PDF objects out of 1000 (max. 8388607)
  386 compressed objects within 4 object streams
  0 named destinations out of 1000 (max. 500000)
  116 words of extra memory for PDF output out of 10000 (max. 10000000)

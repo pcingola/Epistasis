@@ -42,13 +42,9 @@ figure2 <- function(lc, la, lalcOdds, x) {
 
 	par(mar = c(5, 4, 4, 4) + 0.3)  # Leave space for z axis
 
-	# Convert to numbers
-    lc <- as.numeric( lc[,1] )
-    la <- as.numeric( la[,1] )
-
 	xlim <- c(-40,20)
-	title <- "LL(MSA) of amino acids 'in contact' vs 'not in contact'"
-	xlab <- 'LL(MSA)'
+	title <- "" # "Lig-likelihood (MSA) of amino acids 'in contact' vs 'not in contact'"
+	xlab <- 'Log-likelihood'
 	breaks <- 200
 
 	cat('Distributions summary:\n')
@@ -60,11 +56,14 @@ figure2 <- function(lc, la, lalcOdds, x) {
 	legend("topleft", inset=.05, c('In contact', 'Not in contact', 'Probability ratio'), fill=c( rgb(1,0,0,1/4), rgb(0,0,1,1/4), rgb(0,0,0,1)), horiz=F)
 
 	# Ratio of cummulative probabilities
+	keep <- is.finite(lalcOdds)
+	lalcOdds[!keep] <- NA
+	lor <- log(lalcOdds) 
 	par(new = TRUE)
-	plot(x, lalcOdds, type = "l", axes = FALSE, bty = "n", xlab = "", ylab = "")
-	axis(side=4, at = pretty(range(x)))
-	mtext("Probability ratio P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ]", side=4, line=3)
-	lines( supsmu(x, lalcOdds), col='gray', lty=2 )
+	plot(x, lor, type = "l", axes = FALSE, bty = "n", xlab = "", ylab = "")
+	axis(side=4, at = pretty(range(lor)))
+	mtext("Log odds ratio", side=4, line=3)
+	lines( supsmu(x, lor), col='gray', lty=2 )
 }
 
 #-------------------------------------------------------------------------------
@@ -82,8 +81,8 @@ figure3 <- function(ll.int, ll.non, or, orx) {
 	# Show density distributions
 	#---
 	xlim <- c(-40,20)
-	title <- "LL(MSA) of amino acids 'interacting' vs 'non-interacint'"
-	xlab <- 'LL(MSA)'
+	title <- '' # "LL(MSA) of amino acids 'interacting' vs 'non-interacint'"
+	xlab <- 'Log-likelihood'
 	breaks <- 100
 
 	cat('Distributions summary:\n')
@@ -96,6 +95,8 @@ figure3 <- function(ll.int, ll.non, or, orx) {
 	#---
 	# Figure 3.B: Plot odds ratio (cummulative probability)
 	#---
+	keep <- is.finite(or)
+	or[!keep] <- NA
 	lor <- log(or) 
 
 	# Remove inacurrate numbers (too few points to calculate stats)
@@ -105,9 +106,9 @@ figure3 <- function(ll.int, ll.non, or, orx) {
 	# Ratio of cummulative probabilities
 	par(new = TRUE)
 	plot( orX, lor, type = "l", axes = FALSE, bty = "n", xlab = "", ylab = "")
-	axis(side=4, at = pretty(range(orX)))
-	mtext("Log probability ratio log{ P[ LL(MSA|M1) > X ] / P[ LL(MSA|M0) > X ] }", side=4, line=3)
-	lines( supsmu(orx, lor), col='gray', lty=2 )
+	axis(side=4, at = pretty(range(lor[keep])))
+	mtext("Log odds ratio", side=4, line=3)
+	lines( supsmu(orx[keep], lor[keep]), col='gray', lty=2 )
 }
 
 #-------------------------------------------------------------------------------
@@ -148,10 +149,14 @@ if( fig2 ) {
 	# Load data 
 	if( !exists('lc') ) {
 		cat('Reading file: likelihood.contact.values.txt\n')
-		lc <- read.csv("likelihood.contact.values.txt")
+		lc <- read.csv("likelihood.contact.values.txt", header=F)
 
 		cat('Reading file: likelihood.null.values.txt\n')
-		la <- read.csv("likelihood.null.values.txt")
+		la <- read.csv("likelihood.null.values.txt", header=F)
+
+		# Convert to numbers
+    	lc <- as.numeric( lc[,1] )
+    	la <- as.numeric( la[,1] )
 
 		cat('Calculating probability ratio\n')
 		xlim <- c(-40,20)
