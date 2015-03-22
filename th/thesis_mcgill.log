@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  22 MAR 2015 17:59
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  22 MAR 2015 18:20
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1221,12 +1221,12 @@ Missing character: There is no ¦ in font cmr12!
 LaTeX Warning: Reference `S5' on page 126 undefined on input line 269.
 
 [126] [127 <./figs/gwas_figure_jmol_epistasis.png>]
-<figs/gwas_13k_results_1.png, id=458, 1146.2825pt x 519.9425pt>
+<figs/gwas_13k_results_1.png, id=458, 1144.275pt x 461.725pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
 Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 278.
-(pdftex.def)             Requested size: 398.33858pt x 180.68147pt.
+(pdftex.def)             Requested size: 398.33858pt x 160.73254pt.
 
 Overfull \hbox (1.33858pt too wide) in paragraph at lines 278--278
  [] 
@@ -1435,7 +1435,7 @@ ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (155 pages, 4829033 bytes).
+Output written on thesis_mcgill.pdf (155 pages, 4993162 bytes).
 PDF statistics:
  590 PDF objects out of 1000 (max. 8388607)
  386 compressed objects within 4 object streams
