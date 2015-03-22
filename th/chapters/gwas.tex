@@ -256,7 +256,25 @@ Figure \ref{fig:gwas_jmol} shows the example of a predicted contact $\ell_C = 7.
 
 Although our approach aims at identifying contacting residues from different proteins, it can also be used to predict the presence or absence of interactions between proteins as a whole. We extracted from BioGrid \cite{stark2006biogrid} a set of $\sim3,000$ pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue (GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets\}). We randomly selected as ``non-interacting" pairs the same number of pairs amongst those that do not fulfil any of the three conditions.
 
-\fig{gwas_figure_jmol_epistasis}{gwas_jmol}{14cm}{Example of interaction between amino acid \#441 of \textit{Senp1} and \#60 of \textit{Sumo1} proteins detected by our method with $\ell_C = 7.7$. A) PDB structure 2G4D, shows that the amino acids are in close proximity. B) Multiple sequence alignment and phylogenetic tree showing the putative compensatory amino acid substitution pair \texttt{D.N} replaced by \texttt{H.S}.}{Example of amino acid interaction}
+%\fig{gwas_figure_jmol_epistasis}{gwas_jmol}{14cm}{Example of interaction between amino acid \#441 of \textit{Senp1} and \#60 of \textit{Sumo1} proteins detected by our method with $\ell_C = 7.7$. A) PDB structure 2G4D, shows that the amino acids are in close proximity. B) Multiple sequence alignment and phylogenetic tree showing the putative compensatory amino acid substitution pair \texttt{D.N} replaced by \texttt{H.S}.}{Example of amino acid interaction}
+
+\begin{figure}
+\centering
+\begin{subfigure}{.9\textwidth}
+  \centering
+  \includegraphics[width=14cm]{figs/gwas_figure_4_jmol.png}
+  %\caption{A subfigure}
+  \label{fig:sub1}
+\end{subfigure}%
+\begin{subfigure}{.1\textwidth}
+  \centering
+  \includegraphics[width=7cm]{figs/gwas_figure_4_tree_coevolution.png}
+  %\caption{A subfigure}
+  \label{fig:sub2}
+\end{subfigure}
+\caption{Example of interaction between amino acid \#441 of \textit{Senp1} and \#60 of \textit{Sumo1} proteins detected by our method with $\ell_C = 7.7$. Left: PDB structure 2G4D, shows that the amino acids are in close proximity. Right: Multiple sequence alignment and phylogenetic tree showing the putative compensatory amino acid substitution pair \texttt{D.N} replaced by \texttt{H.S}.}
+\label{fig:test}
+\end{figure}
 
 Let the two proteins considered have amino acid sequences $A = a_1...a_m$ and $B = b_1...b_n$. To obtain the prediction score for this pair of proteins, we identify the pair of length-$k$ substrings $a_i, a_{i+1}, …, a_{i+k-1}$ and $b_j, b_{j+1}, …, b_{j+k-1}$ that exhibit the strongest support for parallel or anti-parallel interactions
 

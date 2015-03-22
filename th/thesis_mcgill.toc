@@ -83,13 +83,13 @@
 \contentsline {subsection}{\numberline {4.5.1}Co-evolutionary substitution models}{121}
 \contentsline {subsection}{\numberline {4.5.2}Co-evolutionary model validation}{122}
 \contentsline {subsection}{\numberline {4.5.3}Epistatic GWAS analysis}{126}
-\contentsline {paragraph}{Results.}{126}
-\contentsline {section}{\numberline {4.6}Discussion}{128}
-\contentsline {chapter}{\numberline {5}Conclusions }{131}
-\contentsline {section}{\numberline {5.1}Contributions}{131}
-\contentsline {section}{\numberline {5.2}Future work}{133}
-\contentsline {paragraph}{BigDataScript.}{133}
-\contentsline {paragraph}{Variant annotations.}{133}
-\contentsline {paragraph}{GWAS Epistasis.}{134}
-\contentsline {section}{\numberline {5.3}Perspectives}{134}
-\contentsline {extrachapter}{References}{136}
+\contentsline {paragraph}{Results.}{127}
+\contentsline {section}{\numberline {4.6}Discussion}{127}
+\contentsline {chapter}{\numberline {5}Conclusions }{130}
+\contentsline {section}{\numberline {5.1}Contributions}{130}
+\contentsline {section}{\numberline {5.2}Future work}{132}
+\contentsline {paragraph}{BigDataScript.}{132}
+\contentsline {paragraph}{Variant annotations.}{132}
+\contentsline {paragraph}{GWAS Epistasis.}{133}
+\contentsline {section}{\numberline {5.3}Perspectives}{133}
+\contentsline {extrachapter}{References}{135}
