@@ -29,7 +29,7 @@ void gwasAnalysis(string dirGwasOut, int numSplits) {
 # GWAS focused on variants that hit some genes 
 # (i.e. one of the variants in a pair has to hit a gene in geneList)
 #-------------------------------------------------------------------------------
-void gwasAnalysis(string dirGwasOut, int numSplits, string genes) {
+void gwasAnalysisGenes(string dirGwasOut, int numSplits, string genes) {
 	println "\nGWAS analysis using epistasis data (cpus = $cpus)"
 
 	# GWAs using interaction (MSA) data
