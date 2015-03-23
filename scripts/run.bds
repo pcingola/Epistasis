@@ -20,7 +20,7 @@ genes = 'FES,CDKN2A,CDKN2B,FTO,TM6SF2,PNPLA3,CDKAL1'
 
 # GWAs using interaction (MSA) data
 #gwasNumSplits	:= 30			help Split GWAS data into N 'splits'
-gwasNumSplits	:= 0			help Split GWAS data into N 'splits'
+gwasNumSplits	:= 1			help Split GWAS data into N 'splits'
 dirGwasOut		:= "$dir/gwas"	help GWAS output directory
 
 #-------------------------------------------------------------------------------
