@@ -2,15 +2,19 @@ package ca.mcgill.pcingola.epistasis.gwas;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.collections.AutoHashMap;
 import ca.mcgill.mcb.pcingola.fileIterator.LineFileIterator;
 import ca.mcgill.mcb.pcingola.fileIterator.VcfFileIterator;
 import ca.mcgill.mcb.pcingola.interval.Chromosome;
+import ca.mcgill.mcb.pcingola.interval.Gene;
 import ca.mcgill.mcb.pcingola.interval.Marker;
+import ca.mcgill.mcb.pcingola.interval.Markers;
 import ca.mcgill.mcb.pcingola.interval.Transcript;
 import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
@@ -38,7 +42,7 @@ public class GwasEpistasis {
 	public static int MINOR_ALLELE_COUNT = 5;
 	public static double LL_THRESHOLD_LOGREG = 6.0; // Log likelihood threshold for logistic regression
 	public static double LL_THRESHOLD_MSA = 0.0; // Log likelihood threshold for co-evolutionary model
-	public static double LL_THRESHOLD_TOTAL = 5.0; // Total Log likelihood threshold 
+	public static double LL_THRESHOLD_TOTAL = 5.0; // Total Log likelihood threshold
 
 	boolean analyzeAllPairs = false; // Use for testing and debugging
 	boolean debug = false;
@@ -110,37 +114,8 @@ public class GwasEpistasis {
 		return llan;
 	}
 
-	/**
-	 * Perform GWAS analysis
-	 */
 	public void gwas() {
-		initialize(); // Initialize
-		readVcf(); // Read VCF file
-
-		//---
-		// Test VCF entries
-		//---
-		Counter count = new Counter();
-		Counter countLl = new Counter();
-		for (int idxi = 0; idxi < gtsSplitI.size(); idxi++) {
-
-			// Split_i info
-			final int i = idxi;
-			Genotype gti = gtsSplitI.get(idxi);
-
-			int minJ = 0;
-			if (splitI == splitJ) minJ = idxi + 1;
-
-			// Parallel on split_j
-			IntStream.range(minJ, gtsSplitJ.size()) //
-					.parallel() //
-					.forEach(j -> {
-						GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
-						double llTot = gwasRes.logLik();
-						if (llTot > logLikelihoodRatioLogRegThreshold) countLl.inc();
-						if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
-					});
-		}
+		gwasGenes(null);
 	}
 
 	/**
@@ -187,6 +162,51 @@ public class GwasEpistasis {
 	}
 
 	/**
+	 * Perform GWAS analysis
+	 * Only first genotype matching one of the transcripts is taken into account
+	 */
+	public void gwasGenes(String genes[]) {
+		initialize(); // Initialize
+		readVcf(); // Read VCF file
+
+		// Create gene set
+		Set<String> geneSet = null;
+		if (genes != null) {
+			geneSet = new HashSet<>();
+			for (String g : genes)
+				geneSet.add(g.toUpperCase());
+			System.err.println("Filtering for genes (set size=" + geneSet.size() + "): " + geneSet);
+		}
+
+		//---
+		// Test VCF entries
+		//---
+		Counter count = new Counter();
+		Counter countLl = new Counter();
+		for (int idxi = 0; idxi < gtsSplitI.size(); idxi++) {
+
+			// Split_i info
+			final int i = idxi;
+			Genotype gti = gtsSplitI.get(idxi);
+
+			if (genes == null || isInGeneSet(gti, geneSet)) {
+				int minJ = 0;
+				if (splitI == splitJ) minJ = idxi + 1;
+
+				// Parallel on split_j
+				IntStream.range(minJ, gtsSplitJ.size()) //
+						.parallel() //
+						.forEach(j -> {
+							GwasResult gwasRes = gwas(gti, gtsSplitJ.get(j));
+							double llTot = gwasRes.logLik();
+							if (llTot > logLikelihoodRatioLogRegThreshold) countLl.inc();
+							if (llTot != 0.0) Timer.show(count.inc() + " (" + i + " / " + j + ")\t" + countLl + "\t" + gwasRes);
+						});
+			}
+		}
+	}
+
+	/**
 	 * Initialize
 	 */
 	public void initialize() {
@@ -197,6 +217,26 @@ public class GwasEpistasis {
 
 		// Pre-calculate matrix exponentials
 		if (coevolutionLikelihood != null) coevolutionLikelihood.precalcExps();
+	}
+
+	/**
+	 * Does genotype hit any gene in 'geneSet'?
+	 */
+	boolean isInGeneSet(Genotype gti, Set<String> geneSet) {
+		// Query markers
+		Markers markers = pdbGenomeMsas.getConfig().getSnpEffectPredictor().query(gti);
+
+		// Any marker is a gene in geneSet?
+		for (Marker m : markers) {
+			if (m instanceof Gene) {
+				Gene gene = (Gene) m;
+				String gname = gene.getGeneName().toUpperCase();
+				Gpr.debug("Match genes?\t" + gti.toStr() + " '" + gene.getGeneName() + "'");
+				if (geneSet.contains(gname)) return true;
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -290,7 +330,7 @@ public class GwasEpistasis {
 		Timer.showStdErr("Genes likelihood file '" + logLikelihoodFile + "'." //
 				+ "\n\tEntries loaded: " + count //
 				+ "\n\tmapping. Err / OK : " + countErr + " / " + tot + " [ " + (countErr * 100.0 / tot) + "% ]" //
-		);
+				);
 	}
 
 	/**

@@ -409,6 +409,27 @@ public class Epistasis implements CommandLine {
 			runGwas(vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
 			break;
 
+		case "gwasgenes":
+			cpus = Gpr.parseIntSafe(args[argNum++]);
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			vcfFile = args[argNum++];
+			phenoCovariatesFile = args[argNum++];
+			numSplits = Gpr.parseIntSafe(args[argNum++]);
+			splitI = Gpr.parseIntSafe(args[argNum++]);
+			splitJ = Gpr.parseIntSafe(args[argNum++]);
+			String genesList = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			filterMsaByIdMap = false;
+			runGwasGenes(vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ, genesList.split(","));
+			break;
+
 		case "likelihood":
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
@@ -900,6 +921,18 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Perform GWAS analysis using epistatic data
+	 */
+	void runGwasGenes(String vcfFile, String phenoCovariatesFile, int numSplits, int splitI, int splitJ, String genes[]) {
+		load();
+
+		CoEvolutionLikelihood il = newInteractionLikelihood();
+		GwasEpistasis gwasEpistasis = new GwasEpistasis(pdbGenomeMsas, il, vcfFile, phenoCovariatesFile, numSplits, splitI, splitJ);
+		gwasEpistasis.setDebug(debug);
+		gwasEpistasis.gwasGenes(genes);
+	}
+
+	/**
 	 * Likelihhod for all AA 'in contact' pairs
 	 */
 	void runLikelihood(int neighbours) {
@@ -921,7 +954,7 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Create a an image file (PNG) 
+	 * Create a an image file (PNG)
 	 * @param geneGeneFiles
 	 */
 	void runLikelihoodGeneGeneMatrix(String geneGeneFiles[]) {
