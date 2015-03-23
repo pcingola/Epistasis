@@ -40,7 +40,7 @@ void gwasAnalysisGenes(string dirGwasOut, int numSplits, string genes) {
 			gwasOut := "$dirGwasOut/gwas.$numSplits.$i.$j.txt"
 
 			task( gwasOut <- [vcf, pheno, msaBest, qhat, qhat, aaFreqs, aa2Freqs] ) {
-				sys $cmdEpistasis gwasGenes $cpus $tree $msa $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j $genes > $gwasOut
+				sys $cmdEpistasisXL gwasGenes $cpus $tree $msa $qhat $aaFreqs $qhat2 $aa2Freqs $snpeffConfig $genome $vcf $pheno $numSplits $i $j $genes > $gwasOut
 			}
 		}
 	}
