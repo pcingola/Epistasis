@@ -43,6 +43,6 @@ while( $l = <STDIN> ) {
 
 	
 	if( $biogrid{$key} )	{ print "$l\tBIOGRID\n"; }
-	else					{ print "$l\t\n"; }
+	#else					{ print "$l\t\n"; }
 }
 
