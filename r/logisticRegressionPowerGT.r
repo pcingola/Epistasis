@@ -1,15 +1,6 @@
 
 library(epicalc)
 
-n <- 1000					# Samples
-m <- 100					# Number of iterations to get an aerage (200)
-
-beta <- c(2, 0, 0, 2)		# Parameters
-N <- length(beta) - 2		# Dimensions
-
-af <- 0.1					# Allele frequency
-debug <- TRUE
-
 #-------------------------------------------------------------------------------
 # Random genotype
 #-------------------------------------------------------------------------------
@@ -100,6 +91,7 @@ cat('\tprev  :', (1-af1), '\n')
 beta0 = log(prev/(1-prev))
 beta1 = 0		# Other parameters are assumed to be zero
 beta2 = 0
+beta <- c(beta0, beta1, beta2, beta3)
 
 #---
 # Test logistic regression 'iter' times

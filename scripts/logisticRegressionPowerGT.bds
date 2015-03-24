@@ -1,6 +1,8 @@
 #!/usr/bin/env bds
 
 system = 'cluster'
+cpus = 2
+
 logRegScript := "$ppwd/logisticRegressionPowerGT.r"
 outDir := "$ppwd/logisticRegressionPowerGT/"
 outDir.mkdir()
@@ -15,6 +17,8 @@ betas := [0.1, 0.2, 0.5, 1, 2, 5]
 for( int n : ns ) {
 	for( real af1 : afs ) {
 		for( real af2 : afs ) {
+			if( af1 < af2 )	continue
+
 			for( real beta3 : betas ) {
 				out := "$outDir/n_$n.af1_$af1.af2_$af2.beta3_$beta3.txt"
 				if( !out.exists() )	{
