@@ -1,0 +1,24 @@
+#!/usr/bin/env bds
+
+logRegScript := "$ppwd/logisticRegressionPowerGT.r"
+
+iter := 1000
+prev := 0.08
+
+ns    := [1000000, 500000, 100000, 50000, 20000, 10000, 1000]
+afs   := [0.2, 0.1, 0.05, 0.01]
+betas := [0.1, 0.2, 0.5, 1, 2, 5]
+
+for( int n : ns ) {
+	for( real af1 : afs ) {
+		for( real af2 : afs ) {
+			for( real beta3 : betas ) {
+				out := "$ppwd/logisticRegressionPowerGT.n_$n.af1_$af1.af2_$af2.beta3_$beta3.txt"
+				if( !out.exists() )	{
+					print "n:$n\taf1:$af1\taf2:$af2\tbeta3:$beta3\n"
+					task Rscript --vanilla $logRegScript $iter $n $af1 $af2 $beta3 $prev
+				}
+			}
+		}
+	}
+}
