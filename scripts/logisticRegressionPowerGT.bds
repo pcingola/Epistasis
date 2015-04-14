@@ -3,7 +3,7 @@
 system = 'cluster'
 cpus = 2
 
-iter := 500	# Number of iterations
+iter := 1000	# Number of iterations
 prev := 0.08	# Diseace prevalencese
 
 #---
