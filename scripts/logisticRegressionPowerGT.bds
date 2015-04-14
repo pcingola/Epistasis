@@ -14,7 +14,7 @@ prev := 0.08	# Diseace prevalencese
 #betas := [0.1, 0.2, 0.5, 1, 2, 5]
 ns    := [10000, 250000]
 afs   := [0.01, 0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.20]
-betas := [0.1, 0.2, 0.3, 0.4, 0.5, 0.75, 1.0, 1.5, 2.0, 3.0, 5.0]
+betas := [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1.0, 1.5, 2.0, 3.0, 5.0]
 
 logRegScript := "$ppwd/logisticRegressionPowerGT.r"
 outDir := "$ppwd/logisticRegressionPowerGT/"
