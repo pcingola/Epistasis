@@ -84,6 +84,12 @@ Alan~P Boyle, Eurie~L Hong, Manoj Hariharan, Yong Cheng, Marc~A Schaub, Maya
   regulomedb.
 \newblock {\em Genome research}, 22(9):1790--1797, 2012.
 
+\bibitem{brenner1965genetic}
+Sydney Brenner, AOW Stretton, and S~Kaplan.
+\newblock Genetic code: the ‘nonsense’triplets for chain termination and
+  their suppression.
+\newblock 1965.
+
 \bibitem{brogna2009nonsense}
 Saverio Brogna and Jikai Wen.
 \newblock Nonsense-mediated mrna decay (nmd) mechanisms.
@@ -133,6 +139,11 @@ Pablo Cingolani, Viral~M Patel, Melissa Coon, Tung Nguyen, Susan~J Land,
   mutational studies with a new program, snpsift.
 \newblock {\em Toxicogenomics in non-mammalian species}, page~92, 2012.
 
+\bibitem{cingolani2015bigdatascript}
+Pablo Cingolani, Rob Sladek, and Mathieu Blanchette.
+\newblock Bigdatascript: a scripting language for data pipelines.
+\newblock {\em Bioinformatics}, 31(1):10--16, 2015.
+
 \bibitem{clarke2011basic}
 G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
   Zondervan.
@@ -181,6 +192,11 @@ Jasmin Coulombe-Huntington, Kevin~CL Lam, Christel Dias, and Jacek Majewski.
 \newblock Fine-scale variation and genetic determinants of alternative splicing
   across individuals.
 \newblock {\em PLoS genetics}, 5(12):e1000766, 2009.
+
+\bibitem{crick1961general}
+Francis Crick, Leslie Barnett, Sydney Brenner, and Richard~J Watts-Tobin.
+\newblock {\em General nature of the genetic code for proteins}.
+\newblock Macmillan Journals Limited, 1961.
 
 \bibitem{culverhouse2002perspective}
 Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
@@ -252,6 +268,11 @@ Jeremy Goecks, Anton Nekrutenko, James Taylor, et~al.
 \newblock Galaxy: a comprehensive approach for supporting accessible,
   reproducible, and transparent computational research in the life sciences.
 \newblock {\em Genome Biol}, 11(8):R86, 2010.
+
+\bibitem{griffiths2005introduction}
+Anthony~JF Griffiths.
+\newblock {\em An introduction to genetic analysis}.
+\newblock Macmillan, 2005.
 
 \bibitem{hafner2012genome}
 Markus Hafner, Steve Lianoglou, Thomas Tuschl, and Doron Betel.
