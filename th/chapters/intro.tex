@@ -387,6 +387,36 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control,
 
 
+%------------------------------------------------------------
+% From \cite{petkov2005evidence}
+%
+%		- Evidence from inbred strains of mice indicates that a quarter or more of the mammalian genome consists of chromosome regions containing clusters of functionally related genes
+%		- 60 genetically diverse inbred strains.
+%		- forming networks with scale-free architecture. Combining LD data with pathway and genome annotation databases, we have been able to identify the biological functions underlying several domains and networks.
+%		- As typified by the a and b globin gene clusters, tandem duplications can give rise to gene families whose members develop divergent, but still related, functions over time. 
+%		- Gene clusters may arise as a means of promoting their coregulation through regional controls of chromatin structure and expression, and there is now considerable evidence, well summarized by Hurst et al. [1], that for variety of eukaryotes, including yeast, Caenorhabditis, Drosophila, high- er plants, and mammals, genes sharing expression patterns are more likely to be in proximity than would be expected by chance. 
+%		- ...And finally, Fisher [2] and later Nei [3,4] have argued on theoretical grounds that when genes interact epistatically, evolutionary selection will promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations. 
+%		- The process of inbreeding to homozygosity imposes intense selective pressures; all efforts among some species have failed, and with mice, only a fraction of initial attempts succeeded. 
+%		- Accordingly, we can expect that if clustering of functionally related genes is a common feature of mammalian genomes, there is likely to be selection for coadapted allelic combinations among the genes encoding functions that influence fitness and survival during inbreeding. This would result in regions of linkage disequilibrium (LD) among inbred strain genomes; i.e., some allelic combinations should occur more often than expected by chance.
+%		- Data: 1,456 SNPs, chosen for their high information content, among a set of 60 common and wild- derived inbred mouse strains chosen for their genetic diversity. 
+%		-  The identity of these strains and the phylogenetic relationships among them are indicated in Figure 1, which was constructed using neighbor-joining
+%		- LD calculation: estimated LD using D9, the difference between the observed frequency of an allelic combination and its random expectation, relative to the maximum deviation possible given the allele frequencies of the two markers [14,15]. D9 corrects for differences in allele frequencies and describes LD equally well when there is selection for or against the combination of majority alleles. A cumulative Fisher’s exact test (FET) was used to compute the probability (pFET) of obtaining an equally or more extreme distribution under the null hypothesis of random allelic association between pairs of SNPs. 
+%		- Permutaation test: In one set, marker locations were randomized while maintaining the assignments of alleles to strains (Figure 2, red triangles), and in the other set the assignments of alleles to strains were randomized while preserving allele ratios and marker locations (Figure 2, solid circles)
+%		- It is difficult to escape the conclusion that the selective factors acting to generate LD domains and networks during inbreeding reflect clustering and/or interaction of function- ally related elements along chromosomes
+
+
+%------------------------------------------------------------
+% From: \cite{wang2012ldgidb}
+%
+%		- non-physical linkages between different mutations (or single nucleotide polymorphisms, SNPs) 
+%		-  These interactions can be physical protein interactions, regulatory interactions, functional compensation/antagonization or many other forms of interactions. 
+%		- non-physical SNP linkages, coupled with knowledge of SNP-disease associations may shed more light on the role of gene interactions in human disorders.
+%		- exonic regions of protein-coding genes from the HapMap database to construct a database named the Linkage-Disequilibrium-based Gene Interaction database (LDGIdb). The database stores 646,203 potential human gene interactions, which are potential interactions inferred from SNP pairs that are subject to long-range strong linkage disequilibrium (LD), or non-physical linkages. To minimize the possibility of hitchhiking, SNP pairs inferred to be non-physically linked were required to be located in different chromosomes or in different LD blocks 
+%		- Here we consider only the subpopulations that con- tain at least 20 individuals.
+%		- strong LD (r2 ≥ 0.8);
+%		- 
+
+
 % GWAS & Epistasis
 Genome wide association studies have traditionally focused on single variants or nearby groups of variants. An often cited reason for the lack of discovery of high impact risk factors in complex disease is that these models ignore loci interactions \cite{cordell2009detecting} which have recently been pointed out as a potential solution for the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. There are several reasons: i) models using interactions are much more complex \cite{gao2010classification} and by definition non-linear, ii) information on which proteins interacts with which other proteins is incomplete \cite{venkatesan2009empirical}, iii) in the cases where there protein-protein interaction information is available, precise interacting sites are rarely known \cite{venkatesan2009empirical}. Taking into account the last two items, we need to explore all possible loci combinations, thus the number of $N$ order interactions grows as $O(M^N)$ where $M$ is the number of variants \cite{de2013emerging}. This requires exponentially more computational power than single loci models. This also severely reduces statistical power, which translates into requiring larger cohort, thus increasing sample collection and sequencing costs \cite{de2013emerging}.
 
