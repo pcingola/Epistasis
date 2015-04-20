@@ -499,11 +499,6 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 
 
 %------------------------------------------------------------
-% From: Test for Interaction between Two Unlinked Loci
-%
-
-
-%------------------------------------------------------------
 % From: Systematic Detection of Epistatic Interactions Based on Allele Pair Frequencies (2012)
 %
 %		- Whereas most existing epistasis screens explicitly test for a trait, it is also possible to implicitly test for fitness traits by searching for the over- or under-representation of allele pairs in a given population. 
@@ -629,6 +624,30 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 Genome wide association studies have traditionally focused on single variants or nearby groups of variants. An often cited reason for the lack of discovery of high impact risk factors in complex disease is that these models ignore loci interactions \cite{cordell2009detecting} which have recently been pointed out as a potential solution for the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. There are several reasons: i) models using interactions are much more complex \cite{gao2010classification} and by definition non-linear, ii) information on which proteins interacts with which other proteins is incomplete \cite{venkatesan2009empirical}, iii) in the cases where there protein-protein interaction information is available, precise interacting sites are rarely known \cite{venkatesan2009empirical}. Taking into account the last two items, we need to explore all possible loci combinations, thus the number of $N$ order interactions grows as $O(M^N)$ where $M$ is the number of variants \cite{de2013emerging}. This requires exponentially more computational power than single loci models. This also severely reduces statistical power, which translates into requiring larger cohort, thus increasing sample collection and sequencing costs \cite{de2013emerging}.
 
 In Chapter \ref{ch:gwas} we develop a computationally tractable model for analysing putative interaction of pairs of variants from GWAS involving large case / control cohorts of complex disease. Our model is based on analysing cross-species multiple sequence alignments using a co-evolutionary model in order to obtain informative interaction prior probabilities that can be combined to perform GWAS analysis of pairs of non-synonymous variants that may interact.
+
+%------------------------------------------------------------
+% From: Test for Interaction between Two Unlinked Loci (2006)
+% TOPIC: GWAS EPISTASIS
+%
+%		- often been defined as a deviance from genetic additive effects, which is essentially treated as a residual term in genetic analysis and leads to low power in detecting the presence of interacting effects
+%		- We developed a general theory for studying linkage disequilibrium (LD) patterns in disease population under two-locus disease models. 
+%		- Our results showed that the P values of the LD-based statistic were smaller than those obtained by other approaches, including logistic regression models.
+%		- This was further developed by Cockerham4 and Kempthorne5 into the modern representation that treats statistical gene interactions as interaction terms in a re- gression model or a generalized linear model on allelic effects.2,6–11
+%		- we propose to define interaction between two unlinked loci (or genes) for a qualitative trait as the deviance of the penetrance for a haplotype at two loci from the product of the marginal penetrance of the individual alleles that span the haplo- type. 
+%		- DEFINE: Deviance
+%		- Interaction between two unlinked loci will result in deviation of the penetrance of the two-locus haplotype from indepen- dence of the marginal penetrance of the alleles at an in- dividual locus, which in turn will create linkage disequi- librium (LD) even if two loci are unlinked. 
+%		- Therefore, it is possible to de- velop statistics for detection of interaction between two unlinked loci by use of deviations from LD
+%		- we assume that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked. 
+%		- [they show that] Under this definition, in the absence of interaction, two unlinked loci in the disease population will be in linkage equilibrium
+%		- Similar to linkage equilibrium, where the frequency of a haplo- type is equal to the product of the frequencies of the component alleles of the haplotype, absence of interaction between two un- linked loci implies that the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population
+%		- TEST STATISTIC: 
+%			- Intuitively, we can test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls
+%			- We can show that test statistic TI is asymptotically distributed as a central x2 distribution under the (1) null hypothesis of no interaction between two unlinked loci 
+%		- we compared the power of the LD-based statistic with that of the logistic model. 
+%		- Power comparison with logistic regression analysis demonstrated that this LD-based test statistic has much higher power in detecting interaction than does the logistic regression method.
+%		- To further evaluate its performance for detection of in- teraction between two loci, the proposed LD-based statis- tic was applied to two published data sets. Our results showed that, in general, P values of the test statistic TI were much smaller than those of other approaches, in- cluding logistic regression analysis.
+%		- IF THIS METHOD IS "BETTER", WHY DON'T WE JUST USE IT !?!?!
+
 
 %------------------------------------------------------------
 % From: Detecting gene–gene interactions that underlie human diseases (Nature, 2009)
