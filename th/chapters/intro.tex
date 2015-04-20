@@ -361,6 +361,287 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- GWAS, in ankylosing spondylitis21 and psoriasis,22 discovered interactions between two di↵erent HLA alleles and ERAP1. (In ankylosing spondylitis, the HLA-B27 allele has an odds ratio of 40.8, and in psoriasis the HLA-C allele has an odds ratio of 4.66.) HLA also plays a role in an interaction e↵ect described in a GWAS of Type 1 diabetes. (In Type 1 diabetes, HLA has a main e↵ect of 5.5, but acts non-additively with the risk of all other alleles considered cumulatively.23). Finally, interaction between RET and EDNRB in Hirschsprung’s disease was discovered in a genome-wide linkage study,24 in which RET was strongly associated with disease (log-odds score of 5.6).
 
 
+
+%------------------------------------------------------------
+% From: "A Perspective on Epistasis: Limits of Models Displaying No Main Effect"
+% IMPORTANT: Context was year 2002!!!
+%
+%		- for the abandonment of linkage studies in favor of genome scans for association. However, there exists a large class of genetic models for which this approach will fail: purely epistatic models with no additive or dominance variation at any of the susceptibility loci.
+%		- Is it reasonable to suppose that an approach that must succeed in identi- fying fully penetrant Mendelian genes will also succeed for complex diseases? 
+%		- The complex relationship between genotype and phe- notype, however, may ultimately prove to be inade- quately described by simply summing the modest effects from several contributing loci
+%		- EXAMPLES OF EPISTASIS
+%			- Indeed, it has been argued that epistatic interactions are a nearly universal component of the architecture of most com- mon traits. Templeton (2000), for instance, has listed a number of phenotypes in which epistasis plays a large role. 
+%			- An example in insects is the abnormal-abdomen phenotype in Drosophila mercatorum (DeSalle and Templeton 1986; Hollocher et al. 1992; Hollocher and Templeton 1994).
+%			- In humans, variation in triglyceride levels can be explained, in part, by two sets of inter- actions: between ApoB and ApoE in females and be- tween the ApoAI/CIII/AIV complex and low-density li- poprotein receptor in males (Nelson et al. 2001)
+%			- Even the seemingly “simple” Mendelian trait of sickle-cell anemia is revealed to be greatly modified by epistatic interactions. Individuals with sickle-cell anemia who are homozygous for two polymorphisms near the Gg locus (leading to the persistence of fetal hemoglobin) have only mild clinical symptoms
+%		- The main reason that most studies of complex human phenotypes fail to find evidence for epistatic interactions may simply be that commonly used designs and analytic methods inherently minimize or exclude the possibility of epistasis (Frankel and Schork 1996)
+%		- The complex relationship between genotype and phe- notype, however, may ultimately prove to be inade- quately described by simply summing the modest effects from several contributing loci.
+%		- HERITABILITY: 
+%			- Thus, for fixed K, p , and p , maximizing the broad AB heritability (h 2 p V /V ) under the constraint repre- IT sented by formula (2) is equivalent to the maximizing of VI.
+%			- TABLE 2 and 3: Maxima of heritability using epistasis.
+%			-  Three-locus models can also give rise to higher relative risks than are possible in corresponding two-locus models. Three-locus penetrance models maximizing heritability at the low end of disease prevalence
+%		- NUMBER OF TESTS:
+%			- We note that the number of tests necessary to evaluate all two-, three-, and four-way interactions, for 30–60 candidate loci, has a range similar to the number of tests suggested for a single genomewide association scan using SNPs (Collins et al. 1999; Kruglyak 1999)
+%			- Thus, al- though searching for two-, three-, four-, or n-way in- teractions among all the markers in a genome scan would not be practicable, a candidate-locus approach based on a genome scan for linkage may be.
+%		- ANALYSIS METHODS:
+%			- Cases only.—The most straightforward multilocus analysis of cases-only data is a x2 test of independent segregation for the loci. 
+%			- Case-control.—A second approach is a multilocus case-control analysis. One method for doing this would be to compare the distribution of cases among the 3L genotypes, where L is the number of biallelic loci being simultaneously examined, versus the distribution of controls. In this analysis, a sample of N cases and N unrelated controls drawn from a population modeled by table 3 will, again, yield an expected x2 statistic 􏰃2N. However, the degrees of freedom under the null hypothesis are now 8.
+%		- POWER: We have seen that, if the true genetic model underlying a disease is purely epistatic, with no additive or domi- nance variation at any of the susceptibility loci, then association methods analyzing one locus at a time will have no power to detect the loci. 
+%		- First, we expect that, with a sufficient number of contributing loci, purely epistatic interac- tions could account for virtually all the variation in affection status for diseases with any prevalence
+%		- Of course, there are subclasses of purely epistatic models (providing no marginal evidence for the involve- ment of any single locus) for which, in addition, no two, three, or L􏰂1 loci jointly give evidence of in- volvement in the disorder. This leads to the concern that even assessment of all two-, three-, and (L􏰂1)-way interactions among candidate loci may be insufficient for detection of the contributing loci.
+%		- The restriction on maximum heritabilities in these models is most easily seen by examining L-locus models for which no collection of L 􏰂 1 loci shows mar- ginal deviations. 
+%		- MISSING HERITABILITY: Researchers of many complex diseases (including non–insulin-dependent diabetes mellitus, prostate can- cer, and schizophrenia) face the conundrum of moder- ately heritable diseases for which locus-by-locus anal- yses have not accounted for the predicted genetic variance. The models discussed in the present article provide one possible explanation for this.
+%		- These considerations lead us to believe that, in situ- ations in which heritability is moderate to high but in which locus-by-locus analyses do not account for the predicted genetic variance, it is worth pursuing a hy- pothesis of interacting loci [near the linkage peaks]
+
+
+%------------------------------------------------------------
+% From: A Review for Detecting Gene-Gene Interactions Using Machine Learning Methods in Genetic Epidemiology (2013)
+%
+%		- EPISTASIS TYPES: 
+%			- Moreover, there are various types of gene-gene interactions which are synthetic- interaction, epistatic interaction, and suppressive-interaction which are shown in Figure 1. These interactions are partic- ularly important due to the effect of a gene on individual phenotype is depending on more than one additional genes
+%			- For instances, synthetic-interaction between two genes is that genes A and B are on different parallel pathways that can obtain the purple phenotype C. If either of the genes is knockout, the purple phenotype C still can be viewed. However, if both of the genes are knockout, it will result in a nonpurple phenotype. 
+%			- Next, the example of epistatic-interaction that is the wild type holds a mixed purple and green phenotype of genes C and D. A gene knockout of gene B cannot obtain a purple phenotype of gene C, but green phenotype of gene D still can be seen. A gene knockout of gene A cannot obtain the green and purple phenotypes. 
+%			- Furthermore, the example of suppressive-interaction is wild type phenotype showing a purple phenotype since gene A suppresses gene B and gene C is active. A gene knockout of gene B has no effect for result purple phenotype. A knockout of gene A results in a nonpurple phenotype since gene B is still suppressing gene C and if both of the genes A and B are knockout will result in wild type phenotype.
+%
+%		- ADD ALL METHODS FROM 
+%			- Table 1: Summary of detect gene-gene interaction using neural network method.
+%				COLUMN 1
+%				No. Author
+%				(1) Ritchie et al. [11]
+%				(2) Tomita et al. [12]
+%				Keedwell and Narayanan [13]
+%				Motsinger et al. [14]
+%				Ritchie et al. [15]
+%				Motsinger-Reif et al. [16]
+%				[17]
+%				[18]
+%				[4]
+%				
+%				COLUMN 2
+%				Dataset Epistasimodel.
+%				Childhood allergic asthma (CAA).
+%				Artificial data experiments, rat spinal cord and yeast Saccharomyces Cerevisiae cell cycle.
+%				Parkinson’s disease.
+%				Alzheimer’s disease, breast’s disease, colorectal disease, and prostate’s disease.
+%				Epitasis model.
+%				Two-locus disease models, multiplicative and epistasis model.
+%				Simulated human.
+%				Genetic models.
+%				
+%				COLUMN 3
+%				Description
+%				GPNN and BPNN were used to model gene-gene interactions by using simulated data. The simulated data contains functional SNPs and nonfunctional SNPs which model the interaction between genes.
+%				Artificial neural network was utilized with parameter decreasing method in order to analyse susceptible SNPs among the Japanese people.
+%				Genetic algorithm which was implemented along with neural networks discovers gene-gene interactions in temporal gene expression dataset by elucidating the information between regulatory connections and interactions between genes, proteins, and other gene products.
+%				GPNN had been used to optimize the architecture of neural network. This method can be used to enhance the identification of gene combinations associated with Parkinson’s disease.
+%				GPNN had been used to detect gene-gene interactions and gene-environment interaction in studies of human disease to optimize the architecture of Neural Network by using simulated dataset.
+%				GENN was utilized to discover gene-gene interactions that caused are by noise (for instance, genotyping error, missing data, phenocopy, and genetic heterogeneity) in high dimensional genetic epidemiological data.
+%				NN had been used in simulation study to model the different kind of two-locus disease model by constructing six neural networks.
+%				ATHENA had been used to discover the gene-gene interactions that influence complex human traits by integrating alternative tree-based crossover, back propagation, and domain knowledge in ATHENA.
+%				QTGENN had applied GENN methods to quantitative traits in various types of simulated genetic models. This method had been successfully applied in single-locus models and two-locus models.
+%
+%
+%			- ADD ALL: Table 2: Summary of detect gene-gene interaction using support vector machine method.
+%				No. Author
+%				Matchenko-
+%				(1) Shimko and Dube
+%				[23]
+%				(2) Chen et al. [19]
+%				(3) O ̈ zgu ̈ r et al. [24]
+%				(4) Shen et al. [25]
+%				(5) Ban et al. [26]
+%				(6) Missiuro [21]
+%				(7) Fang and Chiu [27]
+%				(8) Zhang et al. [28] Marvel and
+%				(9) Motsinger-Reif [29]
+%				
+%				Dataset
+%				Simulated disease.
+%				Real prostate cancer genotyping.
+%				Prostate cancer.
+%				Parkinson disease.
+%				Type 2 diabetes mellitus-related genes.
+%				Caenorhabditis elegans. COGA (genetics of
+%				alcoholism). Human cancer.
+%				Disease model, M1 and M2.
+%				
+%				Description
+%				Both SVM and artificial neural network (ANN) were used to preselect the combination of SNP to test the importance of potential interactions between genes in complex disease.
+%				SVM was applied in different kinds of combinatorial optimization methods which were recursive feature addition, recursive feature elimination, local search, and genetic algorithm.
+%				Automatic method that was proposed to extract known genes-disease and infer unknown gene-disease association by using automatic literature mining based on dependency parsing and support vector machines.
+%				Authors had employ two-stage method by using SVM with L1 penalty to detect gene-gene interactions for human complex disease.
+%				SVM was used to predict the importance of gene-gene interactions in T2D in the studies of Korean cohort studies.
+%				SVM was utilized in this research to detect interactions between gene in kinase families for Caenorhabditis elegans organism.
+%				SVM-based PGMDR was introduced to study the interactions of gene-gene and gene-covariate in the presence or absence of main effects of genes.
+%				Binary matrix shuffling filter (BMSF) as an efficient SVM search schemes was integrated with SVM to classify cancer tissue samples.
+%				GESVM was applied in large dataset to select important features, parameters, or kernel in SVM.
+%
+%
+%			- ADD ALL: %				Table 3: Summary of detect gene-gene interaction using random forest method.
+%				No. Author
+%				(1) Lunetta et al. [33]
+%				(2) Jiang et al. [34]
+%				(3) Schwarz et al. [35]
+%				(4) Liu et al. [36]
+%				(5) Winham et al. [32]
+%				(6) Pan et al. [37]
+%				(7) Staiano et al. [38] Chen and Ishwaran
+%				
+%				Dataset
+%				H2M2, H4M2, H8M2, H16M2, H4M4, and H8M4.
+%				Three simulated disease model.
+%				Crohn’s disease.
+%				NARAC1 and NARAC2.
+%				Five models.
+%				Bladder cancer.
+%				Familial combined hyperlipidemia (FCH).
+%				
+%				Description
+%				RF as a screening procedure to identify top-ranked true-associated SNPs which can cause disease without losing any interactions.
+%				RF is used to recognize the cases that were against controls and to obtain the Gini importance which is used to measure the contribution of each SNP to the classification performance.
+%				A new method of RJ based on basis RF knowledge was developed to facilitate a fast processing in the high-dimensional of genome-wide analysis data of gene-gene interactions.
+%				RF is used to detect contributed gene-gene interactions for identifing RA susceptibility and to identify SNPs of RA patients to classify them into anticyclic citrullinated protein positive and healthy controls.
+%				Focus on identifing rarely gene-gene interactions and detecting gene-gene interaction effects and their potential effectiveness on high-dimensional data using RF.
+%				The proposed method of MINGRF is proposed to improve the performance of RF such as accuracy and computational time.
+%				RF is used to identify gene-gene interactions that are involved in FCH. FCH increase the plasma triglycerides and/or total cholesterol level of patients and hence increase the risk of coronary heart disease.
+%				RSF as new hunting pathway to detect gene correlation and genomic interactions from a high-dimensional genomic data.
+%
+%			- PROS AND CONS FOR EACH MOTHOD: ADD ALL!
+%				Table 4: Strengths and weaknesses of neural networks, support vector machine, and random forests methods for detect gene-gene interactions.
+%				
+%				Methods
+%				Neural network
+%				Support vector machine (SVM)
+%				Random forest (RF)
+%				Random jungle (RJ)
+%				
+%				Strengths
+%					Neural network
+%					(i) NN is able to model the relationship between disease and single nucleotide polymorphism (SNP)
+%					(ii) NN can make prediction on data where the disease outcome is unknown by learning the outcome given on a dataset (iii) NN is a method that can deal with large volumes of data
+%					(iv) NN is suitable for genetic heterogeneity, high phenocopy rates, polygenic inheritance, and incomplete penetrance.
+%					(v) GPNN and GENN are able to optimize the architecture of NN and possess high power to discover the presence of nonfunctional SNPs.
+%					(vi) GPNN does not overfitting the data (vii) GPNN possesses high power in dealing with epitasis model with weak marginal effect
+%					(viii) GENN outperform GPNN by optimiz NN in fewer generations
+%					(ix) GENN possesses high power to detect high risk loci in complex disease
+%
+%					Support vector machine (SVM)
+%					(i) SVM can deal with high dimension data set
+%					(ii) SVM can be utilized to classify complex biological gene expression data (iii) Does not trap at local minima
+%					(iv) Not prone to overfitting
+%					(v) SVM is robust to noise
+%					(vi) The output of SVM is more interpretable if compared to MDR (vii) Does not require user-defined decisions for classification
+%					(viii) SVM is ready to be generalized to new structures
+%
+%					Random forest (RF)
+%					(i) RF does not exhibit strong main effects which uncover interactions among genes. (ii) RF does not “overfit” the data.
+%					(iii) SNPs predictive of a phenotype are identifying by RF.
+%
+%					Random jungle (RJ)
+%					(i) RJ is able to analyze data on a genome-wide scale.
+%					(ii) RJ has more computationally efficient than RF.
+%
+%			Weaknesses
+%					Neural network
+%					(i) Presence of black box
+%					(ii) Difficult to list out all possible NN architecture and it causes the difficulty to find the optimal architecture
+%					(iii) GPNN needed parallel processing environment
+%					(iv) GPNN causes the high false positive rate to occur in three locus models
+%					(v) The output of GPNN is binary expression, and it can be hard to interpret (for instance, up to 500 nodes)
+%					(vi) Result of NN was hard to interpret due to the dimensionality problem
+%					(vii) NN needs comprehensive cross-validation to confirm validity
+%
+%					Support vector machine (SVM)
+%					(i) Presence of black box
+%					(ii) SVM is restricted to pairwise classification
+%					(iii) SVM cannot be directly used for feature selection
+%					(iv) Result produced may be affected by the presence of missing data
+%					(v) The power of SVM might reduce with the presence of genetic heterogeneity
+%					(vi) Additional training maybe needed to correct the bias of prediction accuracy. However, it could be computationally expensive for the proposed procedure (vii) Accuracy produced by SVM might be suboptimal due to the SVM parameter C is forced to be one constant. Hence, a grid search for the parameter is needed by utilizing some promising SNP combinations in order to refine the results.
+%
+%					Random forest (RF) / Random jungle (RJ)
+%					(i) Presence of black box
+%					(ii) RF does not succeed in GWAS data. (iii) Sometimes RF is underestimating important scores of SNPs without marginal effects.
+%					(iv) RF only detects interactions with large effect size.
+%					If the main effects are weak, RJ fails to detect interactions.
+
+
+%------------------------------------------------------------
+% From: "Bayesian inference of epistatic interactions in case-control studies" (2007)
+%
+%		- Although some existing computational methods for identifying genetic interactions have been effective for small-scale studies, we here propose a method, denoted ‘bayesian epistasis association mapping’ (BEAM), for genome-wide case-control studies
+%		- BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes, via Markov chain Monte Carlo, the posterior probability that each marker set is associated with the disease. 
+%		- In the past century, scientists have made great progresses in mapping genes responsible for mendelian diseases. However, genetic variants underlying most common (or ‘complex’) diseases are non-mendelian.
+%		- These variants are typically not rare in the population (42%). They show very little effect independently with low penetrance, but they may interact with each other in complex ways.
+%		- It has been speculated that epistasis ubiquitously contributes to complex traits partly because of the sophisticated regulatory mechan- isms encoded in the human genome1. 
+%		- EPI EXAMPLES: An increasing number of reports have indicated the presence of multilocus interactions in many human complex traits, such as breast cancer2, post-PTCA stenosis3, essential hypertension4, atrial fibrillation5 and type 2 diabetes6.
+%		- GWAS EPISTASIS [Discussion]: We also applied BEAM to an association study of age-related macular degeneration (AMD)13, which included B100,000 SNP markers. Although BEAM did not find significant interactions in the AMD data set, it was able to discover two-way or three-way interactions among the B100,000 SNPs simu- lated based on the AMD data.
+%
+%		- EXISTING METHODS: 
+%			- Several approaches have been developed to detect epistasis, including the combinatorial partitioning method (CPM)7, the restricted parti- tioning method (RPM)8, multifactor-dimensionality reduction (MDR)2, multivariate adaptive regression spline (MARS)9, the logistic regression method10 and backward genotype-trait association (BGTA)11. Although these methods all showed promise, they have been tested only on small data sets. 
+%			- methods based on brute-force searches such as CPM and MDR are impractical for large data sets
+%			- STEPWISE LOGISTIC REGRESSION: The stepwise logistic regression approach of ref. 12 works as follows: (i) all markers are individually tested and ranked for marginal associations with the disease; (ii) the top 10% of markers are selected, among which all k-way (k 1⁄4 2 or 3) interactions are tested and ranked for associations. The authors of ref. 12 also proposed an exhaustive logistic regression testing approach, which we choose not to consider in this study because of its prohibitive computational cost.  Note that even their stepwise approach can become computationally intractable for high-order interactions. 
+%			- Recently, a simulation study12 explored the use of a stepwise logistic regression approach to identify two-way and three-way interactions. The authors demon- strated that searching for interactions in genome-wide association mapping can be more fruitful than traditional approaches that exclusively focus on marginal effects.
+%
+%		- BEAM METHOD:
+%			- The BEAM algorithm takes case-control genotype marker data as input and produces, via MCMC simulations, posterior probabilities that each marker is associated with the disease and involved with other markers in epistasis. 
+%			- The input genotyped markers should be in their natural genomic order when there is linkage disequilibrium (LD) among some of them. The method can be used either in a ‘pure’ bayesian sense or just as a tool to discover potential ‘hits’. For the former, one relies on the reported posterior probabilities to make inferential statements; as for the latter, one can take the reported hits and use another procedure to test whether these hits are statistically significant. 
+%			- The latter approach is more robust to model selection and prior assumptions (such as Dirichlet priors with arbitrary parameters) and is less prone to the slow mixing problem in the MCMC computational procedure. We also propose the B statistic to facilitate the latter approach and show that it is more powerful than the standard w2 statistic for epistasis detections.
+%			- For the non-epistasis model (model 1), all three epistasis mapping methods performed similarly to the single-marker w2 test (Fig. 1), indicating that the power for detecting marginal associations was not compromised by using the more complex models.
+%			- Notably, results for model 4 suggest that stepwise methods can miss markers with small or no marginal effects, whereas BEAM can get these markers back through iterations.
+%		- POWER ISSUES RELATED TO AF: 
+%			- The power of association mapping can be greatly hampered by the discrepancy of allele frequencies between unobserved disease loci and associated genotyped markers15
+%			- For data sets with large MAF discrepancies and moderate LD, the power of all methods suffered. 
+%			- At the extreme case when the MAF discrepancy was maximized (that is, MAF 1⁄4 0.5), all methods had little power in detecting interaction associations
+%			- The impact of LD on power seemed to be less profound than the effect of MAF discrepancy. 
+%
+% 	- GWAS ANALISYS:
+%			- DATA: The data set contains 116,204 SNPs genotyped for 96 affected individuals and 50 controls.
+%			- RESULTS: BEAM found no significant interactions associated with AMD from this data set. It is possible that the small sample size of 146 individuals is insufficient for detecting subtle epistasis interactions.
+
+%------------------------------------------------------------
+% From : Defining genetic interaction (2007)
+%
+%		- Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation’s individual effects. This phenom- enon, which defines genetic interaction, can reveal functional rela- tionships between genes and pathways.
+%		- Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition
+%		- Here, we show that the choice among alternative definitions can have profound consequences.
+%		- The study of genetic inter- action has become increasingly systematic and large-scale, espe- cially in the yeast Saccharomyces cerevisiae (6, 8–21).
+%		- A quantitative genetic interaction definition has two compo- nents: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninter- acting mutations. Interaction is then defined by deviation of a double-mutant organism’s phenotype from the expected neutral phenotype
+%		- A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case).
+%		- Alleviating or “diminishing returns” interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a muta- tion in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway.
+%		- One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was origi- nally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures.
+%		- Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growth- rate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24)
+%		- Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function.
+%		- The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplica- tive function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic inter- action (4, 6, 15, 19, 24).
+%		- A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting muta- tions are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant. 
+%		- It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies.
+%		- Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function. 
+%		- For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy.
+%		- The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive 
+%
+%		- DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and single- and double-mutant cell populations.
+%
+%		- RESULTS: The Choice of Genetic Interaction Definition Matters:
+%			- Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all defi- nitions) for pairs involving mutations with extreme fitness effects.
+%			- Product and Log Definitions Are Equivalent for Deleterious Mutations: 
+%			- The Product Definition Reveals Functional Relationships Missed by the Min Definition.
+%			- Genetic Interaction Networks from Min and Product Definitions Differ Greatly.
+%
+%		- WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious.
+
+%------------------------------------------------------------
+% From: Detecting epistatic effects in association studies at a genomic level based on an ensemble approach (2011)
+%
+%		- We extend the basic AdaBoost algorithm by incorporating an intuitive importance score based on Gini impurity to select candidate SNPs. 
+%		- Permutation tests are used to control the statistical significance.
+%		- We have performed extensive simulation studies using three interaction models to evaluate the efficacy of our approach at realistic GWAS sizes, and have compared it with existing epistatic detection algorithms.
+%		- CURRENT METHODS: Generally speaking, existing approaches for searching gene– gene or SNP–SNP interactions can be grouped into four broad categories.
+%			- 1) Methods in the first category rely on exhaustive search. Classical statistics such as the Pearson’s χ2 test or the logistic regression that are commonly used as single-locus tests for GWAS can potentially be used in searching for pairwise interactions. Marchini et al. (2005) have shown that explicitly modeling of interactions between loci for GWAS with hundreds of thousands of markers is computationally feasible. They also showed that these simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
+%			- 2) The second category consists of methods relying on stochastic search, with BEAM (Zhang and Liu, 2007) as one representative of such algorithms. Later algorithms in this category [e.g. epiMODE (Tang et al., 2009)] largely adopted and extended BEAM. BEAM uses Markov chain Monte Carlo (MCMC) sampling to infer whether each locus is a disease locus, a jointly affecting disease locus, or a background (uncorrelated) locus. The algorithm begins by assigning each locus to each group according to a prior distribution. Using the Metropolis–Hastings algorithm, it attempts to reassign the group labels to each locus. At the end, it uses a special statistic, called the B-Statistic, to infer statistical significance from the hits sampled in MCMC. This approach avoids computing all interactions, but can still theoretically find high-order interactions. The number of MCMC rounds is the primary parameter that mediates runtime, as well as power. The suggested number of MCMC rounds is in the quadratic of the number of SNPs, which limits applicability of BEAM on large datasets.
+%			- 3) Methods in the third category are machine learning approaches such as tree-based methods or support vector machines (SVM). For example, a popular ensemble approach, Random Forests 
+%			- 4) Methods in the forth category rely on conditional search. In such a case, analyses are performed in stages (Evans et al., 2006; Li, 2008). A small subset of promising loci is identified in the first stage, normally using single locus methods, and multi-locus methods are used in the later stage(s) to model interactions based on the selection in the first stage. Stepwise regression has been widely used in this case and several different strategies have been studied in the literature. Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect. One should also notice that the conditional search category is more like a strategy rather than an approach. In addition to single-locus- based methods, any approaches discussed previously, especially the machine learning ones, can be used to search for candidates in the first stage.
+
+
 %------------------------------------------------------------
 % From: \cite{rohlfs2010detecting}		Cited by: 16
 %
