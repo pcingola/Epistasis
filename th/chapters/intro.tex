@@ -334,12 +334,18 @@ The ``rare variant model'' assumes that multiple rare variants have large effect
 
 Several techniques allow weighting rare variants by collapsing them using a kernel matrix. This allows to incorporate other information, such as allele frequency and functional annotations. It can be shown that the statistic induced by kernel weighting functions follows a mixture of $\chi^2$ distributions and there is an efficient way to approximate it \cite{li2008methods,wu2011rare}, avoiding computationally expensive permutations tests.
 
-\subsection{Epistasis \label{sec:epi}}
+%---
+\section{Epistasis \label{sec:epi}}
+%---
 
 In this section we introduced the basic concepts and methodologies used in GWAS. Although fairly mature, there is still heavy research and continuous improvement on GWAS statistical methods. Not only it is well known that traditional (i.e. single marker) GWAS methods fail under non-additive models \cite{culverhouse2002perspective}, but also variants so far discovered using these methods do not account for all the expected phenotypic variance attributed to genetic causes (i.e. missing heritability). As other authors pointed out \cite{cordell2009detecting, zuk2012mystery, zuk2014searching}, this might be because we need to look for epistatic variants which are not taken into account using these methods. In the next section, and in Chapter \ref{ch:gwas}, we cover the topic of epistatic GWAS analysis.
 
+\subsection{What is epistasis and why it is important}
+
 %------------------------------------------------------------
 % From: \cite{zuk2012mystery}
+% TOPIC: MISSING HERITABILITY
+%
 %		- missing heritability: overestimation of the denominator happens when epistasis is ignored (phantom)
 %		- phantom heritability could be 62.8\% in Cohn's disease, thus accounting for 80\% of the current missing heritability
 %		- Until recently "The pre- vailing view among human geneticists appears to be that inter- actions play at most a minor  part in explaining missing heritability."	
@@ -360,10 +366,9 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- The only examples to date involve interactions featuring at least one locus with a large marginal e↵ect, such as HLA. 
 %		- GWAS, in ankylosing spondylitis21 and psoriasis,22 discovered interactions between two di↵erent HLA alleles and ERAP1. (In ankylosing spondylitis, the HLA-B27 allele has an odds ratio of 40.8, and in psoriasis the HLA-C allele has an odds ratio of 4.66.) HLA also plays a role in an interaction e↵ect described in a GWAS of Type 1 diabetes. (In Type 1 diabetes, HLA has a main e↵ect of 5.5, but acts non-additively with the risk of all other alleles considered cumulatively.23). Finally, interaction between RET and EDNRB in Hirschsprung’s disease was discovered in a genome-wide linkage study,24 in which RET was strongly associated with disease (log-odds score of 5.6).
 
-
-
 %------------------------------------------------------------
 % From: "A Perspective on Epistasis: Limits of Models Displaying No Main Effect"
+% TOPIC: HISTORICAL PERSPECTIVE (PRE-SEQUENCING / GENOTIPYNG) 
 % IMPORTANT: Context was year 2002!!!
 %
 %		- for the abandonment of linkage studies in favor of genome scans for association. However, there exists a large class of genetic models for which this approach will fail: purely epistatic models with no additive or dominance variation at any of the susceptibility loci.
@@ -395,7 +400,182 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 
 
 %------------------------------------------------------------
+% From : Defining genetic interaction (2007)
+%
+%		- Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation’s individual effects. This phenom- enon, which defines genetic interaction, can reveal functional rela- tionships between genes and pathways.
+%		- Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition
+%		- Here, we show that the choice among alternative definitions can have profound consequences.
+%		- The study of genetic inter- action has become increasingly systematic and large-scale, espe- cially in the yeast Saccharomyces cerevisiae (6, 8–21).
+%		- A quantitative genetic interaction definition has two compo- nents: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninter- acting mutations. Interaction is then defined by deviation of a double-mutant organism’s phenotype from the expected neutral phenotype
+%		- A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case).
+%		- Alleviating or “diminishing returns” interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a muta- tion in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway.
+%		- One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was origi- nally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures.
+%		- Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growth- rate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24)
+%		- Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function.
+%		- The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplica- tive function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic inter- action (4, 6, 15, 19, 24).
+%		- A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting muta- tions are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant. 
+%		- It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies.
+%		- Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function. 
+%		- For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy.
+%		- The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive 
+%
+%		- DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and single- and double-mutant cell populations.
+%
+%		- RESULTS: The Choice of Genetic Interaction Definition Matters:
+%			- Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all defi- nitions) for pairs involving mutations with extreme fitness effects.
+%			- Product and Log Definitions Are Equivalent for Deleterious Mutations: 
+%			- The Product Definition Reveals Functional Relationships Missed by the Min Definition.
+%			- Genetic Interaction Networks from Min and Product Definitions Differ Greatly.
+%
+%		- WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious.
+
+\subsection{Detecting Epistasis / interactions}
+
+%------------------------------------------------------------
+% From: \cite{rohlfs2010detecting}		Cited by: 16
+%	Topic: DETECTING EPISTASIS (not GWAS)
+%
+%		- Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci.
+%		- However, because the coevolving genes are not necessarily in physical linkage, this is not an appropriate measure of coevolution-induced allelic association
+%		- Coevolving genes are expected to undergo compensatory mutations to maintain their interaction.
+% 	- Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1–6
+%		- HLA and KIR are well established as interacting immune-response loci under intense diversi- fying selection. Although these genes are on different chromosomes, their allele frequencies are significantly cor- related within human populations, as one would expect under intense selection for allele matching.15
+%		- Most cases of selec- tive advantage for specific allele pairing would be resolved with fixation of the optimal allele pair.7
+%		- In this paper, we explore the ramifications of coevolu- tion between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19 
+%		- Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excel- lent candidates for coevolution-induced allelic association
+%		- WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth.
+%		- General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35..
+%		- To address this possibility, we use a standard con- tingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom:
+%		- The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts
+%		- To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests. 
+%		- Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus. 
+%		- Calculating the power of these exact tests can be prohibitively slow with a large sample size. As an alternative, we quickly esti- mate power by using theoretical test statistic distributions under the alternative hypothesis. Under the alternative hypothesis with genotype frequency matrix F, X 2 is approximately chi-square 1 distributed with one degree of freedom and noncentrality param- eter
+%		- We ran a similar analysis on a secondary candidate gene pair implicated in maternal-fetal interactions: GHR (MIM 600946) and GH2 (MIM 139240).37
+%		- Power: because of computational limitations, we were unable to perform the exact test for larger value of n; 
+%		- Asymptotic Analysis: For a high but biologically reasonable s of 0.1,38 with a sample size of n 1⁄4 1480, the asymptotic CLD test has a power of 0.525 and the asymptotic GA test has a power of 0.327
+%		- Population: Population structure could also cause allelic association between physically unlinked loci. 
+%		- Allelic association would be observed if the alleles at each locus have different frequencies in different populations and those populations are pooled together. In this analysis, ZP3 and ZP3R are associated as compared to other genes in the same individuals. It is not likely that population structure would cause allelic association in our candidate gene pair but not in other gene pairs in the same population. It is possible that ZP3 and ZP3R are statistical outliers that we expect under no selection and are associated simply by chance. However, given our limited single-hypothesis candi- date gene approach, we find that unlikely.
+%		- The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control,
+
+
+%------------------------------------------------------------
+% From \cite{petkov2005evidence}		Cited by: 91
+%	Topic: DETECTING EPISTASIS (not GWAS)
+%
+%		- Evidence from inbred strains of mice indicates that a quarter or more of the mammalian genome consists of chromosome regions containing clusters of functionally related genes
+%		- 60 genetically diverse inbred strains.
+%		- forming networks with scale-free architecture. Combining LD data with pathway and genome annotation databases, we have been able to identify the biological functions underlying several domains and networks.
+%		- As typified by the a and b globin gene clusters, tandem duplications can give rise to gene families whose members develop divergent, but still related, functions over time. 
+%		- Gene clusters may arise as a means of promoting their coregulation through regional controls of chromatin structure and expression, and there is now considerable evidence, well summarized by Hurst et al. [1], that for variety of eukaryotes, including yeast, Caenorhabditis, Drosophila, high- er plants, and mammals, genes sharing expression patterns are more likely to be in proximity than would be expected by chance. 
+%		- ...And finally, Fisher [2] and later Nei [3,4] have argued on theoretical grounds that when genes interact epistatically, evolutionary selection will promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations. 
+%		- The process of inbreeding to homozygosity imposes intense selective pressures; all efforts among some species have failed, and with mice, only a fraction of initial attempts succeeded. 
+%		- Accordingly, we can expect that if clustering of functionally related genes is a common feature of mammalian genomes, there is likely to be selection for coadapted allelic combinations among the genes encoding functions that influence fitness and survival during inbreeding. This would result in regions of linkage disequilibrium (LD) among inbred strain genomes; i.e., some allelic combinations should occur more often than expected by chance.
+%		- Data: 1,456 SNPs, chosen for their high information content, among a set of 60 common and wild- derived inbred mouse strains chosen for their genetic diversity. 
+%		-  The identity of these strains and the phylogenetic relationships among them are indicated in Figure 1, which was constructed using neighbor-joining
+%		- LD calculation: estimated LD using D9, the difference between the observed frequency of an allelic combination and its random expectation, relative to the maximum deviation possible given the allele frequencies of the two markers [14,15]. D9 corrects for differences in allele frequencies and describes LD equally well when there is selection for or against the combination of majority alleles. A cumulative Fisher’s exact test (FET) was used to compute the probability (pFET) of obtaining an equally or more extreme distribution under the null hypothesis of random allelic association between pairs of SNPs. 
+%		- Permutaation test: In one set, marker locations were randomized while maintaining the assignments of alleles to strains (Figure 2, red triangles), and in the other set the assignments of alleles to strains were randomized while preserving allele ratios and marker locations (Figure 2, solid circles)
+%		- It is difficult to escape the conclusion that the selective factors acting to generate LD domains and networks during inbreeding reflect clustering and/or interaction of function- ally related elements along chromosomes
+
+
+%------------------------------------------------------------
+% From: \cite{wang2012ldgidb}		Cited by: 1
+%	Topic: DETECTING EPISTASIS (not GWAS)
+%
+%		- non-physical linkages between different mutations (or single nucleotide polymorphisms, SNPs) 
+%		-  These interactions can be physical protein interactions, regulatory interactions, functional compensation/antagonization or many other forms of interactions. 
+%		- non-physical SNP linkages, coupled with knowledge of SNP-disease associations may shed more light on the role of gene interactions in human disorders.
+%		- exonic regions of protein-coding genes from the HapMap database to construct a database named the Linkage-Disequilibrium-based Gene Interaction database (LDGIdb). The database stores 646,203 potential human gene interactions, which are potential interactions inferred from SNP pairs that are subject to long-range strong linkage disequilibrium (LD), or non-physical linkages. To minimize the possibility of hitchhiking, SNP pairs inferred to be non-physically linked were required to be located in different chromosomes or in different LD blocks 
+%		- Here we consider only the subpopulations that con- tain at least 20 individuals.
+%		- strong LD (r2 ≥ 0.8);
+
+%------------------------------------------------------------
+% From: \cite{koch2013long}		Cited by: 3
+%	Topic: DETECTING EPISTASIS (not GWAS)
+%
+%		- Long-range linkage disequilibria (LRLD) between sites that are widely separated on chromosomes may suggest that population admixture, epistatic selection, or other evolutionary forces are at work. 
+%		- We quantified patterns of LRLD on a chromosome-wide level in the YRI population of the HapMap dataset of single nucleotide polymorphisms (SNPs).
+%		- We calculated the disequilibrium between all pairs of SNPs on each chromosome (a total of .261011 values) and evaluated significance of overall disequilibrium using randomization. 
+%		- The results show an excess of associations between pairs of distant sites (separated by .0.25 cM) on all of the 22 autosomes. 
+%		- Disequilibria between closely-linked sites result largely from random genetic drift or (equivalently) the common ancestry of unrecombined chromo- some blocks. 
+%		- While these ‘‘long range haplotypes’’ can extend over a few hundred kb in unrelated humans [5], they still span only a very small fraction of an entire chromosome.
+%		- Considerably less attention has been paid to patterns of LD between pairs of sites that are separated by much greater genetic distances (say, 1 cM or more).
+%		- finding substantial long range linkage disequilibrium (LRLD) suggests that counter- vailing forces are at work.
+%		- 1) One possibility is population admixture [6], which has been proposed to explain unusual patterns of LRLD in some human populations
+%		- 2) A second contrib- uting force is drift. Even in a population at demographic equilibrium, recombination between distant chromosome blocks will largely but not completely erase LD caused by drift. Recurrent bottlenecks are particularly effective at generating LD [9], and may have contributed importantly to disequilibria in non- African populations of humans
+%		- 3) Third, epistatic selection can maintain linkage disequilibrium indefinitely [11]. Epistasis has been implicated in the LD observed between two pairs of genes in humans [12,13]. 
+%		- 4) Fourth, the hitchhiking of linked sites with a positively-selected mutation can generate large haplotype blocks that result in disequilibria over the region that they span [3,4].
+%		- 5) Fifth, structural variation in chromosomes, such as inversions, can alter patterns of recombination and consequently cause LD to extend over unusually large regions of a chromosome [14–16].
+%		-  to our knowledge there has been only one previous survey of associations between chromosomal regions across the entire human genome using high-density data. Sved [17] studied correlations in heterozygosity between chromosome blocks. His analysis of the HapMap phase 3 data found evidence of associations between blocks at distances of up to 10 cM and weak correlations between blocks on different chromosomes, but he did not attempt to assess their statistical significance. Lawrence et al. [18] provided a web-based tool for exploring long distance linkage disequilibria in the HapMap data, but did not go on to study patterns in the data.
+%		- This paper investigates patterns of LRLD in the YRI population (the Yoruba in Ibadan, Nigeria) from the HapMap Phase 2 dataset of single nucleotide polymorphisms [23]. YRI also has weaker short-range disequilibria that might otherwise obscure the patterns of LRLD
+%		- We calculated the disequilibria between all pairs of SNPs on the same chromosome, then analyze these data with new statistical methods. 
+%		- Using null distributions generated by randomization, we find significant excess of disequilibria on all 22 autosomes in the Yoruba population. 
+%
+%		- Data: 120 YRI haplotypes that were genotyped at over 2.86106 SNPs in HapMap Phase 2 (data build 22)
+%
+%		- LD issues: Most commonly used measures of linkage disequilibria are not well suited for that purpose [8]. For example, a large value of D9 is likely to result from sampling if allele frequencies are near 0 or 1, while even a small value is unlikely to appear by chance if allele frequencies are intermediate and the sample size is large.
+%		- We therefore use the probability that a value of the disequilibrium D as large or larger than that in the sample would be observed if there is no association in the population from which the sample is drawn, conditioned on the sampled allele frequencies at the two loci. This probability, which we denote pD, is given by the tail of Fisher’s exact test [8,28,29]
+%		- As the distance between a pair of sites on a chromosome grows large (specifically, the product of the recombination rate and the effective population size becomes much greater than 1), the sampling distribution for two-locus haplotypes converges on that of Fisher’s exact test [30,31]. 
+%
+%		- Patches: When a pair of distant sites are in disequilibrium, it is likely that other sites near to them will also be associated as a result of short- range associations [17,32]. In effect, the underlying structure in the data is disequilibrium between pairs of chromosomal blocks rather than between pairs of individuals sites
+%		- To control for this we used a simple and efficient ad hoc strategy that identifies ‘‘patches’’ of disequilibria.
+%
+%		- Results: We take two approaches to search for nonrandom patterns of LRLD. We first ask whether observed values of pD are more extreme than expected. For this purpose we determined the most extreme (that is, smallest) value of pD in each patch, then calculated the mean of these extreme values across all patches on a chromosome. We refer to this statistic as pDmax. 
+%		-	Second, we ask whether the number of LRLD patches observed for a given chromosome is greater than expected by chance. We denote this statistic as nP.
+%		- To test for the statistical significance of pDmax and nP, we generate their null distributions using a randomization method
+%		- There are two motivations behind this method. First, it preserves the allele frequencies at each site. Second, it maintains the structure of short range disequilibria in the sample. 
+%		- Computational time: Constructing these null distributions is the most computationally intensive part of our method. For the analyses reported below, over 4.861014 values of pD were computed, and the project consumed about 34,000 hours of CPU time.
+%		- All of the 22 chromosomes show significant values for pDmax at the p,0.05 level, and all remain significant after a Bonferroni correction for multiple tests. For the second test statistic, n , 19 chromosomes show significant P values, 18 of which remain significant after the Bonferroni correction. These results suggest there is long-range linkage disequilibrium in the YRI population.
+%		- [LRLD] have been little studied, they may be indicators of important evolutionary processes
+
+\subsection{Epistatic GWAS \label{sec:epigwas}}
+
+% GWAS & Epistasis
+Genome wide association studies have traditionally focused on single variants or nearby groups of variants. An often cited reason for the lack of discovery of high impact risk factors in complex disease is that these models ignore loci interactions \cite{cordell2009detecting} which have recently been pointed out as a potential solution for the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. There are several reasons: i) models using interactions are much more complex \cite{gao2010classification} and by definition non-linear, ii) information on which proteins interacts with which other proteins is incomplete \cite{venkatesan2009empirical}, iii) in the cases where there protein-protein interaction information is available, precise interacting sites are rarely known \cite{venkatesan2009empirical}. Taking into account the last two items, we need to explore all possible loci combinations, thus the number of $N$ order interactions grows as $O(M^N)$ where $M$ is the number of variants \cite{de2013emerging}. This requires exponentially more computational power than single loci models. This also severely reduces statistical power, which translates into requiring larger cohort, thus increasing sample collection and sequencing costs \cite{de2013emerging}.
+
+In Chapter \ref{ch:gwas} we develop a computationally tractable model for analysing putative interaction of pairs of variants from GWAS involving large case / control cohorts of complex disease. Our model is based on analysing cross-species multiple sequence alignments using a co-evolutionary model in order to obtain informative interaction prior probabilities that can be combined to perform GWAS analysis of pairs of non-synonymous variants that may interact.
+
+%------------------------------------------------------------
+% From: Detecting gene–gene interactions that underlie human diseases (Nature, 2009)
+%	Topic: GWAS EPISTASIS (METHODS REVIEW)
+%
+%		-  Following the identification of several disease-associated polymorphisms by genome-wide association (GWA) analysis, interest is now focusing on the detection of effects that, owing to their interaction with other genetic or environmental factors, might not be identified by using standard single-locus tests
+%		- ...it is hoped that detecting interactions between loci will allow us to elucidate the biological and biochemical pathways that underpin disease. 
+%		- In recent years, the field has been revolution- ized by the success of genome-wide association (GWA) studies1–5. Most of these studies have used a single-locus analysis strategy, in which each variant is tested individu- ally for association with a specific phenotype
+%		- However, a reason that is often cited for the lack of success in genetic studies of complex disease6,7 is the existence of interac- tions between loci. 
+%		- If a genetic factor functions primarily through a complex mechanism that involves multiple other genes and, possibly, environmental factors, the effect might be missed if the gene is examined in isola- tion without allowing for its potential interactions with these other unknown factors.
+%		- The purpose of this Review is to provide a survey of the methods and related software packages that are cur- rently being used to detect the interactions between the genetic loci that contribute to human genetic disease.
+%		- Interaction as departure from a linear model. The most common statistical definition of interaction relies on the concept of a linear model that describes the relationship between an outcome variable and a predictor variable or variables
+%		- Arguably the most well-known form of this type of analysis is simple linear or least squares regression26, in which we relate an observed quantitative outcome y (for example, weight) to a predictor variable x (for example, height) using a ‘best fit’ line or regression
+%		- From a statistical point of view, interaction repre- sents departure from a linear model that describes how two or more predictors predict a phenotypic outcome
+%		- For a disease outcome and case–control data, rather than modelling a quantitative trait y, the usual approach is to model the expected log odds of disease as a linear function of the relevant predictor variables
+%		- DEFINITION Penetrance: The probability of displaying a particular phenotype (for example, succumbing to a disease) given that one has a specific genotype.
+%		- DEFINITION: Marginal effects: The average effects (for example, penetrances) of a single variable, averaged over the possible values taken by other variables. These could be calculated for one locus of a two-locus system as the average of the two-locus penetrances, averaged over the three possible genotypes at the other locus.
+%		- For or simplicity, I have concentrated here on defining interaction in relation to two genetic factors (two-locus interactions). In practice, however, for complex diseases we might also expect three-locus, four-locus and even higher-level interactions. Mathematically, such higher- level interactions are simple extensions to the two-locus models described earlier. 
+
+
+%------------------------------------------------------------
+% From: Detecting epistatic effects in association studies at a genomic level based on an ensemble approach (2011)
+%	Topic: A GWAS EPISTASIS METHOD
+%
+%		- We extend the basic AdaBoost algorithm by incorporating an intuitive importance score based on Gini impurity to select candidate SNPs. 
+%		- Permutation tests are used to control the statistical significance.
+%		- We have performed extensive simulation studies using three interaction models to evaluate the efficacy of our approach at realistic GWAS sizes, and have compared it with existing epistatic detection algorithms.
+%		- CURRENT METHODS: Generally speaking, existing approaches for searching gene– gene or SNP–SNP interactions can be grouped into four broad categories.
+%			- 1) Methods in the first category rely on exhaustive search. Classical statistics such as the Pearson’s χ2 test or the logistic regression that are commonly used as single-locus tests for GWAS can potentially be used in searching for pairwise interactions. Marchini et al. (2005) have shown that explicitly modeling of interactions between loci for GWAS with hundreds of thousands of markers is computationally feasible. They also showed that these simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
+%			- 2) The second category consists of methods relying on stochastic search, with BEAM (Zhang and Liu, 2007) as one representative of such algorithms. Later algorithms in this category [e.g. epiMODE (Tang et al., 2009)] largely adopted and extended BEAM. BEAM uses Markov chain Monte Carlo (MCMC) sampling to infer whether each locus is a disease locus, a jointly affecting disease locus, or a background (uncorrelated) locus. The algorithm begins by assigning each locus to each group according to a prior distribution. Using the Metropolis–Hastings algorithm, it attempts to reassign the group labels to each locus. At the end, it uses a special statistic, called the B-Statistic, to infer statistical significance from the hits sampled in MCMC. This approach avoids computing all interactions, but can still theoretically find high-order interactions. The number of MCMC rounds is the primary parameter that mediates runtime, as well as power. The suggested number of MCMC rounds is in the quadratic of the number of SNPs, which limits applicability of BEAM on large datasets.
+%			- 3) Methods in the third category are machine learning approaches such as tree-based methods or support vector machines (SVM). For example, a popular ensemble approach, Random Forests 
+%			- 4) Methods in the forth category rely on conditional search. In such a case, analyses are performed in stages (Evans et al., 2006; Li, 2008). A small subset of promising loci is identified in the first stage, normally using single locus methods, and multi-locus methods are used in the later stage(s) to model interactions based on the selection in the first stage. Stepwise regression has been widely used in this case and several different strategies have been studied in the literature. Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect. One should also notice that the conditional search category is more like a strategy rather than an approach. In addition to single-locus- based methods, any approaches discussed previously, especially the machine learning ones, can be used to search for candidates in the first stage.
+%		- THIS METHOD: We extend the basic AdaBoost algorithm by incorporating an intuitive importance score based on Gini impurity to select candidate SNP
+%		- Instead of trying to create a monolithic learner or model, ensemble systems attempt to create many heterogeneous versions of simpler learners, called weak learners. The opinions of these heterogeneous experts are then combined to formulate a complete picture of the data. 
+%		- Usually, a SNP is selected to ensure largest homogeneity in the child nodes. In our implementation, we use the gain on Gini Impurity. Intuitively, when child nodes have lower impurity from a split based on an attribute (i.e. a SNP here), each child node will have purer classification. Therefore, the genotype frequencies from the two classes (case and control) are expected to be more different. 
+%		- Usually decision trees are built with binary splits, where individuals with one value of the feature are placed into one group, and the remainder into the other. Since genotype data is three valued, we extend this to do a ternary split.
+%		- Despite only using marginal effects to select SNPs, decision trees can still detect some interaction. Because of the recursive partitioning, lower nodes are effectively conditioned on the value of their parents.
+%		- The core idea of AdaBoost is to draw bootstrap samples to increase the power of a weak learner. This is done by weighting the individuals when drawing the bootstrap sample. When a weak learner instance misclassifies an individual, the weight of that individual is increased (and increased more if the weak learner instance was otherwise accurate). Thus, hard to classify individuals are more likely to be included in future bootstrap samples. In the end, the ensemble votes for class labels weighting the weak learner instances by training set accuracy. 
+
+
+%------------------------------------------------------------
 % From: A Review for Detecting Gene-Gene Interactions Using Machine Learning Methods in Genetic Epidemiology (2013)
+%	Topic: GWAS EPISTASIS METHODS (MACHINE LEARNING)
 %
 %		- EPISTASIS TYPES: 
 %			- Moreover, there are various types of gene-gene interactions which are synthetic- interaction, epistatic interaction, and suppressive-interaction which are shown in Figure 1. These interactions are partic- ularly important due to the effect of a gene on individual phenotype is depending on more than one additional genes
@@ -568,6 +748,7 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 
 %------------------------------------------------------------
 % From: "Bayesian inference of epistatic interactions in case-control studies" (2007)
+%	Topic: GWAS EPISTASIS METHOD
 %
 %		- Although some existing computational methods for identifying genetic interactions have been effective for small-scale studies, we here propose a method, denoted ‘bayesian epistasis association mapping’ (BEAM), for genome-wide case-control studies
 %		- BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes, via Markov chain Monte Carlo, the posterior probability that each marker set is associated with the disease. 
@@ -599,149 +780,6 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- DATA: The data set contains 116,204 SNPs genotyped for 96 affected individuals and 50 controls.
 %			- RESULTS: BEAM found no significant interactions associated with AMD from this data set. It is possible that the small sample size of 146 individuals is insufficient for detecting subtle epistasis interactions.
 
-%------------------------------------------------------------
-% From : Defining genetic interaction (2007)
-%
-%		- Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation’s individual effects. This phenom- enon, which defines genetic interaction, can reveal functional rela- tionships between genes and pathways.
-%		- Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition
-%		- Here, we show that the choice among alternative definitions can have profound consequences.
-%		- The study of genetic inter- action has become increasingly systematic and large-scale, espe- cially in the yeast Saccharomyces cerevisiae (6, 8–21).
-%		- A quantitative genetic interaction definition has two compo- nents: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninter- acting mutations. Interaction is then defined by deviation of a double-mutant organism’s phenotype from the expected neutral phenotype
-%		- A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case).
-%		- Alleviating or “diminishing returns” interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a muta- tion in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway.
-%		- One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was origi- nally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures.
-%		- Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growth- rate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24)
-%		- Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function.
-%		- The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplica- tive function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic inter- action (4, 6, 15, 19, 24).
-%		- A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting muta- tions are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant. 
-%		- It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies.
-%		- Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function. 
-%		- For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy.
-%		- The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive 
-%
-%		- DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and single- and double-mutant cell populations.
-%
-%		- RESULTS: The Choice of Genetic Interaction Definition Matters:
-%			- Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all defi- nitions) for pairs involving mutations with extreme fitness effects.
-%			- Product and Log Definitions Are Equivalent for Deleterious Mutations: 
-%			- The Product Definition Reveals Functional Relationships Missed by the Min Definition.
-%			- Genetic Interaction Networks from Min and Product Definitions Differ Greatly.
-%
-%		- WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious.
-
-%------------------------------------------------------------
-% From: Detecting epistatic effects in association studies at a genomic level based on an ensemble approach (2011)
-%
-%		- We extend the basic AdaBoost algorithm by incorporating an intuitive importance score based on Gini impurity to select candidate SNPs. 
-%		- Permutation tests are used to control the statistical significance.
-%		- We have performed extensive simulation studies using three interaction models to evaluate the efficacy of our approach at realistic GWAS sizes, and have compared it with existing epistatic detection algorithms.
-%		- CURRENT METHODS: Generally speaking, existing approaches for searching gene– gene or SNP–SNP interactions can be grouped into four broad categories.
-%			- 1) Methods in the first category rely on exhaustive search. Classical statistics such as the Pearson’s χ2 test or the logistic regression that are commonly used as single-locus tests for GWAS can potentially be used in searching for pairwise interactions. Marchini et al. (2005) have shown that explicitly modeling of interactions between loci for GWAS with hundreds of thousands of markers is computationally feasible. They also showed that these simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
-%			- 2) The second category consists of methods relying on stochastic search, with BEAM (Zhang and Liu, 2007) as one representative of such algorithms. Later algorithms in this category [e.g. epiMODE (Tang et al., 2009)] largely adopted and extended BEAM. BEAM uses Markov chain Monte Carlo (MCMC) sampling to infer whether each locus is a disease locus, a jointly affecting disease locus, or a background (uncorrelated) locus. The algorithm begins by assigning each locus to each group according to a prior distribution. Using the Metropolis–Hastings algorithm, it attempts to reassign the group labels to each locus. At the end, it uses a special statistic, called the B-Statistic, to infer statistical significance from the hits sampled in MCMC. This approach avoids computing all interactions, but can still theoretically find high-order interactions. The number of MCMC rounds is the primary parameter that mediates runtime, as well as power. The suggested number of MCMC rounds is in the quadratic of the number of SNPs, which limits applicability of BEAM on large datasets.
-%			- 3) Methods in the third category are machine learning approaches such as tree-based methods or support vector machines (SVM). For example, a popular ensemble approach, Random Forests 
-%			- 4) Methods in the forth category rely on conditional search. In such a case, analyses are performed in stages (Evans et al., 2006; Li, 2008). A small subset of promising loci is identified in the first stage, normally using single locus methods, and multi-locus methods are used in the later stage(s) to model interactions based on the selection in the first stage. Stepwise regression has been widely used in this case and several different strategies have been studied in the literature. Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect. One should also notice that the conditional search category is more like a strategy rather than an approach. In addition to single-locus- based methods, any approaches discussed previously, especially the machine learning ones, can be used to search for candidates in the first stage.
-
-
-%------------------------------------------------------------
-% From: \cite{rohlfs2010detecting}		Cited by: 16
-%
-%		- Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci.
-%		- However, because the coevolving genes are not necessarily in physical linkage, this is not an appropriate measure of coevolution-induced allelic association
-%		- Coevolving genes are expected to undergo compensatory mutations to maintain their interaction.
-% 	- Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1–6
-%		- HLA and KIR are well established as interacting immune-response loci under intense diversi- fying selection. Although these genes are on different chromosomes, their allele frequencies are significantly cor- related within human populations, as one would expect under intense selection for allele matching.15
-%		- Most cases of selec- tive advantage for specific allele pairing would be resolved with fixation of the optimal allele pair.7
-%		- In this paper, we explore the ramifications of coevolu- tion between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19 
-%		- Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excel- lent candidates for coevolution-induced allelic association
-%		- WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth.
-%		- General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35..
-%		- To address this possibility, we use a standard con- tingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom:
-%		- The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts
-%		- To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests. 
-%		- Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus. 
-%		- Calculating the power of these exact tests can be prohibitively slow with a large sample size. As an alternative, we quickly esti- mate power by using theoretical test statistic distributions under the alternative hypothesis. Under the alternative hypothesis with genotype frequency matrix F, X 2 is approximately chi-square 1 distributed with one degree of freedom and noncentrality param- eter
-%		- We ran a similar analysis on a secondary candidate gene pair implicated in maternal-fetal interactions: GHR (MIM 600946) and GH2 (MIM 139240).37
-%		- Power: because of computational limitations, we were unable to perform the exact test for larger value of n; 
-%		- Asymptotic Analysis: For a high but biologically reasonable s of 0.1,38 with a sample size of n 1⁄4 1480, the asymptotic CLD test has a power of 0.525 and the asymptotic GA test has a power of 0.327
-%		- Population: Population structure could also cause allelic association between physically unlinked loci. 
-%		- Allelic association would be observed if the alleles at each locus have different frequencies in different populations and those populations are pooled together. In this analysis, ZP3 and ZP3R are associated as compared to other genes in the same individuals. It is not likely that population structure would cause allelic association in our candidate gene pair but not in other gene pairs in the same population. It is possible that ZP3 and ZP3R are statistical outliers that we expect under no selection and are associated simply by chance. However, given our limited single-hypothesis candi- date gene approach, we find that unlikely.
-%		- The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control,
-
-
-%------------------------------------------------------------
-% From \cite{petkov2005evidence}		Cited by: 91
-%
-%		- Evidence from inbred strains of mice indicates that a quarter or more of the mammalian genome consists of chromosome regions containing clusters of functionally related genes
-%		- 60 genetically diverse inbred strains.
-%		- forming networks with scale-free architecture. Combining LD data with pathway and genome annotation databases, we have been able to identify the biological functions underlying several domains and networks.
-%		- As typified by the a and b globin gene clusters, tandem duplications can give rise to gene families whose members develop divergent, but still related, functions over time. 
-%		- Gene clusters may arise as a means of promoting their coregulation through regional controls of chromatin structure and expression, and there is now considerable evidence, well summarized by Hurst et al. [1], that for variety of eukaryotes, including yeast, Caenorhabditis, Drosophila, high- er plants, and mammals, genes sharing expression patterns are more likely to be in proximity than would be expected by chance. 
-%		- ...And finally, Fisher [2] and later Nei [3,4] have argued on theoretical grounds that when genes interact epistatically, evolutionary selection will promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations. 
-%		- The process of inbreeding to homozygosity imposes intense selective pressures; all efforts among some species have failed, and with mice, only a fraction of initial attempts succeeded. 
-%		- Accordingly, we can expect that if clustering of functionally related genes is a common feature of mammalian genomes, there is likely to be selection for coadapted allelic combinations among the genes encoding functions that influence fitness and survival during inbreeding. This would result in regions of linkage disequilibrium (LD) among inbred strain genomes; i.e., some allelic combinations should occur more often than expected by chance.
-%		- Data: 1,456 SNPs, chosen for their high information content, among a set of 60 common and wild- derived inbred mouse strains chosen for their genetic diversity. 
-%		-  The identity of these strains and the phylogenetic relationships among them are indicated in Figure 1, which was constructed using neighbor-joining
-%		- LD calculation: estimated LD using D9, the difference between the observed frequency of an allelic combination and its random expectation, relative to the maximum deviation possible given the allele frequencies of the two markers [14,15]. D9 corrects for differences in allele frequencies and describes LD equally well when there is selection for or against the combination of majority alleles. A cumulative Fisher’s exact test (FET) was used to compute the probability (pFET) of obtaining an equally or more extreme distribution under the null hypothesis of random allelic association between pairs of SNPs. 
-%		- Permutaation test: In one set, marker locations were randomized while maintaining the assignments of alleles to strains (Figure 2, red triangles), and in the other set the assignments of alleles to strains were randomized while preserving allele ratios and marker locations (Figure 2, solid circles)
-%		- It is difficult to escape the conclusion that the selective factors acting to generate LD domains and networks during inbreeding reflect clustering and/or interaction of function- ally related elements along chromosomes
-
-
-%------------------------------------------------------------
-% From: \cite{wang2012ldgidb}		Cited by: 1
-%
-%		- non-physical linkages between different mutations (or single nucleotide polymorphisms, SNPs) 
-%		-  These interactions can be physical protein interactions, regulatory interactions, functional compensation/antagonization or many other forms of interactions. 
-%		- non-physical SNP linkages, coupled with knowledge of SNP-disease associations may shed more light on the role of gene interactions in human disorders.
-%		- exonic regions of protein-coding genes from the HapMap database to construct a database named the Linkage-Disequilibrium-based Gene Interaction database (LDGIdb). The database stores 646,203 potential human gene interactions, which are potential interactions inferred from SNP pairs that are subject to long-range strong linkage disequilibrium (LD), or non-physical linkages. To minimize the possibility of hitchhiking, SNP pairs inferred to be non-physically linked were required to be located in different chromosomes or in different LD blocks 
-%		- Here we consider only the subpopulations that con- tain at least 20 individuals.
-%		- strong LD (r2 ≥ 0.8);
-
-%------------------------------------------------------------
-% From: \cite{koch2013long}		Cited by: 3
-%
-%		- Long-range linkage disequilibria (LRLD) between sites that are widely separated on chromosomes may suggest that population admixture, epistatic selection, or other evolutionary forces are at work. 
-%		- We quantified patterns of LRLD on a chromosome-wide level in the YRI population of the HapMap dataset of single nucleotide polymorphisms (SNPs).
-%		- We calculated the disequilibrium between all pairs of SNPs on each chromosome (a total of .261011 values) and evaluated significance of overall disequilibrium using randomization. 
-%		- The results show an excess of associations between pairs of distant sites (separated by .0.25 cM) on all of the 22 autosomes. 
-%		- Disequilibria between closely-linked sites result largely from random genetic drift or (equivalently) the common ancestry of unrecombined chromo- some blocks. 
-%		- While these ‘‘long range haplotypes’’ can extend over a few hundred kb in unrelated humans [5], they still span only a very small fraction of an entire chromosome.
-%		- Considerably less attention has been paid to patterns of LD between pairs of sites that are separated by much greater genetic distances (say, 1 cM or more).
-%		- finding substantial long range linkage disequilibrium (LRLD) suggests that counter- vailing forces are at work.
-%		- 1) One possibility is population admixture [6], which has been proposed to explain unusual patterns of LRLD in some human populations
-%		- 2) A second contrib- uting force is drift. Even in a population at demographic equilibrium, recombination between distant chromosome blocks will largely but not completely erase LD caused by drift. Recurrent bottlenecks are particularly effective at generating LD [9], and may have contributed importantly to disequilibria in non- African populations of humans
-%		- 3) Third, epistatic selection can maintain linkage disequilibrium indefinitely [11]. Epistasis has been implicated in the LD observed between two pairs of genes in humans [12,13]. 
-%		- 4) Fourth, the hitchhiking of linked sites with a positively-selected mutation can generate large haplotype blocks that result in disequilibria over the region that they span [3,4].
-%		- 5) Fifth, structural variation in chromosomes, such as inversions, can alter patterns of recombination and consequently cause LD to extend over unusually large regions of a chromosome [14–16].
-%		-  to our knowledge there has been only one previous survey of associations between chromosomal regions across the entire human genome using high-density data. Sved [17] studied correlations in heterozygosity between chromosome blocks. His analysis of the HapMap phase 3 data found evidence of associations between blocks at distances of up to 10 cM and weak correlations between blocks on different chromosomes, but he did not attempt to assess their statistical significance. Lawrence et al. [18] provided a web-based tool for exploring long distance linkage disequilibria in the HapMap data, but did not go on to study patterns in the data.
-%		- This paper investigates patterns of LRLD in the YRI population (the Yoruba in Ibadan, Nigeria) from the HapMap Phase 2 dataset of single nucleotide polymorphisms [23]. YRI also has weaker short-range disequilibria that might otherwise obscure the patterns of LRLD
-%		- We calculated the disequilibria between all pairs of SNPs on the same chromosome, then analyze these data with new statistical methods. 
-%		- Using null distributions generated by randomization, we find significant excess of disequilibria on all 22 autosomes in the Yoruba population. 
-%
-%		- Data: 120 YRI haplotypes that were genotyped at over 2.86106 SNPs in HapMap Phase 2 (data build 22)
-%
-%		- LD issues: Most commonly used measures of linkage disequilibria are not well suited for that purpose [8]. For example, a large value of D9 is likely to result from sampling if allele frequencies are near 0 or 1, while even a small value is unlikely to appear by chance if allele frequencies are intermediate and the sample size is large.
-%		- We therefore use the probability that a value of the disequilibrium D as large or larger than that in the sample would be observed if there is no association in the population from which the sample is drawn, conditioned on the sampled allele frequencies at the two loci. This probability, which we denote pD, is given by the tail of Fisher’s exact test [8,28,29]
-%		- As the distance between a pair of sites on a chromosome grows large (specifically, the product of the recombination rate and the effective population size becomes much greater than 1), the sampling distribution for two-locus haplotypes converges on that of Fisher’s exact test [30,31]. 
-%
-%		- Patches: When a pair of distant sites are in disequilibrium, it is likely that other sites near to them will also be associated as a result of short- range associations [17,32]. In effect, the underlying structure in the data is disequilibrium between pairs of chromosomal blocks rather than between pairs of individuals sites
-%		- To control for this we used a simple and efficient ad hoc strategy that identifies ‘‘patches’’ of disequilibria.
-%
-%		- Results: We take two approaches to search for nonrandom patterns of LRLD. We first ask whether observed values of pD are more extreme than expected. For this purpose we determined the most extreme (that is, smallest) value of pD in each patch, then calculated the mean of these extreme values across all patches on a chromosome. We refer to this statistic as pDmax. 
-%		-	Second, we ask whether the number of LRLD patches observed for a given chromosome is greater than expected by chance. We denote this statistic as nP.
-%		- To test for the statistical significance of pDmax and nP, we generate their null distributions using a randomization method
-%		- There are two motivations behind this method. First, it preserves the allele frequencies at each site. Second, it maintains the structure of short range disequilibria in the sample. 
-%		- Computational time: Constructing these null distributions is the most computationally intensive part of our method. For the analyses reported below, over 4.861014 values of pD were computed, and the project consumed about 34,000 hours of CPU time.
-%		- All of the 22 chromosomes show significant values for pDmax at the p,0.05 level, and all remain significant after a Bonferroni correction for multiple tests. For the second test statistic, n , 19 chromosomes show significant P values, 18 of which remain significant after the Bonferroni correction. These results suggest there is long-range linkage disequilibrium in the YRI population.
-%		- [LRLD] have been little studied, they may be indicators of important evolutionary processes
-
-
-
-% GWAS & Epistasis
-Genome wide association studies have traditionally focused on single variants or nearby groups of variants. An often cited reason for the lack of discovery of high impact risk factors in complex disease is that these models ignore loci interactions \cite{cordell2009detecting} which have recently been pointed out as a potential solution for the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. There are several reasons: i) models using interactions are much more complex \cite{gao2010classification} and by definition non-linear, ii) information on which proteins interacts with which other proteins is incomplete \cite{venkatesan2009empirical}, iii) in the cases where there protein-protein interaction information is available, precise interacting sites are rarely known \cite{venkatesan2009empirical}. Taking into account the last two items, we need to explore all possible loci combinations, thus the number of $N$ order interactions grows as $O(M^N)$ where $M$ is the number of variants \cite{de2013emerging}. This requires exponentially more computational power than single loci models. This also severely reduces statistical power, which translates into requiring larger cohort, thus increasing sample collection and sequencing costs \cite{de2013emerging}.
-
-In Chapter \ref{ch:gwas} we develop a computationally tractable model for analysing putative interaction of pairs of variants from GWAS involving large case / control cohorts of complex disease. Our model is based on analysing cross-species multiple sequence alignments using a co-evolutionary model in order to obtain informative interaction prior probabilities that can be combined to perform GWAS analysis of pairs of non-synonymous variants that may interact.
-
-\subsection{Epistatic GWAS \label{sec:epigwas}}
 
 The definition of epistasis from a statistical perspective is a ``departure from a linear model" \cite{cordell2009detecting}. This means that in a logistic regression model the input for sample $s$ includes terms with each of the genotypes at loci $i$ and $j$), as well as an ``interaction term" $g_{s,i} \cdot g_{s,j}$ \cite{cordell2002epistasis}. 
 
