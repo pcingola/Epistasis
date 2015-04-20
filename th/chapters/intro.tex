@@ -345,7 +345,41 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %------------------------------------------------------------
 % From: Epistasis: too often neglected in complex trait studies? (Nature 2004)
 %
-%		-
+%		- In the case of QUANTITATIVE TRAITS, epistasis describes the gen- eral situation in which the phenotype of a given genotype cannot be predicted by the sum of its component single-locus effects1
+%		- Extensive work on the control of qualitative genetic variation has highlighted the biological importance of epistasis at a ‘locus-by-locus’ level. On the basis of this work, several classic genotype–phenotype patterns that are caused by epistasis — such as comb type in chickens, coat colour in various animals, the BOMBAY PHENOTYPE in the ABO blood-group system in humans and kernel colour in wheat 
+%		- HUMAN EPI EXAMPLE: D-allele of the angiotensin I converting enzyme (ACE) gene and the C-allele of the angiotensin II type 1 receptor (AGTR1) gene3. The risk of myocardial infarction is signifi- cantly increased by the ACE D-allele in patients who carry that particular AGTR1 allele.
+%		- In the case of quantitative genetic variation, several or many genes of largely unknown function combine with environmental influ- ences to control trait variation. This is the case for many complex traits that are of medical rel- evance in humans or of economic importance in plants and livestock.
+%		- The extent to which epistasis is involved in regulating complex traits is not known, and so we cannot assume that epistasis will be found for every trait in every population.
+%		- However, we argue that epistasis has been overlooked for too long and that it now needs to be routinely explored in complex trait studies. 
+%		- The term ‘epistasis’ was initially used in the context of Mendelian inheritance; environmental effects are relatively unimportant for Mendelian traits, so Ii individuals can be clearly assigned to one of a limited number of classes according to their phenotype. Here, epistasis was used to describe the situation in which the actions of one locus mask the allelic effects of another locus, in the same way that completely dominant alleles mask the effects of the recessive allele at the same locus.
+%		- EXAMPL EPI PIG: A clear example of this can be seen  [in Fig A] ￼￼￼￼which the dominant allele (I) at the KIT locus, which confers white-coat colour in the pig, is dominant over all alleles at the MC1R locus (E), which confer a darker coat colour. The effects of the various alleles at the E locus can only be determined in individuals with the recessive genotype ii at the I locus. This example was classically termed ‘dominant epistasis’, which gives a segregation ratio of 12:3:1 for white:black:brown, respectively
+%		- Epistatic QTL-mapping studies in model organisms have detected many new interac- tions and have therefore concluded that epis- tasis makes a large contribution to the genetic regulation of complex traits. 
+
+%------------------------------------------------------------
+% From: Epistasis dominates the genetic architecture of Drosophila quantitative traits (2012)
+%
+%		- Epistasis—nonlinear genetic interactions between polymorphic loci—is the genetic basis of canalization and speciation, and epi- static interactions can be used to infer genetic networks affecting quantitative traits. 
+%		- DATASET: Here, we compared the genetic architecture of three Drosophila life history traits in the sequenced inbred lines of the Drosophila melanogaster Genetic Reference Panel (DGRP) and a large outbred, advanced intercross population derived from 40 DGRP lines (Flyland)
+%		- Surprisingly, none of the SNPs associated with the traits in Flyland replicated in the DGRP and vice versa. However, the majority of these SNPs partic- ipated in at least one epistatic interaction in the DGRP.
+%		- Our analysis underscores the importance of epistasis as a principal factor that determines variation for quantitative traits and provides a means to uncover genetic networks affecting these traits. 
+
+%------------------------------------------------------------
+% From: Epistasis: what it means, what it doesn’t mean, and statistical methods to detect it in humans (2002)
+%
+%		- In this review, we provide a historical background to the study of epistatic interaction effects and point out the differences between a number of commonly used definitions of epistasis
+%		- For complex traits such as diabetes, asthma, hypertension and multiple sclerosis, the search for suscept- ibility loci has, to date, been less successful than for simple Mendelian disorders. This is probably due to complicating factors such as an increased number of contributing loci and susceptibility alleles, incomplete penetrance, and contributing environmental effects
+%		- The presence of epistasis is a particular cause for concern, since, if the effect of one locus is altered or masked by effects at another locus, power to detect the first locus is likely to be reduced and elucidation of the joint effects at the two loci will be hindered by their interaction. 
+%
+%		- DEFINITION:
+%			- The term ‘epistatic’ was first used in 1909 by Bateson (1) to describe a masking effect whereby a variant or allele at one locus (denoted at that time as an ‘allelomorphic pair’) prevents the variant at another locus from manifesting its effect. 
+%			- This was seen as an extension of the concept of dominance. There are, however, some problems with this definition, particularly when applied to binary traits. In human genetics, the phenotype of interest is often qualitative and usually dichotomous, indicating presence or absence of disease.
+%			- Mathematical models for the joint action of two or more loci usually focus on the penetrance, the probability of developing disease given genotype.
+%			- Suppose that a predisposing allele is required at both loci in order to exhibit the trait, i.e. one or more copies of both allele A and allele B are required. Then, when the effects of both loci are considered, we obtain the penetrance table shown in Table 2. In this table, the effect of allele A can only be observed when allele B is also present: without the presence of B, the effect of A is not observable. The effect at locus A would appear to be ‘masked’ by that at locus B.
+%			-  This leads to a situation that is not precisely analogous to that described by Bateson (1). In Bateson’s (1) definition, it is clear that if factor B is epistatic to factor A, we do not expect factor A to also be epistatic to factor B. 
+%			- Table 3 is usually assumed to correspond to a situation in which the biological pathways involved in disease influenced by the two loci are at some level separate or independent (5).
+%
+%		- COPY TABLE 1: Table 1. Example of phenotypes (e.g. hair colour) obtained from different genotypes at two loci interacting epistatically, under Bateson’s (1909) definition of epistasis
+%		- Mathematically, the quantitative genetic concept of epistasis may be represented (10) for two loci by the linear model (COPY EQUATION!). If there is no epistasis then the resulting model (COPY NON-EPI EQUATION)
 
 %------------------------------------------------------------
 % From: Epistasis — the essential role of gene interactions in the structure and evolution of genetic systems (Nature 2008)
@@ -458,6 +492,9 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %
 %		- WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious.
 
+\subsection{Epistasis in complex traits}
+
+
 \subsection{Detecting Epistasis / interactions}
 
 %------------------------------------------------------------
@@ -555,6 +592,11 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- Computational time: Constructing these null distributions is the most computationally intensive part of our method. For the analyses reported below, over 4.861014 values of pD were computed, and the project consumed about 34,000 hours of CPU time.
 %		- All of the 22 chromosomes show significant values for pDmax at the p,0.05 level, and all remain significant after a Bonferroni correction for multiple tests. For the second test statistic, n , 19 chromosomes show significant P values, 18 of which remain significant after the Bonferroni correction. These results suggest there is long-range linkage disequilibrium in the YRI population.
 %		- [LRLD] have been little studied, they may be indicators of important evolutionary processes
+
+\subsection{Epistatic Evolution and CoEvolution}
+
+\subsection{CoEvolutionary models}
+
 
 \subsection{Epistatic GWAS \label{sec:epigwas}}
 
@@ -825,6 +867,9 @@ In Chapter \ref{ch:gwas} we develop a computationally tractable model for analys
 %			- DATA: The data set contains 116,204 SNPs genotyped for 96 affected individuals and 50 controls.
 %			- RESULTS: BEAM found no significant interactions associated with AMD from this data set. It is possible that the small sample size of 146 individuals is insufficient for detecting subtle epistasis interactions.
 
+%------------------------------------------------------------
+% From: FastEpistasis: a high performance computing solution for quantitative trait epistasis
+%
 
 The definition of epistasis from a statistical perspective is a ``departure from a linear model" \cite{cordell2009detecting}. This means that in a logistic regression model the input for sample $s$ includes terms with each of the genotypes at loci $i$ and $j$), as well as an ``interaction term" $g_{s,i} \cdot g_{s,j}$ \cite{cordell2002epistasis}. 
 
@@ -850,10 +895,6 @@ Several families of approaches for epistatic GWAS exist. Here we mention a few:
 \end{itemize}
 
 Although all these models have advantages under some assumptions, none of them seems to be a ``clear winner" over the rest \cite{cordell2009detecting}. All of these models suffer from the increase in number of tests that need to be performed, which raises two issues: i) multiple testing, which is often resolved by stringent significance threshold, and ii) computational feasibility, which is solved by efficient algorithms, parallelization, and heuristic approaches to quickly discard uninformative loci combinations. So far, no method for epistatic GWAS has been widely adopted and there is need of different approaches to be explored. In Chapter \ref{ch:gwas} we propose an approach to combine co-evolutionary models and GWAS epistasis of pairs of putatively interacting loci.
-
-\subsection{Epistatic Evolution and CoEvolution}
-
-\subsection{CoEvolutionary models}
 
 
 %---
