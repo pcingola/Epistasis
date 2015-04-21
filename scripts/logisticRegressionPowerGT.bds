@@ -2,10 +2,10 @@
 
 system = 'cluster'
 cpus = 2
+timeout = 7 * day	# Default timeout increased to a week
 
-timeout := 5 * day
-iter := 100	# Number of iterations
-prev := 0.08	# Diseace prevalencese
+iter := 100		help Number of iteration
+prev := 0.08	help Diseace prevalecense
 
 #---
 # Combinations to analyze
