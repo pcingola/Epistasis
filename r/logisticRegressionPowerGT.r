@@ -66,15 +66,22 @@ testLr <- function(perc, n, af1, af2, beta) {
 
 if( !exists('cmdLineArgs') ) cmdLineArgs <- commandArgs(trailingOnly = TRUE);
 
-# Stop if there are no command line argument
-if( length(cmdLineArgs) < 1 ) { fatalError('No command line arguments!\n'); }
-
-iter  <- as.integer(cmdLineArgs[1]);	# Number of tests
-n     <- as.integer(cmdLineArgs[2]);	# Number of cases and controls
-af1   <- as.numeric(cmdLineArgs[3]);	# Allele frequency for variant 1
-af2   <- as.numeric(cmdLineArgs[4]);	# Allele frequency for variant 2
-beta3 <- as.numeric(cmdLineArgs[5]);	# Interaction term
-prev  <- as.numeric(cmdLineArgs[6]);	# Disease prevalecense: e.g. 8% for type II diabetes
+if( length(cmdLineArgs) <= 0 ) {
+	# Default command line args (for debugging)
+	iter <- 100
+	n <- -1
+	af1 <- 0.1
+	af2 <- 0.1
+	beta3 <- 2
+	prev <- 0.08
+} else {
+	iter  <- as.integer(cmdLineArgs[1]);	# Number of tests
+	n     <- as.integer(cmdLineArgs[2]);	# Number of cases and controls
+	af1   <- as.numeric(cmdLineArgs[3]);	# Allele frequency for variant 1
+	af2   <- as.numeric(cmdLineArgs[4]);	# Allele frequency for variant 2
+	beta3 <- as.numeric(cmdLineArgs[5]);	# Interaction term
+	prev  <- as.numeric(cmdLineArgs[6]);	# Disease prevalecense: e.g. 8% for type II diabetes
+}
 
 cat('Parameters\n')
 cat('\titer  :', iter, '\n')
@@ -83,7 +90,6 @@ cat('\taf1   :', af1, '\n')
 cat('\taf2   :', af2, '\n')
 cat('\tbeta3 :', beta3, '\n')
 cat('\tprev  :', prev, '\n')
-cat('\tprev  :', (1-af1), '\n')
 
 #---
 # Initial parameters
@@ -96,7 +102,16 @@ beta <- c(beta0, beta1, beta2, beta3)
 #---
 # Test logistic regression 'iter' times
 #---
-for( i in 1:iter ) {
-	testLr(i/iter, n, af1, af2, beta)
+
+ns <- c( n );
+# Negative 'n' => Use the following sequence
+if( n < 0 ) { ns <- c( seq(10, 99, 2) , seq( 100, 500, 10) ) * 1000 }
+
+for( nn in ns ) {
+	cat('#--------------------------------------------------------------------------------\n')
+	cat('#\tn:\t', nn, '\n')
+	for( i in 1:iter ) {
+		testLr(i/iter, nn, af1, af2, beta)
+	}
 }
 
