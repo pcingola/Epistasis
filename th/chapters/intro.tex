@@ -614,6 +614,40 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 
 \subsection{Epistatic Evolution and CoEvolution}
 
+%------------------------------------------------------------
+% From: A Novel Method for Detecting Intramolecular Coevolution: Adding a Further Dimension to Selective Constraints Analyses (2006, Cited 120)
+%	TOPIC: CoEvolution Method [CAPS]
+%
+%		- COEVOLUTION FIRST PAPER: Coevolution of any type has its origin in the covarion hypothesis proposed first by Fitch and Markowitz (1970). This hypothesis states that, at any given time, some sites are invariable due to their functional or structural constraints but, as mutations are fixed else- where in the sequence, these constraints may change.
+%		- Coevolution analysis and functional data for heat-shock proteins, Hsp90 and GroEL, highlight that almost all detected coevolving sites are functionally or structurally important.
+%		- The identifi- cation of genes showing particular amino acid residues that have undergone adaptive evolution is key in deter- mining functionally or structurally important protein regions.
+%		- Methods designed to detect adaptive evolution can be based on Bayesian approaches (Yang et al. 2000) or maximum parsimony (Suzuki and Gojobori 1999; Fares et al. 2002a). None of these methods takes into account the evolutionary interdependence between protein residues
+%		- Sites constraints are hence dependent on the interactions with other residues of the molecule
+%		- Mutations at either nearby sites or functionally related distant sites in the structure will change the selective constraints.
+%		- For instance, linear sliding- window methods are one-dimensional based and as- sume independence between different window regions irrespective of their three-dimensional proximity
+%		- Con- versely, classification of amino acids in the same group of evolution based on their three-dimensional prox- imity (three-dimensional sliding window) will ignore the coevolution between functional regions that are spatially distant
+%		- Various reports state that residues can form a physically connected network that links distant functional sites in the tertiary protein structure (Su ̈el et al. 2003)
+%		- Coevolution between clusters of sites, which are not in contact, has also been shown (Pritchard and Dufton 2000)
+%		- Coevolution between distant sites has been observed in sites proximal to regions with critical functions, where coevolution occurs to maintain the structural characteristics around these regions and consequently to maintain the protein con- formational and functional stability (Gloor et al. 2005).
+%		- [various methods coevolution exist...] => The main limitation of many of these methods has been their inability to separate phylogenetic linkage from functional and structural coevolution. 
+% 	- Gloor et al. (2005) partially corrected these effects although their method requires alignments of at least 125 sequences to remove stochas- tic covariation.
+%		- METHOD:
+%			- The method instead compares the transition probability scores between two sequences at these particular sites, using the blocks substitution matrix (BLOSUM)
+%			- For each protein alignment the correspon- dent BLOSUM matrix is applied, depending on the average sequence identity.
+%			- an alignment including two highly divergent sequence groups (for example, gene duplication predating speciation) could show an unrealistic pairwise average identity level. In this respect, sequences that diverged a long time ago are more likely to fix correlated mutations at two sites by chance
+%			- BLOSUM values should be hence normalized by the time of divergence be- tween sequences. BLOSUM values (Bek) are thus weighted for the transition between amino acids e and k using the time (t) since the divergence between sequences i and j:
+%			- The mean variability for the corrected BLOSUM transition is...
+%			- The coevolution between amino acid sites (A and B) is es- timated thereafter by measuring the correlation in the pair- wise amino acid variability, relative to the mean pairwise variability per site, between them.
+%		- LIMITATIONS: 
+%			- For example, saturation of synonymous sites can lead to underestimates of the divergence times, although data sets used in this study did not show such effects.
+%			- The number of sequences in the alignment also poses a problem when sequences are too divergent, although the sensitivity is improved compared to that of previous methods. 
+%			- Further, constant amino acid sites that are very likely to be functionally important cannot be tested for coevolution using CAPS, although this limitation affects all the methods so far.
+
+
+%------------------------------------------------------------
+% From:
+
+
 
 \subsection{CoEvolutionary models}
 
