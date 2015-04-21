@@ -3,6 +3,7 @@
 system = 'cluster'
 cpus = 2
 
+timeout := 5 * day
 iter := 1000	# Number of iterations
 prev := 0.08	# Diseace prevalencese
 
