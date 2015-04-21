@@ -688,6 +688,103 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- METHOD: The mutual information (MI) between each pair of columns , Z-score resepct to the mean MI. This normalization of MIp was demonstrated to reduce the sensitivity to misaligned regions in multiple sequence alignments, which otherwise result in artificially high mutual information scores [28].
 
 
+%------------------------------------------------------------
+% From: Correlated Mutations Contain Information About Protein±protein Interaction		(1997, cited 489)
+% \cite{pazos1997correlated}
+%	TOPIC: CoEvolution one of the earliest papers
+%
+%		- Many proteins have evolved to form speci®c molecular complexes and the speci®city of this interaction is essential for their function. 
+%		- The network of the necessary inter-residue contacts must consequently constrain the protein sequences to some extent. 
+%		- In other words, the sequence of an interacting protein must re ̄ect the consequence of this process of adap- tation. It is reasonable to assume that the sequence changes accumulated during the evolution of one of the interacting proteins must be compen- sated by changes in the other.
+%		- Here we apply a method for detecting correlated changes in multiple sequence alignments to a set of interacting protein domains and show that positions where changes occur in a correlated fashion in the two interacting molecules tend to be close to the protein±protein interfaces. 
+%		- This leads to the possibility of developing a method for predicting con- tacting pairs of residues from the sequence alone. Such a method would not need the knowledge of the structure of the interacting proteins, and hence would be both radically different and more widely applicable than traditional docking methods.
+%		- We indeed demonstrate here that the information about correlated sequence changes is suf®cient to single out the right inter-domain dock- ing solution amongst many wrong alternatives of two-domain proteins.
+%		- We propose here a new and completely different approach to the study and prediction of protein± protein interaction. Instead of considering the structural nature of the interactions, we try to de- tect the sequence traces that evolution may have left on the interacting sequences during the process of preserving the protein±protein interaction sites.
+%		- Therefore, our approach is not restricted to the cases in which the structures of the proteins to be docked are known and is applicable to any family of interacting proteins for which a large enough se- quence family is available.
+%		- Over time, amino acid substitution may stabilise an interface that does not exist in the closed monomer ... stabilising mutations in these interfaces would be favoured in natural selection'' (Bennett et al., 1995);
+%		- We propose that it is possible to detect this signal by studying com- pensatory mutations. In order to do so, we have appropriately modi®ed our previously published method for the calculation of correlated mutations in multiple-sequence alignments (GoÈbel et al., 1994; Pazos et al., 1997).
+
+
+%------------------------------------------------------------
+% From: Correlated mutations and residue contacts in proteins		(1994, cited 594)
+% \cite{gobel1994correlated}
+% TOPIC: SEMINAL PAPER!!
+%
+% Could not download the paper, all I got was the abstract
+%
+% Abstract
+%The maintenance of protein function and structure constrains the evolution of amino acid sequences. This fact can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions. Here we present a simple and general method to analyze correlations in mutational behavior between different positions in a multiple sequence alignment. We then use these correlations to predict contact maps for each of 11 protein families and compare the result with the contacts determined by crystallography. For the most strongly correlated residue pairs predicted to be in contact, the prediction accuracy ranges from 37 to 68% and the improvement ratio relative to a random prediction from 1.4 to 5.1. Predicted contact maps can be used as input for the calculation of protein tertiary structure, either from sequence information alone or in combination with experimental information. © 1994 John Wiley & Sons, Inc.
+%		- METHOD (from another paper): Correlated mutations were calculated as de- scribed (GoÈbel et al., 1994). Each position in the alignment is coded by a distance matrix. This pos- ition-speci®c matrix contains the distances between all pairs of sequences at that position. Distances are de®ned by the scoring matrix of McLachlan (1971). The association between each pair of pos- itions is calculated as the average of the correlation for each corresponding bin of the position-speci®c matrices. Positions with more than 10% gaps or completely conserved were not included in the cal- culation.
+%
+
+%------------------------------------------------------------
+% From: Disentangling Direct from Indirect Co-Evolution of Residues in Protein Alignments
+% \cite{burger2010disentangling}
+%
+%		- Predicting protein structure from primary sequence is one of the ultimate challenges in computational biology.
+%		- Given the large amount of available sequence data, the analysis of co-evolution, i.e., statistical dependency, between columns in multiple alignments of protein domain sequences remains one of the most promising avenues for predicting residues that are contacting in the structure. 
+%		- A key impediment to this approach is that strong statistical dependencies are also observed for many residue pairs that are distal in the structure.
+%		- Using a comprehensive analysis of protein domains with available three-dimensional structures we show that co-evolving contacts very commonly form chains that percolate through the protein structure, inducing indirect statistical dependencies between many distal pairs of residues
+%		- The identification of functionally and structurally important elements in DNA, RNA and proteins from their sequences has been a major focus of computational biology for several decades. A common approach is to create a multiple alignment of homologous sequences, which places ‘equivalent’ residues into the same column and as such gives a hint of the evolutionary constraints that are acting on related sequences.
+%		- Markov models [1] of protein families and domains have been highly successful in identifying sequences that have similar function and fold into a common structure,
+%		- These hidden Markov models typically assume that the residues occurring at a given position are probabilistically independent of the residues occurring at other positions. At the time at which these models were developed, it was entirely reasonable to ignore dependencies between residues at different positions, since the amount of available sequence data was generally insufficient to estimate joint probabilities of multiple residues.
+%		- As the functionality of biomolecules crucially depends on their three-dimensional structures, whose stabilities depend on interac- tions between residues that are near to each other in space, it is of course to be expected that significant dependencies between residues at different positions will exist.
+%		- CAPS and MI SUCK: 
+%			- We collected a comprehensive set of 2009 multiple alignments of protein domains from the Pfam database [19] for which a three dimensional structure was available (see Materials and Methods) and calculated, for each pair (ij) of columns in each alignment, the statistical dependency using a measure, log (Rij ), which is a finite-size corrected version of mutual information (see Materials and Methods). Since the distribution of log (R) values for an alignment depends strongly on the number of sequences in the alignment, their phylogenetic relationship, and the length of the alignment, log (R) values cannot be directly compared across different alignments. Therefore, we calculated the mean and variance of log (R) values for each alignment and transformed the log (R) values to Z-values (number of standard deviations from the mean). Finally, for each alignment, we divided all pairs of residues into those that are contacting in the three-dimensional structure, and those that are distant in the structure, and calculated the distribution of Z-values for these two sets of residue pairs. As in previous work (e.g. [10,20]) and as defined for CASP [21], two residues were considered in [....] 
+%			- [...] indeed, a higher fraction of contacting residues shows strong statistical dependen- cies than distal residues. However, we also see that the difference in the Z-distribution of close and distal pairs is only moderate.
+%			- Since there are generally many more distal pairs than close pairs, this implies that, even at high Z-values, the majority of residue- pairs are in fact distal in the structure
+%			- This result shows that simple measures of statistical dependency, such as mutual information, are poor at predicting which pairs of residues are directly contacting in the structure.
+%		- WHY DO MI AND CAPS SUCK? 
+%			- The main question is why so many structurally distal pairs show statistical dependencies in their amino-acid distributions that are stronger than those between directly contacting residues.
+%			- 1) First, whereas measures such as mutual information treat the sequences in the multiple alignments as statistically independent, in reality many of the sequences are phylogenetically closely related
+%			- 2) Some of these distant dependencies have been suggested to be caused by homo- oligomeric interactions [14,22]. Thus, in this interpretation, some of the ‘distal’ pairs with strong statistical dependencies are in fact contacting in the homo-oligomer. 
+%			- 3) dependencies are induced by indirect interactions that are mediated either by intermediate molecules [15,23] or by chains of directly interacting residue pairs that run through the protein and connect distal pairs [23–25]
+%		- METHOD:
+%			- We show that a Bayesian network model which we recently developed to predict protein-protein interac- tions [27] can be adapted to rigorously disentangle direct from indirect statistical dependencies between residues
+%			- Briefly, our model assumes that the sequences in a multiple alignment D (the data) are drawn from an (unknown) underlying joint probability distribution P(x1,x2,...,xl) with l the width of the alignment and xi the amino acid at position i. Profile hidden Markov models typically assume that the amino acids at different positions are independent 
+%			- Any model that considers only pairwise conditional dependen- cies factorizes the joint probability...where \pi(i) is the single other position which the residue at position i depends on
+%			- In particular, we do not attempt to estimate the conditional probabilities P(xi jxj ) but rather treat these conditional probabilities as nuisance parameters that we integrate out in calculating the likelihood of the alignment.
+%			- In addition, and importantly, we do not consider only a single ‘best’ way of choosing which other position p(i) each position i depends on, but rather we sum over all ways in which the dependencies can be chosen. 
+%			- The sum over spanning trees in (9) can be calculated using a generalization of Kirchhoff’s matrix-tree theorem. For this we need to calculate the Laplacian of the matrix...
+
+
+
+%------------------------------------------------------------
+% From: Direct-coupling analysis of residue coevolution captures native contacts across many protein families	(2011 cited 165)
+% \cite{morcos2011direct}
+% TOPIC: Mean Field approximation to DCA Algorithm
+%
+%		- It has long been suggested that the resulting correlations among amino acid compositions at different sequence positions can be exploited to infer spatial contacts within the tertiary protein struc- ture.
+%		- Crucial to this inference is the ability to disentangle direct and indirect correlations, as accomplished by the recently introduced direct-coupling analysis (DCA). Here we develop a computationally efficient implementation of DCA, which allows us to evaluate the accuracy of contact prediction by DCA for a large number of protein domains, based purely on sequence information.
+%		- DCA is shown to yield a large number of correctly predicted contacts, recapitulating the global structure of the contact map for the majority of the pro- tein domains examined. 
+%		- Furthermore, our analysis captures clear signals beyond intradomain residue contacts, arising, e.g., from alternative protein conformations, ligand-mediated residue cou- plings, and interdomain interactions in protein oligomers.
+%		- Correlated substitution patterns between residues of a protein family have been exploited to reveal information on the struc- tures of proteins (1–10). 
+%		- However, such studies require a large number (e.g., the order of 1,000) of homologous yet variable pro- tein sequences. 
+%		- If two residues of a protein or a pair of interacting proteins form a contact, a destabilizing amino acid substitution at one position is expected to be compensated by a substitution of the other position over the evolutionary timescale, in order for the residue pair to maintain attractive interaction. 
+%		- A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues
+%		- This problem was subsequently overcome by the direct-coupling ana- lysis (DCA) (16, 17), which aims at disentangling direct from indirect correlations. 
+%		- The top 10 residue pairs identified by DCA were all shown to be true contacts between the TCS proteins, and they were used to guide the accurate prediction (3-Å rmsd) of the interacting TCS protein complex (18, 19)
+%		- Previously, a message-passing algorithm was used to imple- ment DCA (16). This approach, here referred to as mpDCA, was rather costly computationally because it is based on a slowly converging iterative scheme. This cost makes it unfeasible to ap- ply mpDCA to large-scale analysis across many protein families.
+%		- Here we will introduce mfDCA, an algorithm based on the mean- field approximation of DCA. The mfDCA is 10^3 to 10^4 times fas- ter than mpDCA
+%		- Starting with a multiple-sequence alignment (MSA) of a large number of sequences of a given protein domain, extracted using Pfam’s hidden Markov models (HMMs) (21, 22), the basic quantities in this context are the frequency count f i ðAÞ for a single MSA column i, characterizing the relative frequency of finding amino acid A in this column, and the frequency count f ij ðA;BÞ for pairs of MSA columns i and j, characterizing the frequency that amino acids A and B coappear in the same protein sequence in MSA columns i and j. Alignment gaps are considered as the 21st amino acid. Mathematical definitions of these counts are provided in Methods.
+%		- The raw statistical correlation obtained above suffers from a sampling bias, resulting from phylogeny, multiple-strain sequen- cing, and a biased selection of sequenced species. The problem has been discussed extensively in the literature (10, 23–26).
+%		- In this study, we implemented a simple sampling correction, by counting sequences with more than 80% identity and reweighting them in the frequency counts. 
+%		- A simple measure of correlation between these two columns is the mutual information (MI), defined by Eq. 3 in Methods. As we will show, the MI turns out to be an unreliable predictor of spatial proximity.
+%		- Central to our approach is the disentanglement of direct and indirect correlations, which is attempted via DCA,
+%		- This algorithm, termed mfDCA, is able to perform DCA for alignments of up to about 500 amino acids per row, as compared to 60–70 amino acids in the message-passing approach. 
+%		- METHOD [mean field calculation]
+%			- To disentangle direct and indirect couplings, we aim at inferring a statistical model P(A1;...;AL) for entire protein sequences (A1 ;...;AL).
+%			- Besides this constraint, we aim at the most general, least-constrained model PðA1;:::;ALÞ. This model can be achieved by applying the maximum-entropy principle (45, 46), and it leads to an explicit mathematical form of PðA1;:::;ALÞ as a Boltzmann distribution with pairwise couplings eij ðA;BÞ and local biases
+%			-  The exponential of [the partition function] is expanded into a Taylor series. Keeping only the linear order of this expansion, we obtain the well-known mean-field equations
+%			- For later convenience, we also introduce the Hamiltonian [exponential of negative Hamiltonian is the partition function]
+%			- It is important to note that the partition function itself contains all necessary information on the marginals, in particular we have....
+%			- The algorithmic approach is based on a systematic small-coupling expansion, i.e., on a Taylor expansion around zero coupling. This expansion was introduced in [12] by Plefka for disordered Ising models (Ising spin- glasses, corresponding to binary variables with q = 2).
+%			- Furthermore we introduce the so-called Gibbs potential ... as the Legendre transform of the free energy F = − ln Z .
+%			- The first derivative of the Gibbs potential with respect to α equals thus the average of the coupling term in the Hamiltonian. At α = 0, this average can be done eas- ily, since the joint distribution of all variables becomes factorized over the single sites [.......] we find the first- order approximation of the Gibbs potential
+
+
+
+
 
 \subsection{CoEvolutionary models}
 
