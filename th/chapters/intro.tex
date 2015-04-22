@@ -593,6 +593,20 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- Because of the scaling of the algorithmic complexity, the method cannot be applied simultaneously to all 212 positions of the protein alignment. Therefore, the 60 positions of the protein alignment being involved in the 140 highest MI-ranking pairs (containing the 32 candidates for contact pairs identified before) are selected.
 
 
+%------------------------------------------------------------
+% From: Identifying and seeing beyond multiple sequence alignment errors using intra-molecular protein covariation	(2010, cited 22)
+% \cite{dickson2010identifying}
+%
+%		- Different alignments of the same protein family give different results demonstrating that covariation depends on the quality of the sequence alignment.
+%		- We show that current criteria are insufficient to build alignments for use with covariation analyses as systematic sequence alignment errors are present even in hand-curated structure-based alignment datasets like those from the Conserved Domain Database. 
+%		- We demonstrate that removing alignment errors due to 1) improper structure alignment, 2) the presence of paralogous sequences, and 3) partial or otherwise erroneous sequences, improves contact prediction by covariation analysis
+%		- Standard benchmarks for covariation accuracy measure the fraction of covarying amino acid pairs that are in contact. 
+%		- First, the sequence alignments must contain sufficient sequences with enough variation for the signal to exceed the noise. Estimates of the required number of sequences needed in the alignments for this to be true vary from *30 [6] to w125 [4,8,15,16]. 
+%		- Secondly, all positions in a protein appear to covary because of their shared ancestry, and this signal is the only systematic source of covariation for the vast majority of position pairs [6,14,17]. 
+%		- As one example, structure-based alignment algorithms are susceptible to shift error [18], meaning that positions in the structure alignment are not orthologous despite the fact that much of the secondary structural elements seem to overlap between aligned structures.
+%		- We observed that the same protein family often gave different numbers of covarying positions when alignments were from different sources even if the alignments contained comparable numbers of sequences. 
+%		- We also found that alignments generated without structural information identified fewer pairs in contact in the folded protein compared to alignments generated with structural information.
+%		- Here we show that a strong covariation signal can be caused by alignment error, potentially leading to false positive predictions. 
 
 
 %------------------------------------------------------------
@@ -626,7 +640,8 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- strong LD (r2 ≥ 0.8);
 
 %------------------------------------------------------------
-% From: \cite{koch2013long}		Cited by: 3
+% From: Long Range Linkage Disequilibrium across the Human Genome		(2013, cited 3)
+% \cite{koch2013long}
 %	Topic: DETECTING EPISTASIS (not GWAS)
 %
 %		- Long-range linkage disequilibria (LRLD) between sites that are widely separated on chromosomes may suggest that population admixture, epistatic selection, or other evolutionary forces are at work. 
@@ -895,6 +910,12 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- The quality of MSAs is obviously essential as they serve as the initial input to most of the methods. Furthermore, the methods work better on large protein families for which the degree of sequence similarity has a wide but homogenously dis‐ tributed range from distant to similar sequences
 %			- In general, optimal performance is obtained when protein subfamilies (branches of the tree) are spaced at regular intervals,
 %			- For example, assembling phylogenetic trees is confounded by complex evolutionary scenarios, such as sequences acquired by horizontal gene transfer, genetic saturation or the difficulties in identifying the correct orthologous sequences when genome duplication and domain rear‐ rangements have occurred.
+
+%------------------------------------------------------------
+% From: Multidimensional mutual information methods for the analysis of covariation in multiple sequence alignments
+% \cite{clark2014multidimensional}
+%
+%		- 
 
 
 \subsection{CoEvolutionary models}
