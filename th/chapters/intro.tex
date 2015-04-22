@@ -747,6 +747,31 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- In addition, and importantly, we do not consider only a single ‘best’ way of choosing which other position p(i) each position i depends on, but rather we sum over all ways in which the dependencies can be chosen. 
 %			- The sum over spanning trees in (9) can be calculated using a generalization of Kirchhoff’s matrix-tree theorem. For this we need to calculate the Laplacian of the matrix...
 
+%------------------------------------------------------------
+% From: Disentangling evolutionary signals: conservation, specificity determining positions and coevolution. Implication for catalytic residue prediction (2012, cited: 8)
+% \cite{teppa2012disentangling}
+%
+%		- However, it is not clear to what extent these different methods overlap, and if any of the methods have higher predictive potential compared to others when it comes to, in particular, the identification of catalytic residues (CR) in proteins.
+%		- The importance of a particular residue in a protein can be due to many different factors, including structural stability, protein- protein interaction, protein-DNA/RNA interaction, lig- and binding site and maintenance of protein functions.
+%		- In most cases, it is difficult to assign a particular func- tion to a particular residue or group of residues, as func- tion is determined by a subtle interplay between multiple residues and mutation to any of them might impact the protein function and/or structure
+%		- Three clear signals of evolution are: con- servation, conservation within specific groups of sequences sharing a common function, and coevolution between resi- dues (see Figure 1)
+%			-1) Conservation is straightforward to cal- culate and interpret. A change in a conserved position (even when proteins are highly diverse) should have a deleterious effect on the protein function.
+%			-2) Specificity de- termining positions (SDPs) are those positions within multiple sequence alignments (MSAs) that are conserved within groups of proteins that perform the same function (specificity groups) and varying between groups with dif- ferent functions/specificities. These sites generally de- termine protein specificity either by binding specific substrate/inhibitor or through interaction with other protein [2-4].
+%			-3) The degree of co-evolution between pairs of residues is commonly estimated using a measure of mutual informa- tion (MI)
+%		- Several methods to predict specificity-determining positions have been developed. Many of these require a previous classification of the proteins into functional groups [3,5,6], which is a problematic limitation since the specificity of a given protein is unavailable in the great majority of cases and is non-trivial to calculate and validate.
+%		- Here, we aim at addressing this question by comparing the ability to identify catalytic residues (CR) in enzymatic proteins of different information-based methods
+%		- DATA: The analysis is based on a set of 424 enzymatic Pfam families earlier described by Marino Buslje (2010) 
+%		- Given this data set, we calculated measures related to evolution for the different methods included in the benchmark, and next analyzed the overlap/correlation between these measures and their predictive potential for identifica- tion of CR in proteins.
+%		- RESULTS:
+%			- Methods for prediction of SDPs aim at estimating a score that correlates with the functional importance of a given residue in terms of protein specificity.
+%			- From Figure 2, it is clear that the methods for SDP identification (ivET, SDPfox and XDET) show limited mutual overlap. The correlations values are low for all comparisons, with the highest value of 0.34 being between SDPfox and XDET.
+%			-  We next analyzed the correlation between methods aimed to rank the residues by functional importance
+%			- From our results, we find that the methods included in the benchmark can be divided in three groups with limited mutual overlap. 
+%				-1) One group consists of methods which predictive signal is strongly correlated to sequence conservation (rvET, and sequence conserva- tion itself), 
+%				-2) one group consists of the methods whose predictive signal is derived from mutual information (cMI), 
+%				-3) and the last group consists of the methods devel- oped for prediction of specificity determining positions (SDPfox, XDET and ivET).
+%			- CONCLUSION:  we find that only methods from the first two of the above three groups displayed a reliable predictive performance (mean AUC value above 0.8), indicating that the methods from the SDP group has limited value for the identification of residues critical for protein func- tion.
+
 
 
 %------------------------------------------------------------
