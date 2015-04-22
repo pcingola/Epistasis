@@ -915,7 +915,22 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 % From: Multidimensional mutual information methods for the analysis of covariation in multiple sequence alignments
 % \cite{clark2014multidimensional}
 %
-%		- 
+%		- (multidimensional) extension of traditional mutual information (MI) can be an additional tool to study covariation
+%		- as tested with a set of 9 MSAs each containing <400 sequences, and was shown to be comparable to that of the newest methods based on maximum entropy/pseudolikelyhood statistical models of protein sequences. 
+%		- METHOD COMPARISSON: However, while all the methods tested detected a similar number of covarying pairs among the residues separated by < 8 Å in the reference X-ray structures, there was on average less than 65% overlap between the top scoring pairs detected by methods that are based on different principles.
+%		- Unfortunately, the reliability of covariation data can be diminished by the existence of correlations originating not just from the direct interactions (physical or functional) between two residues, but also from their shared inter- action with one or more other residues, and by the shared phylogenetic history of several homologous proteins in the MSA. 
+%		- While the performance of these methods has been tested primarily with high quality MSAs containing a very large number of sequences (between 5L and 25L, with L=sequence length), very often investigators are interested in studying the covarying positions of proteins for which the available MSA contains less than L sequences, and whose alignment quality is not optimal due to the presence of many (or large) gaps,
+%		- METHOD: 
+%			- We can consider a more complicated case including a third channel (column). In this case, I(X1;X3;X2) between the three variables repre- sents the ‘interaction information’ for a channel with two discrete inputs X1 and X3 and a single discrete output X2 (a 2-way channel). 
+%			- If we are in- terested in ‘explaining out’ the effect of X3 on the transmission between X1 and X2, we can take a sum of the mutual information I(X1;X2) for each possible value x3 of X3, weighted by the probability of occurrence (px3) of each of those values:
+%			- Averaging over all values of X3 (a 3rd column) in an MSA we obtain for the 3-dimensional MI between any two columns (X1 and X2):
+%		- LIMITATIONS: Due to the long execution times and large memory requirements (growing with the 4th power of the sequence length) of 4D_MI only the removal of 3rd order indirect coupling (3D_MI) is practical with desktop computers for MSAs of sequences longer than 200 residues.
+%		- COMPARISSON:
+%			- We have evaluated the performance of standard MI (2D_MI), 3D_MI, 4D_MI, PSICOV [14], plmDCA [17], GREMLIN [18], and Hopfield-Potts_DCA with Princi- pal Component Analysis [19] (called here hpPCA) with the MSAs of 9 protein families
+%			- These MSAs contain less than 400 sequences with ratios of sequence number to sequence length (called here the ‘L ratio’) between 0.4 and 2.0, and thus represent a particularly sensitive test for the performance of the different methods with less than optimal size MSAs. 
+%			- all the methods tested produced covariation maps that closely resembled the contact maps derived from the representative X-ray structures of each family
+%			- While all the methods used in this study performed quite well in terms of percentage of close contacts recog- nized among the top covarying pairs, they did not neces- sarily recognize the same close contacts, as no more than 50% of all the pairs were shared between the MI/mdMI based methods and the other methods
+%			- Finally, since there is < 65% overlap among the sets of covarying residues identified by algorithms based on different principles, further improvement in accuracy is likely to be obtained by selecting only the shared pairs or by averaging the results from different methods.
 
 
 \subsection{CoEvolutionary models}
