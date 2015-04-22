@@ -544,6 +544,23 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 
 
 %------------------------------------------------------------
+% From: Exploiting the co-evolution of interacting proteins to discover interaction specificity		(2003 cited 205)
+% \cite{ramani2003exploiting}
+%
+%		- Predicting interaction specificity, such as matching members of a ligand family to specific members of a receptor family, is largely an unsolved problem. Here we show that by using evolutionary relationships within such families, it is possible to predict their physical interaction specificities. 
+%		- We introduce the computational method of matrix alignment for finding the optimal alignment between protein family similarity matrices
+%		- Binding speci- ficities of duplicate genes (paralogs) often diverge, such that new binding specificities are evolved
+%		- the use of phylogenetic trees to account for the co-evolution of interacting proteins
+%		- the hypothesis underlying these approaches is that interacting proteins often exhibit coordi- nated evolution, and therefore tend to have similar phylogenetic trees. Goh et al.17 demonstrated this by showing that chemokines and their receptors have very similar phylogenetic trees
+%		- METHOD: 
+%			- In order to exploit the evolutionary information contained in such interacting protein families, we developed an algorithm that is conceptually equivalent to superimposing the phylogenetic trees of the two protein families.
+%			- The matrix alignment method for predicting protein inter- action specificity. Proteins in family A interact with those in family B. In each family, a similarity matrix summarizes the proteins’ evolution- ary relationships. The algorithm uses the similarity matrices to pair up the genes in the two families. Columns of matrix B are re-ordered (along with their corresponding rows in the matrix) such that the B matrix agrees maximally with matrix A, judged by minimizing the root mean square difference (r.m.s.d.) between elements in the two matrices. Interactions are then predicted between proteins heading equivalent columns of the two matrices.
+%			- One matrix is shuffled, maintaining the correct relationships between proteins but simply re-ordering them in the matrix, until the two matrices maximally agree, minimizing the root mean square difference between elements of the two matrices. Interactions are then predicted between proteins heading equivalent columns of the two matrices. 
+%			- For matrix alignment, MATRIX currently applies a stochastic simulated annealing-based algorithm.
+			
+
+
+%------------------------------------------------------------
 % From \cite{petkov2005evidence}		Cited by: 91
 %	Topic: DETECTING EPISTASIS (not GWAS)
 %
