@@ -717,6 +717,7 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- METHOD (from another paper): Correlated mutations were calculated as de- scribed (GoÈbel et al., 1994). Each position in the alignment is coded by a distance matrix. This pos- ition-speci®c matrix contains the distances between all pairs of sequences at that position. Distances are de®ned by the scoring matrix of McLachlan (1971). The association between each pair of pos- itions is calculated as the average of the correlation for each corresponding bin of the position-speci®c matrices. Positions with more than 10% gaps or completely conserved were not included in the cal- culation.
 %
 
+
 %------------------------------------------------------------
 % From: Disentangling Direct from Indirect Co-Evolution of Residues in Protein Alignments
 % \cite{burger2010disentangling}
@@ -747,6 +748,7 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- In addition, and importantly, we do not consider only a single ‘best’ way of choosing which other position p(i) each position i depends on, but rather we sum over all ways in which the dependencies can be chosen. 
 %			- The sum over spanning trees in (9) can be calculated using a generalization of Kirchhoff’s matrix-tree theorem. For this we need to calculate the Laplacian of the matrix...
 
+
 %------------------------------------------------------------
 % From: Disentangling evolutionary signals: conservation, specificity determining positions and coevolution. Implication for catalytic residue prediction (2012, cited: 8)
 % \cite{teppa2012disentangling}
@@ -771,7 +773,6 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %				-2) one group consists of the methods whose predictive signal is derived from mutual information (cMI), 
 %				-3) and the last group consists of the methods devel- oped for prediction of specificity determining positions (SDPfox, XDET and ivET).
 %			- CONCLUSION:  we find that only methods from the first two of the above three groups displayed a reliable predictive performance (mean AUC value above 0.8), indicating that the methods from the SDP group has limited value for the identification of residues critical for protein func- tion.
-
 
 
 %------------------------------------------------------------
@@ -807,8 +808,41 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- Furthermore we introduce the so-called Gibbs potential ... as the Legendre transform of the free energy F = − ln Z .
 %			- The first derivative of the Gibbs potential with respect to α equals thus the average of the coupling term in the Hamiltonian. At α = 0, this average can be done eas- ily, since the joint distribution of all variables becomes factorized over the single sites [.......] we find the first- order approximation of the Gibbs potential
 
-
-
+%------------------------------------------------------------
+% From: Emerging methods in protein co‐evolution (2013, Nature)
+% \cite{de2013emerging}
+%
+%		- DEFINITION: 
+%			- In its simplest definition, co‐evolution refers to the coordinated changes that occur in pairs of organisms or biomolecules, typically to main‐ tain or to refine functional interactions between those pairs. 
+%			- Darwin himself initiated the study of co‐evolution, and his observation on the relationship between the size of orchids’ corollae and the length of the proboscis of pol‐ linators led him to predict successfully the existence of a new species that was able to suck from the large spur of Darwin’s orchid. 
+%			- The studies of Dobzhansky1 and others2 contributed to the establishment of this concept in genetic terms, although the term co‐evolution is usually attrib‐ uted to Ehrlich3, and it is commonly defined as ‘reciprocal evolutionary change in interacting species’4.
+%			- For the past 20 years, much effort has been dedicated to investigating co‐evolution at the molecular level. In a classical study, coordinated sequence changes among genes (and their protein products) were proposed to be essential to optimize physiological performance and reproductive success5, thus indicating that molecular co‐evolution could be an important and widespread determinant of fitness.
+%			- Although co‐evolution can potentially occur between various biomolecules, most recent tools focus on protein co‐evolution. 
+%		- Tools at the residue level were inspired by the existence of interdependent changes in groups of variable amino acids, as formulated for the first time by the covarion model6, and they typically use the multiple sequence alignment (MSA) for a protein family of homologues to search for correlated mutations. 
+%		- Such correlated muta‐ tions are suggestive of compensatory changes that occur between entangled residues (for example, those in prox‐ imity, direct contact or acting together in catalytic or binding sites) to maintain protein stability, function or folding7–10. Furthermore, extending these methods to search for correlated mutations between pairs of interacting proteins can identify sites of inter‐protein interaction11–17.
+%		- In parallel, related methods have been developed to search for larger groups of residues that are specifically co‐conserved within particular protein subfamilies. 
+%		- The co‐evolution between interacting species, such as parasites–hosts, predators–prey and symbionts–hosts, is in many cases manifested as a similarity of the phy‐ logenetic trees of these co‐evolving species
+%		- Likewise, molecular co‐evolution caused by physical or functional protein interactions frequently results in similarities of the corresponding protein family trees. Consequently, approaches based on protein family tree similarity can successfully identify interaction partners for a given protein, such as ligand–receptor pairs
+%		- Co‐evolution at the residue level: Substantial effort has been invested in studying the co‐evolution of pairs of positions in MSAs of protein families (that is, residue co‐evolution). These pairs of co‐evolving positions were often found to correspond to spatially proximal residues in the protein structure, and such putative inter‐residue contacts have aided protein structure prediction 
+%		- Furthermore, co‐evolution between residues in different proteins has been used as predic‐ tors of the interacting surfaces (protein interfaces) in pro‐ tein complexes as well as in the search for interacting partners of a given protein, as discussed later in ‘Hybrid residue–protein methods’.
+%		- Detecting correlated amino acid changes in pairs of positions. Residue co‐evolution was originally assessed through detecting pairs of positions (two columns of the MSA) that have interdependent amino acid frequencies23 or similar patterns of amino acid substitutions7,9,10
+%		- ...can be assessed by a linear correlation. This method has been extensively tested and compared with newer methods and shows a small but significant capability to recover pairs of positions in physical contact24 and still serves as a baseline to benchmark the performance of new methods25. 
+%		- CAPS dampens the influence of background phylo‐ genetic divergence by requiring the detected correlations to still be detected after particular clades are removed from the MSA. It also corrects the amino acid substi‐ tution matrix so as to consider the actual divergence among the sequences
+%		- MI: Mutual information has been also used to detect co‐varying positions. Whereas correlation‐based meth‐ ods explore inter‐sequence amino acid substitutions, mutual information considers the distribution of each amino acid in the different sequences for a position. In fact, mutual information quantifies whether the pres‐ ence of an amino acid in a given sequence for a posi‐ tion is a ‘good prediction’ of the presence of any given amino acid in the same sequence for a second position. In this sense, mutual information does not account for which particular amino acids are present in the same sequences in both positions but relies on the statistical significance of the observed co‐variations. Therefore, the different amino acids are treated as different sym‐ bols that are not related by similarity relationships, and the magnitude of the biochemical changes is not taken into account when assessing the similarity of mutational patterns.
+%		- MARKOV MODELS: In this case, the use of an enhanced continuous-time Markov process model for sequence co‐evolution represented an important step forwards13. These approaches are suit‐ able for small‐scale studies of co‐evolution in small pro‐ tein families, but the evaluation of their performance in large‐scale studies remains excessively demanding in computational terms.
+%		- Disentangling directly coupled residues from the net‐ work of indirectly correlated positions. 
+%			- An important obstacle in the detection of co‐evolving positions is the apparent co‐variation or indirect coupling that can occur when more than two positions show coordinated substitution patterns. In these cases, the apparent co‐ variation between two positions is the consequence of the evolutionary interdependence of both positions with one or more additional positions. The aggrega‐ tion of these indirect couplings can make it difficult to recognize the directly interdependent positions.
+%			- As the direct couplings are more reliable for predict‐ ing physically proximal residues in protein structures, approaches are needed to distinguish direct from indi‐ rect couplings
+%			- A first basic model was proposed by Lapedes et al.37, who assumed that indirect couplings do not represent evolutionary interdependence and can be considered to be uninformative pairwise co‐variations. This first approach used a Monte Carlo algorithm to infer the sim‐ plest probabilistic model that was able to account for the whole network of co‐variations in a simulated sce‐ nario. 
+%			- Direct coupling analysis (DCA)15–17,38 and protein sparse inverse covariance (PSICOV)39 establish a global statistical model of the MSA in terms of position‐specific variability and inter‐position coupling
+%			- Alternatively, Burger and van Nimwegen’s41 method uses a Bayesian network model that includes pair‐ wise conditional dependencies, and the regularized multinomial regression‐based correlated mutations (RMRCM) approach42 takes into account the whole network of dependencies and not only the individual pairwise dependencies.
+%			- For MSAs with more than 1,000 sequences, DCA and PSICOV seem to be superior to Burger and van Nimwegen’s method38,39.
+%			- In fact, some of these methods are able to predict contacts between residues far apart in the linear sequence with sufficient accuracy as to be useful for guiding in silico folding experiments (BOX 1). Nevertheless, such clear improvements are obtained only for protein families with thousands of members
+%			- Potential co‐evolution between functionally related pro‐ tein families was initially observed in sporadic cases. For example, remarkable similarity was detected between the phylogenetic trees of ligands (such as insulins and interleukins) and their receptors; this co‐evolution was proposed to be required for the maintenance of their specific interactions2
+%		- LIMITATIONS:
+%			- The quality of MSAs is obviously essential as they serve as the initial input to most of the methods. Furthermore, the methods work better on large protein families for which the degree of sequence similarity has a wide but homogenously dis‐ tributed range from distant to similar sequences
+%			- In general, optimal performance is obtained when protein subfamilies (branches of the tree) are spaced at regular intervals,
+%			- For example, assembling phylogenetic trees is confounded by complex evolutionary scenarios, such as sequences acquired by horizontal gene transfer, genetic saturation or the difficulties in identifying the correct orthologous sequences when genome duplication and domain rear‐ rangements have occurred.
 
 
 \subsection{CoEvolutionary models}
