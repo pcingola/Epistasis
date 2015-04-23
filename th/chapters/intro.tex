@@ -954,6 +954,37 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %		- We have also mathematically demonstrated the validity of the APC correction.
 
 
+%------------------------------------------------------------
+% From: Protein structure prediction from sequence variation
+% \cite{marks2012protein}
+%
+%		- Protein folding:
+%			- This information can be efficiently mined to detect evolutionary couplings between residues in proteins and address the long-standing challenge to compute protein three-dimensional structures from amino acid sequences.
+%			- We expect computation of covariation patterns to complement experimental structural biology in elucidating the full spectrum of protein structures, their functional interactions and evolutionary dynamics.
+%			- In the past 50 years, there has been tremendous progress in experimen- tal determination of protein three-dimensional structures, but this has not kept pace with the explosive growth of sequence information that results from massively parallel sequencing technology. 
+%			- Computational prediction of protein structures, which has been a long-standing challenge in molecular biology for more than 40 years, may be able to fill this gap, if done with sufficient accuracy. 
+%			- However, correct de novo predictions from sequence, when not a single structure in a protein family is known, have been hard to achieve,
+%			- Clearly, and unfortunately, the de novo structure prediction problem does not scale13, the conformational search space increases exponentially as the size of the protein increases, presenting a funda- mental computational challenge, even for fragment-based methods14. In this sense, the general problem of de novo three-dimensional structure prediction has remained unsolved.
+%			- A substantial step forward in protein-structure prediction is now on the horizon based on the power of evolutionary information found in patterns of correlated mutations in protein sequences 
+%			- Several groups have demonstrated that extracting covariation information from sequences is sufficient not only to estimate which pairs of residues are close in three-dimensional space15–21 but also to fold a protein to reasonable accuracy15,22–25
+%
+%		- Indirect correlations:
+%			- if residues A and B contact each other, as do residues B and C, then there is in gen- eral, a transitive influence observed between residues A and C (‘chain- ing effect’17,27).
+%			- As residues can contact many other residues (not just one), transitive effects occur across the network, and pairs of residues that are correlated as computed using a ‘local’ statistical model, such as mutual information scores, are not necessarily functionally constrained or close in space
+%		- LOCAL MODELS:
+%			- Local statistical models (below referred to as local models or local methods) assume that pairs of residue positions are statistically independent of other pairs of residues 
+%			- Other confounding effects that have prevented high-accuracy prediction of residue contacts include uneven representation of family members in sequence space, statistical- noise as the result of an inadequate number of sequences in the family as well as phylogenetic effects.
+%		- GLOBAL MODELS
+%			- In contrast, a ‘global’ modeling approach treats correlated pairs of resi- dues as dependent on each other, rather than as statistically independent, thereby minimizing the effects of transitivity and spurious noise.
+%			- This approach also uses globally consistent single-residue marginals, which takes into account effects from conservation of single residue positions. Global approaches yield high coupling scores only for pairs or residue positions that are likely to be causative of all the observed correlations.
+%			- Noncausal correlation is well understood in statistical physics; it includes, for instance, long-range order observed in spin systems, where in fact the spins only have short-range direct interactions, and is called ‘chained covariation’27,34. 
+%			- One global statistical approach is known as entropy maximization under data constraints, a classic inference method connecting information the- ory and Boltzmann statistics 35
+%			- Maximizing entropy under constraints36 has been successfully used in statistical physics and other areas of statistical inference37–39, and the conditional mutual information derived from correlations between positions in a protein sequence is a discrete, nonlinear analog of partial correlation analysis40
+%			- In contrast to simple mutual information, the conditional mutual information can be thought of as the degree of covariation between residues at positions a and b that is due solely to direct effects of a on b, factoring out contri- butions to the correlation that are caused by interaction of both a and b with the rest of the network of residues.
+%			- CORRELATION (PSI_COV) the covariance matrix (the observed minus expected pair counts) of dimension (20L)2, where L is the length of the protein sequence, by counting how often a given pair of the 20 amino acids, say alanine and lysine, occurs in a particular pair of positions, say position 15 and 67, in any one sequence, summing over all sequences in the multiple-sequence alignment. This large matrix contains the raw data capturing all residue pair relationships across evolution up to second order (pairs, not triplets or higher). One can then compute a measure of causative correlations, the conditional mutual information, in the global statistical approaches by taking the inverse of the covariance matrix. That such a matrix inver- sion results in a measure of causative correlations is well known in the statistical theory of Gaussian multivariate distributions of continuous variables40.
+%			- MEAN FIELD APPROX: An analogous derivation for discrete-state biological sequence analy- sis is, for example, based on a mean-field expansion in analogy to statisti- cal physics16. The resulting explicit probability model for a sequence in the particular protein family resulting from inversion of the covariation matrix contains numerical estimates of direct pair interactions. These are directly and simply computed from the raw data in the covariation matrix, in contradistinction to machine-learning methods that rely on parameter fitting in learning sets and cross-validation in test sets. The pair interaction terms can also be interpreted as residue-residue pair energies, in analogy to pair terms in a Hamiltonian energy expression in statistical physics. The conditional mutual information between a pair of positions derived using the global statistical approach becomes a useful predictor of residue-residue contacts.
+%			- The maximum-entropy approach to potentially solving the problem of protein structure prediction from residue covariation patterns was first described by Lapedes and collaborators17,27. However, instead of inversion of the covariance matrix, they used a more computationally demanding Monte Carlo method (that is, iterative exploration of the best set of pair interactions values) to derive the probability terms in conditional mutual information. Although Lapedes and Jarzynski did not compute three-dimensional structures, they reached a first break- through in contact prediction in 2002 for 11 small proteins and reported 50–70% accuracy for top 20 contact predictions, in contrast to 35–45% accuracy with the previous best methods available17.
+
 
 
 \subsection{CoEvolutionary models}
