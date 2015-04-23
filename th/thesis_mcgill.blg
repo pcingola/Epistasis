@@ -9,45 +9,49 @@ Repeated entry---line 2192 of file mcgilletd.bib
  : @article{mani2008defining
  :                          ,
 I'm skipping whatever remains of this entry
-You've used 14 entries,
+Repeated entry---line 3829 of file mcgilletd.bib
+ : @article{koo2013review
+ :                       ,
+I'm skipping whatever remains of this entry
+You've used 26 entries,
             2118 wiz_defined-function locations,
-            590 strings with 7108 characters,
-and the built_in function-call counts, 5807 in all, are:
-= -- 557
-> -- 359
+            661 strings with 9407 characters,
+and the built_in function-call counts, 10450 in all, are:
+= -- 1001
+> -- 650
 < -- 1
-+ -- 145
-- -- 128
-* -- 512
-:= -- 998
-add.period$ -- 42
-call.type$ -- 14
-change.case$ -- 104
++ -- 261
+- -- 230
+* -- 919
+:= -- 1801
+add.period$ -- 78
+call.type$ -- 26
+change.case$ -- 190
 chr.to.int$ -- 0
-cite$ -- 14
-duplicate$ -- 159
-empty$ -- 381
-format.name$ -- 128
-if$ -- 1139
+cite$ -- 26
+duplicate$ -- 290
+empty$ -- 688
+format.name$ -- 230
+if$ -- 2051
 int.to.chr$ -- 0
-int.to.str$ -- 14
-missing$ -- 14
-newline$ -- 73
-num.names$ -- 28
-pop$ -- 79
+int.to.str$ -- 26
+missing$ -- 26
+newline$ -- 133
+num.names$ -- 52
+pop$ -- 141
 preamble$ -- 1
-purify$ -- 90
+purify$ -- 164
 quote$ -- 0
-skip$ -- 106
+skip$ -- 193
 stack$ -- 0
-substring$ -- 419
-swap$ -- 19
+substring$ -- 723
+swap$ -- 31
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 56
+type$ -- 104
 warning$ -- 0
-while$ -- 54
-width$ -- 16
-write$ -- 156
-(There was 1 error message)
+while$ -- 97
+width$ -- 28
+write$ -- 288
+(There were 2 error messages)

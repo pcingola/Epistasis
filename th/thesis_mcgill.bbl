@@ -48,6 +48,16 @@ Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
   effect.
 \newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
 
+\bibitem{de2013emerging}
+David de~Juan, Florencio Pazos, and Alfonso Valencia.
+\newblock Emerging methods in protein co-evolution.
+\newblock {\em Nature Reviews Genetics}, 14(4):249--261, 2013.
+
+\bibitem{gao2010classification}
+Hong Gao, Julie~M Granka, and Marcus~W Feldman.
+\newblock On the classification of epistatic interactions.
+\newblock {\em Genetics}, 184(3):827--837, 2010.
+
 \bibitem{huang2012epistasis}
 Wen Huang, Stephen Richards, Mary~Anna Carbone, Dianhui Zhu, Robert~RH Anholt,
   Julien~F Ayroles, Laura Duncan, Katherine~W Jordan, Faye Lawrence, Michael~M
@@ -57,6 +67,24 @@ Wen Huang, Stephen Richards, Mary~Anna Carbone, Dianhui Zhu, Robert~RH Anholt,
 \newblock {\em Proceedings of the National Academy of Sciences},
   109(39):15553--15559, 2012.
 
+\bibitem{koch2013long}
+Evan Koch, Mickey Ristroph, and Mark Kirkpatrick.
+\newblock Long range linkage disequilibrium across the human genome.
+\newblock {\em PloS one}, 8(12):e80754, 2013.
+
+\bibitem{koo2013review}
+Ching~Lee Koo, Mei~Jing Liew, Mohd~Saberi Mohamad, and Abdul~Hakim
+  Mohamed~Salleh.
+\newblock A review for detecting gene-gene interactions using machine learning
+  methods in genetic epidemiology.
+\newblock {\em BioMed research international}, 2013, 2013.
+
+\bibitem{li2011detecting}
+Jing Li, Benjamin Horstman, and Yixuan Chen.
+\newblock Detecting epistatic effects in association studies at a genomic level
+  based on an ensemble approach.
+\newblock {\em Bioinformatics}, 27(13):i222--i229, 2011.
+
 \bibitem{mani2008defining}
 Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
   Frederick~P Roth.
@@ -64,17 +92,59 @@ Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
 \newblock {\em Proceedings of the National Academy of Sciences},
   105(9):3461--3466, 2008.
 
+\bibitem{mckinney2006machine}
+Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
+\newblock Machine learning for detecting gene-gene interactions.
+\newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
+
+\bibitem{petkov2005evidence}
+Petko~M Petkov, Joel~H Graber, Gary~A Churchill, Keith DiPetrillo, Benjamin~L
+  King, and Kenneth Paigen.
+\newblock Evidence of a large-scale functional organization of mammalian
+  chromosomes.
+\newblock {\em PLoS genetics}, 1(3):e33, 2005.
+
 \bibitem{phillips2008epistasis}
 Patrick~C Phillips.
 \newblock Epistasis—the essential role of gene interactions in the structure
   and evolution of genetic systems.
 \newblock {\em Nature Reviews Genetics}, 9(11):855--867, 2008.
 
+\bibitem{schupbach2010fastepistasis}
+Thierry Sch{\"u}pbach, Ioannis Xenarios, Sven Bergmann, and Karen Kapur.
+\newblock Fastepistasis: a high performance computing solution for quantitative
+  trait epistasis.
+\newblock {\em Bioinformatics}, 26(11):1468--1469, 2010.
+
 \bibitem{tyler2009shadows}
 Anna~L Tyler, Folkert~W Asselbergs, Scott~M Williams, and Jason~H Moore.
 \newblock Shadows of complexity: what biological networks reveal about
   epistasis and pleiotropy.
 \newblock {\em Bioessays}, 31(2):220--227, 2009.
+
+\bibitem{venkatesan2009empirical}
+Kavitha Venkatesan, Jean-Francois Rual, Alexei Vazquez, Ulrich Stelzl, Irma
+  Lemmens, Tomoko Hirozane-Kishikawa, Tong Hao, Martina Zenkner, Xiaofeng Xin,
+  Kwang-Il Goh, et~al.
+\newblock An empirical framework for binary interactome mapping.
+\newblock {\em Nature methods}, 6(1):83--90, 2009.
+
+\bibitem{wang2012ldgidb}
+Ming-Chih Wang, Feng-Chi Chen, Yen-Zho Chen, Yao-Ting Huang, and Trees-Juen
+  Chuang.
+\newblock Ldgidb: a database of gene interactions inferred from long-range
+  strong linkage disequilibrium between pairs of snps.
+\newblock {\em BMC research notes}, 5(1):212, 2012.
+
+\bibitem{zhang2007bayesian}
+Yu~Zhang and Jun~S Liu.
+\newblock Bayesian inference of epistatic interactions in case-control studies.
+\newblock {\em Nature genetics}, 39(9):1167--1173, 2007.
+
+\bibitem{zhao2006test}
+Jinying Zhao, Li~Jin, and Momiao Xiong.
+\newblock Test for interaction between two unlinked loci.
+\newblock {\em The American Journal of Human Genetics}, 79(5):831--845, 2006.
 
 \bibitem{zuk2012mystery}
 O.~Zuk, E.~Hechter, S.R. Sunyaev, and E.S. Lander.
