@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 13:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 13:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -499,12 +499,13 @@ OML/cmm/m/it/12 N \OT1/cmr/m/n/12 +
 
 LaTeX Warning: Reference `ch:gwas' on page 44 undefined on input line 341.
 
-[44] [45]
-Overfull \hbox (2.60986pt too wide) in paragraph at lines 360--363
+[44] [45] [46]
+Overfull \hbox (2.60986pt too wide) in paragraph at lines 371--375
 []\OT1/cmr/m/n/12 [Epistasis & Quan-ti-ta-tive traits] In the case of QUAN-TI-T
 A-TIVE TRAITS,
  []
 
+[47]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ˜ in font cmr12!
@@ -523,112 +524,139 @@ Missing character: There is no ¼ in font cmr12!
 Missing character: There is no ï in font cmr12!
 Missing character: There is no ¿ in font cmr12!
 Missing character: There is no ¼ in font cmr12!
-[46]
-Overfull \hbox (6.67358pt too wide) in paragraph at lines 382--387
+ [48]
+Missing character: There is no â in font cmr12!
+Missing character: There is no † in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no † in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no † in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no â in font cmr12!
+Missing character: There is no † in font cmr12!
+Missing character: There is no µ in font cmr12!
+
+Overfull \hbox (13.9763pt too wide) in paragraph at lines 397--407
+[]\OT1/cmr/m/n/12 [Epistasis ex-am-ples: Hu-man] De-spite con-sid-er-able ef-fo
+rts, few well-replicated
+ []
+
+[49] [50]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [51] [52]
+Overfull \hbox (6.67358pt too wide) in paragraph at lines 431--436
 \OT1/cmr/m/n/12 poly-mor-phic loci-is the ge-netic ba-sis of canal-iza-tion and
  spe-ci-a-tion, and epistatic
  []
 
 
-Overfull \hbox (1.00839pt too wide) in paragraph at lines 382--387
+Overfull \hbox (1.00839pt too wide) in paragraph at lines 431--436
 \OT1/cmr/m/n/12 [[]] DATASET: Here, we com-pared the ge-netic ar-chi-tec-ture o
 f three Drosophila
  []
 
-[47] [48]
+[53]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no “ in font cmr12!
+ [54]
 
-LaTeX Warning: Reference `ch:gwas' on page 49 undefined on input line 1089.
+LaTeX Warning: Reference `ch:gwas' on page 55 undefined on input line 1077.
 
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1409
+[55]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1397
 .
-(/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1409.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1397.
 
- [49]
+ [56]
 
-LaTeX Warning: Reference `ch:gwas' on page 50 undefined on input line 1417.
-
-[50]
-
-LaTeX Warning: Reference `ch:bds' on page 51 undefined on input line 1424.
+LaTeX Warning: Reference `ch:gwas' on page 57 undefined on input line 1405.
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 51 undefined on input line 1424.
+LaTeX Warning: Reference `ch:bds' on page 57 undefined on input line 1412.
 
 
-LaTeX Warning: Reference `ch:gwas' on page 51 undefined on input line 1424.
+LaTeX Warning: Reference `ch:snpeff' on page 57 undefined on input line 1412.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1426--1428
+LaTeX Warning: Reference `ch:gwas' on page 57 undefined on input line 1412.
 
- []
-
-
-LaTeX Warning: Reference `ch:bds' on page 51 undefined on input line 1431.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1437--1439
+[57]
+Underfull \hbox (badness 10000) in paragraph at lines 1414--1416
 
  []
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 51 undefined on input line 1440.
-
-[51]
-Underfull \hbox (badness 10000) in paragraph at lines 1446--1452
-
- []
+LaTeX Warning: Reference `ch:bds' on page 58 undefined on input line 1419.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1459--1460
-
- []
-
-[52]
-Underfull \hbox (badness 10000) in paragraph at lines 1470--1471
+Underfull \hbox (badness 10000) in paragraph at lines 1425--1427
 
  []
 
 
-LaTeX Warning: Reference `ch:gwas' on page 53 undefined on input line 1472.
+LaTeX Warning: Reference `ch:snpeff' on page 58 undefined on input line 1428.
 
-
-Underfull \hbox (badness 10000) in paragraph at lines 1478--1480
+[58]
+Underfull \hbox (badness 10000) in paragraph at lines 1434--1440
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1484
+Underfull \hbox (badness 10000) in paragraph at lines 1447--1448
+
+ []
+
+[59]
+Underfull \hbox (badness 10000) in paragraph at lines 1458--1459
+
+ []
+
+
+LaTeX Warning: Reference `ch:gwas' on page 60 undefined on input line 1460.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1466--1468
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1469--1472
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1481--1484
+Underfull \hbox (badness 10000) in paragraph at lines 1469--1472
 
  []
 
-[53]
-Overfull \hbox (20.65628pt too wide) in paragraph at lines 1491--1492
+[60]
+Overfull \hbox (20.65628pt too wide) in paragraph at lines 1479--1480
 \OT1/cmr/m/n/12 M. Ruden. ``Lead ex-po-sure in-duces changes in 5-hydroxymethyl
 cytosine
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1494--1495
+Underfull \hbox (badness 10000) in paragraph at lines 1482--1483
 
  []
 
-[54]
-Overfull \hbox (4.55905pt too wide) in paragraph at lines 1501--1502
+[61]
+Overfull \hbox (4.55905pt too wide) in paragraph at lines 1489--1490
 \OT1/cmr/m/n/12 In-grid, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , M. Bla
 nchette, G. Yeretssian, A. Mes-Masson,
  []
 
 
-Overfull \hbox (9.87012pt too wide) in paragraph at lines 1502--1503
+Overfull \hbox (9.87012pt too wide) in paragraph at lines 1490--1491
 \OT1/cmr/m/n/12 A. Du-maine, N. Fodil-Cornu, M. Pyzik, \OT1/cmr/bx/n/12 P. Cin-
 golani\OT1/cmr/m/n/12 , J. Schwartzen-
  []
@@ -636,23 +664,23 @@ golani\OT1/cmr/m/n/12 , J. Schwartzen-
 Missing character: There is no Î in font cmr12!
 Missing character: There is no ± in font cmr12!
 
-Overfull \hbox (9.63956pt too wide) in paragraph at lines 1503--1504
+Overfull \hbox (9.63956pt too wide) in paragraph at lines 1491--1492
 \OT1/cmr/m/n/12 Mitchell, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , T. Wa
 ng, M. Behr, R. Sladek, M. Blanchette,
  []
 
 
-Overfull \hbox (9.63956pt too wide) in paragraph at lines 1504--1505
+Overfull \hbox (9.63956pt too wide) in paragraph at lines 1492--1493
 \OT1/cmr/m/n/12 Mitchell, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , T. Wa
 ng, M. Behr, R. Sladek, M. Blanchette,
  []
 
-[55]
-Underfull \hbox (badness 10000) in paragraph at lines 1506--1507
+[62]
+Underfull \hbox (badness 10000) in paragraph at lines 1494--1495
 
  []
 
-) [56] (./thesis_mcgill.bbl
+) [63] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -664,7 +692,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[57
+[64
 
 
 
@@ -681,16 +709,19 @@ Underfull \hbox (badness 1043) in paragraph at lines 125--131
 rey
  []
 
-[58] [59] [60] [61] [62] [63]
+[65] [66] [67] [68] [69] [70]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [64]
-Underfull \hbox (badness 1270) in paragraph at lines 579--584
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ” in font cmr12!
+ [71]
+Underfull \hbox (badness 1270) in paragraph at lines 585--590
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[65] [66]) (./thesis_mcgill.aux (./chapters/intro.aux))
+[72] [73] [74]) (./thesis_mcgill.aux (./chapters/intro.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -754,10 +785,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5880 strings out of 493315
- 87294 string characters out of 6137904
- 175468 words of memory out of 5000000
- 9222 multiletter control sequences out of 15000+600000
+ 5881 strings out of 493315
+ 87317 string characters out of 6137904
+ 176468 words of memory out of 5000000
+ 9223 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,8n,40p,2561b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -771,10 +802,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (66 pages, 271966 bytes).
+Output written on thesis_mcgill.pdf (74 pages, 286391 bytes).
 PDF statistics:
- 257 PDF objects out of 1000 (max. 8388607)
- 177 compressed objects within 2 object streams
+ 284 PDF objects out of 1000 (max. 8388607)
+ 196 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

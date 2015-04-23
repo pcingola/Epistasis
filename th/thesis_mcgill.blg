@@ -90,45 +90,45 @@ Repeated entry---line 3829 of file mcgilletd.bib
 I'm skipping whatever remains of this entry
 Warning--empty journal in brenner1965genetic
 Warning--empty journal in schneider2013genome
-You've used 108 entries,
+You've used 109 entries,
             2118 wiz_defined-function locations,
-            1068 strings with 26857 characters,
-and the built_in function-call counts, 46472 in all, are:
-= -- 4343
-> -- 3259
+            1072 strings with 27006 characters,
+and the built_in function-call counts, 46769 in all, are:
+= -- 4375
+> -- 3266
 < -- 7
-+ -- 1311
-- -- 1178
-* -- 4095
-:= -- 8038
-add.period$ -- 325
-call.type$ -- 108
-change.case$ -- 880
++ -- 1314
+- -- 1180
+* -- 4117
+:= -- 8087
+add.period$ -- 328
+call.type$ -- 109
+change.case$ -- 884
 chr.to.int$ -- 0
-cite$ -- 110
-duplicate$ -- 1249
-empty$ -- 2821
-format.name$ -- 1178
-if$ -- 9073
+cite$ -- 111
+duplicate$ -- 1260
+empty$ -- 2848
+format.name$ -- 1180
+if$ -- 9134
 int.to.chr$ -- 0
-int.to.str$ -- 108
-missing$ -- 112
-newline$ -- 543
-num.names$ -- 216
-pop$ -- 744
+int.to.str$ -- 109
+missing$ -- 113
+newline$ -- 548
+num.names$ -- 218
+pop$ -- 746
 preamble$ -- 1
-purify$ -- 777
+purify$ -- 780
 quote$ -- 0
-skip$ -- 886
+skip$ -- 893
 stack$ -- 0
-substring$ -- 2830
-swap$ -- 174
+substring$ -- 2860
+swap$ -- 175
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 422
+type$ -- 426
 warning$ -- 2
-while$ -- 388
-width$ -- 111
-write$ -- 1176
+while$ -- 392
+width$ -- 112
+write$ -- 1187
 (There were 21 error messages)
