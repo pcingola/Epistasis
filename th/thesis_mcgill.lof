@@ -1,23 +1,23 @@
-\contentsline {figure}{\numberline {{2--1}}{\ignorespaces BDS report showing pipeline’s task execution timeline}}{68}
-\contentsline {figure}{\numberline {{2--2}}{\ignorespaces Execution example \texttt {pipeline.bds}}}{70}
-\contentsline {figure}{\numberline {{2--3}}{\ignorespaces Whole-genome sequencing analysis pipeline's flow chart}}{71}
-\contentsline {figure}{\numberline {{2--4}}{\ignorespaces Architecture independence example}}{73}
-\contentsline {figure}{\numberline {{2--5}}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace {}1000}}{73}
-\contentsline {figure}{\numberline {{3--1}}{\ignorespaces Output of SnpEff.}}{78}
-\contentsline {figure}{\numberline {{3--2}}{\ignorespaces Detailed effect list from SnpEff}}{81}
-\contentsline {figure}{\numberline {{3--3}}{\ignorespaces Information provided by SnpEff in tab separated output format (TXT)}}{83}
-\contentsline {figure}{\numberline {{3--4}}{\ignorespaces Information provided by SnpEff in variant call format (VCF)}}{87}
-\contentsline {figure}{\numberline {{3--5}}{\ignorespaces Classification of SNPs in $w^{1118} ; iso-2; iso-3$}}{87}
-\contentsline {figure}{\numberline {{3--6}}{\ignorespaces 60 Genes with start-gaineded SNPs with ATGs}}{88}
-\contentsline {figure}{\numberline {{3--7}}{\ignorespaces Genes with start-gained SNP GO categories in $w^{1118} ; iso-2; iso-3$}}{89}
-\contentsline {figure}{\numberline {{3--8}}{\ignorespaces Analysis of Eip63E start-gained SNP in $w^{1118} ; iso-2; iso-3$}}{91}
-\contentsline {figure}{\numberline {{3--9}}{\ignorespaces Stop gained and stop lost in $w^{1118} ; iso-2; iso-3$}}{92}
-\contentsline {figure}{\numberline {{3--10}}{\ignorespaces Oc/Otd has two stop-gained SNPs in $w^{1118} ; iso-2; iso-3$}}{94}
-\contentsline {figure}{\numberline {{3--11}}{\ignorespaces CG34326 has one stop-gained SNP in $w^{1118} ; iso-2; iso-3$ in the non-conserved C-terminal region.}}{97}
-\contentsline {figure}{\numberline {{3--12}}{\ignorespaces Nonsynonymous to synonymous ratios along the chromosome arms in $w^{1118} ; iso-2; iso-3$}}{99}
-\contentsline {figure}{\numberline {{3--13}}{\ignorespaces CG13958 has a stop lost SNP in $w^{1118} ; iso-2; iso-3$}}{102}
-\contentsline {figure}{\numberline {{4--1}}{\ignorespaces Complete pipeline example}}{112}
-\contentsline {figure}{\numberline {{4--2}}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}}{124}
-\contentsline {figure}{\numberline {{4--3}}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (co-crystalized proteins).}}{126}
-\contentsline {figure}{\numberline {{4--4}}{\ignorespaces Example of amino acid interaction}}{128}
-\contentsline {figure}{\numberline {{4--5}}{\ignorespaces Results from epistatic GWAS analysis of type II diabetes sequencing data}}{129}
+\contentsline {figure}{\numberline {{2--1}}{\ignorespaces BDS report showing pipeline’s task execution timeline}}{140}
+\contentsline {figure}{\numberline {{2--2}}{\ignorespaces Execution example \texttt {pipeline.bds}}}{142}
+\contentsline {figure}{\numberline {{2--3}}{\ignorespaces Whole-genome sequencing analysis pipeline's flow chart}}{143}
+\contentsline {figure}{\numberline {{2--4}}{\ignorespaces Architecture independence example}}{145}
+\contentsline {figure}{\numberline {{2--5}}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace {}1000}}{145}
+\contentsline {figure}{\numberline {{3--1}}{\ignorespaces Output of SnpEff.}}{150}
+\contentsline {figure}{\numberline {{3--2}}{\ignorespaces Detailed effect list from SnpEff}}{153}
+\contentsline {figure}{\numberline {{3--3}}{\ignorespaces Information provided by SnpEff in tab separated output format (TXT)}}{155}
+\contentsline {figure}{\numberline {{3--4}}{\ignorespaces Information provided by SnpEff in variant call format (VCF)}}{159}
+\contentsline {figure}{\numberline {{3--5}}{\ignorespaces Classification of SNPs in $w^{1118} ; iso-2; iso-3$}}{159}
+\contentsline {figure}{\numberline {{3--6}}{\ignorespaces 60 Genes with start-gaineded SNPs with ATGs}}{160}
+\contentsline {figure}{\numberline {{3--7}}{\ignorespaces Genes with start-gained SNP GO categories in $w^{1118} ; iso-2; iso-3$}}{161}
+\contentsline {figure}{\numberline {{3--8}}{\ignorespaces Analysis of Eip63E start-gained SNP in $w^{1118} ; iso-2; iso-3$}}{163}
+\contentsline {figure}{\numberline {{3--9}}{\ignorespaces Stop gained and stop lost in $w^{1118} ; iso-2; iso-3$}}{164}
+\contentsline {figure}{\numberline {{3--10}}{\ignorespaces Oc/Otd has two stop-gained SNPs in $w^{1118} ; iso-2; iso-3$}}{166}
+\contentsline {figure}{\numberline {{3--11}}{\ignorespaces CG34326 has one stop-gained SNP in $w^{1118} ; iso-2; iso-3$ in the non-conserved C-terminal region.}}{169}
+\contentsline {figure}{\numberline {{3--12}}{\ignorespaces Nonsynonymous to synonymous ratios along the chromosome arms in $w^{1118} ; iso-2; iso-3$}}{171}
+\contentsline {figure}{\numberline {{3--13}}{\ignorespaces CG13958 has a stop lost SNP in $w^{1118} ; iso-2; iso-3$}}{174}
+\contentsline {figure}{\numberline {{4--1}}{\ignorespaces Complete pipeline example}}{184}
+\contentsline {figure}{\numberline {{4--2}}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}}{196}
+\contentsline {figure}{\numberline {{4--3}}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (co-crystalized proteins).}}{198}
+\contentsline {figure}{\numberline {{4--4}}{\ignorespaces Example of amino acid interaction}}{200}
+\contentsline {figure}{\numberline {{4--5}}{\ignorespaces Results from epistatic GWAS analysis of type II diabetes sequencing data}}{201}
