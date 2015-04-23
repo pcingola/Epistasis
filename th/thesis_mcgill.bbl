@@ -103,6 +103,11 @@ Jan~Christian Bryne, Eivind Valen, Man-Hung~Eric Tang, Troels Marstrand, Ole
   profiles: new content and tools in the 2008 update.
 \newblock {\em Nucleic acids research}, 36(suppl 1):D102--D106, 2008.
 
+\bibitem{carlborg2004epistasis}
+{\"O}rjan Carlborg and Chris~S Haley.
+\newblock Epistasis: too often neglected in complex trait studies?
+\newblock {\em Nature Reviews Genetics}, 5(8):618--625, 2004.
+
 \bibitem{celniker2009unlocking}
 Susan~E Celniker, Laura~AL Dillon, Mark~B Gerstein, Kristin~C Gunsalus, Steven
   Henikoff, Gary~H Karpen, Manolis Kellis, Eric~C Lai, Jason~D Lieb, David~M
@@ -305,6 +310,15 @@ Lucia~A Hindorff, Praveen Sethupathy, Heather~A Junkins, Erin~M Ramos,
   association loci for human diseases and traits.
 \newblock {\em Proceedings of the National Academy of Sciences},
   106(23):9362--9367, 2009.
+
+\bibitem{huang2012epistasis}
+Wen Huang, Stephen Richards, Mary~Anna Carbone, Dianhui Zhu, Robert~RH Anholt,
+  Julien~F Ayroles, Laura Duncan, Katherine~W Jordan, Faye Lawrence, Michael~M
+  Magwire, et~al.
+\newblock Epistasis dominates the genetic architecture of drosophila
+  quantitative traits.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  109(39):15553--15559, 2012.
 
 \bibitem{joosten2011series}
 Robbie~P Joosten, Tim~AH Te~Beek, Elmar Krieger, Maarten~L Hekkelman, Rob~WW
