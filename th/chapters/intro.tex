@@ -340,9 +340,11 @@ Several techniques allow weighting rare variants by collapsing them using a kern
 
 In this section we introduced the basic concepts and methodologies used in GWAS. Although fairly mature, there is still heavy research and continuous improvement on GWAS statistical methods. Not only it is well known that traditional (i.e. single marker) GWAS methods fail under non-additive models \cite{culverhouse2002perspective}, but also variants so far discovered using these methods do not account for all the expected phenotypic variance attributed to genetic causes (i.e. missing heritability). As other authors pointed out \cite{cordell2009detecting, zuk2012mystery, zuk2014searching}, this might be because we need to look for epistatic variants which are not taken into account using these methods. In the next section, and in Chapter \ref{ch:gwas}, we cover the topic of epistatic GWAS analysis.
 
-\subsection{What is epistasis and why it is important}
+\subsection{Historical perspective}
+William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance \cite{tyler2009shadows}
+The term literally means ``standing upon", and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression.  \cite{tyler2009shadows}
+The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition. \cite{tyler2009shadows}
 
-[Historical perspective]
 The term `epistasis' was initially used in the context of Mendelian inheritance; environmental effects are relatively unimportant for Mendelian traits, so Ii individuals can be clearly assigned to one of a limited number of classes according to their phenotype. Here, epistasis was used to describe the situation in which the actions of one locus mask the allelic effects of another locus, in the same way that completely dominant alleles mask the effects of the recessive allele at the same locus. \cite{carlborg2004epistasis}
 
 The term `epistatic' was first used in 1909 by Bateson (1) to describe a masking effect whereby a variant or allele at one locus (denoted at that time as an `allelomorphic pair') prevents the variant at another locus from manifesting its effect.  \cite{cordell2002epistasis}
@@ -364,25 +366,50 @@ Over the years the disparate needs of geneticists have led to a plethora of diff
 It should be apparent that the global analysis of geneinteraction patterns bears a striking resemblance to what is now called systems biology \cite{phillips2008epistasis}
 
 
-[Epistasis definition]
+\subsection{Definition}
 In this review, we provide a historical background to the study of epistatic interaction effects and point out the differences between a number of commonly used definitions of epistasis \cite{cordell2002epistasis}
+Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation's individual effects. This phenomenon, which defines genetic interaction, can reveal functional relationships between genes and pathways. \cite{mani2008defining}
+Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition \cite{mani2008defining}
+Here, we show that the choice among alternative definitions can have profound consequences. \cite{mani2008defining}
+
+A quantitative genetic interaction definition has two components: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninteracting mutations. Interaction is then defined by deviation of a double-mutant organism's phenotype from the expected neutral phenotype \cite{mani2008defining}
+A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case). \cite{mani2008defining}
+Alleviating or ``diminishing returns" interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a mutation in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway. \cite{mani2008defining}
+One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was originally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures. \cite{mani2008defining}
+Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growthrate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24) \cite{mani2008defining}
+Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. \cite{mani2008defining}
+The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplicative function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic interaction (4, 6, 15, 19, 24). \cite{mani2008defining}
+A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting mutations are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant.  \cite{mani2008defining}
+It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies. \cite{mani2008defining}
+Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function.  \cite{mani2008defining}
+For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy. \cite{mani2008defining}
+The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive  \cite{mani2008defining}
+
+DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and singleand double-mutant cell populations. \cite{mani2008defining}
+RESULTS: The Choice of Genetic Interaction Definition Matters: \cite{mani2008defining}
+Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all definitions) for pairs involving mutations with extreme fitness effects. \cite{mani2008defining}
+Product and Log Definitions Are Equivalent for Deleterious Mutations:  \cite{mani2008defining}
+The Product Definition Reveals Functional Relationships Missed by the Min Definition. \cite{mani2008defining}
+Genetic Interaction Networks from Min and Product Definitions Differ Greatly. \cite{mani2008defining}
+
+WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious. \cite{mani2008defining}
 
 
-[Epistasis \& Quantitative traits]
+\subsection{Epistasis in quantitative traits}
  In the case of QUANTITATIVE TRAITS, epistasis describes the general situation in which the phenotype of a given genotype cannot be predicted by the sum of its component single-locus effects1 \cite{carlborg2004epistasis}
 Epistatic QTL-mapping studies in model organisms have detected many new interactions and have therefore concluded that epistasis makes a large contribution to the genetic regulation of complex traits.  \cite{carlborg2004epistasis}
 Complex synthetic interactions. : There is no reason to expect all forms of epistasis to be revealed simply by the absence of a gene, which is certainly an extreme approach to perturbing complex systems. For example, Kroll et al.35 devised a method for looking for interactions that are induced after systematically overexpressing genes. Using this approach, sopko et al.36 found that, when overexpressed in Saccharomyces cerevisiae, about 15\% of a set of 5,280 yeast genes induced a growth defect, with most of the overexpression effects not matching the phenotypes of their corresponding deletions.  \cite{phillips2008epistasis}
 
 
-[Epistasis is ubuquitous]
+\subsection{Epistasis is ubiquitous}
 From mutational studies we know that epistasis in the classical sense is ubiquitous because genes interact in hierarchical systems to generate biological function.  \cite{phillips2008epistasis}
 From a biological standpoint, there is no a priori reason to expect that traits should be additive. Biology is filled with nonlinearity: The saturation of enzymes with substrate concentration and receptors with ligand concentration yields sigmoid response curves; cooperative binding of proteins gives rise to sharp transitions; the outputs of pathways are constrained by rate-limiting inputs; and genetic networks exhibit bistable states. \cite{zuk2012mystery}
 Genetic studies in model organisms have long identified specific instances of interacting genes (17). Important examples include synthetic traits (e.g., 18), which occur only when multiple loci or pathways are all disrupted. \cite{zuk2012mystery}
 Studies have begun to reveal that epistasis is pervasive.  \cite{zuk2012mystery}
+We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks. \cite{tyler2009shadows}
 
 
-
-[Epistasis examples: Non-human]
+\subsection{Epistasis examples: Non-human}
  Extensive work on the control of qualitative genetic variation has highlighted the biological importance of epistasis at a ‘locus-by-locus' level. On the basis of this work, several classic genotype–phenotype patterns that are caused by epistasis such as comb type in chickens, coat colour in various animals, the BOMBAY PHENOTYPE in the ABO blood-group system in humans and kernel colour in wheat \cite{carlborg2004epistasis}
 In the case of quantitative genetic variation, several or many genes of largely unknown function combine with environmental influences to control trait variation. This is the case for many complex traits that are of medical relevance in humans or of economic importance in plants and livestock. \cite{carlborg2004epistasis}
 A clear example of this can be seen  [in Fig A]  ￼￼￼￼which the dominant allele (I) at the KIT locus, which confers white-coat colour in the pig, is dominant over all alleles at the MC1R locus (E), which confer a darker coat colour. The effects of the various alleles at the E locus can only be determined in individuals with the recessive genotype ii at the I locus. This example was classically termed `dominant epistasis', which gives a segregation ratio of 12:3:1 for white:black:brown, respectively \cite{carlborg2004epistasis}
@@ -391,10 +418,11 @@ Coat colour variation in mammals has long been is one of the most fruitful examp
 In the yeast Saccharomyces cerevisiae, Brem et al. (19) analyzed as quantitative traits the levels of gene transcripts in segregants of a cross between two strains. For each transcript, they found the strongest quantitative trait locus (QTL) in the cross and then, conditional on the genotype at this locus, identified the strongest remaining QTL. In 67\% of cases, these two QTLs demonstrated epistatic interactions. In bacteria, Khan et al. (20) and Chou et al. (21) have recently demonstrated clear epistasis among collections of five mutations that increase growth rate.  \cite{zuk2012mystery}
 In mouse and rat, Shao et al. (22) analyzed a panel of chromosome substitution strains, with each strain carrying a different chromosome from a donor strain on a common recipient genetic background. For dozens of quantitative traits, the sum of the effect attributable to the individual donor chromosomes far exceeds (median eightfold) the total effect of the donor genome, indicating strong epistasis.  \cite{zuk2012mystery}
 An example in insects is the abnormal-abdomen phenotype in Drosophila mercatorum (DeSalle and Templeton 1986; Hollocher et al. 1992; Hollocher and Templeton 1994). \cite{culverhouse2002perspective}
+The study of genetic interaction has become increasingly systematic and large-scale, especially in the yeast Saccharomyces cerevisiae (6, 8–21). \cite{mani2008defining}
+Eye color determination in Drosophila provides a classic example. The genes scarlet, brown, and white, play major roles in a simplified model of Drosophila eye pigmentation. Eye pigmentation in Drosophila requires the synthesis and deposition of both drosopterins, red pigments synthesized from GTP, and ommochromes, brown pigments synthesized from tryptophan. A mutation in brown prevents production of the bright red pigment resulting in a fly with brown eyes, and a mutation in scarlet prevents production of the brown pigment resulting in a fly with bright red eyes. In a fly with a mutation in the white gene, neither pigment can be produced, and the fly will have white eyes regardless of the genotype at the brown or scarlet loci. In this example the white gene is epistatic to brown and scarlet. A mutant genotype at the white locus masks the genotypes at the other loci. \cite{tyler2009shadows}
 
 
-
-[Epistasis examples: Human]
+\subsection{Epistasis examples: Human}
 Despite considerable efforts, few well-replicated instances of epistasis in common human disease and trait genetics have been discovered thus far. \cite{zuk2012mystery}
 The only examples to date involve interactions featuring at least one locus with a large marginal e↵ect, such as HLA.  \cite{zuk2012mystery}
 GWAS, in ankylosing spondylitis21 and psoriasis,22 discovered interactions between two di↵erent HLA alleles and ERAP1. (In ankylosing spondylitis, the HLA-B27 allele has an odds ratio of 40.8, and in psoriasis the HLA-C allele has an odds ratio of 4.66.) HLA also plays a role in an interaction e↵ect described in a GWAS of Type 1 diabetes. (In Type 1 diabetes, HLA has a main e↵ect of 5.5, but acts non-additively with the risk of all other alleles considered cumulatively.23). Finally, interaction between RET and EDNRB in Hirschsprung's disease was discovered in a genome-wide linkage study,24 in which RET was strongly associated with disease (log-odds score of 5.6). \cite{zuk2012mystery}
@@ -404,10 +432,10 @@ One of these cases involves the genetic interactions underlying the autoimmune d
 Indeed, it has been argued that epistatic interactions are a nearly universal component of the architecture of most common traits. Templeton (2000), for instance, has listed a number of phenotypes in which epistasis plays a large role.  \cite{culverhouse2002perspective}
 In humans, variation in triglyceride levels can be explained, in part, by two sets of interactions: between ApoB and ApoE in females and between the ApoAI/CIII/AIV complex and low-density lipoprotein receptor in males (Nelson et al. 2001) \cite{culverhouse2002perspective}
 Even the seemingly ``simple" Mendelian trait of sickle-cell anemia is revealed to be greatly modified by epistatic interactions. Individuals with sickle-cell anemia who are homozygous for two polymorphisms near the Gg locus (leading to the persistence of fetal hemoglobin) have only mild clinical symptoms \cite{culverhouse2002perspective}
+For example, in humans the E4 allele of apolipoprotein epsilon (ApoE) is associated with elevated blood serum cholesterol levels, but only in individuals with the A2A2 genotype at the low density lipoprotein receptor (LDLR) locus.(3) In other words, the contribution of the ApoE allele to cholesterol levels depends on the genotype at the LDLR locus. \cite{tyler2009shadows}
 
 
-
-[Epistasis \& disease / GWAS]
+\subsection{Epistasis \& GWAS}
 IN 2002 OPINION: for the abandonment of linkage studies in favor of genome scans for association. However, there exists a large class of genetic models for which this approach will fail: purely epistatic models with no additive or dominance variation at any of the susceptibility loci. \cite{culverhouse2002perspective}. Is it reasonable to suppose that an approach that must succeed in identifying fully penetrant Mendelian genes will also succeed for complex diseases?  \cite{culverhouse2002perspective}. The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}
 The main reason that most studies of complex human phenotypes fail to find evidence for epistatic interactions may simply be that commonly used designs and analytic methods inherently minimize or exclude the possibility of epistasis (Frankel and Schork 1996) \cite{culverhouse2002perspective}
 The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci. \cite{culverhouse2002perspective}
@@ -427,22 +455,31 @@ In short, the failure to detect epistasis does not rule out the presence of gene
 Cases only. The most straightforward multilocus analysis of cases-only data is a $\chi^2$ test of independent segregation for the loci.  \cite{culverhouse2002perspective}
 Case-control. A second approach is a multilocus case-control analysis. One method for doing this would be to compare the distribution of cases among the 3L genotypes, where L is the number of biallelic loci being simultaneously examined, versus the distribution of controls. In this analysis, a sample of N cases and N unrelated controls drawn from a population modeled by table 3 will, again, yield an expected $\chi^2$ statistic 2N. However, the degrees of freedom under the null hypothesis are now 8. \cite{culverhouse2002perspective}
 
+\subsection{Epistasisi GWAS: Power issues}
+ We have seen that, if the true genetic model underlying a disease is purely epistatic, with no additive or dominance variation at any of the susceptibility loci, then association methods analyzing one locus at a time will have no power to detect the loci.  \cite{culverhouse2002perspective}
+First, we expect that, with a sufficient number of contributing loci, purely epistatic interactions could account for virtually all the variation in affection status for diseases with any prevalence \cite{culverhouse2002perspective}
+Of course, there are subclasses of purely epistatic models (providing no marginal evidence for the involvement of any single locus) for which, in addition, no two, three, or L1 loci jointly give evidence of involvement in the disorder. This leads to the concern that even assessment of all two-, three-, and (L1)-way interactions among candidate loci may be insufficient for detection of the contributing loci. \cite{culverhouse2002perspective}
+The restriction on maximum heritabilities in these models is most easily seen by examining L-locus models for which no collection of L 􏰂 1 loci shows marginal deviations.  \cite{culverhouse2002perspective}
 
-[Epistasis and networks]
+A small number of recent studies have explored this idea for the genome-level identification of epistatic interactions: if a large number of individuals is genotyped at a large number of genomic positions, it becomes possible to test all allele pairs for overand underrepresentation in that population [18–20]. \cite{ackermann2012systematic}
+However, even though some methodological progress has been made [18], previous studies could hardly identify a significant number of interactions. The main obstacle is the humongous number of statistical hypotheses tested when comparing all markers in a genome against all markers. \cite{ackermann2012systematic}
+
+
+\subsection{Epistasis and networks}
 Epistasis-nonlinear genetic interactions between polymorphic loci-is the genetic basis of canalization and speciation, and epistatic interactions can be used to infer genetic networks affecting quantitative traits. \cite{huang2012epistasis}
 DATASET: Here, we compared the genetic architecture of three Drosophila life history traits in the sequenced inbred lines of the Drosophila melanogaster Genetic Reference Panel (DGRP) and a large outbred, advanced intercross population derived from 40 DGRP lines (Flyland)\cite{huang2012epistasis}
 Surprisingly, none of the SNPs associated with the traits in Flyland replicated in the DGRP and vice versa. However, the majority of these SNPs participated in at least one epistatic interaction in the DGRP.\cite{huang2012epistasis}
 Our analysis underscores the importance of epistasis as a principal factor that determines variation for quantitative traits and provides a means to uncover genetic networks affecting these traits. \cite{huang2012epistasis}
 
 
-[Epistasis and evolution]
+\subsection{Epistasis and evolution}
 epistasis can have an important influence on a number of evolutionary phenomena, including the genetic divergence between species79, ... the evolution of the structure of genetic systems8 \cite{phillips2008epistasis}
 Thus far, these studies81–85 have shown that epistasis can have a strong role in limiting the possible paths that evolution can take, but not in limiting its eventual outcome. \cite{phillips2008epistasis}
 linkage can facilitate the maintenance of epistatic interactions (and vice versa)86 and could help to explain how molecular complexity evolves \cite{phillips2008epistasis}
 recent analysis of patterns of gene regulation suggest that there can be complex patterns of gene regulation in localized genomic regions8 \cite{phillips2008epistasis}
 
 
-[Epistasis and missing heritability]
+\subsection{Missing heritability}
 IN 2002: Thus, for fixed K, p , and p , maximizing the broad AB heritability (h 2 p V /V ) under the constraint repreIT sented by formula (2) is equivalent to the maximizing of VI. \cite{culverhouse2002perspective}. TABLE 2 and 3: Maxima of heritability using epistasis. \cite{culverhouse2002perspective}. Three-locus models can also give rise to higher relative risks than are possible in corresponding two-locus models. Three-locus penetrance models maximizing heritability at the low end of disease prevalence \cite{culverhouse2002perspective}
 
 missing heritability: overestimation of the denominator happens when epistasis is ignored (phantom) \cite{zuk2012mystery}
@@ -451,86 +488,26 @@ Until recently "The prevailing view among human geneticists appears to be that i
 But "[they] show that simple and plausible models can give rise to substantial phantom heritability."	 \cite{zuk2012mystery}
 ...although the pervasiveness of epistasis in experimental organisms suggests that the true heritability h2 of traits may be much lower than current estimates \cite{zuk2012mystery}
 
+Researchers of many complex diseases (including non–insulin-dependent diabetes mellitus, prostate cancer, and schizophrenia) face the conundrum of moderately heritable diseases for which locus-by-locus analyses have not accounted for the predicted genetic variance. The models discussed in the present article provide one possible explanation for this. \cite{culverhouse2002perspective}
+These considerations lead us to believe that, in situations in which heritability is moderate to high but in which locus-by-locus analyses do not account for the predicted genetic variance, it is worth pursuing a hypothesis of interacting loci [near the linkage peaks] \cite{culverhouse2002perspective}
+
+\subsection{Detecting Epistasis / interactions}
+
+Whereas most existing epistasis screens explicitly test for a trait, it is also possible to implicitly test for fitness traits by searching for the overor under-representation of allele pairs in a given population.  \cite{ackermann2012systematic}
+Such analysis of imbalanced allele pair frequencies of distant loci has not been exploited yet on a genome-wide scale, mostly due to statistical difficulties such as the multiple testing problem. We propose a new approach called Imbalanced Allele Pair frequencies (ImAP) for inferring epistatic interactions that is exclusively based on DNA sequence information. \cite{ackermann2012systematic}
+Most gene interaction studies explicitly measure a phenotype such as growth rate or viability [ \cite{ackermann2012systematic}
+However, one can also study implicit phenotypes by searching for the overor under-representation of certain allele pairs in a given population. \cite{ackermann2012systematic}
+Such allele pairs are examples of Dobzhansky-Mu ̈ller incompatibilities: they establish a fitness bias in favor of individuals inheriting the over-represented allele combination [15]. In their most extreme form such incompatibilities are embryonic lethal. \cite{ackermann2012systematic}
+In this context, an implicit phenotype is a trait that is not explicitly measured in the sample but whose regulators can still be inferred from the genotype data. \cite{ackermann2012systematic}
+Here, we propose to address this problem by exploiting the additional information gained from studying family trios. We show that by analyzing a sufficiently large number of individuals with known family structure it becomes possible to detect substantially more interactions than what is expected if all markers were independent. \cite{ackermann2012systematic}
+Our method, called ``Imbalanced Allele Pair frequencies (ImAP)'' is based on inspecting 3|3 contingency tables that track the frequencies of all possible two-locus allele combinations in heterozygous individuals (assuming a diploid genome). The test that we propose is similar to a x2 test in that it compares the observed frequencies in this table to expected frequencies assuming independence. However, our version corrects the expected frequencies for confounding factors such as family structure or allelic drift [21]. \cite{ackermann2012systematic}
+In a population of 2,002 heterozygous mice with known family structure genotyped at 10,168 markers we identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}
+
 
 %===================================================================================================
 % TO ADD
 %===================================================================================================
 
-%		ANALYSIS METHODS:
-%		POWER: We have seen that, if the true genetic model underlying a disease is purely epistatic, with no additive or dominance variation at any of the susceptibility loci, then association methods analyzing one locus at a time will have no power to detect the loci.  \cite{culverhouse2002perspective}
-%		First, we expect that, with a sufficient number of contributing loci, purely epistatic interactions could account for virtually all the variation in affection status for diseases with any prevalence \cite{culverhouse2002perspective}
-%		Of course, there are subclasses of purely epistatic models (providing no marginal evidence for the involvement of any single locus) for which, in addition, no two, three, or L􏰂1 loci jointly give evidence of involvement in the disorder. This leads to the concern that even assessment of all two-, three-, and (L􏰂1)-way interactions among candidate loci may be insufficient for detection of the contributing loci. \cite{culverhouse2002perspective}
-%		The restriction on maximum heritabilities in these models is most easily seen by examining L-locus models for which no collection of L 􏰂 1 loci shows marginal deviations.  \cite{culverhouse2002perspective}
-%		MISSING HERITABILITY: Researchers of many complex diseases (including non–insulin-dependent diabetes mellitus, prostate cancer, and schizophrenia) face the conundrum of moderately heritable diseases for which locus-by-locus analyses have not accounted for the predicted genetic variance. The models discussed in the present article provide one possible explanation for this. \cite{culverhouse2002perspective}
-%		These considerations lead us to believe that, in situations in which heritability is moderate to high but in which locus-by-locus analyses do not account for the predicted genetic variance, it is worth pursuing a hypothesis of interacting loci [near the linkage peaks] \cite{culverhouse2002perspective}
-
-
-%------------------------------------------------------------
-% From : Defining genetic interaction (2007)
-% \cite{mani2008defining}
-%
-%		Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation's individual effects. This phenomenon, which defines genetic interaction, can reveal functional relationships between genes and pathways. \cite{mani2008defining}
-%		Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition \cite{mani2008defining}
-%		Here, we show that the choice among alternative definitions can have profound consequences. \cite{mani2008defining}
-%		The study of genetic interaction has become increasingly systematic and large-scale, especially in the yeast Saccharomyces cerevisiae (6, 8–21). \cite{mani2008defining}
-%		A quantitative genetic interaction definition has two components: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninteracting mutations. Interaction is then defined by deviation of a double-mutant organism's phenotype from the expected neutral phenotype \cite{mani2008defining}
-%		A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case). \cite{mani2008defining}
-%		Alleviating or ``diminishing returns" interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a mutation in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway. \cite{mani2008defining}
-%		One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was originally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures. \cite{mani2008defining}
-%		Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growthrate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24) \cite{mani2008defining}
-%		Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. \cite{mani2008defining}
-%		The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplicative function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic interaction (4, 6, 15, 19, 24). \cite{mani2008defining}
-%		A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting mutations are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant.  \cite{mani2008defining}
-%		It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies. \cite{mani2008defining}
-%		Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function.  \cite{mani2008defining}
-%		For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy. \cite{mani2008defining}
-%		The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive  \cite{mani2008defining}
-%
-%		DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and singleand double-mutant cell populations. \cite{mani2008defining}
-%
-%		RESULTS: The Choice of Genetic Interaction Definition Matters: \cite{mani2008defining}
-%			Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all definitions) for pairs involving mutations with extreme fitness effects. \cite{mani2008defining}
-%			Product and Log Definitions Are Equivalent for Deleterious Mutations:  \cite{mani2008defining}
-%			The Product Definition Reveals Functional Relationships Missed by the Min Definition. \cite{mani2008defining}
-%			Genetic Interaction Networks from Min and Product Definitions Differ Greatly. \cite{mani2008defining}
-%
-%		WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious. \cite{mani2008defining}
-
-%------------------------------------------------------------
-% From: Shadows of complexity: what biological networks reveal about epistasis and pleiotropy
-% \cite{tyler2009shadows}
-% TOPIC: EPISTASIS
-%
-%		We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks. \cite{tyler2009shadows}
-%		EPIS EXAMPLE: 
-%			HUMAN: For example, in humans the E4 allele of apolipoprotein epsilon (ApoE) is associated with elevated blood serum cholesterol levels, but only in individuals with the A2A2 genotype at the low density lipoprotein receptor (LDLR) locus.(3) In other words, the contribution of the ApoE allele to cholesterol levels depends on the genotype at the LDLR locus. \cite{tyler2009shadows}
-%			FLY: Eye color determination in Drosophila provides a classic example. The genes scarlet, brown, and white, play major roles in a simplified model of Drosophila eye pigmentation. Eye pigmentation in Drosophila requires the synthesis and deposition of both drosopterins, red pigments synthesized from GTP, and ommochromes, brown pigments synthesized from tryptophan. A mutation in brown prevents production of the bright red pigment resulting in a fly with brown eyes, and a mutation in scarlet prevents production of the brown pigment resulting in a fly with bright red eyes. In a fly with a mutation in the white gene, neither pigment can be produced, and the fly will have white eyes regardless of the genotype at the brown or scarlet loci. In this example the white gene is epistatic to brown and scarlet. A mutant genotype at the white locus masks the genotypes at the other loci. \cite{tyler2009shadows}
-%		HISTORICAL: 
-%			William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance \cite{tyler2009shadows}
-%			The term literally means ``standing upon", and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression.  \cite{tyler2009shadows}
-%			The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition. \cite{tyler2009shadows}
-
-\subsection{Epistasis in complex traits}
-
-
-\subsection{Detecting Epistasis / interactions}
-
-
-%------------------------------------------------------------
-% From: Systematic Detection of Epistatic Interactions Based on Allele Pair Frequencies (2012)
-% \cite{ackermann2012systematic}
-%
-%		Whereas most existing epistasis screens explicitly test for a trait, it is also possible to implicitly test for fitness traits by searching for the overor under-representation of allele pairs in a given population.  \cite{ackermann2012systematic}
-%		Such analysis of imbalanced allele pair frequencies of distant loci has not been exploited yet on a genome-wide scale, mostly due to statistical difficulties such as the multiple testing problem. We propose a new approach called Imbalanced Allele Pair frequencies (ImAP) for inferring epistatic interactions that is exclusively based on DNA sequence information. \cite{ackermann2012systematic}
-%		Most gene interaction studies explicitly measure a phenotype such as growth rate or viability [ \cite{ackermann2012systematic}
-%		However, one can also study implicit phenotypes by searching for the overor under-representation of certain allele pairs in a given population. \cite{ackermann2012systematic}
-%		Such allele pairs are examples of Dobzhansky-Mu ̈ller incompatibilities: they establish a fitness bias in favor of individuals inheriting the over-represented allele combination [15]. In their most extreme form such incompatibilities are embryonic lethal. \cite{ackermann2012systematic}
-%		In this context, an implicit phenotype is a trait that is not explicitly measured in the sample but whose regulators can still be inferred from the genotype data. \cite{ackermann2012systematic}
-%		A small number of recent studies have explored this idea for the genome-level identification of epistatic interactions: if a large number of individuals is genotyped at a large number of genomic positions, it becomes possible to test all allele pairs for overand underrepresentation in that population [18–20]. \cite{ackermann2012systematic}
-%		However, even though some methodological progress has been made [18], previous studies could hardly identify a significant number of interactions. The main obstacle is the humongous number of statistical hypotheses tested when comparing all markers in a genome against all markers. \cite{ackermann2012systematic}
-%		Here, we propose to address this problem by exploiting the additional information gained from studying family trios. We show that by analyzing a sufficiently large number of individuals with known family structure it becomes possible to detect substantially more interactions than what is expected if all markers were independent. \cite{ackermann2012systematic}
-%		Our method, called ``Imbalanced Allele Pair frequencies (ImAP)'' is based on inspecting 3|3 contingency tables that track the frequencies of all possible two-locus allele combinations in heterozygous individuals (assuming a diploid genome). The test that we propose is similar to a x2 test in that it compares the observed frequencies in this table to expected frequencies assuming independence. However, our version corrects the expected frequencies for confounding factors such as family structure or allelic drift [21]. \cite{ackermann2012systematic}
-%		In a population of 2,002 heterozygous mice with known family structure genotyped at 10,168 markers we identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}
 
 
 %------------------------------------------------------------

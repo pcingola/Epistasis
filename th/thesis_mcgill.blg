@@ -60,6 +60,10 @@ Repeated entry---line 2038 of file mcgilletd.bib
  : @article{mckenna2010genome
  :                           ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 2192 of file mcgilletd.bib
+ : @article{mani2008defining
+ :                          ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 2535 of file mcgilletd.bib
  : @article{wang2010annovar
  :                         ,
@@ -90,45 +94,45 @@ Repeated entry---line 3829 of file mcgilletd.bib
 I'm skipping whatever remains of this entry
 Warning--empty journal in brenner1965genetic
 Warning--empty journal in schneider2013genome
-You've used 109 entries,
+You've used 111 entries,
             2118 wiz_defined-function locations,
-            1072 strings with 27006 characters,
-and the built_in function-call counts, 46769 in all, are:
-= -- 4375
-> -- 3266
+            1082 strings with 27359 characters,
+and the built_in function-call counts, 47608 in all, are:
+= -- 4457
+> -- 3317
 < -- 7
-+ -- 1314
-- -- 1180
-* -- 4117
-:= -- 8087
-add.period$ -- 328
-call.type$ -- 109
-change.case$ -- 884
++ -- 1334
+- -- 1198
+* -- 4193
+:= -- 8229
+add.period$ -- 334
+call.type$ -- 111
+change.case$ -- 899
 chr.to.int$ -- 0
-cite$ -- 111
-duplicate$ -- 1260
-empty$ -- 2848
-format.name$ -- 1180
-if$ -- 9134
+cite$ -- 113
+duplicate$ -- 1282
+empty$ -- 2904
+format.name$ -- 1198
+if$ -- 9299
 int.to.chr$ -- 0
-int.to.str$ -- 109
-missing$ -- 113
-newline$ -- 548
-num.names$ -- 218
-pop$ -- 746
+int.to.str$ -- 111
+missing$ -- 115
+newline$ -- 558
+num.names$ -- 222
+pop$ -- 757
 preamble$ -- 1
-purify$ -- 780
+purify$ -- 793
 quote$ -- 0
-skip$ -- 893
+skip$ -- 907
 stack$ -- 0
-substring$ -- 2860
-swap$ -- 175
+substring$ -- 2926
+swap$ -- 177
 text.length$ -- 7
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 426
+type$ -- 434
 warning$ -- 2
-while$ -- 392
-width$ -- 112
-write$ -- 1187
-(There were 21 error messages)
+while$ -- 400
+width$ -- 114
+write$ -- 1209
+(There were 22 error messages)
