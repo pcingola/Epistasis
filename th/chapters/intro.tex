@@ -986,6 +986,26 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %			- The maximum-entropy approach to potentially solving the problem of protein structure prediction from residue covariation patterns was first described by Lapedes and collaborators17,27. However, instead of inversion of the covariance matrix, they used a more computationally demanding Monte Carlo method (that is, iterative exploration of the best set of pair interactions values) to derive the probability terms in conditional mutual information. Although Lapedes and Jarzynski did not compute three-dimensional structures, they reached a first break- through in contact prediction in 2002 for 11 small proteins and reported 50–70% accuracy for top 20 contact predictions, in contrast to 35–45% accuracy with the previous best methods available17.
 
 
+%------------------------------------------------------------
+% From: PSICOV: precise structural contact prediction using sparse inverse covariance estimation on large multiple sequence alignments
+% \cite{jones2012psicov}
+%
+%		-  It has long been observed that with sufficient correct information about a protein’s residue–residue contacts, it is possible to elucidate the fold of the protein (Gobel et al., 1994
+%		- The underlying rationale rests on the fact that any given contact critical for maintaining the fold of a protein will constrain the physicochemical properties of the amino acids involved. Should a given contacting residue mutate and potentially perturb the properties of the contact, then its contacting partner will be more likely to mutate to a physicochemically complementary amino acid residue, to ensure the native fold of the protein remains stabilized.
+%		- Turning this observation around, pairs of residues seen to co- evolve in tandem and thus preserving their relative physiochemical properties, are likely candidates to form contacts. 
+%		- The starting point of our method is to consider an alignment with m columns and n rows,
+%		- where each row represents a different homologous sequence and each column a set of equivalent amino acids across the evolutionary tree, with gaps considered as an additional amino acid type. We can compute a 21m by 21m sample covariance matrix as follows:
+%		- Any individual element of this matrix gives the covariance of amino acid type a at position i with amino acid type b at position j.
+%		- By calculating the matrix inverse of the covariance matrix, the precision or concentration matrix (􏰩) is obtained, from which a matrix of partial correlation coefficients for all pairs of variables can be calculated as follows
+%		- In the simplest case, a partial correlation coefficient can be calculated between two random variables with the controlling effect of a third random variable taken into account. The partial correlation matrix above, however, gives the correlations between all pairs of variables with the controlling effects of all other variables taken into account 
+%		- Thus, assuming the sample covariance matrix can in fact be inverted, the inverse covariance matrix provides information on the degree of direct coupling between pairs of sites in the given MSA. Off-diagonal elements of the inverse covariance matrix which are significantly different from zero are indicative of pairs of sites which have strong direct coupling (and are likely to be in direct physical contact in the native structure).
+%		- Unfortunately, the empirical covariance matrices produced in this application are guaranteed to be singular due to the fact that not every amino acid will be observed at every site
+%		- Although different approaches have been proposed to allow inverse covariance estimation where the sample covariance matrix cannot be directly inverted, one of the most powerful techniques is that of sparse inverse covariance estimation.
+%		- In general terms, where an inverse covariance estimate is constrained to be sparse, the non-zero terms tend to more accurately relate to correct positive correlations in the true inverse covariance matrix
+%		- The graphical Lasso is a statistical method which estimates the inverse covariance of the data by minimizing the objective function:...
+%		- For 44% of the targets, contact prediction was excellent with a precision >0.5 for the longest-range top-L/2 predicted contacts (i.e. >50% correctly predicted long-range contacts per residue). 
+
+
 
 \subsection{CoEvolutionary models}
 
