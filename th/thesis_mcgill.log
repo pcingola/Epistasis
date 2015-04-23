@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 14:13
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 14:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -499,120 +499,12 @@ OML/cmm/m/it/12 N \OT1/cmr/m/n/12 +
 
 LaTeX Warning: Reference `ch:gwas' on page 44 undefined on input line 341.
 
-[44]
-
-LaTeX Warning: Citation `tyler2009shadows' on page 45 undefined on input line 3
-44.
-
-
-LaTeX Warning: Citation `tyler2009shadows' on page 45 undefined on input line 3
-45.
-
-
-LaTeX Warning: Citation `tyler2009shadows' on page 45 undefined on input line 3
-46.
-
-[45] [46]
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-71.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-72.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-73.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-75.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-76.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-77.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-78.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-79.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-80.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-81.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-82.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-83.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-84.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-85.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 47 undefined on input line 3
-86.
-
-[47] [48]
-
-LaTeX Warning: Citation `mani2008defining' on page 49 undefined on input line 3
-88.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 49 undefined on input line 3
-89.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 49 undefined on input line 3
-90.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 49 undefined on input line 3
-91.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 49 undefined on input line 3
-92.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 49 undefined on input line 3
-93.
-
-[49]
+[44] [45] [46] [47] [48] [49]
 Missing character: There is no Ù in font cmr12!
 Missing character: There is no è in font cmr12!
 Missing character: There is no ∞ in font cmr12!
 Missing character: There is no ç in font cmr12!
-
-
-LaTeX Warning: Citation `mani2008defining' on page 50 undefined on input line 3
-95.
-
-
-LaTeX Warning: Citation `tyler2009shadows' on page 50 undefined on input line 4
-09.
-
-[50]
+ [50]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ò in font cmr12!
@@ -634,16 +526,7 @@ Missing character: There is no º in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
-
-
-LaTeX Warning: Citation `mani2008defining' on page 51 undefined on input line 4
-21.
-
-
-LaTeX Warning: Citation `tyler2009shadows' on page 51 undefined on input line 4
-22.
-
-[51] [52]
+ [51] [52]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ü in font cmr12!
 Missing character: There is no µ in font cmr12!
@@ -656,16 +539,22 @@ Missing character: There is no µ in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ü in font cmr12!
 Missing character: There is no µ in font cmr12!
-
-
-LaTeX Warning: Citation `tyler2009shadows' on page 53 undefined on input line 4
-35.
-
-[53]
+ [53] [54]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
- [54] [55] [56]
+ [55]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no à in font cmr12!
+ [56]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+ [57] [58]
+[59]
 Missing character: There is no Ù in font cmr12!
 Missing character: There is no è in font cmr12!
 Missing character: There is no ∞ in font cmr12!
@@ -673,135 +562,218 @@ Missing character: There is no Ç in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ì in font cmr12!
- [57]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
- [58]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ä in font cmr12!
-Missing character: There is no ì in font cmr12!
- [59]
-Missing character: There is no Ã in font cmr12!
-Missing character: There is no à in font cmr12!
  [60]
 
-LaTeX Warning: Reference `ch:gwas' on page 61 undefined on input line 1054.
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 514.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 515.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 516.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 519.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 522.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 523.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 524.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 525.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 526.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 527.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 528.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 61 undefined on input lin
+e 529.
 
 [61]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1374
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 62 undefined on input lin
+e 531.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ì in font cmr12!
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 62 undefined on input lin
+e 534.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 62 undefined on input lin
+e 537.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 62 undefined on input lin
+e 538.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 62 undefined on input lin
+e 539.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Å in font cmr12!
+Missing character: There is no Ñ in font cmr12!
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 62 undefined on input lin
+e 540.
+
+[62]
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 63 undefined on input lin
+e 542.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 63 undefined on input lin
+e 543.
+
+
+LaTeX Warning: Citation `rohlfs2010detecting' on page 63 undefined on input lin
+e 550.
+
+[63]
+
+LaTeX Warning: Reference `ch:gwas' on page 64 undefined on input line 1069.
+
+[64]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 1389
 .
  (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1374.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 1389.
 
- [62]
+ [65]
 
-LaTeX Warning: Reference `ch:gwas' on page 63 undefined on input line 1382.
-
-
-LaTeX Warning: Reference `ch:bds' on page 63 undefined on input line 1389.
+LaTeX Warning: Reference `ch:gwas' on page 66 undefined on input line 1397.
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 63 undefined on input line 1389.
+LaTeX Warning: Reference `ch:bds' on page 66 undefined on input line 1404.
 
 
-LaTeX Warning: Reference `ch:gwas' on page 63 undefined on input line 1389.
-
-[63]
-Underfull \hbox (badness 10000) in paragraph at lines 1391--1393
-
- []
+LaTeX Warning: Reference `ch:snpeff' on page 66 undefined on input line 1404.
 
 
-LaTeX Warning: Reference `ch:bds' on page 64 undefined on input line 1396.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1402--1404
-
- []
-
-
-LaTeX Warning: Reference `ch:snpeff' on page 64 undefined on input line 1405.
-
-[64]
-Underfull \hbox (badness 10000) in paragraph at lines 1411--1417
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1424--1425
-
- []
-
-[65]
-Underfull \hbox (badness 10000) in paragraph at lines 1435--1436
-
- []
-
-
-LaTeX Warning: Reference `ch:gwas' on page 66 undefined on input line 1437.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1443--1445
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1446--1449
-[] 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 1446--1449
-
- []
+LaTeX Warning: Reference `ch:gwas' on page 66 undefined on input line 1404.
 
 [66]
-Overfull \hbox (20.65628pt too wide) in paragraph at lines 1456--1457
-\OT1/cmr/m/n/12 M. Ruden. ``Lead ex-po-sure in-duces changes in 5-hydroxymethyl
-cytosine
+Underfull \hbox (badness 10000) in paragraph at lines 1406--1408
+
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1459--1460
+LaTeX Warning: Reference `ch:bds' on page 67 undefined on input line 1411.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1417--1419
+
+ []
+
+
+LaTeX Warning: Reference `ch:snpeff' on page 67 undefined on input line 1420.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1426--1432
 
  []
 
 [67]
-Overfull \hbox (4.55905pt too wide) in paragraph at lines 1466--1467
+Underfull \hbox (badness 10000) in paragraph at lines 1439--1440
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1450--1451
+
+ []
+
+
+LaTeX Warning: Reference `ch:gwas' on page 68 undefined on input line 1452.
+
+[68]
+Underfull \hbox (badness 10000) in paragraph at lines 1458--1460
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1461--1464
+[] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1461--1464
+
+ []
+
+
+Overfull \hbox (20.65628pt too wide) in paragraph at lines 1471--1472
+\OT1/cmr/m/n/12 M. Ruden. ``Lead ex-po-sure in-duces changes in 5-hydroxymethyl
+cytosine
+ []
+
+[69]
+Underfull \hbox (badness 10000) in paragraph at lines 1474--1475
+
+ []
+
+
+Overfull \hbox (4.55905pt too wide) in paragraph at lines 1481--1482
 \OT1/cmr/m/n/12 In-grid, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , M. Bla
 nchette, G. Yeretssian, A. Mes-Masson,
  []
 
 
-Overfull \hbox (9.87012pt too wide) in paragraph at lines 1467--1468
+Overfull \hbox (9.87012pt too wide) in paragraph at lines 1482--1483
 \OT1/cmr/m/n/12 A. Du-maine, N. Fodil-Cornu, M. Pyzik, \OT1/cmr/bx/n/12 P. Cin-
 golani\OT1/cmr/m/n/12 , J. Schwartzen-
  []
 
+[70]
 Missing character: There is no Œ in font cmr12!
 Missing character: There is no ± in font cmr12!
 
-Overfull \hbox (9.63956pt too wide) in paragraph at lines 1468--1469
+Overfull \hbox (9.63956pt too wide) in paragraph at lines 1483--1484
 \OT1/cmr/m/n/12 Mitchell, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , T. Wa
 ng, M. Behr, R. Sladek, M. Blanchette,
  []
 
 
-Overfull \hbox (9.63956pt too wide) in paragraph at lines 1469--1470
+Overfull \hbox (9.63956pt too wide) in paragraph at lines 1484--1485
 \OT1/cmr/m/n/12 Mitchell, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , T. Wa
 ng, M. Behr, R. Sladek, M. Blanchette,
  []
 
-[68]
-Underfull \hbox (badness 10000) in paragraph at lines 1471--1472
+
+Underfull \hbox (badness 10000) in paragraph at lines 1486--1487
 
  []
 
-) [69] (./thesis_mcgill.bbl
+) [71] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -813,7 +785,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[70
+[72
 
 
 
@@ -830,19 +802,19 @@ Underfull \hbox (badness 1043) in paragraph at lines 125--131
 rey
  []
 
-[71] [72] [73] [74] [75] [76]
+[73] [74] [75] [76] [77] [78]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ô in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no î in font cmr12!
- [77]
-Underfull \hbox (badness 1270) in paragraph at lines 598--603
+ [79]
+Underfull \hbox (badness 1270) in paragraph at lines 604--609
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[78] [79] [80]) (./thesis_mcgill.aux (./chapters/intro.aux))
+[80] [81] [82]) (./thesis_mcgill.aux (./chapters/intro.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -909,10 +881,10 @@ LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
 
  ) 
 Here is how much of TeX's memory you used:
- 5883 strings out of 493315
- 87353 string characters out of 6137904
+ 5884 strings out of 493315
+ 87374 string characters out of 6137904
  178468 words of memory out of 5000000
- 9225 multiletter control sequences out of 15000+600000
+ 9226 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,8n,40p,2561b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -926,10 +898,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (80 pages, 299033 bytes).
+Output written on thesis_mcgill.pdf (82 pages, 303193 bytes).
 PDF statistics:
- 304 PDF objects out of 1000 (max. 8388607)
- 209 compressed objects within 3 object streams
+ 310 PDF objects out of 1000 (max. 8388607)
+ 213 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -435,36 +435,6 @@ Even the seemingly ``simple" Mendelian trait of sickle-cell anemia is revealed t
 For example, in humans the E4 allele of apolipoprotein epsilon (ApoE) is associated with elevated blood serum cholesterol levels, but only in individuals with the A2A2 genotype at the low density lipoprotein receptor (LDLR) locus.(3) In other words, the contribution of the ApoE allele to cholesterol levels depends on the genotype at the LDLR locus. \cite{tyler2009shadows}
 
 
-\subsection{Epistasis \& GWAS}
-IN 2002 OPINION: for the abandonment of linkage studies in favor of genome scans for association. However, there exists a large class of genetic models for which this approach will fail: purely epistatic models with no additive or dominance variation at any of the susceptibility loci. \cite{culverhouse2002perspective}. Is it reasonable to suppose that an approach that must succeed in identifying fully penetrant Mendelian genes will also succeed for complex diseases?  \cite{culverhouse2002perspective}. The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}
-The main reason that most studies of complex human phenotypes fail to find evidence for epistatic interactions may simply be that commonly used designs and analytic methods inherently minimize or exclude the possibility of epistasis (Frankel and Schork 1996) \cite{culverhouse2002perspective}
-The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci. \cite{culverhouse2002perspective}
-We note that the number of tests necessary to evaluate all two-, three-, and four-way interactions, for 30–60 candidate loci, has a range similar to the number of tests suggested for a single genomewide association scan using SNPs (Collins et al. 1999; Kruglyak 1999) \cite{culverhouse2002perspective}
-Thus, although searching for two-, three-, four-, or n-way interactions among all the markers in a genome scan would not be practicable, a candidate-locus approach based on a genome scan for linkage may be. \cite{culverhouse2002perspective}
-
-The extent to which epistasis is involved in regulating complex traits is not known, and so we cannot assume that epistasis will be found for every trait in every population. \cite{carlborg2004epistasis}
-However, we argue that epistasis has been overlooked for too long and that it now needs to be routinely explored in complex trait studies.  \cite{carlborg2004epistasis}
-For complex traits such as diabetes, asthma, hypertension and multiple sclerosis, the search for susceptibility loci has, to date, been less successful than for simple Mendelian disorders. This is probably due to complicating factors such as an increased number of contributing loci and susceptibility alleles, incomplete penetrance, and contributing environmental effects \cite{cordell2002epistasis}
-The presence of epistasis is a particular cause for concern, since, if the effect of one locus is altered or masked by effects at another locus, power to detect the first locus is likely to be reduced and elucidation of the joint effects at the two loci will be hindered by their interaction.  \cite{cordell2002epistasis}
-Although genetic interactions are hard to detect in humans (see below), several cases involving variants with large marginal effects have been recently reported in Hirschsprung's disease, ankylosing spondylitis, psoriasis, and type I diabetes  \cite{zuk2012mystery}
-...geneticists have tested for pairwise epistasis between loci, but have found few significant signals. \cite{zuk2012mystery}
-...The reason is that individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect an effect scales inversely with the square of the effect size. If n loci had equivalent effects, the sample size to detect the n loci would thus scale with $n^2$, whereas the sample size to detect their $n^2$ interactions scales with $n^4$. \cite{zuk2012mystery}
-Suppose that we consider two variants with frequency 20\% that contribute to different pathways and increase risk by 1.3-fold (which is a large effect relative to those typically seen in GWAS). The sample size required to detect the variants is 4,900 (with 50\% power and genome-wide significance level of $\alpha = 5 \times 10^{-8}$ in a genome-wide association study with an equal number of cases and controls), whereas the sample size required to detect their pairwise interaction is roughly 450,000 (at 50\% power and an appropriate significance level to account for multiple hypothesis testing). A researcher who studied 100,000 samples would likely discover all of the loci but would find little evidence of epistatic interactions. \cite{zuk2012mystery}
-In short, the failure to detect epistasis does not rule out the presence of genetic interactions sufficient to cause substantial phantom heritability \cite{zuk2012mystery}
-
-Cases only. The most straightforward multilocus analysis of cases-only data is a $\chi^2$ test of independent segregation for the loci.  \cite{culverhouse2002perspective}
-Case-control. A second approach is a multilocus case-control analysis. One method for doing this would be to compare the distribution of cases among the 3L genotypes, where L is the number of biallelic loci being simultaneously examined, versus the distribution of controls. In this analysis, a sample of N cases and N unrelated controls drawn from a population modeled by table 3 will, again, yield an expected $\chi^2$ statistic 2N. However, the degrees of freedom under the null hypothesis are now 8. \cite{culverhouse2002perspective}
-
-\subsection{Epistasisi GWAS: Power issues}
- We have seen that, if the true genetic model underlying a disease is purely epistatic, with no additive or dominance variation at any of the susceptibility loci, then association methods analyzing one locus at a time will have no power to detect the loci.  \cite{culverhouse2002perspective}
-First, we expect that, with a sufficient number of contributing loci, purely epistatic interactions could account for virtually all the variation in affection status for diseases with any prevalence \cite{culverhouse2002perspective}
-Of course, there are subclasses of purely epistatic models (providing no marginal evidence for the involvement of any single locus) for which, in addition, no two, three, or L1 loci jointly give evidence of involvement in the disorder. This leads to the concern that even assessment of all two-, three-, and (L1)-way interactions among candidate loci may be insufficient for detection of the contributing loci. \cite{culverhouse2002perspective}
-The restriction on maximum heritabilities in these models is most easily seen by examining L-locus models for which no collection of L 􏰂 1 loci shows marginal deviations.  \cite{culverhouse2002perspective}
-
-A small number of recent studies have explored this idea for the genome-level identification of epistatic interactions: if a large number of individuals is genotyped at a large number of genomic positions, it becomes possible to test all allele pairs for overand underrepresentation in that population [18–20]. \cite{ackermann2012systematic}
-However, even though some methodological progress has been made [18], previous studies could hardly identify a significant number of interactions. The main obstacle is the humongous number of statistical hypotheses tested when comparing all markers in a genome against all markers. \cite{ackermann2012systematic}
-
-
 \subsection{Epistasis and networks}
 Epistasis-nonlinear genetic interactions between polymorphic loci-is the genetic basis of canalization and speciation, and epistatic interactions can be used to infer genetic networks affecting quantitative traits. \cite{huang2012epistasis}
 DATASET: Here, we compared the genetic architecture of three Drosophila life history traits in the sequenced inbred lines of the Drosophila melanogaster Genetic Reference Panel (DGRP) and a large outbred, advanced intercross population derived from 40 DGRP lines (Flyland)\cite{huang2012epistasis}
@@ -504,43 +474,88 @@ Our method, called ``Imbalanced Allele Pair frequencies (ImAP)'' is based on ins
 In a population of 2,002 heterozygous mice with known family structure genotyped at 10,168 markers we identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}
 
 
+\subsection{Epistasis \& GWAS}
+IN 2002 OPINION: for the abandonment of linkage studies in favor of genome scans for association. However, there exists a large class of genetic models for which this approach will fail: purely epistatic models with no additive or dominance variation at any of the susceptibility loci. \cite{culverhouse2002perspective}. Is it reasonable to suppose that an approach that must succeed in identifying fully penetrant Mendelian genes will also succeed for complex diseases?  \cite{culverhouse2002perspective}. The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}
+The main reason that most studies of complex human phenotypes fail to find evidence for epistatic interactions may simply be that commonly used designs and analytic methods inherently minimize or exclude the possibility of epistasis (Frankel and Schork 1996) \cite{culverhouse2002perspective}
+The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci. \cite{culverhouse2002perspective}
+We note that the number of tests necessary to evaluate all two-, three-, and four-way interactions, for 30–60 candidate loci, has a range similar to the number of tests suggested for a single genomewide association scan using SNPs (Collins et al. 1999; Kruglyak 1999) \cite{culverhouse2002perspective}
+Thus, although searching for two-, three-, four-, or n-way interactions among all the markers in a genome scan would not be practicable, a candidate-locus approach based on a genome scan for linkage may be. \cite{culverhouse2002perspective}
+
+The extent to which epistasis is involved in regulating complex traits is not known, and so we cannot assume that epistasis will be found for every trait in every population. \cite{carlborg2004epistasis}
+However, we argue that epistasis has been overlooked for too long and that it now needs to be routinely explored in complex trait studies.  \cite{carlborg2004epistasis}
+For complex traits such as diabetes, asthma, hypertension and multiple sclerosis, the search for susceptibility loci has, to date, been less successful than for simple Mendelian disorders. This is probably due to complicating factors such as an increased number of contributing loci and susceptibility alleles, incomplete penetrance, and contributing environmental effects \cite{cordell2002epistasis}
+The presence of epistasis is a particular cause for concern, since, if the effect of one locus is altered or masked by effects at another locus, power to detect the first locus is likely to be reduced and elucidation of the joint effects at the two loci will be hindered by their interaction.  \cite{cordell2002epistasis}
+Although genetic interactions are hard to detect in humans (see below), several cases involving variants with large marginal effects have been recently reported in Hirschsprung's disease, ankylosing spondylitis, psoriasis, and type I diabetes  \cite{zuk2012mystery}
+...geneticists have tested for pairwise epistasis between loci, but have found few significant signals. \cite{zuk2012mystery}
+...The reason is that individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect an effect scales inversely with the square of the effect size. If n loci had equivalent effects, the sample size to detect the n loci would thus scale with $n^2$, whereas the sample size to detect their $n^2$ interactions scales with $n^4$. \cite{zuk2012mystery}
+Suppose that we consider two variants with frequency 20\% that contribute to different pathways and increase risk by 1.3-fold (which is a large effect relative to those typically seen in GWAS). The sample size required to detect the variants is 4,900 (with 50\% power and genome-wide significance level of $\alpha = 5 \times 10^{-8}$ in a genome-wide association study with an equal number of cases and controls), whereas the sample size required to detect their pairwise interaction is roughly 450,000 (at 50\% power and an appropriate significance level to account for multiple hypothesis testing). A researcher who studied 100,000 samples would likely discover all of the loci but would find little evidence of epistatic interactions. \cite{zuk2012mystery}
+In short, the failure to detect epistasis does not rule out the presence of genetic interactions sufficient to cause substantial phantom heritability \cite{zuk2012mystery}
+
+Cases only. The most straightforward multilocus analysis of cases-only data is a $\chi^2$ test of independent segregation for the loci.  \cite{culverhouse2002perspective}
+Case-control. A second approach is a multilocus case-control analysis. One method for doing this would be to compare the distribution of cases among the 3L genotypes, where L is the number of biallelic loci being simultaneously examined, versus the distribution of controls. In this analysis, a sample of N cases and N unrelated controls drawn from a population modeled by table 3 will, again, yield an expected $\chi^2$ statistic 2N. However, the degrees of freedom under the null hypothesis are now 8. \cite{culverhouse2002perspective}
+
+\subsection{Epistasisi GWAS: Power issues}
+ We have seen that, if the true genetic model underlying a disease is purely epistatic, with no additive or dominance variation at any of the susceptibility loci, then association methods analyzing one locus at a time will have no power to detect the loci.  \cite{culverhouse2002perspective}
+First, we expect that, with a sufficient number of contributing loci, purely epistatic interactions could account for virtually all the variation in affection status for diseases with any prevalence \cite{culverhouse2002perspective}
+Of course, there are subclasses of purely epistatic models (providing no marginal evidence for the involvement of any single locus) for which, in addition, no two, three, or L1 loci jointly give evidence of involvement in the disorder. This leads to the concern that even assessment of all two-, three-, and (L1)-way interactions among candidate loci may be insufficient for detection of the contributing loci. \cite{culverhouse2002perspective}
+The restriction on maximum heritabilities in these models is most easily seen by examining L-locus models for which no collection of L 􏰂 1 loci shows marginal deviations.  \cite{culverhouse2002perspective}
+
+A small number of recent studies have explored this idea for the genome-level identification of epistatic interactions: if a large number of individuals is genotyped at a large number of genomic positions, it becomes possible to test all allele pairs for overand underrepresentation in that population [18–20]. \cite{ackermann2012systematic}
+However, even though some methodological progress has been made [18], previous studies could hardly identify a significant number of interactions. The main obstacle is the humongous number of statistical hypotheses tested when comparing all markers in a genome against all markers. \cite{ackermann2012systematic}
+
+
+%---
+\section{Coevolution}
+%---
+
+
+\subsection{Definition}
+
+Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci. \cite{rohlfs2010detecting}
+Coevolving genes are expected to undergo compensatory mutations to maintain their interaction. \cite{rohlfs2010detecting}
+Most cases of selective advantage for specific allele pairing would be resolved with fixation of the optimal allele pair.7 \cite{rohlfs2010detecting}
+
+\subsection{Co-evolution examples}
+HLA and KIR are well established as interacting immune-response loci under intense diversifying selection. Although these genes are on different chromosomes, their allele frequencies are significantly correlated within human populations, as one would expect under intense selection for allele matching.15 \cite{rohlfs2010detecting}
+
+
+In this paper, we explore the ramifications of coevolution between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19  \cite{rohlfs2010detecting}
+Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excellent candidates for coevolution-induced allelic association \cite{rohlfs2010detecting}
+WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth. \cite{rohlfs2010detecting}
+General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35.. \cite{rohlfs2010detecting}
+To address this possibility, we use a standard contingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom: \cite{rohlfs2010detecting}
+The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts \cite{rohlfs2010detecting}
+To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests.  \cite{rohlfs2010detecting}
+Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus.  \cite{rohlfs2010detecting}
+
+The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control, \cite{rohlfs2010detecting}
+
+\subsection{Detecting co-evolution}
+Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1–6 \cite{rohlfs2010detecting}
+
+\subsection{Co-evolution algorithm complexity}
+Calculating the power of these exact tests can be prohibitively slow with a large sample size. As an alternative, we quickly estimate power by using theoretical test statistic distributions under the alternative hypothesis. Under the alternative hypothesis with genotype frequency matrix F, X 2 is approximately chi-square 1 distributed with one degree of freedom and noncentrality parameter \cite{rohlfs2010detecting}
+We ran a similar analysis on a secondary candidate gene pair implicated in maternal-fetal interactions: GHR (MIM 600946) and GH2 (MIM 139240).37 \cite{rohlfs2010detecting}
+Power: because of computational limitations, we were unable to perform the exact test for larger value of n;  \cite{rohlfs2010detecting}
+Asymptotic Analysis: For a high but biologically reasonable s of 0.1,38 with a sample size of n 1⁄4 1480, the asymptotic CLD test has a power of 0.525 and the asymptotic GA test has a power of 0.327 \cite{rohlfs2010detecting}
+
+Population: Population structure could also cause allelic association between physically unlinked loci.  \cite{rohlfs2010detecting}
+Allelic association would be observed if the alleles at each locus have different frequencies in different populations and those populations are pooled together. In this analysis, ZP3 and ZP3R are associated as compared to other genes in the same individuals. It is not likely that population structure would cause allelic association in our candidate gene pair but not in other gene pairs in the same population. It is possible that ZP3 and ZP3R are statistical outliers that we expect under no selection and are associated simply by chance. However, given our limited single-hypothesis candidate gene approach, we find that unlikely. \cite{rohlfs2010detecting}
+
+
+\subsection{Limitations of independent assumption}
+
+
+\subsection{Complex models}
+However, because the coevolving genes are not necessarily in physical linkage, this is not an appropriate measure of coevolution-induced allelic association \cite{rohlfs2010detecting}
+
+
+
 %===================================================================================================
 % TO ADD
 %===================================================================================================
 
 
-
-%------------------------------------------------------------
-% From: \cite{rohlfs2010detecting}		Cited by: 16
-%	Topic: DETECTING EPISTASIS (not GWAS)
-%
-%		Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci. \cite{rohlfs2010detecting}
-%		However, because the coevolving genes are not necessarily in physical linkage, this is not an appropriate measure of coevolution-induced allelic association \cite{rohlfs2010detecting}
-%		Coevolving genes are expected to undergo compensatory mutations to maintain their interaction. \cite{rohlfs2010detecting}
-% 	Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1–6 \cite{rohlfs2010detecting}
-%		HLA and KIR are well established as interacting immune-response loci under intense diversifying selection. Although these genes are on different chromosomes, their allele frequencies are significantly correlated within human populations, as one would expect under intense selection for allele matching.15 \cite{rohlfs2010detecting}
-%		Most cases of selective advantage for specific allele pairing would be resolved with fixation of the optimal allele pair.7 \cite{rohlfs2010detecting}
-%		In this paper, we explore the ramifications of coevolution between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19  \cite{rohlfs2010detecting}
-%		Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excellent candidates for coevolution-induced allelic association \cite{rohlfs2010detecting}
-%		WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth. \cite{rohlfs2010detecting}
-%		General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35.. \cite{rohlfs2010detecting}
-%		To address this possibility, we use a standard contingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom: \cite{rohlfs2010detecting}
-%		The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts \cite{rohlfs2010detecting}
-%		To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests.  \cite{rohlfs2010detecting}
-%		Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus.  \cite{rohlfs2010detecting}
-%		Calculating the power of these exact tests can be prohibitively slow with a large sample size. As an alternative, we quickly estimate power by using theoretical test statistic distributions under the alternative hypothesis. Under the alternative hypothesis with genotype frequency matrix F, X 2 is approximately chi-square 1 distributed with one degree of freedom and noncentrality parameter \cite{rohlfs2010detecting}
-%		We ran a similar analysis on a secondary candidate gene pair implicated in maternal-fetal interactions: GHR (MIM 600946) and GH2 (MIM 139240).37 \cite{rohlfs2010detecting}
-%		Power: because of computational limitations, we were unable to perform the exact test for larger value of n;  \cite{rohlfs2010detecting}
-%		Asymptotic Analysis: For a high but biologically reasonable s of 0.1,38 with a sample size of n 1⁄4 1480, the asymptotic CLD test has a power of 0.525 and the asymptotic GA test has a power of 0.327 \cite{rohlfs2010detecting}
-%		Population: Population structure could also cause allelic association between physically unlinked loci.  \cite{rohlfs2010detecting}
-%		Allelic association would be observed if the alleles at each locus have different frequencies in different populations and those populations are pooled together. In this analysis, ZP3 and ZP3R are associated as compared to other genes in the same individuals. It is not likely that population structure would cause allelic association in our candidate gene pair but not in other gene pairs in the same population. It is possible that ZP3 and ZP3R are statistical outliers that we expect under no selection and are associated simply by chance. However, given our limited single-hypothesis candidate gene approach, we find that unlikely. \cite{rohlfs2010detecting}
-%		The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control, \cite{rohlfs2010detecting}
-
-
-%------------------------------------------------------------
-% From: Exploiting the co-evolution of interacting proteins to discover interaction specificity		(2003 cited 205)
-% \cite{ramani2003exploiting}
-%
 %		Predicting interaction specificity, such as matching members of a ligand family to specific members of a receptor family, is largely an unsolved problem. Here we show that by using evolutionary relationships within such families, it is possible to predict their physical interaction specificities.  \cite{ramani2003exploiting}
 %		We introduce the computational method of matrix alignment for finding the optimal alignment between protein family similarity matrices \cite{ramani2003exploiting}
 %		Binding specificities of duplicate genes (paralogs) often diverge, such that new binding specificities are evolved \cite{ramani2003exploiting}
