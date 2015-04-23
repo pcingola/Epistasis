@@ -1,0 +1,877 @@
+%---
+\section{Coevolution}
+%---
+
+
+\subsection{Definition}
+
+Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci. \cite{rohlfs2010detecting}
+Coevolving genes are expected to undergo compensatory mutations to maintain their interaction. \cite{rohlfs2010detecting}
+Most cases of selective advantage for specific allele pairing would be resolved with fixation of the optimal allele pair.7 \cite{rohlfs2010detecting}
+
+\subsection{Co-evolution examples}
+HLA and KIR are well established as interacting immune-response loci under intense diversifying selection. Although these genes are on different chromosomes, their allele frequencies are significantly correlated within human populations, as one would expect under intense selection for allele matching.15 \cite{rohlfs2010detecting}
+
+
+In this paper, we explore the ramifications of coevolution between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19  \cite{rohlfs2010detecting}
+Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excellent candidates for coevolution-induced allelic association \cite{rohlfs2010detecting}
+WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth. \cite{rohlfs2010detecting}
+General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35.. \cite{rohlfs2010detecting}
+To address this possibility, we use a standard contingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom: \cite{rohlfs2010detecting}
+The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts \cite{rohlfs2010detecting}
+To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests.  \cite{rohlfs2010detecting}
+Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus.  \cite{rohlfs2010detecting}
+
+CANCER: Helicobacter pylori is the principal cause of gastric cancer, the second leading cause of cancer mortality worldwide. However, H. pylori prevalence generally does not predict cancer incidence.			 \cite{kodaman2014human}
+DATA: To determine whether coevolution between host and pathogen influences disease risk, we examined the association between the severity of gastric lesions and patterns of genomic variation in matched human and H. pylori samples. Patients were recruited from two geographically distinct Colombian populations with significantly different incidences of gastric cancer, but virtually identical prevalence of H. pylori infection.  \cite{kodaman2014human}
+All H. pylori isolates contained the genetic signatures of multiple ancestries, with an ancestral African cluster predominating in a low-risk, coastal population and a European cluster in a high-risk, mountain population. The human ancestry of the biopsied individuals also varied with geography, with mostly African ancestry in the coastal region (58\%), and mostly Amerindian ancestry in the mountain region (67\%).  \cite{kodaman2014human}
+The interaction between the host and pathogen ancestries completely accounted for the difference in the severity of gastric lesions in the two regions of Colombia. In particular, African H. pylori ancestry was relatively benign in humans of African ancestry but was deleterious in individuals with substantial Amerindian ancestry. \cite{kodaman2014human}
+Thus, coevolution likely modulated disease risk, and the disruption of coevolved human and H. pylori genomes can explain the high incidence of gastric disease in the mountain population. \cite{kodaman2014human}
+
+The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control, \cite{rohlfs2010detecting}
+
+\subsection{Detecting co-evolution}
+Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1-6 \cite{rohlfs2010detecting}
+
+\subsection{Co-evolution algorithm complexity}
+Calculating the power of these exact tests can be prohibitively slow with a large sample size. As an alternative, we quickly estimate power by using theoretical test statistic distributions under the alternative hypothesis. Under the alternative hypothesis with genotype frequency matrix F, X 2 is approximately chi-square 1 distributed with one degree of freedom and noncentrality parameter \cite{rohlfs2010detecting}
+We ran a similar analysis on a secondary candidate gene pair implicated in maternal-fetal interactions: GHR (MIM 600946) and GH2 (MIM 139240).37 \cite{rohlfs2010detecting}
+Power: because of computational limitations, we were unable to perform the exact test for larger value of n;  \cite{rohlfs2010detecting}
+Asymptotic Analysis: For a high but biologically reasonable s of 0.1,38 with a sample size of n 1⁄4 1480, the asymptotic CLD test has a power of 0.525 and the asymptotic GA test has a power of 0.327 \cite{rohlfs2010detecting}
+
+Population: Population structure could also cause allelic association between physically unlinked loci.  \cite{rohlfs2010detecting}
+Allelic association would be observed if the alleles at each locus have different frequencies in different populations and those populations are pooled together. In this analysis, ZP3 and ZP3R are associated as compared to other genes in the same individuals. It is not likely that population structure would cause allelic association in our candidate gene pair but not in other gene pairs in the same population. It is possible that ZP3 and ZP3R are statistical outliers that we expect under no selection and are associated simply by chance. However, given our limited single-hypothesis candidate gene approach, we find that unlikely. \cite{rohlfs2010detecting}
+
+Predicting interaction specificity, such as matching members of a ligand family to specific members of a receptor family, is largely an unsolved problem. Here we show that by using evolutionary relationships within such families, it is possible to predict their physical interaction specificities.  \cite{ramani2003exploiting}
+We introduce the computational method of matrix alignment for finding the optimal alignment between protein family similarity matrices \cite{ramani2003exploiting}
+Binding specificities of duplicate genes (paralogs) often diverge, such that new binding specificities are evolved \cite{ramani2003exploiting}
+the use of phylogenetic trees to account for the co-evolution of interacting proteins \cite{ramani2003exploiting}
+the hypothesis underlying these approaches is that interacting proteins often exhibit coordinated evolution, and therefore tend to have similar phylogenetic trees. Goh et al.17 demonstrated this by showing that chemokines and their receptors have very similar phylogenetic trees \cite{ramani2003exploiting}
+In order to exploit the evolutionary information contained in such interacting protein families, we developed an algorithm that is conceptually equivalent to superimposing the phylogenetic trees of the two protein families. \cite{ramani2003exploiting}
+The matrix alignment method for predicting protein interaction specificity. Proteins in family A interact with those in family B. In each family, a similarity matrix summarizes the proteins' evolutionary relationships. The algorithm uses the similarity matrices to pair up the genes in the two families. Columns of matrix B are re-ordered (along with their corresponding rows in the matrix) such that the B matrix agrees maximally with matrix A, judged by minimizing the root mean square difference (r.m.s.d.) between elements in the two matrices. Interactions are then predicted between proteins heading equivalent columns of the two matrices. \cite{ramani2003exploiting}
+One matrix is shuffled, maintaining the correct relationships between proteins but simply re-ordering them in the matrix, until the two matrices maximally agree, minimizing the root mean square difference between elements of the two matrices. Interactions are then predicted between proteins heading equivalent columns of the two matrices.  \cite{ramani2003exploiting}
+For matrix alignment, MATRIX currently applies a stochastic simulated annealing-based algorithm. \cite{ramani2003exploiting}
+
+\subsection{Limitations of independent assumption}
+
+
+\subsection{Complex models}
+However, because the coevolving genes are not necessarily in physical linkage, this is not an appropriate measure of coevolution-induced allelic association \cite{rohlfs2010detecting}
+
+Applied to a set of >2,500 representatives of the bacterial two-component signal transduction system, the combination of covariance with global inference successfully and robustly identified residue pairs that are proximal in space without resorting to ad hoc tuning parameters, both for heterointeractions between sensor kinase (SK) and response regulator (RR) proteins and for homointeractions between RR proteins. \cite{weigt2009identification}
+The spectacular success of this approach illustrates the effectiveness of the global inference approach in identifying direct interaction based on sequence information alone. \cite{weigt2009identification}
+Experimental approaches to identify surfaces of interaction between proteins such as surface-scanning mutagenesis and cocrystal structure generation are arduous and/or serendipitous. \cite{weigt2009identification}
+Covariance methods rely on the premise that amino acid substitution patterns between interacting residues are constrained and hence correlated. To maintain protein function, the acceptance of a deleterious substitution at 1 position must be compensated for by substitution(s) in the residue(s) interacting with it (14) \cite{weigt2009identification}
+However, the covariance approach has a number of shortcomings that may significantly affect its predictive power (15). One important problem stems from the fact that correlation in amino acid substitution may arise from direct as well as indirect interactions \cite{weigt2009identification}
+A formidable technical challenge with this approach is to work out the expected statistical correlation generated by a given set of trial direct interactions, because this itself is a very difficult global optimization problem [as exemplified by the notorious ``spinglass'' problem (16)]. This challenge is dealt with here by applying a message-passing approach (17, 18). In recent years, insights from spin-glass physics have led to the development of generalized message-passing techniques, which have been applied successfully to a number of hard combinatorial problems such as K-SAT (19 -21). \cite{weigt2009identification}
+The statistically correlated pairs are candidates for positions in contact at the protein- protein interface. However, statistical correlation does not automatically imply strong direct interaction. Imagine that position i is coupled directly to j, and j to k. Then i and k will also show correlation, without being directly coupled.  \cite{weigt2009identification}
+To circumvent this problem, we infer a global statistical model  \cite{weigt2009identification}
+Note that in principle higher correlations of 3 or more positions can be included in a similar way. However, the size of the available dataset does not allow for going beyond 2-residue correlations. The 21 􏰐 21 elements of fij(Ai, Aj) have to be estimated from the M 􏰈 2,546 sequences in the database; frequency counts for 􏰆2 positions would be very imprecise because of insufficient sample size. \cite{weigt2009identification}
+ Application of the maximumentropy principle yields the simplest possible [Boltzman distribution] \cite{weigt2009identification}
+Determining these parameters to meet Eq. 1 is an algorithmically hard task, and can be achieved by using a 2-step procedure. \cite{weigt2009identification}
+	Givenacandidatesetofmodelparameters,single-and2-residue distributions Pi(Ai) and Pij(Ai, Aj) are estimated from Eq. 2. This is computationally expensive, the exact summation over all possible protein sequences would require $O(21^{N-2} N^2)$ steps. Approximations can be achieved by MCMC sampling-which is expected to be very slow for 21-state variables-or more efficiently by a semiheuristic message-passing approach (31). We use the latter approach; it reduces the computational complexity to $O(21^2 N^4)$. \cite{weigt2009identification}
+	Once all Pij(Ai, Aj) are estimated, we can use gradient descent to adjust the coupling strengths eij(Ai, Aj) \cite{weigt2009identification}
+	This equation can be derived variationally within a Bayesian approach, it maximizes the joint probability of the data under model 2 (compare SI Text). Because this probability is convex, it is guaranteed to converge to a single global maximum. \cite{weigt2009identification}
+	a quantity called direct information (DI) is introduced. It measures the part of the mutual information of a position pair, which is induced by the direct coupling. Intuitively, it can be understood as the mutual information in a 2-variable model for positions i and j only, which has the correct statistics of the amino acid occupancy of single positions, and coupling eij(Ai, Aj) in between.  \cite{weigt2009identification}
+	Because of the scaling of the algorithmic complexity, the method cannot be applied simultaneously to all 212 positions of the protein alignment. Therefore, the 60 positions of the protein alignment being involved in the 140 highest MI-ranking pairs (containing the 32 candidates for contact pairs identified before) are selected. \cite{weigt2009identification}
+
+
+%===================================================================================================
+% TO ADD
+%===================================================================================================
+
+
+
+%------------------------------------------------------------
+% From: Identifying and seeing beyond multiple sequence alignment errors using intra-molecular protein covariation	(2010, cited 22)
+% \cite{dickson2010identifying}
+
+Different alignments of the same protein family give different results demonstrating that covariation depends on the quality of the sequence alignment. \cite{dickson2010identifying}
+We show that current criteria are insufficient to build alignments for use with covariation analyses as systematic sequence alignment errors are present even in hand-curated structure-based alignment datasets like those from the Conserved Domain Database.  \cite{dickson2010identifying}
+We demonstrate that removing alignment errors due to 1) improper structure alignment, 2) the presence of paralogous sequences, and 3) partial or otherwise erroneous sequences, improves contact prediction by covariation analysis \cite{dickson2010identifying}
+Standard benchmarks for covariation accuracy measure the fraction of covarying amino acid pairs that are in contact.  \cite{dickson2010identifying}
+First, the sequence alignments must contain sufficient sequences with enough variation for the signal to exceed the noise. Estimates of the required number of sequences needed in the alignments for this to be true vary from *30 [6] to w125 [4,8,15,16].  \cite{dickson2010identifying}
+Secondly, all positions in a protein appear to covary because of their shared ancestry, and this signal is the only systematic source of covariation for the vast majority of position pairs [6,14,17].  \cite{dickson2010identifying}
+As one example, structure-based alignment algorithms are susceptible to shift error [18], meaning that positions in the structure alignment are not orthologous despite the fact that much of the secondary structural elements seem to overlap between aligned structures. \cite{dickson2010identifying}
+We observed that the same protein family often gave different numbers of covarying positions when alignments were from different sources even if the alignments contained comparable numbers of sequences.  \cite{dickson2010identifying}
+We also found that alignments generated without structural information identified fewer pairs in contact in the folded protein compared to alignments generated with structural information. \cite{dickson2010identifying}
+Here we show that a strong covariation signal can be caused by alignment error, potentially leading to false positive predictions.  \cite{dickson2010identifying}
+
+
+%------------------------------------------------------------
+% From \cite{petkov2005evidence}		Cited by: 91
+%	Topic: DETECTING EPISTASIS (not GWAS)
+%
+Evidence from inbred strains of mice indicates that a quarter or more of the mammalian genome consists of chromosome regions containing clusters of functionally related genes \cite{petkov2005evidence}
+60 genetically diverse inbred strains. \cite{petkov2005evidence}
+forming networks with scale-free architecture. Combining LD data with pathway and genome annotation databases, we have been able to identify the biological functions underlying several domains and networks. \cite{petkov2005evidence}
+As typified by the a and b globin gene clusters, tandem duplications can give rise to gene families whose members develop divergent, but still related, functions over time.  \cite{petkov2005evidence}
+Gene clusters may arise as a means of promoting their coregulation through regional controls of chromatin structure and expression, and there is now considerable evidence, well summarized by Hurst et al. [1], that for variety of eukaryotes, including yeast, Caenorhabditis, Drosophila, higher plants, and mammals, genes sharing expression patterns are more likely to be in proximity than would be expected by chance.  \cite{petkov2005evidence}
+...And finally, Fisher [2] and later Nei [3,4] have argued on theoretical grounds that when genes interact epistatically, evolutionary selection will promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations.  \cite{petkov2005evidence}
+The process of inbreeding to homozygosity imposes intense selective pressures; all efforts among some species have failed, and with mice, only a fraction of initial attempts succeeded.  \cite{petkov2005evidence}
+Accordingly, we can expect that if clustering of functionally related genes is a common feature of mammalian genomes, there is likely to be selection for coadapted allelic combinations among the genes encoding functions that influence fitness and survival during inbreeding. This would result in regions of linkage disequilibrium (LD) among inbred strain genomes; i.e., some allelic combinations should occur more often than expected by chance. \cite{petkov2005evidence}
+Data: 1,456 SNPs, chosen for their high information content, among a set of 60 common and wildderived inbred mouse strains chosen for their genetic diversity.  \cite{petkov2005evidence}
+ The identity of these strains and the phylogenetic relationships among them are indicated in Figure 1, which was constructed using neighbor-joining \cite{petkov2005evidence}
+LD calculation: estimated LD using D9, the difference between the observed frequency of an allelic combination and its random expectation, relative to the maximum deviation possible given the allele frequencies of the two markers [14,15]. D9 corrects for differences in allele frequencies and describes LD equally well when there is selection for or against the combination of majority alleles. A cumulative Fisher's exact test (FET) was used to compute the probability (pFET) of obtaining an equally or more extreme distribution under the null hypothesis of random allelic association between pairs of SNPs.  \cite{petkov2005evidence}
+Permutaation test: In one set, marker locations were randomized while maintaining the assignments of alleles to strains (Figure 2, red triangles), and in the other set the assignments of alleles to strains were randomized while preserving allele ratios and marker locations (Figure 2, solid circles) \cite{petkov2005evidence}
+It is difficult to escape the conclusion that the selective factors acting to generate LD domains and networks during inbreeding reflect clustering and/or interaction of functionally related elements along chromosomes \cite{petkov2005evidence}
+
+
+%------------------------------------------------------------
+% From: \cite{wang2012ldgidb}		Cited by: 1
+%	Topic: DETECTING EPISTASIS (not GWAS)
+
+non-physical linkages between different mutations (or single nucleotide polymorphisms, SNPs)  \cite{wang2012ldgidb}
+These interactions can be physical protein interactions, regulatory interactions, functional compensation/antagonization or many other forms of interactions.  \cite{wang2012ldgidb}
+non-physical SNP linkages, coupled with knowledge of SNP-disease associations may shed more light on the role of gene interactions in human disorders. \cite{wang2012ldgidb}
+exonic regions of protein-coding genes from the HapMap database to construct a database named the Linkage-Disequilibrium-based Gene Interaction database (LDGIdb). The database stores 646,203 potential human gene interactions, which are potential interactions inferred from SNP pairs that are subject to long-range strong linkage disequilibrium (LD), or non-physical linkages. To minimize the possibility of hitchhiking, SNP pairs inferred to be non-physically linked were required to be located in different chromosomes or in different LD blocks  \cite{wang2012ldgidb}
+Here we consider only the subpopulations that contain at least 20 individuals. \cite{wang2012ldgidb}
+strong LD (r2 ≥ 0.8); \cite{wang2012ldgidb}
+
+%------------------------------------------------------------
+% From: Long Range Linkage Disequilibrium across the Human Genome		(2013, cited 3)
+% \cite{koch2013long}
+%	Topic: DETECTING EPISTASIS (not GWAS)
+
+Long-range linkage disequilibria (LRLD) between sites that are widely separated on chromosomes may suggest that population admixture, epistatic selection, or other evolutionary forces are at work.  \cite{koch2013long}
+We quantified patterns of LRLD on a chromosome-wide level in the YRI population of the HapMap dataset of single nucleotide polymorphisms (SNPs). \cite{koch2013long}
+We calculated the disequilibrium between all pairs of SNPs on each chromosome (a total of .261011 values) and evaluated significance of overall disequilibrium using randomization.  \cite{koch2013long}
+The results show an excess of associations between pairs of distant sites (separated by .0.25 cM) on all of the 22 autosomes.  \cite{koch2013long}
+Disequilibria between closely-linked sites result largely from random genetic drift or (equivalently) the common ancestry of unrecombined chromosome blocks.  \cite{koch2013long}
+While these ``long range haplotypes'' can extend over a few hundred kb in unrelated humans [5], they still span only a very small fraction of an entire chromosome. \cite{koch2013long}
+Considerably less attention has been paid to patterns of LD between pairs of sites that are separated by much greater genetic distances (say, 1 cM or more). \cite{koch2013long}
+finding substantial long range linkage disequilibrium (LRLD) suggests that countervailing forces are at work. \cite{koch2013long}
+1) One possibility is population admixture [6], which has been proposed to explain unusual patterns of LRLD in some human populations \cite{koch2013long}
+2) A second contributing force is drift. Even in a population at demographic equilibrium, recombination between distant chromosome blocks will largely but not completely erase LD caused by drift. Recurrent bottlenecks are particularly effective at generating LD [9], and may have contributed importantly to disequilibria in nonAfrican populations of humans \cite{koch2013long}
+3) Third, epistatic selection can maintain linkage disequilibrium indefinitely [11]. Epistasis has been implicated in the LD observed between two pairs of genes in humans [12,13].  \cite{koch2013long}
+4) Fourth, the hitchhiking of linked sites with a positively-selected mutation can generate large haplotype blocks that result in disequilibria over the region that they span [3,4]. \cite{koch2013long}
+5) Fifth, structural variation in chromosomes, such as inversions, can alter patterns of recombination and consequently cause LD to extend over unusually large regions of a chromosome [14-16]. \cite{koch2013long}
+ to our knowledge there has been only one previous survey of associations between chromosomal regions across the entire human genome using high-density data. Sved [17] studied correlations in heterozygosity between chromosome blocks. His analysis of the HapMap phase 3 data found evidence of associations between blocks at distances of up to 10 cM and weak correlations between blocks on different chromosomes, but he did not attempt to assess their statistical significance. Lawrence et al. [18] provided a web-based tool for exploring long distance linkage disequilibria in the HapMap data, but did not go on to study patterns in the data. \cite{koch2013long}
+This paper investigates patterns of LRLD in the YRI population (the Yoruba in Ibadan, Nigeria) from the HapMap Phase 2 dataset of single nucleotide polymorphisms [23]. YRI also has weaker short-range disequilibria that might otherwise obscure the patterns of LRLD \cite{koch2013long}
+We calculated the disequilibria between all pairs of SNPs on the same chromosome, then analyze these data with new statistical methods.  \cite{koch2013long}
+Using null distributions generated by randomization, we find significant excess of disequilibria on all 22 autosomes in the Yoruba population.  \cite{koch2013long}
+
+Data: 120 YRI haplotypes that were genotyped at over 2.86106 SNPs in HapMap Phase 2 (data build 22) \cite{koch2013long}
+
+LD issues: Most commonly used measures of linkage disequilibria are not well suited for that purpose [8]. For example, a large value of D9 is likely to result from sampling if allele frequencies are near 0 or 1, while even a small value is unlikely to appear by chance if allele frequencies are intermediate and the sample size is large. \cite{koch2013long}
+We therefore use the probability that a value of the disequilibrium D as large or larger than that in the sample would be observed if there is no association in the population from which the sample is drawn, conditioned on the sampled allele frequencies at the two loci. This probability, which we denote pD, is given by the tail of Fisher's exact test [8,28,29] \cite{koch2013long}
+As the distance between a pair of sites on a chromosome grows large (specifically, the product of the recombination rate and the effective population size becomes much greater than 1), the sampling distribution for two-locus haplotypes converges on that of Fisher's exact test [30,31].  \cite{koch2013long}
+
+Patches: When a pair of distant sites are in disequilibrium, it is likely that other sites near to them will also be associated as a result of shortrange associations [17,32]. In effect, the underlying structure in the data is disequilibrium between pairs of chromosomal blocks rather than between pairs of individuals sites \cite{koch2013long}
+To control for this we used a simple and efficient ad hoc strategy that identifies ``patches'' of disequilibria. \cite{koch2013long}
+
+Results: We take two approaches to search for nonrandom patterns of LRLD. We first ask whether observed values of pD are more extreme than expected. For this purpose we determined the most extreme (that is, smallest) value of pD in each patch, then calculated the mean of these extreme values across all patches on a chromosome. We refer to this statistic as pDmax.  \cite{koch2013long}
+-	Second, we ask whether the number of LRLD patches observed for a given chromosome is greater than expected by chance. We denote this statistic as nP. \cite{koch2013long}
+To test for the statistical significance of pDmax and nP, we generate their null distributions using a randomization method \cite{koch2013long}
+There are two motivations behind this method. First, it preserves the allele frequencies at each site. Second, it maintains the structure of short range disequilibria in the sample.  \cite{koch2013long}
+Computational time: Constructing these null distributions is the most computationally intensive part of our method. For the analyses reported below, over 4.861014 values of pD were computed, and the project consumed about 34,000 hours of CPU time. \cite{koch2013long}
+All of the 22 chromosomes show significant values for pDmax at the p,0.05 level, and all remain significant after a Bonferroni correction for multiple tests. For the second test statistic, n , 19 chromosomes show significant P values, 18 of which remain significant after the Bonferroni correction. These results suggest there is long-range linkage disequilibrium in the YRI population. \cite{koch2013long}
+[LRLD] have been little studied, they may be indicators of important evolutionary processes \cite{koch2013long}
+
+\subsection{Epistatic Evolution and CoEvolution}
+
+%------------------------------------------------------------
+% From: A Novel Method for Detecting Intramolecular Coevolution: Adding a Further Dimension to Selective Constraints Analyses (2006, Cited 120)
+% \cite{fares2006novel}
+%	TOPIC: CoEvolution Method [CAPS]
+
+COEVOLUTION FIRST PAPER: Coevolution of any type has its origin in the covarion hypothesis proposed first by Fitch and Markowitz (1970). This hypothesis states that, at any given time, some sites are invariable due to their functional or structural constraints but, as mutations are fixed elsewhere in the sequence, these constraints may change. \cite{fares2006novel}
+The reason is that, while interaction would necessarily involve coevolution, coevolution does not imply physical interaction. vi th/mc	 \cite{fares2006novel}
+Coevolution analysis and functional data for heat-shock proteins, Hsp90 and GroEL, highlight that almost all detected coevolving sites are functionally or structurally important. \cite{fares2006novel}
+The identification of genes showing particular amino acid residues that have undergone adaptive evolution is key in determining functionally or structurally important protein regions. \cite{fares2006novel}
+Methods designed to detect adaptive evolution can be based on Bayesian approaches (Yang et al. 2000) or maximum parsimony (Suzuki and Gojobori 1999; Fares et al. 2002a). None of these methods takes into account the evolutionary interdependence between protein residues \cite{fares2006novel}
+Sites constraints are hence dependent on the interactions with other residues of the molecule \cite{fares2006novel}
+Mutations at either nearby sites or functionally related distant sites in the structure will change the selective constraints. \cite{fares2006novel}
+For instance, linear slidingwindow methods are one-dimensional based and assume independence between different window regions irrespective of their three-dimensional proximity \cite{fares2006novel}
+Conversely, classification of amino acids in the same group of evolution based on their three-dimensional proximity (three-dimensional sliding window) will ignore the coevolution between functional regions that are spatially distant
+Various reports state that residues can form a physically connected network that links distant functional sites in the tertiary protein structure (Su ̈el et al. 2003) \cite{fares2006novel}
+Coevolution between clusters of sites, which are not in contact, has also been shown (Pritchard and Dufton 2000) \cite{fares2006novel}
+Coevolution between distant sites has been observed in sites proximal to regions with critical functions, where coevolution occurs to maintain the structural characteristics around these regions and consequently to maintain the protein conformational and functional stability (Gloor et al. 2005). \cite{fares2006novel}
+[various methods coevolution exist...] => The main limitation of many of these methods has been their inability to separate phylogenetic linkage from functional and structural coevolution.  \cite{fares2006novel}
+Gloor et al. (2005) partially corrected these effects although their method requires alignments of at least 125 sequences to remove stochastic covariation. \cite{fares2006novel}
+	METHOD: \cite{fares2006novel}
+		The method instead compares the transition probability scores between two sequences at these particular sites, using the blocks substitution matrix (BLOSUM) \cite{fares2006novel}
+		For each protein alignment the correspondent BLOSUM matrix is applied, depending on the average sequence identity. \cite{fares2006novel}
+		an alignment including two highly divergent sequence groups (for example, gene duplication predating speciation) could show an unrealistic pairwise average identity level. In this respect, sequences that diverged a long time ago are more likely to fix correlated mutations at two sites by chance \cite{fares2006novel}
+		BLOSUM values should be hence normalized by the time of divergence between sequences. BLOSUM values (Bek) are thus weighted for the transition between amino acids e and k using the time (t) since the divergence between sequences i and j: \cite{fares2006novel}
+		The mean variability for the corrected BLOSUM transition is... \cite{fares2006novel}
+		The coevolution between amino acid sites (A and B) is estimated thereafter by measuring the correlation in the pairwise amino acid variability, relative to the mean pairwise variability per site, between them. \cite{fares2006novel}
+	LIMITATIONS:  \cite{fares2006novel}
+		For example, saturation of synonymous sites can lead to underestimates of the divergence times, although data sets used in this study did not show such effects. \cite{fares2006novel}
+		The number of sequences in the alignment also poses a problem when sequences are too divergent, although the sensitivity is improved compared to that of previous methods.  \cite{fares2006novel}
+		Further, constant amino acid sites that are very likely to be functionally important cannot be tested for coevolution using CAPS, although this limitation affects all the methods so far. \cite{fares2006novel}
+
+
+%------------------------------------------------------------
+% From: Co-evolution of proteins with their interaction partners	(2000, cited 395)
+% \cite{goh2000co}
+%
+The divergent evolution of proteins in cellular signaling pathways requires ligands and their receptors to co-evolve, creating new pathways when a new receptor is activated by a new ligand. \cite{goh2000co}
+We have used phosphoglycerate kinase (PGK), an enzyme that forms its active site between its two domains, to develop a standard for measuring the co-evolution of interacting proteins. \cite{goh2000co}
+The N-terminal and C-terminal domains of PGK form the active site at their interface and are covalently linked. Therefore, they must have co-evolved to preserve enzyme function. \cite{goh2000co}
+The analysis is extended to ligands and their receptors, using the chemokines as a model.  \cite{goh2000co}
+The chemokine family of protein ligands and their G-protein coupled receptors have coevolved so that each subgroup of chemokine ligands has a matching subgroup of chemokine receptors. \cite{goh2000co}
+Protein-protein binding is a subset of these interactions which is of primary importance in metabolic and signaling pathways. \cite{goh2000co}
+Proteins and their interaction partners must coevolve so that any divergent changes in one partner's binding surface are complemented at the interface by their interaction partner (Atwell et al., 1997; Jespers et al., 1999; Moyle et al., 1994; Pazos et al., 1997). \cite{goh2000co}
+
+
+%------------------------------------------------------------
+% From: Coevolution analyses illuminate the dependencies between amino acid sites in the chaperonin system GroES-L		(2013, cited 2)
+% \cite{ruiz2013coevolution}
+%
+GroESL is a heat-shock protein ubiquitous in bacteria and eukaryotic organelles. This evolutionarily conserved protein is involved in the folding of a wide variety of other proteins in the cytosol, being essential to the cell.  \cite{ruiz2013coevolution}
+The folding activity proceeds through strong conformational changes mediated by the co-chaperonin GroES and ATP: \cite{ruiz2013coevolution}
+We hypothesize that different overlapping sets of amino acids coevolve within GroEL, GroES and between both these proteins \cite{ruiz2013coevolution}
+METHOD: CAPS \cite{ruiz2013coevolution}
+
+
+%------------------------------------------------------------
+% From: Computational Protein Design Quantifies Structural Constraints on Amino Acid Covariation		(2013, cited 5)
+% \cite{ollikainen2013computational}
+% TOPIC: Computational protein design methods and coevolution!!!
+%
+Amino acid covariation, where the identities of amino acids at different sequence positions are correlated, is a hallmark of naturally occurring proteins. \cite{ollikainen2013computational}
+This covariation can arise from multiple factors, including selective pressures for maintaining protein structure, requirements imposed by a specific function, or from phylogenetic sampling bias. \cite{ollikainen2013computational}
+Here we employed flexible backbone computational protein design to quantify the extent to which protein structure has constrained amino acid covariation for 40 diverse protein domains. \cite{ollikainen2013computational}
+We find significant similarities between the amino acid covariation in alignments of natural protein sequences and sequences optimized for their structures by computational protein design methods. \cite{ollikainen2013computational}
+These results indicate that the structural constraints imposed by protein architecture play a dominant role in shaping amino acid covariation and that computational protein design methods can capture these effects.  \cite{ollikainen2013computational}
+Evolutionary selective pressures on protein structure and function have shaped the sequences of today's naturally occurring proteins [1-3]. As a result of these pressures, sequences of natural proteins are close to optimal for their structures \cite{ollikainen2013computational}
+Natural protein sequences therefore provide an excellent test for computational protein design methods, where the goal is to predict protein sequences that are optimal for a desired protein structure and function [5]. \cite{ollikainen2013computational}
+Beyond simply recovering the native sequence, a further challenge in computational protein design is to predict the set of tolerated sequences that are compatible with a given protein fold and function [9-13]. Predicting sequence tolerance is important for applications such as characterizing mutational robustness [14,15], predicting the specificity of molecular interactions [16- 20], and designing libraries of proteins with altered functions [21,22].  \cite{ollikainen2013computational}
+Previous work has indicated that networks of covarying amino acids play a role in allosterically linking distant functional sites, suggesting that amino acid covariation is driven by protein functional constraints [30,31]. \cite{ollikainen2013computational}
+In this paper, we use computational protein design to measure the extent to which protein structure has shaped amino acid covariation in a diverse set of 40 protein domains. \cite{ollikainen2013computational}
+Since computational protein design predicts sequences that are energetically optimal based on protein structure alone, we expect that pairs of amino acids that highly covary in both designed and natural sequences to have likely covaried to maintain protein structure \cite{ollikainen2013computational}
+We find significant overlap in the sets of highly covarying amino acid pairs between designed and natural sequences for all 40 domains examined, suggesting that maintenance of protein structure is a dominant selective pressure that constrains the evolution of amino acid interactions in proteins. \cite{ollikainen2013computational}
+METHOD: The mutual information (MI) between each pair of columns , Z-score resepct to the mean MI. This normalization of MIp was demonstrated to reduce the sensitivity to misaligned regions in multiple sequence alignments, which otherwise result in artificially high mutual information scores [28]. \cite{ollikainen2013computational}
+
+
+%------------------------------------------------------------
+% From: Correlated Mutations Contain Information About Protein±protein Interaction		(1997, cited 489)
+% \cite{pazos1997correlated}
+%	TOPIC: CoEvolution one of the earliest papers
+%
+Many proteins have evolved to form speci®c molecular complexes and the speci®city of this interaction is essential for their function.  \cite{pazos1997correlated}
+The network of the necessary inter-residue contacts must consequently constrain the protein sequences to some extent.  \cite{pazos1997correlated}
+In other words, the sequence of an interacting protein must re ̄ect the consequence of this process of adaptation. It is reasonable to assume that the sequence changes accumulated during the evolution of one of the interacting proteins must be compensated by changes in the other. \cite{pazos1997correlated}
+Here we apply a method for detecting correlated changes in multiple sequence alignments to a set of interacting protein domains and show that positions where changes occur in a correlated fashion in the two interacting molecules tend to be close to the protein±protein interfaces.  \cite{pazos1997correlated}
+This leads to the possibility of developing a method for predicting contacting pairs of residues from the sequence alone. Such a method would not need the knowledge of the structure of the interacting proteins, and hence would be both radically different and more widely applicable than traditional docking methods. \cite{pazos1997correlated}
+We indeed demonstrate here that the information about correlated sequence changes is suf®cient to single out the right inter-domain docking solution amongst many wrong alternatives of two-domain proteins. \cite{pazos1997correlated}
+We propose here a new and completely different approach to the study and prediction of protein± protein interaction. Instead of considering the structural nature of the interactions, we try to detect the sequence traces that evolution may have left on the interacting sequences during the process of preserving the protein±protein interaction sites. \cite{pazos1997correlated}
+Therefore, our approach is not restricted to the cases in which the structures of the proteins to be docked are known and is applicable to any family of interacting proteins for which a large enough sequence family is available. \cite{pazos1997correlated}
+Over time, amino acid substitution may stabilise an interface that does not exist in the closed monomer ... stabilising mutations in these interfaces would be favoured in natural selection'' (Bennett et al., 1995); \cite{pazos1997correlated}
+We propose that it is possible to detect this signal by studying compensatory mutations. In order to do so, we have appropriately modi®ed our previously published method for the calculation of correlated mutations in multiple-sequence alignments (GoÈbel et al., 1994; Pazos et al., 1997). \cite{pazos1997correlated}
+
+
+%------------------------------------------------------------
+% From: Correlated mutations and residue contacts in proteins		(1994, cited 594)
+% \cite{gobel1994correlated}
+% TOPIC: SEMINAL PAPER!!
+%
+The maintenance of protein function and structure constrains the evolution of amino acid sequences. This fact can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions. Here we present a simple and general method to analyze correlations in mutational behavior between different positions in a multiple sequence alignment. We then use these correlations to predict contact maps for each of 11 protein families and compare the result with the contacts determined by crystallography. For the most strongly correlated residue pairs predicted to be in contact, the prediction accuracy ranges from 37 to 68% and the improvement ratio relative to a random prediction from 1.4 to 5.1. Predicted contact maps can be used as input for the calculation of protein tertiary structure, either from sequence information alone or in combination with experimental information. © 1994 John Wiley & Sons, Inc. \cite{gobel1994correlated}
+METHOD (from another paper): Correlated mutations were calculated as described (GoÈbel et al., 1994). Each position in the alignment is coded by a distance matrix. This position-speci®c matrix contains the distances between all pairs of sequences at that position. Distances are de®ned by the scoring matrix of McLachlan (1971). The association between each pair of positions is calculated as the average of the correlation for each corresponding bin of the position-speci®c matrices. Positions with more than 10% gaps or completely conserved were not included in the calculation. \cite{gobel1994correlated}
+
+
+%------------------------------------------------------------
+% From: Disentangling Direct from Indirect Co-Evolution of Residues in Protein Alignments
+% \cite{burger2010disentangling}
+%
+Predicting protein structure from primary sequence is one of the ultimate challenges in computational biology. \cite{burger2010disentangling}
+Given the large amount of available sequence data, the analysis of co-evolution, i.e., statistical dependency, between columns in multiple alignments of protein domain sequences remains one of the most promising avenues for predicting residues that are contacting in the structure.  \cite{burger2010disentangling} \cite{burger2010disentangling}
+A key impediment to this approach is that strong statistical dependencies are also observed for many residue pairs that are distal in the structure. \cite{burger2010disentangling}
+Using a comprehensive analysis of protein domains with available three-dimensional structures we show that co-evolving contacts very commonly form chains that percolate through the protein structure, inducing indirect statistical dependencies between many distal pairs of residues \cite{burger2010disentangling}
+The identification of functionally and structurally important elements in DNA, RNA and proteins from their sequences has been a major focus of computational biology for several decades. A common approach is to create a multiple alignment of homologous sequences, which places `equivalent' residues into the same column and as such gives a hint of the evolutionary constraints that are acting on related sequences. \cite{burger2010disentangling}
+Markov models [1] of protein families and domains have been highly successful in identifying sequences that have similar function and fold into a common structure, \cite{burger2010disentangling}
+These hidden Markov models typically assume that the residues occurring at a given position are probabilistically independent of the residues occurring at other positions. At the time at which these models were developed, it was entirely reasonable to ignore dependencies between residues at different positions, since the amount of available sequence data was generally insufficient to estimate joint probabilities of multiple residues. \cite{burger2010disentangling}
+As the functionality of biomolecules crucially depends on their three-dimensional structures, whose stabilities depend on interactions between residues that are near to each other in space, it is of course to be expected that significant dependencies between residues at different positions will exist. \cite{burger2010disentangling}
+CAPS and MI SUCK:  \cite{burger2010disentangling}
+	We collected a comprehensive set of 2009 multiple alignments of protein domains from the Pfam database [19] for which a three dimensional structure was available (see Materials and Methods) and calculated, for each pair (ij) of columns in each alignment, the statistical dependency using a measure, log (Rij ), which is a finite-size corrected version of mutual information (see Materials and Methods). Since the distribution of log (R) values for an alignment depends strongly on the number of sequences in the alignment, their phylogenetic relationship, and the length of the alignment, log (R) values cannot be directly compared across different alignments. Therefore, we calculated the mean and variance of log (R) values for each alignment and transformed the log (R) values to Z-values (number of standard deviations from the mean). Finally, for each alignment, we divided all pairs of residues into those that are contacting in the three-dimensional structure, and those that are distant in the structure, and calculated the distribution of Z-values for these two sets of residue pairs. As in previous work (e.g. [10,20]) and as defined for CASP [21], two residues were considered in [....]  \cite{burger2010disentangling}
+	[...] indeed, a higher fraction of contacting residues shows strong statistical dependencies than distal residues. However, we also see that the difference in the Z-distribution of close and distal pairs is only moderate. \cite{burger2010disentangling}
+	Since there are generally many more distal pairs than close pairs, this implies that, even at high Z-values, the majority of residuepairs are in fact distal in the structure \cite{burger2010disentangling}
+	This result shows that simple measures of statistical dependency, such as mutual information, are poor at predicting which pairs of residues are directly contacting in the structure. \cite{burger2010disentangling}
+WHY DO MI AND CAPS SUCK?  \cite{burger2010disentangling}
+	The main question is why so many structurally distal pairs show statistical dependencies in their amino-acid distributions that are stronger than those between directly contacting residues. \cite{burger2010disentangling}
+	1) First, whereas measures such as mutual information treat the sequences in the multiple alignments as statistically independent, in reality many of the sequences are phylogenetically closely related \cite{burger2010disentangling}
+	2) Some of these distant dependencies have been suggested to be caused by homooligomeric interactions [14,22]. Thus, in this interpretation, some of the `distal' pairs with strong statistical dependencies are in fact contacting in the homo-oligomer.  \cite{burger2010disentangling}
+	3) dependencies are induced by indirect interactions that are mediated either by intermediate molecules [15,23] or by chains of directly interacting residue pairs that run through the protein and connect distal pairs [23-25] \cite{burger2010disentangling}
+METHOD: \cite{burger2010disentangling}
+	We show that a Bayesian network model which we recently developed to predict protein-protein interactions [27] can be adapted to rigorously disentangle direct from indirect statistical dependencies between residues \cite{burger2010disentangling}
+	Briefly, our model assumes that the sequences in a multiple alignment D (the data) are drawn from an (unknown) underlying joint probability distribution P(x1,x2,...,xl) with l the width of the alignment and xi the amino acid at position i. Profile hidden Markov models typically assume that the amino acids at different positions are independent  \cite{burger2010disentangling}
+	Any model that considers only pairwise conditional dependencies factorizes the joint probability...where $\pi(i)$ is the single other position which the residue at position i depends on \cite{burger2010disentangling}
+	In particular, we do not attempt to estimate the conditional probabilities P(xi jxj ) but rather treat these conditional probabilities as nuisance parameters that we integrate out in calculating the likelihood of the alignment. \cite{burger2010disentangling}
+	In addition, and importantly, we do not consider only a single `best' way of choosing which other position p(i) each position i depends on, but rather we sum over all ways in which the dependencies can be chosen.  \cite{burger2010disentangling}
+	The sum over spanning trees in (9) can be calculated using a generalization of Kirchhoff's matrix-tree theorem. For this we need to calculate the Laplacian of the matrix... \cite{burger2010disentangling}
+
+
+%------------------------------------------------------------
+% From: Disentangling evolutionary signals: conservation, specificity determining positions and coevolution. Implication for catalytic residue prediction (2012, cited: 8)
+% \cite{teppa2012disentangling}
+%
+However, it is not clear to what extent these different methods overlap, and if any of the methods have higher predictive potential compared to others when it comes to, in particular, the identification of catalytic residues (CR) in proteins. \cite{teppa2012disentangling}
+The importance of a particular residue in a protein can be due to many different factors, including structural stability, proteinprotein interaction, protein-DNA/RNA interaction, ligand binding site and maintenance of protein functions. \cite{teppa2012disentangling}
+In most cases, it is difficult to assign a particular function to a particular residue or group of residues, as function is determined by a subtle interplay between multiple residues and mutation to any of them might impact the protein function and/or structure \cite{teppa2012disentangling}
+Three clear signals of evolution are: conservation, conservation within specific groups of sequences sharing a common function, and coevolution between residues (see Figure 1) \cite{teppa2012disentangling}
+	-1) Conservation is straightforward to calculate and interpret. A change in a conserved position (even when proteins are highly diverse) should have a deleterious effect on the protein function. \cite{teppa2012disentangling}
+	-2) Specificity determining positions (SDPs) are those positions within multiple sequence alignments (MSAs) that are conserved within groups of proteins that perform the same function (specificity groups) and varying between groups with different functions/specificities. These sites generally determine protein specificity either by binding specific substrate/inhibitor or through interaction with other protein [2-4]. \cite{teppa2012disentangling}
+	-3) The degree of co-evolution between pairs of residues is commonly estimated using a measure of mutual information (MI) \cite{teppa2012disentangling}
+Several methods to predict specificity-determining positions have been developed. Many of these require a previous classification of the proteins into functional groups [3,5,6], which is a problematic limitation since the specificity of a given protein is unavailable in the great majority of cases and is non-trivial to calculate and validate. \cite{teppa2012disentangling}
+Here, we aim at addressing this question by comparing the ability to identify catalytic residues (CR) in enzymatic proteins of different information-based methods \cite{teppa2012disentangling}
+DATA: The analysis is based on a set of 424 enzymatic Pfam families earlier described by Marino Buslje (2010)  \cite{teppa2012disentangling}
+Given this data set, we calculated measures related to evolution for the different methods included in the benchmark, and next analyzed the overlap/correlation between these measures and their predictive potential for identification of CR in proteins. \cite{teppa2012disentangling}
+RESULTS:
+	Methods for prediction of SDPs aim at estimating a score that correlates with the functional importance of a given residue in terms of protein specificity. \cite{teppa2012disentangling}
+	From Figure 2, it is clear that the methods for SDP identification (ivET, SDPfox and XDET) show limited mutual overlap. The correlations values are low for all comparisons, with the highest value of 0.34 being between SDPfox and XDET. \cite{teppa2012disentangling}
+	 We next analyzed the correlation between methods aimed to rank the residues by functional importance \cite{teppa2012disentangling}
+	From our results, we find that the methods included in the benchmark can be divided in three groups with limited mutual overlap.  \cite{teppa2012disentangling}
+		-1) One group consists of methods which predictive signal is strongly correlated to sequence conservation (rvET, and sequence conservation itself),  \cite{teppa2012disentangling}
+		-2) one group consists of the methods whose predictive signal is derived from mutual information (cMI),  \cite{teppa2012disentangling}
+		-3) and the last group consists of the methods developed for prediction of specificity determining positions (SDPfox, XDET and ivET). \cite{teppa2012disentangling}
+	CONCLUSION:  we find that only methods from the first two of the above three groups displayed a reliable predictive performance (mean AUC value above 0.8), indicating that the methods from the SDP group has limited value for the identification of residues critical for protein function. \cite{teppa2012disentangling}
+
+
+%------------------------------------------------------------
+% From: Direct-coupling analysis of residue coevolution captures native contacts across many protein families	(2011 cited 165)
+% \cite{morcos2011direct}
+% TOPIC: Mean Field approximation to DCA Algorithm
+%
+It has long been suggested that the resulting correlations among amino acid compositions at different sequence positions can be exploited to infer spatial contacts within the tertiary protein structure. \cite{morcos2011direct}
+Crucial to this inference is the ability to disentangle direct and indirect correlations, as accomplished by the recently introduced direct-coupling analysis (DCA). Here we develop a computationally efficient implementation of DCA, which allows us to evaluate the accuracy of contact prediction by DCA for a large number of protein domains, based purely on sequence information. \cite{morcos2011direct}
+DCA is shown to yield a large number of correctly predicted contacts, recapitulating the global structure of the contact map for the majority of the protein domains examined.  \cite{morcos2011direct}
+Furthermore, our analysis captures clear signals beyond intradomain residue contacts, arising, e.g., from alternative protein conformations, ligand-mediated residue couplings, and interdomain interactions in protein oligomers. \cite{morcos2011direct}
+Correlated substitution patterns between residues of a protein family have been exploited to reveal information on the structures of proteins (1-10).  \cite{morcos2011direct}
+However, such studies require a large number (e.g., the order of 1,000) of homologous yet variable protein sequences.  \cite{morcos2011direct}
+If two residues of a protein or a pair of interacting proteins form a contact, a destabilizing amino acid substitution at one position is expected to be compensated by a substitution of the other position over the evolutionary timescale, in order for the residue pair to maintain attractive interaction.  \cite{morcos2011direct}
+A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
+This problem was subsequently overcome by the direct-coupling analysis (DCA) (16, 17), which aims at disentangling direct from indirect correlations.  \cite{morcos2011direct}
+The top 10 residue pairs identified by DCA were all shown to be true contacts between the TCS proteins, and they were used to guide the accurate prediction (3-Å rmsd) of the interacting TCS protein complex (18, 19) \cite{morcos2011direct}
+Previously, a message-passing algorithm was used to implement DCA (16). This approach, here referred to as mpDCA, was rather costly computationally because it is based on a slowly converging iterative scheme. This cost makes it unfeasible to apply mpDCA to large-scale analysis across many protein families. \cite{morcos2011direct}
+Here we will introduce mfDCA, an algorithm based on the meanfield approximation of DCA. The mfDCA is $10^3$ to $10^4$ times faster than mpDCA \cite{morcos2011direct}
+Starting with a multiple-sequence alignment (MSA) of a large number of sequences of a given protein domain, extracted using Pfam's hidden Markov models (HMMs) (21, 22), the basic quantities in this context are the frequency count f i A for a single MSA column i, characterizing the relative frequency of finding amino acid A in this column, and the frequency count f ijA;B for pairs of MSA columns i and j, characterizing the frequency that amino acids A and B coappear in the same protein sequence in MSA columns i and j. Alignment gaps are considered as the 21st amino acid. Mathematical definitions of these counts are provided in Methods. \cite{morcos2011direct}
+The raw statistical correlation obtained above suffers from a sampling bias, resulting from phylogeny, multiple-strain sequencing, and a biased selection of sequenced species. The problem has been discussed extensively in the literature (10, 23-26). \cite{morcos2011direct}
+In this study, we implemented a simple sampling correction, by counting sequences with more than 80\% identity and reweighting them in the frequency counts.  \cite{morcos2011direct}
+A simple measure of correlation between these two columns is the mutual information (MI), defined by Eq. 3 in Methods. As we will show, the MI turns out to be an unreliable predictor of spatial proximity. \cite{morcos2011direct}
+Central to our approach is the disentanglement of direct and indirect correlations, which is attempted via DCA, \cite{morcos2011direct}
+This algorithm, termed mfDCA, is able to perform DCA for alignments of up to about 500 amino acids per row, as compared to 60-70 amino acids in the message-passing approach.  \cite{morcos2011direct}
+METHOD [mean field calculation] \cite{morcos2011direct}
+	To disentangle direct and indirect couplings, we aim at inferring a statistical model P(A1;...;AL) for entire protein sequences (A1 ;...;AL). \cite{morcos2011direct}
+	Besides this constraint, we aim at the most general, least-constrained model PðA1;:::;ALÞ. This model can be achieved by applying the maximum-entropy principle (45, 46), and it leads to an explicit mathematical form of PðA1;:::;ALÞ as a Boltzmann distribution with pairwise couplings eij ðA;BÞ and local biases \cite{morcos2011direct}
+	 The exponential of [the partition function] is expanded into a Taylor series. Keeping only the linear order of this expansion, we obtain the well-known mean-field equations \cite{morcos2011direct}
+	For later convenience, we also introduce the Hamiltonian [exponential of negative Hamiltonian is the partition function] \cite{morcos2011direct}
+	It is important to note that the partition function itself contains all necessary information on the marginals, in particular we have.... \cite{morcos2011direct}
+	The algorithmic approach is based on a systematic small-coupling expansion, i.e., on a Taylor expansion around zero coupling. This expansion was introduced in [12] by Plefka for disordered Ising models (Ising spinglasses, corresponding to binary variables with q = 2). \cite{morcos2011direct}
+	Furthermore we introduce the so-called Gibbs potential ... as the Legendre transform of the free energy F = − ln Z . \cite{morcos2011direct}
+	The first derivative of the Gibbs potential with respect to α equals thus the average of the coupling term in the Hamiltonian. At α = 0, this average can be done easily, since the joint distribution of all variables becomes factorized over the single sites [.......] we find the firstorder approximation of the Gibbs potential \cite{morcos2011direct}
+
+%------------------------------------------------------------
+% From: Emerging methods in protein co‐evolution (2013, Nature)
+% \cite{de2013emerging}
+%
+DEFINITION: 
+	In its simplest definition, co‐evolution refers to the coordinated changes that occur in pairs of organisms or biomolecules, typically to main‐ tain or to refine functional interactions between those pairs.  \cite{de2013emerging}
+	Darwin himself initiated the study of co‐evolution, and his observation on the relationship between the size of orchids' corollae and the length of the proboscis of pol‐ linators led him to predict successfully the existence of a new species that was able to suck from the large spur of Darwin's orchid.  \cite{de2013emerging}
+	The studies of Dobzhansky1 and others2 contributed to the establishment of this concept in genetic terms, although the term co‐evolution is usually attrib‐ uted to Ehrlich3, and it is commonly defined as `reciprocal evolutionary change in interacting species'4. \cite{de2013emerging}
+	For the past 20 years, much effort has been dedicated to investigating co‐evolution at the molecular level. In a classical study, coordinated sequence changes among genes (and their protein products) were proposed to be essential to optimize physiological performance and reproductive success5, thus indicating that molecular co‐evolution could be an important and widespread determinant of fitness. \cite{de2013emerging}
+	Although co‐evolution can potentially occur between various biomolecules, most recent tools focus on protein co‐evolution.  \cite{de2013emerging}
+Tools at the residue level were inspired by the existence of interdependent changes in groups of variable amino acids, as formulated for the first time by the covarion model6, and they typically use the multiple sequence alignment (MSA) for a protein family of homologues to search for correlated mutations.  \cite{de2013emerging}
+Such correlated muta‐ tions are suggestive of compensatory changes that occur between entangled residues (for example, those in prox‐ imity, direct contact or acting together in catalytic or binding sites) to maintain protein stability, function or folding7-10. Furthermore, extending these methods to search for correlated mutations between pairs of interacting proteins can identify sites of inter‐protein interaction11-17. \cite{de2013emerging}
+In parallel, related methods have been developed to search for larger groups of residues that are specifically co‐conserved within particular protein subfamilies.  \cite{de2013emerging}
+The co‐evolution between interacting species, such as parasites-hosts, predators-prey and symbionts-hosts, is in many cases manifested as a similarity of the phy‐ logenetic trees of these co‐evolving species \cite{de2013emerging}
+Likewise, molecular co‐evolution caused by physical or functional protein interactions frequently results in similarities of the corresponding protein family trees. Consequently, approaches based on protein family tree similarity can successfully identify interaction partners for a given protein, such as ligand-receptor pairs \cite{de2013emerging}
+Co‐evolution at the residue level: Substantial effort has been invested in studying the co‐evolution of pairs of positions in MSAs of protein families (that is, residue co‐evolution). These pairs of co‐evolving positions were often found to correspond to spatially proximal residues in the protein structure, and such putative inter‐residue contacts have aided protein structure prediction  \cite{de2013emerging}
+Furthermore, co‐evolution between residues in different proteins has been used as predic‐ tors of the interacting surfaces (protein interfaces) in pro‐ tein complexes as well as in the search for interacting partners of a given protein, as discussed later in `Hybrid residue-protein methods'. \cite{de2013emerging}
+Detecting correlated amino acid changes in pairs of positions. Residue co‐evolution was originally assessed through detecting pairs of positions (two columns of the MSA) that have interdependent amino acid frequencies23 or similar patterns of amino acid substitutions7,9,10 \cite{de2013emerging}
+...can be assessed by a linear correlation. This method has been extensively tested and compared with newer methods and shows a small but significant capability to recover pairs of positions in physical contact24 and still serves as a baseline to benchmark the performance of new methods25.  \cite{de2013emerging}
+CAPS dampens the influence of background phylo‐ genetic divergence by requiring the detected correlations to still be detected after particular clades are removed from the MSA. It also corrects the amino acid substi‐ tution matrix so as to consider the actual divergence among the sequences \cite{de2013emerging}
+MI: Mutual information has been also used to detect co‐varying positions. Whereas correlation‐based meth‐ ods explore inter‐sequence amino acid substitutions, mutual information considers the distribution of each amino acid in the different sequences for a position. In fact, mutual information quantifies whether the pres‐ ence of an amino acid in a given sequence for a posi‐ tion is a `good prediction' of the presence of any given amino acid in the same sequence for a second position. In this sense, mutual information does not account for which particular amino acids are present in the same sequences in both positions but relies on the statistical significance of the observed co‐variations. Therefore, the different amino acids are treated as different sym‐ bols that are not related by similarity relationships, and the magnitude of the biochemical changes is not taken into account when assessing the similarity of mutational patterns. \cite{de2013emerging}
+MARKOV MODELS: In this case, the use of an enhanced continuous-time Markov process model for sequence co‐evolution represented an important step forwards13. These approaches are suit‐ able for small‐scale studies of co‐evolution in small pro‐ tein families, but the evaluation of their performance in large‐scale studies remains excessively demanding in computational terms. \cite{de2013emerging}
+Disentangling directly coupled residues from the net‐ work of indirectly correlated positions.  \cite{de2013emerging}
+	An important obstacle in the detection of co‐evolving positions is the apparent co‐variation or indirect coupling that can occur when more than two positions show coordinated substitution patterns. In these cases, the apparent co‐ variation between two positions is the consequence of the evolutionary interdependence of both positions with one or more additional positions. The aggrega‐ tion of these indirect couplings can make it difficult to recognize the directly interdependent positions.
+	As the direct couplings are more reliable for predict‐ ing physically proximal residues in protein structures, approaches are needed to distinguish direct from indi‐ rect couplings \cite{de2013emerging}
+	A first basic model was proposed by Lapedes et al.37, who assumed that indirect couplings do not represent evolutionary interdependence and can be considered to be uninformative pairwise co‐variations. This first approach used a Monte Carlo algorithm to infer the sim‐ plest probabilistic model that was able to account for the whole network of co‐variations in a simulated sce‐ nario.  \cite{de2013emerging}
+	Direct coupling analysis (DCA)15-17,38 and protein sparse inverse covariance (PSICOV)39 establish a global statistical model of the MSA in terms of position‐specific variability and inter‐position coupling \cite{de2013emerging}
+	Alternatively, Burger and van Nimwegen's41 method uses a Bayesian network model that includes pair‐ wise conditional dependencies, and the regularized multinomial regression‐based correlated mutations (RMRCM) approach42 takes into account the whole network of dependencies and not only the individual pairwise dependencies. \cite{de2013emerging}
+	For MSAs with more than 1,000 sequences, DCA and PSICOV seem to be superior to Burger and van Nimwegen's method38,39. \cite{de2013emerging}
+	In fact, some of these methods are able to predict contacts between residues far apart in the linear sequence with sufficient accuracy as to be useful for guiding in silico folding experiments (BOX 1). Nevertheless, such clear improvements are obtained only for protein families with thousands of members \cite{de2013emerging}
+	Potential co‐evolution between functionally related pro‐ tein families was initially observed in sporadic cases. For example, remarkable similarity was detected between the phylogenetic trees of ligands (such as insulins and interleukins) and their receptors; this co‐evolution was proposed to be required for the maintenance of their specific interactions2 \cite{de2013emerging}
+LIMITATIONS: \cite{de2013emerging}
+	The quality of MSAs is obviously essential as they serve as the initial input to most of the methods. Furthermore, the methods work better on large protein families for which the degree of sequence similarity has a wide but homogenously dis‐ tributed range from distant to similar sequences \cite{de2013emerging}
+	In general, optimal performance is obtained when protein subfamilies (branches of the tree) are spaced at regular intervals, \cite{de2013emerging}
+	For example, assembling phylogenetic trees is confounded by complex evolutionary scenarios, such as sequences acquired by horizontal gene transfer, genetic saturation or the difficulties in identifying the correct orthologous sequences when genome duplication and domain rear‐ rangements have occurred. \cite{de2013emerging}
+
+%------------------------------------------------------------
+% From: Multidimensional mutual information methods for the analysis of covariation in multiple sequence alignments
+% \cite{clark2014multidimensional}
+%
+(multidimensional) extension of traditional mutual information (MI) can be an additional tool to study covariation \cite{clark2014multidimensional}
+as tested with a set of 9 MSAs each containing <400 sequences, and was shown to be comparable to that of the newest methods based on maximum entropy/pseudolikelyhood statistical models of protein sequences.  \cite{clark2014multidimensional}
+METHOD COMPARISSON: However, while all the methods tested detected a similar number of covarying pairs among the residues separated by < 8 Å in the reference X-ray structures, there was on average less than 65\% overlap between the top scoring pairs detected by methods that are based on different principles. \cite{clark2014multidimensional}
+Unfortunately, the reliability of covariation data can be diminished by the existence of correlations originating not just from the direct interactions (physical or functional) between two residues, but also from their shared interaction with one or more other residues, and by the shared phylogenetic history of several homologous proteins in the MSA.  \cite{clark2014multidimensional}
+While the performance of these methods has been tested primarily with high quality MSAs containing a very large number of sequences (between 5L and 25L, with L=sequence length), very often investigators are interested in studying the covarying positions of proteins for which the available MSA contains less than L sequences, and whose alignment quality is not optimal due to the presence of many (or large) gaps, \cite{clark2014multidimensional}
+METHOD:  \cite{clark2014multidimensional}
+	We can consider a more complicated case including a third channel (column). In this case, I(X1;X3;X2) between the three variables represents the `interaction information' for a channel with two discrete inputs X1 and X3 and a single discrete output X2 (a 2-way channel).  \cite{clark2014multidimensional}
+	If we are interested in `explaining out' the effect of X3 on the transmission between X1 and X2, we can take a sum of the mutual information I(X1;X2) for each possible value x3 of X3, weighted by the probability of occurrence (px3) of each of those values: \cite{clark2014multidimensional}
+	Averaging over all values of X3 (a 3rd column) in an MSA we obtain for the 3-dimensional MI between any two columns (X1 and X2): \cite{clark2014multidimensional}
+LIMITATIONS: Due to the long execution times and large memory requirements (growing with the 4th power of the sequence length) of $4D_MI$ only the removal of 3rd order indirect coupling ($3D_MI$) is practical with desktop computers for MSAs of sequences longer than 200 residues. \cite{clark2014multidimensional}
+COMPARISSON: \cite{clark2014multidimensional}
+	We have evaluated the performance of standard MI ($2D_MI$), $3D_MI$, $4D_MI$, PSICOV [14], plmDCA [17], GREMLIN [18], and Hopfield-Potts DCA with Principal Component Analysis [19] (called here hpPCA) with the MSAs of 9 protein families \cite{clark2014multidimensional}
+	These MSAs contain less than 400 sequences with ratios of sequence number to sequence length (called here the `L ratio') between 0.4 and 2.0, and thus represent a particularly sensitive test for the performance of the different methods with less than optimal size MSAs.  \cite{clark2014multidimensional}
+	all the methods tested produced covariation maps that closely resembled the contact maps derived from the representative X-ray structures of each family \cite{clark2014multidimensional}
+	While all the methods used in this study performed quite well in terms of percentage of close contacts recognized among the top covarying pairs, they did not necessarily recognize the same close contacts, as no more than 50\% of all the pairs were shared between the MI/mdMI based methods and the other methods \cite{clark2014multidimensional}
+	Finally, since there is < 65\% overlap among the sets of covarying residues identified by algorithms based on different principles, further improvement in accuracy is likely to be obtained by selecting only the shared pairs or by averaging the results from different methods. \cite{clark2014multidimensional}
+
+
+%------------------------------------------------------------
+% From: Mutual information without the influence of phylogeny or entropy dramatically improves residue contact prediction		(2007, cited 155)
+% \cite{dunn2008mutual}
+%
+HISTORICAL: (Fitch et al., 1970; Yanofsky et al., 1964). \cite{dunn2008mutual}
+How, then, do non-conserved positions change during evolution? It is believed that mutations in these positions can occur because they are either accompanied or preceded by compensatory changes in other variable positions (Fitch et al., 1970; Yanofsky et al., 1964). \cite{dunn2008mutual}
+In the context of multiple sequence alignments, MI is an attractive metric because it explicitly measures the dependence of one position on another, but its usefulness has been limited by three factors.  \cite{dunn2008mutual}
+	1) First, positions with higher variability, or entropy, will tend to have higher levels of both random and nonrandom MI than positions of lower entropy (Fodor and Aldrich, 2004a; Martin et al., 2005), even though the latter are more constrained and would seem more likely to depend on neighboring positions.  \cite{dunn2008mutual}
+	2) Second, random MI arises because the alignments do not contain enough sequences for background noise to be negligible; our previous modeling studies showed that alignments should contain at least 125 sequences before the random signal begins to subside relative to non-random MI (Martin et al., 2005).  \cite{dunn2008mutual}
+	3) A third complicating factor is that all position pairs have MI due to the phylogenetic relationships of the organisms represented in the alignment (Wollenberg and Atchley, 2000). This latter source may be limited to some degree by excluding highly similar sequences from closely related species from the alignment, but cannot be eliminated (Martin et al., 2005; Tillier and Lui, 2003). Each of these sources of MI will tend to obscure the desired signal based on the structural or functional relationships of positions. \cite{dunn2008mutual}
+METHOD:  \cite{dunn2008mutual}
+	MI measures the reduction of uncertainty about one position given information about the other  \cite{dunn2008mutual}
+	Thus the challenge is to separate the signal caused by structural and functional constraints, MIsf, from the background, MIb, which is the sum of contributions from random noise and shared ancestry. \cite{dunn2008mutual}
+	we postulated that each position in a multiple sequence alignment may have a particular propensity toward MIb, that is related to its entropy and phylogenetic history, and that the MIb between any two positions is the product of their propensities. It then follows that MIb for positions a and b may be expressed as the product of the average MIb values of positions a and b with all other positions in the set, divided by the average MIb of all positions in the set. We call this term the average product correction, (APC), \cite{dunn2008mutual}
+We determined how different a given covariance value was relative to all other values in the data set. The mean and SD of the values determined by each of the algorithms were calculated for all pairs of positions. The number of SD from the mean, i.e. the Z-score, was determined for each value or for each corrected value in a given data set \cite{dunn2008mutual}
+A number of obstacles, including random noise, the influence of entropy, the phylogenetic history and the number of sequences required, complicate the identification of coevolving positions in multiple sequence alignments when using MI \cite{dunn2008mutual}
+We have taken a different approach and developed a correction that rapidly and accurately estimates the background MI found in protein family multiple sequence alignments. Our method was initially based on the assumptions that the coevolution signal between pairs of unrelated positions is derived from random noise or from shared ancestry but not from structural or functional constraints;  \cite{dunn2008mutual}
+We have shown that the APC accurately estimates MI in the absence of structural or functional relationships. Furthermore, in real protein alignments the subtraction of the APC from MI results in a metric, MIp, that is independent of the entropy of the positions, and that provides a significant improvement over previously published methods in identifying co-evolving positions that are proximal in protein structure. \cite{dunn2008mutual}
+We have also mathematically demonstrated the validity of the APC correction. \cite{dunn2008mutual}
+
+
+%------------------------------------------------------------
+% From: Protein structure prediction from sequence variation
+% \cite{marks2012protein}
+%
+Protein folding:
+	This information can be efficiently mined to detect evolutionary couplings between residues in proteins and address the long-standing challenge to compute protein three-dimensional structures from amino acid sequences. \cite{marks2012protein}
+	We expect computation of covariation patterns to complement experimental structural biology in elucidating the full spectrum of protein structures, their functional interactions and evolutionary dynamics. \cite{marks2012protein}
+	In the past 50 years, there has been tremendous progress in experimental determination of protein three-dimensional structures, but this has not kept pace with the explosive growth of sequence information that results from massively parallel sequencing technology.  \cite{marks2012protein}
+	Computational prediction of protein structures, which has been a long-standing challenge in molecular biology for more than 40 years, may be able to fill this gap, if done with sufficient accuracy.  \cite{marks2012protein}
+	However, correct de novo predictions from sequence, when not a single structure in a protein family is known, have been hard to achieve, \cite{marks2012protein}
+	Clearly, and unfortunately, the de novo structure prediction problem does not scale13, the conformational search space increases exponentially as the size of the protein increases, presenting a fundamental computational challenge, even for fragment-based methods14. In this sense, the general problem of de novo three-dimensional structure prediction has remained unsolved. \cite{marks2012protein}
+	A substantial step forward in protein-structure prediction is now on the horizon based on the power of evolutionary information found in patterns of correlated mutations in protein sequences  \cite{marks2012protein}
+	Several groups have demonstrated that extracting covariation information from sequences is sufficient not only to estimate which pairs of residues are close in three-dimensional space15-21 but also to fold a protein to reasonable accuracy15,22-25 \cite{marks2012protein}
+
+Indirect correlations: \cite{marks2012protein}
+	if residues A and B contact each other, as do residues B and C, then there is in general, a transitive influence observed between residues A and C (`chaining effect'17,27). \cite{marks2012protein}
+	As residues can contact many other residues (not just one), transitive effects occur across the network, and pairs of residues that are correlated as computed using a `local' statistical model, such as mutual information scores, are not necessarily functionally constrained or close in space \cite{marks2012protein}
+LOCAL MODELS: \cite{marks2012protein}
+	Local statistical models (below referred to as local models or local methods) assume that pairs of residue positions are statistically independent of other pairs of residues  \cite{marks2012protein}
+	Other confounding effects that have prevented high-accuracy prediction of residue contacts include uneven representation of family members in sequence space, statisticalnoise as the result of an inadequate number of sequences in the family as well as phylogenetic effects. \cite{marks2012protein}
+GLOBAL MODELS \cite{marks2012protein}
+	In contrast, a `global' modeling approach treats correlated pairs of residues as dependent on each other, rather than as statistically independent, thereby minimizing the effects of transitivity and spurious noise. \cite{marks2012protein}
+	This approach also uses globally consistent single-residue marginals, which takes into account effects from conservation of single residue positions. Global approaches yield high coupling scores only for pairs or residue positions that are likely to be causative of all the observed correlations. \cite{marks2012protein}
+	Noncausal correlation is well understood in statistical physics; it includes, for instance, long-range order observed in spin systems, where in fact the spins only have short-range direct interactions, and is called `chained covariation'27,34.  \cite{marks2012protein}
+	One global statistical approach is known as entropy maximization under data constraints, a classic inference method connecting information theory and Boltzmann statistics 35 \cite{marks2012protein}
+	Maximizing entropy under constraints36 has been successfully used in statistical physics and other areas of statistical inference37-39, and the conditional mutual information derived from correlations between positions in a protein sequence is a discrete, nonlinear analog of partial correlation analysis40 \cite{marks2012protein}
+	In contrast to simple mutual information, the conditional mutual information can be thought of as the degree of covariation between residues at positions a and b that is due solely to direct effects of a on b, factoring out contributions to the correlation that are caused by interaction of both a and b with the rest of the network of residues. \cite{marks2012protein}
+	CORRELATION (PSICOV) the covariance matrix (the observed minus expected pair counts) of dimension (20L)2, where L is the length of the protein sequence, by counting how often a given pair of the 20 amino acids, say alanine and lysine, occurs in a particular pair of positions, say position 15 and 67, in any one sequence, summing over all sequences in the multiple-sequence alignment. This large matrix contains the raw data capturing all residue pair relationships across evolution up to second order (pairs, not triplets or higher). One can then compute a measure of causative correlations, the conditional mutual information, in the global statistical approaches by taking the inverse of the covariance matrix. That such a matrix inversion results in a measure of causative correlations is well known in the statistical theory of Gaussian multivariate distributions of continuous variables40. \cite{marks2012protein}
+	MEAN FIELD APPROX: An analogous derivation for discrete-state biological sequence analysis is, for example, based on a mean-field expansion in analogy to statistical physics16. The resulting explicit probability model for a sequence in the particular protein family resulting from inversion of the covariation matrix contains numerical estimates of direct pair interactions. These are directly and simply computed from the raw data in the covariation matrix, in contradistinction to machine-learning methods that rely on parameter fitting in learning sets and cross-validation in test sets. The pair interaction terms can also be interpreted as residue-residue pair energies, in analogy to pair terms in a Hamiltonian energy expression in statistical physics. The conditional mutual information between a pair of positions derived using the global statistical approach becomes a useful predictor of residue-residue contacts. \cite{marks2012protein}
+	The maximum-entropy approach to potentially solving the problem of protein structure prediction from residue covariation patterns was first described by Lapedes and collaborators17,27. However, instead of inversion of the covariance matrix, they used a more computationally demanding Monte Carlo method (that is, iterative exploration of the best set of pair interactions values) to derive the probability terms in conditional mutual information. Although Lapedes and Jarzynski did not compute three-dimensional structures, they reached a first breakthrough in contact prediction in 2002 for 11 small proteins and reported 50-70\% accuracy for top 20 contact predictions, in contrast to 35-45\% accuracy with the previous best methods available17. \cite{marks2012protein}
+
+
+%------------------------------------------------------------
+% From: PSICOV: precise structural contact prediction using sparse inverse covariance estimation on large multiple sequence alignments
+% \cite{jones2012psicov}
+%
+It has long been observed that with sufficient correct information about a protein's residue-residue contacts, it is possible to elucidate the fold of the protein (Gobel et al., 1994 \cite{jones2012psicov}
+The underlying rationale rests on the fact that any given contact critical for maintaining the fold of a protein will constrain the physicochemical properties of the amino acids involved. Should a given contacting residue mutate and potentially perturb the properties of the contact, then its contacting partner will be more likely to mutate to a physicochemically complementary amino acid residue, to ensure the native fold of the protein remains stabilized. \cite{jones2012psicov}
+Turning this observation around, pairs of residues seen to coevolve in tandem and thus preserving their relative physiochemical properties, are likely candidates to form contacts.  \cite{jones2012psicov}
+The starting point of our method is to consider an alignment with m columns and n rows, \cite{jones2012psicov}
+where each row represents a different homologous sequence and each column a set of equivalent amino acids across the evolutionary tree, with gaps considered as an additional amino acid type. We can compute a 21m by 21m sample covariance matrix as follows: \cite{jones2012psicov}
+Any individual element of this matrix gives the covariance of amino acid type a at position i with amino acid type b at position j. \cite{jones2012psicov}
+By calculating the matrix inverse of the covariance matrix, the precision or concentration matrix (􏰩) is obtained, from which a matrix of partial correlation coefficients for all pairs of variables can be calculated as follows \cite{jones2012psicov}
+In the simplest case, a partial correlation coefficient can be calculated between two random variables with the controlling effect of a third random variable taken into account. The partial correlation matrix above, however, gives the correlations between all pairs of variables with the controlling effects of all other variables taken into account  \cite{jones2012psicov}
+Thus, assuming the sample covariance matrix can in fact be inverted, the inverse covariance matrix provides information on the degree of direct coupling between pairs of sites in the given MSA. Off-diagonal elements of the inverse covariance matrix which are significantly different from zero are indicative of pairs of sites which have strong direct coupling (and are likely to be in direct physical contact in the native structure). \cite{jones2012psicov}
+Unfortunately, the empirical covariance matrices produced in this application are guaranteed to be singular due to the fact that not every amino acid will be observed at every site \cite{jones2012psicov}
+Although different approaches have been proposed to allow inverse covariance estimation where the sample covariance matrix cannot be directly inverted, one of the most powerful techniques is that of sparse inverse covariance estimation. \cite{jones2012psicov}
+In general terms, where an inverse covariance estimate is constrained to be sparse, the non-zero terms tend to more accurately relate to correct positive correlations in the true inverse covariance matrix \cite{jones2012psicov}
+The graphical Lasso is a statistical method which estimates the inverse covariance of the data by minimizing the objective function:... \cite{jones2012psicov}
+For 44\% of the targets, contact prediction was excellent with a precision >0.5 for the longest-range top-L/2 predicted contacts (i.e. >50\% correctly predicted long-range contacts per residue).  \cite{jones2012psicov}
+
+
+%------------------------------------------------------------
+% From: Recent Coselection in Human Populations Revealed by Protein--Protein Interaction Network			(2014, cited 0)
+% \cite{qian2015recent}
+%
+Genome-wide scans for signals of natural selection in human populations have identified a large number of candidate loci that underlie local adaptations. This is surprising given the relatively short evolutionary time since the divergence of the human population. Approximately 50,000-100,000 years ago, the anatomically modern human migrated from Africa to the rest of the globe \cite{qian2015recent}
+ One hypothesis that has not been formally examined is whether and how the recent human evolution may have been shaped by coselection in the context of complex molecular interactome \cite{qian2015recent}
+In this study, genome-wide signals of selection were scanned in East Asians, Europeans, and Africans using 1000 Genome data, and subsequently mapped onto the protein-protein interaction (PPI) network \cite{qian2015recent}
+We found that the candidate genes of recent positive selection localized significantly closer to each other on the PPI network than expected \cite{qian2015recent}
+Furthermore, gene pairs of shorter PPI network distances showed higher similarities of their recent evolutionary paths than those further apart.  \cite{qian2015recent}
+Several hundred to more than one thousand candidate regions, which may have undergone recent positive selection, have been reported in these studies (Sabeti et al. 2002; Voight et al. 2006; Tang et al. 2007; Akey 2009; Pickrell et al. 2009). The abundant selection signals are in sheer contrast with the relatively short period of time since humans migrated from Africa. \cite{qian2015recent}
+EXAMPLES: A number of positively selected candidate genes in the same pathways or interaction subnetworks have also been identified. Known examples are EGLN1 and EPAS1 in the hypoxia-response pathway playing key roles in genetic adaptation to high-altitude regions (Xu et al. 2011) as well as multiple genes in the NRG-ERBB4 developmental pathway (Pickrell et al. 2009) \cite{qian2015recent}
+Coevolution of interacting proteins, in large time frames, has been intensively studied and is typically based on the evolutionary distances across different species  \cite{qian2015recent}
+an alternative mechanism notes that epistatic interaction is not compulsory to explain the associated evolutionary patterns. If selection pressures act on an entire pathway or a functional subnetwork, multiple genes in the same pathway/subnetwork may change in the same fitness direction, and at a same evolutionary rate and time to achieve a common phenotypic outcome.  \cite{qian2015recent}
+the association in evolutionary patterns may simply reflect parallel selection of different genes in the same pathway of shared functionality  \cite{qian2015recent}
+Nonetheless, both hypothetic mechanisms would lead to a set of similar predictions: first, the genes of positive selection would cluster closer to each other in the PPI network than predicted under null hypothesis; second, the clustered genes of selection may share more similar evolutionary paths than genes unrelated on the PPI network. \cite{qian2015recent}
+Numerous studies reported that proteins located closer to the center of PPI network evolved more slowly than those at the periphery of the network, consistent with the view that central proteins are more essential and receive greater evolutionary constraints \cite{qian2015recent}
+DATA: 1000 Genomes Project interim phase 1 data set, including Europeans (CEU; 85 samples), Yorubans (YRI; 88 samples), and EAS (186 samples CHB+JPT). T \cite{qian2015recent}
+METHOD:  \cite{qian2015recent}
+	A modified CMS method was applied to scan for genomewide signals of recent positive selection, as previously described (Grossman et al. 2010). \cite{qian2015recent}
+	Degree centrality (DC) and betweenness centrality (BC) were used to measure both local and global topological positions of candidate genes on the human PPI network (Freeman 1977; Kim et al. 2007). Degree is defined as the number of connections a node has with its neighbors whereas betweenness quantifies the number of times a node acts as a bridge along the shortest path between any other pairwise nodes.  \cite{qian2015recent}
+	The Mann-Whitney U test (also called Wilcoxon rank sum test) was applied to compare the two centrality measures, BC and DC, between selection signals and nonselection signals, to determine whether network position influences recent positive selection \cite{qian2015recent}
+RESULTS \cite{qian2015recent}
+	we found a moderate pattern that recent positive selections tended to occur more on the subcentral region of the PPI network, \cite{qian2015recent}
+	 However, it differs from studies done on a macroevolutionary timescale, which have consistently reported that accelerated evolutionary rates tend to happen at the periphery of the protein interaction network, \cite{qian2015recent}
+
+
+%------------------------------------------------------------
+% From: Using sequence alignments to predict protein structure and stability with high accuracy		(ORIGINALLY WRITTEN IN 2002, not 2012!)
+% \cite{lapedes2012using}
+%
+We present a sequence-based probabilistic formalism that directly addresses co-operative effects in networks of interacting positions in proteins, providing significantly improved contact prediction \cite{lapedes2012using}
+Each sequence of length L of a given family can be viewed as a different global state of an L-site, twenty-state (for twenty amino acids) spin system, with spinspin (i.e. residue-residue) interactions determined by (1) the (unknown) structure of the associated fold, and (2) the physico-chemical characteristics of the residues \cite{lapedes2012using}
+Solving the inverse problem to determine the underlying physical interactions addresses ``correlation at a distance", in which correlations between locally connected sites in an interacting network such as a spin system \cite{lapedes2012using}
+Previous computational work on abstract models of proteins [4], as well as a statistical analysis of the frequency of ion-pairs in crystal structures of real proteins [5], provided early hints that Boltzmann-like statistics are associated with aspects of protein architecture. \cite{lapedes2012using}
+The Boltzmann network method presented here does not treat each individual pair of sites of interest as isolated from other residues. Instead, we construct a probability distribution describing full length sequences of length L for each protein sequence family. \cite{lapedes2012using}
+Any given sequence alignment typically contains enough data to estimate only single and pairwise amino acid frequencies with reasonable accuracy. \cite{lapedes2012using}
+The maximum entropy distribution whose moments match a given set of single and pairwise amino acid frequencies may be written in the following form [23], reminiscent of thermal Boltzmann statistics \cite{lapedes2012using}
+It can be shown [25] that matching the moments of the maximum entropy distribution to the given sequence data is equivalent to maximizing the loglikelihood of the given sequence data given the parametric form \cite{lapedes2012using}
+we use the probability distribution over all L sites, Eqns. (1,2), to resolve issues of correlation at a distance (network effects) in proteins, resulting in significantly improved contact prediction from sequence information \cite{lapedes2012using}
+LIMITATIONS: Limiting factors in application of the Boltzmann network algorithm include (1) the amount of naturally evolved sequence data currently available per family (size of the sequence alignment), and (2) the phylogenetic relatedness (and associated selection artifacts) of these sequences. Modifications to the algorithm presented here, e.g. (1) consideration of statistical significance of the fitted λ parameters, and (2) addressing phylogenetic relationships of sequences in an alignment, have the potential to further increase accuracy using naturally evolved sequence sets. \cite{lapedes2012using}
+
+  
+\subsection{CoEvolutionary models}
+
+
+\subsection{Epistatic GWAS \label{sec:epigwas}}
+
+% GWAS & Epistasis
+Genome wide association studies have traditionally focused on single variants or nearby groups of variants. An often cited reason for the lack of discovery of high impact risk factors in complex disease is that these models ignore loci interactions \cite{cordell2009detecting} which have recently been pointed out as a potential solution for the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. There are several reasons: i) models using interactions are much more complex \cite{gao2010classification} and by definition non-linear, ii) information on which proteins interacts with which other proteins is incomplete \cite{venkatesan2009empirical}, iii) in the cases where there protein-protein interaction information is available, precise interacting sites are rarely known \cite{venkatesan2009empirical}. Taking into account the last two items, we need to explore all possible loci combinations, thus the number of $N$ order interactions grows as $O(M^N)$ where $M$ is the number of variants \cite{de2013emerging}. This requires exponentially more computational power than single loci models. This also severely reduces statistical power, which translates into requiring larger cohort, thus increasing sample collection and sequencing costs \cite{de2013emerging}.
+
+In Chapter \ref{ch:gwas} we develop a computationally tractable model for analysing putative interaction of pairs of variants from GWAS involving large case / control cohorts of complex disease. Our model is based on analysing cross-species multiple sequence alignments using a co-evolutionary model in order to obtain informative interaction prior probabilities that can be combined to perform GWAS analysis of pairs of non-synonymous variants that may interact.
+
+%------------------------------------------------------------
+% From: Test for Interaction between Two Unlinked Loci (2006)
+% \cite{zhao2006test}
+% TOPIC: GWAS EPISTASIS
+%
+often been defined as a deviance from genetic additive effects, which is essentially treated as a residual term in genetic analysis and leads to low power in detecting the presence of interacting effects \cite{zhao2006test}
+We developed a general theory for studying linkage disequilibrium (LD) patterns in disease population under two-locus disease models.  \cite{zhao2006test}
+Our results showed that the P values of the LD-based statistic were smaller than those obtained by other approaches, including logistic regression models. \cite{zhao2006test}
+This was further developed by Cockerham4 and Kempthorne5 into the modern representation that treats statistical gene interactions as interaction terms in a regression model or a generalized linear model on allelic effects.2,6-11 \cite{zhao2006test}
+we propose to define interaction between two unlinked loci (or genes) for a qualitative trait as the deviance of the penetrance for a haplotype at two loci from the product of the marginal penetrance of the individual alleles that span the haplotype.  \cite{zhao2006test}
+DEFINE: Deviance \cite{zhao2006test}
+Interaction between two unlinked loci will result in deviation of the penetrance of the two-locus haplotype from independence of the marginal penetrance of the alleles at an individual locus, which in turn will create linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
+Therefore, it is possible to develop statistics for detection of interaction between two unlinked loci by use of deviations from LD \cite{zhao2006test}
+we assume that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked.  \cite{zhao2006test}
+[they show that] Under this definition, in the absence of interaction, two unlinked loci in the disease population will be in linkage equilibrium \cite{zhao2006test}
+Similar to linkage equilibrium, where the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, absence of interaction between two unlinked loci implies that the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population \cite{zhao2006test}
+TEST STATISTIC:  \cite{zhao2006test}
+	Intuitively, we can test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls \cite{zhao2006test}
+	We can show that test statistic TI is asymptotically distributed as a central x2 distribution under the (1) null hypothesis of no interaction between two unlinked loci  \cite{zhao2006test}
+we compared the power of the LD-based statistic with that of the logistic model.  \cite{zhao2006test}
+Power comparison with logistic regression analysis demonstrated that this LD-based test statistic has much higher power in detecting interaction than does the logistic regression method. \cite{zhao2006test}
+To further evaluate its performance for detection of interaction between two loci, the proposed LD-based statistic was applied to two published data sets. Our results showed that, in general, P values of the test statistic TI were much smaller than those of other approaches, including logistic regression analysis. \cite{zhao2006test}
+IF THIS METHOD IS "BETTER", WHY DON'T WE JUST USE IT !?!?! \cite{zhao2006test}
+
+
+%------------------------------------------------------------
+% From: Detecting gene-gene interactions that underlie human diseases (Nature, 2009)
+% \cite{cordell2009detecting}
+%	Topic: GWAS EPISTASIS (METHODS REVIEW)
+%
+Following the identification of several disease-associated polymorphisms by genome-wide association (GWA) analysis, interest is now focusing on the detection of effects that, owing to their interaction with other genetic or environmental factors, might not be identified by using standard single-locus tests \cite{cordell2009detecting}
+...it is hoped that detecting interactions between loci will allow us to elucidate the biological and biochemical pathways that underpin disease.  \cite{cordell2009detecting}
+In recent years, the field has been revolutionized by the success of genome-wide association (GWA) studies1-5. Most of these studies have used a single-locus analysis strategy, in which each variant is tested individually for association with a specific phenotype \cite{cordell2009detecting}
+However, a reason that is often cited for the lack of success in genetic studies of complex disease6,7 is the existence of interactions between loci.  \cite{cordell2009detecting}
+If a genetic factor functions primarily through a complex mechanism that involves multiple other genes and, possibly, environmental factors, the effect might be missed if the gene is examined in isolation without allowing for its potential interactions with these other unknown factors. \cite{cordell2009detecting}
+The purpose of this Review is to provide a survey of the methods and related software packages that are currently being used to detect the interactions between the genetic loci that contribute to human genetic disease. \cite{cordell2009detecting}
+Interaction as departure from a linear model. The most common statistical definition of interaction relies on the concept of a linear model that describes the relationship between an outcome variable and a predictor variable or variables \cite{cordell2009detecting}
+Arguably the most well-known form of this type of analysis is simple linear or least squares regression26, in which we relate an observed quantitative outcome y (for example, weight) to a predictor variable x (for example, height) using a `best fit' line or regression \cite{cordell2009detecting}
+From a statistical point of view, interaction represents departure from a linear model that describes how two or more predictors predict a phenotypic outcome \cite{cordell2009detecting}
+For a disease outcome and case-control data, rather than modelling a quantitative trait y, the usual approach is to model the expected log odds of disease as a linear function of the relevant predictor variables \cite{cordell2009detecting}
+DEFINITION Penetrance: The probability of displaying a particular phenotype (for example, succumbing to a disease) given that one has a specific genotype. \cite{cordell2009detecting}
+DEFINITION: Marginal effects: The average effects (for example, penetrances) of a single variable, averaged over the possible values taken by other variables. These could be calculated for one locus of a two-locus system as the average of the two-locus penetrances, averaged over the three possible genotypes at the other locus. \cite{cordell2009detecting}
+For or simplicity, I have concentrated here on defining interaction in relation to two genetic factors (two-locus interactions). In practice, however, for complex diseases we might also expect three-locus, four-locus and even higher-level interactions. Mathematically, such higherlevel interactions are simple extensions to the two-locus models described earlier.  \cite{cordell2009detecting}
+
+CASE ONLY METHODS:
+	A case-only test of interaction can therefore be performed by testing the null hypothesis that there is no correlation between alleles or genotypes at the two loci in a sample that is restricted to cases alone. This test can easily be performed using a simple χ2 test of independence between genotypes (a four degrees of freedom test) or alleles (a one degree of freedom test), or using logistic or multinomial regression in any statistical analysis package. \cite{cordell2009detecting}
+	The main problem with the case-only test is its requirement that the genotype variables are not correlated in the general population. It is this assumption, rather than the design per se, that provides the increased power compared with case-control analysis \cite{cordell2009detecting}
+	The caseonly test is therefore unsuitable for loci that are either closely linked or show correlation for another reason (for example, if certain genotype combinations are related to viability). \cite{cordell2009detecting}
+Tests for association allowing for interaction: From a mathematical point of view, a test for association at a given locus C while allowing for interaction with another locus B (a joint test16) corresponds to comparing the fit to the observed data of a linear model in which the main effects of B, C and their interactions are included  \cite{cordell2009detecting}
+Theoretically, if no interaction effects exist, these joint tests will be less powerful than marginal singlelocus association tests. However, if interaction effects exist, then the power of joint tests can be higher than that of single-locus approaches52. \cite{cordell2009detecting}
+
+CLASSIFICATION TREE: Recursive partitioning approaches are based on classification and regression trees111. Trees are constructed (see the figure) using rules that determine how wella split at a node (based on the values of a predictor variable such as a SNP) can differentiate observations with respect to the outcome variable (such as case-control status). A popular splitting rule is to use the variable that maximizes the reduction in a quantity known as the Gini impurity111,112 at each node.  \cite{cordell2009detecting}
+
+RAMDOM FOREST: A random forest is constructed by drawing with replacement several bootstrap samples of the same size (for example, the same number of cases and controls) from the original sample. An unpruned classification tree is grown for each bootstrap sample, but with the restriction that at each node, rather than considering all possible predictor variables, only a random subset of the possible predictor variables is considered. This procedure results in a `forest' of trees, each of which will have been trained on a particular bootstrap sample of observations. \cite{cordell2009detecting}
+
+BAYESIAN MODEL SELECTION: Bayesian model selection techniques92 offer an alternative approach for selecting predictor variables and the interactions between them that are the best predictors of phenotype. The key difference between Bayesian model selection and simple comparisons of nested regression models using frequentist (non-Bayesian) procedures is the specification of prior distributions for the unknown regression parameters as well as for a dimension parameter in a Bayesian approach. This dimension parameter specifies how many non-zero predictors are included \cite{cordell2009detecting}
+	A posterior distribution for these parameters, given the observed data, can then be calculated using Markov chain Monte Carlo (MCMC)93 simulation techniques, in which one traverses the space of the possible models (sets of parameter values), sampling the outputs of the simulation run at intervals. Although MCMC is a flexible approach, it can require some care with respect to the choice of prior distributions, proposal schemes (determining how one moves between models) and the number of iterations required to achieve convergence. \cite{cordell2009detecting}
+	BEAM: Bayesian Epistasis Association Mapping. A recently proposed MCMC approach that is specifically designed to detect interacting, as well as non-interacting, loci is Bayesian epistasis Association Mapping13, which is implemented in the software package BeAM. In BeAM, predictors in the form of genetic marker loci are divided into three groups: group 0 contains markers that are not associated with disease, group 1 contains markers that contribute to disease risk only by main effects and group 2 contains markers that interact to cause disease by a saturated model. Given prior distributions that describe the membership of each marker in each of the three groups and prior distributions for the values of the relevant regression coefficients given group membership, a posterior distribution for all relevant parameters can be generated using MCMC simulation. In addition to making inferences in a fully Bayesian inferential framework, one can use the results from BeAM in a frequentist hypothesistesting framework by calculating a `B-statistic'13 that tests each marker or set of markers for significant association with a disease phenotype. \cite{cordell2009detecting}
+	EBAM LIMITATIONS: BeAM cannot currently handle the 500,000-1,000,000 markers that are now routinely being genotyped in genome scans of 5,000 or more individuals. \cite{cordell2009detecting}
+
+
+%------------------------------------------------------------
+% From: Detecting epistatic effects in association studies at a genomic level based on an ensemble approach (2011)
+% \cite{li2011detecting}
+%	Topic: A GWAS EPISTASIS METHOD
+%
+We extend the basic AdaBoost algorithm by incorporating an intuitive importance score based on Gini impurity to select candidate SNPs.  \cite{li2011detecting}
+Permutation tests are used to control the statistical significance. \cite{li2011detecting}
+We have performed extensive simulation studies using three interaction models to evaluate the efficacy of our approach at realistic GWAS sizes, and have compared it with existing epistatic detection algorithms. \cite{li2011detecting}
+CURRENT METHODS: Generally speaking, existing approaches for searching gene- gene or SNP-SNP interactions can be grouped into four broad categories. \cite{li2011detecting}
+	1) Methods in the first category rely on exhaustive search. Classical statistics such as the Pearson's χ2 test or the logistic regression that are commonly used as single-locus tests for GWAS can potentially be used in searching for pairwise interactions. Marchini et al. (2005) have shown that explicitly modeling of interactions between loci for GWAS with hundreds of thousands of markers is computationally feasible. They also showed that these simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction. \cite{li2011detecting}
+	2) The second category consists of methods relying on stochastic search, with BEAM (Zhang and Liu, 2007) as one representative of such algorithms. Later algorithms in this category [e.g. epiMODE (Tang et al., 2009)] largely adopted and extended BEAM. BEAM uses Markov chain Monte Carlo (MCMC) sampling to infer whether each locus is a disease locus, a jointly affecting disease locus, or a background (uncorrelated) locus. The algorithm begins by assigning each locus to each group according to a prior distribution. Using the Metropolis-Hastings algorithm, it attempts to reassign the group labels to each locus. At the end, it uses a special statistic, called the B-Statistic, to infer statistical significance from the hits sampled in MCMC. This approach avoids computing all interactions, but can still theoretically find high-order interactions. The number of MCMC rounds is the primary parameter that mediates runtime, as well as power. The suggested number of MCMC rounds is in the quadratic of the number of SNPs, which limits applicability of BEAM on large datasets. \cite{li2011detecting}
+	3) Methods in the third category are machine learning approaches such as tree-based methods or support vector machines (SVM). For example, a popular ensemble approach, Random Forests  \cite{li2011detecting}
+	4) Methods in the forth category rely on conditional search. In such a case, analyses are performed in stages (Evans et al., 2006; Li, 2008). A small subset of promising loci is identified in the first stage, normally using single locus methods, and multi-locus methods are used in the later stage(s) to model interactions based on the selection in the first stage. Stepwise regression has been widely used in this case and several different strategies have been studied in the literature. Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect. One should also notice that the conditional search category is more like a strategy rather than an approach. In addition to single-locusbased methods, any approaches discussed previously, especially the machine learning ones, can be used to search for candidates in the first stage. \cite{li2011detecting}
+THIS METHOD: We extend the basic AdaBoost algorithm by incorporating an intuitive importance score based on Gini impurity to select candidate SNP \cite{li2011detecting}
+Instead of trying to create a monolithic learner or model, ensemble systems attempt to create many heterogeneous versions of simpler learners, called weak learners. The opinions of these heterogeneous experts are then combined to formulate a complete picture of the data.  \cite{li2011detecting}
+Usually, a SNP is selected to ensure largest homogeneity in the child nodes. In our implementation, we use the gain on Gini Impurity. Intuitively, when child nodes have lower impurity from a split based on an attribute (i.e. a SNP here), each child node will have purer classification. Therefore, the genotype frequencies from the two classes (case and control) are expected to be more different.  \cite{li2011detecting}
+Usually decision trees are built with binary splits, where individuals with one value of the feature are placed into one group, and the remainder into the other. Since genotype data is three valued, we extend this to do a ternary split. \cite{li2011detecting}
+Despite only using marginal effects to select SNPs, decision trees can still detect some interaction. Because of the recursive partitioning, lower nodes are effectively conditioned on the value of their parents.
+The core idea of AdaBoost is to draw bootstrap samples to increase the power of a weak learner. This is done by weighting the individuals when drawing the bootstrap sample. When a weak learner instance misclassifies an individual, the weight of that individual is increased (and increased more if the weak learner instance was otherwise accurate). Thus, hard to classify individuals are more likely to be included in future bootstrap samples. In the end, the ensemble votes for class labels weighting the weak learner instances by training set accuracy.  \cite{li2011detecting}
+
+
+%------------------------------------------------------------
+% From: A Review for Detecting Gene-Gene Interactions Using Machine Learning Methods in Genetic Epidemiology (2013)
+% \cite{koo2013review}
+%	Topic: GWAS EPISTASIS METHODS (MACHINE LEARNING)
+%
+%		EPISTASIS TYPES: 
+%			Moreover, there are various types of gene-gene interactions which are syntheticinteraction, epistatic interaction, and suppressive-interaction which are shown in Figure 1. These interactions are particularly important due to the effect of a gene on individual phenotype is depending on more than one additional genes \cite{koo2013review}
+%			For instances, synthetic-interaction between two genes is that genes A and B are on different parallel pathways that can obtain the purple phenotype C. If either of the genes is knockout, the purple phenotype C still can be viewed. However, if both of the genes are knockout, it will result in a nonpurple phenotype.  \cite{koo2013review}
+%			Next, the example of epistatic-interaction that is the wild type holds a mixed purple and green phenotype of genes C and D. A gene knockout of gene B cannot obtain a purple phenotype of gene C, but green phenotype of gene D still can be seen. A gene knockout of gene A cannot obtain the green and purple phenotypes.  \cite{koo2013review}
+%			Furthermore, the example of suppressive-interaction is wild type phenotype showing a purple phenotype since gene A suppresses gene B and gene C is active. A gene knockout of gene B has no effect for result purple phenotype. A knockout of gene A results in a nonpurple phenotype since gene B is still suppressing gene C and if both of the genes A and B are knockout will result in wild type phenotype. \cite{koo2013review}
+%
+%		ADD ALL METHODS FROM 
+%			Table 1: Summary of detect gene-gene interaction using neural network method.
+%				COLUMN 1
+%				No. Author
+%				(1) Ritchie et al. [11]
+%				(2) Tomita et al. [12]
+%				Keedwell and Narayanan [13]
+%				Motsinger et al. [14]
+%				Ritchie et al. [15]
+%				Motsinger-Reif et al. [16]
+%				[17]
+%				[18]
+%				[4]
+%				
+%				COLUMN 2
+%				Dataset Epistasimodel.
+%				Childhood allergic asthma (CAA).
+%				Artificial data experiments, rat spinal cord and yeast Saccharomyces Cerevisiae cell cycle.
+%				Parkinson's disease.
+%				Alzheimer's disease, breast's disease, colorectal disease, and prostate's disease.
+%				Epitasis model.
+%				Two-locus disease models, multiplicative and epistasis model.
+%				Simulated human.
+%				Genetic models.
+%				
+%				COLUMN 3
+%				Description
+%				GPNN and BPNN were used to model gene-gene interactions by using simulated data. The simulated data contains functional SNPs and nonfunctional SNPs which model the interaction between genes. \cite{koo2013review}
+%				Artificial neural network was utilized with parameter decreasing method in order to analyse susceptible SNPs among the Japanese people. \cite{koo2013review}
+%				Genetic algorithm which was implemented along with neural networks discovers gene-gene interactions in temporal gene expression dataset by elucidating the information between regulatory connections and interactions between genes, proteins, and other gene products. \cite{koo2013review}
+%				GPNN had been used to optimize the architecture of neural network. This method can be used to enhance the identification of gene combinations associated with Parkinson's disease. \cite{koo2013review}
+%				GPNN had been used to detect gene-gene interactions and gene-environment interaction in studies of human disease to optimize the architecture of Neural Network by using simulated dataset. \cite{koo2013review}
+%				GENN was utilized to discover gene-gene interactions that caused are by noise (for instance, genotyping error, missing data, phenocopy, and genetic heterogeneity) in high dimensional genetic epidemiological data. \cite{koo2013review}
+%				NN had been used in simulation study to model the different kind of two-locus disease model by constructing six neural networks. \cite{koo2013review}
+%				ATHENA had been used to discover the gene-gene interactions that influence complex human traits by integrating alternative tree-based crossover, back propagation, and domain knowledge in ATHENA. \cite{koo2013review}
+%				QTGENN had applied GENN methods to quantitative traits in various types of simulated genetic models. This method had been successfully applied in single-locus models and two-locus models. \cite{koo2013review}
+%
+%
+%			ADD ALL: Table 2: Summary of detect gene-gene interaction using support vector machine method.
+%				No. Author
+%				Matchenko-
+%				(1) Shimko and Dube
+%				[23]
+%				(2) Chen et al. [19]
+%				(3) O ̈ zgu ̈ r et al. [24]
+%				(4) Shen et al. [25]
+%				(5) Ban et al. [26]
+%				(6) Missiuro [21]
+%				(7) Fang and Chiu [27]
+%				(8) Zhang et al. [28] Marvel and
+%				(9) Motsinger-Reif [29]
+%				
+%				Dataset
+%				Simulated disease.
+%				Real prostate cancer genotyping.
+%				Prostate cancer.
+%				Parkinson disease.
+%				Type 2 diabetes mellitus-related genes.
+%				Caenorhabditis elegans. COGA (genetics of
+%				alcoholism). Human cancer.
+%				Disease model, M1 and M2.
+%				
+%				Description
+%				Both SVM and artificial neural network (ANN) were used to preselect the combination of SNP to test the importance of potential interactions between genes in complex disease. \cite{koo2013review}
+%				SVM was applied in different kinds of combinatorial optimization methods which were recursive feature addition, recursive feature elimination, local search, and genetic algorithm. \cite{koo2013review}
+%				Automatic method that was proposed to extract known genes-disease and infer unknown gene-disease association by using automatic literature mining based on dependency parsing and support vector machines. \cite{koo2013review}
+%				Authors had employ two-stage method by using SVM with L1 penalty to detect gene-gene interactions for human complex disease. \cite{koo2013review}
+%				SVM was used to predict the importance of gene-gene interactions in T2D in the studies of Korean cohort studies. \cite{koo2013review}
+%				SVM was utilized in this research to detect interactions between gene in kinase families for Caenorhabditis elegans organism. \cite{koo2013review}
+%				SVM-based PGMDR was introduced to study the interactions of gene-gene and gene-covariate in the presence or absence of main effects of genes. \cite{koo2013review}
+%				Binary matrix shuffling filter (BMSF) as an efficient SVM search schemes was integrated with SVM to classify cancer tissue samples. \cite{koo2013review}
+%				GESVM was applied in large dataset to select important features, parameters, or kernel in SVM. \cite{koo2013review}
+%
+%
+%			ADD ALL: %				Table 3: Summary of detect gene-gene interaction using random forest method.
+%				No. Author
+%				(1) Lunetta et al. [33]
+%				(2) Jiang et al. [34]
+%				(3) Schwarz et al. [35]
+%				(4) Liu et al. [36]
+%				(5) Winham et al. [32]
+%				(6) Pan et al. [37]
+%				(7) Staiano et al. [38] Chen and Ishwaran
+%				
+%				Dataset
+%				H2M2, H4M2, H8M2, H16M2, H4M4, and H8M4.
+%				Three simulated disease model.
+%				Crohn's disease.
+%				NARAC1 and NARAC2.
+%				Five models.
+%				Bladder cancer.
+%				Familial combined hyperlipidemia (FCH).
+%				
+%				Description
+%				RF as a screening procedure to identify top-ranked true-associated SNPs which can cause disease without losing any interactions. \cite{koo2013review}
+%				RF is used to recognize the cases that were against controls and to obtain the Gini importance which is used to measure the contribution of each SNP to the classification performance. \cite{koo2013review}
+%				A new method of RJ based on basis RF knowledge was developed to facilitate a fast processing in the high-dimensional of genome-wide analysis data of gene-gene interactions. \cite{koo2013review}
+%				RF is used to detect contributed gene-gene interactions for identifing RA susceptibility and to identify SNPs of RA patients to classify them into anticyclic citrullinated protein positive and healthy controls. \cite{koo2013review}
+%				Focus on identifing rarely gene-gene interactions and detecting gene-gene interaction effects and their potential effectiveness on high-dimensional data using RF. \cite{koo2013review}
+%				The proposed method of MINGRF is proposed to improve the performance of RF such as accuracy and computational time. \cite{koo2013review}
+%				RF is used to identify gene-gene interactions that are involved in FCH. FCH increase the plasma triglycerides and/or total cholesterol level of patients and hence increase the risk of coronary heart disease. \cite{koo2013review}
+%				RSF as new hunting pathway to detect gene correlation and genomic interactions from a high-dimensional genomic data. \cite{koo2013review}
+%
+%			PROS AND CONS FOR EACH MOTHOD: ADD ALL!
+%				Table 4: Strengths and weaknesses of neural networks, support vector machine, and random forests methods for detect gene-gene interactions. \cite{koo2013review}
+%				
+%				Methods
+%				Neural network
+%				Support vector machine (SVM)
+%				Random forest (RF)
+%				Random jungle (RJ)
+%				
+%				Strengths
+%					Neural network
+%					(i) NN is able to model the relationship between disease and single nucleotide polymorphism (SNP) \cite{koo2013review}
+%					(ii) NN can make prediction on data where the disease outcome is unknown by learning the outcome given on a dataset (iii) NN is a method that can deal with large volumes of data \cite{koo2013review}
+%					(iv) NN is suitable for genetic heterogeneity, high phenocopy rates, polygenic inheritance, and incomplete penetrance. \cite{koo2013review}
+%					(v) GPNN and GENN are able to optimize the architecture of NN and possess high power to discover the presence of nonfunctional SNPs. \cite{koo2013review}
+%					(vi) GPNN does not overfitting the data (vii) GPNN possesses high power in dealing with epitasis model with weak marginal effect \cite{koo2013review}
+%					(viii) GENN outperform GPNN by optimiz NN in fewer generations \cite{koo2013review}
+%					(ix) GENN possesses high power to detect high risk loci in complex disease \cite{koo2013review}
+%
+%					Support vector machine (SVM)
+%					(i) SVM can deal with high dimension data set \cite{koo2013review}
+%					(ii) SVM can be utilized to classify complex biological gene expression data (iii) Does not trap at local minima \cite{koo2013review}
+%					(iv) Not prone to overfitting \cite{koo2013review}
+%					(v) SVM is robust to noise \cite{koo2013review}
+%					(vi) The output of SVM is more interpretable if compared to MDR (vii) Does not require user-defined decisions for classification \cite{koo2013review}
+%					(viii) SVM is ready to be generalized to new structures \cite{koo2013review}
+%
+%					Random forest (RF)
+%					(i) RF does not exhibit strong main effects which uncover interactions among genes. (ii) RF does not ``overfit" the data. \cite{koo2013review}
+%					(iii) SNPs predictive of a phenotype are identifying by RF. \cite{koo2013review}
+%
+%					Random jungle (RJ)
+%					(i) RJ is able to analyze data on a genome-wide scale. \cite{koo2013review}
+%					(ii) RJ has more computationally efficient than RF. \cite{koo2013review}
+%
+%			Weaknesses
+%					Neural network
+%					(i) Presence of black box \cite{koo2013review}
+%					(ii) Difficult to list out all possible NN architecture and it causes the difficulty to find the optimal architecture \cite{koo2013review}
+%					(iii) GPNN needed parallel processing environment \cite{koo2013review}
+%					(iv) GPNN causes the high false positive rate to occur in three locus models \cite{koo2013review}
+%					(v) The output of GPNN is binary expression, and it can be hard to interpret (for instance, up to 500 nodes) \cite{koo2013review}
+%					(vi) Result of NN was hard to interpret due to the dimensionality problem \cite{koo2013review}
+%					(vii) NN needs comprehensive cross-validation to confirm validity \cite{koo2013review}
+%
+%					Support vector machine (SVM)
+%					(i) Presence of black box \cite{koo2013review}
+%					(ii) SVM is restricted to pairwise classification \cite{koo2013review}
+%					(iii) SVM cannot be directly used for feature selection \cite{koo2013review}
+%					(iv) Result produced may be affected by the presence of missing data \cite{koo2013review}
+%					(v) The power of SVM might reduce with the presence of genetic heterogeneity \cite{koo2013review}
+%					(vi) Additional training maybe needed to correct the bias of prediction accuracy. However, it could be computationally expensive for the proposed procedure (vii) Accuracy produced by SVM might be suboptimal due to the SVM parameter C is forced to be one constant. Hence, a grid search for the parameter is needed by utilizing some promising SNP combinations in order to refine the results. \cite{koo2013review}
+%
+%					Random forest (RF) / Random jungle (RJ)
+%					(i) Presence of black box \cite{koo2013review}
+%					(ii) RF does not succeed in GWAS data. (iii) Sometimes RF is underestimating important scores of SNPs without marginal effects. \cite{koo2013review}
+%					(iv) RF only detects interactions with large effect size. \cite{koo2013review}
+%					If the main effects are weak, RJ fails to detect interactions. \cite{koo2013review}
+
+
+%------------------------------------------------------------
+% From: Bayesian inference of epistatic interactions in case-control studies (2007)
+% \cite{zhang2007bayesian}
+%	Topic: GWAS EPISTASIS METHOD
+%
+Although some existing computational methods for identifying genetic interactions have been effective for small-scale studies, we here propose a method, denoted `bayesian epistasis association mapping' (BEAM), for genome-wide case-control studies \cite{zhang2007bayesian}
+BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes, via Markov chain Monte Carlo, the posterior probability that each marker set is associated with the disease.  \cite{zhang2007bayesian}
+In the past century, scientists have made great progresses in mapping genes responsible for mendelian diseases. However, genetic variants underlying most common (or `complex') diseases are non-mendelian. \cite{zhang2007bayesian}
+These variants are typically not rare in the population (42%). They show very little effect independently with low penetrance, but they may interact with each other in complex ways. \cite{zhang2007bayesian}
+It has been speculated that epistasis ubiquitously contributes to complex traits partly because of the sophisticated regulatory mechanisms encoded in the human genome1.  \cite{zhang2007bayesian}
+EPI EXAMPLES: An increasing number of reports have indicated the presence of multilocus interactions in many human complex traits, such as breast cancer2, post-PTCA stenosis3, essential hypertension4, atrial fibrillation5 and type 2 diabetes6. \cite{zhang2007bayesian}
+GWAS EPISTASIS [Discussion]: We also applied BEAM to an association study of age-related macular degeneration (AMD)13, which included B100,000 SNP markers. Although BEAM did not find significant interactions in the AMD data set, it was able to discover two-way or three-way interactions among the B100,000 SNPs simulated based on the AMD data. \cite{zhang2007bayesian}
+
+EXISTING METHODS: 
+	Several approaches have been developed to detect epistasis, including the combinatorial partitioning method (CPM)7, the restricted partitioning method (RPM)8, multifactor-dimensionality reduction (MDR)2, multivariate adaptive regression spline (MARS)9, the logistic regression method10 and backward genotype-trait association (BGTA)11. Although these methods all showed promise, they have been tested only on small data sets.  \cite{zhang2007bayesian}
+	methods based on brute-force searches such as CPM and MDR are impractical for large data sets \cite{zhang2007bayesian}
+	STEPWISE LOGISTIC REGRESSION: The stepwise logistic regression approach of ref. 12 works as follows: (i) all markers are individually tested and ranked for marginal associations with the disease; (ii) the top 10\% of markers are selected, among which all k-way (k 1⁄4 2 or 3) interactions are tested and ranked for associations. The authors of ref. 12 also proposed an exhaustive logistic regression testing approach, which we choose not to consider in this study because of its prohibitive computational cost.  Note that even their stepwise approach can become computationally intractable for high-order interactions.  \cite{zhang2007bayesian}
+	Recently, a simulation study12 explored the use of a stepwise logistic regression approach to identify two-way and three-way interactions. The authors demonstrated that searching for interactions in genome-wide association mapping can be more fruitful than traditional approaches that exclusively focus on marginal effects. \cite{zhang2007bayesian}
+
+BEAM METHOD:
+	The BEAM algorithm takes case-control genotype marker data as input and produces, via MCMC simulations, posterior probabilities that each marker is associated with the disease and involved with other markers in epistasis.  \cite{zhang2007bayesian}
+	The input genotyped markers should be in their natural genomic order when there is linkage disequilibrium (LD) among some of them. The method can be used either in a `pure' bayesian sense or just as a tool to discover potential `hits'. For the former, one relies on the reported posterior probabilities to make inferential statements; as for the latter, one can take the reported hits and use another procedure to test whether these hits are statistically significant.  \cite{zhang2007bayesian}
+	The latter approach is more robust to model selection and prior assumptions (such as Dirichlet priors with arbitrary parameters) and is less prone to the slow mixing problem in the MCMC computational procedure. We also propose the B statistic to facilitate the latter approach and show that it is more powerful than the standard w2 statistic for epistasis detections. \cite{zhang2007bayesian}
+	For the non-epistasis model (model 1), all three epistasis mapping methods performed similarly to the single-marker w2 test (Fig. 1), indicating that the power for detecting marginal associations was not compromised by using the more complex models. \cite{zhang2007bayesian}
+	Notably, results for model 4 suggest that stepwise methods can miss markers with small or no marginal effects, whereas BEAM can get these markers back through iterations. \cite{zhang2007bayesian}
+POWER ISSUES RELATED TO AF: 
+	The power of association mapping can be greatly hampered by the discrepancy of allele frequencies between unobserved disease loci and associated genotyped markers15 \cite{zhang2007bayesian}
+	For data sets with large MAF discrepancies and moderate LD, the power of all methods suffered.  \cite{zhang2007bayesian}
+	At the extreme case when the MAF discrepancy was maximized (that is, MAF 1⁄4 0.5), all methods had little power in detecting interaction associations \cite{zhang2007bayesian}
+	The impact of LD on power seemed to be less profound than the effect of MAF discrepancy.  \cite{zhang2007bayesian}
+
+ ANALISYS:
+	DATA: The data set contains 116,204 SNPs genotyped for 96 affected individuals and 50 controls. \cite{zhang2007bayesian}
+	RESULTS: BEAM found no significant interactions associated with AMD from this data set. It is possible that the small sample size of 146 individuals is insufficient for detecting subtle epistasis interactions. \cite{zhang2007bayesian}
+
+
+%------------------------------------------------------------
+% From: FastEpistasis: a high performance computing solution for quantitative trait epistasis
+% \cite{schupbach2010fastepistasis}
+% TOPIC: eQTL-EPISTASIS MODEL
+
+We present FastEpistasis, an efficient parallel solution extending the PLINK epistasis module, designed to test for epistasis effects when analyzing continuous phenotypes. \cite{schupbach2010fastepistasis}
+FastEpistasis is capable of testing the association of a continuous trait with all single nucleotide polymorphism (SNP) pairs from 500 000 SNPs, totaling 125 billion tests, in a population of 5000 individuals in 29, 4 or 0.5 days using 8, 64 or 512 processors. \cite{schupbach2010fastepistasis}
+It tests epistatic effects in the normal linear regression of a quantitative response on marginal effects of each SNP and an interaction effect of the SNP pair, where SNPs are coded as additive effects, taking values 0,1 or 2. The test for epistasis reduces to testing whether the interaction term is significantly different from zero. \cite{schupbach2010fastepistasis}
+The computations are based on applying the QR decomposition to derive least squares estimates of the interaction coefficient and its standard error.  \cite{schupbach2010fastepistasis}
+
+
+%=====================================================================================================
+% END OF ADD SECTION
+%=====================================================================================================
+
+The definition of epistasis from a statistical perspective is a ``departure from a linear model" \cite{cordell2009detecting}. This means that in a logistic regression model the input for sample $s$ includes terms with each of the genotypes at loci $i$ and $j$), as well as an ``interaction term" $g_{s,i} \cdot g_{s,j}$ \cite{cordell2002epistasis}. 
+
+\begin{eqnarray*} \label{eq:gwasLogRegH1}
+    P( d_s | g_{s,i},g_{s,j}) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
+    & & ... + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
+\end{eqnarray*}
+
+where $d_s$ is disease status, $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for sample $s$.
+
+Models involving interactions between more than two variants can be defined similarly, but require more parameters and extremely large samples are required to accurately fit them.
+
+Several families of approaches for epistatic GWAS exist. Here we mention a few:
+
+\begin{itemize}
+
+\item Allele frequency: In \cite{ackermann2012systematic}, an analysis of imbalanced allele pair frequencies is performed under the assumption that an implicit test for fitness can be achieved looking for over/under-represented allele pairs in a given population. In another study \cite{zhao2006test} the authors infer that interactions can create LD in disease population under two-loci model, then they show how LD-based p-values can uncover interaction and sometimes (in their simulations) outperform logistic regression tests.
+
+\item Bayesian model: In \cite{zhang2007bayesian}, a ``Bayesian partitioning model" is used by providing Dirichlet prior distributions for each partition and computing posterior probabilities using Markov chain Monte Carlo (MCMC) algorithms.  The methodology first test individual makers and picks only the top 10\% to further investigate for epistasis, because it is prohibitive to test all loci.
+
+\item Machine learning: From a machine learning point of view, finding interacting variants is simply an \textit{``optimisation procedure is to find a set of parameters that allows the machine-learning model to most accurately predict class membership (e.g. affected vs unaffected)"} \cite{mckinney2006machine}. Several approaches have emerged to tackle the ``interaction problem" and used a variety of different techniques \cite{koo2013review, mckinney2006machine} , such as neural networks, cellular automata, random forests, multifactor dimensionality reduction, support vector machines, etc.
+
+\end{itemize}
+
+Although all these models have advantages under some assumptions, none of them seems to be a ``clear winner" over the rest \cite{cordell2009detecting}. All of these models suffer from the increase in number of tests that need to be performed, which raises two issues: i) multiple testing, which is often resolved by stringent significance threshold, and ii) computational feasibility, which is solved by efficient algorithms, parallelization, and heuristic approaches to quickly discard uninformative loci combinations. So far, no method for epistatic GWAS has been widely adopted and there is need of different approaches to be explored. In Chapter \ref{ch:gwas} we propose an approach to combine co-evolutionary models and GWAS epistasis of pairs of putatively interacting loci.

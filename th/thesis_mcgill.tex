@@ -82,13 +82,13 @@
 % Conditional expression for faster build during "development" cycle
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
 \newif\ifthesis
-\thesistrue
-%\thesisfalse
+%\thesistrue
+\thesisfalse
 
 % Final version?
 \newif\iffinal
-\finaltrue
-%\finalfalse
+%\finaltrue
+\finalfalse
 
 \ifthesis
 	% Only show these sections when we are building the 'thesis' version
@@ -154,6 +154,10 @@
 \ifthesis
 	% Show all chapters on 'thesis' mode
 	\include{chapters/intro}
+	\include{chapters/intro_variants}
+	\include{chapters/intro_epistasis}
+	\include{chapters/intro_coevolution}
+	\include{chapters/intro_roadmap.tex}
 	\include{chapters/bds}
 	\include{chapters/snpeff}
 	\include{chapters/gwas}
@@ -161,6 +165,10 @@
 \else
 	% Only show the chapter we are currently working on
 	\include{chapters/intro}
+	\include{chapters/intro_variants}
+	\include{chapters/intro_epistasis}
+	\include{chapters/intro_coevolution}
+	\include{chapters/intro_roadmap.tex}
 \fi
 
 \ifthesis
