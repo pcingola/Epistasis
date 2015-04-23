@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 15:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -412,24 +412,37 @@ LaTeX Warning: Reference `ch:bds' on page 2 undefined on input line 11.
 \openout2 = `chapters/intro_epistasis.aux'.
 
  (./chapters/intro_epistasis.tex
+LaTeX Font Info:    Try loading font information for U+msa on input line 7.
 
-LaTeX Warning: Reference `ch:gwas' on page 4 undefined on input line 5.
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 7.
 
-[4
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Overfull \hbox (14.80656pt too wide) in paragraph at lines 7--12
+[]\OT1/cmr/m/n/12 At the be-gin-ning of the $20[]$ cen-tury some de-vi-a-tions 
+form clas-si-cal Mendelian
+ []
+
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 20.
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 20.
+ [4
 
 
-] [5] [6] [7] [8] [9]
-Missing character: There is no Ù in font cmr12!
-Missing character: There is no è in font cmr12!
-Missing character: There is no ∞ in font cmr12!
-Missing character: There is no ç in font cmr12!
-
-Overfull \hbox (8.01944pt too wide) in paragraph at lines 74--78
+] [5] [6]
+Overfull \hbox (8.01944pt too wide) in paragraph at lines 120--124
 []\OT1/cmr/m/n/12 We present FastEpis-ta-sis, an ef-fi-cient par-al-lel so-lu-t
 ion ex-tend-ing the PLINK
  []
 
-[10]
+[7]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ò in font cmr12!
@@ -445,91 +458,72 @@ Missing character: There is no º in font cmr12!
 Missing character: There is no Ô in font cmr12!
 Missing character: There is no ø in font cmr12!
 Missing character: There is no º in font cmr12!
+ [8] [9] [10]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ü in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ü in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ü in font cmr12!
+Missing character: There is no µ in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ü in font cmr12!
+Missing character: There is no µ in font cmr12!
  [11] [12] [13]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ü in font cmr12!
-Missing character: There is no µ in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ü in font cmr12!
-Missing character: There is no µ in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ü in font cmr12!
-Missing character: There is no µ in font cmr12!
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no Ü in font cmr12!
-Missing character: There is no µ in font cmr12!
- [14] [15] [16]
 Missing character: There is no Ã in font cmr12!
 Missing character: There is no à in font cmr12!
- [17] [18]
+ [14] [15]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no • in font cmr12!
 
-Overfull \hbox (2.10004pt too wide) in paragraph at lines 158--164
+Overfull \hbox (2.10004pt too wide) in paragraph at lines 204--210
 []\OT1/cmr/m/n/12 LD: non-physical link-ages be-tween dif-fer-ent mu-ta-tions (
 or sin-gle nu-cleotide
  []
 
-[19] [20] [21] [22] [23]
+[16] [17] [18] [19] [20] [21]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Å in font cmr12!
 Missing character: There is no Ñ in font cmr12!
- [24]
-LaTeX Font Info:    Try loading font information for U+msa on input line 223.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 223.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-) [25] [26]
-[27]
+ [22] [23] [24] [25]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Å in font cmr12!
 Missing character: There is no Ñ in font cmr12!
 
-Overfull \hbox (4.44168pt too wide) in paragraph at lines 248--269
+Overfull \hbox (4.44168pt too wide) in paragraph at lines 305--326
 \OT1/cmr/m/n/12 method, de-noted `bayesian epis-ta-sis as-so-ci-a-tion map-ping
 ' (BEAM), for genome-
  []
 
-[28] [29]
+[26] [27]
 Missing character: There is no œ in font cmr12!
 Missing character: There is no á in font cmr12!
- [30] [31] [32]
+ [28] [29] [30]
 Missing character: There is no œ in font cmr12!
 Missing character: There is no á in font cmr12!
- [33] [34] [35]
+ [31] [32] [33]
 Missing character: There is no Ù in font cmr12!
 Missing character: There is no è in font cmr12!
 Missing character: There is no ∞ in font cmr12!
 Missing character: There is no Ç in font cmr12!
- [36]
+ [34]
 
-LaTeX Warning: Reference `ch:gwas' on page 37 undefined on input line 321.
+LaTeX Warning: Reference `ch:gwas' on page 35 undefined on input line 378.
 
-[37]
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 342.
+[35] [36]
 
- (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 342.
- [38]
+LaTeX Warning: Reference `ch:gwas' on page 37 undefined on input line 407.
 
-LaTeX Warning: Reference `ch:gwas' on page 39 undefined on input line 350.
-
-) [39] (./thesis_mcgill.bbl
+) [37] (./thesis_mcgill.bbl
 Underfull \hbox (badness 2443) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
  []
 
-[40
+[38
 
 
 
@@ -542,7 +536,7 @@ Underfull \hbox (badness 2142) in paragraph at lines 126--131
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[41] [42]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[39] [40]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/intro_epistasis.aux))
 
  *File List*
@@ -625,10 +619,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (42 pages, 200230 bytes).
+Output written on thesis_mcgill.pdf (40 pages, 195495 bytes).
 PDF statistics:
- 181 PDF objects out of 1000 (max. 8388607)
- 125 compressed objects within 2 object streams
+ 175 PDF objects out of 1000 (max. 8388607)
+ 121 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

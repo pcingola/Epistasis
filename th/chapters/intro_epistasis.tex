@@ -2,69 +2,115 @@
 \section{Epistasis \label{sec:epi}}
 %---
 
-In this section we introduced the basic concepts and methodologies used in GWAS. Although fairly mature, there is still heavy research and continuous improvement on GWAS statistical methods. Not only it is well known that traditional (i.e. single marker) GWAS methods fail under non-additive models \cite{culverhouse2002perspective}, but also variants so far discovered using these methods do not account for all the expected phenotypic variance attributed to genetic causes (i.e. missing heritability). As other authors pointed out \cite{cordell2009detecting, zuk2012mystery, zuk2014searching}, this might be because we need to look for epistatic variants which are not taken into account using these methods. In the next section, and in Chapter \ref{ch:gwas}, we cover the topic of epistatic GWAS analysis.
+%In this section we introduced the basic concepts and methodologies used in GWAS. Although fairly mature, there is still heavy research and continuous improvement on GWAS statistical methods. Not only it is well known that traditional (i.e. single marker) GWAS methods fail under non-additive models \cite{culverhouse2002perspective}, but also variants so far discovered using these methods do not account for all the expected phenotypic variance attributed to genetic causes (i.e. missing heritability). As other authors pointed out \cite{cordell2009detecting, zuk2012mystery, zuk2014searching}, this might be because we need to look for epistatic variants which are not taken into account using these methods. In the next section, and in Chapter \ref{ch:gwas}, we cover the topic of epistatic GWAS analysis.
 
-\subsection{Historical perspective}
-William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance \cite{tyler2009shadows}
-The term literally means ``standing upon", and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression.  \cite{tyler2009shadows}
-The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition. \cite{tyler2009shadows}
+At the beginning of the $20^{th}$ century some deviations form classical Mendelian inheritance were characterized.
+William Bateson first described epistasis in 1907 \cite{tyler2009shadows} assessing a discrepancy between the prediction of segregation ratios assuming individual genes and the real outcome \cite{phillips2008epistasis}.
+The term epistasis literally means ``standing upon" was used to describe ``characters'' layered on top of other each other thus masking their expression. 
+Reflecting this original definition, nowadays the term epistasis is used to describe an allele at one locus masks the expression of another allele at a different locus \cite{cordell2002epistasis}.
+The way epistasis was used to describe the situation in which the actions of one locus mask the allelic effects of another locus, is an extension of dominance where a completely dominant alleles mask the effects of the recessive allele at the same locus. \cite{carlborg2004epistasis, cordell2002epistasis}.
 
-The term `epistasis' was initially used in the context of Mendelian inheritance; environmental effects are relatively unimportant for Mendelian traits, so Ii individuals can be clearly assigned to one of a limited number of classes according to their phenotype. Here, epistasis was used to describe the situation in which the actions of one locus mask the allelic effects of another locus, in the same way that completely dominant alleles mask the effects of the recessive allele at the same locus. \cite{carlborg2004epistasis}
+The concept of epistasis is often interpreted as mutations in two genes producing a phenotype that is surprising considering the individual effect of each mutation and can point to functional relationships between genes and pathways \cite{mani2008defining}.
+Epistasis, can be used as a tool for understanding the genetic pathways' structure and function as well as evolutionary dynamics \cite{phillips2008epistasis}. 
+Some authors even relate the analysis of gene interaction patterns to the fundamentals of systems biology \cite{phillips2008epistasis}.
 
-The term `epistatic' was first used in 1909 by Bateson (1) to describe a masking effect whereby a variant or allele at one locus (denoted at that time as an `allelomorphic pair') prevents the variant at another locus from manifesting its effect.  \cite{cordell2002epistasis}
-This was seen as an extension of the concept of dominance. There are, however, some problems with this definition, particularly when applied to binary traits. In human genetics, the phenotype of interest is often qualitative and usually dichotomous, indicating presence or absence of disease. \cite{cordell2002epistasis}
-Mathematical models for the joint action of two or more loci usually focus on the penetrance, the probability of developing disease given genotype. \cite{cordell2002epistasis}
-Suppose that a predisposing allele is required at both loci in order to exhibit the trait, i.e. one or more copies of both allele A and allele B are required. Then, when the effects of both loci are considered, we obtain the penetrance table shown in Table 2. In this table, the effect of allele A can only be observed when allele B is also present: without the presence of B, the effect of A is not observable. The effect at locus A would appear to be `masked' by that at locus B. \cite{cordell2002epistasis}
-This leads to a situation that is not precisely analogous to that described by Bateson (1). In Bateson's (1) definition, it is clear that if factor B is epistatic to factor A, we do not expect factor A to also be epistatic to factor B.  \cite{cordell2002epistasis}
-Table 3 is usually assumed to correspond to a situation in which the biological pathways involved in disease influenced by the two loci are at some level separate or independent (5). \cite{cordell2002epistasis}
+The term epistasis has expanded to describe many complex interactions among genetic loci  \cite{phillips2008epistasis}.
+Geneticists used epistasis to describe different things: 
+\begin{itemize}
+	\item Functional epistasis: The molecular interactions that proteins. Usually these interactions consist of proteins within the same pathway or of within a complex \cite{phillips2008epistasis}
+	\item Compositional epistasis: Describes the traditional usage of epistasis as described by Bateson (i.e. blocking of one allelic effect by an allele at another locus)  \cite{phillips2008epistasis}.
+	\item Statistical epistasis: This terminology is attributed to Fisher defined as a deviance from genetic additive effects, this essentially treats it as a residual term in genetic analysis \cite{zhao2006test}.
+\end{itemize}
 
-Epistasis, or interactions between genes, has long been recognized as fundamentally important to understanding the structure and function of genetic pathways and the evolutionary dynamics of complex genetic systems. \cite{phillips2008epistasis}
-It has been approximately 100 years since William Bateson invented the term `epistasis' to describe the discrepancy between the prediction of segregation ratios based on the action of individual genes and the actual outcome of a dihybrid cross1 \cite{phillips2008epistasis}
-The use of the term epistasis has since expanded to describe nearly any set of complex interactions among genetic loci  \cite{phillips2008epistasis}
-Over the years geneticists have used epistasis to describe three distinct things: the functional relationship between genes, the genetic ordering of regulatory pathways and the quantitative differences of allele-specific effects \cite{phillips2008epistasis}
-Over the years the disparate needs of geneticists have led to a plethora of differently nuanced meanings for the term epistasis, all of which involve gene interactions at various levels  \cite{phillips2008epistasis}
-`Functional epistasis' addresses the molecular interactions that proteins (and other genetic elements) have with one another, whether these interactions consist of proteins that operate within the same pathway or of proteins that directly complex with one another18 \cite{phillips2008epistasis}
-`Compositional epistasis' is a new term that is intended to describe the traditional usage of epistasis as the blocking of one allelic effect by an allele at another locus.  \cite{phillips2008epistasis}
-`statistical epistasis' is the usage of epistasis that is attributed to Fisher (BOX 1), in which the average deviation of combinations of alleles at different loci is estimated over all other genotypes present within a population.  \cite{phillips2008epistasis}
+Epistasis can be classified by the way a deviation of a double-mutant organism's phenotype differed from the expected neutral phenotype\cite{mani2008defining}.
+An interaction is known as ``synergistic" or ``synthetic" when the double mutant has a more extreme phenotype than expected
+When the phenotype is less severe than expected, then there is a ``diminishing returns" or ``alleviating" interaction, this is often attributed to gene products operating in series within the pathway. 
+A typical example is a mutation in one gene impairing a whole pathway, thus masking the consequence of mutations in other genes of the same pathway. \cite{mani2008defining}.
 
-It should be apparent that the global analysis of geneinteraction patterns bears a striking resemblance to what is now called systems biology \cite{phillips2008epistasis}
+Often, the phenotype in human genetics is qualitative and dichotomous, indicating presence or absence of disease. \cite{cordell2002epistasis}.
+Thus mathematical models calculating the joint action of more than one loci focus on the penetrance (the probability of developing disease given genotype).
+Assuming an allele is required at both loci in order to express the trait, the effect of allele A can only be observed when allele B is also present.
+This means that the effect at locus A appears masked by locus B and vice-versa \cite{cordell2002epistasis}, which is not precisely analogous to
+what Bateson descrived. 
+In Bateson's definition, if factor B is epistatic to factor A, then factor A is not expected to be epistatic to factor B also.  \cite{cordell2002epistasis}
+Four mathematically different definitions of interaction have been used (namely Product, Additive, Log, and Min) \cite{mani2008defining}, but even though some definitions yield identical results under some conditions, an alternative definition choice can lead to different consequences\cite{mani2008defining}.
 
-often been defined as a deviance from genetic additive effects, which is essentially treated as a residual term in genetic analysis and leads to low power in detecting the presence of interacting effects \cite{zhao2006test}
+Defining interaction requires measuring phenotype and a neutrality.
+Neutrality function predicts the phenotype of an organism without interacting mutations. 
+Fitness, is central phenotype measurement to many large-scale genetic interaction studies, it can be defined by population allele frequencies or using growth rates of microbial cultures \cite{mani2008defining}. 
+Different measures of fitness can be used in epistasis: i) exponential growth rate of mutant strain respect to wild type ; ii) the increase in population in one wild-type generation; and iii) the relative number of progeny (in one wild-type generation) \cite{mani2008defining}.
 
-Following the identification of several disease-associated polymorphisms by genome-wide association (GWA) analysis, interest is now focusing on the detection of effects that, owing to their interaction with other genetic or environmental factors, might not be identified by using standard single-locus tests \cite{cordell2009detecting}
-...it is hoped that detecting interactions between loci will allow us to elucidate the biological and biochemical pathways that underpin disease.  \cite{cordell2009detecting}
-In recent years, the field has been revolutionized by the success of genome-wide association (GWA) studies1-5. Most of these studies have used a single-locus analysis strategy, in which each variant is tested individually for association with a specific phenotype \cite{cordell2009detecting}
-However, a reason that is often cited for the lack of success in genetic studies of complex disease6,7 is the existence of interactions between loci.  \cite{cordell2009detecting}
-If a genetic factor functions primarily through a complex mechanism that involves multiple other genes and, possibly, environmental factors, the effect might be missed if the gene is examined in isolation without allowing for its potential interactions with these other unknown factors. \cite{cordell2009detecting}
+Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. Multiplicative function predicts fitness to be the product of the corresponding single-mutant fitness values. This multiplicative function can be used with the three aforementioned fitness measures to obtain three different definitions of genetic interaction \cite{mani2008defining}.
 
-\subsection{Definition}
-In this review, we provide a historical background to the study of epistatic interaction effects and point out the differences between a number of commonly used definitions of epistasis \cite{cordell2002epistasis}
-Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation's individual effects. This phenomenon, which defines genetic interaction, can reveal functional relationships between genes and pathways. \cite{mani2008defining}
-Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition \cite{mani2008defining}
-Here, we show that the choice among alternative definitions can have profound consequences. \cite{mani2008defining}
+The ``Min" definition of genetic interaction is simply the minimum neutrality of the expected results form non-interacting mutations (e..g the fitness of the less-fit mutant). 
+All the above fitness measurement yield the same set of genetic interactions under this definition. 
+For example if each mutation disrupts a distinct pathway limiting cell growth in a way that one mutation is substantially more limiting than the other, the double mutant might is expected have same result as the most-limiting single mutant \cite{mani2008defining}.
 
-A quantitative genetic interaction definition has two components: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninteracting mutations. Interaction is then defined by deviation of a double-mutant organism's phenotype from the expected neutral phenotype \cite{mani2008defining}
-A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case). \cite{mani2008defining}
-Alleviating or ``diminishing returns" interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a mutation in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway. \cite{mani2008defining}
-One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was originally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures. \cite{mani2008defining}
-Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growthrate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24) \cite{mani2008defining}
-Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. \cite{mani2008defining}
-The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplicative function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic interaction (4, 6, 15, 19, 24). \cite{mani2008defining}
-A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting mutations are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant.  \cite{mani2008defining}
-It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies. \cite{mani2008defining}
-Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function.  \cite{mani2008defining}
-For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy. \cite{mani2008defining}
-The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive  \cite{mani2008defining}
+It has been shown choice of definition can dramatically alter the resulting set of interactions \cite{mani2008defining}.
+To evaluate this the authors in \cite{mani2008defining} applied all four definitions to two studies providing quantitative growth-rate measurements of cell populations. 
+They show that: 
+i) additive and Log definitions have different biases; 
+ii) Product and Log definitions are equivalent for deleterious mutations; 
+iii) the product definition can reveal functional relationships missed by the Min definition; 
+and iv) interaction networks from Min and Product definitions differ greatly. 
+This leads to the question on which definition to use. 
+By examining the deviation distribution of expected (double-mutant) phenotype from the observed phenotype they found that Product and Log definitions not only are the closest to the ideal, but also are practically equivalent when single mutants are deleterious \cite{mani2008defining}.
 
-DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and singleand double-mutant cell populations. \cite{mani2008defining}
-RESULTS: The Choice of Genetic Interaction Definition Matters: \cite{mani2008defining}
-Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all definitions) for pairs involving mutations with extreme fitness effects. \cite{mani2008defining}
-Product and Log Definitions Are Equivalent for Deleterious Mutations:  \cite{mani2008defining}
-The Product Definition Reveals Functional Relationships Missed by the Min Definition. \cite{mani2008defining}
-Genetic Interaction Networks from Min and Product Definitions Differ Greatly. \cite{mani2008defining}
+%William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance The term literally means ``standing upon", and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression.  \cite{tyler2009shadows}
+%The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition. \cite{tyler2009shadows}
+%
+%The term `epistasis' was initially used in the context of Mendelian inheritance; environmental effects are relatively unimportant for Mendelian traits, so Ii individuals can be clearly assigned to one of a limited number of classes according to their phenotype. 
+%Here, epistasis was used to describe the situation in which the actions of one locus mask the allelic effects of another locus, in the same way that completely dominant alleles mask the effects of the recessive allele at the same locus. \cite{carlborg2004epistasis}
+%
+%The term `epistatic' was first used in 1909 by Bateson (1) to describe a masking effect whereby a variant or allele at one locus (denoted at that time as an `allelomorphic pair') prevents the variant at another locus from manifesting its effect.  \cite{cordell2002epistasis}
+%This was seen as an extension of the concept of dominance. 
+%There are, however, some problems with this definition, particularly when applied to binary traits. In human genetics, the phenotype of interest is often qualitative and usually dichotomous, indicating presence or absence of disease. \cite{cordell2002epistasis}
+% Mathematical models for the joint action of two or more loci usually focus on the penetrance, the probability of developing disease given genotype. \cite{cordell2002epistasis}
+%Suppose that a predisposing allele is required at both loci in order to exhibit the trait, i.e. one or more copies of both allele A and allele B are required. Then, when the effects of both loci are considered, we obtain the penetrance table shown in Table 2. In this table, the effect of allele A can only be observed when allele B is also present: without the presence of B, the effect of A is not observable. The effect at locus A would appear to be `masked' by that at locus B. \cite{cordell2002epistasis}
+%This leads to a situation that is not precisely analogous to that described by Bateson (1). In Bateson's (1) definition, it is clear that if factor B is epistatic to factor A, we do not expect factor A to also be epistatic to factor B.  \cite{cordell2002epistasis}
+%Table 3 is usually assumed to correspond to a situation in which the biological pathways involved in disease influenced by the two loci are at some level separate or independent (5). \cite{cordell2002epistasis}
+%
+%The use of the term epistasis has since expanded to describe nearly any set of complex interactions among genetic loci  \cite{phillips2008epistasis}
+%Over the years geneticists have used epistasis to describe three distinct things: the functional relationship between genes, the genetic ordering of regulatory pathways and the quantitative differences of allele-specific effects \cite{phillips2008epistasis}
+%Over the years the disparate needs of geneticists have led to a plethora of differently nuanced meanings for the term epistasis, all of which involve gene interactions at various levels  \cite{phillips2008epistasis}
+%`Functional epistasis' addresses the molecular interactions that proteins (and other genetic elements) have with one another, whether these interactions consist of proteins that operate within the same pathway or of proteins that directly complex with one another18 \cite{phillips2008epistasis}
+%`Compositional epistasis' is a new term that is intended to describe the traditional usage of epistasis as the blocking of one allelic effect by an allele at another locus.  \cite{phillips2008epistasis}
+%`statistical epistasis' is the usage of epistasis that is attributed to Fisher (BOX 1), in which the average deviation of combinations of alleles at different loci is estimated over all other genotypes present within a population.  \cite{phillips2008epistasis}
+%
+%It should be apparent that the global analysis of geneinteraction patterns bears a striking resemblance to what is now called systems biology \cite{phillips2008epistasis}
+%
+%often been defined as a deviance from genetic additive effects, which is essentially treated as a residual term in genetic analysis and leads to low power in detecting the presence of interacting effects \cite{zhao2006test}
 
-WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious. \cite{mani2008defining}
+%===================================================================================================
+% REWRITE
+%===================================================================================================
 
+%Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation's individual effects. This phenomenon, which defines genetic interaction, can reveal functional relationships between genes and pathways. \cite{mani2008defining}
+%Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition \cite{mani2008defining}
+%Here, we show that the choice among alternative definitions can have profound consequences. \cite{mani2008defining}
+%
+%A quantitative genetic interaction definition has two components: a quantitative phenotypic measure and a neutrality function that predicts the phenotype of an organism carrying two noninteracting mutations. Interaction is then defined by deviation of a double-mutant organism's phenotype from the expected neutral phenotype \cite{mani2008defining}
+%A double mutant with a more extreme phenotype than expected defines a synergistic (or synthetic) interaction between the corresponding mutations (synthetic lethality, in the extreme case). \cite{mani2008defining}
+%Alleviating or ``diminishing returns" interactions, in which the double-mutant phenotype is less severe than expected, often result when gene products operate in concert or in series within the same pathway. Alleviating interactions arise, for example, when a mutation in one gene impairs the function of a whole pathway, thereby masking the consequence of mutations in additional members of that pathway. \cite{mani2008defining}
+%One class of phenotype, fitness, has been central to many large-scale genetic interaction studies. Although fitness was originally measured in terms of population allele frequencies (1, 22, 23), it can also be measured by using growth rates of isogenic microbial cultures. \cite{mani2008defining}
+%Genetic interaction studies have used different measures of fitness, including: (i) the exponential growth rate of the mutant strain relative to that of wild type (4, 9, 15, 19) (the relative-growthrate measure); (ii) the increase in mutant population relative to wild type in one wild-type generation (the relative-population measure) (6); and (iii) the number of progeny per mutant organism relative to the number of progeny for wild type in one wild-type generation (the relative-progeny measure) (24) \cite{mani2008defining}
+%Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. \cite{mani2008defining}
+%
+%The multiplicative function, which was originally applied to fitness measures defined in terms of allele frequencies, predicts double-mutant fitness to be the product of the corresponding single-mutant fitness values. The multiplicative function can be combined with each of the three fitness measures above to yield three distinct definitions of genetic interaction (4, 6, 15, 19, 24). \cite{mani2008defining}
+%A fourth (Min) definition of genetic interaction results from the minimum neutrality function, under which noninteracting mutations are expected to yield the fitness of the less-fit single mutant. Each fitness measure above yields an identical set of genetic interactions under this function. A hypothetical example illustrates one rationale for the Min definition: Two single mutations each disrupt a distinct cellular pathway that limits cell growth, such that one of these mutations is substantially more limiting than the other. The double mutant might then be expected to exhibit the phenotype of the most-limiting single mutant.  \cite{mani2008defining}
+%It has not been clear whether the choice of genetic interaction definition has any practical consequences. To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies. \cite{mani2008defining}
+%Here, we show that the choice of definition can dramatically alter the resulting set of genetic interactions and the extent to which they correspond to shared gene function.  \cite{mani2008defining}
+%For a gene pair (x, y), we refer to the fitness of the two single mutants and the double mutant, respectively, as Wx, Wy, and Wxy. \cite{mani2008defining}
+%The neutrality function E(Wxy), predicting double-mutant fitness for a strain with mutations in noninteracting genes x and y, is defined differently under the Min, Product, Log, and Additive  \cite{mani2008defining}
+%
+%DATASET: To evaluate the impact of definition choice, we applied each of the four definitions in turn to two reference studies, St. Onge et al. (19) (Study S) and Jasnos and Korona (6) (Study J), both providing quantitative growth-rate measurements of isogenic wild-type and singleand double-mutant cell populations. \cite{mani2008defining}
+%RESULTS: The Choice of Genetic Interaction Definition Matters: \cite{mani2008defining}
+%Additive and Log Definitions Demonstrate Different Biases: However, we had observed that interaction strength had a significant positive bias (under all definitions) for pairs involving mutations with extreme fitness effects. \cite{mani2008defining}
+%Product and Log Definitions Are Equivalent for Deleterious Mutations:  \cite{mani2008defining}
+%The Product Definition Reveals Functional Relationships Missed by the Min Definition. \cite{mani2008defining}
+%Genetic Interaction Networks from Min and Product Definitions Differ Greatly. \cite{mani2008defining}
+%
+%WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious. \cite{mani2008defining}
 
 \subsection{Epistasis in quantitative traits}
  In the case of QUANTITATIVE TRAITS, epistasis describes the general situation in which the phenotype of a given genotype cannot be predicted by the sum of its component single-locus effects1 \cite{carlborg2004epistasis}
@@ -203,11 +249,22 @@ All of the 22 chromosomes show significant values for pDmax at the p,0.05 level,
 [LRLD] have been little studied, they may be indicators of important evolutionary processes \cite{koch2013long}
 
 \subsection{Epistasis \& GWAS}
+
+
 IN 2002 OPINION: for the abandonment of linkage studies in favor of genome scans for association. However, there exists a large class of genetic models for which this approach will fail: purely epistatic models with no additive or dominance variation at any of the susceptibility loci. \cite{culverhouse2002perspective}. Is it reasonable to suppose that an approach that must succeed in identifying fully penetrant Mendelian genes will also succeed for complex diseases?  \cite{culverhouse2002perspective}. The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}
 The main reason that most studies of complex human phenotypes fail to find evidence for epistatic interactions may simply be that commonly used designs and analytic methods inherently minimize or exclude the possibility of epistasis (Frankel and Schork 1996) \cite{culverhouse2002perspective}
 The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci. \cite{culverhouse2002perspective}
 We note that the number of tests necessary to evaluate all two-, three-, and four-way interactions, for 30-60 candidate loci, has a range similar to the number of tests suggested for a single genomewide association scan using SNPs (Collins et al. 1999; Kruglyak 1999) \cite{culverhouse2002perspective}
 Thus, although searching for two-, three-, four-, or n-way interactions among all the markers in a genome scan would not be practicable, a candidate-locus approach based on a genome scan for linkage may be. \cite{culverhouse2002perspective}
+
+
+
+Following the identification of several disease-associated polymorphisms by genome-wide association (GWA) analysis, interest is now focusing on the detection of effects that, owing to their interaction with other genetic or environmental factors, might not be identified by using standard single-locus tests \cite{cordell2009detecting}
+...it is hoped that detecting interactions between loci will allow us to elucidate the biological and biochemical pathways that underpin disease.  \cite{cordell2009detecting}
+In recent years, the field has been revolutionized by the success of genome-wide association (GWA) studies1-5. Most of these studies have used a single-locus analysis strategy, in which each variant is tested individually for association with a specific phenotype \cite{cordell2009detecting}
+However, a reason that is often cited for the lack of success in genetic studies of complex disease6,7 is the existence of interactions between loci.  \cite{cordell2009detecting}
+If a genetic factor functions primarily through a complex mechanism that involves multiple other genes and, possibly, environmental factors, the effect might be missed if the gene is examined in isolation without allowing for its potential interactions with these other unknown factors. \cite{cordell2009detecting}
+
 
 	Several approaches have been developed to detect epistasis, including the combinatorial partitioning method (CPM)7, the restricted partitioning method (RPM)8, multifactor-dimensionality reduction (MDR)2, multivariate adaptive regression spline (MARS)9, the logistic regression method10 and backward genotype-trait association (BGTA)11. Although these methods all showed promise, they have been tested only on small data sets.  \cite{zhang2007bayesian}
 	methods based on brute-force searches such as CPM and MDR are impractical for large data sets \cite{zhang2007bayesian}
