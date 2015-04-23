@@ -492,6 +492,20 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 %
 %		- WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious.
 
+%------------------------------------------------------------
+% From: Shadows of complexity: what biological networks reveal about epistasis and pleiotropy
+% \cite{tyler2009shadows}
+% TOPIC: EPISTASIS
+%
+%		- We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks.
+%		- EPIS EXAMPLE: 
+%			- HUMAN: For example, in humans the E4 allele of apolipoprotein epsilon (ApoE) is associated with elevated blood serum cholesterol levels, but only in individuals with the A2A2 genotype at the low density lipoprotein receptor (LDLR) locus.(3) In other words, the contribution of the ApoE allele to cholesterol levels depends on the genotype at the LDLR locus.
+%			- FLY: Eye color determination in Drosophila provides a classic example. The genes scarlet, brown, and white, play major roles in a simplified model of Drosophila eye pigmentation. Eye pigmentation in Drosophila requires the synthesis and deposition of both drosopterins, red pigments synthesized from GTP, and ommochromes, brown pigments synthesized from tryptophan. A mutation in brown prevents production of the bright red pigment resulting in a fly with brown eyes, and a mutation in scarlet prevents production of the brown pigment resulting in a fly with bright red eyes. In a fly with a mutation in the white gene, neither pigment can be produced, and the fly will have white eyes regardless of the genotype at the brown or scarlet loci. In this example the white gene is epistatic to brown and scarlet. A mutant genotype at the white locus masks the genotypes at the other loci.
+%		- HISTORICAL: 
+%			- William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance
+%			- The term literally means “standing upon”, and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression. 
+%			- The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition.
+
 \subsection{Epistasis in complex traits}
 
 
@@ -1033,21 +1047,21 @@ In this section we introduced the basic concepts and methodologies used in GWAS.
 
 
 %------------------------------------------------------------
-% From: Shadows of complexity: what biological networks reveal about epistasis and pleiotropy
-% \cite{tyler2009shadows}
-% TOPIC: EPISTASIS
+% From: Using sequence alignments to predict protein structure and stability with high accuracy		(ORIGINALLY WRITTEN IN 2002, not 2012!)
+% \cite{lapedes2012using}
 %
-%		- We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks.
-%		- EPIS EXAMPLE: 
-%			- HUMAN: For example, in humans the E4 allele of apolipoprotein epsilon (ApoE) is associated with elevated blood serum cholesterol levels, but only in individuals with the A2A2 genotype at the low density lipoprotein receptor (LDLR) locus.(3) In other words, the contribution of the ApoE allele to cholesterol levels depends on the genotype at the LDLR locus.
-%			- FLY: Eye color determination in Drosophila provides a classic example. The genes scarlet, brown, and white, play major roles in a simplified model of Drosophila eye pigmentation. Eye pigmentation in Drosophila requires the synthesis and deposition of both drosopterins, red pigments synthesized from GTP, and ommochromes, brown pigments synthesized from tryptophan. A mutation in brown prevents production of the bright red pigment resulting in a fly with brown eyes, and a mutation in scarlet prevents production of the brown pigment resulting in a fly with bright red eyes. In a fly with a mutation in the white gene, neither pigment can be produced, and the fly will have white eyes regardless of the genotype at the brown or scarlet loci. In this example the white gene is epistatic to brown and scarlet. A mutant genotype at the white locus masks the genotypes at the other loci.
-%		- HISTORICAL: 
-%			- William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance
-%			- The term literally means “standing upon”, and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression. 
-%			- The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition.
+%		- We present a sequence-based probabilistic formalism that directly addresses co-operative effects in networks of interacting positions in proteins, providing significantly improved contact prediction
+%		- Each sequence of length L of a given family can be viewed as a different global state of an L-site, twenty-state (for twenty amino acids) spin system, with spin- spin (i.e. residue-residue) interactions determined by (1) the (unknown) structure of the associated fold, and (2) the physico-chemical characteristics of the residues
+%		- Solving the inverse problem to determine the underlying physical interactions addresses “correlation at a distance”, in which correlations between locally connected sites in an interacting network such as a spin system
+%		- Previous computational work on abstract models of proteins [4], as well as a statistical analysis of the frequency of ion-pairs in crystal structures of real proteins [5], provided early hints that Boltzmann-like statistics are associated with aspects of protein architecture.
+%		- The Boltzmann network method presented here does not treat each individual pair of sites of interest as isolated from other residues. Instead, we construct a probability distribution describing full length sequences of length L for each protein sequence family.
+%		- Any given sequence alignment typically contains enough data to estimate only single and pairwise amino acid frequencies with reasonable accuracy.
+%		- The maximum entropy distribution whose moments match a given set of single and pairwise amino acid frequencies may be written in the following form [23], reminiscent of thermal Boltzmann statistics
+%		- It can be shown [25] that matching the moments of the maximum entropy distribution to the given sequence data is equivalent to maximizing the loglikelihood of the given sequence data given the parametric form
+%		- we use the probability distribution over all L sites, Eqns. (1,2), to resolve issues of correlation at a distance (network effects) in proteins, resulting in significantly improved contact prediction from sequence information
+%		- LIMITATIONS: Limiting factors in application of the Boltzmann network algorithm include (1) the amount of naturally evolved sequence data currently available per family (size of the sequence alignment), and (2) the phylogenetic relatedness (and associated selection arti- facts) of these sequences. Modifications to the algorithm presented here, e.g. (1) consider- ation of statistical significance of the fitted λ parameters, and (2) addressing phylogenetic relationships of sequences in an alignment, have the potential to further increase accuracy using naturally evolved sequence sets.
 
-
-
+  
 \subsection{CoEvolutionary models}
 
 
