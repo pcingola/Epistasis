@@ -56,6 +56,10 @@ and iv) interaction networks from Min and Product definitions differ greatly.
 This leads to the question on which definition to use. 
 By examining the deviation distribution of expected (double-mutant) phenotype from the observed phenotype they found that Product and Log definitions not only are the closest to the ideal, but also are practically equivalent when single mutants are deleterious \cite{mani2008defining}.
 
+%---
+% Epistasis history and definition
+%---
+
 %William Bateson first described epistasis in 1907.(2) Like pleiotropy, this concept was developed to explain deviations from Mendelian inheritance The term literally means ``standing upon", and Bateson used it to describe characters that were layered on top of other characters thereby masking their expression.  \cite{tyler2009shadows}
 %The commonly used definition of epistasis--an allele at one locus masks the expression of an allele at another locus--reflects this original definition. \cite{tyler2009shadows}
 %
@@ -80,10 +84,6 @@ By examining the deviation distribution of expected (double-mutant) phenotype fr
 %It should be apparent that the global analysis of geneinteraction patterns bears a striking resemblance to what is now called systems biology \cite{phillips2008epistasis}
 %
 %often been defined as a deviance from genetic additive effects, which is essentially treated as a residual term in genetic analysis and leads to low power in detecting the presence of interacting effects \cite{zhao2006test}
-
-%===================================================================================================
-% REWRITE
-%===================================================================================================
 
 %Sometimes mutations in two genes produce a phenotype that is surprising in light of each mutation's individual effects. This phenomenon, which defines genetic interaction, can reveal functional relationships between genes and pathways. \cite{mani2008defining}
 %Recent studies have used four mathematically distinct definitions of genetic interaction (here termed Product, Additive, Log, and Min). Whether this choice holds practical consequences has not been clear, because the definitions yield identical results under some condition \cite{mani2008defining}
@@ -112,24 +112,41 @@ By examining the deviation distribution of expected (double-mutant) phenotype fr
 %
 %WHICH DEFINITION TO USE?: We examined the distribution of 􏰍, the deviation of the expected double-mutant phenotype from the observed double mutant phenotype, and found the Product and Log definitions to be closest to this ideal in general. Additionally, we showed that the Log and Product definitions are practically equivalent when both single mutants are deleterious. \cite{mani2008defining}
 
-\subsection{Epistasis in quantitative traits}
- In the case of QUANTITATIVE TRAITS, epistasis describes the general situation in which the phenotype of a given genotype cannot be predicted by the sum of its component single-locus effects1 \cite{carlborg2004epistasis}
-Epistatic QTL-mapping studies in model organisms have detected many new interactions and have therefore concluded that epistasis makes a large contribution to the genetic regulation of complex traits.  \cite{carlborg2004epistasis}
-Complex synthetic interactions. : There is no reason to expect all forms of epistasis to be revealed simply by the absence of a gene, which is certainly an extreme approach to perturbing complex systems. For example, Kroll et al.35 devised a method for looking for interactions that are induced after systematically overexpressing genes. Using this approach, sopko et al.36 found that, when overexpressed in Saccharomyces cerevisiae, about 15\% of a set of 5,280 yeast genes induced a growth defect, with most of the overexpression effects not matching the phenotypes of their corresponding deletions.  \cite{phillips2008epistasis}
+%---
+% QTL
+%---
+The presence or knock-out of a gene are extreme aspects of "perturbation in a complex system", but there are no reasons to expect all forms of epistasis to follow this pattern \cite{phillips2008epistasis}.
+When applied to quantitative traits, epistasis also describes a situation in which the phenotype cannot be predicted by the sum of its single-locus component \cite{carlborg2004epistasis}.
+Many epistatic QTL interactions have been detected in model organisms leading to the conclusion that epistasis makes a large contribution to the genetic regulation of complex traits  \cite{carlborg2004epistasis}.
 
-We present FastEpistasis, an efficient parallel solution extending the PLINK epistasis module, designed to test for epistasis effects when analyzing continuous phenotypes. \cite{schupbach2010fastepistasis}
-FastEpistasis is capable of testing the association of a continuous trait with all single nucleotide polymorphism (SNP) pairs from 500 000 SNPs, totaling 125 billion tests, in a population of 5000 individuals in 29, 4 or 0.5 days using 8, 64 or 512 processors. \cite{schupbach2010fastepistasis}
-It tests epistatic effects in the normal linear regression of a quantitative response on marginal effects of each SNP and an interaction effect of the SNP pair, where SNPs are coded as additive effects, taking values 0,1 or 2. The test for epistasis reduces to testing whether the interaction term is significantly different from zero. \cite{schupbach2010fastepistasis}
-The computations are based on applying the QR decomposition to derive least squares estimates of the interaction coefficient and its standard error.  \cite{schupbach2010fastepistasis}
+%In the case of QUANTITATIVE TRAITS, epistasis describes the general situation in which the phenotype of a given genotype cannot be predicted by the sum of its component single-locus effects1 \cite{carlborg2004epistasis}
+%Epistatic QTL-mapping studies in model organisms have detected many new interactions and have therefore concluded that epistasis makes a large contribution to the genetic regulation of complex traits.  \cite{carlborg2004epistasis}
+%Complex synthetic interactions. : 
+%There is no reason to expect all forms of epistasis to be revealed simply by the absence of a gene, which is certainly an extreme approach to perturbing complex systems. 
+%For example, Kroll et al.35 devised a method for looking for interactions that are induced after systematically overexpressing genes. Using this approach, sopko et al.36 found that, when overexpressed in Saccharomyces cerevisiae, about 15\% of a set of 5,280 yeast genes induced a growth defect, with most of the overexpression effects not matching the phenotypes of their corresponding deletions.  \cite{phillips2008epistasis}
 
 
 \subsection{Epistasis is ubiquitous}
-From mutational studies we know that epistasis in the classical sense is ubiquitous because genes interact in hierarchical systems to generate biological function.  \cite{phillips2008epistasis}
-From a biological standpoint, there is no a priori reason to expect that traits should be additive. Biology is filled with nonlinearity: The saturation of enzymes with substrate concentration and receptors with ligand concentration yields sigmoid response curves; cooperative binding of proteins gives rise to sharp transitions; the outputs of pathways are constrained by rate-limiting inputs; and genetic networks exhibit bistable states. \cite{zuk2012mystery}
-Genetic studies in model organisms have long identified specific instances of interacting genes (17). Important examples include synthetic traits (e.g., 18), which occur only when multiple loci or pathways are all disrupted. \cite{zuk2012mystery}
-Studies have begun to reveal that epistasis is pervasive.  \cite{zuk2012mystery}
-We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks. \cite{tyler2009shadows}
 
+Epistasis is defined as departure from additive effects.
+Nevertheless, there is no reason to think that traits should be additive based on a purely biological perspective \cite{zuk2012mystery} since biology is riddled with non-linearity such as genetic networks exhibit binary states, ligand - receptors concentration having sigmoid-like response, concentration saturations of substrate - enzymes reactions, sharp transitions created by cooperative protein binding, the pathways constrained by rate-limiting inputs, etc. \cite{zuk2012mystery}. 
+It has been asserted that epistatic effects are not isolated events, but ubiquitous \cite{tyler2009shadows} and probably inherent properties of biomolecular networks.
+This leads to think that epistasis in the classical sense may be ubiquitous, a thought which has been partially confirmed from mutational studies \cite{phillips2008epistasis}.
+Genetic studies of synthetic traits, which occur only when multiple loci or pathways are all disrupted, in model organisms have identified instances of interacting genes revealing that epistasis may be pervasive \cite{zuk2012mystery}. 
+Researchers found \cite{phillips2008epistasis} that when looking for interactions induced by systematically over-expressing genes in Saccharomyces cerevisiae about $15\%$ of studied genes induced growth defects with most over-expression not matching the phenotypes of individual deletions.  
+
+%===================================================================================================
+% REWRITE
+%===================================================================================================
+
+
+%Researchers found \cite{phillips2008epistasis} that when looking for interactions induced by systematically over-expressing genes in Saccharomyces cerevisiae about $15\%$ of studied genes induced growth defects with most over-expression not matching the phenotypes of individual deletions.  
+
+%From mutational studies we know that epistasis in the classical sense is ubiquitous because genes interact in hierarchical systems to generate biological function.  \cite{phillips2008epistasis}
+% From a biological standpoint, there is no a priori reason to expect that traits should be additive. Biology is filled with nonlinearity: The saturation of enzymes with substrate concentration and receptors with ligand concentration yields sigmoid response curves; cooperative binding of proteins gives rise to sharp transitions; the outputs of pathways are constrained by rate-limiting inputs; and genetic networks exhibit bistable states. \cite{zuk2012mystery}
+%Genetic studies in model organisms have long identified specific instances of interacting genes (17). Important examples include synthetic traits (e.g., 18), which occur only when multiple loci or pathways are all disrupted. \cite{zuk2012mystery}
+%Studies have begun to reveal that epistasis is pervasive.  \cite{zuk2012mystery}
+%We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks. \cite{tyler2009shadows}
 
 \subsection{Epistasis examples: Non-human}
  Extensive work on the control of qualitative genetic variation has highlighted the biological importance of epistasis at a ‘locus-by-locus' level. On the basis of this work, several classic genotype-phenotype patterns that are caused by epistasis such as comb type in chickens, coat colour in various animals, the BOMBAY PHENOTYPE in the ABO blood-group system in humans and kernel colour in wheat \cite{carlborg2004epistasis}
@@ -247,6 +264,12 @@ There are two motivations behind this method. First, it preserves the allele fre
 Computational time: Constructing these null distributions is the most computationally intensive part of our method. For the analyses reported below, over 4.861014 values of pD were computed, and the project consumed about 34,000 hours of CPU time. \cite{koch2013long}
 All of the 22 chromosomes show significant values for pDmax at the p,0.05 level, and all remain significant after a Bonferroni correction for multiple tests. For the second test statistic, n , 19 chromosomes show significant P values, 18 of which remain significant after the Bonferroni correction. These results suggest there is long-range linkage disequilibrium in the YRI population. \cite{koch2013long}
 [LRLD] have been little studied, they may be indicators of important evolutionary processes \cite{koch2013long}
+
+QTL: We present FastEpistasis, an efficient parallel solution extending the PLINK epistasis module, designed to test for epistasis effects when analyzing continuous phenotypes. \cite{schupbach2010fastepistasis}
+FastEpistasis is capable of testing the association of a continuous trait with all single nucleotide polymorphism (SNP) pairs from 500 000 SNPs, totaling 125 billion tests, in a population of 5000 individuals in 29, 4 or 0.5 days using 8, 64 or 512 processors. \cite{schupbach2010fastepistasis}
+It tests epistatic effects in the normal linear regression of a quantitative response on marginal effects of each SNP and an interaction effect of the SNP pair, where SNPs are coded as additive effects, taking values 0,1 or 2. The test for epistasis reduces to testing whether the interaction term is significantly different from zero. \cite{schupbach2010fastepistasis}
+The computations are based on applying the QR decomposition to derive least squares estimates of the interaction coefficient and its standard error.  \cite{schupbach2010fastepistasis}
+
 
 \subsection{Epistasis \& GWAS}
 
