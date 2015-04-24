@@ -135,13 +135,7 @@ This leads to think that epistasis in the classical sense may be ubiquitous, a t
 Genetic studies of synthetic traits, which occur only when multiple loci or pathways are all disrupted, in model organisms have identified instances of interacting genes revealing that epistasis may be pervasive \cite{zuk2012mystery}. 
 Researchers found \cite{phillips2008epistasis} that when looking for interactions induced by systematically over-expressing genes in Saccharomyces cerevisiae about $15\%$ of studied genes induced growth defects with most over-expression not matching the phenotypes of individual deletions.  
 
-%===================================================================================================
-% REWRITE
-%===================================================================================================
-
-
 %Researchers found \cite{phillips2008epistasis} that when looking for interactions induced by systematically over-expressing genes in Saccharomyces cerevisiae about $15\%$ of studied genes induced growth defects with most over-expression not matching the phenotypes of individual deletions.  
-
 %From mutational studies we know that epistasis in the classical sense is ubiquitous because genes interact in hierarchical systems to generate biological function.  \cite{phillips2008epistasis}
 % From a biological standpoint, there is no a priori reason to expect that traits should be additive. Biology is filled with nonlinearity: The saturation of enzymes with substrate concentration and receptors with ligand concentration yields sigmoid response curves; cooperative binding of proteins gives rise to sharp transitions; the outputs of pathways are constrained by rate-limiting inputs; and genetic networks exhibit bistable states. \cite{zuk2012mystery}
 %Genetic studies in model organisms have long identified specific instances of interacting genes (17). Important examples include synthetic traits (e.g., 18), which occur only when multiple loci or pathways are all disrupted. \cite{zuk2012mystery}
@@ -149,23 +143,53 @@ Researchers found \cite{phillips2008epistasis} that when looking for interaction
 %We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks. \cite{tyler2009shadows}
 
 \subsection{Epistasis examples: Non-human}
- Extensive work on the control of qualitative genetic variation has highlighted the biological importance of epistasis at a ‘locus-by-locus' level. On the basis of this work, several classic genotype-phenotype patterns that are caused by epistasis such as comb type in chickens, coat colour in various animals, the BOMBAY PHENOTYPE in the ABO blood-group system in humans and kernel colour in wheat \cite{carlborg2004epistasis}
-In the case of quantitative genetic variation, several or many genes of largely unknown function combine with environmental influences to control trait variation. This is the case for many complex traits that are of medical relevance in humans or of economic importance in plants and livestock. \cite{carlborg2004epistasis}
-A clear example of this can be seen  [in Fig A]  ￼￼￼￼which the dominant allele (I) at the KIT locus, which confers white-coat colour in the pig, is dominant over all alleles at the MC1R locus (E), which confer a darker coat colour. The effects of the various alleles at the E locus can only be determined in individuals with the recessive genotype ii at the I locus. This example was classically termed `dominant epistasis', which gives a segregation ratio of 12:3:1 for white:black:brown, respectively \cite{carlborg2004epistasis}
- Table 1. Example of phenotypes (e.g. hair colour) obtained from different genotypes at two loci interacting epistatically, under Bateson's (1909) definition of epistasis \cite{cordell2002epistasis}
-Coat colour variation in mammals has long been is one of the most fruitful examples in the study of the relationship between genotype and phenotype. ... epistasis arises when the effects of alleles at one locus are blocked by the presence of a specific allele at another locus. For example, a cross between agouti and extension (now called the melanocortin 1 receptor or Mc1r) double heterozygotes (AaEa) yields the non-Mendelian segregation ratio of 9:4:3 (instead of 9:3:3:1) \cite{phillips2008epistasis}
-In the yeast Saccharomyces cerevisiae, Brem et al. (19) analyzed as quantitative traits the levels of gene transcripts in segregants of a cross between two strains. For each transcript, they found the strongest quantitative trait locus (QTL) in the cross and then, conditional on the genotype at this locus, identified the strongest remaining QTL. In 67\% of cases, these two QTLs demonstrated epistatic interactions. In bacteria, Khan et al. (20) and Chou et al. (21) have recently demonstrated clear epistasis among collections of five mutations that increase growth rate.  \cite{zuk2012mystery}
-In mouse and rat, Shao et al. (22) analyzed a panel of chromosome substitution strains, with each strain carrying a different chromosome from a donor strain on a common recipient genetic background. For dozens of quantitative traits, the sum of the effect attributable to the individual donor chromosomes far exceeds (median eightfold) the total effect of the donor genome, indicating strong epistasis.  \cite{zuk2012mystery}
-An example in insects is the abnormal-abdomen phenotype in Drosophila mercatorum (DeSalle and Templeton 1986; Hollocher et al. 1992; Hollocher and Templeton 1994). \cite{culverhouse2002perspective}
-The study of genetic interaction has become increasingly systematic and large-scale, especially in the yeast Saccharomyces cerevisiae (6, 8-21). \cite{mani2008defining}
-Eye color determination in Drosophila provides a classic example. The genes scarlet, brown, and white, play major roles in a simplified model of Drosophila eye pigmentation. Eye pigmentation in Drosophila requires the synthesis and deposition of both drosopterins, red pigments synthesized from GTP, and ommochromes, brown pigments synthesized from tryptophan. A mutation in brown prevents production of the bright red pigment resulting in a fly with brown eyes, and a mutation in scarlet prevents production of the brown pigment resulting in a fly with bright red eyes. In a fly with a mutation in the white gene, neither pigment can be produced, and the fly will have white eyes regardless of the genotype at the brown or scarlet loci. In this example the white gene is epistatic to brown and scarlet. A mutant genotype at the white locus masks the genotypes at the other loci. \cite{tyler2009shadows}
-Evidence from inbred strains of mice indicates that a quarter or more of the mammalian genome consists of chromosome regions containing clusters of functionally related genes \cite{petkov2005evidence}
-60 genetically diverse inbred strains. \cite{petkov2005evidence}
-forming networks with scale-free architecture. Combining LD data with pathway and genome annotation databases, we have been able to identify the biological functions underlying several domains and networks. \cite{petkov2005evidence}
-As typified by the a and b globin gene clusters, tandem duplications can give rise to gene families whose members develop divergent, but still related, functions over time.  \cite{petkov2005evidence}
 
+Several genotype-phenotype patterns are known to be caused by epistasis, classic examples include \cite{carlborg2004epistasis}:
+coat colour in various animals, 
+comb type in chickens, 
+kernel colour in wheat,
+eye color in flies,
+and the h/h blood group (also known as Oh or the Bombay phenotype) in the ABO blood-group in humans.
+
+Coat colour in mammals has been one of the most common examples. 
+In pig, the dominant allele at the KIT locus confers white color coat and is dominant over all locus conferring darker color (melanocortin 1 receptor or MC1R). 
+This can be determined in individuals with the recessive KIT genotype showing what was classically termed `dominant epistasis', 
+yielding a non-Mendelian segregation ratio of 9:4:3 (instead of 9:3:3:1) \cite{carlborg2004epistasis, phillips2008epistasis}.
+
+Drosophila provides another classic example with eye color determination.
+Drosophila eye pigmentation scarlet, brown, and white is determined by the synthesis of two drosopterins:  brown pigments (from tryptophan) and red pigments (from GTP) \cite{tyler2009shadows:REF}.
+A mutation that prevents production of the brown pigment results in a fly with red eyes and a mutation preventing red pigment results in a fly with brown eyes.
+Flies with a mutation in the white gene, neither red nor brown pigment can be synthesized resulting in a fly with white eyes (regardless of the genotype at the brown or scarlet loci) \cite{tyler2009shadows}.
+
+Dozens of quantitative traits indicating strong epistasis in mouse and rat \cite{zuk2012mystery:REF22} by analysing a panel of chromosome substitution strains where the effects attributed to the donor chromosomes exceeds by a median eightfold the expected effect of the donor genome.
+
+Genetic interaction have been study in a systematic and large-scale manner in Saccharomyces cerevisiae \cite{mani2008defining:REF}.
+Analysis of quantitative traits loci (QTL) for transcripts levels in a two strain cross demonstrated epistatic interaction for $67\%$ of studied pairs (first the strongest QTL was found and then the strongest remaining QTL conditional on the first genotype was selected) \cite{zuk2012mystery:REF}. 
+
+%In the case of quantitative genetic variation, several or many genes of largely unknown function combine with environmental influences to control trait variation. This is the case for many complex traits that are of medical relevance in humans or of economic importance in plants and livestock. \cite{carlborg2004epistasis}
+%A clear example of this can be seen  [in Fig A]  ￼￼￼￼which the dominant allele (I) at the KIT locus, which confers white-coat colour in the pig, is dominant over all alleles at the MC1R locus (E), which confer a darker coat colour. The effects of the various alleles at the E locus can only be determined in individuals with the recessive genotype ii at the I locus. This example was classically termed `dominant epistasis', which gives a segregation ratio of 12:3:1 for white:black:brown, respectively \cite{carlborg2004epistasis}
+%Table 1. Example of phenotypes (e.g. hair colour) obtained from different genotypes at two loci interacting epistatically, under Bateson's (1909) definition of epistasis \cite{cordell2002epistasis}
+%Coat colour variation in mammals has long been is one of the most fruitful examples in the study of the relationship between genotype and phenotype. ... epistasis arises when the effects of alleles at one locus are blocked by the presence of a specific allele at another locus. For example, a cross between agouti and extension (now called the melanocortin 1 receptor or Mc1r) double heterozygotes (AaEa) yields the non-Mendelian segregation ratio of 9:4:3 (instead of 9:3:3:1) \cite{phillips2008epistasis}
+
+%In the yeast Saccharomyces cerevisiae, Brem et al. (19) analyzed as quantitative traits the levels of gene transcripts in segregants of a cross between two strains. For each transcript, they found the strongest quantitative trait locus (QTL) in the cross and then, conditional on the genotype at this locus, identified the strongest remaining QTL. In 67\% of cases, these two QTLs demonstrated epistatic interactions. In bacteria, Khan et al. (20) and Chou et al. (21) have recently demonstrated clear epistasis among collections of five mutations that increase growth rate.  \cite{zuk2012mystery}
+
+%In mouse and rat, Shao et al. (22) analyzed a panel of chromosome substitution strains, with each strain carrying a different chromosome from a donor strain on a common recipient genetic background. For dozens of quantitative traits, the sum of the effect attributable to the individual donor chromosomes far exceeds (median eightfold) the total effect of the donor genome, indicating strong epistasis.  \cite{zuk2012mystery}
+%An example in insects is the abnormal-abdomen phenotype in Drosophila mercatorum (DeSalle and Templeton 1986; Hollocher et al. 1992; Hollocher and Templeton 1994). \cite{culverhouse2002perspective}
+%The study of genetic interaction has become increasingly systematic and large-scale, especially in the yeast Saccharomyces cerevisiae (6, 8-21). \cite{mani2008defining}
+%Eye color determination in Drosophila provides a classic example. The genes scarlet, brown, and white, play major roles in a simplified model of Drosophila eye pigmentation. Eye pigmentation in Drosophila requires the synthesis and deposition of both drosopterins, red pigments synthesized from GTP, and ommochromes, brown pigments synthesized from tryptophan. A mutation in brown prevents production of the bright red pigment resulting in a fly with brown eyes, and a mutation in scarlet prevents production of the brown pigment resulting in a fly with bright red eyes. In a fly with a mutation in the white gene, neither pigment can be produced, and the fly will have white eyes regardless of the genotype at the brown or scarlet loci. In this example the white gene is epistatic to brown and scarlet. A mutant genotype at the white locus masks the genotypes at the other loci. \cite{tyler2009shadows}
+
+% NOT ADDED YET!
+%Evidence from inbred strains of mice indicates that a quarter or more of the mammalian genome consists of chromosome regions containing clusters of functionally related genes \cite{petkov2005evidence}
+%60 genetically diverse inbred strains. \cite{petkov2005evidence}
+%forming networks with scale-free architecture. Combining LD data with pathway and genome annotation databases, we have been able to identify the biological functions underlying several domains and networks. \cite{petkov2005evidence}
+%As typified by the a and b globin gene clusters, tandem duplications can give rise to gene families whose members develop divergent, but still related, functions over time.  \cite{petkov2005evidence}
 
 \subsection{Epistasis examples: Human}
+
+%===================================================================================================
+% REWRITE
+%===================================================================================================
+
 Despite considerable efforts, few well-replicated instances of epistasis in common human disease and trait genetics have been discovered thus far. \cite{zuk2012mystery}
 The only examples to date involve interactions featuring at least one locus with a large marginal e↵ect, such as HLA.  \cite{zuk2012mystery}
 GWAS, in ankylosing spondylitis21 and psoriasis,22 discovered interactions between two di↵erent HLA alleles and ERAP1. (In ankylosing spondylitis, the HLA-B27 allele has an odds ratio of 40.8, and in psoriasis the HLA-C allele has an odds ratio of 4.66.) HLA also plays a role in an interaction e↵ect described in a GWAS of Type 1 diabetes. (In Type 1 diabetes, HLA has a main e↵ect of 5.5, but acts non-additively with the risk of all other alleles considered cumulatively.23). Finally, interaction between RET and EDNRB in Hirschsprung's disease was discovered in a genome-wide linkage study,24 in which RET was strongly associated with disease (log-odds score of 5.6). \cite{zuk2012mystery}
