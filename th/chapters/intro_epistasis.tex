@@ -419,6 +419,25 @@ Analysis of stepwise logistic regression approach to identify two-way and three-
 As a counter argument for stepwise logistic regression, we should take into account that in the presence of epistasis the effect of one locus is altered or masked by another locus, thus power to detect the first locus is likely to be reduced and the joint effects will be hindered by their interaction \cite{cordell2002epistasis}. 
 Obviously such criticism appears not only in stepwise logistic regression, but in all methods based on considering the top loci from single marker associations.
 
+Another method based on LD patterns in disease population under two-locus disease models \cite{zhao2006test}.
+Association is estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
+Under the assumptions that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked
+they show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population \cite{zhao2006test}.
+They develop a test statistic for detection deviations from LD, intuitively they test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls \cite{zhao2006test}.
+Since the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, thus in the absence of interaction the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population \cite{zhao2006test}.
+They further show that under the null hypothesis, this test statistic asymptotically converges to a central $\chi^2$ distribution.
+In their power comparison simulations they show that in general this LD-based test statistic has much smaller p-values than those of logistic regression analysis \cite{zhao2006test} conlcuding that their test has much higher power than alternatives such as logistic regression \cite{zhao2006test}.
+
+A Bayesian approach for genome-wide case-control studies denoted `bayesian epistasis association mapping' (BEAM) \cite{zhang2007bayesian} treats the disease-associated markers and their interactions via a bayesian partitioning model and computes the posterior probability that each marker (using Markov chain Monte Carlo).
+The method uses predictors in the form of genetic marker loci divided into three groups: i) markers not associated with disease, ii) markers individually contributing to disease risk, and iii) markers that interact \cite{zhang2007bayesian}.
+Membership of each marker in each of the three groups is defined by the prior distributions.
+Given a prior distributions for regression coefficients values given by group membership, a posterior distribution can be generated using MCMC simulation. \cite{cordell2009detecting}.
+Since the method was originally designed for genotypes markers, its power can be hampered by allele frequency discrepancies between unobserved disease loci and associated genotyped marker/s\cite{zhang2007bayesian}.
+This is a common problen when using indirect markers and the authors show that in an extreme case when the MAF discrepancy was maximized all tested methods had little power to detect interaction associations \cite{zhang2007bayesian}.
+In the original paper, the authors apply BEAM to a data set containing $116,204$ SNPs genotyped for $96$ affected individuals and $50$ controls. for an association study of age-related macular degeneration (AMD).
+Unfortunately BEAM did not find any significant interactions \cite{zhang2007bayesian} most likely due to the small sample size.
+Although the method is interesting, it cannot be applied to large GWAS studies because it cannot handle over $500,000$ markers with sample sizes of $5,000$ or more individuals which are now commonly sequenced or genotyped \cite{cordell2009detecting}.
+
 %===================================================================================================
 % REWRITE
 %===================================================================================================
@@ -452,45 +471,45 @@ Obviously such criticism appears not only in stepwise logistic regression, but i
 %Cases only. The most straightforward multilocus analysis of cases-only data is a $\chi^2$ test of independent segregation for the loci.  \cite{culverhouse2002perspective}
 %Case-control. A second approach is a multilocus case-control analysis. One method for doing this would be to compare the distribution of cases among the 3L genotypes, where L is the number of biallelic loci being simultaneously examined, versus the distribution of controls. In this analysis, a sample of N cases and N unrelated controls drawn from a population modeled by table 3 will, again, yield an expected $\chi^2$ statistic 2N. However, the degrees of freedom under the null hypothesis are now 8. \cite{culverhouse2002perspective}
 
-We developed a general theory for studying linkage disequilibrium (LD) patterns in disease population under two-locus disease models.  \cite{zhao2006test}
-Our results showed that the P values of the LD-based statistic were smaller than those obtained by other approaches, including logistic regression models. \cite{zhao2006test}
-This was further developed by Cockerham4 and Kempthorne5 into the modern representation that treats statistical gene interactions as interaction terms in a regression model or a generalized linear model on allelic effects.2,6-11 \cite{zhao2006test}
-we propose to define interaction between two unlinked loci (or genes) for a qualitative trait as the deviance of the penetrance for a haplotype at two loci from the product of the marginal penetrance of the individual alleles that span the haplotype.  \cite{zhao2006test}
-DEFINE: Deviance \cite{zhao2006test}
-Interaction between two unlinked loci will result in deviation of the penetrance of the two-locus haplotype from independence of the marginal penetrance of the alleles at an individual locus, which in turn will create linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
-Therefore, it is possible to develop statistics for detection of interaction between two unlinked loci by use of deviations from LD \cite{zhao2006test}
-we assume that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked.  \cite{zhao2006test}
-[they show that] Under this definition, in the absence of interaction, two unlinked loci in the disease population will be in linkage equilibrium \cite{zhao2006test}
-Similar to linkage equilibrium, where the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, absence of interaction between two unlinked loci implies that the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population \cite{zhao2006test}
-TEST STATISTIC:  \cite{zhao2006test}
-	Intuitively, we can test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls \cite{zhao2006test}
-	We can show that test statistic TI is asymptotically distributed as a central x2 distribution under the (1) null hypothesis of no interaction between two unlinked loci  \cite{zhao2006test}
-we compared the power of the LD-based statistic with that of the logistic model.  \cite{zhao2006test}
-Power comparison with logistic regression analysis demonstrated that this LD-based test statistic has much higher power in detecting interaction than does the logistic regression method. \cite{zhao2006test}
-To further evaluate its performance for detection of interaction between two loci, the proposed LD-based statistic was applied to two published data sets. Our results showed that, in general, P values of the test statistic TI were much smaller than those of other approaches, including logistic regression analysis. \cite{zhao2006test}
+%We developed a general theory for studying linkage disequilibrium (LD) patterns in disease population under two-locus disease models.  \cite{zhao2006test}
+%Our results showed that the P values of the LD-based statistic were smaller than those obtained by other approaches, including logistic regression models. \cite{zhao2006test}
+%This was further developed by Cockerham4 and Kempthorne5 into the modern representation that treats statistical gene interactions as interaction terms in a regression model or a generalized linear model on allelic effects.2,6-11 \cite{zhao2006test}
+%we propose to define interaction between two unlinked loci (or genes) for a qualitative trait as the deviance of the penetrance for a haplotype at two loci from the product of the marginal penetrance of the individual alleles that span the haplotype.  \cite{zhao2006test}
+%DEFINE: Deviance \cite{zhao2006test}
+%Interaction between two unlinked loci will result in deviation of the penetrance of the two-locus haplotype from independence of the marginal penetrance of the alleles at an individual locus, which in turn will create linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
+%Therefore, it is possible to develop statistics for detection of interaction between two unlinked loci by use of deviations from LD \cite{zhao2006test}
+%we assume that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked.  \cite{zhao2006test}
+%[they show that] Under this definition, in the absence of interaction, two unlinked loci in the disease population will be in linkage equilibrium \cite{zhao2006test}
+%Similar to linkage equilibrium, where the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, absence of interaction between two unlinked loci implies that the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population \cite{zhao2006test}
+%TEST STATISTIC:  \cite{zhao2006test}
+%	Intuitively, we can test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls \cite{zhao2006test}
+%	We can show that test statistic TI is asymptotically distributed as a central x2 distribution under the (1) null hypothesis of no interaction between two unlinked loci  \cite{zhao2006test}
+%we compared the power of the LD-based statistic with that of the logistic model.  \cite{zhao2006test}
+%Power comparison with logistic regression analysis demonstrated that this LD-based test statistic has much higher power in detecting interaction than does the logistic regression method. \cite{zhao2006test}
+%To further evaluate its performance for detection of interaction between two loci, the proposed LD-based statistic was applied to two published data sets. Our results showed that, in general, P values of the test statistic TI were much smaller than those of other approaches, including logistic regression analysis. \cite{zhao2006test}
 
 
-Although some existing computational methods for identifying genetic interactions have been effective for small-scale studies, we here propose a method, denoted `bayesian epistasis association mapping' (BEAM), for genome-wide case-control studies \cite{zhang2007bayesian}
-BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes, via Markov chain Monte Carlo, the posterior probability that each marker set is associated with the disease.  \cite{zhang2007bayesian}
-In the past century, scientists have made great progresses in mapping genes responsible for mendelian diseases. However, genetic variants underlying most common (or `complex') diseases are non-mendelian. \cite{zhang2007bayesian}
-These variants are typically not rare in the population (42%). They show very little effect independently with low penetrance, but they may interact with each other in complex ways. \cite{zhang2007bayesian}
-It has been speculated that epistasis ubiquitously contributes to complex traits partly because of the sophisticated regulatory mechanisms encoded in the human genome1.  \cite{zhang2007bayesian}
-EPI EXAMPLES: An increasing number of reports have indicated the presence of multilocus interactions in many human complex traits, such as breast cancer2, post-PTCA stenosis3, essential hypertension4, atrial fibrillation5 and type 2 diabetes6. \cite{zhang2007bayesian}
-GWAS EPISTASIS [Discussion]: We also applied BEAM to an association study of age-related macular degeneration (AMD)13, which included B100,000 SNP markers. Although BEAM did not find significant interactions in the AMD data set, it was able to discover two-way or three-way interactions among the B100,000 SNPs simulated based on the AMD data. \cite{zhang2007bayesian}
-BEAM METHOD:
-	The BEAM algorithm takes case-control genotype marker data as input and produces, via MCMC simulations, posterior probabilities that each marker is associated with the disease and involved with other markers in epistasis.  \cite{zhang2007bayesian}
-	The input genotyped markers should be in their natural genomic order when there is linkage disequilibrium (LD) among some of them. The method can be used either in a `pure' bayesian sense or just as a tool to discover potential `hits'. For the former, one relies on the reported posterior probabilities to make inferential statements; as for the latter, one can take the reported hits and use another procedure to test whether these hits are statistically significant.  \cite{zhang2007bayesian}
-	The latter approach is more robust to model selection and prior assumptions (such as Dirichlet priors with arbitrary parameters) and is less prone to the slow mixing problem in the MCMC computational procedure. We also propose the B statistic to facilitate the latter approach and show that it is more powerful than the standard w2 statistic for epistasis detections. \cite{zhang2007bayesian}
-	For the non-epistasis model (model 1), all three epistasis mapping methods performed similarly to the single-marker w2 test (Fig. 1), indicating that the power for detecting marginal associations was not compromised by using the more complex models. \cite{zhang2007bayesian}
-	Notably, results for model 4 suggest that stepwise methods can miss markers with small or no marginal effects, whereas BEAM can get these markers back through iterations. \cite{zhang2007bayesian}
-POWER ISSUES RELATED TO AF: 
-	The power of association mapping can be greatly hampered by the discrepancy of allele frequencies between unobserved disease loci and associated genotyped markers15 \cite{zhang2007bayesian}
-	For data sets with large MAF discrepancies and moderate LD, the power of all methods suffered.  \cite{zhang2007bayesian}
-	At the extreme case when the MAF discrepancy was maximized (that is, MAF 1⁄4 0.5), all methods had little power in detecting interaction associations \cite{zhang2007bayesian}
-	The impact of LD on power seemed to be less profound than the effect of MAF discrepancy.  \cite{zhang2007bayesian}
- ANALISYS:
-	DATA: The data set contains 116,204 SNPs genotyped for 96 affected individuals and 50 controls. \cite{zhang2007bayesian}
-	RESULTS: BEAM found no significant interactions associated with AMD from this data set. It is possible that the small sample size of 146 individuals is insufficient for detecting subtle epistasis interactions. \cite{zhang2007bayesian}
+%Although some existing computational methods for identifying genetic interactions have been effective for small-scale studies, we here propose a method, denoted `bayesian epistasis association mapping' (BEAM), for genome-wide case-control studies \cite{zhang2007bayesian}
+%BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes, via Markov chain Monte Carlo, the posterior probability that each marker set is associated with the disease.  \cite{zhang2007bayesian}
+%In the past century, scientists have made great progresses in mapping genes responsible for mendelian diseases. However, genetic variants underlying most common (or `complex') diseases are non-mendelian. \cite{zhang2007bayesian}
+%These variants are typically not rare in the population (42%). They show very little effect independently with low penetrance, but they may interact with each other in complex ways. \cite{zhang2007bayesian}
+%It has been speculated that epistasis ubiquitously contributes to complex traits partly because of the sophisticated regulatory mechanisms encoded in the human genome1.  \cite{zhang2007bayesian}
+%EPI EXAMPLES: An increasing number of reports have indicated the presence of multilocus interactions in many human complex traits, such as breast cancer2, post-PTCA stenosis3, essential hypertension4, atrial fibrillation5 and type 2 diabetes6. \cite{zhang2007bayesian}
+%GWAS EPISTASIS [Discussion]: We also applied BEAM to an association study of age-related macular degeneration (AMD)13, which included B100,000 SNP markers. Although BEAM did not find significant interactions in the AMD data set, it was able to discover two-way or three-way interactions among the B100,000 SNPs simulated based on the AMD data. \cite{zhang2007bayesian}
+%BEAM METHOD:
+%	The BEAM algorithm takes case-control genotype marker data as input and produces, via MCMC simulations, posterior probabilities that each marker is associated with the disease and involved with other markers in epistasis.  \cite{zhang2007bayesian}
+%	The input genotyped markers should be in their natural genomic order when there is linkage disequilibrium (LD) among some of them. The method can be used either in a `pure' bayesian sense or just as a tool to discover potential `hits'. For the former, one relies on the reported posterior probabilities to make inferential statements; as for the latter, one can take the reported hits and use another procedure to test whether these hits are statistically significant.  \cite{zhang2007bayesian}
+%	The latter approach is more robust to model selection and prior assumptions (such as Dirichlet priors with arbitrary parameters) and is less prone to the slow mixing problem in the MCMC computational procedure. We also propose the B statistic to facilitate the latter approach and show that it is more powerful than the standard w2 statistic for epistasis detections. \cite{zhang2007bayesian}
+%	For the non-epistasis model (model 1), all three epistasis mapping methods performed similarly to the single-marker w2 test (Fig. 1), indicating that the power for detecting marginal associations was not compromised by using the more complex models. \cite{zhang2007bayesian}
+%	Notably, results for model 4 suggest that stepwise methods can miss markers with small or no marginal effects, whereas BEAM can get these markers back through iterations. \cite{zhang2007bayesian}
+%POWER ISSUES RELATED TO AF: 
+%	The power of association mapping can be greatly hampered by the discrepancy of allele frequencies between unobserved disease loci and associated genotyped markers15 \cite{zhang2007bayesian}
+%	For data sets with large MAF discrepancies and moderate LD, the power of all methods suffered.  \cite{zhang2007bayesian}
+%	At the extreme case when the MAF discrepancy was maximized (that is, MAF 1⁄4 0.5), all methods had little power in detecting interaction associations \cite{zhang2007bayesian}
+%	The impact of LD on power seemed to be less profound than the effect of MAF discrepancy.  \cite{zhang2007bayesian}
+% ANALISYS:
+%	DATA: The data set contains 116,204 SNPs genotyped for 96 affected individuals and 50 controls. \cite{zhang2007bayesian}
+%	RESULTS: BEAM found no significant interactions associated with AMD from this data set. It is possible that the small sample size of 146 individuals is insufficient for detecting subtle epistasis interactions. \cite{zhang2007bayesian}
 
 
 The purpose of this Review is to provide a survey of the methods and related software packages that are currently being used to detect the interactions between the genetic loci that contribute to human genetic disease. \cite{cordell2009detecting}
