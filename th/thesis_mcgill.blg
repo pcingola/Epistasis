@@ -13,9 +13,16 @@ Repeated entry---line 3829 of file mcgilletd.bib
  : @article{koo2013review
  :                       ,
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "tyler2009shadows:REF"
+Warning--I didn't find a database entry for "zuk2012mystery:REF22"
+Warning--I didn't find a database entry for "mani2008defining:REF"
+Warning--I didn't find a database entry for "zuk2012mystery:REF"
+Warning--I didn't find a database entry for "phillips2008epistasis:REF"
+Warning--I didn't find a database entry for "carlborg2004epistasis:REF"
+Warning--I didn't find a database entry for "culverhouse2002perspective:REF"
 You've used 26 entries,
             2118 wiz_defined-function locations,
-            661 strings with 9407 characters,
+            675 strings with 9723 characters,
 and the built_in function-call counts, 10450 in all, are:
 = -- 1001
 > -- 650

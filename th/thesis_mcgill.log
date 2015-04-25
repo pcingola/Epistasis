@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  23 APR 2015 18:47
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  25 APR 2015 11:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -437,93 +437,132 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 
 
 ] [5] [6]
-Overfull \hbox (8.01944pt too wide) in paragraph at lines 120--124
-[]\OT1/cmr/m/n/12 We present FastEpis-ta-sis, an ef-fi-cient par-al-lel so-lu-t
-ion ex-tend-ing the PLINK
+[7]
+
+LaTeX Warning: Citation `tyler2009shadows:REF' on page 8 undefined on input lin
+e 162.
+
+[8]
+
+LaTeX Warning: Citation `zuk2012mystery:REF22' on page 9 undefined on input lin
+e 166.
+
+
+LaTeX Warning: Citation `mani2008defining:REF' on page 9 undefined on input lin
+e 168.
+
+
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
+169.
+
+
+Overfull \hbox (12.60548pt too wide) in paragraph at lines 171--174
+[]\OT1/cmr/m/n/12 In a study com-par-ing three Drosophila in-bred lines (Drosop
+hila melanogaster
  []
 
-[7]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no ˜ in font cmr12!
-Missing character: There is no ï in font cmr12!
-Missing character: There is no ¿ in font cmr12!
-Missing character: There is no ¼ in font cmr12!
-Missing character: There is no ï in font cmr12!
-Missing character: There is no ¿ in font cmr12!
-Missing character: There is no ¼ in font cmr12!
-Missing character: There is no ï in font cmr12!
-Missing character: There is no ¿ in font cmr12!
-Missing character: There is no ¼ in font cmr12!
-Missing character: There is no ï in font cmr12!
-Missing character: There is no ¿ in font cmr12!
-Missing character: There is no ¼ in font cmr12!
- [8] [9] [10]
-Missing character: There is no â in font cmr12!
-Missing character: There is no † in font cmr12!
-Missing character: There is no µ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no † in font cmr12!
-Missing character: There is no µ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no † in font cmr12!
-Missing character: There is no µ in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no † in font cmr12!
-Missing character: There is no µ in font cmr12!
- [11] [12] [13]
+
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
+t line 203.
+
+
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
+t line 203.
+
+
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
+t line 203.
+
+
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
+t line 203.
+
+
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
+206.
+
+
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
+t line 207.
+
+
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
+209.
+
+
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
+210.
+
+[9]
+
+LaTeX Warning: Citation `carlborg2004epistasis:REF' on page 10 undefined on inp
+ut line 212.
+
+
+LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 10 undefined o
+n input line 215.
+
+
+LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 10 undefined o
+n input line 217.
+
+
+LaTeX Warning: Citation `tyler2009shadows:REF' on page 10 undefined on input li
+ne 219.
+
+[10] [11]
 Missing character: There is no Ì in font cmr12!
 Missing character: There is no ˆ in font cmr12!
- [14] [15]
+ [12]
 Missing character: There is no â in font cmr12!
 Missing character: There is no ‰ in font cmr12!
 Missing character: There is no ¥ in font cmr12!
 
-Overfull \hbox (2.10004pt too wide) in paragraph at lines 204--210
+Overfull \hbox (2.10004pt too wide) in paragraph at lines 272--278
 []\OT1/cmr/m/n/12 LD: non-physical link-ages be-tween dif-fer-ent mu-ta-tions (
 or sin-gle nu-cleotide
  []
 
-[16] [17] [18] [19] [20] [21]
+[13] [14] [15] [16] [17] [18] [19]
 Missing character: There is no â in font cmr12!
 Missing character: There is no  in font cmr12!
 Missing character: There is no „ in font cmr12!
- [22] [23] [24] [25]
+ [20] [21] [22] [23]
 Missing character: There is no â in font cmr12!
 Missing character: There is no  in font cmr12!
 Missing character: There is no „ in font cmr12!
 
-Overfull \hbox (4.44168pt too wide) in paragraph at lines 305--326
+Overfull \hbox (4.44168pt too wide) in paragraph at lines 379--400
 \OT1/cmr/m/n/12 method, de-noted `bayesian epis-ta-sis as-so-ci-a-tion map-ping
 ' (BEAM), for genome-
  []
 
-[26] [27]
+[24] [25]
 Missing character: There is no Ï in font cmr12!
 Missing character: There is no ‡ in font cmr12!
- [28] [29] [30]
+ [26] [27] [28]
 Missing character: There is no Ï in font cmr12!
 Missing character: There is no ‡ in font cmr12!
- [31] [32] [33]
+ [29] [30] [31]
 Missing character: There is no ô in font cmr12!
 Missing character: There is no  in font cmr12!
 Missing character: There is no ° in font cmr12!
 Missing character: There is no ‚ in font cmr12!
- [34]
+ [32]
 
-LaTeX Warning: Reference `ch:gwas' on page 35 undefined on input line 378.
+LaTeX Warning: Reference `ch:gwas' on page 33 undefined on input line 452.
 
-[35] [36]
+[33] [34]
 
-LaTeX Warning: Reference `ch:gwas' on page 37 undefined on input line 407.
+LaTeX Warning: Reference `ch:gwas' on page 35 undefined on input line 481.
 
-) [37] (./thesis_mcgill.bbl
+) [35] (./thesis_mcgill.bbl
 Underfull \hbox (badness 2443) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
  []
 
-[38
+[36
 
 
 
@@ -536,7 +575,7 @@ Underfull \hbox (badness 2142) in paragraph at lines 126--131
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[39] [40]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[37] [38]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/intro_epistasis.aux))
 
  *File List*
@@ -602,10 +641,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5785 strings out of 493315
- 85530 string characters out of 6137904
+ 5792 strings out of 493315
+ 85702 string characters out of 6137904
  186468 words of memory out of 5000000
- 9120 multiletter control sequences out of 15000+600000
+ 9127 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,7n,40p,1483b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -619,10 +658,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (40 pages, 195495 bytes).
+Output written on thesis_mcgill.pdf (38 pages, 192122 bytes).
 PDF statistics:
- 175 PDF objects out of 1000 (max. 8388607)
- 121 compressed objects within 2 object streams
+ 169 PDF objects out of 1000 (max. 8388607)
+ 117 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
