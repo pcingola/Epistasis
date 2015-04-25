@@ -240,11 +240,6 @@ This evidence shows that regional controls of chromatin structure and expression
 Theoretical grounds that date back to Fisher assert that when genes interact there is evolutionary pressure to promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations \cite{petkov2005evidence:REF_FISHER}.
 Under this assumption linkage can facilitate the maintenance of epistatic interactions and vice versa, thus explaining how some molecular evolution complexity \cite{phillips2008epistasis}.
 
-
-%===================================================================================================
-% REWRITE
-%===================================================================================================
-
 %epistasis can have an important influence on a number of evolutionary phenomena, including the genetic divergence between species79, ... the evolution of the structure of genetic systems8 \cite{phillips2008epistasis}
 %Thus far, these studies81-85 have shown that epistasis can have a strong role in limiting the possible paths that evolution can take, but not in limiting its eventual outcome. \cite{phillips2008epistasis}
 %linkage can facilitate the maintenance of epistatic interactions (and vice versa)86 and could help to explain how molecular complexity evolves \cite{phillips2008epistasis}
@@ -253,18 +248,34 @@ Under this assumption linkage can facilitate the maintenance of epistatic intera
 %...And finally, Fisher [2] and later Nei [3,4] have argued on theoretical grounds that when genes interact epistatically, evolutionary selection will promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations.  \cite{petkov2005evidence}
 
 \subsection{Missing heritability}
-IN 2002: Thus, for fixed K, p , and p , maximizing the broad AB heritability (h 2 p V /V ) under the constraint repreIT sented by formula (2) is equivalent to the maximizing of VI. \cite{culverhouse2002perspective}. TABLE 2 and 3: Maxima of heritability using epistasis. \cite{culverhouse2002perspective}. Three-locus models can also give rise to higher relative risks than are possible in corresponding two-locus models. Three-locus penetrance models maximizing heritability at the low end of disease prevalence \cite{culverhouse2002perspective}
 
-missing heritability: overestimation of the denominator happens when epistasis is ignored (phantom) \cite{zuk2012mystery}
-phantom heritability could be 62.8\% in Cohn's disease, thus accounting for 80\% of the current missing heritability \cite{zuk2012mystery}
-Until recently "The prevailing view among human geneticists appears to be that interactions play at most a minor  part in explaining missing heritability."	 \cite{zuk2012mystery}
-But "[they] show that simple and plausible models can give rise to substantial phantom heritability."	 \cite{zuk2012mystery}
-...although the pervasiveness of epistasis in experimental organisms suggests that the true heritability h2 of traits may be much lower than current estimates \cite{zuk2012mystery}
+At the dawn of the ``GWAS era" in 2002 it was hypothesised that there existed a large class of genetic models for which GWAS would fail, namely purely epistatic models conssiting of models with no additive or dominance variation at any of the susceptibility loci. 
+Thus association case/control methods ``will have no power if the loci are examined individually" \cite{culverhouse2002perspective}.
+Furthermore, it was mathematically shown that for such models maximizing the broad sense heritability (under some constraints) is equivalent maximizing the interaction variance \cite{culverhouse2002perspective}.
 
-Researchers of many complex diseases (including non-insulin-dependent diabetes mellitus, prostate cancer, and schizophrenia) face the conundrum of moderately heritable diseases for which locus-by-locus analyses have not accounted for the predicted genetic variance. The models discussed in the present article provide one possible explanation for this. \cite{culverhouse2002perspective}
-These considerations lead us to believe that, in situations in which heritability is moderate to high but in which locus-by-locus analyses do not account for the predicted genetic variance, it is worth pursuing a hypothesis of interacting loci [near the linkage peaks] \cite{culverhouse2002perspective}
+In a seminal series of papers \cite{zuk2012mystery, zuk2014searching} further mathemical prof of the link between epistasis and heritability was provided.
+Missing heritability arises by an overestimation of the denominator that happens when epistasis is ignored \cite{zuk2012mystery}.
+This overestimatio, called ``phantom heritability", was shown to inflate the denominator over $60\%$ in Cohn's disease, thus could accounting for up to $80\%$ of the missing heritability \cite{zuk2012mystery}.
+Even though the prevailing view among geneticists is that interactions play at most a minor role in explaining missing heritability, their works showsthat simple (and plausible) models can give rise to substantial phantom heritability \cite{zuk2012mystery}
+
+In moderately heritable complex diseases for which single-locus analyses have not accounted for the predicted genetic variance these epistatic models provide one possible explanation so it is worth pursuing a hypothesis of interacting loci \cite{culverhouse2002perspective}.
+
+%IN 2002: Thus, for fixed K, p , and p , maximizing the broad AB heritability (h 2 p V /V ) under the constraint repreIT sented by formula (2) is equivalent to the maximizing of VI. \cite{culverhouse2002perspective}. TABLE 2 and 3: Maxima of heritability using epistasis. \cite{culverhouse2002perspective}. Three-locus models can also give rise to higher relative risks than are possible in corresponding two-locus models. Three-locus penetrance models maximizing heritability at the low end of disease prevalence \cite{culverhouse2002perspective}
+
+%missing heritability: overestimation of the denominator happens when epistasis is ignored (phantom) \cite{zuk2012mystery}
+%phantom heritability could be 62.8\% in Cohn's disease, thus accounting for 80\% of the current missing heritability \cite{zuk2012mystery}
+%Until recently "The prevailing view among human geneticists appears to be that interactions play at most a minor  part in explaining missing heritability."	 \cite{zuk2012mystery}
+%But "[they] show that simple and plausible models can give rise to substantial phantom heritability."	 \cite{zuk2012mystery}
+%...although the pervasiveness of epistasis in experimental organisms suggests that the true heritability h2 of traits may be much lower than current estimates \cite{zuk2012mystery}
+
+%Researchers of many complex diseases (including non-insulin-dependent diabetes mellitus, prostate cancer, and schizophrenia) face the conundrum of moderately heritable diseases for which locus-by-locus analyses have not accounted for the predicted genetic variance. The models discussed in the present article provide one possible explanation for this. \cite{culverhouse2002perspective}
+%These considerations lead us to believe that, in situations in which heritability is moderate to high but in which locus-by-locus analyses do not account for the predicted genetic variance, it is worth pursuing a hypothesis of interacting loci [near the linkage peaks] \cite{culverhouse2002perspective}
 
 \subsection{Detecting Epistasis / interactions}
+
+%===================================================================================================
+% REWRITE
+%===================================================================================================
 
 Whereas most existing epistasis screens explicitly test for a trait, it is also possible to implicitly test for fitness traits by searching for the overor under-representation of allele pairs in a given population.  \cite{ackermann2012systematic}
 Such analysis of imbalanced allele pair frequencies of distant loci has not been exploited yet on a genome-wide scale, mostly due to statistical difficulties such as the multiple testing problem. We propose a new approach called Imbalanced Allele Pair frequencies (ImAP) for inferring epistatic interactions that is exclusively based on DNA sequence information. \cite{ackermann2012systematic}
