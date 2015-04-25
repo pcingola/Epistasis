@@ -20,9 +20,15 @@ Warning--I didn't find a database entry for "zuk2012mystery:REF"
 Warning--I didn't find a database entry for "phillips2008epistasis:REF"
 Warning--I didn't find a database entry for "carlborg2004epistasis:REF"
 Warning--I didn't find a database entry for "culverhouse2002perspective:REF"
+Warning--I didn't find a database entry for "petkov2005evidence:REF"
+Warning--I didn't find a database entry for "petkov2005evidence:REF_FISHER"
+Warning--I didn't find a database entry for "REF"
+Warning--I didn't find a database entry for "REF-FISHER"
+Warning--I didn't find a database entry for "REF-NATURE"
+Warning--I didn't find a database entry for "koch2013long:REF"
 You've used 26 entries,
             2118 wiz_defined-function locations,
-            675 strings with 9723 characters,
+            687 strings with 9903 characters,
 and the built_in function-call counts, 10450 in all, are:
 = -- 1001
 > -- 650
