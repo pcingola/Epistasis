@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  25 APR 2015 13:32
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  25 APR 2015 20:07
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -546,45 +546,51 @@ LaTeX Warning: Citation `koch2013long:REF' on page 12 undefined on input line 2
 83.
 
 [12] [13] [14]
-Missing character: There is no â in font cmr12!
-Missing character: There is no  in font cmr12!
-Missing character: There is no „ in font cmr12!
- [15] [16] [17] [18]
-Missing character: There is no â in font cmr12!
-Missing character: There is no  in font cmr12!
-Missing character: There is no „ in font cmr12!
 
-Overfull \hbox (4.44168pt too wide) in paragraph at lines 450--471
-\OT1/cmr/m/n/12 method, de-noted `bayesian epis-ta-sis as-so-ci-a-tion map-ping
-' (BEAM), for genome-
+LaTeX Warning: Citation `REF' on page 15 undefined on input line 414.
+
+
+LaTeX Warning: Citation `REF' on page 15 undefined on input line 414.
+
+
+LaTeX Warning: Citation `REF' on page 15 undefined on input line 414.
+
+
+LaTeX Warning: Citation `REF' on page 15 undefined on input line 414.
+
+
+LaTeX Warning: Citation `REF' on page 15 undefined on input line 414.
+
+
+Overfull \hbox (35.93726pt too wide) in paragraph at lines 412--418
+\OT1/cmr/m/n/12 lo-gis-tic re-gres-sion meth-ods and back-ward genotype-trait a
+s-so-ci-a-tion (BGTA)[[]].
  []
 
-[19] [20]
-Missing character: There is no Ï in font cmr12!
-Missing character: There is no ‡ in font cmr12!
- [21] [22] [23]
-Missing character: There is no Ï in font cmr12!
-Missing character: There is no ‡ in font cmr12!
- [24] [25] [26]
+[15] [16] [17] [18]
+
+LaTeX Warning: Citation `REF' on page 19 undefined on input line 454.
+
+[19]
 Missing character: There is no ô in font cmr12!
 Missing character: There is no  in font cmr12!
 Missing character: There is no ° in font cmr12!
 Missing character: There is no ‚ in font cmr12!
- [27] [28]
+ [20] [21]
 
-LaTeX Warning: Reference `ch:gwas' on page 29 undefined on input line 528.
+LaTeX Warning: Reference `ch:gwas' on page 22 undefined on input line 604.
 
-[29] [30]
+[22] [23]
 
-LaTeX Warning: Reference `ch:gwas' on page 31 undefined on input line 557.
+LaTeX Warning: Reference `ch:gwas' on page 24 undefined on input line 633.
 
-) [31] (./thesis_mcgill.bbl
+) [24] (./thesis_mcgill.bbl
 Underfull \hbox (badness 2443) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
  []
 
-[32
+[25
 
 
 
@@ -597,7 +603,7 @@ Underfull \hbox (badness 2142) in paragraph at lines 126--131
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[33] [34]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[26] [27]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/intro_epistasis.aux))
 
  *File List*
@@ -663,10 +669,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5798 strings out of 493315
- 85804 string characters out of 6137904
- 186468 words of memory out of 5000000
- 9133 multiletter control sequences out of 15000+600000
+ 5802 strings out of 493315
+ 85871 string characters out of 6137904
+ 174468 words of memory out of 5000000
+ 9137 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,7n,40p,1483b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -680,10 +686,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (34 pages, 184894 bytes).
+Output written on thesis_mcgill.pdf (27 pages, 170691 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 106 compressed objects within 2 object streams
+ 131 PDF objects out of 1000 (max. 8388607)
+ 91 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

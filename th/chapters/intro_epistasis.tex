@@ -401,26 +401,22 @@ It is also hoped that detecting such interactions will allow to elucidate biolog
 
 Failure to detect epistasis does not rule out it's presence \cite{zuk2012mystery}.
 On the one hand the reason why complex human phenotypes fail to find evidence for epistatic interactions may simply be that analytic methods inherently exclude epistasis \cite{culverhouse2002perspective}.
-It should be noted that the number of tests necessary to evaluate all two-way, three-way and four-way interactions for 30-60 candidate loci, has a range similar to the number of tests suggested for a single GWAS, thus searching for n-way interactions among all the markers would be impracticable. \cite{culverhouse2002perspective}.
-
 On the other hand, individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect an effect scales inversely with the square of the effect size. 
 As an example provided by \cite{zuk2012mystery} consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
 In such case, assuming $50\%$ power, significance level $5 \times 10^{-8}$  and equal number of cases and controls; the sample size required for single loci analysis would be $4,900$.
 In comparisson, the sample size required to detect pairwise interaction between those two variants using the same power and an appropriately corrected significance level is roughly $450,000$, so a researcher studying $100,000$ samples would discover all single acting loci but would find little evidence of epistatic interactions, which may be the reason why geneticists that have tested for pairwise epistasis between loci have found few significant signals \cite{zuk2012mystery}.
 It should be noted that even though GWAs involving over $500,000$ samples are not available at the moment, studies using sample sizes in this order are expected to become available within the next couple of years.
 
+Existing approaches for searching interactions can be grouped into five broad categories. \cite{li2011detecting}:
+\begin{enumerate}
+	\item \textbf{Exhaustive search} methods use classical statistics such as the Pearson's $\chi^2$ test or logistic regression that are natural extensions of methods commonly used for single-locus tests in GWAS. 
+It should be noted that the number of tests necessary to evaluate all two-way, three-way and four-way interactions for 30-60 candidate loci, has a range similar to the number of tests suggested for a single GWAS, thus searching for n-way interactions among all the markers would be impracticable. \cite{culverhouse2002perspective}.
 Approaches developed to detect epistasis: combinatorial partitioning method \cite{REF}, restricted partitioning method \cite{REF}, multifactor-dimensionality reduction \cite{REF}, multivariate adaptive regression spline \cite{REF}, logistic regression methods and backward genotype-trait association (BGTA)\cite{REF}. 
-Unfortunately even though they look promising, many of them have only been tested on small data sets \cite{zhang2007bayesian}.
+Unfortunately even though many of these look promising, many of them have only been tested on small data sets \cite{zhang2007bayesian}.
 Furthermore, methods based on brute-force searches such as (combinatorial partitioning method and multifactor-dimensionality reduction) are impractical for large data sets \cite{zhang2007bayesian}.
-
-A well known approach is ``stepwise logistic regression" which works as follows: (i) all markers are individually tested for associations with disease and ranked; (ii) the top (usually $10\%$) are selected, 3) all two-way (or three-way) interactions are tested and ranked for associations. 
-Even this stepwise approach can become computationally intractable for high-order interactions \cite{zhang2007bayesian}.
-Analysis of stepwise logistic regression approach to identify two-way and three-way interactions demonstrated that searching for interactions in genome-wide association mapping can be more fruitful than traditional approaches that exclusively focus on marginal effects \cite{zhang2007bayesian}.
-As a counter argument for stepwise logistic regression, we should take into account that in the presence of epistasis the effect of one locus is altered or masked by another locus, thus power to detect the first locus is likely to be reduced and the joint effects will be hindered by their interaction \cite{cordell2002epistasis}. 
-Obviously such criticism appears not only in stepwise logistic regression, but in all methods based on considering the top loci from single marker associations.
-
-Another method based on LD patterns in disease population under two-locus disease models \cite{zhao2006test}.
-Association is estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
+Nevertheless it was shown \cite{li2011detecting} that it can be feasible to perform GWAS level analysis in some cases and that simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
+	
+	\item \textbf{Linkage disequilibrium} methods use patterns in disease population under two-locus disease models \cite{zhao2006test} association can be estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
 Under the assumptions that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked
 they show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population \cite{zhao2006test}.
 They develop a test statistic for detection deviations from LD, intuitively they test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls \cite{zhao2006test}.
@@ -428,17 +424,32 @@ Since the frequency of a haplotype is equal to the product of the frequencies of
 They further show that under the null hypothesis, this test statistic asymptotically converges to a central $\chi^2$ distribution.
 In their power comparison simulations they show that in general this LD-based test statistic has much smaller p-values than those of logistic regression analysis \cite{zhao2006test} conlcuding that their test has much higher power than alternatives such as logistic regression \cite{zhao2006test}.
 
-A Bayesian approach for genome-wide case-control studies denoted `bayesian epistasis association mapping' (BEAM) \cite{zhang2007bayesian} treats the disease-associated markers and their interactions via a bayesian partitioning model and computes the posterior probability that each marker (using Markov chain Monte Carlo).
+	\item \textbf{Stochastic search} methods use sampling to infer whether a locus is a risk locus, jointly affects disease, or a background locus.
+A Bayesian approach for genome-wide case-control studies denoted `bayesian epistasis association mapping' (BEAM) \cite{zhang2007bayesian} is a representative example of this type of methods.
+ BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes the posterior probability that each marker (using Markov chain Monte Carlo).
 The method uses predictors in the form of genetic marker loci divided into three groups: i) markers not associated with disease, ii) markers individually contributing to disease risk, and iii) markers that interact \cite{zhang2007bayesian}.
 Membership of each marker in each of the three groups is defined by the prior distributions.
 Given a prior distributions for regression coefficients values given by group membership, a posterior distribution can be generated using MCMC simulation. \cite{cordell2009detecting}.
+At the end, it uses a special statistic (B-Statistic) to infer significance from the samples in MCMC. 
+Although it avoids computing all interactions but theoretically could find high-order interactions. 
 Since the method was originally designed for genotypes markers, its power can be hampered by allele frequency discrepancies between unobserved disease loci and associated genotyped marker/s\cite{zhang2007bayesian}.
-This is a common problen when using indirect markers and the authors show that in an extreme case when the MAF discrepancy was maximized all tested methods had little power to detect interaction associations \cite{zhang2007bayesian}.
+This is a common problem when using indirect markers and the authors show that in an extreme case when the MAF discrepancy was maximized all tested methods had little power to detect interaction associations \cite{zhang2007bayesian}.
 In the original paper, the authors apply BEAM to a data set containing $116,204$ SNPs genotyped for $96$ affected individuals and $50$ controls. for an association study of age-related macular degeneration (AMD).
 Unfortunately BEAM did not find any significant interactions \cite{zhang2007bayesian} most likely due to the small sample size.
-Although the method is interesting, it cannot be applied to large GWAS studies because it cannot handle over $500,000$ markers with sample sizes of $5,000$ or more individuals which are now commonly sequenced or genotyped \cite{cordell2009detecting}.
+Runtime and power are primarily determined by the number of MCMC rounds with a suggested number of MCMC iteration as the quadratic of the number of SNPs, thus limiting the applicability \cite{li2011detecting}.
+So it cannot be applied to large GWAS studies because computational limitations make it unsuitable to handle over $500,000$ markers with sample sizes of $5,000$ or more individuals which are now commonly sequenced or genotyped \cite{cordell2009detecting}.
 
-Regression trees are partitioning approaches based on classification. 
+	\item \textbf{Conditional search} methods usually perform analyses in stages \cite{li2011detecting}.
+A small subset of significant loci is identified in the first stage, typically using single locus association statistics.
+Then this subset is mined using multi-locus association using an exhaustive method. 
+A well known approach in this category is ``stepwise logistic regression" which works as follows: (i) all markers are individually tested for associations with disease and ranked; (ii) the top (usually $10\%$) are selected, 3) all two-way (or three-way) interactions are tested and ranked for associations. 
+Even this stepwise approach can become computationally intractable for high-order interactions \cite{zhang2007bayesian}.
+Analysis of stepwise logistic regression approach to identify two-way and three-way interactions demonstrated that searching for interactions in genome-wide association mapping can be more fruitful than traditional approaches that exclusively focus on marginal effects \cite{zhang2007bayesian}.
+As a counter argument for stepwise logistic regression, we should take into account that in the presence of epistasis the effect of one locus is altered or masked by another locus, thus power to detect the first locus is likely to be reduced and the joint effects will be hindered by their interaction \cite{cordell2002epistasis}. 
+Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect \cite{li2011detecting}.
+
+	\item \textbf{Machine learning} approaches can also be used to infer epistasis.
+A popular approach uses Random Forests \cite{li2011detecting} or other regression trees partitioning approaches based on classification.
 In this context, trees are constructed using rules based on the values of a predictor variable such as a SNP to differentiate observations such as case-control status \cite{cordell2009detecting}.
 A popular rule selection mechanism is to use the variable that maximizes the reduction in Gini impurity \cite{REF} at each node (intuitively, when child nodes have lower impurity from a split based on an attribute each child node will have purer classification).
 Random forests are constructed by drawing samples with replacement from the original sample. 
@@ -454,24 +465,10 @@ So when a weak learner misclassifies an individual, the weight of that individua
 The ensemble votes by weighting weak learner instances by training set accuracy.  \cite{li2011detecting}.
 Using simulation, they claim that their method outperforms not only a similar ensemble approaches, but also several statistical methods, although thei mention performance degradation when the risk allele frequency is low \cite{li2011detecting}.
 
-
-
-%---
-
-CURRENT METHODS: Generally speaking, existing approaches for searching gene- gene or SNP-SNP interactions can be grouped into four broad categories. \cite{li2011detecting}
-	1) Methods in the first category rely on exhaustive search. Classical statistics such as the Pearson's χ2 test or the logistic regression that are commonly used as single-locus tests for GWAS can potentially be used in searching for pairwise interactions. Marchini et al. (2005) have shown that explicitly modeling of interactions between loci for GWAS with hundreds of thousands of markers is computationally feasible. They also showed that these simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction. \cite{li2011detecting}
-	2) The second category consists of methods relying on stochastic search, with BEAM (Zhang and Liu, 2007) as one representative of such algorithms. Later algorithms in this category [e.g. epiMODE (Tang et al., 2009)] largely adopted and extended BEAM. BEAM uses Markov chain Monte Carlo (MCMC) sampling to infer whether each locus is a disease locus, a jointly affecting disease locus, or a background (uncorrelated) locus. The algorithm begins by assigning each locus to each group according to a prior distribution. Using the Metropolis-Hastings algorithm, it attempts to reassign the group labels to each locus. At the end, it uses a special statistic, called the B-Statistic, to infer statistical significance from the hits sampled in MCMC. This approach avoids computing all interactions, but can still theoretically find high-order interactions. The number of MCMC rounds is the primary parameter that mediates runtime, as well as power. The suggested number of MCMC rounds is in the quadratic of the number of SNPs, which limits applicability of BEAM on large datasets. \cite{li2011detecting}
-	3) Methods in the third category are machine learning approaches such as tree-based methods or support vector machines (SVM). For example, a popular ensemble approach, Random Forests  \cite{li2011detecting}
-	4) Methods in the forth category rely on conditional search. In such a case, analyses are performed in stages (Evans et al., 2006; Li, 2008). A small subset of promising loci is identified in the first stage, normally using single locus methods, and multi-locus methods are used in the later stage(s) to model interactions based on the selection in the first stage. Stepwise regression has been widely used in this case and several different strategies have been studied in the literature. Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect. One should also notice that the conditional search category is more like a strategy rather than an approach. In addition to single-locusbased methods, any approaches discussed previously, especially the machine learning ones, can be used to search for candidates in the first stage. \cite{li2011detecting}
-
+\end{enumerate}
 
 %Bayesian model selection methods offer an alternative approach for selecting predictor variables and the interactions between them that are the best predictors of phenotype. The key difference between Bayesian model selection and simple comparisons of nested regression models using frequentist (non-Bayesian) procedures is the specification of prior distributions for the unknown regression parameters as well as for a dimension parameter in a Bayesian approach. This dimension parameter specifies how many non-zero predictors are included \cite{cordell2009detecting}
 %A posterior distribution for these parameters, given the observed data, can then be calculated using Markov chain Monte Carlo (MCMC)93 simulation techniques, in which one traverses the space of the possible models (sets of parameter values), sampling the outputs of the simulation run at intervals. Although MCMC is a flexible approach, it can require some care with respect to the choice of prior distributions, proposal schemes (determining how one moves between models) and the number of iterations required to achieve convergence. \cite{cordell2009detecting}
-
-
-%===================================================================================================
-% REWRITE
-%===================================================================================================
 
 %The main reason that most studies of complex human phenotypes fail to find evidence for epistatic interactions may simply be that commonly used designs and analytic methods inherently minimize or exclude the possibility of epistasis (Frankel and Schork 1996) \cite{culverhouse2002perspective}
 %The complex relationship between genotype and phenotype, however, may ultimately prove to be inadequately described by simply summing the modest effects from several contributing loci. \cite{culverhouse2002perspective}
@@ -580,6 +577,12 @@ CURRENT METHODS: Generally speaking, existing approaches for searching gene- gen
 %The core idea of AdaBoost is to draw bootstrap samples to increase the power of a weak learner. This is done by weighting the individuals when drawing the bootstrap sample. When a weak learner instance misclassifies an individual, the weight of that individual is increased (and increased more if the weak learner instance was otherwise accurate). Thus, hard to classify individuals are more likely to be included in future bootstrap samples. In the end, the ensemble votes for class labels weighting the weak learner instances by training set accuracy.  \cite{li2011detecting}
 
 \subsection{Epistasisi GWAS: Power issues}
+
+
+%===================================================================================================
+% REWRITE
+%===================================================================================================
+
  We have seen that, if the true genetic model underlying a disease is purely epistatic, with no additive or dominance variation at any of the susceptibility loci, then association methods analyzing one locus at a time will have no power to detect the loci.  \cite{culverhouse2002perspective}
 First, we expect that, with a sufficient number of contributing loci, purely epistatic interactions could account for virtually all the variation in affection status for diseases with any prevalence \cite{culverhouse2002perspective}
 Of course, there are subclasses of purely epistatic models (providing no marginal evidence for the involvement of any single locus) for which, in addition, no two, three, or L1 loci jointly give evidence of involvement in the disorder. This leads to the concern that even assessment of all two-, three-, and (L1)-way interactions among candidate loci may be insufficient for detection of the contributing loci. \cite{culverhouse2002perspective}
