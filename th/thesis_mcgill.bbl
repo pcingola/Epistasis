@@ -72,13 +72,6 @@ Evan Koch, Mickey Ristroph, and Mark Kirkpatrick.
 \newblock Long range linkage disequilibrium across the human genome.
 \newblock {\em PloS one}, 8(12):e80754, 2013.
 
-\bibitem{koo2013review}
-Ching~Lee Koo, Mei~Jing Liew, Mohd~Saberi Mohamad, and Abdul~Hakim
-  Mohamed~Salleh.
-\newblock A review for detecting gene-gene interactions using machine learning
-  methods in genetic epidemiology.
-\newblock {\em BioMed research international}, 2013, 2013.
-
 \bibitem{li2011detecting}
 Jing Li, Benjamin Horstman, and Yixuan Chen.
 \newblock Detecting epistatic effects in association studies at a genomic level
@@ -91,11 +84,6 @@ Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
 \newblock Defining genetic interaction.
 \newblock {\em Proceedings of the National Academy of Sciences},
   105(9):3461--3466, 2008.
-
-\bibitem{mckinney2006machine}
-Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
-\newblock Machine learning for detecting gene-gene interactions.
-\newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
 
 \bibitem{petkov2005evidence}
 Petko~M Petkov, Joel~H Graber, Gary~A Churchill, Keith DiPetrillo, Benjamin~L

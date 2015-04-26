@@ -9,10 +9,6 @@ Repeated entry---line 2192 of file mcgilletd.bib
  : @article{mani2008defining
  :                          ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 3829 of file mcgilletd.bib
- : @article{koo2013review
- :                       ,
-I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "tyler2009shadows:REF"
 Warning--I didn't find a database entry for "zuk2012mystery:REF22"
 Warning--I didn't find a database entry for "mani2008defining:REF"
@@ -26,45 +22,45 @@ Warning--I didn't find a database entry for "REF"
 Warning--I didn't find a database entry for "REF-FISHER"
 Warning--I didn't find a database entry for "REF-NATURE"
 Warning--I didn't find a database entry for "koch2013long:REF"
-You've used 26 entries,
+You've used 24 entries,
             2118 wiz_defined-function locations,
-            687 strings with 9903 characters,
-and the built_in function-call counts, 10450 in all, are:
-= -- 1001
-> -- 650
+            676 strings with 9456 characters,
+and the built_in function-call counts, 9765 in all, are:
+= -- 936
+> -- 604
 < -- 1
-+ -- 261
-- -- 230
-* -- 919
-:= -- 1801
-add.period$ -- 78
-call.type$ -- 26
-change.case$ -- 190
++ -- 242
+- -- 214
+* -- 864
+:= -- 1678
+add.period$ -- 72
+call.type$ -- 24
+change.case$ -- 176
 chr.to.int$ -- 0
-cite$ -- 26
-duplicate$ -- 290
-empty$ -- 688
-format.name$ -- 230
-if$ -- 2051
+cite$ -- 24
+duplicate$ -- 269
+empty$ -- 646
+format.name$ -- 214
+if$ -- 1918
 int.to.chr$ -- 0
-int.to.str$ -- 26
-missing$ -- 26
-newline$ -- 133
-num.names$ -- 52
-pop$ -- 141
+int.to.str$ -- 24
+missing$ -- 24
+newline$ -- 123
+num.names$ -- 48
+pop$ -- 131
 preamble$ -- 1
-purify$ -- 164
+purify$ -- 152
 quote$ -- 0
-skip$ -- 193
+skip$ -- 178
 stack$ -- 0
-substring$ -- 723
-swap$ -- 31
+substring$ -- 693
+swap$ -- 29
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 104
+type$ -- 96
 warning$ -- 0
-while$ -- 97
-width$ -- 28
-write$ -- 288
-(There were 2 error messages)
+while$ -- 91
+width$ -- 26
+write$ -- 266
+(There was 1 error message)
