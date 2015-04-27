@@ -36,14 +36,6 @@ Co‐evolution of interacting species, such as symbionts-hosts, predators-prey, 
 This approach has been extended to protein co‐evolution assumed to be caused by physical interactions and approaches based on protein tree similarity can identify interaction partners, such as ligand-receptor pairs \cite{de2013emerging}.
 Proteins and their interaction partners coevolve so that divergent changes in one are complemented at the interface by their interaction partner  \cite{goh2000co}.
 
-Protein structure prediction from amino acid sequence is one of the ultimate goals in computational biology \cite{burger2010disentangling}, despite significant efforts the general problem of de novo three-dimensional structure prediction has remained one of the most challenging problems in computational biology \cite{marks2012protein}.
-Unfortunately, de-novo proptein structure prediction does not scale since the conformational space grows exponentially with the protein length.
-It is expect computation of covariation patterns to complement experimental structural biology thus helping to elucidate functional interactions  \cite{marks2012protein}
-Information of coevolutionary couplings between residues is often used to compute protein three-dimensional structures from amino acid sequences \cite{marks2012protein}.
-It has been observed that using information about a protein residue contacts, it is possible to elucidate the fold of the protein \cite{jones2012psicov}
-Several researchers demonstrated that using co-evolutionary information from multiple sequence alignments greatly helps to deduce which amino acid pairs are close (or in contact) in the three-dimensional structure thus allowing to calculate protein fold with a reasonable accuracy \cite{marks2012protein}.
-The underlying idea is that contact information constrains the fold thus reducing the search space.
-
 %Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci. \cite{rohlfs2010detecting}
 %Coevolving genes are expected to undergo compensatory mutations to maintain their interaction. \cite{rohlfs2010detecting}
 %Most cases of selective advantage for specific allele pairing would be resolved with fixation of the optimal allele pair.7 \cite{rohlfs2010detecting}
@@ -113,13 +105,7 @@ It was recently shown that different overlapping sets of amino acids co-evolve w
 
 \item Helicobacter pylori is the main cause of gastric cancer. Host-pathogen co-evoutionary interaction was completely accounted most of the difference in the severity of gastric lesions in the populations analysed. For instance African H. pylori ancestry was relatively benign in population of African ancestry but was deleterious in individuals with substantial Amerindian ancestry \cite{kodaman2014human}, in an example of co-evolution modulating disease risk \cite{kodaman2014human}.
 
-
 \end{itemize}
-
-
-%==================================================================================================
-% REWRITE
-%==================================================================================================
 
 %HLA and KIR are well established as interacting immune-response loci under intense diversifying selection. 
 %Although these genes are on different chromosomes, their allele frequencies are significantly correlated within human populations, as one would expect under intense selection for allele matching.15 \cite{rohlfs2010detecting}
@@ -158,44 +144,66 @@ It was recently shown that different overlapping sets of amino acids co-evolve w
 %We hypothesize that different overlapping sets of amino acids coevolve within GroEL, GroES and between both these proteins \cite{ruiz2013coevolution}
 %METHOD: CAPS \cite{ruiz2013coevolution}
 
-Genome-wide scans for signals of natural selection in human populations have identified a large number of candidate loci that underlie local adaptations. This is surprising given the relatively short evolutionary time since the divergence of the human population. Approximately 50,000-100,000 years ago, the anatomically modern human migrated from Africa to the rest of the globe \cite{qian2015recent}
- One hypothesis that has not been formally examined is whether and how the recent human evolution may have been shaped by coselection in the context of complex molecular interactome \cite{qian2015recent}
-In this study, genome-wide signals of selection were scanned in East Asians, Europeans, and Africans using 1000 Genome data, and subsequently mapped onto the protein-protein interaction (PPI) network \cite{qian2015recent}
-We found that the candidate genes of recent positive selection localized significantly closer to each other on the PPI network than expected \cite{qian2015recent}
-Furthermore, gene pairs of shorter PPI network distances showed higher similarities of their recent evolutionary paths than those further apart.  \cite{qian2015recent}
-Several hundred to more than one thousand candidate regions, which may have undergone recent positive selection, have been reported in these studies (Sabeti et al. 2002; Voight et al. 2006; Tang et al. 2007; Akey 2009; Pickrell et al. 2009). The abundant selection signals are in sheer contrast with the relatively short period of time since humans migrated from Africa. \cite{qian2015recent}
-EXAMPLES: A number of positively selected candidate genes in the same pathways or interaction subnetworks have also been identified. Known examples are EGLN1 and EPAS1 in the hypoxia-response pathway playing key roles in genetic adaptation to high-altitude regions (Xu et al. 2011) as well as multiple genes in the NRG-ERBB4 developmental pathway (Pickrell et al. 2009) \cite{qian2015recent}
-Coevolution of interacting proteins, in large time frames, has been intensively studied and is typically based on the evolutionary distances across different species  \cite{qian2015recent}
-an alternative mechanism notes that epistatic interaction is not compulsory to explain the associated evolutionary patterns. If selection pressures act on an entire pathway or a functional subnetwork, multiple genes in the same pathway/subnetwork may change in the same fitness direction, and at a same evolutionary rate and time to achieve a common phenotypic outcome.  \cite{qian2015recent}
-the association in evolutionary patterns may simply reflect parallel selection of different genes in the same pathway of shared functionality  \cite{qian2015recent}
-Nonetheless, both hypothetic mechanisms would lead to a set of similar predictions: first, the genes of positive selection would cluster closer to each other in the PPI network than predicted under null hypothesis; second, the clustered genes of selection may share more similar evolutionary paths than genes unrelated on the PPI network. \cite{qian2015recent}
-Numerous studies reported that proteins located closer to the center of PPI network evolved more slowly than those at the periphery of the network, consistent with the view that central proteins are more essential and receive greater evolutionary constraints \cite{qian2015recent}
-DATA: 1000 Genomes Project interim phase 1 data set, including Europeans (CEU; 85 samples), Yorubans (YRI; 88 samples), and EAS (186 samples CHB+JPT). T \cite{qian2015recent}
-METHOD:  \cite{qian2015recent}
-	A modified CMS method was applied to scan for genomewide signals of recent positive selection, as previously described (Grossman et al. 2010). \cite{qian2015recent}
-	Degree centrality (DC) and betweenness centrality (BC) were used to measure both local and global topological positions of candidate genes on the human PPI network (Freeman 1977; Kim et al. 2007). Degree is defined as the number of connections a node has with its neighbors whereas betweenness quantifies the number of times a node acts as a bridge along the shortest path between any other pairwise nodes.  \cite{qian2015recent}
-	The Mann-Whitney U test (also called Wilcoxon rank sum test) was applied to compare the two centrality measures, BC and DC, between selection signals and nonselection signals, to determine whether network position influences recent positive selection \cite{qian2015recent}
-RESULTS \cite{qian2015recent}
-	we found a moderate pattern that recent positive selections tended to occur more on the subcentral region of the PPI network, \cite{qian2015recent}
-	 However, it differs from studies done on a macroevolutionary timescale, which have consistently reported that accelerated evolutionary rates tend to happen at the periphery of the protein interaction network, \cite{qian2015recent}
+Coevolution of interacting proteins is often analysed in large time frames typically based on the evolutionary analysis across different species  \cite{qian2015recent}
+Genome-wide scans have identified a several candidate loci that underlie local adaptations, which seems surprising given the short evolutionary time since the human divergence which is estimated have happened around $50,000$ to $100,000$ years ago when humans migrated out of Africa\cite{qian2015recent}.
+In light of this, it may make sense to analyse co-evolution within human population
+since within a pathway or a functional subnetwork, multiple genes may change in the same fitness direction at a same evolutionary rate to achieve a common phenotypic outcome \cite{qian2015recent}.
+A study using 1000 Genome \cite{REF} project data form East Asians, Europeans, and Africans populaitons, researchers found candidate genes having signals of recent positive selection are significantly closer to each other than expected when the information is mapped onto protein-protein interaction (PPI) networks \cite{qian2015recent}.
+The methodology also identified known examples such as EGLN1 and EPAS1 (hypoxia-response pathway playing key roles in adaptation to high-altitude) as well as multiple genes in the NRG-ERBB4 (developmental pathway) \cite{qian2015recent}.
 
+% One hypothesis that has not been formally examined is whether and how the recent human evolution may have been shaped by coselection in the context of complex molecular interactome \cite{qian2015recent}
+%Furthermore, gene pairs of shorter PPI network distances showed higher similarities of their recent evolutionary paths than those further apart.  \cite{qian2015recent}
+%Several hundred to more than one thousand candidate regions, which may have undergone recent positive selection, have been reported in these studies (Sabeti et al. 2002; Voight et al. 2006; Tang et al. 2007; Akey 2009; Pickrell et al. 2009). The abundant selection signals are in sheer contrast with the relatively short period of time since humans migrated from Africa. \cite{qian2015recent}
+%EXAMPLES: A number of positively selected candidate genes in the same pathways or interaction subnetworks have also been identified. Known examples are EGLN1 and EPAS1 in the hypoxia-response pathway playing key roles in genetic adaptation to high-altitude regions (Xu et al. 2011) as well as multiple genes in the NRG-ERBB4 developmental pathway (Pickrell et al. 2009) \cite{qian2015recent}
+%Coevolution of interacting proteins, in large time frames, has been intensively studied and is typically based on the evolutionary distances across different species  \cite{qian2015recent}
+%an alternative mechanism notes that epistatic interaction is not compulsory to explain the associated evolutionary patterns. If selection pressures act on an entire pathway or a functional subnetwork, multiple genes in the same pathway/subnetwork may change in the same fitness direction, and at a same evolutionary rate and time to achieve a common phenotypic outcome.  \cite{qian2015recent}
+%the association in evolutionary patterns may simply reflect parallel selection of different genes in the same pathway of shared functionality  \cite{qian2015recent}
+%Nonetheless, both hypothetic mechanisms would lead to a set of similar predictions: first, the genes of positive selection would cluster closer to each other in the PPI network than predicted under null hypothesis; second, the clustered genes of selection may share more similar evolutionary paths than genes unrelated on the PPI network. \cite{qian2015recent}
+%Numerous studies reported that proteins located closer to the center of PPI network evolved more slowly than those at the periphery of the network, consistent with the view that central proteins are more essential and receive greater evolutionary constraints \cite{qian2015recent}
+%DATA: 1000 Genomes Project interim phase 1 data set, including Europeans (CEU; 85 samples), Yorubans (YRI; 88 samples), and EAS (186 samples CHB+JPT). T \cite{qian2015recent}
+%METHOD:  \cite{qian2015recent}
+%	A modified CMS method was applied to scan for genomewide signals of recent positive selection, as previously described (Grossman et al. 2010). \cite{qian2015recent}
+%	Degree centrality (DC) and betweenness centrality (BC) were used to measure both local and global topological positions of candidate genes on the human PPI network (Freeman 1977; Kim et al. 2007). Degree is defined as the number of connections a node has with its neighbors whereas betweenness quantifies the number of times a node acts as a bridge along the shortest path between any other pairwise nodes.  \cite{qian2015recent}
+%	The Mann-Whitney U test (also called Wilcoxon rank sum test) was applied to compare the two centrality measures, BC and DC, between selection signals and nonselection signals, to determine whether network position influences recent positive selection \cite{qian2015recent}
+%RESULTS \cite{qian2015recent}
+%	we found a moderate pattern that recent positive selections tended to occur more on the subcentral region of the PPI network, \cite{qian2015recent}
+%	 However, it differs from studies done on a macroevolutionary timescale, which have consistently reported that accelerated evolutionary rates tend to happen at the periphery of the protein interaction network, \cite{qian2015recent}
+%
 
 \subsection{Co-Evolution and protein structure}
 
+Protein structure prediction from amino acid sequence is one of the ultimate goals in computational biology \cite{burger2010disentangling}, despite significant efforts the general problem of de novo three-dimensional structure prediction has remained one of the most challenging problems in computational biology \cite{marks2012protein}.
+Unfortunately, de-novo proptein structure prediction does not scale since the conformational space grows exponentially with the protein length.
+It is expect computation of covariation patterns to complement experimental structural biology thus helping to elucidate functional interactions  \cite{marks2012protein}
+Information of coevolutionary couplings between residues is often used to compute protein three-dimensional structures from amino acid sequences \cite{marks2012protein}.
+It has been observed that using information about a protein residue contacts, it is possible to elucidate the fold of the protein \cite{jones2012psicov}
+Several researchers demonstrated that using co-evolutionary information from multiple sequence alignments greatly helps to deduce which amino acid pairs are close (or in contact) in the three-dimensional structure thus allowing to calculate protein fold with a reasonable accuracy \cite{marks2012protein}.
+The underlying idea is that contact information constrains the fold thus reducing the search space.
+
+\paragraph{Protein design.} It has recently been proposed to use co-evolutionary theory in computational protein design methods.
+Significant similarities were found between the amino acid covariation in natural protein sequences and sequences structures optimized by computational protein design methods \cite{ollikainen2013computational}.
+A study \cite{ollikainen2013computational} using computational protein design to quantify protein structure constraints form amino acid covariation for 40 diverse protein domains show that structural constraints imposed by protein architecture play a dominant role and computational protein design methods could capture these effects \cite{ollikainen2013computational}.
+Evolutionary selective pressures on funstion and structure shaped the sequences to be close to optimal for their structures, natural protein sequences provide an excellent test for computational protein design methods \cite{ollikainen2013computational}.
+Computational protein design predicts energetically optimal sequences based on protein structure it is expected that highly covarying amino acids pairs in both designed and natural sequences have likely covaried to maintain protein structure \cite{ollikainen2013computational}.
+
+%==================================================================================================
+% REWRITE
+%==================================================================================================
+
 % TOPIC: Computational protein design methods and coevolution!!!
-Amino acid covariation, where the identities of amino acids at different sequence positions are correlated, is a hallmark of naturally occurring proteins. \cite{ollikainen2013computational}
-This covariation can arise from multiple factors, including selective pressures for maintaining protein structure, requirements imposed by a specific function, or from phylogenetic sampling bias. \cite{ollikainen2013computational}
-Here we employed flexible backbone computational protein design to quantify the extent to which protein structure has constrained amino acid covariation for 40 diverse protein domains. \cite{ollikainen2013computational}
-We find significant similarities between the amino acid covariation in alignments of natural protein sequences and sequences optimized for their structures by computational protein design methods. \cite{ollikainen2013computational}
-These results indicate that the structural constraints imposed by protein architecture play a dominant role in shaping amino acid covariation and that computational protein design methods can capture these effects.  \cite{ollikainen2013computational}
-Evolutionary selective pressures on protein structure and function have shaped the sequences of today's naturally occurring proteins [1-3]. As a result of these pressures, sequences of natural proteins are close to optimal for their structures \cite{ollikainen2013computational}
-Natural protein sequences therefore provide an excellent test for computational protein design methods, where the goal is to predict protein sequences that are optimal for a desired protein structure and function [5]. \cite{ollikainen2013computational}
-Beyond simply recovering the native sequence, a further challenge in computational protein design is to predict the set of tolerated sequences that are compatible with a given protein fold and function [9-13]. Predicting sequence tolerance is important for applications such as characterizing mutational robustness [14,15], predicting the specificity of molecular interactions [16- 20], and designing libraries of proteins with altered functions [21,22].  \cite{ollikainen2013computational}
-Previous work has indicated that networks of covarying amino acids play a role in allosterically linking distant functional sites, suggesting that amino acid covariation is driven by protein functional constraints [30,31]. \cite{ollikainen2013computational}
-In this paper, we use computational protein design to measure the extent to which protein structure has shaped amino acid covariation in a diverse set of 40 protein domains. \cite{ollikainen2013computational}
-Since computational protein design predicts sequences that are energetically optimal based on protein structure alone, we expect that pairs of amino acids that highly covary in both designed and natural sequences to have likely covaried to maintain protein structure \cite{ollikainen2013computational}
-We find significant overlap in the sets of highly covarying amino acid pairs between designed and natural sequences for all 40 domains examined, suggesting that maintenance of protein structure is a dominant selective pressure that constrains the evolution of amino acid interactions in proteins. \cite{ollikainen2013computational}
-METHOD: The mutual information (MI) between each pair of columns , Z-score resepct to the mean MI. This normalization of MIp was demonstrated to reduce the sensitivity to misaligned regions in multiple sequence alignments, which otherwise result in artificially high mutual information scores [28]. \cite{ollikainen2013computational}
+%Amino acid covariation, where the identities of amino acids at different sequence positions are correlated, is a hallmark of naturally occurring proteins. \cite{ollikainen2013computational}
+%This covariation can arise from multiple factors, including selective pressures for maintaining protein structure, requirements imposed by a specific function, or from phylogenetic sampling bias. \cite{ollikainen2013computational}
+%Here we employed flexible backbone computational protein design to quantify the extent to which protein structure has constrained amino acid covariation for 40 diverse protein domains. \cite{ollikainen2013computational}
+%We find significant similarities between the amino acid covariation in alignments of natural protein sequences and sequences optimized for their structures by computational protein design methods. \cite{ollikainen2013computational}
+%These results indicate that the structural constraints imposed by protein architecture play a dominant role in shaping amino acid covariation and that computational protein design methods can capture these effects.  \cite{ollikainen2013computational}
+%Evolutionary selective pressures on protein structure and function have shaped the sequences of today's naturally occurring proteins [1-3]. As a result of these pressures, sequences of natural proteins are close to optimal for their structures \cite{ollikainen2013computational}
+%Natural protein sequences therefore provide an excellent test for computational protein design methods, where the goal is to predict protein sequences that are optimal for a desired protein structure and function [5]. \cite{ollikainen2013computational}
+%Beyond simply recovering the native sequence, a further challenge in computational protein design is to predict the set of tolerated sequences that are compatible with a given protein fold and function [9-13]. Predicting sequence tolerance is important for applications such as characterizing mutational robustness [14,15], predicting the specificity of molecular interactions [16- 20], and designing libraries of proteins with altered functions [21,22].  \cite{ollikainen2013computational}
+%Previous work has indicated that networks of covarying amino acids play a role in allosterically linking distant functional sites, suggesting that amino acid covariation is driven by protein functional constraints [30,31]. \cite{ollikainen2013computational}
+%In this paper, we use computational protein design to measure the extent to which protein structure has shaped amino acid covariation in a diverse set of 40 protein domains. \cite{ollikainen2013computational}
+%Since computational protein design predicts sequences that are energetically optimal based on protein structure alone, we expect that pairs of amino acids that highly covary in both designed and natural sequences to have likely covaried to maintain protein structure \cite{ollikainen2013computational}
+%We find significant overlap in the sets of highly covarying amino acid pairs between designed and natural sequences for all 40 domains examined, suggesting that maintenance of protein structure is a dominant selective pressure that constrains the evolution of amino acid interactions in proteins. \cite{ollikainen2013computational}
+%METHOD: The mutual information (MI) between each pair of columns , Z-score resepct to the mean MI. This normalization of MIp was demonstrated to reduce the sensitivity to misaligned regions in multiple sequence alignments, which otherwise result in artificially high mutual information scores [28]. \cite{ollikainen2013computational}
 
 \subsection{Detecting co-evolution}
 
