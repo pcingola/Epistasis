@@ -23,6 +23,7 @@ Consequently, residue contacts constrain the protein sequences to some extent \c
 In other words, sequences form interacting proteins react as a consequence of adaptation, thus it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}
 It should be noted that this relationship between co-evolution and interaction is not symmetrical. 
 While interaction would involve coevolution, coevolution does not imply physical interaction \cite{fares2006novel}.
+Co-evolution between clusters of sites not in contact has also been shown \cite{fares2006novel:REF(Pritchard and Dufton 2000)}.
 
 Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}
 It has long been suggested that correlations in amino acid changes can be used to infer protein contact, thus aiding to predict tertiary protein structure \cite{morcos2011direct, burger2010disentangling}.
@@ -208,16 +209,29 @@ In their seminal paper they point out that the fact that \textit{``maintenance o
 They  analysed correlations between different positions in a multiple sequence alignment and used such correlations to predict contact maps.
 In their study of 11 protein families they compares the result with experimentally validated contact maps determined by crystallography, showing that prediction accuracy up to $68\%$.
 
+Although some methods were base on testing for correlation of phylogenetic distance matrices between gene families \cite{rohlfs2010detecting} the majority of method have focused on extracting co-evolutionary information from multiple sequence alignment.
+
 The promise of developing methods for predicting contacting pairs from sequence information alone was radically different and more applicable than traditional docking methods \cite{pazos1997correlated}
 This lead to the development of multiple methods for detecting correlated changes in multiple sequence alignments with the primary intention of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
+It was demonstrated that the correlated sequence information was enough to select the right inter-domain docking solution amongst many alternatives  \cite{pazos1997correlated}.
 
-%----
-We indeed demonstrate here that the information about correlated sequence changes is sufficient to single out the right inter-domain docking solution amongst many wrong alternatives of two-domain proteins. \cite{pazos1997correlated}
-We propose here a new and completely different approach to the study and prediction of protein± protein interaction. Instead of considering the structural nature of the interactions, we try to detect the sequence traces that evolution may have left on the interacting sequences during the process of preserving the protein±protein interaction sites. \cite{pazos1997correlated}
-Therefore, our approach is not restricted to the cases in which the structures of the proteins to be docked are known and is applicable to any family of interacting proteins for which a large enough sequence family is available. \cite{pazos1997correlated}
-Over time, amino acid substitution may stabilise an interface that does not exist in the closed monomer ... stabilising mutations in these interfaces would be favoured in natural selection'' (Bennett et al., 1995); \cite{pazos1997correlated}
-We propose that it is possible to detect this signal by studying compensatory mutations. In order to do so, we have appropriately modified our previously published method for the calculation of correlated mutations in multiple-sequence alignments (GoÈbel et al., 1994; Pazos et al., 1997). \cite{pazos1997correlated}
+Correlation and mutual information have been used to asses co-evolution but they do not take into account the evolutionary interdependence between protein residues \cite{fares2006novel}.
+Phylogenetic relationships can inflate these co-evolutionary measures, thus one of main limitations of these methods has been their inability to separate phylogenetic linkage from functional and structural co-evolution \cite{fares2006novel}.
+Some methods partially correct these effects but requires alignments of at least $125$ sequences to remove stochastic noise \cite{fares2006novel:REF Gloor et al. (2005)}.
 
+CAPS \cite{fares2006novel} compares transition probability scores from blocks substitution matrix (BLOSUM) between two sequences at the sites being analysed for interaction.
+An alignment-specific BLOSUM matrix is applied depending on the average sequence identity.
+
+Co-evolution between protein sites is estimated by the correlation in the pairwise variability respect to the mean pairwise variability per site \cite{fares2006novel}.
+A limitation of this method is that the number of sequences in the alignment may be problematic when sequences are too divergent, since an alignment including highly divergent sequence groups could show unrealistic pairwise identity level (BLOSUM values are normalized by the time of divergence between sequences to reduce the impact).
+Another problem common to many MSA-based co-evolutionary methods is that constant amino acid sites, which are very likely to be functionally important, cannot be tested for  \cite{fares2006novel}.
+
+Since many of these methods rely so heavily on multiple sequence alignments, it should not be surprising to know that the quality of the input alignment may affect the results.
+As one example, it is well known that structure-based alignment algorithms may be susceptible to shift error and other systematic errors, thus strong covariation signal can be caused by alignment errors leading to false positive predictions \cite{dickson2010identifying}.
+Phylogeny of the sequences also affects perfromance, since methods work better on large protein families having a wide but homogenously distributed degree of sequence similarity ranging from distant to similar sequences \cite{de2013emerging}.
+In a recent study different co-evolutionary methods were applied to different alignments of the same protein family, giving rise to different results and demonstrating that covariation may greatly depend on the quality of the sequence alignment \cite{dickson2010identifying}.
+Even when alignments for the same protein family contained comparable numbers of sequences the number of estimated covarying positions differ significantly \cite{dickson2010identifying}.
+The authors of this analysis demonstrate that contact prediction can be improved by removing alignment errors due to several factors such as partial or otherwise erroneous sequences, the presence of paralogous sequences, and improper structure alignment \cite{dickson2010identifying}.
 
 %==================================================================================================
 % REWRITE
@@ -228,56 +242,54 @@ We propose that it is possible to detect this signal by studying compensatory mu
 %METHOD (from another paper): Correlated mutations were calculated as described (GoÈbel et al., 1994). Each position in the alignment is coded by a distance matrix. This position-specific matrix contains the distances between all pairs of sequences at that position. Distances are defined by the scoring matrix of McLachlan (1971). The association between each pair of positions is calculated as the average of the correlation for each corresponding bin of the position-specific matrices. Positions with more than 10\% gaps or completely conserved were not included in the calculation. \cite{gobel1994correlated}
 
 
-Here we apply a method for detecting correlated changes in multiple sequence alignments to a set of interacting protein domains and show that positions where changes occur in a correlated fashion in the two interacting molecules tend to be close to the protein±protein interfaces.  \cite{pazos1997correlated}
-This leads to the possibility of developing a method for predicting contacting pairs of residues from the sequence alone. Such a method would not need the knowledge of the structure of the interacting proteins, and hence would be both radically different and more widely applicable than traditional docking methods. \cite{pazos1997correlated}
-We indeed demonstrate here that the information about correlated sequence changes is sufficient to single out the right inter-domain docking solution amongst many wrong alternatives of two-domain proteins. \cite{pazos1997correlated}
-We propose here a new and completely different approach to the study and prediction of protein± protein interaction. Instead of considering the structural nature of the interactions, we try to detect the sequence traces that evolution may have left on the interacting sequences during the process of preserving the protein±protein interaction sites. \cite{pazos1997correlated}
-Therefore, our approach is not restricted to the cases in which the structures of the proteins to be docked are known and is applicable to any family of interacting proteins for which a large enough sequence family is available. \cite{pazos1997correlated}
-Over time, amino acid substitution may stabilise an interface that does not exist in the closed monomer ... stabilising mutations in these interfaces would be favoured in natural selection'' (Bennett et al., 1995); \cite{pazos1997correlated}
-We propose that it is possible to detect this signal by studying compensatory mutations. In order to do so, we have appropriately modified our previously published method for the calculation of correlated mutations in multiple-sequence alignments (GoÈbel et al., 1994; Pazos et al., 1997). \cite{pazos1997correlated}
+%Here we apply a method for detecting correlated changes in multiple sequence alignments to a set of interacting protein domains and show that positions where changes occur in a correlated fashion in the two interacting molecules tend to be close to the protein±protein interfaces.  \cite{pazos1997correlated}
+%This leads to the possibility of developing a method for predicting contacting pairs of residues from the sequence alone. Such a method would not need the knowledge of the structure of the interacting proteins, and hence would be both radically different and more widely applicable than traditional docking methods. \cite{pazos1997correlated}
+%We indeed demonstrate here that the information about correlated sequence changes is sufficient to single out the right inter-domain docking solution amongst many wrong alternatives of two-domain proteins. \cite{pazos1997correlated}
+%We propose here a new and completely different approach to the study and prediction of protein± protein interaction. Instead of considering the structural nature of the interactions, we try to detect the sequence traces that evolution may have left on the interacting sequences during the process of preserving the protein±protein interaction sites. \cite{pazos1997correlated}
+%Therefore, our approach is not restricted to the cases in which the structures of the proteins to be docked are known and is applicable to any family of interacting proteins for which a large enough sequence family is available. \cite{pazos1997correlated}
+%Over time, amino acid substitution may stabilise an interface that does not exist in the closed monomer ... stabilising mutations in these interfaces would be favoured in natural selection'' (Bennett et al., 1995); \cite{pazos1997correlated}
+%We propose that it is possible to detect this signal by studying compensatory mutations. In order to do so, we have appropriately modified our previously published method for the calculation of correlated mutations in multiple-sequence alignments (GoÈbel et al., 1994; Pazos et al., 1997). \cite{pazos1997correlated}
 
 
 
-Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1-6 \cite{rohlfs2010detecting}
+%Methods have been developed for detecting coevolution by testing for high correlation of phylogenetic distance matrices between gene families, genes, or gene domains.1-6 \cite{rohlfs2010detecting}
 
-CAPS: Methods designed to detect adaptive evolution can be based on Bayesian approaches (Yang et al. 2000) or maximum parsimony (Suzuki and Gojobori 1999; Fares et al. 2002a). None of these methods takes into account the evolutionary interdependence between protein residues \cite{fares2006novel}
-Sites constraints are hence dependent on the interactions with other residues of the molecule \cite{fares2006novel}
-Mutations at either nearby sites or functionally related distant sites in the structure will change the selective constraints. \cite{fares2006novel}
-For instance, linear slidingwindow methods are one-dimensional based and assume independence between different window regions irrespective of their three-dimensional proximity \cite{fares2006novel}
-Conversely, classification of amino acids in the same group of evolution based on their three-dimensional proximity (three-dimensional sliding window) will ignore the coevolution between functional regions that are spatially distant
-Various reports state that residues can form a physically connected network that links distant functional sites in the tertiary protein structure (Su ̈el et al. 2003) \cite{fares2006novel}
-Coevolution between clusters of sites, which are not in contact, has also been shown (Pritchard and Dufton 2000) \cite{fares2006novel}
-Coevolution between distant sites has been observed in sites proximal to regions with critical functions, where coevolution occurs to maintain the structural characteristics around these regions and consequently to maintain the protein conformational and functional stability (Gloor et al. 2005). \cite{fares2006novel}
-[various methods coevolution exist...] => The main limitation of many of these methods has been their inability to separate phylogenetic linkage from functional and structural coevolution.  \cite{fares2006novel}
-Gloor et al. (2005) partially corrected these effects although their method requires alignments of at least 125 sequences to remove stochastic covariation. \cite{fares2006novel}
-	METHOD: \cite{fares2006novel}
-		The method instead compares the transition probability scores between two sequences at these particular sites, using the blocks substitution matrix (BLOSUM) \cite{fares2006novel}
-		For each protein alignment the correspondent BLOSUM matrix is applied, depending on the average sequence identity. \cite{fares2006novel}
-		an alignment including two highly divergent sequence groups (for example, gene duplication predating speciation) could show an unrealistic pairwise average identity level. In this respect, sequences that diverged a long time ago are more likely to fix correlated mutations at two sites by chance \cite{fares2006novel}
-		BLOSUM values should be hence normalized by the time of divergence between sequences. BLOSUM values (Bek) are thus weighted for the transition between amino acids e and k using the time (t) since the divergence between sequences i and j: \cite{fares2006novel}
-		The mean variability for the corrected BLOSUM transition is... \cite{fares2006novel}
-		The coevolution between amino acid sites (A and B) is estimated thereafter by measuring the correlation in the pairwise amino acid variability, relative to the mean pairwise variability per site, between them. \cite{fares2006novel}
-	LIMITATIONS:  \cite{fares2006novel}
-		For example, saturation of synonymous sites can lead to underestimates of the divergence times, although data sets used in this study did not show such effects. \cite{fares2006novel}
-		The number of sequences in the alignment also poses a problem when sequences are too divergent, although the sensitivity is improved compared to that of previous methods.  \cite{fares2006novel}
-		Further, constant amino acid sites that are very likely to be functionally important cannot be tested for coevolution using CAPS, although this limitation affects all the methods so far. \cite{fares2006novel}
+%CAPS: Methods designed to detect adaptive evolution can be based on Bayesian approaches (Yang et al. 2000) or maximum parsimony (Suzuki and Gojobori 1999; Fares et al. 2002a). None of these methods takes into account the evolutionary interdependence between protein residues \cite{fares2006novel}
+%Sites constraints are hence dependent on the interactions with other residues of the molecule \cite{fares2006novel}
+%Mutations at either nearby sites or functionally related distant sites in the structure will change the selective constraints. \cite{fares2006novel}
+%For instance, linear slidingwindow methods are one-dimensional based and assume independence between different window regions irrespective of their three-dimensional proximity \cite{fares2006novel}
+%Conversely, classification of amino acids in the same group of evolution based on their three-dimensional proximity (three-dimensional sliding window) will ignore the coevolution between functional regions that are spatially distant
+%Various reports state that residues can form a physically connected network that links distant functional sites in the tertiary protein structure (Su ̈el et al. 2003) \cite{fares2006novel}
+%Coevolution between clusters of sites, which are not in contact, has also been shown (Pritchard and Dufton 2000) \cite{fares2006novel}
+%Coevolution between distant sites has been observed in sites proximal to regions with critical functions, where coevolution occurs to maintain the structural characteristics around these regions and consequently to maintain the protein conformational and functional stability (Gloor et al. 2005). \cite{fares2006novel}
+%[various methods coevolution exist...] => The main limitation of many of these methods has been their inability to separate phylogenetic linkage from functional and structural coevolution.  \cite{fares2006novel}
+%Gloor et al. (2005) partially corrected these effects although their method requires alignments of at least 125 sequences to remove stochastic covariation. \cite{fares2006novel}
+%	METHOD: \cite{fares2006novel}
+%		The method instead compares the transition probability scores between two sequences at these particular sites, using the blocks substitution matrix (BLOSUM) \cite{fares2006novel}
+%		For each protein alignment the correspondent BLOSUM matrix is applied, depending on the average sequence identity. \cite{fares2006novel}
+%		an alignment including two highly divergent sequence groups (for example, gene duplication predating speciation) could show an unrealistic pairwise average identity level. In this respect, sequences that diverged a long time ago are more likely to fix correlated mutations at two sites by chance \cite{fares2006novel}
+%		BLOSUM values should be hence normalized by the time of divergence between sequences. BLOSUM values (Bek) are thus weighted for the transition between amino acids e and k using the time (t) since the divergence between sequences i and j: \cite{fares2006novel}
+%		The mean variability for the corrected BLOSUM transition is... \cite{fares2006novel}
+%		The coevolution between amino acid sites (A and B) is estimated thereafter by measuring the correlation in the pairwise amino acid variability, relative to the mean pairwise variability per site, between them. \cite{fares2006novel}
+%	LIMITATIONS:  \cite{fares2006novel}
+%		For example, saturation of synonymous sites can lead to underestimates of the divergence times, although data sets used in this study did not show such effects. \cite{fares2006novel}
+%		The number of sequences in the alignment also poses a problem when sequences are too divergent, although the sensitivity is improved compared to that of previous methods.  \cite{fares2006novel}
+%		Further, constant amino acid sites that are very likely to be functionally important cannot be tested for coevolution using CAPS, although this limitation affects all the methods so far. \cite{fares2006novel}
 
-
-
-Different alignments of the same protein family give different results demonstrating that covariation depends on the quality of the sequence alignment. \cite{dickson2010identifying}
-We show that current criteria are insufficient to build alignments for use with covariation analyses as systematic sequence alignment errors are present even in hand-curated structure-based alignment datasets like those from the Conserved Domain Database.  \cite{dickson2010identifying}
-We demonstrate that removing alignment errors due to 1) improper structure alignment, 2) the presence of paralogous sequences, and 3) partial or otherwise erroneous sequences, improves contact prediction by covariation analysis \cite{dickson2010identifying}
-Standard benchmarks for covariation accuracy measure the fraction of covarying amino acid pairs that are in contact.  \cite{dickson2010identifying}
-First, the sequence alignments must contain sufficient sequences with enough variation for the signal to exceed the noise. Estimates of the required number of sequences needed in the alignments for this to be true vary from *30 [6] to w125 [4,8,15,16].  \cite{dickson2010identifying}
-Secondly, all positions in a protein appear to covary because of their shared ancestry, and this signal is the only systematic source of covariation for the vast majority of position pairs [6,14,17].  \cite{dickson2010identifying}
-As one example, structure-based alignment algorithms are susceptible to shift error [18], meaning that positions in the structure alignment are not orthologous despite the fact that much of the secondary structural elements seem to overlap between aligned structures. \cite{dickson2010identifying}
-We observed that the same protein family often gave different numbers of covarying positions when alignments were from different sources even if the alignments contained comparable numbers of sequences.  \cite{dickson2010identifying}
-We also found that alignments generated without structural information identified fewer pairs in contact in the folded protein compared to alignments generated with structural information. \cite{dickson2010identifying}
-Here we show that a strong covariation signal can be caused by alignment error, potentially leading to false positive predictions.  \cite{dickson2010identifying}
-
-	The quality of MSAs is obviously essential as they serve as the initial input to most of the methods. Furthermore, the methods work better on large protein families for which the degree of sequence similarity has a wide but homogenously dis‐ tributed range from distant to similar sequences \cite{de2013emerging}
-	In general, optimal performance is obtained when protein subfamilies (branches of the tree) are spaced at regular intervals, \cite{de2013emerging}
-	For example, assembling phylogenetic trees is confounded by complex evolutionary scenarios, such as sequences acquired by horizontal gene transfer, genetic saturation or the difficulties in identifying the correct orthologous sequences when genome duplication and domain rear‐ rangements have occurred. \cite{de2013emerging}
+%Different alignments of the same protein family give different results demonstrating that covariation depends on the quality of the sequence alignment. \cite{dickson2010identifying}
+%We show that current criteria are insufficient to build alignments for use with covariation analyses as systematic sequence alignment errors are present even in hand-curated structure-based alignment datasets like those from the Conserved Domain Database.  \cite{dickson2010identifying}
+%We demonstrate that removing alignment errors due to 1) improper structure alignment, 2) the presence of paralogous sequences, and 3) partial or otherwise erroneous sequences, improves contact prediction by covariation analysis \cite{dickson2010identifying}
+%Standard benchmarks for covariation accuracy measure the fraction of covarying amino acid pairs that are in contact.  \cite{dickson2010identifying}
+%First, the sequence alignments must contain sufficient sequences with enough variation for the signal to exceed the noise. Estimates of the required number of sequences needed in the alignments for this to be true vary from *30 [6] to w125 [4,8,15,16].  \cite{dickson2010identifying}
+%Secondly, all positions in a protein appear to covary because of their shared ancestry, and this signal is the only systematic source of covariation for the vast majority of position pairs [6,14,17].  \cite{dickson2010identifying}
+%As one example, structure-based alignment algorithms are susceptible to shift error [18], meaning that positions in the structure alignment are not orthologous despite the fact that much of the secondary structural elements seem to overlap between aligned structures. \cite{dickson2010identifying}
+%We observed that the same protein family often gave different numbers of covarying positions when alignments were from different sources even if the alignments contained comparable numbers of sequences.  \cite{dickson2010identifying}
+%We also found that alignments generated without structural information identified fewer pairs in contact in the folded protein compared to alignments generated with structural information. \cite{dickson2010identifying}
+%Here we show that a strong covariation signal can be caused by alignment error, potentially leading to false positive predictions.  \cite{dickson2010identifying}
+%
+%	The quality of MSAs is obviously essential as they serve as the initial input to most of the methods. Furthermore, the methods work better on large protein families for which the degree of sequence similarity has a wide but homogenously dis‐ tributed range from distant to similar sequences \cite{de2013emerging}
+%	In general, optimal performance is obtained when protein subfamilies (branches of the tree) are spaced at regular intervals, \cite{de2013emerging}
+%	For example, assembling phylogenetic trees is confounded by complex evolutionary scenarios, such as sequences acquired by horizontal gene transfer, genetic saturation or the difficulties in identifying the correct orthologous sequences when genome duplication and domain rear‐ rangements have occurred. \cite{de2013emerging}
 
 \subsection{Co-evolution algorithm complexity}
 Calculating the power of these exact tests can be prohibitively slow with a large sample size. As an alternative, we quickly estimate power by using theoretical test statistic distributions under the alternative hypothesis. Under the alternative hypothesis with genotype frequency matrix F, X 2 is approximately chi-square 1 distributed with one degree of freedom and noncentrality parameter \cite{rohlfs2010detecting}
