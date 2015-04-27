@@ -13,45 +13,46 @@ Repeated entry---line 2377 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
-You've used 24 entries,
+Warning--empty publisher in darwin1877various
+You've used 29 entries,
             2118 wiz_defined-function locations,
-            655 strings with 9469 characters,
-and the built_in function-call counts, 9361 in all, are:
-= -- 893
-> -- 582
-< -- 1
-+ -- 230
-- -- 204
-* -- 814
-:= -- 1620
-add.period$ -- 72
-call.type$ -- 24
-change.case$ -- 172
+            684 strings with 10366 characters,
+and the built_in function-call counts, 10788 in all, are:
+= -- 1037
+> -- 629
+< -- 2
++ -- 250
+- -- 218
+* -- 898
+:= -- 1856
+add.period$ -- 87
+call.type$ -- 29
+change.case$ -- 193
 chr.to.int$ -- 0
-cite$ -- 24
-duplicate$ -- 268
-empty$ -- 620
-format.name$ -- 204
-if$ -- 1843
+cite$ -- 30
+duplicate$ -- 332
+empty$ -- 741
+format.name$ -- 218
+if$ -- 2145
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 24
-newline$ -- 123
-num.names$ -- 48
-pop$ -- 129
+int.to.str$ -- 29
+missing$ -- 30
+newline$ -- 148
+num.names$ -- 58
+pop$ -- 152
 preamble$ -- 1
-purify$ -- 148
+purify$ -- 165
 quote$ -- 0
-skip$ -- 179
+skip$ -- 227
 stack$ -- 0
-substring$ -- 610
-swap$ -- 29
-text.length$ -- 1
+substring$ -- 702
+swap$ -- 43
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 96
-warning$ -- 0
-while$ -- 87
-width$ -- 26
-write$ -- 265
+type$ -- 114
+warning$ -- 1
+while$ -- 103
+width$ -- 31
+write$ -- 317
 (There were 2 error messages)

@@ -32,6 +32,19 @@ Greg~W Clark, Sharon~H Ackerman, Elisabeth~R Tillier, and Domenico~L Gatti.
   covariation in multiple sequence alignments.
 \newblock {\em BMC bioinformatics}, 15(1):157, 2014.
 
+\bibitem{darwin1859origin}
+Charles Darwin.
+\newblock On the origin of species by means of natural selection, or.
+\newblock {\em The Preservation of Favoured Races in the Struggle for Life,
+  London/Die Entstehung der Arten durch nat{\"u}rliche Zuchtwahl, Leipzig oJ},
+  1859.
+
+\bibitem{darwin1877various}
+Charles Darwin.
+\newblock {\em On the various contrivances by which British and foreign orchids
+  are fertilised by insects}.
+\newblock 1877.
+
 \bibitem{de2013emerging}
 David de~Juan, Florencio Pazos, and Alfonso Valencia.
 \newblock Emerging methods in protein co-evolution.
@@ -43,17 +56,34 @@ Russell~J Dickson, Lindi~M Wahl, Andrew~D Fernandes, and Gregory~B Gloor.
   using intra-molecular protein covariation.
 \newblock {\em PloS one}, 5(6):e11082, 2010.
 
+\bibitem{dobzhansky1950genetics}
+Theodosius Dobzhansky.
+\newblock Genetics of natural populations. xix. origin of heterosis through
+  natural selection in populations of drosophila pseudoobscura.
+\newblock {\em Genetics}, 35(3):288, 1950.
+
 \bibitem{dunn2008mutual}
 Stanley~D Dunn, Lindi~M Wahl, and Gregory~B Gloor.
 \newblock Mutual information without the influence of phylogeny or entropy
   dramatically improves residue contact prediction.
 \newblock {\em Bioinformatics}, 24(3):333--340, 2008.
 
+\bibitem{ehrlich1964butterflies}
+Paul~R Ehrlich and Peter~H Raven.
+\newblock Butterflies and plants: a study in coevolution.
+\newblock {\em Evolution}, pages 586--608, 1964.
+
 \bibitem{fares2006novel}
 Mario~A Fares and Simon~AA Travers.
 \newblock A novel method for detecting intramolecular coevolution: adding a
   further dimension to selective constraints analyses.
 \newblock {\em Genetics}, 173(1):9--23, 2006.
+
+\bibitem{fitch1970improved}
+Walter~M Fitch and Etan Markowitz.
+\newblock An improved method for determining codon variability in a gene and
+  its application to the rate of fixation of mutations in evolution.
+\newblock {\em Biochemical genetics}, 4(5):579--593, 1970.
 
 \bibitem{gobel1994correlated}
 Ulrike G{\"o}bel, Chris Sander, Reinhard Schneider, and Alfonso Valencia.

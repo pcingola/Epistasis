@@ -34,6 +34,7 @@ Extending these statistical methods to correlated mutations between pairs of pro
 
 Co‐evolution of interacting species, such as symbionts-hosts, predators-prey, and parasites-hosts, is assumed to be manifested by similarities in the phylogenetic trees \cite{de2013emerging}.
 This approach has been extended to protein co‐evolution assumed to be caused by physical interactions and approaches based on protein tree similarity can identify interaction partners, such as ligand-receptor pairs \cite{de2013emerging}.
+Proteins and their interaction partners coevolve so that divergent changes in one are complemented at the interface by their interaction partner  \cite{goh2000co}.
 
 Protein structure prediction from amino acid sequence is one of the ultimate goals in computational biology \cite{burger2010disentangling}, despite significant efforts the general problem of de novo three-dimensional structure prediction has remained one of the most challenging problems in computational biology \cite{marks2012protein}.
 Unfortunately, de-novo proptein structure prediction does not scale since the conformational space grows exponentially with the protein length.
@@ -42,10 +43,6 @@ Information of coevolutionary couplings between residues is often used to comput
 It has been observed that using information about a protein residue contacts, it is possible to elucidate the fold of the protein \cite{jones2012psicov}
 Several researchers demonstrated that using co-evolutionary information from multiple sequence alignments greatly helps to deduce which amino acid pairs are close (or in contact) in the three-dimensional structure thus allowing to calculate protein fold with a reasonable accuracy \cite{marks2012protein}.
 The underlying idea is that contact information constrains the fold thus reducing the search space.
-
-%==================================================================================================
-% REWRITE
-%==================================================================================================
 
 %Distinct combinations of alleles in coevolving genes interact differently, conferring varying degrees of fitness. If this fitness differential is adequately large, the resulting selection for allele matching could maintain allelic association, even between physically unlinked loci. \cite{rohlfs2010detecting}
 %Coevolving genes are expected to undergo compensatory mutations to maintain their interaction. \cite{rohlfs2010detecting}
@@ -94,43 +91,72 @@ The underlying idea is that contact information constrains the fold thus reducin
 %Turning this observation around, pairs of residues seen to coevolve in tandem and thus preserving their relative physiochemical properties, are likely candidates to form contacts.  \cite{jones2012psicov}
 
 \subsection{Co-evolution examples}
-HLA and KIR are well established as interacting immune-response loci under intense diversifying selection. Although these genes are on different chromosomes, their allele frequencies are significantly correlated within human populations, as one would expect under intense selection for allele matching.15 \cite{rohlfs2010detecting}
 
-Potential co‐evolution between functionally related pro‐ tein families was initially observed in sporadic cases. For example, remarkable similarity was detected between the phylogenetic trees of ligands (such as insulins and interleukins) and their receptors; this co‐evolution was proposed to be required for the maintenance of their specific interactions2 \cite{de2013emerging}
+In the absence of a clear positive control, identifying gene pairs that is certainly co-evolving is a difficult task \cite{rohlfs2010detecting}.
+Here we mentions some accepted examples of co-evolution in humans:
 
-Coevolution analysis and functional data for heat-shock proteins, Hsp90 and GroEL, highlight that almost all detected coevolving sites are functionally or structurally important. \cite{fares2006novel}
+\begin{itemize}
 
-In this paper, we explore the ramifications of coevolution between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19  \cite{rohlfs2010detecting}
-Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excellent candidates for coevolution-induced allelic association \cite{rohlfs2010detecting}
-WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth. \cite{rohlfs2010detecting}
-General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35.. \cite{rohlfs2010detecting}
-To address this possibility, we use a standard contingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom: \cite{rohlfs2010detecting}
-The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts \cite{rohlfs2010detecting}
-To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests.  \cite{rohlfs2010detecting}
-Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus.  \cite{rohlfs2010detecting}
+\item HLA and KIR are two genes located in different chromosomes are a well established interacting immune-response loci their allele frequencies are highly correlated in human populations as one expects under intense allele matching selection \cite{rohlfs2010detecting:REF}.
 
-CANCER: Helicobacter pylori is the principal cause of gastric cancer, the second leading cause of cancer mortality worldwide. However, H. pylori prevalence generally does not predict cancer incidence.			 \cite{kodaman2014human}
-DATA: To determine whether coevolution between host and pathogen influences disease risk, we examined the association between the severity of gastric lesions and patterns of genomic variation in matched human and H. pylori samples. Patients were recruited from two geographically distinct Colombian populations with significantly different incidences of gastric cancer, but virtually identical prevalence of H. pylori infection.  \cite{kodaman2014human}
-All H. pylori isolates contained the genetic signatures of multiple ancestries, with an ancestral African cluster predominating in a low-risk, coastal population and a European cluster in a high-risk, mountain population. The human ancestry of the biopsied individuals also varied with geography, with mostly African ancestry in the coastal region (58\%), and mostly Amerindian ancestry in the mountain region (67\%).  \cite{kodaman2014human}
-The interaction between the host and pathogen ancestries completely accounted for the difference in the severity of gastric lesions in the two regions of Colombia. In particular, African H. pylori ancestry was relatively benign in humans of African ancestry but was deleterious in individuals with substantial Amerindian ancestry. \cite{kodaman2014human}
-Thus, coevolution likely modulated disease risk, and the disruption of coevolved human and H. pylori genomes can explain the high incidence of gastric disease in the mountain population. \cite{kodaman2014human}
+\item A remarkable phylogenetic trees similarity was observed between ligands (such as insulins and interleukins) and their corresponding receptors.
+This co‐evolution is proposed to be required for maintenaning their specific interactions \cite{de2013emerging:REF}.
 
-The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control, \cite{rohlfs2010detecting}
+\item An alternative method for ligands-receptors co-evolution is based on the N-terminal and C-terminal phosphoglycerate kinase (PGK) which are covalently linked and form an active site at their interface, therefore, they must are inferred to have co-evolved to preserve enzyme function. \cite{goh2000co}.
+Researchers found that chemokines family of protein ligands and their G-protein coupled receptors have coevolved so that each subgroup of chemokine ligands has a matching subgroup of chemokine receptors. \cite{goh2000co}
 
-The divergent evolution of proteins in cellular signaling pathways requires ligands and their receptors to co-evolve, creating new pathways when a new receptor is activated by a new ligand. \cite{goh2000co}
-We have used phosphoglycerate kinase (PGK), an enzyme that forms its active site between its two domains, to develop a standard for measuring the co-evolution of interacting proteins. \cite{goh2000co}
-The N-terminal and C-terminal domains of PGK form the active site at their interface and are covalently linked. Therefore, they must have co-evolved to preserve enzyme function. \cite{goh2000co}
-The analysis is extended to ligands and their receptors, using the chemokines as a model.  \cite{goh2000co}
-The chemokine family of protein ligands and their G-protein coupled receptors have coevolved so that each subgroup of chemokine ligands has a matching subgroup of chemokine receptors. \cite{goh2000co}
-Protein-protein binding is a subset of these interactions which is of primary importance in metabolic and signaling pathways. \cite{goh2000co}
-Proteins and their interaction partners must coevolve so that any divergent changes in one partner's binding surface are complemented at the interface by their interaction partner (Atwell et al., 1997; Jespers et al., 1999; Moyle et al., 1994; Pazos et al., 1997). \cite{goh2000co}
+\item An analysis of Hsp90 and GroEL are heat-shock proteins highlighted sites are functionally or structurally important in almost all cases where co-evolution was detected \cite{fares2006novel}.
+GroESL is involved in the folding of a wide variety of other proteins with the folding activity mediated by the co-chaperonin GroES  \cite{ruiz2013coevolution}.
+It was recently shown that different overlapping sets of amino acids co-evolve within GroEL and GroES \cite{ruiz2013coevolution}.
 
-GroESL is a heat-shock protein ubiquitous in bacteria and eukaryotic organelles. This evolutionarily conserved protein is involved in the folding of a wide variety of other proteins in the cytosol, being essential to the cell.  \cite{ruiz2013coevolution}
-The folding activity proceeds through strong conformational changes mediated by the co-chaperonin GroES and ATP: \cite{ruiz2013coevolution}
-We hypothesize that different overlapping sets of amino acids coevolve within GroEL, GroES and between both these proteins \cite{ruiz2013coevolution}
-METHOD: CAPS \cite{ruiz2013coevolution}
+\tiem Putative interaction in genes mediating sperm-ZP binding in humans (ZP3 and ZP19) mediating gamete recognition are polymorphic among humans and located on different chromosomes was observed \cite{rohlfs2010detecting}
+
+\item Helicobacter pylori is the main cause of gastric cancer. Host-pathogen co-evoutionary interaction was completely accounted most of the difference in the severity of gastric lesions in the populations analysed. For instance African H. pylori ancestry was relatively benign in population of African ancestry but was deleterious in individuals with substantial Amerindian ancestry \cite{kodaman2014human}, in an example of co-evolution modulating disease risk \cite{kodaman2014human}.
 
 
+\end{itemize}
+
+
+%==================================================================================================
+% REWRITE
+%==================================================================================================
+
+%HLA and KIR are well established as interacting immune-response loci under intense diversifying selection. 
+%Although these genes are on different chromosomes, their allele frequencies are significantly correlated within human populations, as one would expect under intense selection for allele matching.15 \cite{rohlfs2010detecting}
+%
+%Potential co‐evolution between functionally related pro‐ tein families was initially observed in sporadic cases. For example, remarkable similarity was detected between the phylogenetic trees of ligands (such as insulins and interleukins) and their receptors; this co‐evolution was proposed to be required for the maintenance of their specific interactions2 \cite{de2013emerging}
+%
+%Coevolution analysis and functional data for heat-shock proteins, Hsp90 and GroEL, highlight that almost all detected coevolving sites are functionally or structurally important. \cite{fares2006novel}
+
+%In this paper, we explore the ramifications of coevolution between the genes mediating sperm-ZP binding in humans. Specifically, the ZP-located protein ZP3 (MIM 182889) has been shown to mediate sperm binding to the ZP19  \cite{rohlfs2010detecting}
+%Because ZP3 and ZP3R are putative interactors mediating gamete recognition, are polymorphic among humans, and are located on different chromosomes, they are excellent candidates for coevolution-induced allelic association \cite{rohlfs2010detecting}
+%WTCCC, Affymetrix 500K SNP genotyping platform for 1504 individuals in the 1958 Birth. \cite{rohlfs2010detecting}
+%General allelic association between a pair of SNPs is quantified by CLD. An estimate of CLD has been previously given35.. \cite{rohlfs2010detecting}
+%To address this possibility, we use a standard contingency table for independence between the two genotypes (Table 1), resulting in the chi-square distributed test statistic with four degrees of freedom: \cite{rohlfs2010detecting}
+%The CLD and GA test statistics measure allelic association, but they are also dependent on marginal one-locus genotype counts \cite{rohlfs2010detecting}
+%To control for the one-locus genotype counts, X12 and X42 are used as test statistics in permutation tests.  \cite{rohlfs2010detecting}
+%Permutation p values approximate exact p values, which are the probabilities of an allelic association at least as strong as that observed, given the marginal genotypes at each locus.  \cite{rohlfs2010detecting}
+
+%CANCER: Helicobacter pylori is the principal cause of gastric cancer, the second leading cause of cancer mortality worldwide. However, H. pylori prevalence generally does not predict cancer incidence.			 \cite{kodaman2014human}
+%DATA: To determine whether coevolution between host and pathogen influences disease risk, we examined the association between the severity of gastric lesions and patterns of genomic variation in matched human and H. pylori samples. Patients were recruited from two geographically distinct Colombian populations with significantly different incidences of gastric cancer, but virtually identical prevalence of H. pylori infection.  \cite{kodaman2014human}
+%All H. pylori isolates contained the genetic signatures of multiple ancestries, with an ancestral African cluster predominating in a low-risk, coastal population and a European cluster in a high-risk, mountain population. The human ancestry of the biopsied individuals also varied with geography, with mostly African ancestry in the coastal region (58\%), and mostly Amerindian ancestry in the mountain region (67\%).  \cite{kodaman2014human}
+%The interaction between the host and pathogen ancestries completely accounted for the difference in the severity of gastric lesions in the two regions of Colombia. In particular, African H. pylori ancestry was relatively benign in humans of African ancestry but was deleterious in individuals with substantial Amerindian ancestry. \cite{kodaman2014human}
+%Thus, coevolution likely modulated disease risk, and the disruption of coevolved human and H. pylori genomes can explain the high incidence of gastric disease in the mountain population. \cite{kodaman2014human}
+
+%The field has yet to identify a gene pair that is certainly coevolving in which both genes are polymorphic. In the absence of a clear positive control, \cite{rohlfs2010detecting}
+
+%The divergent evolution of proteins in cellular signaling pathways requires ligands and their receptors to co-evolve, creating new pathways when a new receptor is activated by a new ligand. \cite{goh2000co}
+%We have used phosphoglycerate kinase (PGK), an enzyme that forms its active site between its two domains, to develop a standard for measuring the co-evolution of interacting proteins. \cite{goh2000co}
+%The N-terminal and C-terminal domains of PGK form the active site at their interface and are covalently linked. Therefore, they must have co-evolved to preserve enzyme function. \cite{goh2000co}
+%The analysis is extended to ligands and their receptors, using the chemokines as a model.  \cite{goh2000co}
+%The chemokine family of protein ligands and their G-protein coupled receptors have coevolved so that each subgroup of chemokine ligands has a matching subgroup of chemokine receptors. \cite{goh2000co}
+%Protein-protein binding is a subset of these interactions which is of primary importance in metabolic and signaling pathways. \cite{goh2000co}
+%Proteins and their interaction partners must coevolve so that any divergent changes in one partner's binding surface are complemented at the interface by their interaction partner (Atwell et al., 1997; Jespers et al., 1999; Moyle et al., 1994; Pazos et al., 1997). \cite{goh2000co}
+
+%GroESL is a heat-shock protein ubiquitous in bacteria and eukaryotic organelles. This evolutionarily conserved protein is involved in the folding of a wide variety of other proteins in the cytosol, being essential to the cell.  \cite{ruiz2013coevolution}
+%The folding activity proceeds through strong conformational changes mediated by the co-chaperonin GroES and ATP: \cite{ruiz2013coevolution}
+%We hypothesize that different overlapping sets of amino acids coevolve within GroEL, GroES and between both these proteins \cite{ruiz2013coevolution}
+%METHOD: CAPS \cite{ruiz2013coevolution}
 
 Genome-wide scans for signals of natural selection in human populations have identified a large number of candidate loci that underlie local adaptations. This is surprising given the relatively short evolutionary time since the divergence of the human population. Approximately 50,000-100,000 years ago, the anatomically modern human migrated from Africa to the rest of the globe \cite{qian2015recent}
  One hypothesis that has not been formally examined is whether and how the recent human evolution may have been shaped by coselection in the context of complex molecular interactome \cite{qian2015recent}
@@ -154,6 +180,7 @@ RESULTS \cite{qian2015recent}
 	 However, it differs from studies done on a macroevolutionary timescale, which have consistently reported that accelerated evolutionary rates tend to happen at the periphery of the protein interaction network, \cite{qian2015recent}
 
 
+\subsection{Co-Evolution and protein structure}
 
 % TOPIC: Computational protein design methods and coevolution!!!
 Amino acid covariation, where the identities of amino acids at different sequence positions are correlated, is a hallmark of naturally occurring proteins. \cite{ollikainen2013computational}
