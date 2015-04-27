@@ -186,10 +186,6 @@ A study \cite{ollikainen2013computational} using computational protein design to
 Evolutionary selective pressures on funstion and structure shaped the sequences to be close to optimal for their structures, natural protein sequences provide an excellent test for computational protein design methods \cite{ollikainen2013computational}.
 Computational protein design predicts energetically optimal sequences based on protein structure it is expected that highly covarying amino acids pairs in both designed and natural sequences have likely covaried to maintain protein structure \cite{ollikainen2013computational}.
 
-%==================================================================================================
-% REWRITE
-%==================================================================================================
-
 % TOPIC: Computational protein design methods and coevolution!!!
 %Amino acid covariation, where the identities of amino acids at different sequence positions are correlated, is a hallmark of naturally occurring proteins. \cite{ollikainen2013computational}
 %This covariation can arise from multiple factors, including selective pressures for maintaining protein structure, requirements imposed by a specific function, or from phylogenetic sampling bias. \cite{ollikainen2013computational}
@@ -207,8 +203,29 @@ Computational protein design predicts energetically optimal sequences based on p
 
 \subsection{Detecting co-evolution}
 
-SAMINAL PAPER (could not download): The maintenance of protein function and structure constrains the evolution of amino acid sequences. This fact can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions. Here we present a simple and general method to analyze correlations in mutational behavior between different positions in a multiple sequence alignment. We then use these correlations to predict contact maps for each of 11 protein families and compare the result with the contacts determined by crystallography. For the most strongly correlated residue pairs predicted to be in contact, the prediction accuracy ranges from 37 to 68\% and the improvement ratio relative to a random prediction from 1.4 to 5.1. Predicted contact maps can be used as input for the calculation of protein tertiary structure, either from sequence information alone or in combination with experimental information.  \cite{gobel1994correlated}
-METHOD (from another paper): Correlated mutations were calculated as described (GoÈbel et al., 1994). Each position in the alignment is coded by a distance matrix. This position-specific matrix contains the distances between all pairs of sequences at that position. Distances are defined by the scoring matrix of McLachlan (1971). The association between each pair of positions is calculated as the average of the correlation for each corresponding bin of the position-specific matrices. Positions with more than 10\% gaps or completely conserved were not included in the calculation. \cite{gobel1994correlated}
+One of the first attempts to statistical inference of co-evolving pairs was performed by Gobel et. al. in 1994.
+In their seminal paper they point out that the fact that \textit{``maintenance of protein function and structure constrains the evolution of amino acid sequences[...] can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions"} \cite{gobel1994correlated}. 
+They  analysed correlations between different positions in a multiple sequence alignment and used such correlations to predict contact maps.
+In their study of 11 protein families they compares the result with experimentally validated contact maps determined by crystallography, showing that prediction accuracy up to $68\%$.
+
+The promise of developing methods for predicting contacting pairs from sequence information alone was radically different and more applicable than traditional docking methods \cite{pazos1997correlated}
+This lead to the development of multiple methods for detecting correlated changes in multiple sequence alignments with the primary intention of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
+
+%----
+We indeed demonstrate here that the information about correlated sequence changes is sufficient to single out the right inter-domain docking solution amongst many wrong alternatives of two-domain proteins. \cite{pazos1997correlated}
+We propose here a new and completely different approach to the study and prediction of protein± protein interaction. Instead of considering the structural nature of the interactions, we try to detect the sequence traces that evolution may have left on the interacting sequences during the process of preserving the protein±protein interaction sites. \cite{pazos1997correlated}
+Therefore, our approach is not restricted to the cases in which the structures of the proteins to be docked are known and is applicable to any family of interacting proteins for which a large enough sequence family is available. \cite{pazos1997correlated}
+Over time, amino acid substitution may stabilise an interface that does not exist in the closed monomer ... stabilising mutations in these interfaces would be favoured in natural selection'' (Bennett et al., 1995); \cite{pazos1997correlated}
+We propose that it is possible to detect this signal by studying compensatory mutations. In order to do so, we have appropriately modified our previously published method for the calculation of correlated mutations in multiple-sequence alignments (GoÈbel et al., 1994; Pazos et al., 1997). \cite{pazos1997correlated}
+
+
+%==================================================================================================
+% REWRITE
+%==================================================================================================
+
+
+%SAMINAL PAPER (could not download): The maintenance of protein function and structure constrains the evolution of amino acid sequences. This fact can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions. Here we present a simple and general method to analyze correlations in mutational behavior between different positions in a multiple sequence alignment. We then use these correlations to predict contact maps for each of 11 protein families and compare the result with the contacts determined by crystallography. For the most strongly correlated residue pairs predicted to be in contact, the prediction accuracy ranges from 37 to 68\% and the improvement ratio relative to a random prediction from 1.4 to 5.1. Predicted contact maps can be used as input for the calculation of protein tertiary structure, either from sequence information alone or in combination with experimental information.  \cite{gobel1994correlated}
+%METHOD (from another paper): Correlated mutations were calculated as described (GoÈbel et al., 1994). Each position in the alignment is coded by a distance matrix. This position-specific matrix contains the distances between all pairs of sequences at that position. Distances are defined by the scoring matrix of McLachlan (1971). The association between each pair of positions is calculated as the average of the correlation for each corresponding bin of the position-specific matrices. Positions with more than 10\% gaps or completely conserved were not included in the calculation. \cite{gobel1994correlated}
 
 
 Here we apply a method for detecting correlated changes in multiple sequence alignments to a set of interacting protein domains and show that positions where changes occur in a correlated fashion in the two interacting molecules tend to be close to the protein±protein interfaces.  \cite{pazos1997correlated}
