@@ -2,65 +2,56 @@ This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/intro_epistasis.aux
+A level-1 auxiliary file: chapters/intro_coevolution.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
-Repeated entry---line 2192 of file mcgilletd.bib
- : @article{mani2008defining
+Repeated entry---line 2344 of file mcgilletd.bib
+ : @article{morcos2011direct
  :                          ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "tyler2009shadows:REF"
-Warning--I didn't find a database entry for "zuk2012mystery:REF22"
-Warning--I didn't find a database entry for "mani2008defining:REF"
-Warning--I didn't find a database entry for "zuk2012mystery:REF"
-Warning--I didn't find a database entry for "phillips2008epistasis:REF"
-Warning--I didn't find a database entry for "carlborg2004epistasis:REF"
-Warning--I didn't find a database entry for "culverhouse2002perspective:REF"
-Warning--I didn't find a database entry for "petkov2005evidence:REF"
-Warning--I didn't find a database entry for "petkov2005evidence:REF_FISHER"
-Warning--I didn't find a database entry for "REF"
-Warning--I didn't find a database entry for "REF-FISHER"
-Warning--I didn't find a database entry for "REF-NATURE"
-Warning--I didn't find a database entry for "koch2013long:REF"
+Repeated entry---line 2377 of file mcgilletd.bib
+ : @article{burger2010disentangling
+ :                                 ,
+I'm skipping whatever remains of this entry
 You've used 24 entries,
             2118 wiz_defined-function locations,
-            676 strings with 9456 characters,
-and the built_in function-call counts, 9765 in all, are:
-= -- 936
-> -- 604
+            655 strings with 9469 characters,
+and the built_in function-call counts, 9361 in all, are:
+= -- 893
+> -- 582
 < -- 1
-+ -- 242
-- -- 214
-* -- 864
-:= -- 1678
++ -- 230
+- -- 204
+* -- 814
+:= -- 1620
 add.period$ -- 72
 call.type$ -- 24
-change.case$ -- 176
+change.case$ -- 172
 chr.to.int$ -- 0
 cite$ -- 24
-duplicate$ -- 269
-empty$ -- 646
-format.name$ -- 214
-if$ -- 1918
+duplicate$ -- 268
+empty$ -- 620
+format.name$ -- 204
+if$ -- 1843
 int.to.chr$ -- 0
 int.to.str$ -- 24
 missing$ -- 24
 newline$ -- 123
 num.names$ -- 48
-pop$ -- 131
+pop$ -- 129
 preamble$ -- 1
-purify$ -- 152
+purify$ -- 148
 quote$ -- 0
-skip$ -- 178
+skip$ -- 179
 stack$ -- 0
-substring$ -- 693
+substring$ -- 610
 swap$ -- 29
 text.length$ -- 1
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 96
 warning$ -- 0
-while$ -- 91
+while$ -- 87
 width$ -- 26
-write$ -- 266
-(There was 1 error message)
+write$ -- 265
+(There were 2 error messages)

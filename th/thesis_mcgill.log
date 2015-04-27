@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  25 APR 2015 20:59
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  27 APR 2015 07:23
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -303,7 +303,7 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 LaTeX Warning: Unused global option(s):
     [letterpaper].
 
-(./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/intro_epistasis.aux))
+(./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/intro_coevolution.aux))
 \openout1 = `thesis_mcgill.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 74.
@@ -318,7 +318,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 74.
 LaTeX Font Info:    ... okay on input line 74.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 74.
 LaTeX Font Info:    ... okay on input line 74.
-
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 74.
 
@@ -409,197 +408,287 @@ LaTeX Warning: Reference `ch:bds' on page 2 undefined on input line 11.
 
 
 ]) [3]
-\openout2 = `chapters/intro_epistasis.aux'.
+\openout2 = `chapters/intro_coevolution.aux'.
 
- (./chapters/intro_epistasis.tex
-LaTeX Font Info:    Try loading font information for U+msa on input line 7.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 7.
-
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Overfull \hbox (14.80656pt too wide) in paragraph at lines 7--12
-[]\OT1/cmr/m/n/12 At the be-gin-ning of the $20[]$ cen-tury some de-vi-a-tions 
-form clas-si-cal Mendelian
- []
-
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 20.
-(/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
-File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
-)
-LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 20.
- [4
-
-
-] [5] [6]
-[7]
-
-LaTeX Warning: Citation `tyler2009shadows:REF' on page 8 undefined on input lin
-e 160.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF22' on page 8 undefined on input lin
-e 164.
-
-[8]
-
-LaTeX Warning: Citation `mani2008defining:REF' on page 9 undefined on input lin
-e 166.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
-167.
-
-
-Overfull \hbox (12.60548pt too wide) in paragraph at lines 169--172
-[]\OT1/cmr/m/n/12 In a study com-par-ing three Drosophila in-bred lines (Drosop
-hila melanogaster
- []
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
-t line 201.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
-t line 201.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
-t line 201.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
-t line 201.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
-204.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 9 undefined on inpu
-t line 205.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
-207.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
-208.
-
-[9]
-
-LaTeX Warning: Citation `carlborg2004epistasis:REF' on page 10 undefined on inp
-ut line 210.
-
-
-LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 10 undefined o
-n input line 213.
-
-
-LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 10 undefined o
-n input line 215.
-
-
-LaTeX Warning: Citation `tyler2009shadows:REF' on page 10 undefined on input li
-ne 217.
-
-[10]
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 11 undefined on inp
-ut line 235.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 11 undefined on inp
-ut line 236.
-
-
-LaTeX Warning: Citation `petkov2005evidence:REF' on page 11 undefined on input 
-line 237.
-
-
-LaTeX Warning: Citation `petkov2005evidence:REF_FISHER' on page 11 undefined on
- input line 240.
-
-[11]
-
-LaTeX Warning: Citation `REF' on page 12 undefined on input line 276.
-
-
-LaTeX Warning: Citation `REF-FISHER' on page 12 undefined on input line 276.
-
-
-LaTeX Warning: Citation `REF-NATURE' on page 12 undefined on input line 276.
-
-
-LaTeX Warning: Citation `koch2013long:REF' on page 12 undefined on input line 2
-79.
-
-
-LaTeX Warning: Citation `koch2013long:REF' on page 12 undefined on input line 2
-83.
-
-[12] [13] [14] [15]
-
-LaTeX Warning: Citation `REF' on page 16 undefined on input line 433.
-
-
-LaTeX Warning: Citation `REF' on page 16 undefined on input line 433.
-
-
-LaTeX Warning: Citation `REF' on page 16 undefined on input line 433.
-
-
-LaTeX Warning: Citation `REF' on page 16 undefined on input line 433.
-
-
-LaTeX Warning: Citation `REF' on page 16 undefined on input line 433.
-
-
-Overfull \hbox (2.8432pt too wide) in paragraph at lines 432--437
-\OT1/cmr/m/n/12 method [[]], re-stricted par-ti-tion-ing method [[]], multifact
-or-dimensionality
- []
-
-[16] [17] [18] [19]
-
-LaTeX Warning: Citation `REF' on page 20 undefined on input line 478.
-
-[20] [21]
-
-LaTeX Warning: Reference `ch:gwas' on page 22 undefined on input line 496.
-
-[22]
-
-LaTeX Warning: Reference `ch:gwas' on page 23 undefined on input line 624.
-
-) [23] (./thesis_mcgill.bbl
-Underfull \hbox (badness 2443) in paragraph at lines 4--8
-[]\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
-on of
- []
-
-[24
-
+ (./chapters/intro_coevolution.tex [4
 
 
 ]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
-Missing character: There is no î in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+ [5] [6] [7]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+ [8] [9] [10]
+[11] [12] [13] [14]
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ¬ in font cmr12!
+Missing character: There is no ± in font cmr12!
+Missing character: There is no ¬ in font cmr12!
+Missing character: There is no ± in font cmr12!
+Missing character: There is no ¬ in font cmr12!
+Missing character: There is no ± in font cmr12!
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no Ä in font cmr12!
+ [15] [16]
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no à in font cmr12!
+ [17] [18]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+ [19]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Å in font cmr12!
+Missing character: There is no Ñ in font cmr12!
+ [20] [21]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+ [22]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+ [23] [24] [25]
+[26]
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no ª in font cmr12!
+ [27]
+Missing character: There is no Ù in font cmr12!
+Missing character: There is no è in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no Ù in font cmr12!
+Missing character: There is no è in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no à in font cmr12!
+Missing character: There is no Ù in font cmr12!
+Missing character: There is no è in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no Ü in font cmr12!
+LaTeX Font Info:    Try loading font information for U+msa on input line 268.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 268.
 
-Underfull \hbox (badness 2142) in paragraph at lines 114--119
-\OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
- []
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [28] [29]
+[30] [31] [32]
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ä in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no û in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no û in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no √ in font cmr12!
+Missing character: There is no û in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no à in font cmr12!
+Missing character: There is no í in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no ± in font cmr12!
+Missing character: There is no Œ in font cmr12!
+Missing character: There is no ± in font cmr12!
+ [33] [34] [35]
+Missing character: There is no Ù in font cmr12!
+Missing character: There is no è in font cmr12!
+Missing character: There is no ∞ in font cmr12!
+Missing character: There is no © in font cmr12!
+ [36]
+Missing character: There is no Ã in font cmr12!
+Missing character: There is no ä in font cmr12!
+ [37] [38] [39] [40] [41] [42]) [43]
+(./thesis_mcgill.bbl [44
 
-[25] [26]) (./thesis_mcgill.aux (./chapters/intro.aux)
-(./chapters/intro_epistasis.aux))
+
+
+] [45] [46]) (./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/intro_coev
+olution.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -652,10 +741,9 @@ kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
 etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 chapters/intro.tex
-chapters/intro_epistasis.tex
+chapters/intro_coevolution.tex
     umsa.fd    2013/01/14 v3.01 AMS symbols A
     umsb.fd    2013/01/14 v3.01 AMS symbols B
-  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
 thesis_mcgill.bbl
  ***********
 
@@ -664,27 +752,25 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5800 strings out of 493315
- 85835 string characters out of 6137904
- 175468 words of memory out of 5000000
- 9135 multiletter control sequences out of 15000+600000
+ 5763 strings out of 493315
+ 85169 string characters out of 6137904
+ 183468 words of memory out of 5000000
+ 9101 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,7n,40p,1483b,289s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,6n,40p,1314b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (26 pages, 166948 bytes).
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local
+/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on thesis_mcgill.pdf (46 pages, 184009 bytes).
 PDF statistics:
- 128 PDF objects out of 1000 (max. 8388607)
- 89 compressed objects within 1 object stream
+ 186 PDF objects out of 1000 (max. 8388607)
+ 128 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
