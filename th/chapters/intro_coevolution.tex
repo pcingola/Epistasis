@@ -300,8 +300,7 @@ Finally the conditional mutual information is calculated using this Boltzmann mo
 The amount sequence data is a limiting factors when performing inference of Boltzmann distribution parameters, thus it is usually infeasible to use more than first order distributions \cite{lapedes2012using}.
 Another limitation is the phylogenetic relatedness of these sequences, which are not addressed in this algorithm and have the potential to increase accuracy \cite{lapedes2012using}.
 
-
-A similar approach is based on spin-glass physics uses generalized message-passing techniques to massively parallelize the algorithm implementation \cite{weigt2009identification}.
+A similar approach called  direct-coupling analysis (DCA) is based on spin-glass physics uses generalized message-passing techniques to massively parallelize the algorithm implementation \cite{weigt2009identification}.
 They manage to apply the method to a set consisting of over $2,500$ bacterial genes from a two-component signal transduction system.
 With global inference robustly identifying residue pairs proximal in space without between sensor kinase (SK) and response regulator (RR) proteins and for homo-interactions in RR proteins. \cite{weigt2009identification}
 As in \cite{lapedes2012using} an application of the maximum entropy principle yields the Boltzmann distribution which is used to estimate the second order interaction model.
@@ -313,6 +312,33 @@ Once all probability distributions are estimated, gradient descent is used to ad
 Finally, a quantity called direct information (DI) measures the part of the mutual information of a position pair induced by the direct coupling (intuitively similar to mutual information in a 2-variable model) \cite{weigt2009identification}
 Even after all optimizations and parallelizations, the method could not be applied to more than $60$ positions in the protein alignment simultaneously \cite{weigt2009identification}.
 
+
+The ability to disentangle direct and indirect correlations, as accomplished by the previously described methods such as DCA is computationally expensive and dificult to scale.
+DCA is shown to yield a large number of correctly predicted contacts, recapitulating the global structure of the contact map for the majority of the protein domains examined.  \cite{morcos2011direct}
+Furthermore, our analysis captures clear signals beyond intradomain residue contacts, arising, e.g., from alternative protein conformations, ligand-mediated residue couplings, and interdomain interactions in protein oligomers. \cite{morcos2011direct}
+Correlated substitution patterns between residues of a protein family have been exploited to reveal information on the structures of proteins (1-10).  \cite{morcos2011direct}
+However, such studies require a large number (e.g., the order of 1,000) of homologous yet variable protein sequences.  \cite{morcos2011direct}
+If two residues of a protein or a pair of interacting proteins form a contact, a destabilizing amino acid substitution at one position is expected to be compensated by a substitution of the other position over the evolutionary timescale, in order for the residue pair to maintain attractive interaction.  \cite{morcos2011direct}
+A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
+This problem was subsequently overcome by the direct-coupling analysis (DCA) (16, 17), which aims at disentangling direct from indirect correlations.  \cite{morcos2011direct}
+The top 10 residue pairs identified by DCA were all shown to be true contacts between the TCS proteins, and they were used to guide the accurate prediction (3-Å rmsd) of the interacting TCS protein complex (18, 19) \cite{morcos2011direct}
+Previously, a message-passing algorithm was used to implement DCA (16). This approach, here referred to as mpDCA, was rather costly computationally because it is based on a slowly converging iterative scheme. This cost makes it unfeasible to apply mpDCA to large-scale analysis across many protein families. \cite{morcos2011direct}
+Here we will introduce mfDCA, an algorithm based on the meanfield approximation of DCA. The mfDCA is $10^3$ to $10^4$ times faster than mpDCA \cite{morcos2011direct}
+Starting with a multiple-sequence alignment (MSA) of a large number of sequences of a given protein domain, extracted using Pfam's hidden Markov models (HMMs) (21, 22), the basic quantities in this context are the frequency count f i A for a single MSA column i, characterizing the relative frequency of finding amino acid A in this column, and the frequency count f ijA;B for pairs of MSA columns i and j, characterizing the frequency that amino acids A and B coappear in the same protein sequence in MSA columns i and j. Alignment gaps are considered as the 21st amino acid. Mathematical definitions of these counts are provided in Methods. \cite{morcos2011direct}
+The raw statistical correlation obtained above suffers from a sampling bias, resulting from phylogeny, multiple-strain sequencing, and a biased selection of sequenced species. The problem has been discussed extensively in the literature (10, 23-26). \cite{morcos2011direct}
+In this study, we implemented a simple sampling correction, by counting sequences with more than 80\% identity and reweighting them in the frequency counts.  \cite{morcos2011direct}
+A simple measure of correlation between these two columns is the mutual information (MI), defined by Eq. 3 in Methods. As we will show, the MI turns out to be an unreliable predictor of spatial proximity. \cite{morcos2011direct}
+Central to our approach is the disentanglement of direct and indirect correlations, which is attempted via DCA, \cite{morcos2011direct}
+This algorithm, termed mfDCA, is able to perform DCA for alignments of up to about 500 amino acids per row, as compared to 60-70 amino acids in the message-passing approach.  \cite{morcos2011direct}
+METHOD [mean field calculation] \cite{morcos2011direct}
+	To disentangle direct and indirect couplings, we aim at inferring a statistical model P(A1;...;AL) for entire protein sequences (A1 ;...;AL). \cite{morcos2011direct}
+	Besides this constraint, we aim at the most general, least-constrained model PðA1;:::;ALÞ. This model can be achieved by applying the maximum-entropy principle (45, 46), and it leads to an explicit mathematical form of PðA1;:::;ALÞ as a Boltzmann distribution with pairwise couplings eij ðA;BÞ and local biases \cite{morcos2011direct}
+	 The exponential of [the partition function] is expanded into a Taylor series. Keeping only the linear order of this expansion, we obtain the well-known mean-field equations \cite{morcos2011direct}
+	For later convenience, we also introduce the Hamiltonian [exponential of negative Hamiltonian is the partition function] \cite{morcos2011direct}
+	It is important to note that the partition function itself contains all necessary information on the marginals, in particular we have.... \cite{morcos2011direct}
+	The algorithmic approach is based on a systematic small-coupling expansion, i.e., on a Taylor expansion around zero coupling. This expansion was introduced in [12] by Plefka for disordered Ising models (Ising spinglasses, corresponding to binary variables with q = 2). \cite{morcos2011direct}
+	Furthermore we introduce the so-called Gibbs potential ... as the Legendre transform of the free energy F = − ln Z . \cite{morcos2011direct}
+	The first derivative of the Gibbs potential with respect to α equals thus the average of the coupling term in the Hamiltonian. At α = 0, this average can be done easily, since the joint distribution of all variables becomes factorized over the single sites [.......] we find the firstorder approximation of the Gibbs potential \cite{morcos2011direct}
 
 %----
 Direct coupling analysis (DCA) and protein sparse inverse covariance (PSICOV)39 establish a global statistical model of the MSA in terms of position‐specific variability and inter‐position coupling \cite{de2013emerging}.
@@ -408,33 +434,33 @@ METHOD: \cite{burger2010disentangling}
 
 
 
-MEAN FIELD
-Crucial to this inference is the ability to disentangle direct and indirect correlations, as accomplished by the recently introduced direct-coupling analysis (DCA). Here we develop a computationally efficient implementation of DCA, which allows us to evaluate the accuracy of contact prediction by DCA for a large number of protein domains, based purely on sequence information. \cite{morcos2011direct}
-DCA is shown to yield a large number of correctly predicted contacts, recapitulating the global structure of the contact map for the majority of the protein domains examined.  \cite{morcos2011direct}
-Furthermore, our analysis captures clear signals beyond intradomain residue contacts, arising, e.g., from alternative protein conformations, ligand-mediated residue couplings, and interdomain interactions in protein oligomers. \cite{morcos2011direct}
-Correlated substitution patterns between residues of a protein family have been exploited to reveal information on the structures of proteins (1-10).  \cite{morcos2011direct}
-However, such studies require a large number (e.g., the order of 1,000) of homologous yet variable protein sequences.  \cite{morcos2011direct}
-If two residues of a protein or a pair of interacting proteins form a contact, a destabilizing amino acid substitution at one position is expected to be compensated by a substitution of the other position over the evolutionary timescale, in order for the residue pair to maintain attractive interaction.  \cite{morcos2011direct}
-A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
-This problem was subsequently overcome by the direct-coupling analysis (DCA) (16, 17), which aims at disentangling direct from indirect correlations.  \cite{morcos2011direct}
-The top 10 residue pairs identified by DCA were all shown to be true contacts between the TCS proteins, and they were used to guide the accurate prediction (3-Å rmsd) of the interacting TCS protein complex (18, 19) \cite{morcos2011direct}
-Previously, a message-passing algorithm was used to implement DCA (16). This approach, here referred to as mpDCA, was rather costly computationally because it is based on a slowly converging iterative scheme. This cost makes it unfeasible to apply mpDCA to large-scale analysis across many protein families. \cite{morcos2011direct}
-Here we will introduce mfDCA, an algorithm based on the meanfield approximation of DCA. The mfDCA is $10^3$ to $10^4$ times faster than mpDCA \cite{morcos2011direct}
-Starting with a multiple-sequence alignment (MSA) of a large number of sequences of a given protein domain, extracted using Pfam's hidden Markov models (HMMs) (21, 22), the basic quantities in this context are the frequency count f i A for a single MSA column i, characterizing the relative frequency of finding amino acid A in this column, and the frequency count f ijA;B for pairs of MSA columns i and j, characterizing the frequency that amino acids A and B coappear in the same protein sequence in MSA columns i and j. Alignment gaps are considered as the 21st amino acid. Mathematical definitions of these counts are provided in Methods. \cite{morcos2011direct}
-The raw statistical correlation obtained above suffers from a sampling bias, resulting from phylogeny, multiple-strain sequencing, and a biased selection of sequenced species. The problem has been discussed extensively in the literature (10, 23-26). \cite{morcos2011direct}
-In this study, we implemented a simple sampling correction, by counting sequences with more than 80\% identity and reweighting them in the frequency counts.  \cite{morcos2011direct}
-A simple measure of correlation between these two columns is the mutual information (MI), defined by Eq. 3 in Methods. As we will show, the MI turns out to be an unreliable predictor of spatial proximity. \cite{morcos2011direct}
-Central to our approach is the disentanglement of direct and indirect correlations, which is attempted via DCA, \cite{morcos2011direct}
-This algorithm, termed mfDCA, is able to perform DCA for alignments of up to about 500 amino acids per row, as compared to 60-70 amino acids in the message-passing approach.  \cite{morcos2011direct}
-METHOD [mean field calculation] \cite{morcos2011direct}
-	To disentangle direct and indirect couplings, we aim at inferring a statistical model P(A1;...;AL) for entire protein sequences (A1 ;...;AL). \cite{morcos2011direct}
-	Besides this constraint, we aim at the most general, least-constrained model PðA1;:::;ALÞ. This model can be achieved by applying the maximum-entropy principle (45, 46), and it leads to an explicit mathematical form of PðA1;:::;ALÞ as a Boltzmann distribution with pairwise couplings eij ðA;BÞ and local biases \cite{morcos2011direct}
-	 The exponential of [the partition function] is expanded into a Taylor series. Keeping only the linear order of this expansion, we obtain the well-known mean-field equations \cite{morcos2011direct}
-	For later convenience, we also introduce the Hamiltonian [exponential of negative Hamiltonian is the partition function] \cite{morcos2011direct}
-	It is important to note that the partition function itself contains all necessary information on the marginals, in particular we have.... \cite{morcos2011direct}
-	The algorithmic approach is based on a systematic small-coupling expansion, i.e., on a Taylor expansion around zero coupling. This expansion was introduced in [12] by Plefka for disordered Ising models (Ising spinglasses, corresponding to binary variables with q = 2). \cite{morcos2011direct}
-	Furthermore we introduce the so-called Gibbs potential ... as the Legendre transform of the free energy F = − ln Z . \cite{morcos2011direct}
-	The first derivative of the Gibbs potential with respect to α equals thus the average of the coupling term in the Hamiltonian. At α = 0, this average can be done easily, since the joint distribution of all variables becomes factorized over the single sites [.......] we find the firstorder approximation of the Gibbs potential \cite{morcos2011direct}
+%MEAN FIELD
+%Crucial to this inference is the ability to disentangle direct and indirect correlations, as accomplished by the recently introduced direct-coupling analysis (DCA). Here we develop a computationally efficient implementation of DCA, which allows us to evaluate the accuracy of contact prediction by DCA for a large number of protein domains, based purely on sequence information. \cite{morcos2011direct}
+%DCA is shown to yield a large number of correctly predicted contacts, recapitulating the global structure of the contact map for the majority of the protein domains examined.  \cite{morcos2011direct}
+%Furthermore, our analysis captures clear signals beyond intradomain residue contacts, arising, e.g., from alternative protein conformations, ligand-mediated residue couplings, and interdomain interactions in protein oligomers. \cite{morcos2011direct}
+%Correlated substitution patterns between residues of a protein family have been exploited to reveal information on the structures of proteins (1-10).  \cite{morcos2011direct}
+%However, such studies require a large number (e.g., the order of 1,000) of homologous yet variable protein sequences.  \cite{morcos2011direct}
+%If two residues of a protein or a pair of interacting proteins form a contact, a destabilizing amino acid substitution at one position is expected to be compensated by a substitution of the other position over the evolutionary timescale, in order for the residue pair to maintain attractive interaction.  \cite{morcos2011direct}
+%A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
+%This problem was subsequently overcome by the direct-coupling analysis (DCA) (16, 17), which aims at disentangling direct from indirect correlations.  \cite{morcos2011direct}
+%The top 10 residue pairs identified by DCA were all shown to be true contacts between the TCS proteins, and they were used to guide the accurate prediction (3-Å rmsd) of the interacting TCS protein complex (18, 19) \cite{morcos2011direct}
+%Previously, a message-passing algorithm was used to implement DCA (16). This approach, here referred to as mpDCA, was rather costly computationally because it is based on a slowly converging iterative scheme. This cost makes it unfeasible to apply mpDCA to large-scale analysis across many protein families. \cite{morcos2011direct}
+%Here we will introduce mfDCA, an algorithm based on the meanfield approximation of DCA. The mfDCA is $10^3$ to $10^4$ times faster than mpDCA \cite{morcos2011direct}
+%Starting with a multiple-sequence alignment (MSA) of a large number of sequences of a given protein domain, extracted using Pfam's hidden Markov models (HMMs) (21, 22), the basic quantities in this context are the frequency count f i A for a single MSA column i, characterizing the relative frequency of finding amino acid A in this column, and the frequency count f ijA;B for pairs of MSA columns i and j, characterizing the frequency that amino acids A and B coappear in the same protein sequence in MSA columns i and j. Alignment gaps are considered as the 21st amino acid. Mathematical definitions of these counts are provided in Methods. \cite{morcos2011direct}
+%The raw statistical correlation obtained above suffers from a sampling bias, resulting from phylogeny, multiple-strain sequencing, and a biased selection of sequenced species. The problem has been discussed extensively in the literature (10, 23-26). \cite{morcos2011direct}
+%In this study, we implemented a simple sampling correction, by counting sequences with more than 80\% identity and reweighting them in the frequency counts.  \cite{morcos2011direct}
+%A simple measure of correlation between these two columns is the mutual information (MI), defined by Eq. 3 in Methods. As we will show, the MI turns out to be an unreliable predictor of spatial proximity. \cite{morcos2011direct}
+%Central to our approach is the disentanglement of direct and indirect correlations, which is attempted via DCA, \cite{morcos2011direct}
+%This algorithm, termed mfDCA, is able to perform DCA for alignments of up to about 500 amino acids per row, as compared to 60-70 amino acids in the message-passing approach.  \cite{morcos2011direct}
+%METHOD [mean field calculation] \cite{morcos2011direct}
+%	To disentangle direct and indirect couplings, we aim at inferring a statistical model P(A1;...;AL) for entire protein sequences (A1 ;...;AL). \cite{morcos2011direct}
+%	Besides this constraint, we aim at the most general, least-constrained model PðA1;:::;ALÞ. This model can be achieved by applying the maximum-entropy principle (45, 46), and it leads to an explicit mathematical form of PðA1;:::;ALÞ as a Boltzmann distribution with pairwise couplings eij ðA;BÞ and local biases \cite{morcos2011direct}
+%	 The exponential of [the partition function] is expanded into a Taylor series. Keeping only the linear order of this expansion, we obtain the well-known mean-field equations \cite{morcos2011direct}
+%	For later convenience, we also introduce the Hamiltonian [exponential of negative Hamiltonian is the partition function] \cite{morcos2011direct}
+%	It is important to note that the partition function itself contains all necessary information on the marginals, in particular we have.... \cite{morcos2011direct}
+%	The algorithmic approach is based on a systematic small-coupling expansion, i.e., on a Taylor expansion around zero coupling. This expansion was introduced in [12] by Plefka for disordered Ising models (Ising spinglasses, corresponding to binary variables with q = 2). \cite{morcos2011direct}
+%	Furthermore we introduce the so-called Gibbs potential ... as the Legendre transform of the free energy F = − ln Z . \cite{morcos2011direct}
+%	The first derivative of the Gibbs potential with respect to α equals thus the average of the coupling term in the Hamiltonian. At α = 0, this average can be done easily, since the joint distribution of all variables becomes factorized over the single sites [.......] we find the firstorder approximation of the Gibbs potential \cite{morcos2011direct}
 
 
 The starting point of our method is to consider an alignment with m columns and n rows, \cite{jones2012psicov}
