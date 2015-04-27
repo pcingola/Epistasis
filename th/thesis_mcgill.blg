@@ -3,6 +3,14 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
 A level-1 auxiliary file: chapters/intro_coevolution.aux
+White space in argument---line 19 of file chapters/intro_coevolution.aux
+ : \citation{fares2006novel:REF(Pritchard
+ :                                        and Dufton 2000)}
+I'm skipping whatever remains of this command
+White space in argument---line 70 of file chapters/intro_coevolution.aux
+ : \citation{fares2006novel:REF
+ :                              Gloor et al. (2005)}
+I'm skipping whatever remains of this command
 The style file: plain.bst
 Database file #1: mcgilletd.bib
 Repeated entry---line 2344 of file mcgilletd.bib
@@ -13,10 +21,13 @@ Repeated entry---line 2377 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
+Warning--I didn't find a database entry for "rohlfs2010detecting:REF"
+Warning--I didn't find a database entry for "de2013emerging:REF"
+Warning--I didn't find a database entry for "REF"
 Warning--empty publisher in darwin1877various
 You've used 29 entries,
             2118 wiz_defined-function locations,
-            684 strings with 10366 characters,
+            690 strings with 10454 characters,
 and the built_in function-call counts, 10788 in all, are:
 = -- 1037
 > -- 629
@@ -55,4 +66,4 @@ warning$ -- 1
 while$ -- 103
 width$ -- 31
 write$ -- 317
-(There were 2 error messages)
+(There were 4 error messages)
