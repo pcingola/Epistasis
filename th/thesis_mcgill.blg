@@ -3,13 +3,29 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
 A level-1 auxiliary file: chapters/intro_coevolution.aux
-White space in argument---line 19 of file chapters/intro_coevolution.aux
+White space in argument---line 18 of file chapters/intro_coevolution.aux
  : \citation{fares2006novel:REF(Pritchard
  :                                        and Dufton 2000)}
 I'm skipping whatever remains of this command
-White space in argument---line 70 of file chapters/intro_coevolution.aux
+White space in argument---line 74 of file chapters/intro_coevolution.aux
  : \citation{fares2006novel:REF
  :                              Gloor et al. (2005)}
+I'm skipping whatever remains of this command
+White space in argument---line 140 of file chapters/intro_coevolution.aux
+ : \citation{dunn2008mutual:REF(Martin
+ :                                     et al.}
+I'm skipping whatever remains of this command
+White space in argument---line 142 of file chapters/intro_coevolution.aux
+ : \citation{dunn2008mutual:REF
+ :                              (Wollenberg and Atchley}
+I'm skipping whatever remains of this command
+White space in argument---line 144 of file chapters/intro_coevolution.aux
+ : \citation{(Martin
+ :                   et al.}
+I'm skipping whatever remains of this command
+White space in argument---line 145 of file chapters/intro_coevolution.aux
+ : \citation{2005;
+ :                 Tillier and Lui}
 I'm skipping whatever remains of this command
 The style file: plain.bst
 Database file #1: mcgilletd.bib
@@ -24,47 +40,51 @@ I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "rohlfs2010detecting:REF"
 Warning--I didn't find a database entry for "de2013emerging:REF"
 Warning--I didn't find a database entry for "REF"
+Warning--I didn't find a database entry for "ramani2003exploiting:REF"
 Warning--I didn't find a database entry for "marks2012protein:REF"
+Warning--I didn't find a database entry for "2005)"
+Warning--I didn't find a database entry for "2000)"
+Warning--I didn't find a database entry for "2003)"
 Warning--empty publisher in darwin1877various
-You've used 29 entries,
+You've used 28 entries,
             2118 wiz_defined-function locations,
-            692 strings with 10494 characters,
-and the built_in function-call counts, 10788 in all, are:
-= -- 1037
-> -- 629
+            693 strings with 10311 characters,
+and the built_in function-call counts, 10442 in all, are:
+= -- 1006
+> -- 606
 < -- 2
-+ -- 250
-- -- 218
-* -- 898
-:= -- 1856
-add.period$ -- 87
-call.type$ -- 29
-change.case$ -- 193
++ -- 241
+- -- 210
+* -- 868
+:= -- 1794
+add.period$ -- 84
+call.type$ -- 28
+change.case$ -- 186
 chr.to.int$ -- 0
-cite$ -- 30
-duplicate$ -- 332
-empty$ -- 741
-format.name$ -- 218
-if$ -- 2145
+cite$ -- 29
+duplicate$ -- 321
+empty$ -- 718
+format.name$ -- 210
+if$ -- 2077
 int.to.chr$ -- 0
-int.to.str$ -- 29
-missing$ -- 30
-newline$ -- 148
-num.names$ -- 58
-pop$ -- 152
+int.to.str$ -- 28
+missing$ -- 29
+newline$ -- 143
+num.names$ -- 56
+pop$ -- 147
 preamble$ -- 1
-purify$ -- 165
+purify$ -- 159
 quote$ -- 0
-skip$ -- 227
+skip$ -- 220
 stack$ -- 0
-substring$ -- 702
-swap$ -- 43
+substring$ -- 688
+swap$ -- 42
 text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 114
+type$ -- 110
 warning$ -- 1
-while$ -- 103
-width$ -- 31
-write$ -- 317
-(There were 4 error messages)
+while$ -- 100
+width$ -- 30
+write$ -- 306
+(There were 8 error messages)

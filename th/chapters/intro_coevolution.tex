@@ -80,8 +80,7 @@ Proteins and their interaction partners coevolve so that divergent changes in on
 %The underlying rationale rests on the fact that any given contact critical for maintaining the fold of a protein will constrain the physicochemical properties of the amino acids involved. Should a given contacting residue mutate and potentially perturb the properties of the contact, then its contacting partner will be more likely to mutate to a physicochemically complementary amino acid residue, to ensure the native fold of the protein remains stabilized. \cite{jones2012psicov}
 %Turning this observation around, pairs of residues seen to coevolve in tandem and thus preserving their relative physiochemical properties, are likely candidates to form contacts.  \cite{jones2012psicov}
 
-\subsection{Co-evolution examples}
-
+\paragraph{Co-evolution examples}
 In the absence of a clear positive control, identifying gene pairs that is certainly co-evolving is a difficult task \cite{rohlfs2010detecting}.
 Here we mentions some accepted examples of co-evolution in humans:
 
@@ -487,7 +486,7 @@ This sum over all spanning trees is a generalization of Kirchhoff's matrix-tree 
 %We have also mathematically demonstrated the validity of the APC correction. \cite{dunn2008mutual}
 %
 
-\subsection{Co-evolution algorithm complexity and limitations}
+\subsection{Algorithm limitations}
 
 Residue co‐evolution was originally detected using correlated amino acid changes in pairs of positions represented by two columns of the MSA.
 Under the assumption of interdependent amino acid frequencies or similar patterns of amino acid substitutions it can be assessed by a linear correlation, a method that shows a small but significant capability to recover pairs of positions in physical contact \cite{de2013emerging}.
@@ -559,7 +558,7 @@ Usually these methods are tested with high quality MSAs containing large number 
 %We have shown that the APC accurately estimates MI in the absence of structural or functional relationships. Furthermore, in real protein alignments the subtraction of the APC from MI results in a metric, MIp, that is independent of the entropy of the positions, and that provides a significant improvement over previously published methods in identifying co-evolving positions that are proximal in protein structure. \cite{dunn2008mutual}
 %We have also mathematically demonstrated the validity of the APC correction. \cite{dunn2008mutual}
 
-\subsection{Method LIMITATIONS}
+% \subsection{Method LIMITATIONS}
 
 %However, it is not clear to what extent these different methods overlap, and if any of the methods have higher predictive potential compared to others when it comes to, in particular, the identification of catalytic residues (CR) in proteins. \cite{teppa2012disentangling}
 %A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
@@ -600,9 +599,6 @@ Usually these methods are tested with high quality MSAs containing large number 
 %	In addition, and importantly, we do not consider only a single `best' way of choosing which other position p(i) each position i depends on, but rather we sum over all ways in which the dependencies can be chosen.  \cite{burger2010disentangling}
 %	The sum over spanning trees in (9) can be calculated using a generalization of Kirchhoff's matrix-tree theorem. For this we need to calculate the Laplacian of the matrix... \cite{burger2010disentangling}
 
-%==================================================================================================
-\section{REWRITE}
-%==================================================================================================
 
 %COMPARISSON: \cite{clark2014multidimensional}
 %	We have evaluated the performance of standard MI ($2D_MI$), $3D_MI$, $4D_MI$, PSICOV [14], plmDCA [17], GREMLIN [18], and Hopfield-Potts DCA with Principal Component Analysis [19] (called here hpPCA) with the MSAs of 9 protein families \cite{clark2014multidimensional}
@@ -611,7 +607,7 @@ Usually these methods are tested with high quality MSAs containing large number 
 %	While all the methods used in this study performed quite well in terms of percentage of close contacts recognized among the top covarying pairs, they did not necessarily recognize the same close contacts, as no more than 50\% of all the pairs were shared between the MI/mdMI based methods and the other methods \cite{clark2014multidimensional}
 %	Finally, since there is < 65\% overlap among the sets of covarying residues identified by algorithms based on different principles, further improvement in accuracy is likely to be obtained by selecting only the shared pairs or by averaging the results from different methods. \cite{clark2014multidimensional}
 
-\subsection{Method comparisson}
+% \subsection{Method comparisson}
 
 %A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
 
@@ -643,3 +639,7 @@ Usually these methods are tested with high quality MSAs containing large number 
 %METHOD COMPARISSON: However, while all the methods tested detected a similar number of covarying pairs among the residues separated by < 8 Å in the reference X-ray structures, there was on average less than 65\% overlap between the top scoring pairs detected by methods that are based on different principles. \cite{clark2014multidimensional}
 %Unfortunately, the reliability of covariation data can be diminished by the existence of correlations originating not just from the direct interactions (physical or functional) between two residues, but also from their shared interaction with one or more other residues, and by the shared phylogenetic history of several homologous proteins in the MSA.  \cite{clark2014multidimensional}
 %While the performance of these methods has been tested primarily with high quality MSAs containing a very large number of sequences (between 5L and 25L, with L=sequence length), very often investigators are interested in studying the covarying positions of proteins for which the available MSA contains less than L sequences, and whose alignment quality is not optimal due to the presence of many (or large) gaps, \cite{clark2014multidimensional}
+
+%==================================================================================================
+%\section{REWRITE}
+%==================================================================================================
