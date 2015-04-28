@@ -331,6 +331,15 @@ Elements significantly different from zero (off-diagonal) indicate pairs of site
 The empirical covariance matrices are actually almost always singular simply because it is unlikely that every amino acid is observed at every site, one of the most powerful techniques to overcome this problem is sparse inverse covariance estimation under Lasso constraints.
 The authors claim that the non-zero terms tend to more accurately relate to correct correlations in the true inverse covariance matrix \cite{jones2012psicov}.
 
+\paragraph{Multidimensional mutual information}
+In a recent study, and simple extension of mutual information was proposed by considering ``additional information channels" corresponding to indirect
+amino acid dependencies \cite{clark2014multidimensional}.
+They define the information $I(X_1 ; X_3 ; X_2)$ representing an `interaction information' for a channel with two inputs $X_1$ and $X_3$ and a single output $X_2$.
+They then marginalize the effect of the indirect input ($X_3$) on the transmission between $X_1$ and $X_2$ simply by summing mutual information for each possible value $X_3$ weighted by the probability of occurrence \cite{clark2014multidimensional}.
+Similarly they define a four variable model extension in which case the marginalization would be done over two variables ($X_3$ and $X_4$).
+They test and compare their results using a set of $9$ MSAs consisting of less than $400$ sequences, showing that their simple extension is comparable to other maximum entropy statistical models \cite{clark2014multidimensional}.
+Even thought the method is simple, the marginalization sums impose a heavy computational burden requiring long execution times and large memory footprints making the method impractical only for sequences longer than 200 residues \cite{clark2014multidimensional}.
+
 %==================================================================================================
 \section{REWRITE}
 %==================================================================================================
@@ -431,22 +440,22 @@ However, because the coevolving genes are not necessarily in physical linkage, t
 %For 44\% of the targets, contact prediction was excellent with a precision >0.5 for the longest-range top-L/2 predicted contacts (i.e. >50\% correctly predicted long-range contacts per residue).  \cite{jones2012psicov}
 
 
-(multidimensional) extension of traditional mutual information (MI) can be an additional tool to study covariation \cite{clark2014multidimensional}
-as tested with a set of 9 MSAs each containing <400 sequences, and was shown to be comparable to that of the newest methods based on maximum entropy/pseudolikelyhood statistical models of protein sequences.  \cite{clark2014multidimensional}
-METHOD COMPARISSON: However, while all the methods tested detected a similar number of covarying pairs among the residues separated by < 8 Å in the reference X-ray structures, there was on average less than 65\% overlap between the top scoring pairs detected by methods that are based on different principles. \cite{clark2014multidimensional}
-Unfortunately, the reliability of covariation data can be diminished by the existence of correlations originating not just from the direct interactions (physical or functional) between two residues, but also from their shared interaction with one or more other residues, and by the shared phylogenetic history of several homologous proteins in the MSA.  \cite{clark2014multidimensional}
-While the performance of these methods has been tested primarily with high quality MSAs containing a very large number of sequences (between 5L and 25L, with L=sequence length), very often investigators are interested in studying the covarying positions of proteins for which the available MSA contains less than L sequences, and whose alignment quality is not optimal due to the presence of many (or large) gaps, \cite{clark2014multidimensional}
-METHOD:  \cite{clark2014multidimensional}
-	We can consider a more complicated case including a third channel (column). In this case, I(X1;X3;X2) between the three variables represents the `interaction information' for a channel with two discrete inputs X1 and X3 and a single discrete output X2 (a 2-way channel).  \cite{clark2014multidimensional}
-	If we are interested in `explaining out' the effect of X3 on the transmission between X1 and X2, we can take a sum of the mutual information I(X1;X2) for each possible value x3 of X3, weighted by the probability of occurrence (px3) of each of those values: \cite{clark2014multidimensional}
-	Averaging over all values of X3 (a 3rd column) in an MSA we obtain for the 3-dimensional MI between any two columns (X1 and X2): \cite{clark2014multidimensional}
-LIMITATIONS: Due to the long execution times and large memory requirements (growing with the 4th power of the sequence length) of $4D_MI$ only the removal of 3rd order indirect coupling ($3D_MI$) is practical with desktop computers for MSAs of sequences longer than 200 residues. \cite{clark2014multidimensional}
-COMPARISSON: \cite{clark2014multidimensional}
-	We have evaluated the performance of standard MI ($2D_MI$), $3D_MI$, $4D_MI$, PSICOV [14], plmDCA [17], GREMLIN [18], and Hopfield-Potts DCA with Principal Component Analysis [19] (called here hpPCA) with the MSAs of 9 protein families \cite{clark2014multidimensional}
-	These MSAs contain less than 400 sequences with ratios of sequence number to sequence length (called here the `L ratio') between 0.4 and 2.0, and thus represent a particularly sensitive test for the performance of the different methods with less than optimal size MSAs.  \cite{clark2014multidimensional}
-	all the methods tested produced covariation maps that closely resembled the contact maps derived from the representative X-ray structures of each family \cite{clark2014multidimensional}
-	While all the methods used in this study performed quite well in terms of percentage of close contacts recognized among the top covarying pairs, they did not necessarily recognize the same close contacts, as no more than 50\% of all the pairs were shared between the MI/mdMI based methods and the other methods \cite{clark2014multidimensional}
-	Finally, since there is < 65\% overlap among the sets of covarying residues identified by algorithms based on different principles, further improvement in accuracy is likely to be obtained by selecting only the shared pairs or by averaging the results from different methods. \cite{clark2014multidimensional}
+%(multidimensional) extension of traditional mutual information (MI) can be an additional tool to study covariation \cite{clark2014multidimensional}
+%as tested with a set of 9 MSAs each containing <400 sequences, and was shown to be comparable to that of the newest methods based on maximum entropy/pseudolikelyhood statistical models of protein sequences.  \cite{clark2014multidimensional}
+%METHOD COMPARISSON: However, while all the methods tested detected a similar number of covarying pairs among the residues separated by < 8 Å in the reference X-ray structures, there was on average less than 65\% overlap between the top scoring pairs detected by methods that are based on different principles. \cite{clark2014multidimensional}
+%Unfortunately, the reliability of covariation data can be diminished by the existence of correlations originating not just from the direct interactions (physical or functional) between two residues, but also from their shared interaction with one or more other residues, and by the shared phylogenetic history of several homologous proteins in the MSA.  \cite{clark2014multidimensional}
+%While the performance of these methods has been tested primarily with high quality MSAs containing a very large number of sequences (between 5L and 25L, with L=sequence length), very often investigators are interested in studying the covarying positions of proteins for which the available MSA contains less than L sequences, and whose alignment quality is not optimal due to the presence of many (or large) gaps, \cite{clark2014multidimensional}
+%METHOD:  \cite{clark2014multidimensional}
+%	We can consider a more complicated case including a third channel (column). In this case, I(X1;X3;X2) between the three variables represents the `interaction information' for a channel with two discrete inputs X1 and X3 and a single discrete output X2 (a 2-way channel).  \cite{clark2014multidimensional}
+%	If we are interested in `explaining out' the effect of X3 on the transmission between X1 and X2, we can take a sum of the mutual information I(X1;X2) for each possible value x3 of X3, weighted by the probability of occurrence (px3) of each of those values: \cite{clark2014multidimensional}
+%	Averaging over all values of X3 (a 3rd column) in an MSA we obtain for the 3-dimensional MI between any two columns (X1 and X2): \cite{clark2014multidimensional}
+%LIMITATIONS: Due to the long execution times and large memory requirements (growing with the 4th power of the sequence length) of $4D_MI$ only the removal of 3rd order indirect coupling ($3D_MI$) is practical with desktop computers for MSAs of sequences longer than 200 residues. \cite{clark2014multidimensional}
+%COMPARISSON: \cite{clark2014multidimensional}
+%	We have evaluated the performance of standard MI ($2D_MI$), $3D_MI$, $4D_MI$, PSICOV [14], plmDCA [17], GREMLIN [18], and Hopfield-Potts DCA with Principal Component Analysis [19] (called here hpPCA) with the MSAs of 9 protein families \cite{clark2014multidimensional}
+%	These MSAs contain less than 400 sequences with ratios of sequence number to sequence length (called here the `L ratio') between 0.4 and 2.0, and thus represent a particularly sensitive test for the performance of the different methods with less than optimal size MSAs.  \cite{clark2014multidimensional}
+%	all the methods tested produced covariation maps that closely resembled the contact maps derived from the representative X-ray structures of each family \cite{clark2014multidimensional}
+%	While all the methods used in this study performed quite well in terms of percentage of close contacts recognized among the top covarying pairs, they did not necessarily recognize the same close contacts, as no more than 50\% of all the pairs were shared between the MI/mdMI based methods and the other methods \cite{clark2014multidimensional}
+%	Finally, since there is < 65\% overlap among the sets of covarying residues identified by algorithms based on different principles, further improvement in accuracy is likely to be obtained by selecting only the shared pairs or by averaging the results from different methods. \cite{clark2014multidimensional}
 
 
 How, then, do non-conserved positions change during evolution? It is believed that mutations in these positions can occur because they are either accompanied or preceded by compensatory changes in other variable positions (Fitch et al., 1970; Yanofsky et al., 1964). \cite{dunn2008mutual}
@@ -538,6 +547,13 @@ METHOD: \cite{burger2010disentangling}
 	In addition, and importantly, we do not consider only a single `best' way of choosing which other position p(i) each position i depends on, but rather we sum over all ways in which the dependencies can be chosen.  \cite{burger2010disentangling}
 	The sum over spanning trees in (9) can be calculated using a generalization of Kirchhoff's matrix-tree theorem. For this we need to calculate the Laplacian of the matrix... \cite{burger2010disentangling}
 
+COMPARISSON: \cite{clark2014multidimensional}
+	We have evaluated the performance of standard MI ($2D_MI$), $3D_MI$, $4D_MI$, PSICOV [14], plmDCA [17], GREMLIN [18], and Hopfield-Potts DCA with Principal Component Analysis [19] (called here hpPCA) with the MSAs of 9 protein families \cite{clark2014multidimensional}
+	These MSAs contain less than 400 sequences with ratios of sequence number to sequence length (called here the `L ratio') between 0.4 and 2.0, and thus represent a particularly sensitive test for the performance of the different methods with less than optimal size MSAs.  \cite{clark2014multidimensional}
+	all the methods tested produced covariation maps that closely resembled the contact maps derived from the representative X-ray structures of each family \cite{clark2014multidimensional}
+	While all the methods used in this study performed quite well in terms of percentage of close contacts recognized among the top covarying pairs, they did not necessarily recognize the same close contacts, as no more than 50\% of all the pairs were shared between the MI/mdMI based methods and the other methods \cite{clark2014multidimensional}
+	Finally, since there is < 65\% overlap among the sets of covarying residues identified by algorithms based on different principles, further improvement in accuracy is likely to be obtained by selecting only the shared pairs or by averaging the results from different methods. \cite{clark2014multidimensional}
+
 \subsection{Method comparisson}
 A major shortcoming of covariance analysis is that correlations between substitution patterns of interacting residues induce secondary correlations between noninteracting residues \cite{morcos2011direct}
 
@@ -565,3 +581,8 @@ RESULTS:
 
 Correlated substitution patterns between residues of a protein family have been exploited to reveal information on the structures of proteins (1-10).  \cite{morcos2011direct}
 However, such studies require a large number (e.g., the order of 1,000) of homologous yet variable protein sequences.  \cite{morcos2011direct}
+
+
+METHOD COMPARISSON: However, while all the methods tested detected a similar number of covarying pairs among the residues separated by < 8 Å in the reference X-ray structures, there was on average less than 65\% overlap between the top scoring pairs detected by methods that are based on different principles. \cite{clark2014multidimensional}
+Unfortunately, the reliability of covariation data can be diminished by the existence of correlations originating not just from the direct interactions (physical or functional) between two residues, but also from their shared interaction with one or more other residues, and by the shared phylogenetic history of several homologous proteins in the MSA.  \cite{clark2014multidimensional}
+While the performance of these methods has been tested primarily with high quality MSAs containing a very large number of sequences (between 5L and 25L, with L=sequence length), very often investigators are interested in studying the covarying positions of proteins for which the available MSA contains less than L sequences, and whose alignment quality is not optimal due to the presence of many (or large) gaps, \cite{clark2014multidimensional}
