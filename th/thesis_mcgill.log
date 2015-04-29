@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  29 APR 2015 08:01
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  29 APR 2015 08:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -469,24 +469,24 @@ LaTeX Warning: Reference `ch:bds' on page 11 undefined on input line 75.
 
 [11] [12] [13] [14] [15] [16] [17]
 
-LaTeX Warning: Reference `ch:snpeff' on page 18 undefined on input line 121.
+LaTeX Warning: Reference `ch:snpeff' on page 18 undefined on input line 124.
 
 [18] [19] [20] [21] [22]
-Overfull \hbox (13.98462pt too wide) in paragraph at lines 150--151
+Overfull \hbox (13.98462pt too wide) in paragraph at lines 153--154
 \OT1/cmr/m/n/12 tran-script (or iso-form), due to al-ter-na-tive pro-mot-ers, s
 plic-ing, or polyadeny-
  []
 
 [23] [24] [25] [26] [27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37]
 
-LaTeX Warning: Reference `ch:snpeff' on page 38 undefined on input line 243.
+LaTeX Warning: Reference `ch:snpeff' on page 38 undefined on input line 246.
 
-[38]
-Overfull \hbox (41.62686pt too wide) detected at line 267
+[38] [39]
+Overfull \hbox (41.62686pt too wide) detected at line 270
 []
  []
 
-[39] [40] [41] [42] [43]) [44]
+[40] [41] [42] [43]) [44] [45]
 \openout2 = `chapters/intro_epistasis.aux'.
 
  (./chapters/intro_epistasis.tex
@@ -501,26 +501,26 @@ File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 (Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 20.
- [45
+ [46
 
 
-] [46]
-[47] [48]
+] [47]
+[48] [49]
 
-LaTeX Warning: Citation `tyler2009shadows:REF' on page 49 undefined on input li
+LaTeX Warning: Citation `tyler2009shadows:REF' on page 50 undefined on input li
 ne 160.
 
 
-LaTeX Warning: Citation `zuk2012mystery:REF22' on page 49 undefined on input li
+LaTeX Warning: Citation `zuk2012mystery:REF22' on page 50 undefined on input li
 ne 164.
 
-[49]
+[50]
 
-LaTeX Warning: Citation `mani2008defining:REF' on page 50 undefined on input li
+LaTeX Warning: Citation `mani2008defining:REF' on page 51 undefined on input li
 ne 166.
 
 
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 50 undefined on input line
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 51 undefined on input line
  167.
 
 
@@ -530,104 +530,104 @@ hila melanogaster
  []
 
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 50 undefined on inp
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 51 undefined on inp
 ut line 201.
 
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 50 undefined on inp
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 51 undefined on inp
 ut line 201.
 
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 50 undefined on inp
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 51 undefined on inp
 ut line 201.
 
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 50 undefined on inp
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 51 undefined on inp
 ut line 201.
 
 
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 50 undefined on input line
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 51 undefined on input line
  204.
 
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 50 undefined on inp
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 51 undefined on inp
 ut line 205.
 
 
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 50 undefined on input line
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 51 undefined on input line
  207.
 
 
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 50 undefined on input line
+LaTeX Warning: Citation `zuk2012mystery:REF' on page 51 undefined on input line
  208.
-
-[50]
-
-LaTeX Warning: Citation `carlborg2004epistasis:REF' on page 51 undefined on inp
-ut line 210.
-
-
-LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 51 undefined o
-n input line 213.
-
-
-LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 51 undefined o
-n input line 215.
-
-
-LaTeX Warning: Citation `tyler2009shadows:REF' on page 51 undefined on input li
-ne 217.
 
 [51]
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 52 undefined on inp
-ut line 235.
+LaTeX Warning: Citation `carlborg2004epistasis:REF' on page 52 undefined on inp
+ut line 210.
 
 
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 52 undefined on inp
-ut line 236.
+LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 52 undefined o
+n input line 213.
 
 
-LaTeX Warning: Citation `petkov2005evidence:REF' on page 52 undefined on input 
-line 237.
+LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 52 undefined o
+n input line 215.
 
 
-LaTeX Warning: Citation `petkov2005evidence:REF_FISHER' on page 52 undefined on
- input line 240.
+LaTeX Warning: Citation `tyler2009shadows:REF' on page 52 undefined on input li
+ne 217.
 
 [52]
 
-LaTeX Warning: Citation `REF' on page 53 undefined on input line 276.
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 53 undefined on inp
+ut line 235.
 
 
-LaTeX Warning: Citation `REF-FISHER' on page 53 undefined on input line 276.
+LaTeX Warning: Citation `phillips2008epistasis:REF' on page 53 undefined on inp
+ut line 236.
 
 
-LaTeX Warning: Citation `REF-NATURE' on page 53 undefined on input line 276.
+LaTeX Warning: Citation `petkov2005evidence:REF' on page 53 undefined on input 
+line 237.
 
 
-LaTeX Warning: Citation `koch2013long:REF' on page 53 undefined on input line 2
+LaTeX Warning: Citation `petkov2005evidence:REF_FISHER' on page 53 undefined on
+ input line 240.
+
+[53]
+
+LaTeX Warning: Citation `REF' on page 54 undefined on input line 276.
+
+
+LaTeX Warning: Citation `REF-FISHER' on page 54 undefined on input line 276.
+
+
+LaTeX Warning: Citation `REF-NATURE' on page 54 undefined on input line 276.
+
+
+LaTeX Warning: Citation `koch2013long:REF' on page 54 undefined on input line 2
 79.
 
 
-LaTeX Warning: Citation `koch2013long:REF' on page 53 undefined on input line 2
+LaTeX Warning: Citation `koch2013long:REF' on page 54 undefined on input line 2
 83.
 
-[53] [54] [55] [56]
+[54] [55] [56] [57]
 
-LaTeX Warning: Citation `REF' on page 57 undefined on input line 433.
-
-
-LaTeX Warning: Citation `REF' on page 57 undefined on input line 433.
+LaTeX Warning: Citation `REF' on page 58 undefined on input line 433.
 
 
-LaTeX Warning: Citation `REF' on page 57 undefined on input line 433.
+LaTeX Warning: Citation `REF' on page 58 undefined on input line 433.
 
 
-LaTeX Warning: Citation `REF' on page 57 undefined on input line 433.
+LaTeX Warning: Citation `REF' on page 58 undefined on input line 433.
 
 
-LaTeX Warning: Citation `REF' on page 57 undefined on input line 433.
+LaTeX Warning: Citation `REF' on page 58 undefined on input line 433.
+
+
+LaTeX Warning: Citation `REF' on page 58 undefined on input line 433.
 
 
 Overfull \hbox (2.8432pt too wide) in paragraph at lines 432--437
@@ -635,19 +635,19 @@ Overfull \hbox (2.8432pt too wide) in paragraph at lines 432--437
 or-dimensionality
  []
 
-[57] [58] [59] [60]
+[58] [59] [60] [61]
 
-LaTeX Warning: Citation `REF' on page 61 undefined on input line 478.
+LaTeX Warning: Citation `REF' on page 62 undefined on input line 478.
 
-[61] [62]
+[62] [63]
 
-LaTeX Warning: Reference `ch:gwas' on page 63 undefined on input line 496.
+LaTeX Warning: Reference `ch:gwas' on page 64 undefined on input line 496.
 
-[63]
+[64]
 
-LaTeX Warning: Reference `ch:gwas' on page 64 undefined on input line 624.
+LaTeX Warning: Reference `ch:gwas' on page 65 undefined on input line 624.
 
-) [64]
+) [65]
 \openout2 = `chapters/intro_coevolution.aux'.
 
  (./chapters/intro_coevolution.tex
@@ -657,15 +657,15 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
- [65
+ [66
 
 
 ]
 
 LaTeX Warning: Citation `fares2006novel:REF(Pritchard and Dufton 2000)' on page
- 66 undefined on input line 23.
+ 67 undefined on input line 23.
 
-[66]
+[67]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
@@ -674,19 +674,19 @@ Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
 
 
-LaTeX Warning: Citation `rohlfs2010detecting:REF' on page 67 undefined on input
+LaTeX Warning: Citation `rohlfs2010detecting:REF' on page 68 undefined on input
  line 89.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
 
-LaTeX Warning: Citation `de2013emerging:REF' on page 67 undefined on input line
+LaTeX Warning: Citation `de2013emerging:REF' on page 68 undefined on input line
  92.
 
-[67]
+[68]
 
-LaTeX Warning: Citation `REF' on page 68 undefined on input line 148.
+LaTeX Warning: Citation `REF' on page 69 undefined on input line 148.
 
 
 Overfull \hbox (12.82492pt too wide) in paragraph at lines 144--150
@@ -694,14 +694,14 @@ Overfull \hbox (12.82492pt too wide) in paragraph at lines 144--150
 fer-ent species [[]] Genome-
  []
 
-[68] [69]
+[69] [70]
 
-LaTeX Warning: Citation `ramani2003exploiting:REF' on page 70 undefined on inpu
+LaTeX Warning: Citation `ramani2003exploiting:REF' on page 71 undefined on inpu
 t line 211.
 
-[70]
+[71]
 
-LaTeX Warning: Citation `fares2006novel:REF Gloor et al. (2005)' on page 71 und
+LaTeX Warning: Citation `fares2006novel:REF Gloor et al. (2005)' on page 72 und
 efined on input line 224.
 
 
@@ -710,34 +710,34 @@ Overfull \hbox (9.40227pt too wide) in paragraph at lines 222--226
 -flate these co-evolutionary
  []
 
-[71] [72]
+[72] [73]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
 
 
-LaTeX Warning: Citation `marks2012protein:REF' on page 73 undefined on input li
+LaTeX Warning: Citation `marks2012protein:REF' on page 74 undefined on input li
 ne 306.
 
-[73]
+[74]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
- [74] [75]
+ [75] [76]
 Missing character: There is no â in font cmr12!
 Missing character: There is no ˆ in font cmr12!
 Missing character: There is no ’ in font cmr12!
- [76]
+ [77]
 Overfull \hbox (0.27298pt too wide) in paragraph at lines 340--346
  \OT1/cmr/bx/n/12 PSI-COV.[] \OT1/cmr/m/n/12 As other meth-ods, PSI-COV starts 
 from a mul-ti-ple se-quence
  []
 
-[77]
+[78]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
- [78]
+ [79]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
@@ -746,29 +746,29 @@ Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
 
 
-LaTeX Warning: Citation `dunn2008mutual:REF(Martin et al.' on page 79 undefined
+LaTeX Warning: Citation `dunn2008mutual:REF(Martin et al.' on page 80 undefined
  on input line 498.
 
 
-LaTeX Warning: Citation `2005)' on page 79 undefined on input line 498.
+LaTeX Warning: Citation `2005)' on page 80 undefined on input line 498.
 
 
-LaTeX Warning: Citation `dunn2008mutual:REF (Wollenberg and Atchley' on page 79
+LaTeX Warning: Citation `dunn2008mutual:REF (Wollenberg and Atchley' on page 80
  undefined on input line 503.
 
 
-LaTeX Warning: Citation `2000)' on page 79 undefined on input line 503.
+LaTeX Warning: Citation `2000)' on page 80 undefined on input line 503.
 
 
-LaTeX Warning: Citation `(Martin et al.' on page 79 undefined on input line 503
+LaTeX Warning: Citation `(Martin et al.' on page 80 undefined on input line 503
 .
 
 
-LaTeX Warning: Citation `2005; Tillier and Lui' on page 79 undefined on input l
+LaTeX Warning: Citation `2005; Tillier and Lui' on page 80 undefined on input l
 ine 503.
 
 
-LaTeX Warning: Citation `2003)' on page 79 undefined on input line 503.
+LaTeX Warning: Citation `2003)' on page 80 undefined on input line 503.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -782,18 +782,18 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
-[79]) [80]
+[80]) [81]
 \openout2 = `chapters/intro_roadmap.aux'.
 
  (./chapters/intro_roadmap.tex
 
-LaTeX Warning: Reference `ch:bds' on page 81 undefined on input line 5.
+LaTeX Warning: Reference `ch:bds' on page 82 undefined on input line 5.
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 81 undefined on input line 5.
+LaTeX Warning: Reference `ch:snpeff' on page 82 undefined on input line 5.
 
 
-LaTeX Warning: Reference `ch:gwas' on page 81 undefined on input line 5.
+LaTeX Warning: Reference `ch:gwas' on page 82 undefined on input line 5.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 7--9
@@ -801,7 +801,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--9
  []
 
 
-LaTeX Warning: Reference `ch:bds' on page 81 undefined on input line 12.
+LaTeX Warning: Reference `ch:bds' on page 82 undefined on input line 12.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 18--20
@@ -809,9 +809,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--20
  []
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 81 undefined on input line 21.
+LaTeX Warning: Reference `ch:snpeff' on page 82 undefined on input line 21.
 
-[81
+[82
 
 
 ]
@@ -829,13 +829,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
-[82]
+[83]
 Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
 
-LaTeX Warning: Reference `ch:gwas' on page 83 undefined on input line 55.
+LaTeX Warning: Reference `ch:gwas' on page 84 undefined on input line 55.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 61--63
@@ -852,7 +852,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 64--67
 
  []
 
-[83]
+[84]
 Overfull \hbox (20.65628pt too wide) in paragraph at lines 74--75
 \OT1/cmr/m/n/12 M. Ruden. ``Lead ex-po-sure in-duces changes in 5-hydroxymethyl
 cytosine
@@ -863,7 +863,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 77--78
 
  []
 
-[84]
+[85]
 Overfull \hbox (4.55905pt too wide) in paragraph at lines 84--85
 \OT1/cmr/m/n/12 In-grid, \OT1/cmr/bx/n/12 P. Cin-golani\OT1/cmr/m/n/12 , M. Bla
 nchette, G. Yeretssian, A. Mes-Masson,
@@ -889,12 +889,12 @@ Overfull \hbox (9.63956pt too wide) in paragraph at lines 87--88
 ng, M. Behr, R. Sladek, M. Blanchette,
  []
 
-[85]
+[86]
 Underfull \hbox (badness 10000) in paragraph at lines 89--90
 
  []
 
-) [86] (./thesis_mcgill.bbl
+) [87] (./thesis_mcgill.bbl
 Underfull \hbox (badness 1694) in paragraph at lines 4--8
 []\OT1/cmr/m/n/12 Marit Ack-er-mann and An-dreas Beyer.  Sys-tem-atic de-tec-ti
 on of
@@ -906,7 +906,7 @@ Underfull \hbox (badness 1924) in paragraph at lines 41--46
 
  []
 
-[87
+[88
 
 
 
@@ -917,30 +917,30 @@ Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [88]
+ [89]
 Underfull \hbox (badness 1043) in paragraph at lines 137--143
 []\OT1/cmr/m/n/12 Kristian Cibul-skis, Michael S Lawrence, Scott L Carter, An-d
 rey
  []
 
-[89] [90]
+[90] [91]
 Underfull \hbox (badness 7203) in paragraph at lines 292--296
 []\OT1/cmr/m/n/12 R.M. Durbin, D.L. Alt-shuler, G.R. Abeca-sis, D.R. Bent-ley,
  []
 
-[91] [92] [93] [94] [95]
+[92] [93] [94] [95] [96]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [96] [97] [98]
+ [97] [98] [99]
 Underfull \hbox (badness 1270) in paragraph at lines 826--831
 \OT1/cmr/m/n/12 Irma Lem-mens, Tomoko Hirozane-Kishikawa, Tong Hao, Mar-tina
  []
 
-[99] [100]) (./thesis_mcgill.aux (./chapters/intro.aux)
+[100] [101]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/intro_variants.aux) (./chapters/intro_epistasis.aux)
 (./chapters/intro_coevolution.aux) (./chapters/intro_roadmap.aux))
 
@@ -1010,10 +1010,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5988 strings out of 493315
- 89708 string characters out of 6137904
+ 5989 strings out of 493315
+ 89721 string characters out of 6137904
  175468 words of memory out of 5000000
- 9302 multiletter control sequences out of 15000+600000
+ 9303 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,7n,40p,2609b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1027,10 +1027,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (100 pages, 340543 bytes).
+Output written on thesis_mcgill.pdf (101 pages, 341295 bytes).
 PDF statistics:
- 367 PDF objects out of 1000 (max. 8388607)
- 252 compressed objects within 3 object streams
+ 370 PDF objects out of 1000 (max. 8388607)
+ 254 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
