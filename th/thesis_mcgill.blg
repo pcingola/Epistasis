@@ -124,6 +124,10 @@ Repeated entry---line 3631 of file mcgilletd.bib
  : @article{brenner1965genetic
  :                            ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 3951 of file mcgilletd.bib
+ : @article{clark2011performance
+ :                              ,
+I'm skipping whatever remains of this entry
 Warning--I didn't find a database entry for "tyler2009shadows:REF"
 Warning--I didn't find a database entry for "zuk2012mystery:REF22"
 Warning--I didn't find a database entry for "mani2008defining:REF"
@@ -146,46 +150,47 @@ Warning--I didn't find a database entry for "2000)"
 Warning--I didn't find a database entry for "2003)"
 Warning--empty journal in brenner1965genetic
 Warning--empty publisher in darwin1877various
+Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
-You've used 138 entries,
+You've used 150 entries,
             2118 wiz_defined-function locations,
-            1252 strings with 33401 characters,
-and the built_in function-call counts, 57582 in all, are:
-= -- 5421
-> -- 3875
-< -- 8
-+ -- 1554
-- -- 1390
-* -- 5029
-:= -- 9929
-add.period$ -- 415
-call.type$ -- 138
-change.case$ -- 1074
+            1306 strings with 35797 characters,
+and the built_in function-call counts, 62725 in all, are:
+= -- 5904
+> -- 4234
+< -- 9
++ -- 1698
+- -- 1520
+* -- 5471
+:= -- 10815
+add.period$ -- 451
+call.type$ -- 150
+change.case$ -- 1174
 chr.to.int$ -- 0
-cite$ -- 141
-duplicate$ -- 1588
-empty$ -- 3612
-format.name$ -- 1390
-if$ -- 11291
+cite$ -- 154
+duplicate$ -- 1733
+empty$ -- 3917
+format.name$ -- 1520
+if$ -- 12298
 int.to.chr$ -- 0
-int.to.str$ -- 138
-missing$ -- 143
-newline$ -- 693
-num.names$ -- 276
-pop$ -- 892
+int.to.str$ -- 150
+missing$ -- 155
+newline$ -- 753
+num.names$ -- 300
+pop$ -- 977
 preamble$ -- 1
-purify$ -- 942
+purify$ -- 1030
 quote$ -- 0
-skip$ -- 1114
+skip$ -- 1221
 stack$ -- 0
-substring$ -- 3625
-swap$ -- 213
-text.length$ -- 8
+substring$ -- 3928
+swap$ -- 239
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 540
-warning$ -- 3
-while$ -- 496
-width$ -- 141
-write$ -- 1502
-(There were 29 error messages)
+type$ -- 588
+warning$ -- 4
+while$ -- 538
+width$ -- 153
+write$ -- 1631
+(There were 30 error messages)

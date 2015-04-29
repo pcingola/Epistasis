@@ -76,6 +76,12 @@ Bradley~E Bernstein, John~A Stamatoyannopoulos, Joseph~F Costello, Bing Ren,
 \newblock The nih roadmap epigenomics mapping consortium.
 \newblock {\em Nature biotechnology}, 28(10):1045--1048, 2010.
 
+\bibitem{botstein2003discovering}
+David Botstein and Neil Risch.
+\newblock Discovering genotypes underlying human phenotypes: past successes for
+  mendelian disease, future approaches for complex disease.
+\newblock {\em Nature genetics}, 33:228--237, 2003.
+
 \bibitem{boyle2012annotation}
 Alan~P Boyle, Eurie~L Hong, Manoj Hariharan, Yong Cheng, Marc~A Schaub, Maya
   Kasowski, Konrad~J Karczewski, Julie Park, Benjamin~C Hitz, Shuai Weng,
@@ -160,6 +166,12 @@ Greg~W Clark, Sharon~H Ackerman, Elisabeth~R Tillier, and Domenico~L Gatti.
 \newblock Multidimensional mutual information methods for the analysis of
   covariation in multiple sequence alignments.
 \newblock {\em BMC bioinformatics}, 15(1):157, 2014.
+
+\bibitem{clark2011performance}
+M.J. Clark, R.~Chen, H.Y.K. Lam, K.J. Karczewski, R.~Chen, G.~Euskirchen, A.J.
+  Butte, and M.~Snyder.
+\newblock Performance comparison of exome dna sequencing technologies.
+\newblock {\em Nature biotechnology}, 29(10):908--914, 2011.
 
 \bibitem{clarke2011basic}
 G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
@@ -276,6 +288,12 @@ R.~Durbin.
   and nucleic acids}.
 \newblock Cambridge Univ Pr, 1998.
 
+\bibitem{durbin2010map}
+R.M. Durbin, D.L. Altshuler, G.R. Abecasis, D.R. Bentley, A.~Chakravarti, A.G.
+  Clark, F.S. Collins, F.M. De~La~Vega, P.~Donnelly, M.~Egholm, et~al.
+\newblock A map of human genome variation from population-scale sequencing.
+\newblock {\em Nature}, 467(7319):1061--1073, 2010.
+
 \bibitem{ehrlich1964butterflies}
 Paul~R Ehrlich and Peter~H Raven.
 \newblock Butterflies and plants: a study in coevolution.
@@ -356,6 +374,13 @@ Markus Hafner, Steve Lianoglou, Thomas Tuschl, and Doron Betel.
 \newblock Genome-wide identification of mirna targets by par-clip.
 \newblock {\em Methods}, 58(2):94--105, 2012.
 
+\bibitem{hamosh2005online}
+Ada Hamosh, Alan~F Scott, Joanna~S Amberger, Carol~A Bocchini, and Victor~A
+  McKusick.
+\newblock Online mendelian inheritance in man (omim), a knowledgebase of human
+  genes and genetic disorders.
+\newblock {\em Nucleic acids research}, 33(suppl 1):D514--D517, 2005.
+
 \bibitem{hartl1997principles}
 D.L. Hartl and A.G. Clark.
 \newblock {\em Principles of population genetics}.
@@ -368,6 +393,11 @@ David Haussler, Stephen~J O'Brien, Oliver~A Ryder, F~Keith Barker, Michele
 \newblock Genome 10k: a proposal to obtain whole-genome sequence for 10 000
   vertebrate species.
 \newblock {\em Journal of Heredity}, 100(6):659--674, 2009.
+
+\bibitem{hayden2015is}
+Erika Hayden.
+\newblock Is the \$1,000 genome for real?
+\newblock {\em Nature}, 2015.
 
 \bibitem{helwak2013mapping}
 Aleksandra Helwak, Grzegorz Kudla, Tatiana Dudnakova, and David Tollervey.
@@ -435,6 +465,13 @@ P.~Kumar, S.~Henikoff, and P.C. Ng.
 \newblock Predicting the effects of coding non-synonymous variants on protein
   function using the sift algorithm.
 \newblock {\em Nature protocols}, 4(7):1073--1081, 2009.
+
+\bibitem{landrum2013clinvar}
+Melissa~J Landrum, Jennifer~M Lee, George~R Riley, Wonhee Jang, Wendy~S
+  Rubinstein, Deanna~M Church, and Donna~R Maglott.
+\newblock Clinvar: public archive of relationships among sequence variation and
+  human phenotype.
+\newblock {\em Nucleic acids research}, page gkt1113, 2013.
 
 \bibitem{lane2012nextprot}
 Lydie Lane, Ghislaine Argoud-Puy, Aurore Britan, Isabelle Cusin, Paula~D Duek,
@@ -556,6 +593,11 @@ Debora~S Marks, Thomas~A Hopf, and Chris Sander.
 \newblock Protein structure prediction from sequence variation.
 \newblock {\em Nature biotechnology}, 30(11):1072--1080, 2012.
 
+\bibitem{mattick2001non}
+John~S Mattick.
+\newblock Non-coding rnas: the architects of eukaryotic complexity.
+\newblock {\em EMBO reports}, 2(11):986--991, 2001.
+
 \bibitem{mckenna2010genome}
 A.~McKenna, M.~Hanna, E.~Banks, A.~Sivachenko, K.~Cibulskis, A.~Kernytsky,
   K.~Garimella, D.~Altshuler, S.~Gabriel, M.~Daly, et~al.
@@ -602,6 +644,12 @@ Jason O’Rawe, Tao Jiang, Guangqing Sun, Yiyang Wu, Wei Wang, Jingchu Hu, Paul
   implications for exome and genome sequencing.
 \newblock {\em Genome med}, 5(3):28, 2013.
 
+\bibitem{pagon1993genereviews}
+Roberta~A Pagon, Margaret~P Adam, Thomas~D Bird, Cynthia~R Dolan, Chin-To Fong,
+  Richard~JH Smith, and Karen Stephens.
+\newblock Genereviews.
+\newblock 1993.
+
 \bibitem{patterson2006population}
 N.~Patterson, A.L. Price, and D.~Reich.
 \newblock Population structure and eigenanalysis.
@@ -637,6 +685,13 @@ Wei Qian, Hang Zhou, and Kun Tang.
 \newblock Recent coselection in human populations revealed by protein--protein
   interaction network.
 \newblock {\em Genome biology and evolution}, 7(1):136--153, 2015.
+
+\bibitem{quail2012tale}
+Michael~A Quail, Miriam Smith, Paul Coupland, Thomas~D Otto, Simon~R Harris,
+  Thomas~R Connor, Anna Bertoni, Harold~P Swerdlow, and Yong Gu.
+\newblock A tale of three next generation sequencing platforms: comparison of
+  ion torrent, pacific biosciences and illumina miseq sequencers.
+\newblock {\em BMC genomics}, 13(1):341, 2012.
 
 \bibitem{raj2013common}
 Towfique Raj, Manik Kuchroo, Joseph~M Replogle, Soumya Raychaudhuri, Barbara~E
@@ -704,6 +759,11 @@ Zuben~E Sauna and Chava Kimchi-Sarfaty.
   disease.
 \newblock {\em Nature Reviews Genetics}, 12(10):683--691, 2011.
 
+\bibitem{schatz2010cloud}
+Michael~C Schatz, Ben Langmead, and Steven~L Salzberg.
+\newblock Cloud computing and the dna data race.
+\newblock {\em Nature biotechnology}, 28(7):691--693, 2010.
+
 \bibitem{scheper2007translation}
 Gert~C Scheper, Marjo~S van~der Knaap, and Christopher~G Proud.
 \newblock Translation matters: protein synthesis defects in inherited disease.
@@ -720,6 +780,11 @@ Thierry Sch{\"u}pbach, Ioannis Xenarios, Sven Bergmann, and Karen Kapur.
   trait epistasis.
 \newblock {\em Bioinformatics}, 26(11):1468--1469, 2010.
 
+\bibitem{shendure2008next}
+Jay Shendure and Hanlee Ji.
+\newblock Next-generation dna sequencing.
+\newblock {\em Nature biotechnology}, 26(10):1135--1145, 2008.
+
 \bibitem{siepel2005evolutionarily}
 Adam Siepel, Gill Bejerano, Jakob~S Pedersen, Angie~S Hinrichs, Minmei Hou,
   Kate Rosenbloom, Hiram Clawson, John Spieth, LaDeana~W Hillier, Stephen
@@ -732,6 +797,13 @@ Adam Siepel, Gill Bejerano, Jakob~S Pedersen, Angie~S Hinrichs, Minmei Hou,
 Temple~F Smith and Michael~S Waterman.
 \newblock Identification of common molecular subsequences.
 \newblock {\em Journal of molecular biology}, 147(1):195--197, 1981.
+
+\bibitem{stenson2003human}
+Peter~D Stenson, Edward~V Ball, Matthew Mort, Andrew~D Phillips, Jacqueline~A
+  Shiel, Nick~ST Thomas, Shaun Abeysinghe, Michael Krawczak, and David~N
+  Cooper.
+\newblock Human gene mutation database (hgmd{\textregistered}): 2003 update.
+\newblock {\em Human mutation}, 21(6):577--581, 2003.
 
 \bibitem{GATK}
 GATK team.
