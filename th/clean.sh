@@ -1,3 +1,3 @@
 #!/bin/sh
 
-rm -vf *.{aux,bbl,blg,log,pdf} chapters/*.{aux,bbl,blg,log,pdf} appendix/*.{aux,bbl,blg,log,pdf}
+rm -vf *.{aux,bbl,blg,log,pdf,lof,lot,toc} */*.{aux,bbl,blg,log,pdf,lof,lot,toc}

@@ -1,0 +1,68 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+<TITLE> McGill EThesis Pilot Project - LaTex stylesheet </TITLE>
+<META NAME="Generator" CONTENT="EditPlus">
+<META NAME="Author" CONTENT="">
+<META NAME="Keywords" CONTENT="">
+<META NAME="Description" CONTENT="">
+</HEAD>
+
+<BODY>
+<h2>McGill EThesis Pilot Project - LaTex stylesheet</h2>
+To install:
+<p>
+Download <a href="mcgilletdlatexss.zip">mcgilletdlatexss.zip</a>.
+See the documentation of your local LaTex implementation for
+instructions on how to correctly install local customizations.
+</p><p>
+The zip file contains the following files:
+<ul>
+<li><b>mcgilletdclass.cls</b> - the documentclass itself.  This is the file you must install.  See mcgilletdsample.pdf for information on additional files which may need to be installed.</li>
+<li><b>mcgilletdsample.tex</b> - sample source latex file.</li>
+<li><b>mcgilletd.bib</b> - sample bibtex database.</li>
+<li><b>chick.eps</b> - sample figure.</li>
+<li><b>mcgilletdsample.pdf</b> - documentation.  This is a PDF version of the file
+ which is generated if you follow the instructions for compiling the 
+ sample files.  Please read this file carefully as it contains important
+ information on installing and using the McGill ETD LaTex stylesheet.</li>
+</ul>
+
+<b>Generating an Index</b>
+
+<p>
+If you want to generate an index, you will need the command \makeindex[index] in the preamble. Here, index
+can be any word named by users.
+</p>
+<p>
+The command \index[index]{entry} is used to index entry at that point in the document. 
+</p>
+<pre>
+For example, the following code:
+	\makeindex[myindex1]
+	...
+	Eigenvectors\index[myindex1]{eigenvector} are defined 
+</pre>
+<p>
+will produce output and place the entry `eigenvector' in the myindex1.idx file with the associated page number.
+<p>
+The mcgill etd class redefines the command \printindex which should be placed at the point in the document where you want your index to appear. And \printindex command can be used as following:
+	\printindex[myindex1]{Index - this will appear in the table of contents}{Index - this will be the title of your index.}{Some textual information you want to add the head of your index.}
+</p>
+<p>
+Two index formats are defined. One is with leading dots (mcgillpage.ist}, another is without dots{mcgilldotpage.ist}.
+</p>
+<p>
+If you are also using BIBTEX and the index format without leading dots, you will need to do:
+</p>
+<br/>
+<pre>
+latex filename.tex
+bibtex filename
+makeindex -s mcgillpage.ist myindex1 
+latex filename.tex
+latex filename.tex
+</pre>
+
+</BODY>
+</HTML>

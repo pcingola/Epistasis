@@ -1,15 +1,16 @@
 \documentclass[12pt,Bold,letterpaper,TexShade]{mcgilletdclass}
 
-\usepackage{epsfig}
-\usepackage{amsmath}
 \usepackage{amsfonts}
+\usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{caption}
+\usepackage{color}
+\usepackage{enumitem}
+\usepackage{epsfig}
+\usepackage{framed}
+\usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{listings}
-\usepackage{color}
-\usepackage{caption}
-\usepackage{framed}
-\usepackage{enumitem}
 \usepackage{subcaption}
 
 \input{def_mcgill}
@@ -82,8 +83,8 @@
 % Conditional expression for faster build during "development" cycle
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
 \newif\ifthesis
-%\thesistrue
-\thesisfalse
+\thesistrue
+%\thesisfalse
 
 % Final version?
 \newif\iffinal
@@ -92,7 +93,7 @@
 
 \ifthesis
 	% Only show these sections when we are building the 'thesis' version
-	
+
 	\begin{romanPagenumber}{2}
 	
 	\iffinal
@@ -165,10 +166,10 @@
 \else
 	% Only show the chapter we are currently working on
 	\include{chapters/intro}
-	\include{chapters/intro_variants}
-	\include{chapters/intro_epistasis}
-	\include{chapters/intro_coevolution}
-	\include{chapters/intro_roadmap}
+	%\include{chapters/intro_variants}
+	%\include{chapters/intro_epistasis}
+	%\include{chapters/intro_coevolution}
+	%\include{chapters/intro_roadmap}
 \fi
 
 \ifthesis

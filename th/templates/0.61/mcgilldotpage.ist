@@ -1,0 +1,53 @@
+%%
+%% This is file `mcgilldotpage.ist',
+%% generated with the docstrip utility.
+%%
+
+%% 
+%% This is a MAKEINDEX style file which should be used to
+%% generate the formatted index for use with the ufthesis
+%% document class. This style file can be used to display
+%% an index with the page numbers displayed using the
+%% same leaders and and numbers as what is shown in the
+%% table of contents.
+
+%% Input Style Formats
+keyword "\\indexentry"       % Index command
+arg_open '{'                 % argument opening delimiter
+arg_close '}'                % argument closing delimiter
+range_open '('               % page range opening delimiter
+range_close ')'              % page range closing delimiter
+level '!'                    % index level delimiter
+actual '@'                   % actual key designator
+encap '|'                    % page number encapsulator
+quote '"'                    % quote symbol
+escape '\\'                  % symbol that escapes quote
+page_compositor "-"          % composite page delimiter
+
+%% Output Style Formats
+preamble
+"\n \\renewcommand{\\RSpset}[1]{\\RSpnum{#1}}
+\n  \\IndexSet \n\n \\begin{theindex} \n\n"
+postamble
+"\n\n \\end{theindex} \n"
+item_0    "\n  \\indxspace  \n   \\item "
+item_1    "\n  \\subitem "
+item_2    "\n  \\subsubitem "
+delim_0   "\\leaddots  "
+delim_1   "\\leaddots  "
+delim_2   "\\leaddots  "
+encap_prefix "\\"
+encap_infix  "{"
+encap_suffix "}"
+%% The next lines will produce some warnings when
+%% running MakeIndex as they try to cover two different
+%% versions of the program:
+lethead_prefix   "{\\bfseries\\hfil "
+lethead_suffix   "\\hfil}\\nopagebreak\n"
+lethead_flag       0
+heading_prefix   "{\\bfseries\\hfil "
+heading_suffix   "\\hfil}\\nopagebreak\n"
+headings_flag       0
+%%
+%%
+%% End of file

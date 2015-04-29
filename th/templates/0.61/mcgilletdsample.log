@@ -1,0 +1,637 @@
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  29 APR 2015 09:15
+entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
+**mcgilletdsample
+(./mcgilletdsample.tex
+LaTeX2e <2011/06/27>
+Babel <3.9f> and hyphenation patterns for 78 languages loaded.
+(./mcgilletdclass.cls
+Document Class: mcgilletdclass 2004/12/01 v0.1 McGill University Thesis Class
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/ifthen.sty
+Package: ifthen 2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+)
+\c@QZ@ptcnt=\count79
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/report.cls
+Document Class: report 2007/10/19 v1.4h Standard LaTeX document class
+(/usr/local/texlive/2013/texmf-dist/tex/latex/base/size12.clo
+File: size12.clo 2007/10/19 v1.4h Standard LaTeX file (size option)
+)
+\c@part=\count80
+\c@chapter=\count81
+\c@section=\count82
+\c@subsection=\count83
+\c@subsubsection=\count84
+\c@paragraph=\count85
+\c@subparagraph=\count86
+\c@figure=\count87
+\c@table=\count88
+\abovecaptionskip=\skip41
+\belowcaptionskip=\skip42
+\bibindent=\dimen102
+)
+ 
+*****************************************
+* Updating commands for Thesis Template *
+*****************************************
+(/usr/local/texlive/2013/texmf-dist/tex/latex/setspace/setspace.sty
+Package: setspace 2011/12/19 v6.7a set line spacing
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/ulem/ulem.sty
+\UL@box=\box26
+\UL@hyphenbox=\box27
+\UL@skip=\skip43
+\UL@hook=\toks14
+\UL@height=\dimen103
+\UL@pe=\count89
+\UL@pixel=\dimen104
+\ULC@box=\box28
+Package: ulem 2012/05/18
+\ULdepth=\dimen105
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/sectsty/sectsty.sty
+Package: sectsty 2002/02/25 v2.0.2 Commands to change all sectional heading sty
+les
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/ms/ragged2e.sty
+Package: ragged2e 2009/05/21 v2.1 ragged2e Package (MS)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/ms/everysel.sty
+Package: everysel 2011/10/28 v1.2 EverySelectfont Package (MS)
+)
+\CenteringLeftskip=\skip44
+\RaggedLeftLeftskip=\skip45
+\RaggedRightLeftskip=\skip46
+\CenteringRightskip=\skip47
+\RaggedLeftRightskip=\skip48
+\RaggedRightRightskip=\skip49
+\CenteringParfillskip=\skip50
+\RaggedLeftParfillskip=\skip51
+\RaggedRightParfillskip=\skip52
+\JustifyingParfillskip=\skip53
+\CenteringParindent=\skip54
+\RaggedLeftParindent=\skip55
+\RaggedRightParindent=\skip56
+\JustifyingParindent=\skip57
+)
+\c@QZ@TmpCnt=\count90
+\QZ@TOChdent=\skip58
+\QZ@MyHeader=\skip59
+\QZ@NumPoints=\skip60
+\QZ@StartofHeader=\skip61
+\QZ@EndofFooter=\skip62
+\QZ@TempLength=\skip63
+\BigLength=\skip64
+\UFdent=\skip65
+\QZ@chapnumwidth=\skip66
+\QZ@secindent=\skip67
+\QZ@secnumwidth=\skip68
+\QZ@subsecindent=\skip69
+\QZ@subsecnumwidth=\skip70
+\QZ@figindent=\skip71
+\QZ@fignumwidth=\skip72
+\QZ@tabindent=\skip73
+\QZ@tabnumwidth=\skip74
+\abovefigcaptskip=\skip75
+\belowfigcaptskip=\skip76
+\abovetabcaptskip=\skip77
+\belowtabcaptskip=\skip78
+
+ 
+*****************************************
+*  Finished with Thesis Template
+*****************************************
+ 
+) (/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks15
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/trig.sty
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
+)
+Package graphics Info: Driver file: dvips.def on input line 91.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+))
+\Gin@req@height=\dimen106
+\Gin@req@width=\dimen107
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/geometry/geometry.sty
+Package: geometry 2010/09/12 v5.6 Page Geometry
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
+)
+\Gm@cnth=\count91
+\Gm@cntv=\count92
+\c@Gm@tempcnt=\count93
+\Gm@bindingoffset=\dimen108
+\Gm@wd@mp=\dimen109
+\Gm@odd@mp=\dimen110
+\Gm@even@mp=\dimen111
+\Gm@layoutwidth=\dimen112
+\Gm@layoutheight=\dimen113
+\Gm@layouthoffset=\dimen114
+\Gm@layoutvoffset=\dimen115
+\Gm@dimlist=\toks16
+)
+
+! LaTeX Error: File `TexShade.sty' not found.
+
+Type X to quit or <RETURN> to proceed,
+or enter new name. (Default extension: sty)
+
+Enter file name: 
+\keylist@idxfile=\write3
+\openout3 = `keylist.idx'.
+
+Writing index file keylist.idx 
+\abbr@idxfile=\write4
+\openout4 = `abbr.idx'.
+
+Writing index file abbr.idx 
+
+LaTeX Warning: Unused global option(s):
+    [letterpaper].
+
+(./mcgilletdsample.aux)
+\openout1 = `mcgilletdsample.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 36.
+LaTeX Font Info:    ... okay on input line 36.
+ ABD: EverySelectfont initializing macros
+LaTeX Info: Redefining \selectfont on input line 36.
+
+**************************************
+* Executing Begin Document Statement *
+**************************************
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/local/texlive/2013/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/local/texlive/2013/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+
+Package epstopdf Warning: Drivers other than `pdftex.def' are not supported.
+
+)
+*geometry* detected driver: dvips
+*geometry* verbose mode - [ preamble ] result:
+* driver: dvips
+* paper: letterpaper
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: 
+* h-part:(L,W,R)=(92.14519pt, 430.00462pt, 92.14519pt)
+* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=430.00462pt
+* \textheight=556.47656pt
+* \oddsidemargin=19.8752pt
+* \evensidemargin=19.8752pt
+* \topmargin=-5.87262pt
+* \headheight=12.0pt
+* \headsep=17.0pt
+* \topskip=12.0pt
+* \footskip=29.5pt
+* \marginparwidth=93.0pt
+* \marginparsep=10.0pt
+* \columnsep=10.0pt
+* \skip\footins=36.25pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidefalse
+* \@mparswitchfalse
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+[1
+Non-PDF special ignored!
+
+
+{/usr/local/texlive/2013/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
+
+
+] [3
+
+
+] [4
+
+
+] [5
+
+] (./mcgilletdsample.toc
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <12> on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <8> on input line 1.
+LaTeX Font Info:    External font `cmex10' loaded for size
+(Font)              <6> on input line 1.
+ [6
+
+
+])
+\tf@toc=\write5
+\openout5 = `mcgilletdsample.toc'.
+
+ [7]
+(./mcgilletdsample.lot)
+\tf@lot=\write6
+\openout6 = `mcgilletdsample.lot'.
+
+ [8
+
+
+
+] (./mcgilletdsample.lof)
+\tf@lof=\write7
+\openout7 = `mcgilletdsample.lof'.
+
+ [9
+
+
+
+]
+***************************
+CHAPTER 1.
+***************************
+
+LaTeX Warning: Reference `ch:bds' on page 1 undefined on input line 84.
+
+
+LaTeX Warning: Citation `cingolani2015bigdatascript' on page 1 undefined on inp
+ut line 84.
+
+[1
+
+
+]
+
+LaTeX Warning: Citation `cingolani2012program' on page 2 undefined on input lin
+e 86.
+
+
+LaTeX Warning: Citation `cingolani2012using' on page 2 undefined on input line 
+86.
+
+[2]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 102.
+
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
+File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 102.
+ [3]
+***************************
+CHAPTER 2.
+***************************
+[4
+
+]
+***************************
+CHAPTER 3.
+***************************
+[5
+
+]
+***************************
+CHAPTER 4.
+***************************
+[6
+
+]
+***************************
+CHAPTER 5.
+***************************
+
+Overfull \hbox (212.46838pt too wide) in paragraph at lines 175--178
+[]\OT1/cmr/m/n/12 The op-tional ded-i-ca-tion can be in-serted by us-ing the co
+m-mand []\OT1/cmtt/m/n/12 \SetDedicationName{text},\SetDedicationText{text}
+ []
+
+
+Overfull \hbox (249.55424pt too wide) in paragraph at lines 179--183
+[]\OT1/cmr/m/n/12 In or-der to for-mat the op-tional ac-knowl-edg-ments, use th
+e com-mand []\OT1/cmtt/m/n/12 \SetAcknowledgeName{text},\SetAcknowledgeText{tex
+t}
+ []
+
+
+Overfull \hbox (126.7206pt too wide) in paragraph at lines 184--188
+[]\OT1/cmr/m/n/12 These lists are gen-er-ated with the com-mands []\OT1/cmtt/m/
+n/12 \tableofcontents\OT1/cmr/m/n/12 , []\OT1/cmtt/m/n/12 \listoftables and \li
+stoffigures\OT1/cmr/m/n/12 .
+ []
+
+
+Overfull \hbox (75.53282pt too wide) in paragraph at lines 184--188
+\OT1/cmr/m/n/12 The ti-tles of these lists may be changed by re-new-ing the []\
+OT1/cmtt/m/n/12 \TOCHeading{text}, \LOTHeading{text}\OT1/cmr/m/n/12 ,
+ []
+
+
+Overfull \hbox (71.48845pt too wide) in paragraph at lines 189--198
+\OT1/cmr/m/n/12 into your doc-u-ment. []\OT1/cmtt/m/n/12 \SetAbstractFrName{tex
+t},\SetAbstracFrText{text} and \AbstractFr
+ []
+
+
+Overfull \hbox (12.1688pt too wide) in paragraph at lines 189--198
+\OT1/cmr/m/n/12 are the equiv-a-lent com-mands for the French ab-stract, and []
+\OT1/cmtt/m/n/12 \SetAbstractOtName{text}\OT1/cmr/m/n/12 ,
+ []
+
+[7
+
+] [8]
+***************************
+CHAPTER 6.
+***************************
+
+Underfull \hbox (badness 10000) in paragraph at lines 223--230
+
+ []
+
+[9
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 231--234
+
+ []
+
+[10]
+***************************
+CHAPTER 7.
+***************************
+
+Overfull \hbox (48.13329pt too wide) in paragraph at lines 259--261
+[]\OT1/cmr/m/n/12 These rather startling re-sults were ex-plained by sub-se-que
+nt re-search []\OT1/cmtt/m/n/12 ~\cite{Ammons:001}
+ []
+
+
+LaTeX Warning: Citation `Ammons:001' on page 11 undefined on input line 265.
+
+
+LaTeX Warning: Citation `Fishman:001' on page 11 undefined on input line 265.
+
+[11
+
+] [12]
+***************************
+CHAPTER 8.
+***************************
+[13
+
+] [14] [15] [16] [17] [18]
+Overfull \hbox (0.82634pt too wide) in paragraph at lines 413--414
+[]\OT1/cmr/m/n/12 Use []\OT1/cmtt/m/n/12 \begin{romanList} \OT1/cmr/m/n/12 and 
+[]\OT1/cmtt/m/n/12 \end{romanList} \OT1/cmr/m/n/12 com-mands to cre-ate lower
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 434--438
+
+ []
+
+[20]
+File: chick.eps Graphic file (type eps)
+ <chick.eps>
+File: chick.eps Graphic file (type eps)
+ <chick.eps> [21
+Non-PDF special ignored!
+Non-PDF special ignored!]
+***************************
+CHAPTER 9.
+***************************
+[22
+
+]
+***************************
+CHAPTER 10.
+***************************
+
+Overfull \hbox (3.89757pt too wide) in paragraph at lines 498--500
+[]\OT1/cmr/m/n/12 If you want to gen-er-ate an in-dex, you will need the com-ma
+nd []\OT1/cmtt/m/n/12 \makeindex[index]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 498--500
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 501--506
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 507--512
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 513--521
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 513--521
+
+ []
+
+[23
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 523--530
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 531--533
+
+ []
+
+[24]
+***************************
+CHAPTER 11.
+***************************
+
+! LaTeX Error: Environment texshade undefined.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.549 \begin{texshade}
+                      {alng.fasta}
+? 
+! Undefined control sequence.
+l.550 	\noblockskip
+                   
+? 
+! Undefined control sequence.
+l.551 	\hideconsensus
+                     
+? 
+
+! LaTeX Error: \begin{document} ended by \end{texshade}.
+
+See the LaTeX manual or LaTeX Companion for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.552 \end{texshade}
+                    
+? 
+
+Underfull \hbox (badness 10000) in paragraph at lines 539--553
+
+ []
+
+[25
+
+] [26
+
+] [27
+
+
+]
+No file mcgilletdsample.bbl.
+No file keylist.ind found.
+No file abbr.ind found.
+(./mcgilletdsample.aux)
+
+ *File List*
+mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
+  ifthen.sty    2001/05/26 v1.1c Standard LaTeX ifthen package (DPC)
+  report.cls    2007/10/19 v1.4h Standard LaTeX document class
+  size12.clo    2007/10/19 v1.4h Standard LaTeX file (size option)
+setspace.sty    2011/12/19 v6.7a set line spacing
+    ulem.sty    2012/05/18
+ sectsty.sty    2002/02/25 v2.0.2 Commands to change all sectional heading styl
+es
+ragged2e.sty    2009/05/21 v2.1 ragged2e Package (MS)
+everysel.sty    2011/10/28 v1.2 EverySelectfont Package (MS)
+graphicx.sty    1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+  keyval.sty    1999/03/16 v1.13 key=value parser (DPC)
+graphics.sty    2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+    trig.sty    1999/03/16 v1.09 sin cos tan (DPC)
+graphics.cfg    2010/04/23 v1.9 graphics configuration of TeX Live
+   dvips.def    1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+geometry.sty    2010/09/12 v5.6 Page Geometry
+   ifpdf.sty    2011/01/30 v2.3 Provides the ifpdf switch (HO)
+  ifvtex.sty    2010/03/01 v1.5 Detect VTeX and its facilities (HO)
+ ifxetex.sty    2010/09/12 v0.6 Provides ifxetex conditional
+pdftexcmds.sty    2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO)
+infwarerr.sty    2010/04/08 v1.3 Providing info/warning/error messages (HO)
+ifluatex.sty    2010/03/01 v1.3 Provides the ifluatex switch (HO)
+ ltxcmds.sty    2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+epstopdf-base.sty    2010/02/09 v2.5 Base part for package epstopdf
+  grfext.sty    2010/08/19 v1.1 Manage graphics extensions (HO)
+kvdefinekeys.sty    2011/04/07 v1.3 Define keys (HO)
+kvoptions.sty    2011/06/30 v3.11 Key value format for package options (HO)
+kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
+etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
+   chick.eps    Graphic file (type eps)
+   chick.eps    Graphic file (type eps)
+ ***********
+
+
+LaTeX Warning: There were undefined references.
+
+ ) 
+Here is how much of TeX's memory you used:
+ 2099 strings out of 493315
+ 30342 string characters out of 6137904
+ 95126 words of memory out of 5000000
+ 5516 multiletter control sequences out of 15000+600000
+ 7557 words of font info for 28 fonts, out of 8000000 for 9000
+ 957 hyphenation exceptions out of 8191
+ 38i,8n,23p,697b,329s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
+></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
+/usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></u
+sr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr
+/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/l
+ocal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loca
+l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local
+/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
+Output written on mcgilletdsample.pdf (36 pages, 133325 bytes).
+PDF statistics:
+ 156 PDF objects out of 1000 (max. 8388607)
+ 107 compressed objects within 2 object streams
+ 0 named destinations out of 1000 (max. 500000)
+ 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+

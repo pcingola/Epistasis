@@ -1,0 +1,102 @@
+%%
+\newtheorem{lemma}{{\bf Lema}}[chapter]
+\newtheorem{theorem}{{\bf Teorema}}[chapter]
+\newtheorem{corollary}{{\bf Corolario}}[theorem]
+\newtheorem{definition}{{\bf Definici\'on}}[chapter]
+\newtheorem{propo}{{\bf Proposicion}}[chapter]
+
+%%
+\renewcommand{\vec}[1]{\mbox{$\,${\bf #1}}}
+\newcommand{\C}{\mbox{$\mbox{l}\!\!\!\mbox{C}$}}
+\newcommand{\N}{\mbox{$\mbox{I}\!\mbox{N}$}}
+\newcommand{\R}{\mbox{$\mbox{I}\!\mbox{R}$}}
+\newcommand{\Z}{\mbox{$\mbox{Z}\!\!\mbox{Z}$}}
+\newcommand{\Rn}{\mbox{$\R^n\,$}}
+\newcommand{\Rnxn}{\mbox{$\R^{n \times n}$}}
+\newcommand{\Rnxm}{\mbox{$\R^{n \times m}$}}
+\newcommand{\Rmxn}{\mbox{$\R^{m \times n}$}}
+\newcommand{\Rmxm}{\mbox{$\R^{m \times m}$}}
+\newcommand{\inertia}[1]{\mbox{$\cal I$($#1$)}}
+\newcommand{\ceil}[1]{\mbox{$\left\lceil #1 \right\rceil$}}
+\newcommand{\floor}[1]{\mbox{$\left\lfloor #1 \right\rfloor$}}
+\newcommand{\ceilfrac}[2]{\mbox{$\left\lceil\frac{#1}{#2}\right\rceil$}}
+\newcommand{\floorfrac}[2]{\mbox{$\left\lfloor\frac{#1}{#2}\right\rfloor$}}
+\newcommand{\GEP}{\mbox{(\ref{eq:GEP})}}
+\newcommand{\AMB}{\mbox{$A-\mu B$}}
+\newcommand{\M}{\mbox{$\cal M$}}
+\newcommand{\B}{\mbox{$\cal B$}}
+\newcommand{\Q}{\mbox{$\cal Q$}}
+\newcommand{\D}[1]{\mbox{${\cal D}_#1$}}
+\newcommand{\U}{\mbox{$\cal U$}}
+\newcommand{\V}{\mbox{$\cal V$}}
+\newcommand{\lead}[2]{\mbox{$#1_{[#2]}$}}
+\newcommand{\minor}[2]{\mbox{$\det{\lead{#1}{#2}}$}}
+\newcommand{\inner}[3]{\mbox{$<\!\!#1,#2\!\!>_{#3}$}}
+\newcommand{\ie}{i.e.\ }
+\newcommand{\eg}{e.g.\ }
+
+% Define \mytable
+% Include one of my tables, in the standard way
+%  Parm 1 is the table name
+%  Parm 2 is the caption for the "List of tables"
+%  Parm 3 is the real caption
+\newcommand{\mytable}[3]{
+    \begin{table}[htbp]
+        \begin{minipage}{\textwidth}
+          \begin{center}
+	          \TableCaptionOpt{#2 \label{tab:#1}}{#3}
+			  \label{tab:#1}
+              \input{tables/#1/table.tex}
+          \end{center}
+        \end{minipage}
+    \end{table}
+    \normalsize
+}
+
+% Define \fig
+% Include one of my figures, in the standard way
+%  Parm 1 : File name (no extension)
+%  Parm 2 : Label (without 'fig:')
+%  Parm 3 : Width
+%  Parm 4 : Caption
+%  Parm 5 : Figure name (for table of contents)
+
+% \newcommand{\fig}[5]{
+% \begin{figure}[ht]
+%     \begin{center}
+%         \begin{minipage}{#3}
+%             \includegraphics[ width={#3} ]{figs/#1}
+%             \FigureCaptionOpt{#4}{#5}
+%             \label{fig:#2}
+%         \end{minipage}
+%     \end{center}
+% \end{figure}
+% }
+
+\newcommand{\fig}[5]{
+\begin{figure}
+  \begin{center}
+    \includegraphics[ width={#3} ]{figs/#1}
+    \FigureCaptionOpt{#5}{#4}
+    \label{fig:#2}
+  \end{center}
+\end{figure}
+}
+
+% Define \fig
+% Include one of my figures (but the figure actually contains a table)
+%  Parm 1 : File name (no extension)
+%  Parm 2 : Width
+%  Parm 3 : Caption
+%  Parm 4 : Table name (for table of contents)
+\newcommand{\figtab}[5]{
+\begin{figure}
+  \renewcommand{\figurename}{Table }
+  \begin{center}
+    \includegraphics[ width={#3} ]{figs/#1}
+    \TableCaptionOpt{#5}{#4}
+    \label{tab:#2}
+  \end{center}
+\end{figure}
+}
+

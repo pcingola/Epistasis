@@ -17,20 +17,25 @@ White space in argument---line 140 of file chapters/intro_coevolution.aux
  : \citation{dunn2008mutual:REF(Martin
  :                                     et al.}
 I'm skipping whatever remains of this command
-White space in argument---line 142 of file chapters/intro_coevolution.aux
+White space in argument---line 143 of file chapters/intro_coevolution.aux
  : \citation{dunn2008mutual:REF
  :                              (Wollenberg and Atchley}
 I'm skipping whatever remains of this command
-White space in argument---line 144 of file chapters/intro_coevolution.aux
+White space in argument---line 145 of file chapters/intro_coevolution.aux
  : \citation{(Martin
  :                   et al.}
 I'm skipping whatever remains of this command
-White space in argument---line 145 of file chapters/intro_coevolution.aux
+White space in argument---line 146 of file chapters/intro_coevolution.aux
  : \citation{2005;
  :                 Tillier and Lui}
 I'm skipping whatever remains of this command
-A level-1 auxiliary file: chapters/intro_roadmap.aux
+A level-1 auxiliary file: chapters/intro_roadmap.tex.aux
+A level-1 auxiliary file: chapters/bds.aux
+A level-1 auxiliary file: chapters/snpeff.aux
+A level-1 auxiliary file: chapters/gwas.aux
+A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
+Reallocated field_info (elt_size=4) to 10359 items from 5000.
 Database file #1: mcgilletd.bib
 Repeated entry---line 793 of file mcgilletd.bib
  : @article{langmead2009ultrafast
@@ -116,6 +121,10 @@ Repeated entry---line 2962 of file mcgilletd.bib
  : @article{davydov2010identifying
  :                                ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 3364 of file mcgilletd.bib
+ : @article{jones1998gabab
+ :                        ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 3534 of file mcgilletd.bib
  : @book{cormen2001introduction
  :                             ,
@@ -148,49 +157,50 @@ Warning--I didn't find a database entry for "marks2012protein:REF"
 Warning--I didn't find a database entry for "2005)"
 Warning--I didn't find a database entry for "2000)"
 Warning--I didn't find a database entry for "2003)"
+Warning--empty journal in begun1992levels
 Warning--empty journal in brenner1965genetic
 Warning--empty publisher in darwin1877various
 Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
-You've used 150 entries,
+You've used 213 entries,
             2118 wiz_defined-function locations,
-            1306 strings with 35797 characters,
-and the built_in function-call counts, 62725 in all, are:
-= -- 5904
-> -- 4234
-< -- 9
-+ -- 1698
-- -- 1520
-* -- 5471
-:= -- 10815
-add.period$ -- 451
-call.type$ -- 150
-change.case$ -- 1174
+            1640 strings with 49758 characters,
+and the built_in function-call counts, 89048 in all, are:
+= -- 8393
+> -- 5993
+< -- 13
++ -- 2407
+- -- 2152
+* -- 7800
+:= -- 15358
+add.period$ -- 641
+call.type$ -- 213
+change.case$ -- 1662
 chr.to.int$ -- 0
-cite$ -- 154
-duplicate$ -- 1733
-empty$ -- 3917
-format.name$ -- 1520
-if$ -- 12298
+cite$ -- 218
+duplicate$ -- 2444
+empty$ -- 5580
+format.name$ -- 2152
+if$ -- 17442
 int.to.chr$ -- 0
-int.to.str$ -- 150
-missing$ -- 155
-newline$ -- 753
-num.names$ -- 300
-pop$ -- 977
+int.to.str$ -- 213
+missing$ -- 220
+newline$ -- 1068
+num.names$ -- 426
+pop$ -- 1367
 preamble$ -- 1
-purify$ -- 1030
+purify$ -- 1457
 quote$ -- 0
-skip$ -- 1221
+skip$ -- 1707
 stack$ -- 0
-substring$ -- 3928
-swap$ -- 239
-text.length$ -- 9
+substring$ -- 5638
+swap$ -- 320
+text.length$ -- 13
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 588
-warning$ -- 4
-while$ -- 538
-width$ -- 153
-write$ -- 1631
-(There were 30 error messages)
+type$ -- 836
+warning$ -- 5
+while$ -- 772
+width$ -- 216
+write$ -- 2321
+(There were 31 error messages)

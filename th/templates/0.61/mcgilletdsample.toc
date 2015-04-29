@@ -1,0 +1,38 @@
+\contentsline {extrachapter}{\MakeUppercase {Dedication}}{ii}
+\contentsline {extrachapter}{\MakeUppercase {Acknowledgements}}{iii}
+\contentsline {extrachapter}{\MakeUppercase {Abstract}}{iv}
+\contentsline {extrachapter}{\MakeUppercase {ABR\'{E}G\'{E}}}{v}
+\contentsline {extrachapter}{\MakeUppercase {List of Tables}}{viii}
+\contentsline {extrachapter}{\MakeUppercase {List of Figures}}{ix}
+\contentsline {chapter}{\numberline {1}Introduction}{1}
+\contentsline {section}{\numberline {1.1}Introduction}{1}
+\contentsline {section}{\numberline {1.2}General Guidelines}{3}
+\contentsline {chapter}{\numberline {2}Usage}{4}
+\contentsline {chapter}{\numberline {3}The document class options}{5}
+\contentsline {section}{\numberline {3.1}Font Size Options: 10pt, 11pt or 12pt}{5}
+\contentsline {chapter}{\numberline {4}Title Page}{6}
+\contentsline {chapter}{\numberline {5}The Thesis FrontSection}{7}
+\contentsline {section}{\numberline {5.1}Title page(required)}{7}
+\contentsline {section}{\numberline {5.2}Dedication}{7}
+\contentsline {section}{\numberline {5.3}Acknowledgments}{7}
+\contentsline {section}{\numberline {5.4}Table of Contents, List of Tables and Figures(required)}{7}
+\contentsline {section}{\numberline {5.5}Abstract(required)}{7}
+\contentsline {chapter}{\numberline {6}The Thesis "Mainmatter"}{9}
+\contentsline {section}{\numberline {6.1}Chapter Titles}{9}
+\contentsline {section}{\numberline {6.2}Section Headings}{9}
+\contentsline {section}{\numberline {6.3}Tables and Figures}{10}
+\contentsline {chapter}{\numberline {7}The Thesis "Backmatter"}{11}
+\contentsline {section}{\numberline {7.1}List of References}{11}
+\contentsline {chapter}{\numberline {8}Special Commands}{13}
+\contentsline {section}{\numberline {8.1}Automatically Generated Indices}{13}
+\contentsline {section}{\numberline {8.2}Changing the Code . . .}{14}
+\contentsline {section}{\numberline {8.3}An Example Thesis File}{14}
+\contentsline {section}{\numberline {8.4}Special Cases}{15}
+\contentsline {section}{\numberline {8.5}Testing figures and tables.}{20}
+\contentsline {chapter}{\numberline {9}TESTING FOOTNOTES}{22}
+\contentsline {chapter}{\numberline {10}Generating an Index}{23}
+\contentsline {section}{\numberline {10.1}Genereating an Index}{23}
+\contentsline {section}{\numberline {10.2}Generating a list of abbreviations}{24}
+\contentsline {chapter}{\numberline {11}Supporting TexShade}{25}
+\contentsline {extrachapter}{Appendix A}{26}
+\contentsline {extrachapter}{Appendix B}{27}
