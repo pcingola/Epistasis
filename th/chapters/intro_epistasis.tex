@@ -263,10 +263,10 @@ Furthermore, it was mathematically shown that for such models maximizing the bro
 
 In a seminal series of papers \cite{zuk2012mystery, zuk2014searching} further mathemical prof of the link between epistasis and heritability was provided.
 The authors claim that missing heritability arises by an overestimation of the denominator that happens when epistasis is ignored \cite{zuk2012mystery}.
-This overestimatio, called ``phantom heritability", was shown to inflate the denominator over $60\%$ in Cohn's disease, thus could accounting for up to $80\%$ of the missing heritability \cite{zuk2012mystery}.
-Even though the prevailing view among geneticists is that interactions play at most a minor role in explaining missing heritability, their works showsthat simple (and plausible) models can give rise to substantial phantom heritability \cite{zuk2012mystery}
+This overestimation, called ``phantom heritability", was shown to inflate the denominator over $60\%$ in Cohn's disease, thus accounting for up to $80\%$ of the missing heritability \cite{zuk2012mystery}.
+Even though the prevailing view among geneticists is that interactions play at most a minor role in explaining missing heritability, their works shows that simple and plausible models can give rise to substantial phantom heritability \cite{zuk2012mystery}
 
-In moderately heritable complex diseases for which single-locus analyses have not accounted for the predicted genetic variance these epistatic models provide one possible explanation so it is worth pursuing a hypothesis of interacting loci \cite{culverhouse2002perspective}.
+In moderately heritable complex diseases for which single-locus GWAS analyses have not accounted for the predicted genetic variance these epistatic models provide one possible explanation so it is worth pursuing a hypothesis of interacting loci \cite{culverhouse2002perspective}.
 
 %IN 2002: Thus, for fixed K, p , and p , maximizing the broad AB heritability (h 2 p V /V ) under the constraint repreIT sented by formula (2) is equivalent to the maximizing of VI. \cite{culverhouse2002perspective}. TABLE 2 and 3: Maxima of heritability using epistasis. \cite{culverhouse2002perspective}. Three-locus models can also give rise to higher relative risks than are possible in corresponding two-locus models. Three-locus penetrance models maximizing heritability at the low end of disease prevalence \cite{culverhouse2002perspective}
 
@@ -290,16 +290,15 @@ iii) bottlenecks are particularly effective at generating LD
 iv) hitchhiking of linked sites with a positively-selected mutation can generate large haplotype blocks 
 v) large inversion and other structural variation alter recombination patterns thus causing LD over unusually large regions \cite{koch2013long:REF}.
 
-Under the assumption that long range LD can hint physical protein interactions the authors of LDGIdb \cite{wang2012ldgidb} created a catalog of over $600,000$ pairs of SNPs showing strong long-range linkage disequilibrium, i.e. pairs of SNP pairs that were either located in different chromosomes or in different LD blocks and had $r^2 \ge 0.8$ \cite{wang2012ldgidb}.
-However these simple approaches may be of little utility because of technical issues that must be taken into account when performing such association, since commonly used measures of LD (such as $r^2$ and $D'$) are known to give rise to large linkage when sampling minor allele frequencies (MAF) near 0 \cite{koch2013long}.
+Under the assumption that long range LD can hint epistasis due to physical protein interactions the authors of LDGIdb \cite{wang2012ldgidb} created a catalog of over $600,000$ pairs of SNPs showing strong long-range linkage disequilibrium, i.e. pairs of SNP pairs that were either located in different chromosomes or in different LD blocks and had $r^2 \ge 0.8$ \cite{wang2012ldgidb}.
+However such a simple approach may be of little utility because of technical issues that must be taken into account when performing such association: i) commonly used measures of LD (such as $r^2$ and $D'$) are known to give rise to large linkage when sampling minor allele frequencies (MAF) near 0 \cite{koch2013long}; and ii) $r^2$ is not corrected for multiple testing.
 A better alternative is to measure the probability that a large value of the disequilibrium $D$ is observed if there is no association further refined by conditioning on the sampled allele frequencies (at the two loci), which has the analytical advantage to asymptotically converge to a Fisher's exact test \cite{koch2013long}.
 
-It is possible to implicitly test the over / under-representation of allele pairs in a given population, i.e. analysis of imbalanced allele pair frequencies \cite{ackermann2012systematic}
+Another approach is to implicitly test over / under-representation of allele pairs in a given population, i.e. analysis of imbalanced allele pair frequencies \cite{ackermann2012systematic}.
 The underlying theory is that such allele pairs are under Dobzhansky-Muller incompatibilities which establishes a fitness bias favouring of individuals that inherit over-represented allele combination \cite{ackermann2012systematic}.
-
-The authors in \cite{ackermann2012systematic} studying a population of 2,002 mice in family trios.
-They performed a $\chi^2$ test correcting by confounding factors (such as expected frequencies, family structure and allelic drift) based on inspecting $3 x 3$ contingency tables of all possible two-locus allele combinations.
-They claim that using their method it is possible to detect more interactions than using independent markers and as a result they were able to identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}.
+Based on this, the authors in \cite{ackermann2012systematic} studied a population of 2,002 mice in family trios.
+They performed a $\chi^2$ test correcting by confounding factors (such as expected frequencies, family structure and allelic drift) based on inspecting $3 \times 3$ contingency tables of all possible two-locus allele combinations.
+They claim that their methodology can detect more interactions than using independent markers and as a result they were able to identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}.
 
 By exploiting the  intense selective pressures imposed by the process of inbreeding mice populations it can be expected that clusters of functionally related genes are likely to be selected for coadapted allelic combinations in genes that influence fitness and survival.
 This hypothesis would result in regions of linkage disequilibrium (LD) among inbred strain genomes that should occur more often than expected by chance \cite{petkov2005evidence}.
@@ -397,13 +396,15 @@ Further pathway analysis identifies biological functions underlying several of t
 %All of the 22 chromosomes show significant values for pDmax at the p,0.05 level, and all remain significant after a Bonferroni correction for multiple tests. For the second test statistic, n , 19 chromosomes show significant P values, 18 of which remain significant after the Bonferroni correction. These results suggest there is long-range linkage disequilibrium in the YRI population. \cite{koch2013long}
 %[LRLD] have been little studied, they may be indicators of important evolutionary processes \cite{koch2013long}
 
+Although detection of epistasis is valuable, in this thesis we focus on the context of complex disease.
+In the next sub-section we introduce methods combining GWAS and epistatic analysis to find epistatic loci affecting disease risk.
 
 \subsection{Epistasis \& GWAS}
 
-In recent years there have been a growing number of GWAs, most of them have used a single-locus analysis strategy, in which each variant is tested individually for association with a specific phenotype \cite{cordell2009detecting}
-It may be inadequate to describe complex disease the relationship between genotype and phenotype by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}.
-The extent to which epistasis is involved in complex traits is not known so we cannot assume that epistasis will be found for every trait in every population. \cite{carlborg2004epistasis}
-However epistasis has been overlooked and that it should to be routinely explored in complex trait studies.  \cite{carlborg2004epistasis}.
+In recent years there have been a growing number of GWAs, most of them have used a single-locus analysis strategy, in which each variant is tested individually for association with a specific phenotype \cite{cordell2009detecting}.
+Some researchers mentioned that it may be inadequate to describe complex disease the relationship between genotype and phenotype by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}.
+Nevertheless, the extent to which epistasis is involved in complex traits is not known so we cannot assume that epistasis will be found for every trait in every population. \cite{carlborg2004epistasis}
+However it is true that epistasis has been overlooked and in it should to be routinely explored in complex trait studies.  \cite{carlborg2004epistasis}.
 This is particularly important for researchers of moderately heritable complex diseases for which locus-by-locus analyses have not accounted for the predicted genetic variance should pursue a hypothesis of epistatic loci \cite{culverhouse2002perspective} that owing to their interaction, might not be identified by using standard single-locus tests \cite{cordell2009detecting}.
 It is also hoped that detecting such interactions will allow to elucidate biological pathways that underpin disease \cite{cordell2009detecting}.
 
@@ -411,23 +412,21 @@ Recent GWAS studies explored genome-level identification of epistatic interactio
 Failure to detect epistasis does not rule out it's presence \cite{zuk2012mystery}.
 In theory a sufficient number of contributing purely epistatic interactions loci could account for all the variation in disease status for any prevalence \cite{culverhouse2002perspective}.
 Nevertheless, when the genetic model of disease is purely epistatic (i.e. no additive or dominance at any of the susceptibility loci) then association methods analysing single locus at a time cannot detect the loci \cite{culverhouse2002perspective}.
-Furthermore there could be $n-way$ purely epistatic model for which no two, three, or $n-1$ loci jointly give evidence leading to the concern that even assessment of all ``$(n-1)$ way" interactions among candidate loci may not be sufficient for detection of the contributing loci. \cite{culverhouse2002perspective}.
+Furthermore there could be \textit{n-way} purely epistatic model for which no joint analysis of two, three, or $n-1$ loci gives evidence.
+This leads to the concern that even assessment of all ``$(n-1)$ way" interactions among candidate loci may not be sufficient for detection of the contributing loci \cite{culverhouse2002perspective}.
 
 Another reason why complex human phenotypes fail to find evidence for epistatic interactions may simply be that analytic methods inherently exclude epistasis \cite{culverhouse2002perspective}.
 As individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect an effect scales inversely with the square of the effect size. 
-The main obstacle is attributed to the exponentially large number of statistical hypotheses tested when comparing all markers in a genome against all markers \cite{ackermann2012systematic}
+The main obstacle is attributed to the exponentially large number of statistical hypotheses tested when comparing all markers against all other markers in a genome analysis \cite{ackermann2012systematic}.
 As an example provided by \cite{zuk2012mystery} consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
 In such case, assuming $50\%$ power, significance level $5 \times 10^{-8}$  and equal number of cases and controls; the sample size required for single loci analysis would be $4,900$.
 In comparisson, the sample size required to detect pairwise interaction between those two variants using the same power and an appropriately corrected significance level is roughly $450,000$, so a researcher studying $100,000$ samples would discover all single acting loci but would find little evidence of epistatic interactions, which may be the reason why geneticists that have tested for pairwise epistasis between loci have found few significant signals \cite{zuk2012mystery}.
 It should be noted that even though GWAs involving over $500,000$ samples are not available at the moment, studies using sample sizes in this order are expected to become available within the next couple of years.
 
-
-Existing approaches for searching interactions can be grouped into five broad categories. \cite{li2011detecting}:
+Existing approaches for searching interactions in the context of GWAS analysis can be grouped into five broad categories. \cite{li2011detecting}:
 \begin{enumerate}
-	\item \textbf{Exhaustive search} methods use classical statistics such as the Pearson's $\chi^2$ test or logistic regression that are natural extensions of methods commonly used for single-locus tests in GWAS.
-	
-Since the definition of epistasis from a statistical perspective is a ``departure from a linear model" \cite{cordell2009detecting}. 
-In a logistic regression the input for sample $s$ includes terms with each of the genotypes at loci $i$ and $j$), as well as an ``interaction term" $g_{s,i} \cdot g_{s,j}$ \cite{cordell2002epistasis}. 
+	\item \textbf{Exhaustive search} methods extend classical single-locus GWAS statistics such as the Pearson's $\chi^2$ test or logistic regression.
+For instance, using the definition of epistasis as ``departure from a linear model" \cite{cordell2009detecting}, in a logistic regression model the input for sample $s$ analysing loci $i$ and $j$ would include terms with each of the genotypes ($g_{s,i}$ and $g_{s,j}$), as well as an ``interaction term" ($g_{s,i} \cdot g_{s,j}$) \cite{cordell2002epistasis}. 
 
 \begin{eqnarray*} \label{eq:gwasLogRegH1}
     P( d_s | g_{s,i},g_{s,j}) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
@@ -438,43 +437,46 @@ where $d_s$ is disease status, $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, 
 Logistic models involving interactions between more than two variants can be defined similarly, but require more parameters and extremely large samples are required to accurately fit them.
 
 It should be noted that the number of tests necessary to evaluate all two-way, three-way and four-way interactions for 30-60 candidate loci, has a range similar to the number of tests suggested for a single GWAS, thus searching for n-way interactions among all the markers would be impracticable. \cite{culverhouse2002perspective}.
-Other approaches include: combinatorial partitioning method \cite{REF}, restricted partitioning method \cite{REF}, multifactor-dimensionality reduction \cite{REF}, multivariate adaptive regression spline \cite{REF}, logistic regression methods and backward genotype-trait association (BGTA)\cite{REF}. 
+Other approaches include: combinatorial partitioning method \cite{REF}, restricted partitioning method \cite{REF}, multifactor-dimensionality reduction \cite{REF}, multivariate adaptive regression spline \cite{REF}, and backward genotype-trait association (BGTA)\cite{REF}. 
 Unfortunately even though many of these look promising, many of them have only been tested on small data sets \cite{zhang2007bayesian}.
 Furthermore, methods based on brute-force searches such as (combinatorial partitioning method and multifactor-dimensionality reduction) are impractical for large data sets \cite{zhang2007bayesian}.
-Nevertheless it was shown \cite{li2011detecting} that it can be feasible to perform GWAS level analysis in some cases and that simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
+Nevertheless it was shown \cite{li2011detecting} that it can be feasible to perform GWAS level analysis for low number of interactions in some cases and that simple methods explicitly considering interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
 	
-	Also in this category method designed to search for epistasis effects when analyzing continuous phenotypes (or quantitaive trait loci QTL) instead of case/control studies.
+	Also in this category method designed to search for epistasis effects when analyzing continuous phenotypes (or quantitaive trait loci QTL) instead of case / control studies.
 Matrix algorithm optimizations can significantly speed up computations.
 For instance FastEpistasis applies an efficiently parallelized QR decomposition to derive least squares estimates of the interaction coefficient and its standard error \cite{schupbach2010fastepistasis}.
 This allows it to handle all pairs from $500,000$ in a population of $5,000$ individuals in roughly one CPU year, which can be run on less than a day in a 256 CPU cluster \cite{schupbach2010fastepistasis}.
 
 	\item \textbf{Linkage disequilibrium} methods use patterns in disease population under two-locus disease models \cite{zhao2006test} association can be estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked.  \cite{zhao2006test}
-Under the assumptions that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE) and are unlinked
-they show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population \cite{zhao2006test}.
+In \cite{zhao2006test} the authors, under the assumptions that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE), show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population.
 They develop a test statistic for detection deviations from LD, intuitively they test interaction by comparing the difference in the LD levels between two unlinked loci between cases and controls \cite{zhao2006test}.
-Since the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, thus in the absence of interaction the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population \cite{zhao2006test}.
+Assuming that the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, in the absence of interaction the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population \cite{zhao2006test}.
 They further show that under the null hypothesis, this test statistic asymptotically converges to a central $\chi^2$ distribution.
-In their power comparison simulations they show that in general this LD-based test statistic has much smaller p-values than those of logistic regression analysis \cite{zhao2006test} conlcuding that their test has much higher power than alternatives such as logistic regression \cite{zhao2006test}.
+Their power comparison simulations suggest that in general this LD-based test statistic has much smaller p-values than those of logistic regression analysis \cite{zhao2006test} concluding that their test has higher power than alternatives such as logistic regression \cite{zhao2006test}.
 
 	\item \textbf{Stochastic search} methods use sampling to infer whether a locus is a risk locus, jointly affects disease, or a background locus.
 A Bayesian approach for genome-wide case-control studies denoted `bayesian epistasis association mapping' (BEAM) \cite{zhang2007bayesian} is a representative example of this type of methods.
  BEAM treats the disease-associated markers and their interactions via a bayesian partitioning model and computes the posterior probability that each marker (using Markov chain Monte Carlo).
 The method uses predictors in the form of genetic marker loci divided into three groups: i) markers not associated with disease, ii) markers individually contributing to disease risk, and iii) markers that interact \cite{zhang2007bayesian}.
 Membership of each marker in each of the three groups is defined by the prior distributions.
-Given a prior distributions for regression coefficients values given by group membership, a posterior distribution can be generated using MCMC simulation. \cite{cordell2009detecting}.
+Given a prior distributions for regression coefficients values given by group membership, a posterior distribution can be generated using MCMC simulation \cite{cordell2009detecting}.
 At the end, it uses a special statistic (B-Statistic) to infer significance from the samples in MCMC. 
-Although it avoids computing all interactions but theoretically could find high-order interactions. 
-Since the method was originally designed for genotypes markers, its power can be hampered by allele frequency discrepancies between unobserved disease loci and associated genotyped marker/s\cite{zhang2007bayesian}.
+Although it avoids explicitly computing all interactions the method could in theory find high-order interactions. 
+Since BEAM was originally designed for genotypes markers, its power can be hampered by allele frequency discrepancies between unobserved disease loci and associated genotyped marker/s\cite{zhang2007bayesian}.
 This is a common problem when using indirect markers and the authors show that in an extreme case when the MAF discrepancy was maximized all tested methods had little power to detect interaction associations \cite{zhang2007bayesian}.
-In the original paper, the authors apply BEAM to a data set containing $116,204$ SNPs genotyped for $96$ affected individuals and $50$ controls. for an association study of age-related macular degeneration (AMD).
+In the original paper, the authors apply BEAM to a data set containing $116,204$ SNPs genotyped for $96$ affected individuals and $50$ controls for an association study of age-related macular degeneration (AMD).
 Unfortunately BEAM did not find any significant interactions \cite{zhang2007bayesian} most likely due to the small sample size.
-Runtime and power are primarily determined by the number of MCMC rounds with a suggested number of MCMC iteration as the quadratic of the number of SNPs, thus limiting the applicability \cite{li2011detecting}.
-So it cannot be applied to large GWAS studies because computational limitations make it unsuitable to handle over $500,000$ markers with sample sizes of $5,000$ or more individuals which are now commonly sequenced or genotyped \cite{cordell2009detecting}.
+Runtime and power are primarily determined by the number of MCMC rounds with a suggested number of MCMC iteration as the quadratic of the number of SNPs.
+This is a main factor limiting the applicability \cite{li2011detecting}, so BEAM cannot be applied to large GWAS studies because computational limitations make it unsuitable to handle over $500,000$ markers with sample sizes of $5,000$ or more individuals which are now commonly sequenced or genotyped \cite{cordell2009detecting}.
 
 	\item \textbf{Conditional search} methods usually perform analyses in stages \cite{li2011detecting}.
 A small subset of significant loci is identified in the first stage, typically using single locus association statistics.
 Then this subset is mined using multi-locus association using an exhaustive method. 
-A well known approach in this category is ``stepwise logistic regression" which works as follows: (i) all markers are individually tested for associations with disease and ranked; (ii) the top (usually $10\%$) are selected, 3) all two-way (or three-way) interactions are tested and ranked for associations. 
+A well known approach in this category is ``stepwise logistic regression" which works as follows:
+i) all markers are individually tested for associations with disease using a logistic regression model;
+ii) loci are ranked based on the results of single-locus tests;
+iii) the top (usually $10\%$) are selected for epistatic association, 
+iv) all two-way (or three-way) interactions are tested. 
 Even this stepwise approach can become computationally intractable for high-order interactions \cite{zhang2007bayesian}.
 Analysis of stepwise logistic regression approach to identify two-way and three-way interactions demonstrated that searching for interactions in genome-wide association mapping can be more fruitful than traditional approaches that exclusively focus on marginal effects \cite{zhang2007bayesian}.
 As a counter argument for stepwise logistic regression, we should take into account that in the presence of epistasis the effect of one locus is altered or masked by another locus, thus power to detect the first locus is likely to be reduced and the joint effects will be hindered by their interaction \cite{cordell2002epistasis}. 
@@ -486,16 +488,16 @@ In this context, trees are constructed using rules based on the values of a pred
 A popular rule selection mechanism is to use the variable that maximizes the reduction in Gini impurity \cite{REF} at each node (intuitively, when child nodes have lower impurity from a split based on an attribute each child node will have purer classification).
 Random forests are constructed by drawing samples with replacement from the original sample. 
 A classification tree is created for each bootstrap sample, but only a random subset of the possible predictor variables is considered. 
-This results in a `forest' of trees have been trained on a particular sample of observations. \cite{cordell2009detecting}
-Instead of trying to create a monolithic learner, this type of methods called ``ensemble systems" attempt to create many heterogeneous ``weak" (or simple) learners. 
+This results in a `forest' of trees have been trained on a particular sample of observations. \cite{cordell2009detecting}.
+Instead of trying to create a monolithic learner, this type of methods called ``ensemble systems" attempts to create many heterogeneous ``weak" (or simple) learners. 
 The outcomes of these heterogeneous systems are combined to create an improved model \cite{li2011detecting}.
 
-In an extension of AdaBoost algorithm, the authors incorporates an importance score based on Gini impurity to select candidate SNP \cite{li2011detecting} in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
-Decision trees are usually built with binary splits, but since genotype data can be ${0, 1, 2}$, they also extended their method to create a ternary split
+In \cite{li2011detecting} the authors create an extension of AdaBoost algorithm, the authors incorporates an importance score based on Gini impurity to select candidate SNP  in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
+Decision trees are usually built with binary splits, but since genotype data can be $\{0, 1, 2\}$, they also extended their method to create a ternary split.
 AdaBoost draws bootstrap samples to increase the power of a weak learner by weighting the individuals when bootstrapping. 
 So when a weak learner misclassifies an individual, the weight of that individual is increased, as a consequence hard to classify individuals are more likely to be included in future bootstrap samples. 
 The ensemble votes by weighting weak learner instances by training set accuracy.  \cite{li2011detecting}.
-Using simulation, they claim that their method outperforms not only a similar ensemble approaches, but also several statistical methods, although thei mention performance degradation when the risk allele frequency is low \cite{li2011detecting}.
+Using simulation, they claim that their method outperforms not only a similar ensemble approaches, but also several statistical methods, although they mention performance degradation when the risk allele frequency is low \cite{li2011detecting}.
 
 \end{enumerate}
 

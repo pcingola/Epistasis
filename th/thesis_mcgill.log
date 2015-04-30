@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 14:55
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 16:08
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -594,31 +594,31 @@ LaTeX Warning: Citation `koch2013long:REF' on page 13 undefined on input line 2
 
 [13] [14] [15] [16] [17]
 
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 441.
+LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
 
 
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 441.
+LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
 
 
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 441.
+LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
 
 
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 441.
+LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
 
 
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 441.
+LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
 
 [18] [19] [20] [21]
 
-LaTeX Warning: Citation `REF' on page 22 undefined on input line 486.
+LaTeX Warning: Citation `REF' on page 22 undefined on input line 488.
 
 [22]
 
-LaTeX Warning: Reference `ch:gwas' on page 23 undefined on input line 504.
+LaTeX Warning: Reference `ch:gwas' on page 23 undefined on input line 506.
 
 [23]
 
-LaTeX Warning: Reference `ch:gwas' on page 24 undefined on input line 632.
+LaTeX Warning: Reference `ch:gwas' on page 24 undefined on input line 634.
 
 [24]) [25] (./thesis_mcgill.bbl [26
 
@@ -695,9 +695,6 @@ thesis_mcgill.bbl
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
  6278 strings out of 493315
@@ -717,7 +714,7 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (28 pages, 168197 bytes).
+Output written on thesis_mcgill.pdf (28 pages, 168208 bytes).
 PDF statistics:
  134 PDF objects out of 1000 (max. 8388607)
  93 compressed objects within 1 object stream
