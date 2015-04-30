@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 14:50
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 14:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -563,19 +563,18 @@ LaTeX Warning: Citation `phillips2008epistasis:REF' on page 11 undefined on inp
 ut line 243.
 
 
+LaTeX Warning: Citation `petkov2005evidence:REF_FISHER' on page 11 undefined on
+ input line 245.
+
+
 LaTeX Warning: Citation `phillips2008epistasis:REF' on page 11 undefined on inp
-ut line 244.
+ut line 247.
 
 
 LaTeX Warning: Citation `petkov2005evidence:REF' on page 11 undefined on input 
-line 245.
+line 248.
 
-[11]
-
-LaTeX Warning: Citation `petkov2005evidence:REF_FISHER' on page 12 undefined on
- input line 248.
-
-[12]
+[11] [12]
 
 LaTeX Warning: Citation `REF' on page 13 undefined on input line 284.
 
@@ -621,7 +620,7 @@ LaTeX Warning: Reference `ch:gwas' on page 23 undefined on input line 504.
 
 LaTeX Warning: Reference `ch:gwas' on page 24 undefined on input line 632.
 
-) [24] (./thesis_mcgill.bbl [25
+[24]) [25] (./thesis_mcgill.bbl [26
 
 
 
@@ -629,7 +628,7 @@ LaTeX Warning: Reference `ch:gwas' on page 24 undefined on input line 632.
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [26] [27]) (./thesis_mcgill.aux
+ [27] [28]) (./thesis_mcgill.aux
 (./chapters/intro.aux) (./chapters/intro_epistasis.aux))
 
  *File List*
@@ -696,11 +695,14 @@ thesis_mcgill.bbl
 
 LaTeX Warning: There were undefined references.
 
+
+LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
+
  ) 
 Here is how much of TeX's memory you used:
  6278 strings out of 493315
  92835 string characters out of 6137904
- 187776 words of memory out of 5000000
+ 185776 words of memory out of 5000000
  9603 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -715,10 +717,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (27 pages, 167927 bytes).
+Output written on thesis_mcgill.pdf (28 pages, 168197 bytes).
 PDF statistics:
- 131 PDF objects out of 1000 (max. 8388607)
- 91 compressed objects within 1 object stream
+ 134 PDF objects out of 1000 (max. 8388607)
+ 93 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
