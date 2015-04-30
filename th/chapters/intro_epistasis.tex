@@ -6,55 +6,55 @@
 
 At the beginning of the $20^{th}$ century some deviations form classical Mendelian inheritance were characterized.
 William Bateson first described epistasis in 1907 \cite{tyler2009shadows} assessing a discrepancy between the prediction of segregation ratios assuming individual genes and the real outcome \cite{phillips2008epistasis}.
-The term epistasis literally means ``standing upon" was used to describe ``characters'' layered on top of other each other thus masking their expression. 
-Reflecting this original definition, nowadays the term epistasis is used to describe an allele at one locus masks the expression of another allele at a different locus \cite{cordell2002epistasis}.
-The way epistasis was used to describe the situation in which the actions of one locus mask the allelic effects of another locus, is an extension of dominance where a completely dominant alleles mask the effects of the recessive allele at the same locus. \cite{carlborg2004epistasis, cordell2002epistasis}.
+The term epistasis literally means ``standing upon" was used to describe ``characters'' layered on top of other each other thus masking their expression.
+This original definition describing the situation in which the actions of one locus mask the allelic effects of another locus is an extension of dominance where a completely dominant alleles mask the effects of the recessive allele at the same locus. \cite{carlborg2004epistasis, cordell2002epistasis}.
 
-The concept of epistasis is often interpreted as mutations in two genes producing a phenotype that is surprising considering the individual effect of each mutation and can point to functional relationships between genes and pathways \cite{mani2008defining}.
-Epistasis, can be used as a tool for understanding the genetic pathways' structure and function as well as evolutionary dynamics \cite{phillips2008epistasis}. 
-Some authors even relate the analysis of gene interaction patterns to the fundamentals of systems biology \cite{phillips2008epistasis}.
-
-The term epistasis has expanded to describe many complex interactions among genetic loci  \cite{phillips2008epistasis}.
-Geneticists used epistasis to describe different things: 
+Nowadays the term epistasis is not only used to describe the original definition \cite{cordell2002epistasis}, but also often interpreted as mutations in two genes producing a phenotype that is surprising considering the individual effect of each mutation.
+Furthermore, in some contexts epistasis is used to refer to a broad range gene gene interactions, many complex interactions among genetic loci or even interaction between gene and the environment \cite{phillips2008epistasis}.
+Three categories of epistasis commonly used by geneticists are \cite{phillips2008epistasis, zhao2006test}: 
 \begin{itemize}
-	\item Functional epistasis: The molecular interactions that proteins. Usually these interactions consist of proteins within the same pathway or of within a complex \cite{phillips2008epistasis}
-	\item Compositional epistasis: Describes the traditional usage of epistasis as described by Bateson (i.e. blocking of one allelic effect by an allele at another locus)  \cite{phillips2008epistasis}.
-	\item Statistical epistasis: This terminology is attributed to Fisher defined as a deviance from genetic additive effects, this essentially treats it as a residual term in genetic analysis \cite{zhao2006test}.
+	\item Functional epistasis: The molecular interactions between proteins, usually consisting of proteins within the same pathway or of within a complex.
+	\item Compositional epistasis: Describes the traditional usage of epistasis as described by Bateson (i.e. masking of one allelic effect by an allele at another locus).
+	\item Statistical epistasis: This terminology is attributed to Fisher and defined as a deviance from genetic additive effects.
 \end{itemize}
 
-Epistasis can be classified by the way a deviation of a double-mutant organism's phenotype differed from the expected neutral phenotype\cite{mani2008defining}.
-An interaction is known as ``synergistic" or ``synthetic" when the double mutant has a more extreme phenotype than expected
-When the phenotype is less severe than expected, then there is a ``diminishing returns" or ``alleviating" interaction, this is often attributed to gene products operating in series within the pathway. 
+These concepts imply that analysis of epistasis can be used to infer functional relationships between genes \cite{mani2008defining}, genetic pathways' structure and function as well as evolutionary dynamics \cite{phillips2008epistasis}. 
+Some authors even relate the analysis of epistatic gene interactions patterns to the fundamentals of systems biology \cite{phillips2008epistasis}.
+
+Epistasis can be classified by the way a deviation of a double-mutant (having one mutation at each loci) organism's phenotype differed from the expected neutral phenotype\cite{mani2008defining}.
+An interaction is known as ``synergistic" or ``synthetic" when the double mutant has a more extreme phenotype than expected.
+When the phenotype is less severe than expected, then there is a ``alleviating" or ``diminishing returns" interaction, which is often attributed to gene products operating in series within the pathway. 
 A typical example is a mutation in one gene impairing a whole pathway, thus masking the consequence of mutations in other genes of the same pathway. \cite{mani2008defining}.
 
-Often, the phenotype in human genetics is qualitative and dichotomous, indicating presence or absence of disease. \cite{cordell2002epistasis}.
+Often, the phenotype in human genetics is qualitative and dichotomous, for instance indicating presence or absence of disease. \cite{cordell2002epistasis}.
 Thus mathematical models calculating the joint action of more than one loci focus on the penetrance (the probability of developing disease given genotype).
-Assuming an allele is required at both loci in order to express the trait, the effect of allele A can only be observed when allele B is also present.
-This means that the effect at locus A appears masked by locus B and vice-versa \cite{cordell2002epistasis}, which is not precisely analogous to
-what Bateson descrived. 
-In Bateson's definition, if factor B is epistatic to factor A, then factor A is not expected to be epistatic to factor B also.  \cite{cordell2002epistasis}
-Four mathematically different definitions of interaction have been used (namely Product, Additive, Log, and Min) \cite{mani2008defining}, but even though some definitions yield identical results under some conditions, an alternative definition choice can lead to different consequences\cite{mani2008defining}.
+Assuming an allele is required at both loci in order to express the trait, the effect of allele $A$ can only be observed when allele $B$ is also present.
+This means that the effect at locus $A$ appears masked by locus $B$ and vice-versa \cite{cordell2002epistasis}, which is not precisely analogous to
+what Bateson described since in Bateson's definition if factor $B$ is epistatic to factor $A$, then factor $A$ is not expected to be epistatic to factor $B$ as well.  \cite{cordell2002epistasis}
 
-Defining interaction requires measuring phenotype and a neutrality.
-Neutrality function predicts the phenotype of an organism without interacting mutations. 
-Fitness, is central phenotype measurement to many large-scale genetic interaction studies, it can be defined by population allele frequencies or using growth rates of microbial cultures \cite{mani2008defining}. 
+A mathematical definition of epistatic interaction as ``departure from neutrality" requires defining neutrality and measuring phenotype.
+
+\begin{itemize}
+	\item \textit{Phenotype} is often measured using the concept of fitness, particularly in many large-scale genetic interaction studies, since it is relatively easy to measure by population allele frequencies or growth rates of microbial cultures \cite{mani2008defining}. 
 Different measures of fitness can be used in epistasis: i) exponential growth rate of mutant strain respect to wild type ; ii) the increase in population in one wild-type generation; and iii) the relative number of progeny (in one wild-type generation) \cite{mani2008defining}.
+Based on this, four mathematically different definitions of interaction have been used (namely \textit{product}, \textit{additive}, \textit{log}, and \textit{minimum}) \cite{mani2008defining}, but even though some definitions yield identical results under some conditions, an alternative definition choice can lead to different consequences\cite{mani2008defining}.
 
-Genetic interaction studies have also differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. Multiplicative function predicts fitness to be the product of the corresponding single-mutant fitness values. This multiplicative function can be used with the three aforementioned fitness measures to obtain three different definitions of genetic interaction \cite{mani2008defining}.
-
-The ``Min" definition of genetic interaction is simply the minimum neutrality of the expected results form non-interacting mutations (e..g the fitness of the less-fit mutant). 
-All the above fitness measurement yield the same set of genetic interactions under this definition. 
+	\item \textit{Neutrality} predicts the phenotype of an organism without interacting mutations. 
+Genetic interaction studies have differed in their choice of neutrality functions, generally using either a multiplicative or a minimum mathematical function. Multiplicative function predicts fitness to be the product of the corresponding single-mutant fitness values. 
+	The minimum definition is simply the minimum neutrality of the expected results form non-interacting mutations (e..g the fitness of the less-fit mutant). 
+All the above fitness measurement yield the same set of genetic interactions under this neutrality definition. 
 For example if each mutation disrupts a distinct pathway limiting cell growth in a way that one mutation is substantially more limiting than the other, the double mutant might is expected have same result as the most-limiting single mutant \cite{mani2008defining}.
+\end{itemize}
 
 It has been shown choice of definition can dramatically alter the resulting set of interactions \cite{mani2008defining}.
 To evaluate this the authors in \cite{mani2008defining} applied all four definitions to two studies providing quantitative growth-rate measurements of cell populations. 
 They show that: 
-i) additive and Log definitions have different biases; 
-ii) Product and Log definitions are equivalent for deleterious mutations; 
-iii) the product definition can reveal functional relationships missed by the Min definition; 
-and iv) interaction networks from Min and Product definitions differ greatly. 
+i) \textit{additive} and \textit{log} definitions have different biases; 
+ii) \textit{product} and \textit{log} definitions are equivalent for deleterious mutations; 
+iii) \textit{product} definition can reveal functional relationships missed by the \textit{minimum} definition; 
+and iv) interaction networks from \textit{minimum} and \textit{product} definitions differ greatly. 
 This leads to the question on which definition to use. 
-By examining the deviation distribution of expected (double-mutant) phenotype from the observed phenotype they found that Product and Log definitions not only are the closest to the ideal, but also are practically equivalent when single mutants are deleterious \cite{mani2008defining}.
+By examining the deviation distribution of expected (double-mutant) phenotype from the observed phenotype they found that \textit{product} and \textit{log} definitions not only are the closest to the ideal, but also are practically equivalent when single mutants are deleterious \cite{mani2008defining}.
 
 %---
 % Epistasis history and definition
@@ -115,7 +115,7 @@ By examining the deviation distribution of expected (double-mutant) phenotype fr
 %---
 % QTL
 %---
-The presence or knock-out of a gene are extreme aspects of "perturbation in a complex system", but there are no reasons to expect all forms of epistasis to follow this pattern \cite{phillips2008epistasis}.
+The presence or absense of a trait are extreme aspects of ``perturbation in a complex system", but there are no reasons to expect all forms of epistasis to follow this pattern \cite{phillips2008epistasis}.
 When applied to quantitative traits, epistasis also describes a situation in which the phenotype cannot be predicted by the sum of its single-locus component \cite{carlborg2004epistasis}.
 Many epistatic QTL interactions have been detected in model organisms leading to the conclusion that epistasis makes a large contribution to the genetic regulation of complex traits  \cite{carlborg2004epistasis}.
 
@@ -128,10 +128,10 @@ Many epistatic QTL interactions have been detected in model organisms leading to
 
 \subsection{Epistasis is ubiquitous}
 
-Epistasis is defined as departure from additive effects.
+One of the most common definition of epistasis departure from additive effects.
 Nevertheless, there is no reason to think that traits should be additive based on a purely biological perspective \cite{zuk2012mystery} since biology is riddled with non-linearity such as genetic networks exhibit binary states, ligand - receptors concentration having sigmoid-like response, concentration saturations of substrate - enzymes reactions, sharp transitions created by cooperative protein binding, the pathways constrained by rate-limiting inputs, etc. \cite{zuk2012mystery}. 
 It has been asserted that epistatic effects are not isolated events, but ubiquitous \cite{tyler2009shadows} and probably inherent properties of biomolecular networks.
-This leads to think that epistasis in the classical sense may be ubiquitous, a thought which has been partially confirmed from mutational studies \cite{phillips2008epistasis}.
+The thought epistasis in the classical sense may be ubiquitous has been partially confirmed from mutational studies \cite{phillips2008epistasis}.
 Genetic studies of synthetic traits, which occur only when multiple loci or pathways are all disrupted, in model organisms have identified instances of interacting genes revealing that epistasis may be pervasive \cite{zuk2012mystery}. 
 Researchers found \cite{phillips2008epistasis} that when looking for interactions induced by systematically over-expressing genes in Saccharomyces cerevisiae about $15\%$ of studied genes induced growth defects with most over-expression not matching the phenotypes of individual deletions.  
 
@@ -142,33 +142,38 @@ Researchers found \cite{phillips2008epistasis} that when looking for interaction
 %Studies have begun to reveal that epistasis is pervasive.  \cite{zuk2012mystery}
 %We assert that epistasis and pleiotropy are not isolated occurrences, but ubiquitous and inherent properties of biomolecular networks. \cite{tyler2009shadows}
 
-\subsection{Epistasis examples: Non-human}
+\subsection{Epistasis examples}
 
-Several genotype-phenotype patterns are known to be caused by epistasis, classic examples include \cite{carlborg2004epistasis}:
+\paragraph{Non-human}
+Several genotype-phenotype patterns are known to be caused by epistasis in animal and model organisms, classic examples include \cite{carlborg2004epistasis}:
 coat colour in various animals, 
 comb type in chickens, 
 kernel colour in wheat,
-eye color in flies,
-and the h/h blood group (also known as Oh or the Bombay phenotype) in the ABO blood-group in humans.
+eye color in flies. 
+Here we mention some examples:
 
-Coat colour in mammals has been one of the most common examples. 
+\begin{itemize}
+
+	\item Coat colour in mammals has been one of the most common examples. 
 In pig, the dominant allele at the KIT locus confers white color coat and is dominant over all locus conferring darker color (melanocortin 1 receptor or MC1R). 
 This can be determined in individuals with the recessive KIT genotype showing what was classically termed `dominant epistasis', 
 yielding a non-Mendelian segregation ratio of 9:4:3 (instead of 9:3:3:1) \cite{carlborg2004epistasis, phillips2008epistasis}.
 
-Drosophila provides another classic example with eye color determination.
+	\item Drosophila provides another classic example with eye color determination.
 Drosophila eye pigmentation scarlet, brown, and white is determined by the synthesis of two drosopterins:  brown pigments (from tryptophan) and red pigments (from GTP) \cite{tyler2009shadows:REF}.
 A mutation that prevents production of the brown pigment results in a fly with red eyes and a mutation preventing red pigment results in a fly with brown eyes.
 Flies with a mutation in the white gene, neither red nor brown pigment can be synthesized resulting in a fly with white eyes (regardless of the genotype at the brown or scarlet loci) \cite{tyler2009shadows}.
 
-Dozens of quantitative traits indicating strong epistasis in mouse and rat \cite{zuk2012mystery:REF22} by analysing a panel of chromosome substitution strains where the effects attributed to the donor chromosomes exceeds by a median eightfold the expected effect of the donor genome.
+	\item Dozens of quantitative traits indicating strong epistasis in mouse and rat \cite{zuk2012mystery:REF22} by analysing a panel of chromosome substitution strains where the effects attributed to the donor chromosomes exceeds by a median eightfold the expected effect of the donor genome.
 
-Genetic interaction have been study in a systematic and large-scale manner in Saccharomyces cerevisiae \cite{mani2008defining:REF}.
+	\item Genetic interaction have been study in a systematic and large-scale manner in Saccharomyces cerevisiae \cite{mani2008defining:REF}.
 Analysis of quantitative traits loci (QTL) for transcripts levels in a two strain cross demonstrated epistatic interaction for $67\%$ of studied pairs (first the strongest QTL was found and then the strongest remaining QTL conditional on the first genotype was selected) \cite{zuk2012mystery:REF}. 
 
-In a study comparing three Drosophila inbred lines (Drosophila melanogaster Genetic Reference Panel -DGRP) and a large outbred and intercross derived  population \cite{huang2012epistasis}a set of candidate SNPs was selected by assesing allele frequency changes between the extremes of the distribution for each trait. 
+	\item In a study comparing three Drosophila inbred lines (Drosophila melanogaster Genetic Reference Panel -DGRP) and a large outbred and intercross derived  population \cite{huang2012epistasis}a set of candidate SNPs was selected by assesing allele frequency changes between the extremes of the distribution for each trait. 
 The researchers found that the majority of these SNPs participated in at least one epistatic interaction \cite{huang2012epistasis}.
 Using this information from epistatic interacting loci they were able to infer networks affecting quantitative traits. \cite{huang2012epistasis}.
+
+\end{itemize}
 
 %In the case of quantitative genetic variation, several or many genes of largely unknown function combine with environmental influences to control trait variation. This is the case for many complex traits that are of medical relevance in humans or of economic importance in plants and livestock. \cite{carlborg2004epistasis}
 %A clear example of this can be seen  [in Fig A]  ￼￼￼￼which the dominant allele (I) at the KIT locus, which confers white-coat colour in the pig, is dominant over all alleles at the MC1R locus (E), which confer a darker coat colour. The effects of the various alleles at the E locus can only be determined in individuals with the recessive genotype ii at the I locus. This example was classically termed `dominant epistasis', which gives a segregation ratio of 12:3:1 for white:black:brown, respectively \cite{carlborg2004epistasis}
@@ -195,26 +200,29 @@ Using this information from epistatic interacting loci they were able to infer n
 %Our analysis underscores the importance of epistasis as a principal factor that determines variation for quantitative traits and provides a means to uncover genetic networks affecting these traits. \cite{huang2012epistasis}
 
 
-\subsection{Epistasis examples: Human}
-
+\paragraph{Human}
 Few instances of epistasis in common human disease have been discovered and well-replicated so far, despite considerable efforts \cite{zuk2012mystery}.
 Although many instances of epistasis related to human disease have been published, with examples form coronary artery disease\cite{phillips2008epistasis:REF}, diabetes\cite{phillips2008epistasis:REF}, bipolar effective disorder\cite{phillips2008epistasis:REF} and autism \cite{phillips2008epistasis:REF}; some authors suspect there might be statistical features in the association studies because only a few have functional basis \cite{phillips2008epistasis}.
-
-Perhaps the best examples are interactions involving at least one locus with a large effect such as HLA  \cite{zuk2012mystery}.
+Perhaps the best examples of epistatic interactions in humans include:
+\begin{itemize}
+	\item Interactions involving at least one locus with a large effect such as HLA  \cite{zuk2012mystery}.
 Two different interaction involving HLA alleles and ERAP have been discovered in GWAS from ankylosing spondylitis and psoriasis where the HLA alleles have odds ratio of 40.8 and 4.66 respectively \cite{zuk2012mystery:REF}.
 In autoimmune disease multiple sclerosis a researchers found evidence of genetic interactions between two histocompatibility loci known to be associated with the disease (HLA-DRB5*0101 in DR2a and HLA-DRB1*1501 in DR2b) \cite{phillips2008epistasis:REF}. 
-There was evidence of naturally occurring linkage disequilibrium which is suspected to be generated by strong epistasis \cite{phillips2008epistasis}.
 In Type 1 diabetes HLA is assumed to act non-additively with all other risk alleles (HLA has have an effect of 5.5) \cite{zuk2012mystery:REF}.
-in Hirschsprung's disease an interaction between RET and EDNRB was uncovered by a genome-wide linkage study (RET having a log-odds of 5.6). \cite{zuk2012mystery:REF}
 
-The ACE gene (angiotensin I converting enzyme) has an epistatic interaction with AGTR1 gene (angiotensin II type 1 receptor ) gene, significantly increasing risk of myocardial infarction when the "D-allele" in ACE  is present in patients carrying a particular AGTR1 allele \cite{carlborg2004epistasis:REF}.
+	\item There was evidence of naturally occurring linkage disequilibrium which is suspected to be generated by strong epistasis \cite{phillips2008epistasis}.
+In Hirschsprung's disease an interaction between RET and EDNRB was uncovered by a genome-wide linkage study (RET having a log-odds of 5.6). \cite{zuk2012mystery:REF}
 
-Two different sets of interactions are assumed to be responsible for variation in triglyceride levels.
+	\item The ACE gene (angiotensin I converting enzyme) has an epistatic interaction with AGTR1 gene (angiotensin II type 1 receptor ) gene, significantly increasing risk of myocardial infarction when the "D-allele" in ACE  is present in patients carrying a particular AGTR1 allele \cite{carlborg2004epistasis:REF}.
+
+	\item Two different sets of interactions are assumed to be responsible for variation in triglyceride levels.
 Notably, the interactions depend on the patient's sex: in females the interactions involves ApoB and ApoE;  and in males the interaction involves the ApoAI/CIII/AIV complex and low-density lipoprotein receptor \cite{culverhouse2002perspective:REF}
 
-Sickle-cell anemia is regarded as a Mendelian trait is modified by epistatic interactions evidenced by the fact that patients homozygous for two polymorphisms near the $G\gamma$ locus have only mild clinical symptoms \cite{culverhouse2002perspective:REF}.
+	\item Sickle-cell anemia is regarded as a Mendelian trait is modified by epistatic interactions evidenced by the fact that patients homozygous for two polymorphisms near the $G\gamma$ locus have only mild clinical symptoms \cite{culverhouse2002perspective:REF}.
 
-Elevated blood serum cholesterol levels in humans is associated with an ApoE allele depending on the genotype at the LDLR (low density lipoprotein receptor) gene locus \cite{tyler2009shadows:REF}.
+	\item Elevated blood serum cholesterol levels in humans is associated with an ApoE allele depending on the genotype at the LDLR (low density lipoprotein receptor) gene locus \cite{tyler2009shadows:REF}.
+
+\end{itemize}
 
 %Despite considerable efforts, few well-replicated instances of epistasis in common human disease and trait genetics have been discovered thus far. \cite{zuk2012mystery}
 %The only examples to date involve interactions featuring at least one locus with a large marginal e↵ect, such as HLA.  \cite{zuk2012mystery}
@@ -230,15 +238,15 @@ Elevated blood serum cholesterol levels in humans is associated with an ApoE all
 
 \subsection{Epistasis and evolution}
 
-From an evolutionary perspective, some authors argue that the nonlinear epistatic interactions between polymorphic loci is the genetic basis of canalization (the robustness or ability of a population to produce the same phenotype regardless of environmental variability) and speciation \cite{huang2012epistasis}.
+From an evolutionary perspective, some authors argue that the nonlinear nature of epistatic interactions between polymorphic loci is the genetic basis of canalization (the robustness or ability of a population to produce the same phenotype regardless of environmental variability) and speciation \cite{huang2012epistasis}.
 
-It has also been pointed out that interactions have an important influence on evolutionary phenomena such as genetic divergence and affects the evolution of the structure of genetic systems \cite{phillips2008epistasis} sine studies have shown that epistasis can have a limiting role on the possible paths that evolution can take \cite{phillips2008epistasis:REF}.
-This has been supported by analysis of complex gene regulation patterns in localized genomic regions \cite{phillips2008epistasis:REF}.
-For variety of organisms (such as yeast, Caenorhabditis, Drosophila, higher plants, and mammals) genes sharing expression patterns are more likely to be in proximity \cite{petkov2005evidence:REF}.
-This evidence shows that regional controls of chromatin structure and expression may give rise to gene clusters by promoting their coregulation \cite{petkov2005evidence}.
+It has also been pointed out that interactions have an important influence on evolutionary phenomena such as genetic divergence and affects the evolution of the structure of genetic systems \cite{phillips2008epistasis} based on studies and models showing that epistasis can have a limiting role on the possible paths that evolution can take \cite{phillips2008epistasis:REF}.
 
 Theoretical grounds that date back to Fisher assert that when genes interact there is evolutionary pressure to promote their genetic linkage as a means of enhancing the coinheritance of favorable allelic combinations \cite{petkov2005evidence:REF_FISHER}.
 Under this assumption linkage can facilitate the maintenance of epistatic interactions and vice versa, thus explaining how some molecular evolution complexity \cite{phillips2008epistasis}.
+This has been supported by analysis of complex gene regulation patterns in localized genomic regions \cite{phillips2008epistasis:REF}.
+For variety of organisms (such as yeast, Caenorhabditis, Drosophila, higher plants, and mammals) genes sharing expression patterns are more likely to be in proximity \cite{petkov2005evidence:REF}.
+This evidence shows that regional controls of chromatin structure and expression may give rise to gene clusters by promoting their coregulation \cite{petkov2005evidence}.
 
 %epistasis can have an important influence on a number of evolutionary phenomena, including the genetic divergence between species79, ... the evolution of the structure of genetic systems8 \cite{phillips2008epistasis}
 %Thus far, these studies81-85 have shown that epistasis can have a strong role in limiting the possible paths that evolution can take, but not in limiting its eventual outcome. \cite{phillips2008epistasis}
