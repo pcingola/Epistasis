@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 20:17
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 20:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,15 +545,7 @@ ne 150.
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ê in font cmr12!
-[14]
-
-LaTeX Warning: Command \r invalid in math mode on input line 171.
-
-[15]
-Missing character: There is no ‚ in font cmr12!
-Missing character: There is no à in font cmr12!
-Missing character: There is no í in font cmr12!
- [16] [17] [18]
+[14] [15] [16] [17] [18]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ê in font cmr12!
@@ -566,29 +558,29 @@ Missing character: There is no ê in font cmr12!
 
 
 LaTeX Warning: Citation `dunn2008mutual:REF(Martin et al.' on page 19 undefined
- on input line 214.
+ on input line 216.
 
 
-LaTeX Warning: Citation `2005)' on page 19 undefined on input line 214.
+LaTeX Warning: Citation `2005)' on page 19 undefined on input line 216.
 
 [19]
 
 LaTeX Warning: Citation `dunn2008mutual:REF (Wollenberg and Atchley' on page 20
- undefined on input line 219.
+ undefined on input line 221.
 
 
-LaTeX Warning: Citation `2000)' on page 20 undefined on input line 219.
+LaTeX Warning: Citation `2000)' on page 20 undefined on input line 221.
 
 
-LaTeX Warning: Citation `(Martin et al.' on page 20 undefined on input line 219
+LaTeX Warning: Citation `(Martin et al.' on page 20 undefined on input line 221
 .
 
 
 LaTeX Warning: Citation `2005; Tillier and Lui' on page 20 undefined on input l
-ine 219.
+ine 221.
 
 
-LaTeX Warning: Citation `2003)' on page 20 undefined on input line 219.
+LaTeX Warning: Citation `2003)' on page 20 undefined on input line 221.
 
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
@@ -602,11 +594,11 @@ Missing character: There is no ê in font cmr12!
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
 Missing character: There is no ê in font cmr12!
-[20]) [21] (./thesis_mcgill.bbl [22
+[20]) [21] [22] (./thesis_mcgill.bbl [23
 
 
 
-] [23] [24]) (./thesis_mcgill.aux
+] [24] [25]) (./thesis_mcgill.aux
 (./chapters/intro.aux) (./chapters/intro_coevolution.aux))
 
  *File List*
@@ -681,7 +673,7 @@ Here is how much of TeX's memory you used:
  9602 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,5n,40p,750b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,5n,40p,772b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
@@ -691,10 +683,10 @@ local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
 al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
 l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (24 pages, 154571 bytes).
+Output written on thesis_mcgill.pdf (25 pages, 155519 bytes).
 PDF statistics:
- 117 PDF objects out of 1000 (max. 8388607)
- 81 compressed objects within 1 object stream
+ 121 PDF objects out of 1000 (max. 8388607)
+ 84 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
