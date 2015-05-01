@@ -1,15 +1,10 @@
 \begin{thebibliography}{10}
 
-\bibitem{ackermann2012systematic}
-Marit Ackermann and Andreas Beyer.
-\newblock Systematic detection of epistatic interactions based on allele pair
-  frequencies.
-\newblock {\em PLoS genetics}, 8(2):e1002463, 2012.
-
-\bibitem{carlborg2004epistasis}
-{\"O}rjan Carlborg and Chris~S Haley.
-\newblock Epistasis: too often neglected in complex trait studies?
-\newblock {\em Nature Reviews Genetics}, 5(8):618--625, 2004.
+\bibitem{burger2010disentangling}
+Lukas Burger and Erik van Nimwegen.
+\newblock Disentangling direct from indirect co-evolution of residues in
+  protein alignments.
+\newblock {\em PLoS computational biology}, 6(1):e1000633, 2010.
 
 \bibitem{cingolani2012program}
 P.~Cingolani, A.~Platts, M.~Coon, T.~Nguyen, L.~Wang, S.J. Land, X.~Lu, D.M.
@@ -31,123 +26,154 @@ Pablo Cingolani, Rob Sladek, and Mathieu Blanchette.
 \newblock Bigdatascript: a scripting language for data pipelines.
 \newblock {\em Bioinformatics}, 31(1):10--16, 2015.
 
-\bibitem{cordell2002epistasis}
-Heather~J Cordell.
-\newblock Epistasis: what it means, what it doesn't mean, and statistical
-  methods to detect it in humans.
-\newblock {\em Human molecular genetics}, 11(20):2463--2468, 2002.
+\bibitem{clark2014multidimensional}
+Greg~W Clark, Sharon~H Ackerman, Elisabeth~R Tillier, and Domenico~L Gatti.
+\newblock Multidimensional mutual information methods for the analysis of
+  covariation in multiple sequence alignments.
+\newblock {\em BMC bioinformatics}, 15(1):157, 2014.
 
-\bibitem{cordell2009detecting}
-Heather~J Cordell.
-\newblock Detecting gene--gene interactions that underlie human diseases.
-\newblock {\em Nature Reviews Genetics}, 10(6):392--404, 2009.
+\bibitem{darwin1859origin}
+Charles Darwin.
+\newblock On the origin of species by means of natural selection, or.
+\newblock {\em The Preservation of Favoured Races in the Struggle for Life,
+  London/Die Entstehung der Arten durch nat{\"u}rliche Zuchtwahl, Leipzig oJ},
+  1859.
 
-\bibitem{culverhouse2002perspective}
-Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
-\newblock A perspective on epistasis: limits of models displaying no main
-  effect.
-\newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
+\bibitem{darwin1877various}
+Charles Darwin.
+\newblock {\em On the various contrivances by which British and foreign orchids
+  are fertilised by insects}.
+\newblock 1877.
 
 \bibitem{de2013emerging}
 David de~Juan, Florencio Pazos, and Alfonso Valencia.
 \newblock Emerging methods in protein co-evolution.
 \newblock {\em Nature Reviews Genetics}, 14(4):249--261, 2013.
 
-\bibitem{gao2010classification}
-Hong Gao, Julie~M Granka, and Marcus~W Feldman.
-\newblock On the classification of epistatic interactions.
-\newblock {\em Genetics}, 184(3):827--837, 2010.
+\bibitem{dickson2010identifying}
+Russell~J Dickson, Lindi~M Wahl, Andrew~D Fernandes, and Gregory~B Gloor.
+\newblock Identifying and seeing beyond multiple sequence alignment errors
+  using intra-molecular protein covariation.
+\newblock {\em PloS one}, 5(6):e11082, 2010.
 
-\bibitem{huang2012epistasis}
-Wen Huang, Stephen Richards, Mary~Anna Carbone, Dianhui Zhu, Robert~RH Anholt,
-  Julien~F Ayroles, Laura Duncan, Katherine~W Jordan, Faye Lawrence, Michael~M
-  Magwire, et~al.
-\newblock Epistasis dominates the genetic architecture of drosophila
-  quantitative traits.
+\bibitem{dobzhansky1950genetics}
+Theodosius Dobzhansky.
+\newblock Genetics of natural populations. xix. origin of heterosis through
+  natural selection in populations of drosophila pseudoobscura.
+\newblock {\em Genetics}, 35(3):288, 1950.
+
+\bibitem{dunn2008mutual}
+Stanley~D Dunn, Lindi~M Wahl, and Gregory~B Gloor.
+\newblock Mutual information without the influence of phylogeny or entropy
+  dramatically improves residue contact prediction.
+\newblock {\em Bioinformatics}, 24(3):333--340, 2008.
+
+\bibitem{ehrlich1964butterflies}
+Paul~R Ehrlich and Peter~H Raven.
+\newblock Butterflies and plants: a study in coevolution.
+\newblock {\em Evolution}, pages 586--608, 1964.
+
+\bibitem{fares2006novel}
+Mario~A Fares and Simon~AA Travers.
+\newblock A novel method for detecting intramolecular coevolution: adding a
+  further dimension to selective constraints analyses.
+\newblock {\em Genetics}, 173(1):9--23, 2006.
+
+\bibitem{fitch1970improved}
+Walter~M Fitch and Etan Markowitz.
+\newblock An improved method for determining codon variability in a gene and
+  its application to the rate of fixation of mutations in evolution.
+\newblock {\em Biochemical genetics}, 4(5):579--593, 1970.
+
+\bibitem{gobel1994correlated}
+Ulrike G{\"o}bel, Chris Sander, Reinhard Schneider, and Alfonso Valencia.
+\newblock Correlated mutations and residue contacts in proteins.
+\newblock {\em Proteins: Structure, Function, and Bioinformatics},
+  18(4):309--317, 1994.
+
+\bibitem{goh2000co}
+Chern-Sing Goh, Andrew~A Bogan, Marcin Joachimiak, Dirk Walther, and Fred~E
+  Cohen.
+\newblock Co-evolution of proteins with their interaction partners.
+\newblock {\em Journal of molecular biology}, 299(2):283--293, 2000.
+
+\bibitem{jones2012psicov}
+David~T Jones, Daniel~WA Buchan, Domenico Cozzetto, and Massimiliano Pontil.
+\newblock Psicov: precise structural contact prediction using sparse inverse
+  covariance estimation on large multiple sequence alignments.
+\newblock {\em Bioinformatics}, 28(2):184--190, 2012.
+
+\bibitem{kodaman2014human}
+Nuri Kodaman, Alvaro Pazos, Barbara~G Schneider, M~Blanca Piazuelo, Robertino
+  Mera, Rafal~S Sobota, Liviu~A Sicinschi, Carrie~L Shaffer, Judith
+  Romero-Gallo, Thibaut de~Sablet, et~al.
+\newblock Human and helicobacter pylori coevolution shapes the risk of gastric
+  disease.
 \newblock {\em Proceedings of the National Academy of Sciences},
-  109(39):15553--15559, 2012.
+  111(4):1455--1460, 2014.
 
-\bibitem{koch2013long}
-Evan Koch, Mickey Ristroph, and Mark Kirkpatrick.
-\newblock Long range linkage disequilibrium across the human genome.
-\newblock {\em PloS one}, 8(12):e80754, 2013.
+\bibitem{lapedes2012using}
+Alan Lapedes, Bertrand Giraud, and Christopher Jarzynski.
+\newblock Using sequence alignments to predict protein structure and stability
+  with high accuracy.
+\newblock {\em arXiv preprint arXiv:1207.2484}, 2012.
 
-\bibitem{li2011detecting}
-Jing Li, Benjamin Horstman, and Yixuan Chen.
-\newblock Detecting epistatic effects in association studies at a genomic level
-  based on an ensemble approach.
-\newblock {\em Bioinformatics}, 27(13):i222--i229, 2011.
+\bibitem{marks2012protein}
+Debora~S Marks, Thomas~A Hopf, and Chris Sander.
+\newblock Protein structure prediction from sequence variation.
+\newblock {\em Nature biotechnology}, 30(11):1072--1080, 2012.
 
-\bibitem{mani2008defining}
-Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
-  Frederick~P Roth.
-\newblock Defining genetic interaction.
+\bibitem{morcos2011direct}
+Faruck Morcos, Andrea Pagnani, Bryan Lunt, Arianna Bertolino, Debora~S Marks,
+  Chris Sander, Riccardo Zecchina, Jos{\'e}~N Onuchic, Terence Hwa, and Martin
+  Weigt.
+\newblock Direct-coupling analysis of residue coevolution captures native
+  contacts across many protein families.
 \newblock {\em Proceedings of the National Academy of Sciences},
-  105(9):3461--3466, 2008.
+  108(49):E1293--E1301, 2011.
 
-\bibitem{petkov2005evidence}
-Petko~M Petkov, Joel~H Graber, Gary~A Churchill, Keith DiPetrillo, Benjamin~L
-  King, and Kenneth Paigen.
-\newblock Evidence of a large-scale functional organization of mammalian
-  chromosomes.
-\newblock {\em PLoS genetics}, 1(3):e33, 2005.
+\bibitem{ollikainen2013computational}
+Noah Ollikainen and Tanja Kortemme.
+\newblock Computational protein design quantifies structural constraints on
+  amino acid covariation.
+\newblock {\em PLoS computational biology}, 9(11):e1003313, 2013.
 
-\bibitem{phillips2008epistasis}
-Patrick~C Phillips.
-\newblock Epistasis—the essential role of gene interactions in the structure
-  and evolution of genetic systems.
-\newblock {\em Nature Reviews Genetics}, 9(11):855--867, 2008.
+\bibitem{pazos1997correlated}
+Florencio Pazos, Manuela Helmer-Citterich, Gabriele Ausiello, and Alfonso
+  Valencia.
+\newblock Correlated mutations contain information about protein-protein
+  interaction.
+\newblock {\em Journal of molecular biology}, 271(4):511--523, 1997.
 
-\bibitem{schupbach2010fastepistasis}
-Thierry Sch{\"u}pbach, Ioannis Xenarios, Sven Bergmann, and Karen Kapur.
-\newblock Fastepistasis: a high performance computing solution for quantitative
-  trait epistasis.
-\newblock {\em Bioinformatics}, 26(11):1468--1469, 2010.
+\bibitem{qian2015recent}
+Wei Qian, Hang Zhou, and Kun Tang.
+\newblock Recent coselection in human populations revealed by protein--protein
+  interaction network.
+\newblock {\em Genome biology and evolution}, 7(1):136--153, 2015.
 
-\bibitem{tyler2009shadows}
-Anna~L Tyler, Folkert~W Asselbergs, Scott~M Williams, and Jason~H Moore.
-\newblock Shadows of complexity: what biological networks reveal about
-  epistasis and pleiotropy.
-\newblock {\em Bioessays}, 31(2):220--227, 2009.
+\bibitem{ramani2003exploiting}
+Arun~K Ramani and Edward~M Marcotte.
+\newblock Exploiting the co-evolution of interacting proteins to discover
+  interaction specificity.
+\newblock {\em Journal of molecular biology}, 327(1):273--284, 2003.
 
-\bibitem{venkatesan2009empirical}
-Kavitha Venkatesan, Jean-Francois Rual, Alexei Vazquez, Ulrich Stelzl, Irma
-  Lemmens, Tomoko Hirozane-Kishikawa, Tong Hao, Martina Zenkner, Xiaofeng Xin,
-  Kwang-Il Goh, et~al.
-\newblock An empirical framework for binary interactome mapping.
-\newblock {\em Nature methods}, 6(1):83--90, 2009.
+\bibitem{rohlfs2010detecting}
+Rori~V Rohlfs, Willie~J Swanson, and Bruce~S Weir.
+\newblock Detecting coevolution through allelic association between physically
+  unlinked loci.
+\newblock {\em The American Journal of Human Genetics}, 86(5):674--685, 2010.
 
-\bibitem{wang2012ldgidb}
-Ming-Chih Wang, Feng-Chi Chen, Yen-Zho Chen, Yao-Ting Huang, and Trees-Juen
-  Chuang.
-\newblock Ldgidb: a database of gene interactions inferred from long-range
-  strong linkage disequilibrium between pairs of snps.
-\newblock {\em BMC research notes}, 5(1):212, 2012.
+\bibitem{ruiz2013coevolution}
+Mario~X Ruiz-Gonz{\'a}lez and Mario~A Fares.
+\newblock Coevolution analyses illuminate the dependencies between amino acid
+  sites in the chaperonin system groes-l.
+\newblock {\em BMC evolutionary biology}, 13(1):156, 2013.
 
-\bibitem{zhang2007bayesian}
-Yu~Zhang and Jun~S Liu.
-\newblock Bayesian inference of epistatic interactions in case-control studies.
-\newblock {\em Nature genetics}, 39(9):1167--1173, 2007.
-
-\bibitem{zhao2006test}
-Jinying Zhao, Li~Jin, and Momiao Xiong.
-\newblock Test for interaction between two unlinked loci.
-\newblock {\em The American Journal of Human Genetics}, 79(5):831--845, 2006.
-
-\bibitem{zuk2012mystery}
-O.~Zuk, E.~Hechter, S.R. Sunyaev, and E.S. Lander.
-\newblock The mystery of missing heritability: Genetic interactions create
-  phantom heritability.
-\newblock {\em Proceedings of the National Academy of Sciences},
-  109(4):1193--1198, 2012.
-
-\bibitem{zuk2014searching}
-Or~Zuk, Stephen~F Schaffner, Kaitlin Samocha, Ron Do, Eliana Hechter, Sekar
-  Kathiresan, Mark~J Daly, Benjamin~M Neale, Shamil~R Sunyaev, and Eric~S
-  Lander.
-\newblock Searching for missing heritability: Designing rare variant
-  association studies.
-\newblock {\em Proceedings of the National Academy of Sciences},
-  111(4):E455--E464, 2014.
+\bibitem{weigt2009identification}
+Martin Weigt, Robert~A White, Hendrik Szurmant, James~A Hoch, and Terence Hwa.
+\newblock Identification of direct residue contacts in protein--protein
+  interaction by message passing.
+\newblock {\em Proceedings of the National Academy of Sciences}, 106(1):67--72,
+  2009.
 
 \end{thebibliography}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 16:08
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  30 APR 2015 20:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -331,7 +331,7 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 LaTeX Warning: Unused global option(s):
     [letterpaper].
 
-(./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/intro_epistasis.aux))
+(./thesis_mcgill.aux (./chapters/intro.aux) (./chapters/intro_coevolution.aux))
 \openout1 = `thesis_mcgill.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
@@ -346,7 +346,6 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
 LaTeX Font Info:    ... okay on input line 75.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
 LaTeX Font Info:    ... okay on input line 75.
-
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 75.
 
@@ -467,169 +466,148 @@ LaTeX Warning: Reference `ch:bds' on page 2 undefined on input line 13.
 
 
 ]) [3]
-\openout2 = `chapters/intro_epistasis.aux'.
+\openout2 = `chapters/intro_coevolution.aux'.
 
- (./chapters/intro_epistasis.tex
-LaTeX Font Info:    Try loading font information for U+msa on input line 7.
+ (./chapters/intro_coevolution.tex
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+ [4
 
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Try loading font information for U+msb on input line 7.
 
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 16.
+]
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 25.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 16.
- [4
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 25.
 
 
-] [5] [6]
-[7] [8]
+LaTeX Warning: Citation `rohlfs2010detecting:REF' on page 5 undefined on input 
+line 25.
 
-LaTeX Warning: Citation `tyler2009shadows:REF' on page 9 undefined on input lin
-e 163.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF22' on page 9 undefined on input lin
-e 167.
-
-
-LaTeX Warning: Citation `mani2008defining:REF' on page 9 undefined on input lin
-e 169.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 9 undefined on input line 
-170.
-
-[9]
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 10 undefined on inp
-ut line 205.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 10 undefined on inp
-ut line 205.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 10 undefined on inp
-ut line 205.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 10 undefined on inp
-ut line 205.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 10 undefined on input line
- 209.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 10 undefined on inp
-ut line 210.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 10 undefined on input line
- 211.
-
-
-LaTeX Warning: Citation `zuk2012mystery:REF' on page 10 undefined on input line
- 214.
-
-
-LaTeX Warning: Citation `carlborg2004epistasis:REF' on page 10 undefined on inp
-ut line 216.
-
-[10]
-
-LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 11 undefined o
-n input line 219.
-
-
-LaTeX Warning: Citation `culverhouse2002perspective:REF' on page 11 undefined o
-n input line 221.
-
-
-LaTeX Warning: Citation `tyler2009shadows:REF' on page 11 undefined on input li
-ne 223.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 11 undefined on inp
-ut line 243.
-
-
-LaTeX Warning: Citation `petkov2005evidence:REF_FISHER' on page 11 undefined on
- input line 245.
-
-
-LaTeX Warning: Citation `phillips2008epistasis:REF' on page 11 undefined on inp
-ut line 247.
-
-
-LaTeX Warning: Citation `petkov2005evidence:REF' on page 11 undefined on input 
-line 248.
-
-[11] [12]
-
-LaTeX Warning: Citation `REF' on page 13 undefined on input line 284.
-
-
-LaTeX Warning: Citation `REF-FISHER' on page 13 undefined on input line 284.
-
-
-LaTeX Warning: Citation `REF-NATURE' on page 13 undefined on input line 284.
-
-
-LaTeX Warning: Citation `koch2013long:REF' on page 13 undefined on input line 2
-87.
-
-
-LaTeX Warning: Citation `koch2013long:REF' on page 13 undefined on input line 2
-91.
-
-[13] [14] [15] [16] [17]
-
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
-
-
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
-
-
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
-
-
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
-
-
-LaTeX Warning: Citation `REF' on page 18 undefined on input line 440.
-
-[18] [19] [20] [21]
-
-LaTeX Warning: Citation `REF' on page 22 undefined on input line 488.
-
-[22]
-
-LaTeX Warning: Reference `ch:gwas' on page 23 undefined on input line 506.
-
-[23]
-
-LaTeX Warning: Reference `ch:gwas' on page 24 undefined on input line 634.
-
-[24]) [25] (./thesis_mcgill.bbl [26
-
-
-
-]
 Missing character: There is no ‚ in font cmr12!
 Missing character: There is no Ä in font cmr12!
-Missing character: There is no î in font cmr12!
- [27] [28]) (./thesis_mcgill.aux
-(./chapters/intro.aux) (./chapters/intro_epistasis.aux))
+Missing character: There is no ê in font cmr12!
+
+LaTeX Warning: Citation `de2013emerging:REF' on page 5 undefined on input line 
+28.
+
+[5]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+
+
+LaTeX Warning: Citation `ramani2003exploiting:REF' on page 6 undefined on input
+ line 55.
+
+[6]
+
+LaTeX Warning: Citation `fares2006novel:REF(Pritchard and Dufton 2000)' on page
+ 7 undefined on input line 67.
+
+[7]
+LaTeX Font Info:    Try loading font information for U+msa on input line 78.
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 78.
+
+(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) [8]
+
+LaTeX Warning: Citation `fares2006novel:REF Gloor et al. (2005)' on page 9 unde
+fined on input line 86.
+
+[9] [10]
+
+LaTeX Warning: Citation `REF' on page 11 undefined on input line 109.
+
+[11] [12] [13]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+
+
+LaTeX Warning: Citation `marks2012protein:REF' on page 14 undefined on input li
+ne 150.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+[14]
+
+LaTeX Warning: Command \r invalid in math mode on input line 171.
+
+[15]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no à in font cmr12!
+Missing character: There is no í in font cmr12!
+ [16] [17] [18]
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+
+
+LaTeX Warning: Citation `dunn2008mutual:REF(Martin et al.' on page 19 undefined
+ on input line 214.
+
+
+LaTeX Warning: Citation `2005)' on page 19 undefined on input line 214.
+
+[19]
+
+LaTeX Warning: Citation `dunn2008mutual:REF (Wollenberg and Atchley' on page 20
+ undefined on input line 219.
+
+
+LaTeX Warning: Citation `2000)' on page 20 undefined on input line 219.
+
+
+LaTeX Warning: Citation `(Martin et al.' on page 20 undefined on input line 219
+.
+
+
+LaTeX Warning: Citation `2005; Tillier and Lui' on page 20 undefined on input l
+ine 219.
+
+
+LaTeX Warning: Citation `2003)' on page 20 undefined on input line 219.
+
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+Missing character: There is no ‚ in font cmr12!
+Missing character: There is no Ä in font cmr12!
+Missing character: There is no ê in font cmr12!
+[20]) [21] (./thesis_mcgill.bbl [22
+
+
+
+] [23] [24]) (./thesis_mcgill.aux
+(./chapters/intro.aux) (./chapters/intro_coevolution.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -685,10 +663,10 @@ kvsetkeys.sty    2012/04/25 v1.16 Key value parser (HO)
 etexcmds.sty    2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
 epstopdf-sys.cfg    2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 chapters/intro.tex
-chapters/intro_epistasis.tex
+chapters/intro_coevolution.tex
+  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
     umsa.fd    2013/01/14 v3.01 AMS symbols A
     umsb.fd    2013/01/14 v3.01 AMS symbols B
-  omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
 thesis_mcgill.bbl
  ***********
 
@@ -697,27 +675,26 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 6278 strings out of 493315
- 92835 string characters out of 6137904
- 185776 words of memory out of 5000000
- 9603 multiletter control sequences out of 15000+600000
+ 6277 strings out of 493315
+ 92882 string characters out of 6137904
+ 186776 words of memory out of 5000000
+ 9602 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
- 38i,7n,40p,1486b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 38i,5n,40p,750b,287s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
-usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></us
-r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/
-local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/lo
-cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
-/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
-texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
-xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (28 pages, 168208 bytes).
+</usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></
+usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></us
+r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/
+local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/loc
+al/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/loca
+l/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/
+texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
+Output written on thesis_mcgill.pdf (24 pages, 154571 bytes).
 PDF statistics:
- 134 PDF objects out of 1000 (max. 8388607)
- 93 compressed objects within 1 object stream
+ 117 PDF objects out of 1000 (max. 8388607)
+ 81 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

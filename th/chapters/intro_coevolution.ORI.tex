@@ -42,90 +42,21 @@ This is in an example of co-evolution modulating disease risk.
 
 \end{itemize}
 
-\subsection{Detecting co-evolution: Independent models}
-
-\paragraph{Correlated phylogenetic trees}
-Co‐evolution of interacting species, such as symbionts-hosts, predators-prey, and parasites-hosts, is assumed to be manifested by similarities in the phylogenetic trees \cite{de2013emerging}.
-Proteins and their interaction partners co-evolve so that divergent changes in one are complemented at the interface by their interaction partner  \cite{goh2000co} creating similar evolutionary trees.
-Thus tree similarity approaches can successfully be extended for protein-protein co‐evolution assumed to be caused by physical interactions.
-This kind of methods have been shown to be capable of identifying interaction partners, such as ligand-receptor pairs \cite{de2013emerging}.
-
-Evolutionary relationships within protein families can be mined to predict physical interaction specificities \cite{ramani2003exploiting}.
-Duplicate genes (paralogs) often diverge in a way such that new binding specificities are evolved, thus the underlying hypothesis is that interacting proteins exhibit coordinated evolution and tend to have similar phylogenetic trees.
-This was first demonstrated in a study of chemokines and their receptors showing very similar phylogenetic trees \cite{ramani2003exploiting:REF}.
-Using similarity of phylogenetic trees as a proxy for the co-evolution of interacting proteins \cite{ramani2003exploiting}, a computational method based on matrix alignment can find an optimal alignment between protein family similarity matrices (conceptually equivalent to superimposing  phylogenetic trees from the two protein families) \cite{ramani2003exploiting}.
-One matrix is shuffled using stochastic simulated annealing-based to make the two matrices maximally agree by minimizing the root mean square difference.
-Interactions can be predicted by observing equivalent columns proteins heading in the two matrices.  \cite{ramani2003exploiting}
-
-Although some methods based on phylogenetic tree similarity exists, the majority of co-evolutionary methods focuses on analysis of multiple sequence alignment \cite{rohlfs2010detecting}.
-
-\paragraph{Correlated mutations}
-Proteins have evolved to interact or function in specific molecular complexes and the specificity of these interactions is essential for their function, consequently residue contacts constrain the protein sequences to some extent \cite{pazos1997correlated}.
-In other words, sequences form interacting proteins react as a consequence of adaptation, thus it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}.
-It should be noted that this relationship between co-evolution and interaction is not symmetrical. 
-While interaction would involve coevolution, coevolution does not imply physical interaction \cite{fares2006novel}.
-Furthermore, co-evolution between clusters of sites not in contact has also been shown \cite{fares2006novel:REF(Pritchard and Dufton 2000)}.
-
-Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}.
-It has long been suggested that correlations in amino acid changes can be used to infer protein contact, thus aiding to predict tertiary protein structure \cite{fitch1970improved, morcos2011direct, burger2010disentangling, de2013emerging}.
-A large number of genomes and protein sequences have become available in recent years enabling the analysis of co-evolution by means of statistical inference between columns in multiple sequence alignments of protein sequences \cite{burger2010disentangling, burger2010disentangling}, which has been a fruitful technique for predicting contacting residues in the structure.
-This interdependent changes in amino acids was formulated for the first time by the ``covarion model" \cite{fitch1970improved} and applied in multiple sequence alignments of a family of homologue proteins \cite{de2013emerging}.
-Statistical methods to find correlated mutations loci between pairs of proteins can identify putative interaction sites in protein pairs \cite{de2013emerging}, but we should keep in mind that correlated mutations suggesting compensatory changes between residues can be due to several factors different than direct contact, such as physical proximity, catalytic action, binding sites, or even maintaining folding stability.
-
-One of the first attempts to statistical inference of co-evolving pairs was performed by Gobel et. al. in 1994.
-In their seminal paper they point out that the fact that \textit{``maintenance of protein function and structure constrains the evolution of amino acid sequences... [sequence alignments] can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions"} \cite{gobel1994correlated}. 
-They  analysed correlations between different positions in a multiple sequence alignment and used such correlations to predict contact maps.
-In their study of 11 protein families they compare their results with experimentally validated contact maps determined by crystallography, showing that prediction accuracy up to $68\%$.
-
-The promise of developing methods for predicting contacting pairs from sequence information alone was radically different and more applicable than traditional docking methods \cite{pazos1997correlated}.
-This lead to the development of several methods for detecting correlated changes in multiple sequence alignments with the primary intention of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
-It was demonstrated that the correlated sequence information was enough to select the right inter-domain docking solution amongst many alternatives  \cite{pazos1997correlated}.
-
-Correlation and mutual information (MI) have been used to asses co-evolution but they do not take into account the evolutionary interdependence between protein residues \cite{fares2006novel}.
-Phylogenetic relationships can inflate these co-evolutionary measures, thus one of main limitations of these methods has been their inability to separate phylogenetic linkage from functional and structural co-evolution \cite{fares2006novel}.
-Some methods partially correct these effects but while some studies claim that these require alignments of at least $125$ sequences to remove stochastic noise \cite{fares2006novel:REF Gloor et al. (2005)}, other studies suggest that these methods may require in the order of $1,000$ homologous yet variable protein sequences to achieve correct predictions \cite{morcos2011direct}.
-
-\paragraph{Phylogenetic correction}
-Mutual information measures the reduction of uncertainty about one position given information about the other.
-When used in as a measurement for co-evolution, MI can be confounded by several factors such as: 
-i) structural and functional constraints, and 
-ii) the background sum of contributions from random noise and shared ancestry.
-In an attempt to MI's ``improve signal to noise ratio" by eliminating or minimizing the second factor, a model postulated by \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
-They propose that each amino acid position in the MSA has a propensity toward the background MI (related to its entropy and phylogenetic history) and estimate the joint background MI as the product of their propensities.
-It follows that a joint background correction term can be approximated as product of the average background MI divided by the average overall MI of all positions in the MSA, they call this term average product correction (APC) \cite{dunn2008mutual}.
-They show that APC is a metric than can accurately estimate MI in the absence of structural or functional relationships (i.e. the null model) \cite{dunn2008mutual}, which is assumed to be normally distributed thus a p-value can be inferred using a Z-score.
-
-Another method, CAPS \cite{fares2006novel}, compares transition probability scores from blocks substitution matrix (BLOSUM) between two sequences at the sites being analysed for interaction.
-An alignment-specific BLOSUM matrix is applied depending on the average sequence identity.
-Co-evolution between protein sites is estimated by the correlation in the pairwise variability respect to the mean pairwise variability per site \cite{fares2006novel}.
-A limitation of this method is that the number of sequences in the alignment may be problematic when sequences are too divergent, since an alignment including highly divergent sequence groups could show unrealistic pairwise identity level (BLOSUM values are normalized by the time of divergence between sequences to reduce the impact).
-Another problem common to many MSA-based co-evolutionary methods is that constant amino acid sites, which are very likely to be functionally important, cannot be tested for  \cite{fares2006novel}.
-
-\paragraph{Evolutionary timespan}
 Coevolution of interacting proteins is often analysed in large time frames typically based on the evolutionary analysis across different species  \cite{qian2015recent}
 Genome-wide scans have identified a several candidate loci that underlie local adaptations, which seems surprising given the short evolutionary time since the human divergence which is estimated have happened around $50,000$ to $100,000$ years ago when humans migrated out of Africa\cite{qian2015recent}.
 In light of this, it may make sense to analyse co-evolution within human population
 since within a pathway or a functional subnetwork, multiple genes may change in the same fitness direction at a same evolutionary rate to achieve a common phenotypic outcome \cite{qian2015recent}.
 A study using 1000 Genome \cite{REF} project data form East Asians, Europeans, and Africans populaitons, researchers found candidate genes having signals of recent positive selection are significantly closer to each other than expected when the information is mapped onto protein-protein interaction (PPI) networks \cite{qian2015recent}.
 The methodology was also able to identify known examples such as EGLN1 and EPAS1 (hypoxia-response pathway playing key roles in adaptation to high-altitude) as well as multiple genes in the NRG-ERBB4 (developmental pathway) \cite{qian2015recent}.
-This shows that sequences from shorter time spans can also be mined for co-evolution.
 
-\paragraph{MSA quality influences predictions}
-Since many co-evolutionary methods rely so heavily on multiple sequence alignments, it should not be surprising to know that the quality of the input alignment may affect the results.
-As one example, it is well known that structure-based alignment algorithms may be susceptible to shift error and other systematic errors, thus strong covariation signal can be caused by alignment errors leading to false positive predictions \cite{dickson2010identifying}.
-Phylogeny of the sequences also affects perfromance, since methods work better on large protein families having a wide but homogenously distributed degree of sequence similarity ranging from distant to similar sequences \cite{de2013emerging}.
-In a recent study co-evolutionary methods were applied to different alignments of the same protein family, giving rise to distinct results and demonstrating that covariation may greatly depend on the quality of the sequence alignment \cite{dickson2010identifying}.
-Even when alignments for the same protein family contained comparable numbers of sequences the number of estimated covarying positions differed significantly \cite{dickson2010identifying}.
-The authors of this analysis demonstrated that contact prediction can be improved by removing alignment errors due to several factors such as partial or otherwise erroneous sequences, the presence of paralogous sequences, and improper structure alignment \cite{dickson2010identifying}.
+\subsection{Co-Evolution and protein structure}
 
-\paragraph{Co-Evolution and protein structure}
 Protein structure prediction from amino acid sequence is one of the ultimate goals in computational biology \cite{burger2010disentangling}, despite significant efforts the general problem of de novo three-dimensional structure prediction has remained one of the most challenging problems in computational biology \cite{marks2012protein}.
 Unfortunately, \textit{de-novo} protein structure prediction does not scale since the conformational space grows exponentially with the protein length.
 Contact information can constrain the fold thus significantly reducing the search space.
 Since covariation patterns can complement experimental structural biology thus helping to elucidate functional interactions  \cite{marks2012protein}, information of co-evolutionary couplings between residues are often used to compute protein three-dimensional structures from amino acid sequences \cite{marks2012protein}.
 It has been observed that using information about a protein residue contacts, it is possible to elucidate the fold of the protein \cite{jones2012psicov}.
 Several researchers demonstrated that using co-evolutionary information from multiple sequence alignments greatly helps to deduce which amino acid pairs are close (or in contact) in the three-dimensional structure thus allowing to calculate protein fold with a reasonable accuracy \cite{marks2012protein}.
-It is not surprising to know that the vast majority of methods for finding protein co-evolution are designed with the specific aim to generate results useful in the context of protein folding.
 
 \paragraph{Protein design}
 It has recently been proposed to use co-evolutionary theory in computational protein design methods.
@@ -135,40 +66,106 @@ Similarly, computational protein design predicts energetically optimal sequences
 A study \cite{ollikainen2013computational} using computational protein design to quantify protein structure constraints form amino acid covariation for 40 diverse protein domains, shows that structural constraints imposed by covariation play a dominant role in protein architecture.
 Computational protein design methods could make use of knowledge form natural co-evolution effects \cite{ollikainen2013computational}.
 
+\subsection{Detecting co-evolution: Independent models}
+
+\subsection{Co-evolution and protein interactions}
+
+Proteins have evolved to interact or function in specific molecular complexes and the specificity of these interactions is essential for their function \cite{pazos1997correlated}.
+Consequently, residue contacts constrain the protein sequences to some extent \cite{pazos1997correlated}.
+In other words, sequences form interacting proteins react as a consequence of adaptation, thus it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}.
+It should be noted that this relationship between co-evolution and interaction is not symmetrical. 
+While interaction would involve coevolution, coevolution does not imply physical interaction \cite{fares2006novel}.
+Co-evolution between clusters of sites not in contact has also been shown \cite{fares2006novel:REF(Pritchard and Dufton 2000)}.
+
+\paragraph{Correlated mutations}
+Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}.
+It has long been suggested that correlations in amino acid changes can be used to infer protein contact, thus aiding to predict tertiary protein structure \cite{fitch1970improved, morcos2011direct, burger2010disentangling, de2013emerging}.
+A large number of genomes and protein sequences have become available in recent years enabling the analysis of co-evolution by means of statistical inference between columns in multiple sequence alignments of protein sequences \cite{burger2010disentangling, burger2010disentangling}, which has been a fruitful technique for predicting contacting residues in the structure.
+This interdependent changes in amino acids was formulated for the first time by the ``covarion model" \cite{fitch1970improved} and applied in multiple sequence alignments of a family of homologue proteins \cite{de2013emerging}.
+Statistical methods to find correlated mutations loci between pairs of proteins can identify putative interaction sites in protein pairs \cite{de2013emerging}, but we should keep in mind that correlated mutations suggesting compensatory changes between residues can be due to several factors different than direct contact, such as physical proximity, catalytic action, binding sites, or even maintaining folding stability.
+
+\paragraph{Correlated phylogenetic trees}
+Co‐evolution of interacting species, such as symbionts-hosts, predators-prey, and parasites-hosts, is assumed to be manifested by similarities in the phylogenetic trees \cite{de2013emerging}.
+Proteins and their interaction partners co-evolve so that divergent changes in one are complemented at the interface by their interaction partner  \cite{goh2000co} creating similar evolutionary trees.
+Thus tree similarity approach can and has successfully been extended to protein co‐evolution assumed to be caused by physical interactions.
+This kind of methods have been shown to be capable of identifying interaction partners, such as ligand-receptor pairs \cite{de2013emerging}.
+
+
+One of the first attempts to statistical inference of co-evolving pairs was performed by Gobel et. al. in 1994.
+In their seminal paper they point out that the fact that \textit{``maintenance of protein function and structure constrains the evolution of amino acid sequences... [sequence alignments] can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions"} \cite{gobel1994correlated}. 
+They  analysed correlations between different positions in a multiple sequence alignment and used such correlations to predict contact maps.
+In their study of 11 protein families they compare their results with experimentally validated contact maps determined by crystallography, showing that prediction accuracy up to $68\%$.
+
+Evolutionary relationships within protein families can be mined to predict physical interaction specificities \cite{ramani2003exploiting}.
+Duplicate genes (paralogs) often diverge in a way such that new binding specificities are evolved, thus the underlying hypothesis is that interacting proteins exhibit coordinated evolution and tend to have similar phylogenetic trees.
+This was first demonstrated in a study of chemokines and their receptors showing very similar phylogenetic trees \cite{ramani2003exploiting:REF}.
+Using similarity of phylogenetic trees as a proxy for the co-evolution of interacting proteins \cite{ramani2003exploiting}, a computational method based on matrix alignment can find an optimal alignment between protein family similarity matrices (conceptually equivalent to superimposing  phylogenetic trees from the two protein families) \cite{ramani2003exploiting}.
+One matrix is shuffled using stochastic simulated annealing-based to make the two matrices maximally agree by minimizing the root mean square difference.
+Interactions can be predicted by observing equivalent columns proteins heading in the two matrices.  \cite{ramani2003exploiting}
+
+Although some methods were base on testing for correlation of phylogenetic trees the majority of methods focuses on extracting co-evolutionary information from multiple sequence alignment \cite{rohlfs2010detecting}.
+
+The promise of developing methods for predicting contacting pairs from sequence information alone was radically different and more applicable than traditional docking methods \cite{pazos1997correlated}
+This lead to the development of multiple methods for detecting correlated changes in multiple sequence alignments with the primary intention of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
+It was demonstrated that the correlated sequence information was enough to select the right inter-domain docking solution amongst many alternatives  \cite{pazos1997correlated}.
+
+Correlation and mutual information have been used to asses co-evolution but they do not take into account the evolutionary interdependence between protein residues \cite{fares2006novel}.
+Phylogenetic relationships can inflate these co-evolutionary measures, thus one of main limitations of these methods has been their inability to separate phylogenetic linkage from functional and structural co-evolution \cite{fares2006novel}.
+Some methods partially correct these effects but studies claim that these require alignments of at least $125$ sequences to remove stochastic noise \cite{fares2006novel:REF Gloor et al. (2005)}.
+Other studies suggest that these methods may require in the order of $1,000$ homologous yet variable protein sequences to achieve correct predictions \cite{morcos2011direct}.
+
+MI measures the reduction of uncertainty about one position given information about the other, which can be confounded by: i) structural and functional constraints, and ii) the background sum of contributions from random noise and shared ancestry.
+In an attempt to improve signal to noise ration by eliminating or minimizing the second factor, a model postulated by \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
+They propose that each amino acid position in the MSA has a propensity toward the background MI (related to its entropy and phylogenetic history) and estimate the joint background MI as the product of their propensities.
+It follows that the joint background correction term can be approximated as product of the average background MI divided by the average overall MI of all positions in the MSA (they call this term average product correction) \cite{dunn2008mutual}, which is assumed to be normally distributed thus a p-value can be inferred using a Z-score.
+Finally, they show that APC is a metric than can accurately estimate MI in the absence of structural or functional relationships (i.e. the null model) \cite{dunn2008mutual}.
+
+CAPS \cite{fares2006novel} compares transition probability scores from blocks substitution matrix (BLOSUM) between two sequences at the sites being analysed for interaction.
+An alignment-specific BLOSUM matrix is applied depending on the average sequence identity.
+
+Co-evolution between protein sites is estimated by the correlation in the pairwise variability respect to the mean pairwise variability per site \cite{fares2006novel}.
+A limitation of this method is that the number of sequences in the alignment may be problematic when sequences are too divergent, since an alignment including highly divergent sequence groups could show unrealistic pairwise identity level (BLOSUM values are normalized by the time of divergence between sequences to reduce the impact).
+Another problem common to many MSA-based co-evolutionary methods is that constant amino acid sites, which are very likely to be functionally important, cannot be tested for  \cite{fares2006novel}.
+
+\paragraph{MSA quality influences predictions}
+Since many of these methods rely so heavily on multiple sequence alignments, it should not be surprising to know that the quality of the input alignment may affect the results.
+As one example, it is well known that structure-based alignment algorithms may be susceptible to shift error and other systematic errors, thus strong covariation signal can be caused by alignment errors leading to false positive predictions \cite{dickson2010identifying}.
+Phylogeny of the sequences also affects perfromance, since methods work better on large protein families having a wide but homogenously distributed degree of sequence similarity ranging from distant to similar sequences \cite{de2013emerging}.
+In a recent study different co-evolutionary methods were applied to different alignments of the same protein family, giving rise to different results and demonstrating that covariation may greatly depend on the quality of the sequence alignment \cite{dickson2010identifying}.
+Even when alignments for the same protein family contained comparable numbers of sequences the number of estimated covarying positions differ significantly \cite{dickson2010identifying}.
+The authors of this analysis demonstrate that contact prediction can be improved by removing alignment errors due to several factors such as partial or otherwise erroneous sequences, the presence of paralogous sequences, and improper structure alignment \cite{dickson2010identifying}.
+
 \subsection{Detecting co-evolution: Global models}
 
 An important problem when inferring co-evolution is indirect coupling typically occurring when more than two positions show coordinated substitution patterns.
 Apparent co‐variation between two positions is the consequence of the evolutionary interdependence and these indirect couplings can make it difficult to recognize the directly interdependent positions.
 Imagine a protein sequence of length $L$ with amino acids label by their positions, amino acid at position $i$ ($aa_i$) is coupled directly with $aa_j$, and $aa_j$ to $aa_k$, then $aa_i$ and $aa_k$ will show correlation despite not being directly coupled \cite{weigt2009identification}
+As opposed to the independence assumption, in a `global' model treats correlated pairs of residues as dependent on each other thereby minimizing effects of transitivity  \cite{marks2012protein}
+Since direct couplings are more reliable predictions of physical interactions, approaches that can distinguish direct from indirect couplings have been a topic of intensive study \cite{de2013emerging}.
+Global approaches are designed to reach high scores only for amino acid pairs that are likely to be causative of the observed correlations \cite{marks2012protein}
+This is well understood phenomena in statistical physics, a typical example of it are long-range order observed in spin systems, where the spins only have short-range direct interactions.  \cite{marks2012protein:REF}
 
-As opposed to models using the independence assumption, a `global' model treats correlated pairs of residues as dependent on each other thereby minimizing effects of transitivity  \cite{marks2012protein}.
-Since direct couplings are more reliable predictions of physical interactions, approaches that can distinguish direct from indirect couplings have been an intensive area of study \cite{de2013emerging}.
-Global approaches are designed to reach high scores only for amino acid pairs that are likely to be causative of the observed correlations  \cite{marks2012protein}.
-
-
-\paragraph{Glass spin systems}
-Global interaction models are well understood in statistical physics, a typical example of it are long-range order observed in spin systems, where the spins only have short-range direct interactions.  \cite{marks2012protein:REF}
-One of the first global models for co-evolution was proposed by Lapedes in 2002 \cite{lapedes2012using}, who used a Monte Carlo algorithm to infer the simplest probabilistic distribution able to account for the whole network of co‐variations \cite{de2013emerging}.
-He presented a sequence-based probabilistic theory addressing co-operative effects in interacting positions in proteins assuming that a sequence of length $L$ is a global state of an \textit{L-site} spin system of twenty states (for twenty amino acids).
-Then he solved the global statistical formalism based on maximizing entropy under constraints which is known to lead to Boltzmann statistics \cite{marks2012protein}.
+\paragraph{First global model}
+The first model was proposed by Lapedes in 2002 \cite{lapedes2012using} used a Monte Carlo algorithm to infer the simplest probabilistic distribution able to account for the whole network of co‐variations \cite{de2013emerging}.
+He presented a sequence-based probabilistic formalism addressing co-operative effects in interacting positions in proteins assuming that a sequence of length $L$ is a global state of an $L-site$ spint system of twenty states (for twenty amino acids).
+A global statistical approach based on maximizing entropy under constraints which is known to lead to Boltzmann statistics \cite{marks2012protein}.
 Finally the conditional mutual information is calculated using this Boltzmann model which leads to the degree of covariation between residues at two positions factoring out contributions by interaction with the rest of the residues \cite{marks2012protein}.
 The amount sequence data is a limiting factors when performing inference of Boltzmann distribution parameters, thus it is usually infeasible to use more than first order distributions \cite{lapedes2012using}.
 Another limitation is the phylogenetic relatedness of these sequences, which are not addressed in this algorithm and have the potential to increase accuracy \cite{lapedes2012using}.
 
 \paragraph{Direct coupling analysis}
-A similar approach called  direct-coupling analysis (DCA) was also based on spin-glass physics \cite{weigt2009identification}.
-In their implementation a generalized message-passing techniques is used to massively parallelize the algorithm implementation \cite{weigt2009identification}.
-As in \cite{lapedes2012using} an application of the maximum entropy principle yields the Boltzmann distribution which is used to estimate the second order interaction model.
-In principle higher correlations of three or more positions can be included, however dataset size does not allow for inferring beyond \cite{weigt2009identification} two-residue model parameters. 
-Determining parameters which is the most computationally expensive task is achieved by using a two-step procedure: i) given a candidate set of model parameters, single and two residue distributions are estimated; ii) the summation over all possible protein sequences would require $O(21^{N-2} N^2)$ steps, so an approximation is performed using MCMC sampling. 
-This last step is the most expensive step and is expected to be very slow for 21-state variables.
-An message-passing approach is implemented using an efficient heuristic which reduces the computational complexity to $O(21^2 N^4)$ \cite{weigt2009identification}.
-Once all probability distributions are estimated, gradient descent is used to adjust the coupling strengths maximizing the joint probability of the data since the model is convex, it is guaranteed to converge to a single global maximum \cite{weigt2009identification}.
-Finally, a quantity called direct information (DI) measures the part of the mutual information of a position pair induced by the direct coupling (intuitively similar to mutual information in a two-variable model) \cite{weigt2009identification}
-Even after all optimizations and parallelizations, the method could not be applied to more than $60$ positions in the protein alignment simultaneously \cite{weigt2009identification}.
+A similar approach called  direct-coupling analysis (DCA) is based on spin-glass physics uses generalized message-passing techniques to massively parallelize the algorithm implementation \cite{weigt2009identification}.
 They manage to apply the method to a set consisting of over $2,500$ bacterial genes from a two-component signal transduction system.
 With global inference robustly identifying residue pairs proximal in space without between sensor kinase (SK) and response regulator (RR) proteins and for homo-interactions in RR proteins. \cite{weigt2009identification}
-In their test dataset, all the top $10$ candidate interactions identified were shown to be true contacts, and were used to create interacting protein complex quite accurately ($3$ \AA  rmsd) \cite{morcos2011direct}.
+As in \cite{lapedes2012using} an application of the maximum entropy principle yields the Boltzmann distribution which is used to estimate the second order interaction model.
+In principle higher correlations of 3 or more positions can be included, however dataset size does not allow for going beyond \cite{weigt2009identification} 2-residue correlations. 
+Determining parameters which is the most computationally expensive task is achieved by using a 2-step procedure: i) given a candidate set of model parameters, single and two residue distributions are estimated; ii) the summation over all possible protein sequences would require $O(21^{N-2} N^2)$ steps, so an approximation is performed using MCMC sampling. 
+This last step is the most expensive step and is expected to be very slow for 21-state variables.
+An message-passing approach is implemented using an efficient semiheuristic approach which reduces the computational complexity to $O(21^2 N^4)$ \cite{weigt2009identification}.
+Once all probability distributions are estimated, gradient descent is used to adjust the coupling strengths maximizing the joint probability of the data since the model is convex, it is guaranteed to converge to a single global maximum \cite{weigt2009identification}.
+Finally, a quantity called direct information (DI) measures the part of the mutual information of a position pair induced by the direct coupling (intuitively similar to mutual information in a 2-variable model) \cite{weigt2009identification}
+Even after all optimizations and parallelizations, the method could not be applied to more than $60$ positions in the protein alignment simultaneously \cite{weigt2009identification}.
+In a test dataset of TCS proteins, all the top $10$ candidate interactions identified were shown to be true contacts, and were used to create interacting TCS protein complex quite accurately ($3$ \AA rmsd) \cite{morcos2011direct}.
 
 \paragraph{Mean field approximation}
 DCA has been shown to yield a large number of correctly predicted contacts based on its ability to disentangle direct and indirect correlations, unfortunately the method is computationally expensive and does not scale \cite{morcos2011direct}.
