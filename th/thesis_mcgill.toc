@@ -61,61 +61,62 @@
 \contentsline {paragraph}{Multidimensional mutual information.}{84}
 \contentsline {paragraph}{Bayesian network model.}{85}
 \contentsline {subsection}{\numberline {1.8.3}Algorithm limitations}{85}
-\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{89}
-\contentsline {section}{\numberline {2.1}Preface}{89}
-\contentsline {section}{\numberline {2.2}Introduction}{91}
-\contentsline {section}{\numberline {2.3}Methods}{95}
-\contentsline {subsection}{\numberline {2.3.1}Language overview}{95}
-\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{96}
-\contentsline {subsection}{\numberline {2.3.3}Robustness}{98}
-\contentsline {paragraph}{Lazy processing.}{99}
-\contentsline {paragraph}{Absolute serialization.}{100}
-\contentsline {paragraph}{Limitations.}{100}
-\contentsline {subsection}{\numberline {2.3.4}Other features}{101}
-\contentsline {paragraph}{Automatic logging.}{101}
-\contentsline {paragraph}{Automatic command line parsing.}{102}
-\contentsline {paragraph}{Task re-execution.}{103}
-\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{103}
-\contentsline {section}{\numberline {2.4}Results}{108}
-\contentsline {paragraph}{Architecture independence.}{108}
-\contentsline {paragraph}{Robustness.}{110}
-\contentsline {paragraph}{Scalability.}{110}
-\contentsline {section}{\numberline {2.5}Discussion}{112}
-\contentsline {chapter}{\numberline {3}A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain $w^{1118} ; iso-2; iso-3$}{113}
-\contentsline {section}{\numberline {3.1}Preface}{113}
-\contentsline {section}{\numberline {3.2}Abstract}{114}
-\contentsline {section}{\numberline {3.3}Introduction}{115}
-\contentsline {section}{\numberline {3.4}Results}{117}
-\contentsline {section}{\numberline {3.5}Discussion}{135}
-\contentsline {section}{\numberline {3.6}Methods }{139}
-\contentsline {section}{\numberline {3.7}Acknowledgements}{143}
-\contentsline {section}{\numberline {3.8}Epilogue}{144}
-\contentsline {subsection}{\numberline {3.8.1}Data structures for annotations}{144}
-\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{146}
-\contentsline {section}{\numberline {4.1}Preface}{146}
-\contentsline {section}{\numberline {4.2}Abstract}{147}
-\contentsline {paragraph}{Motivation.}{147}
-\contentsline {paragraph}{Methods.}{147}
-\contentsline {paragraph}{Results.}{148}
-\contentsline {paragraph}{Availability.}{148}
-\contentsline {section}{\numberline {4.3}Introduction}{148}
-\contentsline {section}{\numberline {4.4}Methods }{153}
-\contentsline {subsection}{\numberline {4.4.1}Substitution model for pairs of interacting amino acids }{153}
-\contentsline {subsection}{\numberline {4.4.2}Calculating likelihood of individual and pairs of alignment columns}{156}
-\contentsline {subsection}{\numberline {4.4.3}GWAS model}{157}
-\contentsline {paragraph}{Computational and statistical issues.}{162}
-\contentsline {subsection}{\numberline {4.4.4}Putting it all together}{163}
-\contentsline {section}{\numberline {4.5}Results}{164}
-\contentsline {subsection}{\numberline {4.5.1}Co-evolutionary substitution models}{165}
-\contentsline {subsection}{\numberline {4.5.2}Co-evolutionary model validation}{166}
-\contentsline {subsection}{\numberline {4.5.3}Epistatic GWAS analysis}{170}
-\contentsline {paragraph}{Results.}{172}
-\contentsline {section}{\numberline {4.6}Discussion}{173}
-\contentsline {chapter}{\numberline {5}Conclusions }{175}
-\contentsline {section}{\numberline {5.1}Contributions}{175}
-\contentsline {section}{\numberline {5.2}Future work}{177}
-\contentsline {paragraph}{BigDataScript.}{177}
-\contentsline {paragraph}{Variant annotations.}{178}
-\contentsline {paragraph}{GWAS Epistasis.}{178}
-\contentsline {section}{\numberline {5.3}Perspectives}{179}
-\contentsline {extrachapter}{References}{180}
+\contentsline {section}{\numberline {1.9}Thesis roadmap and Contributions}{89}
+\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{95}
+\contentsline {section}{\numberline {2.1}Preface}{95}
+\contentsline {section}{\numberline {2.2}Introduction}{97}
+\contentsline {section}{\numberline {2.3}Methods}{101}
+\contentsline {subsection}{\numberline {2.3.1}Language overview}{101}
+\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{102}
+\contentsline {subsection}{\numberline {2.3.3}Robustness}{104}
+\contentsline {paragraph}{Lazy processing.}{105}
+\contentsline {paragraph}{Absolute serialization.}{106}
+\contentsline {paragraph}{Limitations.}{106}
+\contentsline {subsection}{\numberline {2.3.4}Other features}{107}
+\contentsline {paragraph}{Automatic logging.}{107}
+\contentsline {paragraph}{Automatic command line parsing.}{108}
+\contentsline {paragraph}{Task re-execution.}{109}
+\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{109}
+\contentsline {section}{\numberline {2.4}Results}{114}
+\contentsline {paragraph}{Architecture independence.}{114}
+\contentsline {paragraph}{Robustness.}{116}
+\contentsline {paragraph}{Scalability.}{116}
+\contentsline {section}{\numberline {2.5}Discussion}{118}
+\contentsline {chapter}{\numberline {3}A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain $w^{1118} ; iso-2; iso-3$}{119}
+\contentsline {section}{\numberline {3.1}Preface}{119}
+\contentsline {section}{\numberline {3.2}Abstract}{120}
+\contentsline {section}{\numberline {3.3}Introduction}{121}
+\contentsline {section}{\numberline {3.4}Results}{123}
+\contentsline {section}{\numberline {3.5}Discussion}{141}
+\contentsline {section}{\numberline {3.6}Methods }{145}
+\contentsline {section}{\numberline {3.7}Acknowledgements}{149}
+\contentsline {section}{\numberline {3.8}Epilogue}{150}
+\contentsline {subsection}{\numberline {3.8.1}Data structures for annotations}{150}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{152}
+\contentsline {section}{\numberline {4.1}Preface}{152}
+\contentsline {section}{\numberline {4.2}Abstract}{153}
+\contentsline {paragraph}{Motivation.}{153}
+\contentsline {paragraph}{Methods.}{153}
+\contentsline {paragraph}{Results.}{154}
+\contentsline {paragraph}{Availability.}{154}
+\contentsline {section}{\numberline {4.3}Introduction}{154}
+\contentsline {section}{\numberline {4.4}Methods }{159}
+\contentsline {subsection}{\numberline {4.4.1}Substitution model for pairs of interacting amino acids }{159}
+\contentsline {subsection}{\numberline {4.4.2}Calculating likelihood of individual and pairs of alignment columns}{162}
+\contentsline {subsection}{\numberline {4.4.3}GWAS model}{163}
+\contentsline {paragraph}{Computational and statistical issues.}{168}
+\contentsline {subsection}{\numberline {4.4.4}Putting it all together}{169}
+\contentsline {section}{\numberline {4.5}Results}{170}
+\contentsline {subsection}{\numberline {4.5.1}Co-evolutionary substitution models}{171}
+\contentsline {subsection}{\numberline {4.5.2}Co-evolutionary model validation}{172}
+\contentsline {subsection}{\numberline {4.5.3}Epistatic GWAS analysis}{176}
+\contentsline {paragraph}{Results.}{178}
+\contentsline {section}{\numberline {4.6}Discussion}{179}
+\contentsline {chapter}{\numberline {5}Conclusions }{181}
+\contentsline {section}{\numberline {5.1}Contributions}{181}
+\contentsline {section}{\numberline {5.2}Future work}{183}
+\contentsline {paragraph}{BigDataScript.}{183}
+\contentsline {paragraph}{Variant annotations.}{184}
+\contentsline {paragraph}{GWAS Epistasis.}{184}
+\contentsline {section}{\numberline {5.3}Perspectives}{185}
+\contentsline {extrachapter}{References}{186}

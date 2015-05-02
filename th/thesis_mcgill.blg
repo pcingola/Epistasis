@@ -5,7 +5,7 @@ A level-1 auxiliary file: chapters/intro.aux
 A level-1 auxiliary file: chapters/intro_variants.aux
 A level-1 auxiliary file: chapters/intro_epistasis.aux
 A level-1 auxiliary file: chapters/intro_coevolution.aux
-A level-1 auxiliary file: chapters/intro_roadmap.tex.aux
+A level-1 auxiliary file: chapters/intro_roadmap.aux
 A level-1 auxiliary file: chapters/bds.aux
 A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
@@ -124,7 +124,7 @@ Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
 You've used 249 entries,
             2118 wiz_defined-function locations,
-            1784 strings with 57942 characters,
+            1784 strings with 57938 characters,
 and the built_in function-call counts, 105390 in all, are:
 = -- 9911
 > -- 7195
