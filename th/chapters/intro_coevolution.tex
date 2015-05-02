@@ -22,10 +22,10 @@ Here some well known examples of co-evolution in humans are worth mentioning:
 
 \begin{itemize}
 
-\item HLA and KIR are two genes located in different chromosomes conforming a well established interacting immune-response loci their allele frequencies are highly correlated in human populations as one expects under intense allele matching selection \cite{rohlfs2010detecting:REF}.
+\item HLA and KIR are two genes located in different chromosomes conforming a well established interacting immune-response loci their allele frequencies are highly correlated in human populations as one expects under intense allele matching selection \cite{single2007global}.
 
 \item A remarkable phylogenetic trees similarity was observed between ligands (such as insulins and interleukins) and their corresponding receptors.
-This co‐evolution is proposed to be required for maintenaning their specific interactions \cite{de2013emerging:REF}.
+This co‐evolution is proposed to be required for maintenaning their specific interactions \cite{pazos2001similarity}.
 
 \item An alternative method for ligands-receptors co-evolution is based on the N-terminal and C-terminal phosphoglycerate kinase (PGK) which are covalently linked and form an active site at their interface, therefore, they must are inferred to have co-evolved to preserve enzyme function. \cite{goh2000co}.
 Researchers found that chemokines family of protein ligands and their G-protein coupled receptors have coevolved so that each subgroup of chemokine ligands has a matching subgroup of chemokine receptors \cite{goh2000co}.
@@ -52,7 +52,7 @@ This kind of methods have been shown to be capable of identifying interaction pa
 
 Evolutionary relationships within protein families can be mined to predict physical interaction specificities \cite{ramani2003exploiting}.
 Duplicate genes (paralogs) often diverge in a way such that new binding specificities are evolved, thus the underlying hypothesis is that interacting proteins exhibit coordinated evolution and tend to have similar phylogenetic trees.
-This was first demonstrated in a study of chemokines and their receptors showing very similar phylogenetic trees \cite{ramani2003exploiting:REF}.
+This was first demonstrated in a study of chemokines and their receptors showing very similar phylogenetic trees \cite{goh2000co}.
 Using similarity of phylogenetic trees as a proxy for the co-evolution of interacting proteins \cite{ramani2003exploiting}, a computational method based on matrix alignment can find an optimal alignment between protein family similarity matrices (conceptually equivalent to superimposing  phylogenetic trees from the two protein families) \cite{ramani2003exploiting}.
 One matrix is shuffled using stochastic simulated annealing-based to make the two matrices maximally agree by minimizing the root mean square difference.
 Interactions can be predicted by observing equivalent columns proteins heading in the two matrices.  \cite{ramani2003exploiting}
@@ -64,7 +64,7 @@ Proteins have evolved to interact or function in specific molecular complexes an
 In other words, sequences form interacting proteins react as a consequence of adaptation, thus it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}.
 It should be noted that this relationship between co-evolution and interaction is not symmetrical. 
 While interaction would involve coevolution, coevolution does not imply physical interaction \cite{fares2006novel}.
-Furthermore, co-evolution between clusters of sites not in contact has also been shown \cite{fares2006novel:REF(Pritchard and Dufton 2000)}.
+Furthermore, co-evolution between clusters of sites not in contact has also been shown \cite{pritchard2000proteins}.
 
 Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}.
 It has long been suggested that correlations in amino acid changes can be used to infer protein contact, thus aiding to predict tertiary protein structure \cite{fitch1970improved, morcos2011direct, burger2010disentangling, de2013emerging}.
@@ -83,7 +83,7 @@ It was demonstrated that the correlated sequence information was enough to selec
 
 Correlation and mutual information (MI) have been used to asses co-evolution but they do not take into account the evolutionary interdependence between protein residues \cite{fares2006novel}.
 Phylogenetic relationships can inflate these co-evolutionary measures, thus one of main limitations of these methods has been their inability to separate phylogenetic linkage from functional and structural co-evolution \cite{fares2006novel}.
-Some methods partially correct these effects but while some studies claim that these require alignments of at least $125$ sequences to remove stochastic noise \cite{fares2006novel:REF Gloor et al. (2005)}, other studies suggest that these methods may require in the order of $1,000$ homologous yet variable protein sequences to achieve correct predictions \cite{morcos2011direct}.
+Some methods partially correct these effects but while some studies claim that these require alignments of at least $125$ sequences to remove stochastic noise \cite{gloor2005mutual}, other studies suggest that these methods may require in the order of $1,000$ homologous yet variable protein sequences to achieve correct predictions \cite{morcos2011direct}.
 
 \paragraph{Phylogenetic correction}
 Mutual information measures the reduction of uncertainty about one position given information about the other.
@@ -106,7 +106,7 @@ Coevolution of interacting proteins is often analysed in large time frames typic
 Genome-wide scans have identified a several candidate loci that underlie local adaptations, which seems surprising given the short evolutionary time since the human divergence which is estimated have happened around $50,000$ to $100,000$ years ago when humans migrated out of Africa\cite{qian2015recent}.
 In light of this, it may make sense to analyse co-evolution within human population
 since within a pathway or a functional subnetwork, multiple genes may change in the same fitness direction at a same evolutionary rate to achieve a common phenotypic outcome \cite{qian2015recent}.
-A study using 1000 Genome \cite{REF} project data form East Asians, Europeans, and Africans populaitons, researchers found candidate genes having signals of recent positive selection are significantly closer to each other than expected when the information is mapped onto protein-protein interaction (PPI) networks \cite{qian2015recent}.
+A study using 1000 Genome \cite{10002012integrated} project data form East Asians, Europeans, and Africans populaitons, researchers found candidate genes having signals of recent positive selection are significantly closer to each other than expected when the information is mapped onto protein-protein interaction (PPI) networks \cite{qian2015recent}.
 The methodology was also able to identify known examples such as EGLN1 and EPAS1 (hypoxia-response pathway playing key roles in adaptation to high-altitude) as well as multiple genes in the NRG-ERBB4 (developmental pathway) \cite{qian2015recent}.
 This shows that sequences from shorter time spans can also be mined for co-evolution.
 
@@ -147,7 +147,7 @@ Global approaches are designed to reach high scores only for amino acid pairs th
 
 
 \paragraph{Glass spin systems}
-Global interaction models are well understood in statistical physics, a typical example of it are long-range order observed in spin systems, where the spins only have short-range direct interactions.  \cite{marks2012protein:REF}
+Global interaction models are well understood in statistical physics, a typical example of it are long-range order observed in spin systems, where the spins only have short-range direct interactions \cite{binney1992theory}.
 One of the first global models for co-evolution was proposed by Lapedes in 2002 \cite{lapedes2012using}, who used a Monte Carlo algorithm to infer the simplest probabilistic distribution able to account for the whole network of co‐variations \cite{de2013emerging}.
 He presented a sequence-based probabilistic theory addressing co-operative effects in interacting positions in proteins assuming that a sequence of length $L$ is a global state of an \textit{L-site} spin system of twenty states (for twenty amino acids).
 Then he solved the global statistical formalism based on maximizing entropy under constraints which is known to lead to Boltzmann statistics \cite{marks2012protein}.
@@ -213,12 +213,12 @@ Under the assumption of interdependent amino acid frequencies or similar pattern
 Mutual information was one of the first proposed methods used to detect co‐varying positions. 
 As opposed to correlation‐based methods, mutual information considers the distribution of each amino acid in the different sequences for a position quantifying whether presence of an amino acid one position can be used to predict presence of an amino acid in the other position.
 Mutual information does not take into account which amino acids are present, therefore different amino acids are treated just as symbols \cite{de2013emerging}.
-MI is an attractive and simple metric because it explicitly measures the dependence of one position on another, but it is limited by factors such as \cite{dunn2008mutual}: i) positions with higher entropy (variability), tend to have higher MI than positions of lower entropy (due to both levels of both random and nonrandom factors) even though the latter are more constrained and would seem more likely to be co-evolving \cite{dunn2008mutual}; and random MI arises when alignments do not contain enough sequences to reduce noise to signal ratio, it was shown that alignments should contain at least 125 sequences to reduce this effect \cite{dunn2008mutual:REF(Martin et al., 2005)}.
+MI is an attractive and simple metric because it explicitly measures the dependence of one position on another, but it is limited by factors such as \cite{dunn2008mutual}: i) positions with higher entropy (variability), tend to have higher MI than positions of lower entropy (due to both levels of both random and nonrandom factors) even though the latter are more constrained and would seem more likely to be co-evolving \cite{dunn2008mutual}; and random MI arises when alignments do not contain enough sequences to reduce noise to signal ratio, it was shown that alignments should contain at least 125 sequences to reduce this effect \cite{martin2005using}.
 
 % PHYLO
 Influence of background phylogenetic relationship between sequences in the MSA confounds results and some efforts try to address this by 
 removed certain problematic clades from the MSA.
-For instance, it has been shown that the effect may be limited to some degree by excluding highly similar sequences (from closely related species) from the alignment \cite{dunn2008mutual:REF (Wollenberg and Atchley, 2000), (Martin et al., 2005; Tillier and Lui, 2003)}.
+For instance, it has been shown that the effect may be limited to some degree by excluding highly similar sequences (from closely related species) from the alignment \cite{wollenberg2000separation}.
 Continuous-time Markov process model for sequence co‐evolution can model this explicitly and some approaches have been implemented for small‐scale studies of co‐evolution in small protein families, but computational limitations have hindered their usage int large‐scale studies \cite{de2013emerging}.
 Other confounding effect is an uneven representation of protein sequence members and leading to statistical noise as the result of a low number of sequences in the alignment \cite{marks2012protein}.
 

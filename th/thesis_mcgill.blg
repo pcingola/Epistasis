@@ -2,101 +2,9 @@ This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/intro_variants.aux
-A level-1 auxiliary file: chapters/intro_epistasis.aux
 A level-1 auxiliary file: chapters/intro_coevolution.aux
-White space in argument---line 39 of file chapters/intro_coevolution.aux
- : \citation{fares2006novel:REF(Pritchard
- :                                        and Dufton 2000)}
-I'm skipping whatever remains of this command
-White space in argument---line 57 of file chapters/intro_coevolution.aux
- : \citation{fares2006novel:REF
- :                              Gloor et al. (2005)}
-I'm skipping whatever remains of this command
-White space in argument---line 145 of file chapters/intro_coevolution.aux
- : \citation{dunn2008mutual:REF(Martin
- :                                     et al.}
-I'm skipping whatever remains of this command
-White space in argument---line 149 of file chapters/intro_coevolution.aux
- : \citation{dunn2008mutual:REF
- :                              (Wollenberg and Atchley}
-I'm skipping whatever remains of this command
-White space in argument---line 151 of file chapters/intro_coevolution.aux
- : \citation{(Martin
- :                   et al.}
-I'm skipping whatever remains of this command
-White space in argument---line 152 of file chapters/intro_coevolution.aux
- : \citation{2005;
- :                 Tillier and Lui}
-I'm skipping whatever remains of this command
-A level-1 auxiliary file: chapters/intro_roadmap.tex.aux
-A level-1 auxiliary file: chapters/bds.aux
-A level-1 auxiliary file: chapters/snpeff.aux
-A level-1 auxiliary file: chapters/gwas.aux
-A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
-Reallocated field_info (elt_size=4) to 10359 items from 5000.
 Database file #1: mcgilletd.bib
-Repeated entry---line 793 of file mcgilletd.bib
- : @article{langmead2009ultrafast
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 803 of file mcgilletd.bib
- : @article{li2010fast
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 813 of file mcgilletd.bib
- : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 849 of file mcgilletd.bib
- : @article{li2008mapping
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1352 of file mcgilletd.bib
- : @article{langmead2009ultrafast
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1362 of file mcgilletd.bib
- : @article{li2010fast
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1372 of file mcgilletd.bib
- : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1464 of file mcgilletd.bib
- : @article{li2008mapping
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1475 of file mcgilletd.bib
- : @article{li2011improving
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1625 of file mcgilletd.bib
- : @article{kumar2009predicting
- :                             ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1658 of file mcgilletd.bib
- : @article{rope2011using
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1703 of file mcgilletd.bib
- : @article{wu2011rare
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1862 of file mcgilletd.bib
- : @book{durbin1998biological
- :                           ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2038 of file mcgilletd.bib
- : @article{mckenna2010genome
- :                           ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2192 of file mcgilletd.bib
- : @article{mani2008defining
- :                          ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 2344 of file mcgilletd.bib
  : @article{morcos2011direct
  :                          ,
@@ -105,102 +13,46 @@ Repeated entry---line 2377 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2535 of file mcgilletd.bib
- : @article{wang2010annovar
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2722 of file mcgilletd.bib
- : @article{adzhubei2010method
- :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2940 of file mcgilletd.bib
- : @article{garber2009identifying
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2962 of file mcgilletd.bib
- : @article{davydov2010identifying
- :                                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3364 of file mcgilletd.bib
- : @article{jones1998gabab
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3534 of file mcgilletd.bib
- : @book{cormen2001introduction
- :                             ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3631 of file mcgilletd.bib
- : @article{brenner1965genetic
- :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3951 of file mcgilletd.bib
- : @article{clark2011performance
- :                              ,
-I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "tyler2009shadows:REF"
-Warning--I didn't find a database entry for "zuk2012mystery:REF22"
-Warning--I didn't find a database entry for "mani2008defining:REF"
-Warning--I didn't find a database entry for "zuk2012mystery:REF"
-Warning--I didn't find a database entry for "phillips2008epistasis:REF"
-Warning--I didn't find a database entry for "carlborg2004epistasis:REF"
-Warning--I didn't find a database entry for "culverhouse2002perspective:REF"
-Warning--I didn't find a database entry for "petkov2005evidence:REF_FISHER"
-Warning--I didn't find a database entry for "petkov2005evidence:REF"
-Warning--I didn't find a database entry for "REF"
-Warning--I didn't find a database entry for "REF-FISHER"
-Warning--I didn't find a database entry for "REF-NATURE"
-Warning--I didn't find a database entry for "koch2013long:REF"
-Warning--I didn't find a database entry for "rohlfs2010detecting:REF"
-Warning--I didn't find a database entry for "de2013emerging:REF"
-Warning--I didn't find a database entry for "ramani2003exploiting:REF"
-Warning--I didn't find a database entry for "marks2012protein:REF"
-Warning--I didn't find a database entry for "2005)"
-Warning--I didn't find a database entry for "2000)"
-Warning--I didn't find a database entry for "2003)"
-Warning--empty journal in begun1992levels
-Warning--empty journal in brenner1965genetic
 Warning--empty publisher in darwin1877various
-Warning--empty journal in pagon1993genereviews
-Warning--empty journal in schneider2013genome
-You've used 213 entries,
+You've used 36 entries,
             2118 wiz_defined-function locations,
-            1640 strings with 49758 characters,
-and the built_in function-call counts, 89048 in all, are:
-= -- 8393
-> -- 5993
-< -- 13
-+ -- 2407
-- -- 2152
-* -- 7800
-:= -- 15358
-add.period$ -- 641
-call.type$ -- 213
-change.case$ -- 1662
+            731 strings with 11667 characters,
+and the built_in function-call counts, 13433 in all, are:
+= -- 1301
+> -- 770
+< -- 2
++ -- 307
+- -- 266
+* -- 1117
+:= -- 2299
+add.period$ -- 108
+call.type$ -- 36
+change.case$ -- 236
 chr.to.int$ -- 0
-cite$ -- 218
-duplicate$ -- 2444
-empty$ -- 5580
-format.name$ -- 2152
-if$ -- 17442
+cite$ -- 37
+duplicate$ -- 410
+empty$ -- 933
+format.name$ -- 266
+if$ -- 2674
 int.to.chr$ -- 0
-int.to.str$ -- 213
-missing$ -- 220
-newline$ -- 1068
-num.names$ -- 426
-pop$ -- 1367
+int.to.str$ -- 36
+missing$ -- 38
+newline$ -- 183
+num.names$ -- 72
+pop$ -- 188
 preamble$ -- 1
-purify$ -- 1457
+purify$ -- 202
 quote$ -- 0
-skip$ -- 1707
+skip$ -- 280
 stack$ -- 0
-substring$ -- 5638
-swap$ -- 320
-text.length$ -- 13
+substring$ -- 917
+swap$ -- 50
+text.length$ -- 2
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 836
-warning$ -- 5
-while$ -- 772
-width$ -- 216
-write$ -- 2321
-(There were 31 error messages)
+type$ -- 140
+warning$ -- 1
+while$ -- 130
+width$ -- 38
+write$ -- 393
+(There were 2 error messages)
