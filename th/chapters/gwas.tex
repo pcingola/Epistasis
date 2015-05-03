@@ -284,7 +284,7 @@ Let the two proteins considered have amino acid sequences $A = a_1...a_m$ and $B
 
 \noindent where $k=3$ was determined empirically to provide the best predictive power. 
 %We calculate the average likelihood ratio of three consecutive pairs of amino acids ($avg_3[LL(M_{SA})]$), either in the forward or reverse directions. For a given pair of genes, we calculate the highest $avg_3[LL(M_{SA})]$ and pick the highest number as representative for that pair. 
-As shown in Figure \ref{S5}), prediction accuracy is quite good (p-value $< 2 \cdot 10^{-42}$), considering the modest amount of information considered.
+As shown in Figure \ref{S5}), prediction accuracy is quite good (p-value $< 2 \cdot 10^{-42}$), taking into account the modest amount of information considered by the model.
 
 \subsection{Epistatic GWAS analysis}
 
@@ -298,15 +298,24 @@ This multi-ethnic study covers exons of unrelated individuals from five major an
 \subsection{Power analysis}
 
 
+Logistic risk model (show formula)
+Pure epistatic interaction
+Genome wide significance.
+
+Parameters:
+	-Number of iterations
+	- $AF_1, AF_2$
+	- $\beta$
+	- Disease penetrance (diabetes \cite{REF})
+	- Lines approximated using exponential spline
+	- 
+	
+
 %---
 \section{Discussion}
 %---
 
-In this paper, we propose a novel methodology for genome wide association studies of pairs of variants under putative epistatic interaction. Due to the large number of statistical tests required in epistatic analysis, and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples. 
-
-
-
-but our highly optimized algorithms are suitable for large scale sequencing genomic studies.
+In this paper, we propose a novel methodology for genome wide association studies of pairs of variants under putative epistatic interaction. Due to the large number of statistical tests required in epistatic analysis, and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples, but our highly optimized algorithms are suitable for large scale sequencing genomic studies.
 
 We show the application of our methods to a large scale exome sequencing study for type II diabetes consisting of $\sim 13,000$ samples and $\sim 1,7M$ variants. First, this shows the feasible to apply our methods GWAS-scale datasets. 
 Second, although larger cohorts are needed in order to find risk alleles that have lower frequencies and are not captured by this study, we show several suggestive association of pairs of putatively interacting variants with type II diabetes. 
@@ -317,5 +326,14 @@ Furthermore, both the tree and the number of sequences in the $MSA$ should remai
 For all these reasons we selected UCSC's multi-100way \cite{karolchik2014ucsc}, a genome wide multiple sequence alignment of 100 organisms which has single genome wide phylogenetic tree. This $MSA$ is expected to grow with the advent of projects like G10K \cite{haussler2009genome}. 
 
 In order to further validate our co-evolutionary model in the context of human disease, we tested whether it can separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). Interestingly, variants categorized as ``benign" or ``druggable" have higher scores (mean $\ell_C$ within protein) than variants categorized as pathogenic (Supplementary Tables \ref{tab:S4A}, \ref{tab:S4B} and Figure \ref{fig:S4}). We speculate that this might be because amino acids that can be compensated would be characterized as ``benign" whereas deleterious amino acids changes cannot be compensated by mutation. 
+
+
+COMPARE TO OTHER MODELS: Co-Evolution
+
+
+
+COMPARE TO OTHER MODELS: GWAS-Epistasis (see BEAM as reference)
+
+
 
 As future work, we plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. This would allow to obtain better estimates for well characterized protein interaction regions. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. In this case the epistatic information would be used as a function modifying the kernel, instead of a bayesian prior.
