@@ -327,10 +327,33 @@ For all these reasons we selected UCSC's multi-100way \cite{karolchik2014ucsc}, 
 
 In order to further validate our co-evolutionary model in the context of human disease, we tested whether it can separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). Interestingly, variants categorized as ``benign" or ``druggable" have higher scores (mean $\ell_C$ within protein) than variants categorized as pathogenic (Supplementary Tables \ref{tab:S4A}, \ref{tab:S4B} and Figure \ref{fig:S4}). We speculate that this might be because amino acids that can be compensated would be characterized as ``benign" whereas deleterious amino acids changes cannot be compensated by mutation. 
 
+\paragraph{Comparison to other Co-Evolutionary methods}
+There are several other methodologies used to predict putative interactions based on co-evolutionary theory.
+Nevertheless most methods we are limited respect to their applicability to GWAS scale analysis.
+Here we mention a few well known methodologies as well as why they might not scale (either according to the data published in their respective papers or our opinion on problems we foresee).
 
-COMPARE TO OTHER MODELS: Co-Evolution
+\begin{itemize}
+  \item \textbf{Phylogenetic tree similarity} can be used as a proxy for the co-evolution of interacting proteins. A computational method based on matrix alignment \cite{ramani2003exploiting} has demonstrated some degree of success. 
+  The method has two limiting factors: i) it requires large (distinct) phylogenetic trees for each protein which are not be available for all proteins in the genome; and ii) uses a simulated annealing to match matrices, thus requiring many iterations for each putative pair or proteins.
+
+  \item \textbf{Correlation} based methods aiming to detect changes on one of the interacting proteins that are compensated by mutations in the other \cite{pazos1997correlated,gobel1994correlated}. Although these methods are fast enough to be applicable to GWAS scale studies, they still have two limitations: i) they require large number of sequences in the multiple sequence alignments to overcome noise, large MSAs are not be available throughout the whole genome; and ii) there are well known biases mainly caused by phylogenetic tree and indirect correlations. 
+  
+  \item \textbf{Mutual information} share some similarities with correlation-based methods in the sense that are fast for GWAS studies but unfortunately they also require large MSAs and are well known for having bias caused by phylogenetic tree, indirect correlations, and allele frequency \cite{fares2006novel}.
+  
+  \item \textbf{Mutual information with phylogenetic correction} has been proposed \cite{dunn2008mutual}. Nevertheless the authors of this method mention biases depending on allele frequencies that might limit applicability for GWAS studies of low-frequency variants.
+    
+    \item \textbf{Global models} are design to disentangle direct interactions from indirect ones. Several methods have been proposed which rely on: i) estimating parameters of Boltzmann distributions \cite{lapedes2012using,weigt2009identification}, ii) mean field approximations of Bolzmann distributions \cite{morcos2011direct}, iii) constrained optimizations for finding approximations of inversions of large singular matrices \cite{jones2012psicov}, iv) marginalizing multidimensional extensions to mutual information \cite{clark2014multidimensional}; or v) solving a Bayesian network model \cite{burger2010disentangling}. All these models are so computationally heavy that can only be applied to very small sets of proteins. Furthermore, in some of the respective papers the authors mention that it is computationally infeasible to apply them to a single pair of proteins if the length is over a some low number of amino acids (e.g. $60$ \cite{weigt2009identification} or $500$ \cite{morcos2011direct}). It is then not possible to apply these method to GWAS scale studies at the moment.
+    
+\end{itemize}
 
 
+\textbf{WHY OURS IS MUCH BETTER?}
+Until not long ago, it was thought that methods based on Markov evolutionary theory were unsuitable for large scale studies.
+Our methodology changes this by using Markov evolutionary methods aimed to correct for biases from phylogenetic trees.
+Thanks to highly optimized algorithms and genome-wide assumptions, GWAS scale analysis can be performed, albeit using non-trivial computational resources (we used a 1000-CPU cluster).
+
+
+\paragraph{Comparison to other Episgenetic GWAS methods}
 
 COMPARE TO OTHER MODELS: GWAS-Epistasis (see BEAM as reference)
 
