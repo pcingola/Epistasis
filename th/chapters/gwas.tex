@@ -297,6 +297,7 @@ This multi-ethnic study covers exons of unrelated individuals from five major an
 
 \subsection{Power analysis}
 
+{\huge!!!!!!!!!!!!!!!!!}
 
 Logistic risk model (show formula)
 Pure epistatic interaction
@@ -308,8 +309,6 @@ Parameters:
 	- $\beta$
 	- Disease penetrance (diabetes \cite{REF})
 	- Lines approximated using exponential spline
-	- 
-	
 
 %---
 \section{Discussion}
@@ -346,17 +345,17 @@ Here we mention a few well known methodologies as well as why they might not sca
     
 \end{itemize}
 
-
 \textbf{WHY OURS IS MUCH BETTER?}
 Until not long ago, it was thought that methods based on Markov evolutionary theory were unsuitable for large scale studies.
 Our methodology changes this by using Markov evolutionary methods aimed to correct for biases from phylogenetic trees.
 Thanks to highly optimized algorithms and genome-wide assumptions, GWAS scale analysis can be performed, albeit using non-trivial computational resources (we used a 1000-CPU cluster).
 
+\textbf{MENTION: INDEPENDENCE ASSUMPTION - WE DON' SOLVE A GLOBAL MODEL}
+{\huge!!!!!!!!!!!!!!!!!}
 
 \paragraph{Comparison to other Episgenetic GWAS methods}
+\textbf{COMPARE TO OTHER MODELS: GWAS-Epistasis (see BEAM as reference)}
+{\huge!!!!!!!!!!!!!!!!!}
 
-COMPARE TO OTHER MODELS: GWAS-Epistasis (see BEAM as reference)
-
-
-
-As future work, we plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. This would allow to obtain better estimates for well characterized protein interaction regions. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. In this case the epistatic information would be used as a function modifying the kernel, instead of a bayesian prior.
+\paragraph{Future work}
+We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. This would allow to obtain better estimates for well characterized protein interaction regions. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. In this case the epistatic information would be used as a function modifying the kernel, instead of a bayesian prior.
