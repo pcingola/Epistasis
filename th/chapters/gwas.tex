@@ -297,18 +297,31 @@ This multi-ethnic study covers exons of unrelated individuals from five major an
 
 \subsection{Power analysis}
 
-{\huge!!!!!!!!!!!!!!!!!}
+In order to asses our method's power, we performed extensive power simulations.
+As it is often the case in this kind of analysis, some simplifying but realistic assumptions were required to make simulations computationally tractable. 
+We assumed that: 
+i) the disease has a logistic risk model,
+ii) risk model has purely epistatic terms, this means that individual loci are assumed to have no marginal effect in disease risk,
+iii) disease prevalence is $8\%$, according the well accepted prevalence for type II diabetes,
+iv) we assumed that the influence of cofactors such as population admixture, age and sex was handled perfectly well by the model, meaning that no residual effects remains after correction,
+v) genome wide significance was established as $0.05 / (10^6)^2 = 5 . 10^{-14}$,
+and  
+vi) case-control study based on equal number of cases and controls.
 
-Logistic risk model (show formula)
-Pure epistatic interaction
-Genome wide significance.
+Under these assumptions we calculated power by running $100$ iterations for every model having a combination of: 
+i) sample sizes ranging from $10,000$ to $1,000,000$,
+ii) log odds disease risk ranging from $0.1$ to $5$,
+and 
+iii) allele frequencies of each of the two loci ranging from $1\%$ to $20\%$.
+Results for some selected models are shown in figure \ref{fig:gwas_power}.
 
-Parameters:
-	-Number of iterations
-	- $AF_1, AF_2$
-	- $\beta$
-	- Disease penetrance (diabetes \cite{REF})
-	- Lines approximated using exponential spline
+\fig{gwas_power}{gwas_power}{14cm}{Power calculation using a case/control pure two-loci epistatic model for disease prevalences of $8\%$ (type II diabetes). X-axis shows the number of samples in thousands (ranging from 10,000 to 1,000,000) and several joint risk values (from 0.1 to 5) are shown as different colors lines within each plot. Each plot represents a different allele frequencies combination (for each of the two loci), from top to bottom and left to right, the allele frequency value pairs are: $[AF_1=1\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=2.5\%]$, $[AF_1=5\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=1\%]$, $[AF_1=10\%, AF_2=2.5\%]$, $[AF_1=10\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=7.5\%]$, $[AF_1=10\%, AF_2=10\%]$}{Power calculation using a pure two-loci epistatic model}
+
+
+
+
+==> OUR METHOD INCREASES BF by 2 (mean) to 4 (currently limited).
+
 
 %---
 \section{Discussion}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  6 MAY 2015 12:05
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  6 MAY 2015 12:57
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -331,7 +331,7 @@ File: lstlang1.sty 2004/09/05 1.3 listings language file
 LaTeX Warning: Unused global option(s):
     [letterpaper].
 
-No file thesis_mcgill.aux.
+(./thesis_mcgill.aux (./chapters/gwas.aux))
 \openout1 = `thesis_mcgill.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
@@ -346,6 +346,7 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
 LaTeX Font Info:    ... okay on input line 75.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
 LaTeX Font Info:    ... okay on input line 75.
+
 ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 75.
 
@@ -458,29 +459,6 @@ e
 ***************************
 CHAPTER 1.
 ***************************
-
-LaTeX Warning: Citation `morris2012large' on page 2 undefined on input line 11.
-
-
-
-LaTeX Warning: Citation `consortium2014genome' on page 2 undefined on input lin
-e 11.
-
-
-LaTeX Warning: Citation `manolio2009finding' on page 2 undefined on input line 
-11.
-
-
-LaTeX Warning: Citation `zuk2012mystery' on page 2 undefined on input line 11.
-
-
-LaTeX Warning: Citation `zuk2014searching' on page 2 undefined on input line 11
-.
-
-
-LaTeX Warning: Citation `guariguata2014global' on page 2 undefined on input lin
-e 19.
-
 [2
 
 
@@ -491,195 +469,17 @@ Overfull \hbox (17.4948pt too wide) in paragraph at lines 33--34
 -able at \OT1/cmtt/m/n/12 github.com/pcingola/Epistasis 
  []
 
-
-LaTeX Warning: Citation `clarke2011basic' on page 4 undefined on input line 39.
-
-
-
-LaTeX Warning: Citation `wood2014defining' on page 4 undefined on input line 39
-.
-
-
-LaTeX Warning: Citation `morris2012large' on page 4 undefined on input line 39.
-
-
-
-LaTeX Warning: Citation `consortium2014genome' on page 4 undefined on input lin
-e 39.
-
-
-LaTeX Warning: Citation `manolio2009finding' on page 4 undefined on input line 
-39.
-
-
-LaTeX Warning: Citation `zuk2012mystery' on page 4 undefined on input line 39.
-
-
-LaTeX Warning: Citation `zuk2014searching' on page 4 undefined on input line 39
-.
-
-
-LaTeX Warning: Citation `gao2010classification' on page 4 undefined on input li
-ne 41.
-
-
-LaTeX Warning: Citation `gao2010classification' on page 4 undefined on input li
-ne 41.
-
-
-LaTeX Warning: Citation `combarros2009epistasis' on page 4 undefined on input l
-ine 41.
-
 [4]
-
-LaTeX Warning: Citation `venkatesan2009empirical' on page 5 undefined on input 
-line 43.
-
-
-LaTeX Warning: Citation `shoemaker2007deciphering' on page 5 undefined on input
- line 43.
-
-
-LaTeX Warning: Citation `stark2006biogrid' on page 5 undefined on input line 43
-.
-
-
-LaTeX Warning: Citation `shoemaker2007deciphering' on page 5 undefined on input
- line 43.
-
-
-LaTeX Warning: Citation `venkatesan2009empirical' on page 5 undefined on input 
-line 43.
-
-
-LaTeX Warning: Citation `shoemaker2007decipheringP2' on page 5 undefined on inp
-ut line 45.
-
-
-LaTeX Warning: Citation `marks2012protein' on page 5 undefined on input line 45
-.
-
-
-LaTeX Warning: Citation `pazos1997correlated' on page 5 undefined on input line
- 45.
-
-
-LaTeX Warning: Citation `goh2000co' on page 5 undefined on input line 45.
-
-
-LaTeX Warning: Citation `ruiz2013coevolution' on page 5 undefined on input line
- 45.
-
 LaTeX Font Info:    Try loading font information for U+msa on input line 45.
-(/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
+ (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 45.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-
-LaTeX Warning: Citation `pazos1997correlated' on page 5 undefined on input line
- 45.
-
-
-LaTeX Warning: Citation `goh2000co' on page 5 undefined on input line 45.
-
-[5]
-
-LaTeX Warning: Citation `de2013emerging' on page 6 undefined on input line 47.
-
-
-LaTeX Warning: Citation `marks2012protein' on page 6 undefined on input line 47
-.
-
-
-LaTeX Warning: Citation `de2013emerging' on page 6 undefined on input line 47.
-
-
-LaTeX Warning: Citation `weigt2009identification' on page 6 undefined on input 
-line 47.
-
-
-LaTeX Warning: Citation `morcos2011direct' on page 6 undefined on input line 47
-.
-
-
-LaTeX Warning: Citation `jones2012psicov' on page 6 undefined on input line 47.
-
-
-
-LaTeX Warning: Citation `clark2014multidimensional' on page 6 undefined on inpu
-t line 47.
-
-
-LaTeX Warning: Citation `clark2014multidimensional' on page 6 undefined on inpu
-t line 47.
-
-
-LaTeX Warning: Citation `clark2014multidimensional' on page 6 undefined on inpu
-t line 47.
-
-[6]
-
-LaTeX Warning: Citation `gao2010classification' on page 7 undefined on input li
-ne 49.
-
-
-LaTeX Warning: Citation `phillips2008epistasis' on page 7 undefined on input li
-ne 49.
-
-
-LaTeX Warning: Citation `gao2010classification' on page 7 undefined on input li
-ne 49.
-
-
-LaTeX Warning: Citation `phillips2008epistasis' on page 7 undefined on input li
-ne 49.
-
-
-LaTeX Warning: Citation `phillips2008epistasis' on page 7 undefined on input li
-ne 49.
-
-
-LaTeX Warning: Citation `mani2008defining' on page 7 undefined on input line 49
-.
-
-
-LaTeX Warning: Citation `jostins2013using' on page 7 undefined on input line 49
-.
-
-
-LaTeX Warning: Citation `zhao2006test' on page 7 undefined on input line 51.
-
-
-LaTeX Warning: Citation `zhang2007bayesian' on page 7 undefined on input line 5
-1.
-
-
-LaTeX Warning: Citation `ackermann2012systematic' on page 7 undefined on input 
-line 51.
-
-
-LaTeX Warning: Citation `mckinney2006machine' on page 7 undefined on input line
- 51.
-
-[7]
-
-LaTeX Warning: Citation `blanchette2004aligning' on page 8 undefined on input l
-ine 53.
-
-
-LaTeX Warning: Citation `mccarthy2015T2D' on page 8 undefined on input line 53.
-
-
-[8]
-
-LaTeX Warning: Reference `fig:gwaspipeline' on page 9 undefined on input line 5
-9.
-
-<figs/gwas_epistasis_pipeline.png, id=34, 967.615pt x 738.76pt>
+) [5] [6]
+[7] [8] <figs/gwas_epistasis_pipeline.png, id=34, 967.615pt x 738.76pt>
 File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
@@ -691,105 +491,14 @@ Overfull \hbox (25.23946pt too wide) in paragraph at lines 61--61
  [] 
  []
 
-
-LaTeX Warning: Citation `karolchik2014ucsc' on page 9 undefined on input line 6
-7.
-
-
-LaTeX Warning: Citation `blanchette2004aligning' on page 9 undefined on input l
-ine 69.
-
-
-LaTeX Warning: Citation `kielbasa2011adaptive' on page 9 undefined on input lin
-e 69.
-
-[9] [10 <./figs/gwas_epistasis_pipeline.png>]
-
-LaTeX Warning: Citation `yang2006computational' on page 11 undefined on input l
-ine 73.
-
-
-LaTeX Warning: Citation `felsenstein2004inferring' on page 11 undefined on inpu
-t line 73.
-
-
-LaTeX Warning: Citation `yang2006computational' on page 11 undefined on input l
-ine 73.
-
-[11]
-
-LaTeX Warning: Citation `felsenstein2004inferring' on page 12 undefined on inpu
-t line 84.
-
-[12]
-
-LaTeX Warning: Citation `balding2006tutorial' on page 13 undefined on input lin
-e 104.
-
-
-LaTeX Warning: Citation `price2006principal' on page 13 undefined on input line
- 113.
-
-[13]
-
-LaTeX Warning: Citation `wilks1938large' on page 14 undefined on input line 130
-.
-
-[14]
-
-LaTeX Warning: Citation `daubechies2010iteratively' on page 15 undefined on inp
-ut line 149.
-
-
-LaTeX Warning: Citation `broyden1970convergence' on page 15 undefined on input 
-line 149.
-
-[15]
-
-LaTeX Warning: Citation `kass1995bayes' on page 16 undefined on input line 151.
-
-
-
-LaTeX Warning: Citation `wakefield2009bayes' on page 16 undefined on input line
- 151.
-
-
-LaTeX Warning: Citation `kass1995bayes' on page 16 undefined on input line 159.
-
-
-
-LaTeX Warning: Citation `kass1995bayes' on page 16 undefined on input line 171.
-
-
-[16]
-
-LaTeX Warning: Reference `eq:laplace' on page 17 undefined on input line 184.
-
-
-LaTeX Warning: Reference `eq:bf2' on page 17 undefined on input line 184.
-
-
-LaTeX Warning: Reference `eq:laplace' on page 17 undefined on input line 184.
-
-
-LaTeX Warning: Reference `eq:laplace' on page 17 undefined on input line 184.
-
+[9] [10 <./figs/gwas_epistasis_pipeline.png>] [11] [12] [13] [14] [15] [16]
 
 LaTeX Warning: Reference `S3' on page 17 undefined on input line 193.
 
 
 LaTeX Warning: Reference `S3??' on page 17 undefined on input line 193.
 
-[17]
-
-LaTeX Warning: Reference `eq:gwasLogRegH1' on page 18 undefined on input line 1
-98.
-
-[18] [19] [20]
-
-LaTeX Warning: Citation `dayhoff1978model' on page 21 undefined on input line 2
-24.
-
+[17] [18] [19] [20]
 
 LaTeX Warning: Reference `f:S1' on page 21 undefined on input line 224.
 
@@ -806,13 +515,6 @@ LaTeX Warning: Reference `fileQ2_hat.txt' on page 21 undefined on input line 22
 
 LaTeX Warning: Reference `fig:q_q2_compare' on page 21 undefined on input line 
 228.
-
-
-LaTeX Warning: Citation `santiveri2010tryptophan' on page 21 undefined on input
- line 230.
-
-
-LaTeX Warning: Citation `hunter1991pi' on page 21 undefined on input line 232.
 
 [21]
 
@@ -835,24 +537,8 @@ File: figs/gwas_figure_3.png Graphic file (type png)
 <use figs/gwas_figure_3.png>
 Package pdftex.def Info: figs/gwas_figure_3.png used on input line 253.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
-
-
-LaTeX Warning: Reference `fig:gwas_jmol' on page 24 undefined on input line 255
-.
-
-
-LaTeX Warning: Citation `stark2006biogrid' on page 24 undefined on input line 2
-57.
-
-
-LaTeX Warning: Citation `subramanian2005gene' on page 24 undefined on input lin
-e 257.
-
-
-LaTeX Warning: Citation `lonsdale2013genotype' on page 24 undefined on input li
-ne 257.
-
 LaTeX Font Info:    Try loading font information for OMS+cmr on input line 257.
+
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
@@ -892,22 +578,6 @@ Missing character: There is no ¦ in font cmr12!
 
 LaTeX Warning: Reference `S5' on page 26 undefined on input line 287.
 
-
-LaTeX Warning: Citation `mccarthy2015T2D' on page 26 undefined on input line 29
-1.
-
-
-LaTeX Warning: Citation `goodman1999toward' on page 26 undefined on input line 
-292.
-
-
-LaTeX Warning: Reference `eq:gwasLogLikLogReg' on page 26 undefined on input li
-ne 294.
-
-
-LaTeX Warning: Reference `tab:gwas_13k_results_1' on page 26 undefined on input
- line 294.
-
 [26] [27 <./figs/gwas_figure_4_jmol.png> <./figs/gwas_figure_4_tree_coevolution
 .png>] <figs/gwas_13k_results_1.png, id=112, 1144.275pt x 461.725pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
@@ -916,158 +586,38 @@ File: figs/gwas_13k_results_1.png Graphic file (type png)
 Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 296.
 (pdftex.def)             Requested size: 398.33858pt x 160.73254pt.
  [28 <./figs/gwas_13k_results_1.png>]
+<figs/gwas_power.png, id=117, 1027.84pt x 1027.84pt>
+File: figs/gwas_power.png Graphic file (type png)
+ <use figs/gwas_power.png>
+Package pdftex.def Info: figs/gwas_power.png used on input line 318.
+(pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-LaTeX Warning: Citation `REF' on page 29 undefined on input line 310.
+[29] [30 <./figs/gwas_power.png>] [31]
 
-
-LaTeX Warning: Reference `sec:gwasQ2' on page 29 undefined on input line 322.
-
-
-LaTeX Warning: Citation `karolchik2014ucsc' on page 29 undefined on input line 
-325.
-
-
-LaTeX Warning: Citation `haussler2009genome' on page 29 undefined on input line
- 325.
-
-[29]
-
-LaTeX Warning: Citation `landrum2013clinvar' on page 30 undefined on input line
- 327.
+LaTeX Warning: Reference `tab:S4A' on page 32 undefined on input line 340.
 
 
-LaTeX Warning: Reference `tab:S4A' on page 30 undefined on input line 327.
+LaTeX Warning: Reference `tab:S4B' on page 32 undefined on input line 340.
 
 
-LaTeX Warning: Reference `tab:S4B' on page 30 undefined on input line 327.
+LaTeX Warning: Reference `fig:S4' on page 32 undefined on input line 340.
 
 
-LaTeX Warning: Reference `fig:S4' on page 30 undefined on input line 327.
-
-
-Overfull \hbox (12.93814pt too wide) in paragraph at lines 330--332
+Overfull \hbox (12.93814pt too wide) in paragraph at lines 343--345
  \OT1/cmr/bx/n/12 Com-par-i-son to other Co-Evolutionary meth-ods.[] \OT1/cmr/m
 /n/12 There are sev-eral method-
  []
 
-[30]
-
-LaTeX Warning: Citation `ramani2003exploiting' on page 31 undefined on input li
-ne 334.
-
-
-LaTeX Warning: Citation `pazos1997correlated' on page 31 undefined on input lin
-e 339.
-
-
-LaTeX Warning: Citation `gobel1994correlated' on page 31 undefined on input lin
-e 339.
-
-
-LaTeX Warning: Citation `fares2006novel' on page 31 undefined on input line 344
-.
-
-
-LaTeX Warning: Citation `de2013emerging' on page 31 undefined on input line 345
-.
-
-
-LaTeX Warning: Citation `dunn2008mutual' on page 31 undefined on input line 346
-.
-
-
-LaTeX Warning: Citation `lapedes2012using' on page 31 undefined on input line 3
-50.
-
-
-LaTeX Warning: Citation `weigt2009identification' on page 31 undefined on input
- line 350.
-
-
-LaTeX Warning: Citation `morcos2011direct' on page 31 undefined on input line 3
-51.
-
-
-LaTeX Warning: Citation `jones2012psicov' on page 31 undefined on input line 35
-2.
-
-
-LaTeX Warning: Citation `clark2014multidimensional' on page 31 undefined on inp
-ut line 353.
-
-
-LaTeX Warning: Citation `burger2010disentangling' on page 31 undefined on input
- line 354.
-
-
-LaTeX Warning: Citation `weigt2009identification' on page 31 undefined on input
- line 356.
-
-
-LaTeX Warning: Citation `morcos2011direct' on page 31 undefined on input line 3
-56.
-
-[31]
-
-LaTeX Warning: Citation `de2013emerging' on page 32 undefined on input line 361
-.
-
-
-LaTeX Warning: Citation `zuk2012mystery' on page 32 undefined on input line 364
-.
-
-[32]
-
-LaTeX Warning: Citation `cordell2009detecting' on page 33 undefined on input li
-ne 369.
-
-
-LaTeX Warning: Citation `li2011detecting' on page 33 undefined on input line 37
-0.
-
-
-LaTeX Warning: Citation `li2011detecting' on page 33 undefined on input line 37
-1.
-
-
-LaTeX Warning: Citation `cordell2002epistasis' on page 33 undefined on input li
-ne 371.
-
-
-LaTeX Warning: Citation `culverhouse2002perspective' on page 33 undefined on in
-put line 372.
-
-
-LaTeX Warning: Citation `zuk2012mystery' on page 33 undefined on input line 372
-.
-
-
-LaTeX Warning: Citation `li2011detecting' on page 33 undefined on input line 37
-2.
-
-
-LaTeX Warning: Citation `zhang2007bayesian' on page 33 undefined on input line 
-373.
-
-
-LaTeX Warning: Citation `koo2013review' on page 33 undefined on input line 376.
+[32] [33] [34]) [35] [36] (./thesis_mcgill.bbl [37
 
 
 
-LaTeX Warning: Citation `cordell2009detecting' on page 33 undefined on input li
-ne 376.
-
-
-LaTeX Warning: Citation `li2011detecting' on page 33 undefined on input line 37
-6.
-
-[33]
-
-LaTeX Warning: Citation `wu2011rare' on page 34 undefined on input line 387.
-
-) [34]
-No file thesis_mcgill.bbl.
-(./thesis_mcgill.aux (./chapters/gwas.aux))
+] [38] [39] [40]
+Missing character: There is no â in font cmr12!
+Missing character: There is no € in font cmr12!
+Missing character: There is no ” in font cmr12!
+ [41]
+[42] [43]) (./thesis_mcgill.aux (./chapters/gwas.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -1132,21 +682,20 @@ figs/gwas_figure_3.png
 figs/gwas_figure_4_jmol.png
 figs/gwas_figure_4_tree_coevolution.png
 figs/gwas_13k_results_1.png
+figs/gwas_power.png
+thesis_mcgill.bbl
  ***********
 
 
 LaTeX Warning: There were undefined references.
 
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
  ) 
 Here is how much of TeX's memory you used:
- 6352 strings out of 493315
- 94402 string characters out of 6137904
+ 6372 strings out of 493315
+ 94738 string characters out of 6137904
  185776 words of memory out of 5000000
- 9682 multiletter control sequences out of 15000+600000
- 9813 words of font info for 38 fonts, out of 8000000 for 9000
+ 9694 multiletter control sequences out of 15000+600000
+ 10165 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,44p,1853b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
@@ -1162,10 +711,10 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (34 pages, 2057737 bytes).
+Output written on thesis_mcgill.pdf (43 pages, 2301822 bytes).
 PDF statistics:
- 179 PDF objects out of 1000 (max. 8388607)
- 116 compressed objects within 2 object streams
+ 212 PDF objects out of 1000 (max. 8388607)
+ 138 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 31 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 36 words of extra memory for PDF output out of 10000 (max. 10000000)
 

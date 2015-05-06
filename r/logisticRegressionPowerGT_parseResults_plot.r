@@ -5,12 +5,21 @@ if( ! exists('pow') ) {
 	pow <- read.table('logisticRegressionPowerGT_parseResults.txt', sep="\t", header=TRUE)
 }
 
+afs <- c(0.01, 0.05, 0.10)
+af1s <- afs
 af1s <- unique(pow$af1)
+af1s <- afs
 af2s <- unique(pow$af2)
+#af2s <- afs
+
+
 betas3 <- unique(pow$beta3)
 samplesK.all <- 2 * unique(pow$n) / 1000
 
-if( savePlot ) { png( width=1024, height=1024 ) }
+plotSize <- 1 * 1024
+if( savePlot ) { png( width=plotSize, height=plotSize ) }
+
+par( mfrow=c(3,3) )
 
 for( af1 in af1s ) {
 	for( af2 in af2s ) {
@@ -47,7 +56,15 @@ for( af1 in af1s ) {
             
 				if( first ) {
 					title <- paste('Power    AF_1:', af1, '    AF_2:', af2)
-					plot( samplesK, perc, ylim=c(0,100), xlab='Sample size [in thousands]', ylab='Power %', main=title, pch=pch, col=col, type='l')
+					title <- paste('AF1:', af1, '    AF2:', af2)
+
+					xlab <- 'Sample size [in thousands]'
+					xlab <- ''
+
+					ylab <- 'Power %'
+					ylab <- ''
+
+					plot( samplesK, perc, ylim=c(0,100), xlab=xlab, ylab=ylab, main=title, pch=pch, col=col, type='l')
 					points( samplesK[nonzero], perc[nonzero], pch=pch, col=col)
 					first <- F
 				} else {

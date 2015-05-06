@@ -24,10 +24,9 @@ Repeated entry---line 3829 of file mcgilletd.bib
  : @article{koo2013review
  :                       ,
 I'm skipping whatever remains of this entry
-Warning--I didn't find a database entry for "REF"
 You've used 63 entries,
             2118 wiz_defined-function locations,
-            877 strings with 17372 characters,
+            875 strings with 17366 characters,
 and the built_in function-call counts, 25331 in all, are:
 = -- 2414
 > -- 1619
