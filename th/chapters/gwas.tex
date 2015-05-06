@@ -12,8 +12,6 @@ In recent years, over 80 genetic loci related to T2D have been identified \cite{
 
 In this chapter, we propose a novel framework that takes into account putative epistatic interactions into genome wide association studies (GWAS). 
 
-%We detect putative interactions by means of a co-evolutionary model that we develop based on Markov evolutionary theory. We fit the co-evolutionary model's parameters using protein structural data (PDB) an genome wide multiple sequence alignments (UCSC's 100-way). Once this model is parametrized, we perform genome wide association using of pairs of variants  from a sequencing study by incorporating the co-evolutionary model as priors in a Bayesian Framework.
-
 Although this thesis focusses on the development of computational approaches that could be applied to the study of a number of complex diseases, our focus has been on type II diabetes mellitus (T2D), a complex disease first described by the Egyptians in 1500 BCE. Later the Greeks in 230 BCE used the term ``diabetes" meaning ``pass through" (or ``siphon") denoting the constant thirst and frequent urination of the patients. In the 1700s the term ``mellitus" (from honey) was added to denote that the urine was sweet and would ``attracts ants".
 
 Diabetes symptoms include frequent urination, thirst, and constant hunger, high blood sugar (hyperglycemia) and insulin resistance. Long term complication from T2D may include eyesight problems, heart disease, strokes and kidney failure. Type II diabetes, is highly correlated with obesity and disease rate has increased dramatically during the last 50 years. According to the World Health Organisation the prevalence of diabetes is 9\% in adults and an estimated 1.5 millions deaths were caused by diabetes in 2012 \cite{guariguata2014global}, which is predicted to be the 7th leading cause of death by 2030. The costs associated to treating diabetes patients only in the U.S. are estimated around \$245 billion dollars.
@@ -94,8 +92,6 @@ A test for co-evolution of two positions $i$, $j$ of the same or different prote
 \begin{eqnarray}
     \ell_C[MSA(i), MSA(j)] = log \left[ \frac{L_2[ MSA(i), MSA(j) ]}{L_1[MSA(i)] \cdot L_1[MSA(j)]} \right]
 \end{eqnarray}
-%	LL[M_{SA}(i,j)] = log \left[ \frac{P(i, j | M_{SA}, Q_2)}{P(a_i | M_{SA}, Q) \cdot P(a_j | M_{SA}, Q)} \right]dd
-%Given a pair of columns in the multiple sequence alignment $M_{sa}$, the corresponding phylegentic tree $\mathcal{T}$, we calculate the likelihood ratio by propagating the probabilities from the leaves up the root of the phylogenetic tree using Felsestein's algorithm \cite{felsenstein2004inferring} using transition matrices $Q$ and $Q_2$ for the null and alternative models respectively.
 
 Because the calculations described in this section will need to be performed on a very large number of pairs of sites, optimizations we are required to ensure manageable running time. First, pre-calculation of  matrix exponentials $P(t) = e^{Qt}$ is necessary for all values of $t$ corresponding to individual branch lengths. Another optimization (``constant-tree caching") is used to cache likelihood values for subtrees of the phylogenetic tree where all nodes have the same amino acid values. This optimization results in speed-up only if the phylogenetic tree remains constant throughout the genome, which is the case in our model.
 
@@ -117,8 +113,6 @@ Consider a GWAS with $N_S$  samples (individuals) and $N_V$ variants, we use the
     & = & \prod_{s=1}^{N_S}{ p_{s,i}^{d_s} (1-p_{s,i})^{1-d_s} } \\
     & = & \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_{s,i})^{d_s} (1-\phi( \bar{\theta}^T \bar{g}_{s,i}))^{1-d_s} }
 \end{eqnarray*}
-
-% where $p_{s,i} = P( d_s | \bar{\theta}, g_{s,i} )$ is the probability of individual $s$ disease outcome, given a genomic variant.
 
 Using this model, we have two hypotheses: i) the null hypothesis, $H_0$, assumes that genotype does not influence disease probability (i.e. $\theta_1 = 0$). ii) the alternate hypothesis, $H_1$, assumes that the genotype does influence disease probability (i.e. $\theta_1 \neq 0$). We can compare these two hypotheses using a likelihood ratio test. We define
 
@@ -223,8 +217,6 @@ Our approach, which is summarized in Figure ??, involves three main components. 
 
 The approach described in Methods was used to obtain substitution rate matrix $Q$ for individual amino acids and $Q_2$ for pairs of physically interacting residues within the same protein. Unsurprisingly, $Q$ (or more precisely a transition matrix $P(t)$ obtained from $Q$) is very similar to well known transitions matrixes such as PAM \cite{dayhoff1978model} (Supplementary Figure \ref{f:S1} and Table \ref{tab:S1}).
 
-%Estimating $Q_2$ requires information about amino acids that are known to be ``interacting". A pair of amino acids is considered to be ``interacting" if any pair of atoms (one from each amino acid) has a distance of $3$ \r{A} or less \cite{burger2010disentangling}. 
-
 The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:S2} and supplementary file \ref{fileQ2_hat.txt}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / ( Q(a,c) \cdot Q(b,d) )$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. Figure \ref{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
 
 For example, the case with the highest rate ratio is \texttt{V.I -> W.W} (i.e. amino acid \texttt{V} switched to \texttt{W} in the one sequence, and amino acid \texttt{I} changed to \texttt{W} in the other). In fact, the top 10 pairs are all transitions to \texttt{W.W} amino acid pairs. This makes sense considering that (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
@@ -256,8 +248,6 @@ Figure \ref{fig:gwas_jmol} shows the example of a predicted contact $\ell_C = 7.
 
 Although our approach aims at identifying contacting residues from different proteins, it can also be used to predict the presence or absence of interactions between proteins as a whole. We extracted from BioGrid \cite{stark2006biogrid} a set of $\sim3,000$ pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue (GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets\}). We randomly selected as ``non-interacting" pairs the same number of pairs amongst those that do not fulfil any of the three conditions.
 
-%\fig{gwas_figure_jmol_epistasis}{gwas_jmol}{14cm}{Example of interaction between amino acid \#441 of \textit{Senp1} and \#60 of \textit{Sumo1} proteins detected by our method with $\ell_C = 7.7$. A) PDB structure 2G4D, shows that the amino acids are in close proximity. B) Multiple sequence alignment and phylogenetic tree showing the putative compensatory amino acid substitution pair \texttt{D.N} replaced by \texttt{H.S}.}{Example of amino acid interaction}
-
 \begin{figure}
 \centering
 \begin{subfigure}{.9\textwidth}
@@ -283,7 +273,6 @@ Let the two proteins considered have amino acid sequences $A = a_1...a_m$ and $B
 \]
 
 \noindent where $k=3$ was determined empirically to provide the best predictive power. 
-%We calculate the average likelihood ratio of three consecutive pairs of amino acids ($avg_3[LL(M_{SA})]$), either in the forward or reverse directions. For a given pair of genes, we calculate the highest $avg_3[LL(M_{SA})]$ and pick the highest number as representative for that pair. 
 As shown in Figure \ref{S5}), prediction accuracy is quite good (p-value $< 2 \cdot 10^{-42}$), taking into account the modest amount of information considered by the model.
 
 \subsection{Epistatic GWAS analysis}
@@ -400,7 +389,6 @@ Our method is based on a well established methodology (Logistic Regression) that
 This method performs exhaustive search of second order interactions thus is capable of finding pure epistatic interactions as well as marginal ones.
 Finally, we address the power limitations by using co-evolutionary results from a well established Markov model of evolution and combining them with our association analysis by means of a Bayesian model.
 Our method has the advantage that, while being based on solid and well accepted theoretical grounds, it can increasing statistical power and is capable of analysing large GWAS datasets that are becoming available now.
-%An obvious limitations is that this model would not be able to capture pure epistatic interactions of third order and higher because it seems computationally infeasible to scale to higher orders.
 
 \paragraph{Future work}
 We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. This would allow to obtain better estimates for well characterized protein interaction regions. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. In this case the epistatic information would be used as a function modifying the kernel, instead of a bayesian prior.
