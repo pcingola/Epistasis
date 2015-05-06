@@ -1,6 +1,7 @@
 #!/usr/bin/perl
 
 $pvalTh = 5E-14;
+#$pvalTh = 5E-12;		# Assuming added information from co-evolution
 
 print "perc\tn\taf1\taf2\taf12\tbeta3\tcount\ttot\n";
 $tot = 0;

@@ -317,11 +317,17 @@ Results for some selected models are shown in figure \ref{fig:gwas_power}.
 
 \fig{gwas_power}{gwas_power}{14cm}{Power calculation using a case/control pure two-loci epistatic model for disease prevalences of $8\%$ (type II diabetes). X-axis shows the number of samples in thousands (ranging from 10,000 to 1,000,000) and several joint risk values (from 0.1 to 5) are shown as different colors lines within each plot. Each plot represents a different allele frequencies combination (for each of the two loci), from top to bottom and left to right, the allele frequency value pairs are: $[AF_1=1\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=2.5\%]$, $[AF_1=5\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=1\%]$, $[AF_1=10\%, AF_2=2.5\%]$, $[AF_1=10\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=7.5\%]$, $[AF_1=10\%, AF_2=10\%]$}{Power calculation using a pure two-loci epistatic model}
 
+As shown in the power calculation, large sample sizes are expected to be required to finding epistatic effects on rare variant loci (i.e. alelle frequencies below $1\%$).
+Even if risk is assumed to be over $2$, $3$, or $5$, sample sizes requirements are expected to be over $400,000$, $200,000$ and $100,000$ respectively (see Figure \ref{fig:gwas_power}, top-left plot).
+For common variants (i.e. allele frequency of $5%$) the sample sizes look more attainable in the near future, ranging from $10,000$ to $100,000$ samples when risk factors decrease from $5$ to $0.6$ (Figure \ref{fig:gwas_power}, middle row, left plot).
+Finally, for relatively common variants (allele frequency of $10%$) the sample sizes up to $100,000$ would be required for risk factors of $0.3$ which is still considered a high risk factor (Figure \ref{fig:gwas_power}, bottom right plot).
 
+The results from our power calculation shows once more that large sample sizes are required to find epistatic interactions even when it is assumed that the variants are relatively common and risk factors are relatively high.
+This highlights not only the complexity of finding epistatic association to complex traits, but also how elusive these can be.
 
-
-==> OUR METHOD INCREASES BF by 2 (mean) to 4 (currently limited).
-
+Finally we mention that, our method is able to increase power by using additional information from a co-evolutionary model.
+According to our calculations, co-evolutionary information can increase Bayes Factor between $10^2$ and $10^4$, which is roughly equivalent to reducing genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, thus shifting the curves to the left.
+In effect this reduces sample size requirements roughly by half, which is quite remarkable given the little additional information being used by the model (only a multiple sequence alignment).
 
 %---
 \section{Discussion}

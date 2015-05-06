@@ -2,6 +2,7 @@
 savePlot <- T
 
 if( ! exists('pow') ) {
+	#pow <- read.table('logisticRegressionPowerGT_parseResults_CoEvolution.txt', sep="\t", header=TRUE)
 	pow <- read.table('logisticRegressionPowerGT_parseResults.txt', sep="\t", header=TRUE)
 }
 
