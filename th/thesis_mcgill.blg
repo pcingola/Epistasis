@@ -1,68 +1,12 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
-A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/intro_variants.aux
-A level-1 auxiliary file: chapters/intro_epistasis.aux
-A level-1 auxiliary file: chapters/intro_coevolution.aux
-A level-1 auxiliary file: chapters/intro_roadmap.aux
+A level-1 auxiliary file: chapters/gwas.aux
 The style file: plain.bst
 Database file #1: mcgilletd.bib
-Repeated entry---line 793 of file mcgilletd.bib
- : @article{langmead2009ultrafast
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 803 of file mcgilletd.bib
- : @article{li2010fast
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 813 of file mcgilletd.bib
- : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 849 of file mcgilletd.bib
- : @article{li2008mapping
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1352 of file mcgilletd.bib
- : @article{langmead2009ultrafast
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1362 of file mcgilletd.bib
- : @article{li2010fast
- :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1372 of file mcgilletd.bib
- : @article{li2010fastlong
- :                        ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1464 of file mcgilletd.bib
- : @article{li2008mapping
- :                       ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1475 of file mcgilletd.bib
- : @article{li2011improving
- :                         ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1625 of file mcgilletd.bib
- : @article{kumar2009predicting
- :                             ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1658 of file mcgilletd.bib
- : @article{rope2011using
- :                       ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 1703 of file mcgilletd.bib
  : @article{wu2011rare
  :                    ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 1862 of file mcgilletd.bib
- : @book{durbin1998biological
- :                           ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2038 of file mcgilletd.bib
- : @article{mckenna2010genome
- :                           ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 2192 of file mcgilletd.bib
  : @article{mani2008defining
@@ -76,81 +20,50 @@ Repeated entry---line 2377 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2535 of file mcgilletd.bib
- : @article{wang2010annovar
- :                         ,
+Repeated entry---line 3829 of file mcgilletd.bib
+ : @article{koo2013review
+ :                       ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 2722 of file mcgilletd.bib
- : @article{adzhubei2010method
- :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2940 of file mcgilletd.bib
- : @article{garber2009identifying
- :                               ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 2962 of file mcgilletd.bib
- : @article{davydov2010identifying
- :                                ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3534 of file mcgilletd.bib
- : @book{cormen2001introduction
- :                             ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3631 of file mcgilletd.bib
- : @article{brenner1965genetic
- :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3951 of file mcgilletd.bib
- : @article{clark2011performance
- :                              ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 4310 of file mcgilletd.bib
- : @article{kuhn1995application
- :                             ,
-I'm skipping whatever remains of this entry
-Warning--empty journal in brenner1965genetic
-Warning--empty publisher in darwin1877various
-Warning--empty journal in pagon1993genereviews
-Warning--empty journal in schneider2013genome
-You've used 186 entries,
+Warning--I didn't find a database entry for "REF"
+You've used 63 entries,
             2118 wiz_defined-function locations,
-            1456 strings with 44040 characters,
-and the built_in function-call counts, 79067 in all, are:
-= -- 7422
-> -- 5436
-< -- 9
-+ -- 2179
-- -- 1958
-* -- 6983
-:= -- 13655
-add.period$ -- 559
-call.type$ -- 186
-change.case$ -- 1487
+            877 strings with 17372 characters,
+and the built_in function-call counts, 25331 in all, are:
+= -- 2414
+> -- 1619
+< -- 3
++ -- 650
+- -- 576
+* -- 2206
+:= -- 4369
+add.period$ -- 190
+call.type$ -- 63
+change.case$ -- 465
 chr.to.int$ -- 0
-cite$ -- 190
-duplicate$ -- 2131
-empty$ -- 4882
-format.name$ -- 1958
-if$ -- 15449
+cite$ -- 63
+duplicate$ -- 709
+empty$ -- 1648
+format.name$ -- 576
+if$ -- 4970
 int.to.chr$ -- 0
-int.to.str$ -- 186
-missing$ -- 193
-newline$ -- 933
-num.names$ -- 372
-pop$ -- 1232
+int.to.str$ -- 63
+missing$ -- 65
+newline$ -- 318
+num.names$ -- 126
+pop$ -- 366
 preamble$ -- 1
-purify$ -- 1309
+purify$ -- 404
 quote$ -- 0
-skip$ -- 1490
+skip$ -- 481
 stack$ -- 0
-substring$ -- 4962
-swap$ -- 275
-text.length$ -- 9
+substring$ -- 1668
+swap$ -- 81
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 728
-warning$ -- 4
-while$ -- 675
-width$ -- 189
-write$ -- 2025
-(There were 25 error messages)
+type$ -- 248
+warning$ -- 0
+while$ -- 229
+width$ -- 65
+write$ -- 692
+(There were 5 error messages)

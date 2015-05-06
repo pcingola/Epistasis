@@ -327,35 +327,61 @@ For all these reasons we selected UCSC's multi-100way \cite{karolchik2014ucsc}, 
 In order to further validate our co-evolutionary model in the context of human disease, we tested whether it can separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). Interestingly, variants categorized as ``benign" or ``druggable" have higher scores (mean $\ell_C$ within protein) than variants categorized as pathogenic (Supplementary Tables \ref{tab:S4A}, \ref{tab:S4B} and Figure \ref{fig:S4}). We speculate that this might be because amino acids that can be compensated would be characterized as ``benign" whereas deleterious amino acids changes cannot be compensated by mutation. 
 
 \paragraph{Comparison to other Co-Evolutionary methods}
-There are several other methodologies used to predict putative interactions based on co-evolutionary theory.
-Nevertheless most methods we are limited respect to their applicability to GWAS scale analysis.
-Here we mention a few well known methodologies as well as why they might not scale (either according to the data published in their respective papers or our opinion on problems we foresee).
+There are several methodologies that can be used to predict putative interactions based on co-evolutionary theory.
+Nevertheless most methods we are limited respect to their applicability to GWAS scale analysis:
 
-\begin{itemize}
-  \item \textbf{Phylogenetic tree similarity} can be used as a proxy for the co-evolution of interacting proteins. A computational method based on matrix alignment \cite{ramani2003exploiting} has demonstrated some degree of success. 
-  The method has two limiting factors: i) it requires large (distinct) phylogenetic trees for each protein which are not be available for all proteins in the genome; and ii) uses a simulated annealing to match matrices, thus requiring many iterations for each putative pair or proteins.
+\textit{Phylogenetic tree similarity} can be used as a proxy for the co-evolution of interacting proteins. 
+Computational methods use matrix alignment \cite{ramani2003exploiting} which has demonstrated some degree of success. 
+Unfortunately, such methods have two limiting factors: 
+i) it requires large (distinct) phylogenetic trees for each protein which are not be available for all proteins in the genome; and 
+ii) uses a simulated annealing to match matrices, thus requiring many iterations for each putative pair or proteins.
 
-  \item \textbf{Correlation} based methods aiming to detect changes on one of the interacting proteins that are compensated by mutations in the other \cite{pazos1997correlated,gobel1994correlated}. Although these methods are fast enough to be applicable to GWAS scale studies, they still have two limitations: i) they require large number of sequences in the multiple sequence alignments to overcome noise, large MSAs are not be available throughout the whole genome; and ii) there are well known biases mainly caused by phylogenetic tree and indirect correlations. 
+\textit{Correlation} based methods aim to detect changes on one of the interacting proteins that are compensated by mutations in the other \cite{pazos1997correlated,gobel1994correlated}. 
+Although these methods are fast enough to be applicable to GWAS scale studies, they still have at least two limitations: 
+i) they require large number of sequences in the multiple sequence alignments to overcome noise, large MSAs are not be available throughout the whole genome; and 
+ii) there are well known biases mainly caused by phylogenetic tree and indirect correlations. 
   
-  \item \textbf{Mutual information} share some similarities with correlation-based methods in the sense that are fast for GWAS studies but unfortunately they also require large MSAs and are well known for having bias caused by phylogenetic tree, indirect correlations, and allele frequency \cite{fares2006novel}.
-  
-  \item \textbf{Mutual information with phylogenetic correction} has been proposed \cite{dunn2008mutual}. Nevertheless the authors of this method mention biases depending on allele frequencies that might limit applicability for GWAS studies of low-frequency variants.
+\textit{Mutual information} based methods share some similarities with correlation-based methods in the sense that are fast for GWAS studies but unfortunately they also require large MSAs and are well known for having bias caused by phylogenetic tree, indirect correlations, and allele frequency \cite{fares2006novel}.
+There are methods based on mutual information than could perform some phylogenetic correction \cite{de2013emerging}.
+Nevertheless these methods also require large number of sequences and are known to depend on allele frequencies \cite{dunn2008mutual}, a bias that might limit applicability for GWAS studies of low-frequency variants.
     
-    \item \textbf{Global models} are design to disentangle direct interactions from indirect ones. Several methods have been proposed which rely on: i) estimating parameters of Boltzmann distributions \cite{lapedes2012using,weigt2009identification}, ii) mean field approximations of Bolzmann distributions \cite{morcos2011direct}, iii) constrained optimizations for finding approximations of inversions of large singular matrices \cite{jones2012psicov}, iv) marginalizing multidimensional extensions to mutual information \cite{clark2014multidimensional}; or v) solving a Bayesian network model \cite{burger2010disentangling}. All these models are so computationally heavy that can only be applied to very small sets of proteins. Furthermore, in some of the respective papers the authors mention that it is computationally infeasible to apply them to a single pair of proteins if the length is over a some low number of amino acids (e.g. $60$ \cite{weigt2009identification} or $500$ \cite{morcos2011direct}). It is then not possible to apply these method to GWAS scale studies at the moment.
-    
-\end{itemize}
+\textit{Global models} are designed to disentangle direct interactions from indirect ones. 
+Several methods have been proposed which rely on: 
+i) estimating parameters of Boltzmann distributions \cite{lapedes2012using,weigt2009identification}, 
+ii) mean field approximations of Bolzmann distributions \cite{morcos2011direct}, 
+iii) constrained optimizations for finding approximations of inversions of large singular matrices \cite{jones2012psicov}, 
+iv) marginalizing multidimensional extensions to mutual information \cite{clark2014multidimensional}; or 
+v) solving a Bayesian network model \cite{burger2010disentangling}. 
+All these models are so computationally heavy that can only be applied to very small sets of proteins. 
+Furthermore, in some of the respective papers the authors mention that it is computationally infeasible to apply them to a single pair of proteins if the length is over a some low number of amino acids (e.g. $60$ \cite{weigt2009identification} or $500$ \cite{morcos2011direct}). 
+It is therefore not possible to apply these method to GWAS scale studies at the moment.
 
-\textbf{WHY OURS IS MUCH BETTER?}
-Until not long ago, it was thought that methods based on Markov evolutionary theory were unsuitable for large scale studies.
-Our methodology changes this by using Markov evolutionary methods aimed to correct for biases from phylogenetic trees.
-Thanks to highly optimized algorithms and genome-wide assumptions, GWAS scale analysis can be performed, albeit using non-trivial computational resources (we used a 1000-CPU cluster).
-
-\textbf{MENTION: INDEPENDENCE ASSUMPTION - WE DON' SOLVE A GLOBAL MODEL}
-{\huge!!!!!!!!!!!!!!!!!}
+Our method attempts to solve two problems: i) the requirement of large number of sequence, and ii) the phylogenetic bias.
+These goals are achieved (at least partially) using a well known Markov model of evolution and optimized algorithms.
+It should be noted that until not long ago it was thought that methods based on Markov evolutionary theory were unsuitable for large scale studies \cite{de2013emerging}.
 
 \paragraph{Comparison to other Episgenetic GWAS methods}
-\textbf{COMPARE TO OTHER MODELS: GWAS-Epistasis (see BEAM as reference)}
-{\huge!!!!!!!!!!!!!!!!!}
+Although there large amounts of evidence supporting the theory that epistasis is ubiquitous, detecting epistatic interactions in human has been quite difficult and, despite significant efforts particularly in relation to complex disease, the results have been scarce and difficult to reproduce\cite{zuk2012mystery}.
+Many reasons have been given in this manuscript and elsewhere to indicate why detecting epistasis this is a very difficult task.
+The most commonly known reason is the enormous number of statistical tests required that can scale to the power of the number of interactions taken into account.
+Consequently to the number of  tests, a reduced statistical power is produce and an increase in computational resources required.
+
+Methods based on exhaustive search can be computationally infeasible for all but very low order interactions analysis \cite{cordell2009detecting}.
+Their counterpart are conditional search methods \cite{li2011detecting} which are usually based on selecting the top single value associated variants and then performing epistatic analysis on a small subset.
+Unfortunately these methods are guaranteed to ignore pure epistatic interactions and only detect marginal ones \cite{li2011detecting,cordell2002epistasis}.
+Since there is no biological indication on whether complex traits have marginal or pure epistatic effects \cite{culverhouse2002perspective,zuk2012mystery,li2011detecting}, it might not be safe to use these types of methods in an unbiased association study.
+Stochastic search based methods \cite{zhang2007bayesian} show great potential, but as far as we known they have not produced any significant results so far, most likely due to small sample sizes used in the experiments shown and the difficulty to scale this methodologies.
+have been quite successfully.
+
+Finally, other methods based machine learning have been proposed and applied with different degrees of success to some experimental data \cite{koo2013review, cordell2009detecting, li2011detecting}.
+One of the main limitations of machine learning based methods lies in the fact that the majority of them do not result in a statistical significance metric (p-value), thus researchers are often weary of conducting an expensive follow up studies based in results from machine learning methodologies.
+Another limitation is that machine learning approaches may not in some cases allow appropriate correction from popluation admixture and other cofactors.
+
+Our method is based on a well established methodology (Logistic Regression) that allows us to correct for known population based cofactors as well as other disease cofactors (age and sex are known to affect risk of type II diabetes).
+This method performs exhaustive search of second order interactions thus is capable of finding pure epistatic interactions as well as marginal ones.
+Finally, we address the power limitations by using co-evolutionary results from a well established Markov model of evolution and combining them with our association analysis by means of a Bayesian model.
+Our method has the advantage that, while being based on solid and well accepted theoretical grounds, it can increasing statistical power and is capable of analysing large GWAS datasets that are becoming available now.
+%An obvious limitations is that this model would not be able to capture pure epistatic interactions of third order and higher because it seems computationally infeasible to scale to higher orders.
 
 \paragraph{Future work}
 We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. This would allow to obtain better estimates for well characterized protein interaction regions. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. In this case the epistatic information would be used as a function modifying the kernel, instead of a bayesian prior.
