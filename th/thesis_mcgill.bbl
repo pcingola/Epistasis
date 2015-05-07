@@ -331,6 +331,14 @@ Kavitha Venkatesan, Jean-Francois Rual, Alexei Vazquez, Ulrich Stelzl, Irma
 \newblock An empirical framework for binary interactome mapping.
 \newblock {\em Nature methods}, 6(1):83--90, 2009.
 
+\bibitem{voight2010twelve}
+Benjamin~F Voight, Laura~J Scott, Valgerdur Steinthorsdottir, Andrew~P Morris,
+  Christian Dina, Ryan~P Welch, Eleftheria Zeggini, Cornelia Huth, Yurii~S
+  Aulchenko, Gudmar Thorleifsson, et~al.
+\newblock Twelve type 2 diabetes susceptibility loci identified through
+  large-scale association analysis.
+\newblock {\em Nature genetics}, 42(7):579--589, 2010.
+
 \bibitem{wakefield2009bayes}
 Jon Wakefield.
 \newblock Bayes factors for genome-wide association studies: comparison with
@@ -368,6 +376,14 @@ M.C. Wu, S.~Lee, T.~Cai, Y.~Li, M.~Boehnke, and X.~Lin.
 Ziheng Yang.
 \newblock {\em Computational molecular evolution}, volume 284.
 \newblock Oxford University Press Oxford, 2006.
+
+\bibitem{zeggini2008meta}
+Eleftheria Zeggini, Laura~J Scott, Richa Saxena, Benjamin~F Voight, Jonathan~L
+  Marchini, Tianle Hu, Paul~IW de~Bakker, Gon{\c{c}}alo~R Abecasis, Peter
+  Almgren, Gitte Andersen, et~al.
+\newblock Meta-analysis of genome-wide association data and large-scale
+  replication identifies additional susceptibility loci for type 2 diabetes.
+\newblock {\em Nature genetics}, 40(5):638--645, 2008.
 
 \bibitem{zhang2007bayesian}
 Yu~Zhang and Jun~S Liu.

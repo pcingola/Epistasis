@@ -286,10 +286,10 @@ In order to understand the nature of the putative epistatic associations, we com
 For each of our top $1,000$ results we looked up the closest entry from DIAGRAM dataset and analysed the corresponding p-values form all the three publicly released DIAGRAM datasets.
 
 Only $14$ of the top $1,000$ results show suggestive association (p-value $\le 10^{-4}$) in a nearby loci (average distance $977$ bases).
-Of these, only one of them is in the top 10 results ($8:30982425$\_T/G variant in \textit{WRN} gene has DIAGRAM p-value of $4.6E-04$ and odds ration $1.06$), whereas neither of the others are in the top 50.
-This indicates that our top results are populated by pure epistatic putative effects having no marginal association with disease risk.
+Of these, only one of them is in the top 10 results (8:30982425\_T/G variant in \textit{WRN} gene has DIAGRAM p-value of $4.6 \times 10^{-4}$ and odds ration $1.06$), whereas neither of the others are in the top 50 results.
+This suggests that our top results are populated by pure epistatic putative effects having no marginal association with disease risk.
 In light of this evidence, it should be noticed that \textit{conditional search} methods (based on selecting the top single marker results and performing epistatic analysis only this subset) would have missed most of our top results.
-Furthermore, our algorithm might be missing any three or higher order pure epistatic interaction, a limitations that doesn't seem to be plausible to overcome without introducing prior biological knowledge due to computational limitations and statistical power issues.
+Furthermore, our algorithm might be missing any three or higher order pure epistatic interaction, a limitations that doesn't seem to be plausible to overcome without introducing prior biological knowledge of interacting loci (which is obviously not available at the moment).
 
 \figtab{gwas_13k_results_1}{gwas_13k_results_1}{14cm}{Results from epistatic GWAS analysis of type II diabetes sequencing data. First column shows total $log_{10}(BF_T)$; second and third columns show p-value and (raw) Bayes factor for logistic regression model. For each variant in the putative interaction pair: genomic coordinate, gene and functional annotation are shown. Genes marked in red are manually curated gene sets form diabetes related pathways}{Results from epistatic GWAS analysis of type II diabetes sequencing data}
 
