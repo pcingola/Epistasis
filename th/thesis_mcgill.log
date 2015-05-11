@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  11 MAY 2015 09:24
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  11 MAY 2015 09:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -545,13 +545,9 @@ Missing character: There is no ¦ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
-
-
-LaTeX Warning: Reference `gwas_genegene' on page 26 undefined on input line 274
-.
-
-[26] [27 <./figs/gwas_figure_4_jmol.png> <./figs/gwas_figure_4_tree_coevolution
-.png>] [28] <figs/gwas_13k_results_1.png, id=115, 1144.275pt x 461.725pt>
+ [26] [27 <./figs/gwas_figure_4_jmol.png> <./figs/gwas_figure_4_tree_coevolutio
+n.png>] [28]
+<figs/gwas_13k_results_1.png, id=115, 1144.275pt x 461.725pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
@@ -570,9 +566,6 @@ LaTeX Warning: Reference `tab:S4A' on page 33 undefined on input line 343.
 
 
 LaTeX Warning: Reference `tab:S4B' on page 33 undefined on input line 343.
-
-
-LaTeX Warning: Reference `fig:S4' on page 33 undefined on input line 343.
 
 [33]
 Overfull \hbox (12.93814pt too wide) in paragraph at lines 346--348
@@ -605,17 +598,24 @@ File: figs/gwas_genegene.png Graphic file (type png)
 <use figs/gwas_genegene.png>
 Package pdftex.def Info: figs/gwas_genegene.png used on input line 415.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
+
+<figs/gwas_clinvar.png, id=151, 1027.84pt x 1027.84pt>
+File: figs/gwas_clinvar.png Graphic file (type png)
+
+<use figs/gwas_clinvar.png>
+Package pdftex.def Info: figs/gwas_clinvar.png used on input line 417.
+(pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 ) [38] [39 <./figs/gwas_Qhat_vs_PAM1.png>] [40 <./figs/gwas_Q2.png>] [41 <./fig
-s/gwas_genegene.png>] (./thesis_mcgill.bbl [42
+s/gwas_genegene.png>] [42 <./figs/gwas_clinvar.png>] (./thesis_mcgill.bbl [43
 
 
 
-]
-[43] [44] [45]
+] [44] [45] [46]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [46] [47] [48] [49]) (./thesis_mcgill.aux (./chapters/gwas.aux))
+ [47] [48] [49] [50])
+(./thesis_mcgill.aux (./chapters/gwas.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -684,6 +684,7 @@ figs/gwas_power.png
 figs/gwas_Qhat_vs_PAM1.png
 figs/gwas_Q2.png
 figs/gwas_genegene.png
+figs/gwas_clinvar.png
 thesis_mcgill.bbl
  ***********
 
@@ -692,10 +693,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 6390 strings out of 493315
- 95282 string characters out of 6137904
+ 6395 strings out of 493315
+ 95416 string characters out of 6137904
  185776 words of memory out of 5000000
- 9709 multiletter control sequences out of 15000+600000
+ 9713 multiletter control sequences out of 15000+600000
  10165 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,44p,1853b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -712,10 +713,10 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (49 pages, 2722568 bytes).
+Output written on thesis_mcgill.pdf (50 pages, 2785902 bytes).
 PDF statistics:
- 237 PDF objects out of 1000 (max. 8388607)
- 151 compressed objects within 2 object streams
+ 242 PDF objects out of 1000 (max. 8388607)
+ 153 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 
