@@ -2,7 +2,7 @@
 library('gplots')
 library('expm')
 
-savePlot <- T
+savePlot <- F
 
 #-------------------------------------------------------------------------------
 # Reverse an amino acid string
@@ -415,14 +415,19 @@ if( T ) {
 	}
 	err[ is.nan(err) ] <- 0
 
-	heatmap.2(Qhat, main = "Qhat", sub="Normalized by row", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "row", na.rm=T); 
-	heatmap.2(err, main = "PAM1 vs Qhat", sub="Error normalized by row", Rowv=F, Colv=F, col = redgreen(100), density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+	mypalette <- redgreen(100)
+	mypalette <- colorRampPalette(c("red", "white", "green"))(n = 100)
+
+	heatmap.2(Qhat, main = "Qhat", sub="Normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "row", na.rm=T); 
+
+	#heatmap.2(err, main = "PAM1 vs P[Qhat, t=1]", sub="Error normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+	heatmap.2(err, main = "", sub="Error normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T); 
 }
 
 #---
 # Qhat2
 #---
-if( T ) {
+if( F ) {
 	Qhat2 <- read.table('Qhat2.txt', header = TRUE, row.names = 1, sep="\t")
 	Qhat2<- as.matrix(Qhat2)
 	q2 <- Qhat2

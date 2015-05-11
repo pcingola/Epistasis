@@ -213,21 +213,21 @@ Our approach, which is summarized in Figure ??, involves three main components. 
  
 \subsection{Co-evolutionary substitution models}
 
-The approach described in Methods was used to obtain substitution rate matrix $Q$ for individual amino acids and $Q_2$ for pairs of physically interacting residues within the same protein. Unsurprisingly, $Q$ (or more precisely a transition matrix $P(t)$ obtained from $Q$) is very similar to well known transitions matrices such as PAM \cite{dayhoff1978model} (Supplementary Figure \ref{f:S1} and Table \ref{tab:S1}).
+The approach described in Methods was used to obtain substitution rate matrix $Q$ for individual amino acids and $Q_2$ for pairs of physically interacting residues within the same protein. Unsurprisingly, $Q$ (or more precisely a transition matrix $P(t)$ obtained from $Q$) is very similar to well known transitions matrices such as PAM \cite{dayhoff1978model} (Supplementary Figure \ref{fig:gwas_Qhat_vs_PAM1}).
 
-The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:S2} and supplementary file \ref{fileQ2_hat.txt}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / ( Q(a,c) \cdot Q(b,d) )$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. Figure \ref{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
-
+The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:gwas_Q2}). Of particular interest are the pairs of pairs of amino acids for which the ratio $R(ab,cd) = Q_2 (ab, cd) / ( Q(a,c) \cdot Q(b,d) )$ is large. Those substitution pairs are the ones that are most strongly indicative of an interaction. 
+%Figure \ref{fig:q_q2_compare} shows that the number of pairs for which $R$ deviates significantly from 1 is quite large, arguing that interacting sites have co-evolutionary rates that differ from the bulk of non-interacting sites.
 For example, the case with the highest rate ratio is \texttt{V.I -> W.W} (i.e. amino acid \texttt{V} switched to \texttt{W} in the one sequence, and amino acid \texttt{I} changed to \texttt{W} in the other). In fact, the top 10 pairs are all transitions to \texttt{W.W} amino acid pairs. This makes sense considering that (i) individual amino acid substitution rates to tryptophan are generally very low, but that (ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
 
 Another type of pair transitions with large ratio is the double transitions to a pair of phenylalanine amino acids from a pairs of hydrophobic amino acids (Lysine, Asparagine, Glutamine, Arginine, Aspartic acid and Glutamic acid). Phenylalanine-Phenylalanine interaction pairs are assumed to conform $\pi-\pi$ interactions which are predicted and experimentally observed to be energetically favourable \cite{hunter1991pi}.
 
 \subsection{Co-evolutionary model validation}
 
-We first assessed the ability of our co-evolutionary model to detect interacting sites located within the same protein by computing the likelihood ratio of the evolutionary history of a candidate pair of sites under an co-evolutionary model ($Q_2$) versus under independence ($Q$). Although such pairs of sites are unlikely to exhibit evidence of epistasis in GWAS studies (due to linkage), accurate prediction of interacting sites in a given protein are useful for many other purposes, such as protein structure prediction and prediction of the impact of individual mutations.  Figure \ref{f:} shows that interacting sites tend to have higher likelihood ratio scores than non-interacting ones (Mann-Whitney p-value $< 2.2 \times 10^{-16}$. Although the likelihood ratio score it itself cannot perfectly discriminate between the two classes, only 25.9\% of non-interacting pairs have a likelihood ratio above the median likelihood ratio of interacting pairs. 
+We first assessed the ability of our co-evolutionary model to detect interacting sites located within the same protein by computing the likelihood ratio of the evolutionary history of a candidate pair of sites under an co-evolutionary model ($Q_2$) versus under independence ($Q$). Although such pairs of sites are unlikely to exhibit evidence of epistasis in GWAS studies (due to linkage), accurate prediction of interacting sites in a given protein are useful for many other purposes, such as protein structure prediction and prediction of the impact of individual mutations.  Figure \ref{fig:gwas_figure_2} shows that interacting sites tend to have higher likelihood ratio scores than non-interacting ones (Mann-Whitney p-value $< 2.2 \times 10^{-16}$. Although the likelihood ratio score it itself cannot perfectly discriminate between the two classes, only 25.9\% of non-interacting pairs have a likelihood ratio above the median likelihood ratio of interacting pairs. 
 
-\fig{gwas_figure_2}{gwasf2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
+\fig{gwas_figure_2}{gwas_figure_2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
 
-To confirm that an evolutionary model estimated based on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on $\sim 3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim 3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). As seen on Figure \ref{fig:}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2 \times 10^{-16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. These empirical distributions, allow us to approximate of the log odds of the ``interacting" vs ``non-interacting" amino acids distributions as
+To confirm that an evolutionary model estimated based on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on $\sim 3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim 3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). As seen on Figure \ref{fig:gwas_figure_3}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2 \times 10^{-16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. These empirical distributions, allow us to approximate of the log odds of the ``interacting" vs ``non-interacting" amino acids distributions as
 
 \begin{eqnarray*}
 O_{dds}(x) & = & \frac{P[ L_2(MSA(i), MSA(j)) \ge x ]}{P[ L_1(MSA(i) \times L_1(MSA(j) \ge x]} \\
@@ -237,7 +237,7 @@ O_{dds}(x) & = & \frac{P[ L_2(MSA(i), MSA(j)) \ge x ]}{P[ L_1(MSA(i) \times L_1(
 
 \noindent where $\alpha = 0.195$ and $\beta = 1.018$ (in order to avoid bias, the log odds value is capped to $4.0$).
 
-\fig{gwas_figure_3}{gwas3a}{12cm}{
+\fig{gwas_figure_3}{gwas_figure_3}{12cm}{
 Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids in different proteins (co-crystallized entries from PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey). 
 %Roughly 40\% of interacting records have log-likelyhood $> 1$
 }{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (co-crystalized proteins).}
@@ -267,11 +267,11 @@ Although our approach aims at identifying contacting residues from different pro
 Let the two proteins considered have amino acid sequences $A = a_1...a_m$ and $B = b_1...b_n$. To obtain the prediction score for this pair of proteins, we identify the pair of length-$k$ substrings $a_i, a_{i+1}, …, a_{i+k-1}$ and $b_j, b_{j+1}, …, b_{j+k-1}$ that exhibit the strongest support for parallel or anti-parallel interactions
 
 \[
-\max\left[ \sum_{l=0}^{k-1}{ \ell_C[ MSA(a_{i+l}) , MSA(b_{j+l}) ]},  \sum_{l=0}^{k-1}{\ell_C[ MSA(a_{i+l}) , MSA(b_{j+k-1-l})} \right]
+\ell_C(k) = \max\left[ \sum_{l=0}^{k-1}{ \ell_C[ MSA(a_{i+l}) , MSA(b_{j+l}) ]},  \sum_{l=0}^{k-1}{\ell_C[ MSA(a_{i+l}) , MSA(b_{j+k-1-l})} \right]
 \]
 
 \noindent where $k=3$ was determined empirically to provide the best predictive power. 
-As shown in Figure \ref{S5}), prediction accuracy is quite good (p-value $< 2 \cdot 10^{-42}$), taking into account the modest amount of information considered by the model.
+As shown in Figure \ref{gwas_genegene}), prediction accuracy is quite good (p-value $< 2 \cdot 10^{-42}$), taking into account the modest amount of information considered by the model.
 
 \subsection{Epistatic GWAS analysis}
 
@@ -402,3 +402,15 @@ These selective sweeps seem to be rare \cite{hernandez2011classic}, thus we thin
 \paragraph{Future work}
 We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. This would allow to obtain better estimates for well characterized protein interaction regions. Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. In this case the epistatic information would be used as a function modifying the kernel, instead of a Bayesian prior.
 It has also been suggested that positive selection might be used as an additional prior of epistatic interactions. Nevertheless a study comparing positive selection maps form 9 different methods \cite{akey2009constructing} shows that only $14\%$ of the regions have been identified in more than one study.  This striking lack of concordance suggests that using positive selection estimates would add more noise than information at this moment, although it is an interesting venue to explore when more reliable estimates become available.
+
+%---
+\section{Supplementary material}
+%---
+
+\fig{gwas_Qhat_vs_PAM1}{gwas_Qhat_vs_PAM1}{14cm}{Comparison (relative error) between PAM1 and $\hat{P}(t)$ estimated from $\hat{Q}$
+}{Comparison (relative error) between PAM1 and $\hat{P}(t)$ estimated from $\hat{Q}$}
+
+\fig{gwas_Q2}{gwas_Q2}{14cm}{$\hat{Q}_2$ matrix structure}{$\hat{Q}_2$ matrix structure}
+
+\fig{gwas_genegene}{gwas_genegene}{14cm}{Distribution of $\ell_C(k)$ for interacting genes (red) and non-interacting genes (green) showing a small but statistically significant difference.}{Distribution of $\ell_C(k)$ for interacting genes and non-interacting genes}
+

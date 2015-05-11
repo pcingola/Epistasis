@@ -1,10 +1,12 @@
 
-savePng <- F
-
-fig2 <- F
-fig3 <- F
-fig4 <- F
-fig5 <- F
+savePng <- T
+fig2    <- F
+fig3    <- F
+fig4    <- F
+fig5    <- F
+figS1   <- F
+figS2   <- F
+figS3   <- T
 
 #-------------------------------------------------------------------------------
 # Compare two distributions
@@ -136,12 +138,9 @@ figure4 <- function() {
 	abline( v=mean(l), col='blue', lty=2, lwd=2);
 }
 
-
-
 #-------------------------------------------------------------------------------
 # Figure 5: Power analysis figures
 #-------------------------------------------------------------------------------
-
 figure5 <- function() {
 
 	# Big plot size
@@ -238,10 +237,109 @@ figure5 <- function() {
 }
 
 #-------------------------------------------------------------------------------
+# Figure S1: Comparisson between PAM(1) and P[Qhat, t=1]
+#-------------------------------------------------------------------------------
+figureS1 <- function() {
+	# Load Qhat
+	Qhat <- read.table('Qhat.txt', header = TRUE, row.names = 1, sep="\t")
+	Qhat <- as.matrix(Qhat)
+
+	# Load AA frequencies
+	aa.freq <- read.table('aa.frequencies.txt', header = F, row.names = 1, sep="\t")
+	aa.freq <- as.vector(aa.freq)
+	aa.freq <- aa.freq / sum(aa.freq)
+
+	# Create a function to calculate the probability of amino acid mutation, based on Qhat and time
+	Pt <- function(t) { expm(t * Qhat); }
+	Mut <- function(t) { sum( diag( Pt(t) ) * aa.freq ); }
+	Mut.PAM1 <- function(t)	{ Mut(t) - 0.99; }
+
+	# Solve for PAM (i.e. 't' such that there is 1% probability of mutation
+	res <- uniroot( Mut.PAM1, c(0,1) )
+	t0 <- res$root
+	cat('PAM 1:\tt0 =', t0, '\tMutation(t0): ', Mut(t0), '\n')
+
+	# Load PAM1 matrix
+	pam <- read.table('pam1.txt', header = TRUE, row.names = 1, sep="\t")
+	pam <- as.matrix(pam)
+
+	# Re-organize PAM1 matrix to have the same order than Qhat
+	p <- pam * 0
+	colnames(p) <- colnames(Qhat)
+	rownames(p) <- rownames(Qhat)
+	for( rn  in rownames(pam) ) {
+		for( cn  in colnames(pam) ) {
+			p[ rn, cn ] <- pam[ rn, cn ]
+		}
+	}
+	pam <- p
+
+	Pt0 <- round( 10000 * Pt(t0) )
+
+	d <- max(dim(pam))
+	err <- pam * 0
+	for( i in 1:d ) {
+		s <- sum(pam[i,]) - pam[i, i]
+		cat('Rowsum:[', i ,']', s, '\n')
+		for( j in 1:d ) {
+			err[i,j] <- abs(pam[i,j] - Pt0[i,j]) / s
+		}
+	}
+	err[ is.nan(err) ] <- 0
+
+	mypalette <- redgreen(100)
+	mypalette <- colorRampPalette(c("red", "white", "green"))(n = 100)
+
+	heatmap.2(Qhat, main = "Qhat", sub="Normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "row", na.rm=T); 
+
+	#heatmap.2(err, main = "PAM1 vs P[Qhat, t=1]", sub="Error normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
+	heatmap.2(err, main = "", sub="Error normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T); 
+}
+
+#-------------------------------------------------------------------------------
+# Figure S2: Show Q2's structure
+#-------------------------------------------------------------------------------
+figureS2 <- function() {
+	Qhat2 <- read.table('Qhat2.txt', header = TRUE, row.names = 1, sep="\t")
+	Qhat2<- as.matrix(Qhat2)
+	q2 <- Qhat2
+	diag(q2) <- 0
+	mypalette <- colorRampPalette(c("red", "white", "black"))(n = 100)
+	heatmap.2(q2, main = "", sub="Diagonal set to zero", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T); 
+}
+
+#-------------------------------------------------------------------------------
+# Figure S3: Gene-Gene interaction prediction. Distribution of $avg_3[LL(MSA)]$ 
+#            for interacting and non-interacting genes showing that they can be 
+#            differentiated.
+#-------------------------------------------------------------------------------
+figureS3 <- function(ll.alt, ll.null) {
+	par(mfrow=c(1,1))
+
+	for( wsize in 2:2 ) {
+		keep <- ll.alt$wsize == wsize
+		lla <- as.vector(ll.alt$ll[keep])
+
+		keep <- ll.null$wsize == wsize
+		lln <- as.vector(ll.null$ll[keep])
+
+		wt <- wilcox.test(lla,lln,alternative='g')
+		cat(wsize, '\t', wt$p.value, '\n')
+
+		title <- paste("Best LL(MSA) using", wsize ,"amino acids")
+		title <- ""
+
+		xlim <- c(5,20)
+		plot( density( lla ), col='red', main=title, xlab='', xlim=xlim )
+		lines( density( lln ), col='green' )
+	}
+}
+
+#-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
 
-pngSize <- 1024
+pngSize <- 1 * 1024
 if( savePng )	png(width=pngSize, height=pngSize)
 
 #---
@@ -303,18 +401,35 @@ if( fig3 ) {
 }
 
 #---
-# Figure 4
+# Other figures
 #---
-if( fig4 ) {
-	figure4()
+if( fig4 ) { figure4() }
+if( fig5 ) { figure5() }
+if( figS1 ) { figureS1() }
+
+if( figS3 ) { 
+	# Load data
+	if( !exists('ll.genegene.alt') ) {
+    	fileNull <- 'likelihoodGeneGeneMatrix.null.txt'
+    	fileAlt <- 'likelihoodGeneGeneMatrix.alt.txt'
+    	ll.genegene.alt <- read.table(fileAlt, sep="\t", header=TRUE)
+    	ll.genegene.null <- read.table(fileNull, sep="\t", header=TRUE)
+	}
+
+	figureS3( ll.genegene.alt, ll.genegene.null) 
 }
 
 #---
-# Figure 5
+# High definition plots
 #---
-if( fig5 ) {
-	figure5()
+if( savePng )	{
+	# Reopen PNG plot using higher definition
+	pngSize <- 5 * 1024
+	dev.off()
+	png(width=pngSize, height=pngSize)
 }
+
+if( figS2 ) { figureS2() }
 
 # Close graphics device
 if( savePng )	dev.off()
