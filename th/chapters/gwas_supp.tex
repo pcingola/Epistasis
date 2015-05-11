@@ -1,0 +1,43 @@
+%---
+\section{Supplementary material}
+%---
+
+\fig{gwas_Qhat_vs_PAM1}{gwas_Qhat_vs_PAM1}{14cm}{Comparison (relative error) between PAM1 and $\hat{P}(t)$ estimated from $\hat{Q}$
+}{Comparison (relative error) between PAM1 and $\hat{P}(t)$ estimated from $\hat{Q}$}
+
+\fig{gwas_Q2}{gwas_Q2}{14cm}{$\hat{Q}_2$ matrix structure}{$\hat{Q}_2$ matrix structure}
+
+\fig{gwas_genegene}{gwas_genegene}{14cm}{Distribution of $\ell_C(k)$ for interacting genes (red) and non-interacting genes (green) showing a small but statistically significant difference.}{Distribution of $\ell_C(k)$ for interacting genes and non-interacting genes}
+
+\fig{gwas_clinvar}{gwas_clinvar}{14cm}{Distribution of $\ell_C$ across different clinical categories from ClinVar database showing a clear separation on ``\textit{Benign}" variants}{Distribution of $\ell_C$ across different clinical categories from ClinVar database}
+
+\begin{table}[ht]
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline 
+Significance (CLNSIG)   &   Count  & $Mean[\ell_C]$  &  $Median[\ell_C]$ \\
+\hline 
+Benign (2)              &    272   &      34.1       &    26.2     \\
+Likely benign (3)       &    258   &      31.5       &    25.5     \\
+Likely pathogenic (4)   &    562   &      17.5       &    12.0     \\
+Pathogenic (5)          &   4206   &      16.9       &    11.7     \\
+Drug response (6)       &     18   &      32.6       &    22.1     \\
+Other (255)             &     10   &      20.0       &    11.3     \\
+\hline 
+\end{tabular}
+\caption{ClinVar categories have different distributions. Columns 3 and 4 show the mean and median $\ell_C$ values calculated for each variant using the best (highest) within protein $\ell_C$} 
+\label{tab:gwas_clinvar}
+\end{table}
+
+\begin{table}[ht]
+\begin{tabular}{|c|c|c|}
+\hline 
+Project      & $Mean[\ell_C]$  &  $Median[\ell_C]$ \\
+\hline 
+1000 Genomes &            23.2 &          14.8  \\
+HGMD         &            19.8 &          12.1  \\
+ClinVar      &            18.6 &          11.9  \\
+\hline 
+\end{tabular} 
+\caption{Overall distributions for 1000Genomes, HGMD and ClinVar. Columns 2 and 2 show the mean and median $\ell_C$ values calculated for each variant using the best (highest) within protein $\ell_C$. Values are calculated using a random sub-sample of all variants in each project.}
+\label{tab:gwas_1Kg}
+\end{table}

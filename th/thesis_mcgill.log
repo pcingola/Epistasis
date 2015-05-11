@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  11 MAY 2015 10:24
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  11 MAY 2015 10:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -338,7 +338,7 @@ LaTeX Warning: Unused global option(s):
 
 LaTeX Warning: Label `eq:gwasLogRegH1' multiply defined.
 
-) (./chapters/conclusions.aux))
+) (./chapters/gwas_supp.aux) (./chapters/conclusions.aux))
 \openout1 = `thesis_mcgill.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 75.
@@ -353,7 +353,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 75.
 LaTeX Font Info:    ... okay on input line 75.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 75.
 LaTeX Font Info:    ... okay on input line 75.
- ABD: EverySelectfont initializing macros
+
+ABD: EverySelectfont initializing macros
 LaTeX Info: Redefining \selectfont on input line 75.
 
 **************************************
@@ -1152,35 +1153,42 @@ Overfull \hbox (3.99701pt too wide) in paragraph at lines 360--362
 m-i-lar-i-ties with correlation-based meth-
  []
 
-[185] [186] [187] <figs/gwas_Qhat_vs_PAM1.png, id=658, 1027.84pt x 1027.84pt>
+[185] [186] [187]) [188]
+\openout2 = `chapters/gwas_supp.aux'.
+
+ (./chapters/gwas_supp.tex
+<figs/gwas_Qhat_vs_PAM1.png, id=661, 1027.84pt x 1027.84pt>
 File: figs/gwas_Qhat_vs_PAM1.png Graphic file (type png)
 
 <use figs/gwas_Qhat_vs_PAM1.png>
-Package pdftex.def Info: figs/gwas_Qhat_vs_PAM1.png used on input line 411.
+Package pdftex.def Info: figs/gwas_Qhat_vs_PAM1.png used on input line 6.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-<figs/gwas_Q2.png, id=659, 5139.2pt x 5139.2pt>
+<figs/gwas_Q2.png, id=662, 5139.2pt x 5139.2pt>
 File: figs/gwas_Q2.png Graphic file (type png)
  <use figs/gwas_Q2.png>
-Package pdftex.def Info: figs/gwas_Q2.png used on input line 413.
+Package pdftex.def Info: figs/gwas_Q2.png used on input line 8.
 (pdftex.def)             Requested size: 398.33858pt x 398.28389pt.
 
-<figs/gwas_genegene.png, id=660, 1027.84pt x 1027.84pt>
+<figs/gwas_genegene.png, id=663, 1027.84pt x 1027.84pt>
 File: figs/gwas_genegene.png Graphic file (type png)
 
 <use figs/gwas_genegene.png>
-Package pdftex.def Info: figs/gwas_genegene.png used on input line 415.
+Package pdftex.def Info: figs/gwas_genegene.png used on input line 10.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-<figs/gwas_clinvar.png, id=661, 1027.84pt x 1027.84pt>
+<figs/gwas_clinvar.png, id=664, 1027.84pt x 1027.84pt>
 File: figs/gwas_clinvar.png Graphic file (type png)
 
 <use figs/gwas_clinvar.png>
-Package pdftex.def Info: figs/gwas_clinvar.png used on input line 417.
+Package pdftex.def Info: figs/gwas_clinvar.png used on input line 12.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
-) [188] [189 <./figs/gwas_Qhat_vs_PAM1.png>]
-[190 <./figs/gwas_Q2.png>] [191 <./figs/gwas_genegene.png>] [192 <./figs/gwas_c
-linvar.png>] [193]
+) [189
+
+
+] [190 <./figs/gwas_Qhat_vs_PAM1.png>]
+[191 <./figs/gwas_Q2.png>] [192 <./figs/gwas_genegene.png>] [193 <./figs/gwas_c
+linvar.png>]
 \openout2 = `chapters/conclusions.aux'.
 
  (./chapters/conclusions.tex
@@ -1264,7 +1272,7 @@ F Voight,
 (./chapters/intro_variants.aux) (./chapters/intro_epistasis.aux)
 (./chapters/intro_coevolution.aux) (./chapters/intro_roadmap.aux)
 (./chapters/bds.aux) (./chapters/snpeff.aux) (./chapters/gwas.aux)
-(./chapters/conclusions.aux))
+(./chapters/gwas_supp.aux) (./chapters/conclusions.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -1356,6 +1364,7 @@ figs/gwas_figure_4_jmol.png
 figs/gwas_figure_4_tree_coevolution.png
 figs/gwas_13k_results_1.png
 figs/gwas_power.png
+chapters/gwas_supp.tex
 figs/gwas_Qhat_vs_PAM1.png
 figs/gwas_Q2.png
 figs/gwas_genegene.png
@@ -1369,10 +1378,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6930 strings out of 493315
- 105443 string characters out of 6137904
- 211326 words of memory out of 5000000
- 10168 multiletter control sequences out of 15000+600000
+ 6939 strings out of 493315
+ 105628 string characters out of 6137904
+ 211789 words of memory out of 5000000
+ 10170 multiletter control sequences out of 15000+600000
  10333 words of font info for 40 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,44p,2605b,1079s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1390,7 +1399,7 @@ ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (229 pages, 6567791 bytes).
+Output written on thesis_mcgill.pdf (229 pages, 6567847 bytes).
 PDF statistics:
  843 PDF objects out of 1000 (max. 8388607)
  551 compressed objects within 6 object streams

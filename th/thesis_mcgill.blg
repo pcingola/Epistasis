@@ -9,6 +9,7 @@ A level-1 auxiliary file: chapters/intro_roadmap.aux
 A level-1 auxiliary file: chapters/bds.aux
 A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
+A level-1 auxiliary file: chapters/gwas_supp.aux
 A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
 Reallocated field_info (elt_size=4) to 10842 items from 5000.
@@ -132,7 +133,7 @@ Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
 You've used 254 entries,
             2118 wiz_defined-function locations,
-            1807 strings with 59312 characters,
+            1808 strings with 59334 characters,
 and the built_in function-call counts, 107760 in all, are:
 = -- 10126
 > -- 7389
