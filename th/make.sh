@@ -4,10 +4,16 @@
 ( pdflatex thesis_mcgill ; bibtex thesis_mcgill) 2>&1 | tee make.out
 
 echo
+echo "================================================================================"
+echo " Citations"
+echo "================================================================================"
+grep Citation make.out || true
+
 echo
-echo
-grep Citation make.out
-grep Reference make.out
+echo "================================================================================"
+echo " References"
+echo "================================================================================"
+grep Reference make.out || true
 
 open *.pdf
 

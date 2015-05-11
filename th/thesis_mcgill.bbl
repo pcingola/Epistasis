@@ -6,6 +6,12 @@ Marit Ackermann and Andreas Beyer.
   frequencies.
 \newblock {\em PLoS genetics}, 8(2):e1002463, 2012.
 
+\bibitem{akey2009constructing}
+Joshua~M Akey.
+\newblock Constructing genomic maps of positive selection in humans: Where do
+  we go from here?
+\newblock {\em Genome research}, 19(5):711--722, 2009.
+
 \bibitem{balding2006tutorial}
 D.J. Balding.
 \newblock A tutorial on statistical methods for population association studies.
@@ -144,6 +150,12 @@ David Haussler, Stephen~J O'Brien, Oliver~A Ryder, F~Keith Barker, Michele
   vertebrate species.
 \newblock {\em Journal of Heredity}, 100(6):659--674, 2009.
 
+\bibitem{hernandez2011classic}
+Ryan~D Hernandez, Joanna~L Kelley, Eyal Elyashiv, S~Cord Melton, Adam Auton,
+  Gilean McVean, Guy Sella, Molly Przeworski, et~al.
+\newblock Classic selective sweeps were rare in recent human evolution.
+\newblock {\em science}, 331(6019):920--924, 2011.
+
 \bibitem{hunter1991pi}
 Christopher~A Hunter, Juswinder Singh, and Janet~M Thornton.
 \newblock $\pi$-$\pi$ interactions: The geometry and energetics of
@@ -265,6 +277,13 @@ Florencio Pazos, Manuela Helmer-Citterich, Gabriele Ausiello, and Alfonso
 \newblock Correlated mutations contain information about protein-protein
   interaction.
 \newblock {\em Journal of molecular biology}, 271(4):511--523, 1997.
+
+\bibitem{petkov2005evidence}
+Petko~M Petkov, Joel~H Graber, Gary~A Churchill, Keith DiPetrillo, Benjamin~L
+  King, and Kenneth Paigen.
+\newblock Evidence of a large-scale functional organization of mammalian
+  chromosomes.
+\newblock {\em PLoS genetics}, 1(3):e33, 2005.
 
 \bibitem{phillips2008epistasis}
 Patrick~C Phillips.
