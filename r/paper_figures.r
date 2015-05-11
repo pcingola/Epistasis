@@ -1,9 +1,10 @@
 
-savePng <- T
+savePng <- F
 
-fig2 <- T
-fig3 <- T
-fig4 <- T
+fig2 <- F
+fig3 <- F
+fig4 <- F
+fig5 <- F
 
 #-------------------------------------------------------------------------------
 # Compare two distributions
@@ -135,6 +136,107 @@ figure4 <- function() {
 	abline( v=mean(l), col='blue', lty=2, lwd=2);
 }
 
+
+
+#-------------------------------------------------------------------------------
+# Figure 5: Power analysis figures
+#-------------------------------------------------------------------------------
+
+figure5 <- function() {
+
+	# Big plot size
+	#plotSize <- 1 * 1024
+	#if( savePlot ) { png( width=plotSize, height=plotSize ) }
+
+	if( ! exists('pow') ) {
+		#pow <- read.table('logisticRegressionPowerGT_parseResults_CoEvolution.txt', sep="\t", header=TRUE)
+		pow <- read.table('logisticRegressionPowerGT_parseResults.txt', sep="\t", header=TRUE)
+	}
+
+	afs <- c(0.01, 0.05, 0.10)
+
+	af1s <- unique(pow$af1)
+	af1s <- afs
+
+	af2s <- unique(pow$af2)
+	#af2s <- afs
+
+	betas3 <- unique(pow$beta3)
+	samplesK.all <- 2 * unique(pow$n) / 1000
+
+	par( mfrow=c(3,3) )
+
+	for( af1 in af1s ) {
+		for( af2 in af2s ) {
+			first <- T
+			col <- 1
+			pch <- 15
+			cols <- c()
+			pchs <- c()
+			b3s <- c()
+
+			cat('af1:', af1, '\taf2:', af2, '\n')
+			for( beta3 in betas3 ) {
+				cat('\tbeta3:', beta3, '\n')
+
+				keep <- (pow$af1 == af1) & (pow$af2 == af2) & (pow$beta3 == beta3) 
+				pk <- pow[keep,]
+
+				samplesK <- 2 * pk$n / 1000
+				perc <- pk$perc
+
+				# Remove last item if it is 100% power
+				while((length(perc) > 2) && (perc[ length(perc) ] == 100) && (perc[ length(perc) - 1 ] == 100)) {
+					n1 <- length(perc) - 1
+					perc <- perc[1:n1]
+					samplesK <- samplesK[1:n1]
+				}
+
+				# Anything to plot?
+				if( length(perc) > 2 ) {
+					# Add point at zero
+					samplesK <- c(0, samplesK)
+					perc <- c(0, perc)
+					nonzero <- (perc > 0)
+				
+					if( first ) {
+						title <- paste('Power    AF_1:', af1, '    AF_2:', af2)
+						title <- paste('AF1:', af1, '    AF2:', af2)
+
+						xlab <- 'Sample size [in thousands]'
+						xlab <- ''
+
+						ylab <- 'Power %'
+						ylab <- ''
+
+						plot( samplesK, perc, ylim=c(0,100), xlab=xlab, ylab=ylab, main=title, pch=pch, col=col, type='l')
+						points( samplesK[nonzero], perc[nonzero], pch=pch, col=col)
+						first <- F
+					} else {
+						points( samplesK[nonzero], perc[nonzero], pch=pch, col=col, cex=0.7)
+						lines( samplesK, perc, pch=pch, col=col)
+					}
+				
+					cols <- c(cols, col)
+					pchs <- c(pchs, pch)
+					b3s <- c(b3s, beta3)
+				} else {
+					cat('\t\tSkipped: Not enough points\n')
+				}
+
+				col <- col + 1
+				if( col > 8 ) {
+					col <- 1
+					pch <- pch + 1
+				}
+			}
+
+			# Show logend
+			legend('bottomright', legend=paste('',b3s), pch=pchs, col=cols )
+		}
+	}
+}
+
 #-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
@@ -205,6 +307,13 @@ if( fig3 ) {
 #---
 if( fig4 ) {
 	figure4()
+}
+
+#---
+# Figure 5
+#---
+if( fig5 ) {
+	figure5()
 }
 
 # Close graphics device
