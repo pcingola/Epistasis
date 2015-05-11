@@ -113,9 +113,10 @@
 \contentsline {paragraph}{Results.}{178}
 \contentsline {paragraph}{Associations are purely epistatic.}{178}
 \contentsline {subsection}{\numberline {4.5.4}Power analysis}{179}
+\contentsline {paragraph}{Power increase.}{182}
 \contentsline {section}{\numberline {4.6}Discussion}{182}
 \contentsline {paragraph}{Comparison to other Co-Evolutionary methods.}{184}
-\contentsline {paragraph}{Comparison to other Episgenetic GWAS methods.}{186}
+\contentsline {paragraph}{Comparison to other Epigenetic GWAS methods.}{186}
 \contentsline {paragraph}{Future work.}{188}
 \contentsline {section}{\numberline {4.7}Supplementary material}{189}
 \contentsline {chapter}{\numberline {5}Conclusions }{194}
