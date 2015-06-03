@@ -6,13 +6,7 @@ A level-1 auxiliary file: chapters/intro_variants.aux
 A level-1 auxiliary file: chapters/intro_epistasis.aux
 A level-1 auxiliary file: chapters/intro_coevolution.aux
 A level-1 auxiliary file: chapters/intro_roadmap.aux
-A level-1 auxiliary file: chapters/bds.aux
-A level-1 auxiliary file: chapters/snpeff.aux
-A level-1 auxiliary file: chapters/gwas.aux
-A level-1 auxiliary file: chapters/gwas_supp.aux
-A level-1 auxiliary file: chapters/conclusions.aux
 The style file: plain.bst
-Reallocated field_info (elt_size=4) to 10842 items from 5000.
 Database file #1: mcgilletd.bib
 Repeated entry---line 793 of file mcgilletd.bib
  : @article{langmead2009ultrafast
@@ -98,10 +92,6 @@ Repeated entry---line 2962 of file mcgilletd.bib
  : @article{davydov2010identifying
  :                                ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 3364 of file mcgilletd.bib
- : @article{jones1998gabab
- :                        ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 3534 of file mcgilletd.bib
  : @book{cormen2001introduction
  :                             ,
@@ -109,10 +99,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 3631 of file mcgilletd.bib
  : @article{brenner1965genetic
  :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3829 of file mcgilletd.bib
- : @article{koo2013review
- :                       ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3951 of file mcgilletd.bib
  : @article{clark2011performance
@@ -122,54 +108,49 @@ Repeated entry---line 4310 of file mcgilletd.bib
  : @article{kuhn1995application
  :                             ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 4447 of file mcgilletd.bib
- : @article{morris2012large
- :                         ,
-I'm skipping whatever remains of this entry
-Warning--empty journal in begun1992levels
 Warning--empty journal in brenner1965genetic
 Warning--empty publisher in darwin1877various
 Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
-You've used 254 entries,
+You've used 186 entries,
             2118 wiz_defined-function locations,
-            1808 strings with 59334 characters,
-and the built_in function-call counts, 107760 in all, are:
-= -- 10126
-> -- 7389
-< -- 13
-+ -- 2966
-- -- 2662
-* -- 9534
-:= -- 18620
-add.period$ -- 764
-call.type$ -- 254
-change.case$ -- 2023
+            1456 strings with 44040 characters,
+and the built_in function-call counts, 79067 in all, are:
+= -- 7422
+> -- 5436
+< -- 9
++ -- 2179
+- -- 1958
+* -- 6983
+:= -- 13655
+add.period$ -- 559
+call.type$ -- 186
+change.case$ -- 1487
 chr.to.int$ -- 0
-cite$ -- 259
-duplicate$ -- 2896
-empty$ -- 6670
-format.name$ -- 2662
-if$ -- 21042
+cite$ -- 190
+duplicate$ -- 2131
+empty$ -- 4882
+format.name$ -- 1958
+if$ -- 15449
 int.to.chr$ -- 0
-int.to.str$ -- 254
-missing$ -- 263
-newline$ -- 1273
-num.names$ -- 508
-pop$ -- 1660
+int.to.str$ -- 186
+missing$ -- 193
+newline$ -- 933
+num.names$ -- 372
+pop$ -- 1232
 preamble$ -- 1
-purify$ -- 1779
+purify$ -- 1309
 quote$ -- 0
-skip$ -- 2015
+skip$ -- 1490
 stack$ -- 0
-substring$ -- 6798
-swap$ -- 361
-text.length$ -- 13
+substring$ -- 4962
+swap$ -- 275
+text.length$ -- 9
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 996
-warning$ -- 5
-while$ -- 927
-width$ -- 257
-write$ -- 2770
-(There were 28 error messages)
+type$ -- 728
+warning$ -- 4
+while$ -- 675
+width$ -- 189
+write$ -- 2025
+(There were 25 error messages)
