@@ -250,66 +250,120 @@ In Chapter \ref{ch:snpeff} we introduce SnpEff \cite{cingolani2012program} \& Sn
 %---
 
 A genome wide association study aims at identifying genetic variants associated to a particular phenotype. 
-First, the genomes (or exome, depending on the study design) of affected individuals (cases) and healthy individuals (controls) need to be sequenced, variants called, and annotated. Then, the goal is to find variants that exhibit some statistical association with the trait or phenotype of interest, which could be a disease status (e.g. diabetic vs healthy), a biomedical measurement (e.g. cholesterol level), or any measurable characteristic (e.g. height). Since the genome is so large, patterns of mutations that suggest correlation may be encountered by chance, so we need to establish statistical significance in order to distinguish true association from spurious ones. Like most studies, we will focus our discussion on SNVs, but most methods can be extended to other genomic variants.
+First, the genomes (or exome, depending on the study design) of affected individuals (cases) and healthy individuals (controls) need to be sequenced, variants called, and annotated. 
+Then, the goal is to find variants that exhibit some statistical association with the trait or phenotype of interest, which could be a disease status (e.g. diabetic vs healthy), a biomedical measurement (e.g. cholesterol level), or any measurable characteristic (e.g. height). 
+Since the genome is so large, patterns of mutations that suggest correlation may be encountered by chance, so we need to establish statistical significance in order to distinguish true associations from spurious ones. 
+Like most studies, we will focus our discussion on SNVs, but most methods can be extended to other genomic variants.
 
 \subsection{Single variant tests and models \label{sec:single}}
 
-Consider a simple situation where there is only one variant in the whole genome for the cohort we are analysing. Since each individual has two sets of chromosomes, the variant can be present in one, both, or neither chromosomes, so the number of times a non-reference allele is present in an individual, is $ N_{nr} = \{0, 1,2\}$.
+Consider a simple situation where there is only one variant in the whole genome for the cohort we are analysing. 
+Since each individual has two sets of chromosomes, the variant can be present in one, both, or neither chromosomes, so the number of times a non-reference allele is present in an individual, is $ N_{nr} = \{0, 1,2\}$.
 
 When the trait of interest is binary (e.g healthy vs disease), a cohort can be divided into cases and controls and we can build a 3 by 2 contingency table:
 
 \[
 \begin{array}{l|c|c|c|}
-	& Homozygous Reference & Heterozygous & Homozygous non-reference\\
+	& \mbox{Homozygous Reference} & \mbox{Heterozygous} & \mbox{Homozygous non-reference}\\
 	& (N_{variant} = 0) & (N_{nr} = 1) & (N_{nr} = 2) \\
     \hline 
-    Cases & N_{ca,ref} & N_{ca,het} & N_{ca,hom} \\ 
+    \mbox{Cases} & N_{ca,ref} & N_{ca,het} & N_{ca,hom} \\ 
     \hline 
-    Controls & N_{co,ref} & N_{co,het} & N_{co,hom} \\
+    \mbox{Controls} & N_{co,ref} & N_{co,het} & N_{co,hom} \\
     \hline 
 \end{array} 
 \]
 
-Further assumptions about how many variants are required to increase disease risk can reduce this $3 \times 2$ table to a $2 \times 2$ table. In the ``dominant model'', the effect of a mutated gene dominates over the healthy one, so one variant is enough to increase risk. The opposite, called ``recessive model", is when both chromosomes have to be mutated in order to increase risk \cite{balding2006tutorial, clarke2011basic}. In these models, we can count how many cases and controls have at least one variant (dominant model) or two variants (recessive model). This simplifies the previous table, yielding a $2 \times 2$ contingency table, than can be tested using either a $\chi^2$ test or a Fisher exact test \cite{balding2006tutorial}.
+Further assumptions about how many alleles are required to increase disease risk can reduce this $3 \times 2$ table to a $2 \times 2$ table. 
+In the ``dominant model'', the effect of a mutated gene dominates over the healthy one, so one variant is enough to increase risk. 
+The opposite, called ``recessive model", is when both chromosomes have to be mutated in order to increase risk \cite{balding2006tutorial, clarke2011basic}. 
+In these models, we can count how many cases and controls have at least one variant (dominant model) or two variants (recessive model). 
+This simplifies the previous table, yielding a $2 \times 2$ contingency table, than can be tested using either a $\chi^2$ test or a Fisher exact test \cite{balding2006tutorial}.
 
-Two other commonly used models, are the ``multiplicative" and the ``additive" models \cite{balding2006tutorial,clarke2011basic}. In these models, a disease risk is assumed to be multiplied (or increased) by a factor $\gamma$ with every variant present. We cannot simplify the contingency table, so we assess significance using a Cochran-Armitrage test \cite{clarke2011basic}.
+Two other commonly used models are the ``multiplicative" and the ``additive" models \cite{balding2006tutorial,clarke2011basic}. 
+In these models, a disease risk is assumed to be multiplied (or increased) by a factor $\gamma$ with every variant present. 
+In this case we cannot simplify the contingency table, so we assess significance using a Cochran-Armitrage test \cite{clarke2011basic}.
 
 \subsection{Multiple variant tests}
 
-In a real case scenario there are thousands or millions of variants in a typical resequencing or genotyping study. We can extend the concept shown in the previous section by performing individual tests for each variant present in the cohort. Multiple testing can be addressed either by performing a correction, such as False Discovery Rate \cite{balding2006tutorial, clarke2011basic}, or using a stricter genome wide significance level. There are $3 \times 10^9$ bases in the genome, but taking into account the correlation between nearby variants (linkage disequilibrium), the genome wide significance level is generally accepted to be $p_{value} \leq 10^{-8}$.
+In a real case scenario there are thousands or millions of variants in a typical resequencing or genotyping study. 
+We can extend the concept shown in the previous section by performing individual tests for each variant present in the cohort. 
+Multiple testing can be addressed either by performing a correction, such as False Discovery Rate \cite{balding2006tutorial, clarke2011basic}, or using a stricter genome wide significance level. 
+There are $\sim 3 \times 10^9$ bases in the genome, but taking into account the correlation between nearby variants (linkage disequilibrium), the genome wide significance level is generally accepted to be $p_{value} \leq 10^{-8}$.
 
-In order to check if the null hypothesis of a significance tests is adequate, a QQ-plot is used \cite{clarke2011basic} (i.e. plotting the $y = -log(p_{value})$ vs $x = -log[ rank(p_{value}) / (N+1) ]$, where $N$ is the total number of variants). Adherence of the p-values to a 45 degree line on most of the range implies few systematic sources of association \cite{balding2006tutorial, clarke2011basic}. If the p-values have a higher slope than the $y=x$ line, there might be ``inflation", possibly due to co-factors, such as population structure (see section \ref{sec:popStruct}). If the inflation is not too high (e.g. less than $5\%$), this bias can be corrected by shifting the p-values towards the 45 degree slope. More sophisticated methods are explained in section \ref{sec:popStruct}.
+In order to check if the null hypothesis of a significance tests is adequate, a QQ-plot is used \cite{clarke2011basic} (i.e. plotting the $y = -log(p_{value})$ vs $x = -log[ rank(p_{value}) / (N+1) ]$, where $N$ is the total number of variants). 
+Adherence of the p-values to a $y=x$ line on most of the range implies few systematic sources of association \cite{balding2006tutorial, clarke2011basic}. 
+If the p-values have a higher slope than the $y=x$ line, there might be ``inflation", possibly due to co-factors, such as population structure (see section \ref{sec:popStruct}). 
+If the inflation is not too high (e.g. less than $5\%$), this bias can be corrected by shifting the p-values towards the 45 degree line. 
+More sophisticated methods are explained in section \ref{sec:popStruct}.
 
 \subsection{Continuous traits and correcting for co-factors \label{sec:cofactors}}
 
-The methods described so far are suitable for binary ``traits" or ``phenotypes". Statistical methods that link genetic information to traits can also be used for continuous or ``quantitative" traits (such as weight, height and measurements of cholesterol level). A linear regression can be used assuming the traits are approximately normally distributed \cite{balding2006tutorial, clarke2011basic}. A significance test ($p_{value}$) for linear models can be calculated using an $F$ statistic, but more sophisticated methods are also available \cite{balding2006tutorial, clarke2011basic}.
+The methods described so far are suitable for binary ``traits" or ``phenotypes". 
+Statistical methods that link genetic information to traits can also be used for continuous or ``quantitative" traits (such as weight, height and measurements of cholesterol level). 
+A linear regression can be used assuming the traits are approximately normally distributed \cite{balding2006tutorial, clarke2011basic}. 
+A significance test ($p_{value}$) for linear models can be calculated using an $F$ statistic, but more sophisticated methods are also available \cite{balding2006tutorial, clarke2011basic}.
 
-Using linear models, it is easy to include known co-factors to correct for biases. For instance, if it is known that a risk increases with age or that males are more susceptible than females, age and sex can be added to the linear equation in order to correct for these effects \cite{balding2006tutorial,clarke2011basic}. In a similar manner, we can add co-factors to binary traits using logistic regression.
+Using linear models, it is easy to include known co-factors to correct for biases. 
+For instance, if it is known that a phenotype increases with age or that males are more susceptible than females, age and sex can be added to the linear equation in order to correct for these effects \cite{balding2006tutorial,clarke2011basic}. 
+In a similar manner, we can add co-factors to binary traits using logistic regression.
 
 \subsection{Population structure \label{sec:popStruct}}
 
-It is widely accepted that humans started in Africa and migrated to Europe, then to Asia and later to America \cite{hartl1997principles}. Out of an initial population, a few individuals migrate and colonize a new territory. This implies that the genetic variety of the new colony is significantly reduced, compared to the previous population, since the genetic pool is only a small ``founder population". The ``Out of Africa" hypothesis implies that each new migration produced a reduction in genetic variety, also known as a ``population bottleneck'' \cite{hartl1997principles}.
+It is widely accepted that humans started in Africa and migrated to Europe, then to Asia and later to America \cite{hartl1997principles}. 
+Out of an initial population, a few individuals migrate and colonize a new territory. 
+This implies that the genetic variety of the new colony is significantly reduced, compared to the previous population, since the genetic pool is only a small ``founder population". 
+The ``Out of Africa" hypothesis implies that each new migration produced a reduction in genetic variety, also known as a ``population bottleneck'' \cite{hartl1997principles}.
 
-As we previously mentioned, each individual inherits two chromosome sets, a maternal and a paternal one. Through recombination a chromosome is formed by a crossover combining maternal and paternal chromosomes and then passed down, thus the offspring has two sets of chromosomes, one from each parent. This breaking and shuffling of chromosomes every generation, increases genetic diversity. Nevertheless if variants are located nearby in the chromosome, the chances that they are separated by recombination event are smaller than if they are further away from each other. This produces a correlation of close variants or ``linkage disequilibrium" (LD). Nearby highly correlated variants are said to be in the same ``LD-block" \cite{hartl1997principles}. If a population has low genetic variety, the LD-blocks are large. So African population has more variety (smaller LD-blocks) and conversely, European, Asian and Amerindian populations have less variety (larger LD-blocks) \cite{hartl1997principles}.
+As we previously mentioned, each individual inherits two chromosome sets, a maternal and a paternal one. 
+Through recombination a chromosome is formed by a crossover combining maternal and paternal chromosomes and then passed down, thus the offspring has two sets of chromosomes, one from each parent. 
+This breaking and shuffling of chromosomes every generation, increases genetic diversity. Nevertheless if variants are located nearby in the chromosome, the chances that they are separated by recombination event are smaller than if they are further away from each other. 
+This produces a correlation of close variants or ``linkage disequilibrium" (LD). 
+Nearby highly correlated variants are said to be in the same ``LD-block" \cite{hartl1997principles}. 
+If a population has low genetic variety, the LD-blocks are large. 
+So the African population has more diversity (smaller LD-blocks) and conversely, European, Asian and Amerindian populations have less diversity (larger LD-blocks) \cite{hartl1997principles}.
 
 \subsection{Population structure as confounding variable }
 
-Imagine that we have a cohort of individuals drawn from two populations ($P_A$ and $P_B$) and that individuals in $P_A$ have much higher risk of diabetes than individuals from $P_B$. Now imagine that individuals from $P_A$ have a variant $v_A$ more often, but $v_A$ is actually neutral and has no health effects whatsoever. If we do not take population factors into account , our study would conclude that $v_A$ is associated with increased susceptibility to diabetes, just because we see $v_A$ more often in affected individuals. In this case it is clear that population structure is a confounding variable. We could avoid this problem by analyzing each population separately \cite{patterson2006population}, but this would cause a loss of statistical power since we have fewer samples.
+Imagine that we have a cohort of individuals drawn from two populations ($P_A$ and $P_B$) and that individuals in $P_A$ have much higher risk of diabetes than individuals from $P_B$. 
+Now imagine that individuals from $P_A$ have a variant $v_A$ more often, but $v_A$ is actually neutral and has no health effects whatsoever. 
+If we do not take population factors into account our study would conclude that $v_A$ is associated with increased susceptibility to diabetes, just because we see $v_A$ more often in affected individuals. 
+In this case it is clear that population structure is a confounding variable. 
+We could avoid this problem by analyzing each population separately \cite{patterson2006population}, but this would cause a loss of statistical power since we would have fewer samples.
 
-A population that is a mixture of two or more populations is known as an ``admixed population''. For instance the African-American population is a mixture of, roughly, $80\%$ African and $20\%$ European genomes \cite{hartl1997principles,balding2006tutorial}. In the case that structure is confounding an analysis of an admixed population, such as an African-American cohort, it is not possible to perform a separate analysis of each sub-population simply because each individual in the sample genetic background from both populations \cite{hartl1997principles}.
+A population that is a mixture of two or more populations is known as an ``admixed population''. 
+For instance the African-American population is a mixture of, roughly, $80\%$ African and $20\%$ European genomes \cite{hartl1997principles,balding2006tutorial}. 
+In the case that structure is confounding an analysis of an admixed population, such as an African-American cohort, it is not possible to perform a separate analysis of each sub-population simply because each individual in the sample genetic background from both populations \cite{hartl1997principles}.
 
-The admixed population problem can be studied by performing a correction using the eigen-structure of the sample covariance matrix \cite{patterson2006population}. Samples can be arranged as a matrix $C$ where each row is a sample and each column represents a position in the genome where there is a variant. The numbers $C_{i,j}$ in the matrix indicate the number of non-reference alleles in a sample (row) at a genomic position (column $j$). Since the allele can be present in zero, one, or two chromosomes in each individual, the possible values for $C_{i,j}$ are $\{0, 1, 2\}$. The covariance matrix is calculated as $M= \hat{C}^T . \hat{C}$, where $\hat{C}$ is the matrix $C$ corrected to have zero mean columns. Usually, the first two to ten principal components of $M$ are used as factors in linear models (see section \ref{sec:cofactors}) to correct for population structure \cite{patterson2006population}.
+The admixed population problem can be studied by performing a correction using the eigen-structure of the sample covariance matrix \cite{patterson2006population}. 
+Samples can be arranged as a matrix $C$ where each row is a sample and each column represents a position in the genome where there is a variant. The numbers $C_{i,j}$ in the matrix indicate the number of non-reference alleles in a sample (row $i$) at a genomic position (column $j$). 
+Since the allele can be present in zero, one, or two chromosomes in each individual, the possible values for $C_{i,j}$ are $\{0, 1, 2\}$. 
+The covariance matrix is calculated as $M= \hat{C}^T . \hat{C}$, where $\hat{C}$ is the matrix $C$ corrected to have zero mean columns. 
+Usually, the first two to ten principal components of $M$ are used as factors in linear models (see section \ref{sec:cofactors}) to correct for population structure \cite{patterson2006population}.
 
-Whether a cohort has any population structure and needs correction or not can be tested using two methods: a) plotting the projections of the first two principal components and empirically observing the number of clusters in the chart, or b) using a statistic of the eigenvalues of $M$ based on Tracy-Widom's distribution \cite{patterson2006population}.
+Whether a cohort has any population structure and needs correction or not can be tested using two methods: 
+a) plotting the projections of the first two principal components and empirically observing the number of clusters in the chart, or 
+b) using a statistic of the eigenvalues of $M$ based on Tracy-Widom's distribution \cite{patterson2006population}.
 
 \subsection{Common and Rare variants\label{sec:comonrare}}
 
-The ``allele frequency" (AF) is defined as the frequency a variant appears in a population. Variants are usually categorized according to AF into three groups: i) Common variants ($AF \geq 5\%$), ``low frequency" ($1\% < AF < 5\%$), and iii) ``rare variants" ($AF < 1\%$). Common variants originated earlier in the population while rare variants are either relatively recent or selected against.
+The ``allele frequency" (AF) is defined as the frequency a variant appears in a population. 
+Variants are usually categorized according to AF into three groups: Common variants ($AF \geq 5\%$), ``low frequency" ($1\% < AF < 5\%$), and ``rare variants" ($AF < 1\%$). 
+Common variants originated earlier in the population while rare variants are either relatively recent or selected against.
 
-There are three main models for disease susceptibility  \cite{hartl1997principles, gibson2012rare}:i) the Common-Disease-Common-Variant hypothesis (CDCV) assumes that if disease is common, it must be caused by a common variant; ii) the ``infinitesimal hypothesis" proposes that there are many common variants each having small risk effects; and iii) the Common-Disease-Rare-Variant hypothesis proposes that there exists many rare variants, each one having large risk effects.
+There are three main models for disease susceptibility  \cite{hartl1997principles, gibson2012rare}:
+i) the Common-Disease-Common-Variant hypothesis (CDCV) assumes that if disease is common, it must be caused by a common variant; 
+ii) the ``infinitesimal hypothesis" proposes that there are many common variants each having a small effect on risk; and 
+iii) the Common-Disease-Rare-Variant hypothesis proposes that there exists many rare variants, each one having large risk effects.
 
 \subsection{Rare variants test}
 
-The ``rare variant model'' assumes that multiple rare variants have large effects on a trait. The problem is that, since these variants are rare, huge sample sizes are required for tests to identify statistically significant associations. To overcome this problem, methods known as ``burden tests" collapse groups of rare variants that are hypothesised to have  similar effect on gene or protein activity and perform statistical significance tests on the group \cite{li2008methods}. An example of collapsing technique is to count the number or rare variant in a genomic region surrounding an exon or a gene and apply a Fisher exact test, as shown in section \ref{sec:single}. A limitation of some burden tests is that they implicitly assume that all rare variants have the same direction of effect, although in reality they might have no effect, be deleterious, or protective \cite{li2008methods,wu2011rare}.
+The ``rare variant model'' assumes that multiple rare variants have large effects on a trait. 
+The problem is that, since these variants are rare, huge sample sizes are required for tests to identify statistically significant associations. 
+To overcome this problem, methods known as ``burden tests" collapse groups of rare variants that are hypothesised to have  similar effect on gene or protein activity and perform statistical significance tests on the group \cite{li2008methods}. 
+An example of collapsing technique is to count the number of rare variants in the genomic region surrounding an exon or a gene and apply a Fisher exact test, as shown in section \ref{sec:single}. 
+A limitation of some burden tests is that they implicitly assume that all rare variants have the same direction of effect, although in reality they might have no effect, be deleterious, or protective \cite{li2008methods,wu2011rare}.
 
-Several techniques allow weighting rare variants by collapsing them using a kernel matrix. This allows to incorporate other information, such as allele frequency and functional annotations. It can be shown that the statistic induced by kernel weighting functions follows a mixture of $\chi^2$ distributions and there is an efficient way to approximate it \cite{li2008methods,wu2011rare}, avoiding computationally expensive permutations tests.
+Several techniques allow weighting rare variants by collapsing them using a kernel matrix. 
+This allows to incorporate other information, such as allele frequency and functional annotations. 
+It can be shown that the statistic induced by kernel weighting functions follows a mixture of $\chi^2$ distributions and there is an efficient way to approximate it \cite{li2008methods,wu2011rare}, avoiding computationally expensive permutations tests.
