@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 JUN 2015 14:31
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 JUN 2015 16:30
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -547,11 +547,11 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 [51] [52] [53] [54] [55] [56] [57] [58] [59] [60] [61] [62] [63] [64] [65]
 [66] [67] [68]
 
-LaTeX Warning: Reference `ch:gwas' on page 69 undefined on input line 286.
+LaTeX Warning: Reference `ch:gwas' on page 69 undefined on input line 303.
 
 [69]
 
-LaTeX Warning: Reference `ch:gwas' on page 70 undefined on input line 293.
+LaTeX Warning: Reference `ch:gwas' on page 70 undefined on input line 320.
 
 ) [70]
 \openout2 = `chapters/intro_coevolution.aux'.
@@ -824,7 +824,7 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  6482 strings out of 493315
  96917 string characters out of 6137904
- 187776 words of memory out of 5000000
+ 186776 words of memory out of 5000000
  9786 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
@@ -839,7 +839,7 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (115 pages, 355251 bytes).
+Output written on thesis_mcgill.pdf (115 pages, 355300 bytes).
 PDF statistics:
  416 PDF objects out of 1000 (max. 8388607)
  286 compressed objects within 3 object streams
