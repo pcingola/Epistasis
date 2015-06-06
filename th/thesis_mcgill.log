@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 JUN 2015 16:30
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  6 JUN 2015 11:33
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -574,14 +574,8 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no  in font cmr12!
  [73] [74] [75] [76] [77]
 [78] [79] [80]
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
@@ -595,7 +589,6 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
- [86]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
@@ -608,19 +601,19 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
- [87]) [88] [89]
+ [86] [87]) [88]
 \openout2 = `chapters/intro_roadmap.aux'.
 
 
 (./chapters/intro_roadmap.tex
 
-LaTeX Warning: Reference `ch:bds' on page 90 undefined on input line 5.
+LaTeX Warning: Reference `ch:bds' on page 89 undefined on input line 5.
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 90 undefined on input line 5.
+LaTeX Warning: Reference `ch:snpeff' on page 89 undefined on input line 5.
 
 
-LaTeX Warning: Reference `ch:gwas' on page 90 undefined on input line 5.
+LaTeX Warning: Reference `ch:gwas' on page 89 undefined on input line 5.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 7--9
@@ -628,7 +621,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 7--9
  []
 
 
-LaTeX Warning: Reference `ch:bds' on page 90 undefined on input line 12.
+LaTeX Warning: Reference `ch:bds' on page 89 undefined on input line 12.
 
 
 Underfull \hbox (badness 10000) in paragraph at lines 18--20
@@ -636,9 +629,9 @@ Underfull \hbox (badness 10000) in paragraph at lines 18--20
  []
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 90 undefined on input line 21.
+LaTeX Warning: Reference `ch:snpeff' on page 89 undefined on input line 21.
 
-[90
+[89
 
 
 ]
@@ -656,13 +649,13 @@ Underfull \hbox (badness 10000) in paragraph at lines 44--45
 
  []
 
-[91]
+[90]
 Underfull \hbox (badness 10000) in paragraph at lines 53--54
 
  []
 
 
-LaTeX Warning: Reference `ch:gwas' on page 92 undefined on input line 55.
+LaTeX Warning: Reference `ch:gwas' on page 91 undefined on input line 55.
 
 
 Overfull \hbox (2.195pt too wide) in paragraph at lines 58--59
@@ -685,37 +678,37 @@ Underfull \hbox (badness 10000) in paragraph at lines 64--67
 
  []
 
-[92]
+[91]
 Underfull \hbox (badness 10000) in paragraph at lines 77--78
 
  []
 
-[93]
+[92]
 Missing character: There is no Î in font cmr12!
 Missing character: There is no ± in font cmr12!
- [94]
+ [93]
 Underfull \hbox (badness 10000) in paragraph at lines 89--90
 
  []
 
-) [95] (./thesis_mcgill.bbl [96
+) [94] (./thesis_mcgill.bbl [95
 
 
 
-] [97]
+] [96]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ˜ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [98] [99]
+ [97] [98]
 Underfull \hbox (badness 1728) in paragraph at lines 286--289
 []\OT1/cmr/m/n/12 Robert Cul-ver-house, Tsvika Klein, and William Shan-non.  De
 -tect-ing
  []
 
-[100] [101]
+[99] [100]
 Missing character: There is no Ð in font cmr12!
 Missing character: There is no   in font cmr12!
 Missing character: There is no Ð in font cmr12!
@@ -740,16 +733,16 @@ Missing character: There is no Ð in font cmr12!
 Missing character: There is no ¸ in font cmr12!
 Missing character: There is no Ð in font cmr12!
 Missing character: There is no º in font cmr12!
- [102] [103] [104] [105] [106] [107]
+ [101] [102] [103] [104] [105] [106]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
- [108]
+ [107]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [109] [110] [111]
-[112] [113] [114] [115]) (./thesis_mcgill.aux (./chapters/intro.aux)
+ [108] [109] [110] [111]
+[112] [113] [114]) (./thesis_mcgill.aux (./chapters/intro.aux)
 (./chapters/intro_variants.aux) (./chapters/intro_epistasis.aux)
 (./chapters/intro_coevolution.aux) (./chapters/intro_roadmap.aux))
 
@@ -822,10 +815,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 6482 strings out of 493315
- 96917 string characters out of 6137904
- 186776 words of memory out of 5000000
- 9786 multiletter control sequences out of 15000+600000
+ 6483 strings out of 493315
+ 96933 string characters out of 6137904
+ 187776 words of memory out of 5000000
+ 9787 multiletter control sequences out of 15000+600000
  9996 words of font info for 38 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,7n,40p,2605b,330s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -839,10 +832,10 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (115 pages, 355300 bytes).
+Output written on thesis_mcgill.pdf (114 pages, 354516 bytes).
 PDF statistics:
- 416 PDF objects out of 1000 (max. 8388607)
- 286 compressed objects within 3 object streams
+ 412 PDF objects out of 1000 (max. 8388607)
+ 283 compressed objects within 3 object streams
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
