@@ -184,25 +184,27 @@ Since the model is convex, it is guaranteed to converge to a single global maxim
 Finally, a quantity called direct information (DI) measures the part of the mutual information of a position pair induced by the direct coupling (intuitively similar to mutual information in a two-variable model).
 Even after all optimizations and parallelizations, the method could not be applied to more than $60$ positions in the protein alignment simultaneously.
 The authors managed to apply the method to a dataset consisting of over $2,500$ bacterial genes from a two-component signal transduction system,. Their global inference robustly identified residue pairs proximal in space between sensor kinase (SK) and response regulator (RR) proteins as well as homo-interactions in RR proteins \cite{weigt2009identification}.
-In their test dataset, all the top $10$ candidate interactions identified were shown to be true contacts, furthermore these predictions were then used to calculate an interacting protein complex quite accurately (3 \AA\  RMSD) \cite{morcos2011direct}.
+In their test dataset, all the top $10$ candidate interactions identified were shown to be true contacts, furthermore these predictions were then used to calculate an interacting protein complex quite accurately (3 \AA\  RMSD) \cite{weigt2009identification}.
 
 \paragraph{Mean field approximation}
-DCA has been shown to yield a large number of correctly predicted contacts based on its ability to disentangle direct and indirect correlations, unfortunately the method is computationally expensive and does not scale \cite{morcos2011direct}.
-In a method published by \cite{morcos2011direct}, they propose a ``mean field" approximation to DCA.
-They first attempt to mitigate phylogenetic tree biases using a simple sampling correction based on re-weighting  sequences with more than $80\%$ \cite{morcos2011direct}.
-In a nutshell, the approximation method also tries to disentangle direct and indirect couplings by inferring a global statistical and least-constrained model which, as discussed before, is achieved using a maximum-entropy principle leading to a Boltzmann distribution of couplings \cite{morcos2011direct}.
-The partition function ($Z$) is then approximated by keeping only linear order term in a Taylor series expansion, obtaining thus the mean-field equations \cite{morcos2011direct}.
-This approach is based on small-coupling expansion, thus a Taylor expansion around zero, a technique introduced in disordered Ising spinglass models with binary variables \cite{morcos2011direct}.
+DCA has been shown to yield a large number of correctly predicted contacts based on its ability to disentangle direct and indirect correlations, unfortunately the method is computationally expensive \cite{weigt2009identification}.
+In a method published by Morcos et alii \cite{morcos2011direct} a ``mean field" approximation to DCA is proposed.
+They first attempt to mitigate phylogenetic tree biases using a simple sampling correction based on re-weighting  sequences with more than $80\%$ similarity.
+In a nutshell, the approximation method also tries to disentangle direct and indirect couplings by inferring a global statistical and least-constrained model which, as discussed before, is achieved using a maximum-entropy principle leading to a Boltzmann distribution of couplings.
+The partition function ($Z$) is then approximated by keeping only linear order term in a Taylor series expansion, obtaining thus the mean-field equations.
+This approach is based on small-coupling expansion, thus a Taylor expansion around zero, a technique introduced in disordered Ising spinglass models with binary variables.
 A well known result is that the first derivative of the Gibbs potential, the Legendre transform of the free energy $F = - ln(Z)$, equals the average of the coupling term in the Hamiltonian.
 This simplifies this average calculation since the joint distribution of all variables becomes factorized over the single sites \cite{morcos2011direct}.
-This algorithm speeds up the original DCA implementataion by $10^3$ to $10^4$ times \cite{morcos2011direct}, and can run on alignments up to $500$ amino acids per row which is an order of magnitude larger the previous version of DCA based on message passing \cite{morcos2011direct,weigt2009identification}.
+This algorithm speeds up the original DCA implementation by $10^3$ to $10^4$ times \cite{morcos2011direct}, and can run on alignments up to $500$ amino acids per row which is an order of magnitude larger the previous version of DCA based on message passing \cite{morcos2011direct, weigt2009identification}.
 
 \paragraph{PSI-COV}
-As other methods, PSI-COV starts from a multiple sequence alignment \cite{jones2012psicov}, a covariance matrix is calculated by counting how often a given pair of the 20 amino acids occurs in a particular pair of positions summing over all sequences in the MSA. 
+As other methods, PSI-COV \cite{jones2012psicov} starts from a multiple sequence alignment.
+A covariance matrix is calculated by counting how often a given pair of amino acids occurs in a particular pair of positions, summing over all sequences in the MSA.
 Since this matrix contains the raw data capturing all residue pair relationships, one can then compute a measure of causative correlations in the global statistical approaches by taking the inverse of the covariance matrix (a.k.a. precision or concentration matrix) \cite{jones2012psicov, marks2012protein}.
 Assuming that this covariance matrix can indeed be inverted, the inverse matrix relates to the degree of direct coupling, a well known fact in statistical theory under the assumption of continuous variables Gaussian multivariate distributions \cite{marks2012protein}.
 Elements significantly different from zero (off-diagonal) indicate pairs of sites which have strong direct coupling, thus likely to be in direct physical contact \cite{jones2012psicov}.
-The empirical covariance matrices are actually almost always singular simply because it is unlikely that every amino acid is observed at every site, one of the most powerful techniques to overcome this problem is sparse inverse covariance estimation under Lasso constraints.
+Unfortunately, the empirical covariance matrices are actually almost always singular simply because it is unlikely that every amino acid is observed at every site.
+One of the most powerful techniques to overcome this problem is sparse inverse covariance estimation under Lasso constraints.
 The authors claim that the non-zero terms tend to more accurately relate to correct correlations in the true inverse covariance matrix \cite{jones2012psicov}.
 
 \paragraph{Multidimensional mutual information}
@@ -211,42 +213,46 @@ amino acid dependencies \cite{clark2014multidimensional}.
 This is achieved by defining the information $I(X_1 ; X_3 ; X_2)$ representing an `interaction information' for a channel with two inputs $X_1$ and $X_3$ and a single output $X_2$.
 The effect of the indirect input ($X_3$) on the transmission between $X_1$ and $X_2$ can then be marginalized simply by summing mutual information for each possible value $X_3$ weighted by the probability of occurrence \cite{clark2014multidimensional}.
 Similarly a four variable model extension can be defined, in which case the marginalization would be done over two variables ($X_3$ and $X_4$).
-The authors test and compare their results using a set of $9$ MSAs consisting of less than $400$ sequences, showing that their simple extension is comparable to other maximum entropy statistical models \cite{clark2014multidimensional}.
+The authors test and compare their results using a set of $9$ MSAs consisting of less than $400$ sequences each, showing that their simple extension is comparable to other maximum entropy statistical models \cite{clark2014multidimensional}.
 Even thought the method is simple, the marginalization sums impose a heavy computational burden requiring long execution times and large memory footprints making the method impractical for sequences longer than 200 residues \cite{clark2014multidimensional}.
 
 \paragraph{Bayesian network model}
-Another attempt to disentangle direct from indirect statistical dependencies between residues assumes that the sequences in a MSA are drawn from unknown joint probability distribution. 
-The model considers pairwise conditional dependencies and factorizes the joint probability by a single other position which the residue depends on, using the conditional probabilities as nuisance parameters that are integrated out when in calculating the likelihood of the alignment. 
-Most notably, the model does not consider only `the best' way of choosing the dependent position, but rather sums over all possible ways in which dependencies could be chosen \cite{burger2010disentangling}.
-This sum over all spanning trees is a generalization of Kirchhoff's matrix-tree theorem and can be efficiently computed by the Laplacian of the dependency matrix \cite{burger2010disentangling}.
+Another attempt to disentangle direct from indirect statistical dependencies between residues assumes that the sequences in a MSA are drawn from unknown joint probability distribution \cite{burger2010disentangling}. 
+The model considers pairwise conditional dependencies and factorizes the joint probability by a single other position which the residue depends on, using the conditional probabilities as nuisance parameters that are integrated out when calculating the likelihood of the alignment. 
+Most notably, the model does not consider only `the best' way of choosing the dependent position, but rather sums over all possible ways in which dependencies could be chosen.
+This sum over all spanning trees is a generalization of Kirchhoff's matrix-tree theorem and can be efficiently computed form the Laplacian of the dependency matrix.
 
 \subsection{Algorithm limitations}
 
-Residue co‐evolution was originally detected using correlated amino acid changes in pairs of positions represented by two columns of the MSA.
-Under the assumption of interdependent amino acid frequencies or similar patterns of amino acid substitutions it can be assessed by a linear correlation, a method that shows a small but significant capability to recover pairs of positions in physical contact \cite{de2013emerging}.
+%Residue co‐evolution was originally detected using correlated amino acid changes in pairs of positions represented by two columns of the MSA.
+%Under the assumption of interdependent amino acid frequencies or similar patterns of amino acid substitutions it can be assessed by a linear correlation, a method that shows a small but significant capability to recover pairs of positions in physical contact \cite{de2013emerging}.
 
 %MI
 Mutual information was one of the first proposed methods used to detect co‐varying positions. 
-As opposed to correlation‐based methods, mutual information considers the distribution of each amino acid in the different sequences for a position quantifying whether presence of an amino acid one position can be used to predict presence of an amino acid in the other position.
+As opposed to correlation-based methods, mutual information considers the distribution of each amino acid in the different sequences for a position quantifying whether presence of an amino acid one position can be used to predict presence of an amino acid in the other position.
 Mutual information does not take into account which amino acids are present, therefore different amino acids are treated just as symbols \cite{de2013emerging}.
-MI is an attractive and simple metric because it explicitly measures the dependence of one position on another, but it is limited by factors such as \cite{dunn2008mutual}: i) positions with higher entropy (variability), tend to have higher MI than positions of lower entropy (due to both levels of both random and nonrandom factors) even though the latter are more constrained and would seem more likely to be co-evolving \cite{dunn2008mutual}; and random MI arises when alignments do not contain enough sequences to reduce noise to signal ratio, it was shown that alignments should contain at least 125 sequences to reduce this effect \cite{martin2005using}.
+MI is an attractive and simple metric because it explicitly measures the dependence of one position on another, but it is limited by factors such as \cite{dunn2008mutual}: 
+i) positions with higher entropy (variability), tend to have higher MI than positions of lower entropy even though the latter are more constrained and would seem more likely to be co-evolving \cite{dunn2008mutual}; and 
+ii) MI arises when alignments do not contain enough sequences to reduce noise to signal ratio, it was shown that alignments should contain at least 125 sequences to significantly reduce this effect \cite{martin2005using}.
 
 % PHYLO
 Influence of background phylogenetic relationship between sequences in the MSA confounds results and some efforts try to address this by 
-removed certain problematic clades from the MSA.
+removing certain problematic clades from the MSA.
 For instance, it has been shown that the effect may be limited to some degree by excluding highly similar sequences (from closely related species) from the alignment \cite{wollenberg2000separation}.
-Continuous-time Markov process model for sequence co‐evolution can model this explicitly and some approaches have been implemented for small‐scale studies of co‐evolution in small protein families, but computational limitations have hindered their usage int large‐scale studies \cite{de2013emerging}.
-Other confounding effect is an uneven representation of protein sequence members and leading to statistical noise as the result of a low number of sequences in the alignment \cite{marks2012protein}.
+Continuous-time Markov process model for sequence co‐evolution can model this explicitly and some approaches have been implemented for small-scale studies of co‐evolution in small protein families, but computational limitations have hindered their usage int large-scale studies \cite{de2013emerging}.
+Another confounding effect is an uneven representation of protein sequence members (e.g. having several small subgroups and one large subgroup) and leading to statistical noise \cite{marks2012protein}.
 
-Indirect correlations arise because 	if $A$ correlates with and $B$ are in contact with each other and $B$ and $C$ are in contact as well, there is an observed indirect correlation between $A$ and $C$ \cite{marks2012protein}.
-Since amino acids often contact many not just one, but many others, these transitive effects tend to form a network.
+%Indirect correlations arise because if $A$ correlates with and $B$ are in contact with each other and $B$ and $C$ are in contact as well, there is an observed indirect correlation between $A$ and $C$ \cite{marks2012protein}.
+Since amino acids often contact more than one amino acids, transitive effects tend to form a network.
 Thus pairs of residues analysed using a simple statistical model (such as correlation or mutual information) may not necessarily be close in space or functionally constrained \cite{marks2012protein}.
 Algorithms to overcome this limitation exists, but they are based in global probabilistic models which require parameter estimation of complex distributions, such as the Bolzmann distribution, as well as marginalizing over all indirect variables.
 This makes global models computational prohibitively for all but very small datasets and impossible to apply to genome wide scale analysis.
 
 Usually co-evolutionary methods are tested with high quality MSAs containing large number of sequences varying form $5L$ up to $25L$ (where $L$ is  sequence length).
-This is not a realistic case since a proteins that have such large MSAs are often well known and might already have a crystallized structure, thus analysis of amino acids in contact are not needed to infer the 3-D structure.
-Often investigators study not-so-well-known proteins having MSA of less than $L$ sequences, and low alignment quality due to the presence of many gaps, \cite{clark2014multidimensional}.
+Such large number of homogeneous sequences are rarely available and when they are, they usually correspond to well studied proteins and might already have a crystallized structure, thus analysis of amino acids in contact are not needed to infer the 3-D structure.
+Often, investigators study not-so-well-known proteins having MSA of less than $L$ sequences, and low alignment quality due to the presence of many gaps, in which case, existing methods are of limited value \cite{clark2014multidimensional}.
 
 Finally it should be mentioned that results from different models usually do not agree, even for complex global models.
-In a recent study a comparison of several methods shows that while all methods detected similar numbers of covarying pairs (when taking into account residues separated by $\le 8$ \AA in reference X-ray structures), there is less than $65\%$ overlap between the top scoring pairs by methods that based on different principles \cite{clark2014multidimensional}.
+In a recent study, a comparison of several methods shows that while all methods detected similar numbers of co-varying pairs 
+%(when taking into account residues separated by $\le 8$ \AA\ in reference X-ray structures)
+, there is less than $65\%$ overlap between the top scoring prediction from methods based on different principles \cite{clark2014multidimensional}.
