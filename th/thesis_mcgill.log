@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  6 JUN 2015 11:33
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  6 JUN 2015 12:26
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -589,97 +589,85 @@ Missing character: There is no  in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no  in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no  in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no  in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no  in font cmr12!
-Missing character: There is no â in font cmr12!
-Missing character: There is no € in font cmr12!
-Missing character: There is no  in font cmr12!
- [86] [87]) [88]
+ [86]) [87] [88]
 \openout2 = `chapters/intro_roadmap.aux'.
 
 
 (./chapters/intro_roadmap.tex
 
-LaTeX Warning: Reference `ch:bds' on page 89 undefined on input line 5.
+LaTeX Warning: Reference `ch:bds' on page 89 undefined on input line 7.
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 89 undefined on input line 5.
+LaTeX Warning: Reference `ch:snpeff' on page 89 undefined on input line 8.
 
 
-LaTeX Warning: Reference `ch:gwas' on page 89 undefined on input line 5.
+LaTeX Warning: Reference `ch:gwas' on page 89 undefined on input line 9.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 7--9
-
- []
-
-
-LaTeX Warning: Reference `ch:bds' on page 89 undefined on input line 12.
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 18--20
+Underfull \hbox (badness 10000) in paragraph at lines 12--14
 
  []
 
 
-LaTeX Warning: Reference `ch:snpeff' on page 89 undefined on input line 21.
+LaTeX Warning: Reference `ch:bds' on page 89 undefined on input line 17.
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 23--25
+
+ []
+
+
+LaTeX Warning: Reference `ch:snpeff' on page 89 undefined on input line 26.
 
 [89
 
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 27--33
+Underfull \hbox (badness 10000) in paragraph at lines 32--38
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 40--41
+Underfull \hbox (badness 10000) in paragraph at lines 45--46
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 44--45
+Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
 [90]
-Underfull \hbox (badness 10000) in paragraph at lines 53--54
+Underfull \hbox (badness 10000) in paragraph at lines 58--59
 
  []
 
 
-LaTeX Warning: Reference `ch:gwas' on page 91 undefined on input line 55.
+LaTeX Warning: Reference `ch:gwas' on page 91 undefined on input line 60.
 
 
-Overfull \hbox (2.195pt too wide) in paragraph at lines 58--59
+Overfull \hbox (2.195pt too wide) in paragraph at lines 63--64
 \OT1/cmr/m/n/12 proach for de-tect-ing epistatic in-ter-ac-tions in genome-wide
  as-so-ci-a-tion stud-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 61--63
+Underfull \hbox (badness 10000) in paragraph at lines 66--68
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--67
+Underfull \hbox (badness 10000) in paragraph at lines 69--72
 [] 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 64--67
+Underfull \hbox (badness 10000) in paragraph at lines 69--72
 
  []
 
 [91]
-Underfull \hbox (badness 10000) in paragraph at lines 77--78
+Underfull \hbox (badness 10000) in paragraph at lines 82--83
 
  []
 
@@ -687,7 +675,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 77--78
 Missing character: There is no Î in font cmr12!
 Missing character: There is no ± in font cmr12!
  [93]
-Underfull \hbox (badness 10000) in paragraph at lines 89--90
+Underfull \hbox (badness 10000) in paragraph at lines 94--95
 
  []
 
@@ -832,7 +820,7 @@ cal/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/local
 /texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/
 texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/te
 xlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb>
-Output written on thesis_mcgill.pdf (114 pages, 354516 bytes).
+Output written on thesis_mcgill.pdf (114 pages, 353888 bytes).
 PDF statistics:
  412 PDF objects out of 1000 (max. 8388607)
  283 compressed objects within 3 object streams
