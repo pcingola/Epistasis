@@ -200,7 +200,7 @@ This leads to the concern that even assessment of all ``$(n-1)$ way" interaction
 Another reason why complex human phenotypes fail to find evidence for epistatic interactions may simply be that analytic methods inherently exclude epistasis \cite{culverhouse2002perspective}.
 For example individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect a variant scales inversely with the square of the effect size. 
 The main obstacle is attributed to the exponentially large number of statistical hypotheses tested when comparing all markers against all other markers in a genome analysis \cite{ackermann2012systematic}.
-As an example provided by Zuk et. al. \cite{zuk2012mystery}, consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
+As an example provided by Zuk et alii \cite{zuk2012mystery}, consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
 In such case, assuming $50\%$ power, a significance level of $5 \times 10^{-8}$  and equal number of cases and controls, the sample size required for single loci analysis would be $4,900$.
 In comparison, the sample size required to detect pairwise interaction between those two variants using the same power and an appropriately corrected significance level is roughly $450,000$, so a researcher studying $100,000$ samples would discover all single acting loci but would find little evidence of epistatic interactions, which may be the reason why geneticists that have tested for pairwise epistasis have found few significant signals \cite{zuk2012mystery}.
 It should be noted that even though GWAS involving over $500,000$ samples are not available at the moment, studies using sample sizes in this order are expected to become available within the next couple of years.
@@ -239,7 +239,7 @@ This allows it to handle all pairs from $500,000$ in a population of $5,000$ ind
 
 	\item \textbf{Linkage disequilibrium} methods use patterns in disease population under two-locus disease models \cite{zhao2006test}.
 	Association can be estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked \cite{zhao2006test}.
-In Zhao et. al. \cite{zhao2006test} the authors, under the assumption that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE), show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population.
+In Zhao et alii \cite{zhao2006test} the authors, under the assumption that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE), show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population.
 They develop a test statistic for the detection of deviations from LD by comparing the difference in the LD levels between two unlinked loci between cases and controls.
 Assuming that the frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, in the absence of interaction the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population.
 Under the null hypothesis, this test statistic asymptotically converges to a central $\chi^2$ distribution.
@@ -287,7 +287,7 @@ This results in a `forest' of trees have been trained on a particular sample of 
 Instead of trying to create a monolithic learner, this type of methods called ``ensemble systems" attempts to create many heterogeneous ``weak" (or simple) learners. 
 The outcomes of these heterogeneous systems are combined to create an improved model \cite{li2011detecting}.
 
-In Li et. al. \cite{li2011detecting}, the authors create an extension of the AdaBoost algorithm where they incorporate an importance score based on Gini impurity to select candidate SNP  in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
+In Li et alii \cite{li2011detecting}, the authors create an extension of the AdaBoost algorithm where they incorporate an importance score based on Gini impurity to select candidate SNP  in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
 Decision trees are usually built with binary splits, but since genotype data takes three possible values $\{0, 1, 2\}$, they also extended their method to create a ternary split.
 AdaBoost draws bootstrap samples to increase the power of a weak learner by weighting the individuals when bootstrapping. 
 So when a weak learner misclassifies an individual, the weight of that individual is increased, as a consequence hard to classify individuals are more likely to be included in future bootstrap samples. 

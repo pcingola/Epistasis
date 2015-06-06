@@ -58,47 +58,49 @@ These changes can be manifested by ``similar evolutionary trees" \cite{goh2000co
 Thus phylogenetic similarity approaches can successfully be applied for protein-protein co‐evolution assumed to be caused by physical interactions.
 These kind of methods have been shown to be capable of identifying interaction partners, such as ligand-receptor pairs \cite{de2013emerging}.
 
-Evolutionary relationships within protein families can be mined to predict physical interaction specificities \cite{ramani2003exploiting}.
+Similarly, evolutionary relationships within protein families can be mined to predict physical interaction specificities \cite{ramani2003exploiting}.
 Duplicate genes (paralogs) often diverge in a way such that new binding specificities are evolved, thus the underlying hypothesis is that interacting proteins exhibit coordinated evolution and tend to have similar phylogenetic trees.
-This was first demonstrated in a study of chemokines and their receptors showing very similar phylogenetic trees \cite{goh2000co}.
-Using similarity of phylogenetic trees as a proxy for the co-evolution of interacting proteins \cite{ramani2003exploiting}, a computational method based on matrix alignment can find an optimal alignment between protein family similarity matrices (conceptually equivalent to superimposing  phylogenetic trees from the two protein families) \cite{ramani2003exploiting}.
-One matrix is shuffled using stochastic simulated annealing-based to make the two matrices maximally agree by minimizing the root mean square difference.
-Interactions can be predicted by observing equivalent columns proteins heading in the two matrices.  \cite{ramani2003exploiting}
-
-Although some methods based on phylogenetic tree similarity exists, the majority of co-evolutionary methods focuses on analysis of multiple sequence alignment \cite{rohlfs2010detecting}.
+This was first demonstrated in a study of chemokines and their receptors showing phylogenetic tree similarities \cite{goh2000co}.
+%Using similarity of phylogenetic trees as a proxy for the co-evolution of interacting proteins \cite{ramani2003exploiting}, a computational method based on matrix alignment can find an optimal alignment between protein family similarity matrices (conceptually equivalent to superimposing  phylogenetic trees from the two protein families) \cite{ramani2003exploiting}.
+%One matrix is shuffled using stochastic simulated annealing-based to make the two matrices maximally agree by minimizing the root mean square difference.
+%Interactions can be predicted by observing equivalent columns proteins heading in the two matrices.  \cite{ramani2003exploiting}
 
 \paragraph{Correlated mutations}
-Proteins have evolved to interact or function in specific molecular complexes and the specificity of these interactions is essential for their function, consequently residue contacts constrain the protein sequences to some extent \cite{pazos1997correlated}.
-In other words, sequences form interacting proteins react as a consequence of adaptation, thus it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}.
-It should be noted that this relationship between co-evolution and interaction is not symmetrical. 
-While interaction would involve coevolution, coevolution does not imply physical interaction \cite{fares2006novel}.
-Furthermore, co-evolution between clusters of sites not in contact has also been shown \cite{pritchard2000proteins}.
+Although some methods based on phylogenetic tree similarity exists, the majority of co-evolutionary methods focuses on analysis of multiple sequence alignment \cite{rohlfs2010detecting}.
+Proteins have evolved to interact or function in specific molecular complexes and the specificity of these interactions is essential for their function. Consequently, residue contacts constrain the protein sequences to some extent \cite{pazos1997correlated}.
+In other words, 
+%sequences form interacting proteins react as a consequence of adaptation, thus 
+it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}.
+It should be noted that this relationship between co-evolution and interaction is not symmetrical
+%While interaction would involve coevolution, 
+since co-evolution does not imply physical interaction \cite{fares2006novel}.
+This is emphasized by the fact that co-evolution between clusters of sites not in contact has also been shown \cite{pritchard2000proteins}.
 
-Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}.
+%Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}.
 It has long been suggested that correlations in amino acid changes can be used to infer protein contact, thus aiding to predict tertiary protein structure \cite{fitch1970improved, morcos2011direct, burger2010disentangling, de2013emerging}.
-A large number of genomes and protein sequences have become available in recent years enabling the analysis of co-evolution by means of statistical inference between columns in multiple sequence alignments of protein sequences \cite{burger2010disentangling, burger2010disentangling}, which has been a fruitful technique for predicting contacting residues in the structure.
+A large number of genomes and protein sequences have become available in recent years enabling the analysis of co-evolution by means of statistical inference of covariation patterns between columns in multiple sequence alignments of protein sequences \cite{burger2010disentangling, burger2010disentangling}, which has been a fruitful technique for predicting contacting residues in the structure.
 This interdependent changes in amino acids was formulated for the first time by the ``covarion model" \cite{fitch1970improved} and applied in multiple sequence alignments of a family of homologue proteins \cite{de2013emerging}.
 Statistical methods to find correlated mutations loci between pairs of proteins can identify putative interaction sites in protein pairs \cite{de2013emerging}, but we should keep in mind that correlated mutations suggesting compensatory changes between residues can be due to several factors different than direct contact, such as physical proximity, catalytic action, binding sites, or even maintaining folding stability.
 
-One of the first attempts to statistical inference of co-evolving pairs was performed by Gobel et. al. in 1994.
+One of the first attempts of statistical inference of co-evolving loci pairs was performed by Gobel et. al in 1994.
 In their seminal paper they point out that the fact that \textit{``maintenance of protein function and structure constrains the evolution of amino acid sequences... [sequence alignments] can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions"} \cite{gobel1994correlated}. 
 They  analysed correlations between different positions in a multiple sequence alignment and used such correlations to predict contact maps.
 In their study of 11 protein families they compare their results with experimentally validated contact maps determined by crystallography, showing that prediction accuracy up to $68\%$.
 
-The promise of developing methods for predicting contacting pairs from sequence information alone was radically different and more applicable than traditional docking methods \cite{pazos1997correlated}.
-This lead to the development of several methods for detecting correlated changes in multiple sequence alignments with the primary intention of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
-It was demonstrated that the correlated sequence information was enough to select the right inter-domain docking solution amongst many alternatives  \cite{pazos1997correlated}.
+The promise of developing methods for predicting contacting pairs from sequence information alone was radically different from and more applicable than traditional docking methods \cite{pazos1997correlated}.
+This lead to the development of methods for detecting correlated changes in multiple sequence alignments with the primary objective of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
+It was demonstrated that the correlated sequence information was enough to select the right inter-domain docking solution amongst many alternatives.
 
-Correlation and mutual information (MI) have been used to asses co-evolution but they do not take into account the evolutionary interdependence between protein residues \cite{fares2006novel}.
+Correlation and mutual information (MI) have been used to assess co-evolution but they do not take into account the evolutionary interdependence between protein residues \cite{fares2006novel}.
 Phylogenetic relationships can inflate these co-evolutionary measures, thus one of main limitations of these methods has been their inability to separate phylogenetic linkage from functional and structural co-evolution \cite{fares2006novel}.
-Some methods partially correct these effects but while some studies claim that these require alignments of at least $125$ sequences to remove stochastic noise \cite{gloor2005mutual}, other studies suggest that these methods may require in the order of $1,000$ homologous yet variable protein sequences to achieve correct predictions \cite{morcos2011direct}.
+Some methods partially correct these effects but while some studies \cite{gloor2005mutual} claim that these would require alignments of at least $125$ sequences, other studies \cite{morcos2011direct} suggest that they may require in the order of $1,000$.
 
 \paragraph{Phylogenetic correction}
-Mutual information measures the reduction of uncertainty about one position given information about the other.
-When used in as a measurement for co-evolution, MI can be confounded by several factors such as: 
+Mutual information (MI) measures the reduction of uncertainty about one position given information about the other.
+When used as a measurement for co-evolution, MI can be confounded by several factors such as: 
 i) structural and functional constraints, and 
 ii) the background sum of contributions from random noise and shared ancestry.
-In an attempt to MI's ``improve signal to noise ratio" by eliminating or minimizing the second factor, a model postulated by \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
+In an attempt to improve MI's signal to noise ratio by eliminating or minimizing the second factor, a model postulated by Dunn et alii \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
 They propose that each amino acid position in the MSA has a propensity toward the background MI (related to its entropy and phylogenetic history) and estimate the joint background MI as the product of their propensities.
 It follows that a joint background correction term can be approximated as product of the average background MI divided by the average overall MI of all positions in the MSA, they call this term average product correction (APC) \cite{dunn2008mutual}.
 They show that APC is a metric than can accurately estimate MI in the absence of structural or functional relationships (i.e. the null model) \cite{dunn2008mutual}, which is assumed to be normally distributed thus a p-value can be inferred using a Z-score.
