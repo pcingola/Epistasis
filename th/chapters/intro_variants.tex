@@ -2,27 +2,56 @@
 \section{Genomes and genetic variants \label{sec:introRef}}
 %---
 
-DNA is composed of four basic building blocks, called ``bases'' or ``nucleotides'' \cite{alberts1995molecular}. These four nucleotides, usually abbreviated $\{A, C, G, T\}$, are Adenine, Cytosine, Guanine, and Thymine. Bases form pairs, either as $A-T$ or $C-G$, that pile-up forming two long polymers, with backbones that run in opposite directions giving rise to a double-helix structure \cite{watson1953molecular}. Arbitrarily, one of the polymers is called the positive strand and the other is called the negative strand. 
+DNA is composed of four basic building blocks, called ``bases'' or ``nucleotides'' \cite{alberts1995molecular}. 
+These four nucleotides, usually abbreviated $\{A, C, G, T\}$, are Adenine, Cytosine, Guanine, and Thymine. 
+Bases form pairs, either as $A-T$ or $C-G$, that are ordered sequentially to form two long polymers, with backbones that run in opposite directions giving rise to a double-helix structure \cite{watson1953molecular}. 
+Arbitrarily, one of the polymers is called the positive strand and the other is called the negative strand. 
 
-Proteins are composed by chains of amino acids and, as explained by the central dogma of biology \cite{alberts1995molecular},  DNA is the template that instructs cellular machinery how to produce proteins. There are 20 amino acids, which are the building blocks of all proteins. Each of the twenty amino acids is encoded by a group of three DNA bases called ``codon'' \cite{crick1961general}. More than one codon can code for the same amino acid (i.e. $4^3=64$ codons $ > 20 $ amino acids) allowing for code redundancy. Additionally, there are codons that mark the end of the protein, these are called ``STOP" and signal molecular machinery to end the translation process \cite{brenner1965genetic}.
+Proteins are composed of chains of amino acids and, as explained by the central dogma of biology \cite{alberts1995molecular},  DNA is the template that instructs the cellular machinery how to produce proteins. 
+There are 20 amino acids, which are the building blocks of all proteins. Each of the twenty amino acids is encoded by a group of three DNA bases called a ``codon'' \cite{crick1961general}. 
+More than one codon can code for the same amino acid (i.e. $4^3=64$ codons $ > 20 $ amino acids) allowing for code redundancy. 
+Additionally, there are codons that mark the end of the protein, these are called ``STOP" and signal molecular machinery to end the translation process \cite{brenner1965genetic}.
 
-Proteins compose up to 50\% of a cell's dry weight compared to 3\% of the DNA \cite{alberts1995molecular}. Proteins perform their functions mainly by interacting with other proteins, forming complex pathways that lead to a vast array of cellular functions including catalysis of chemical reactions, cell signaling, and structural conformation of the cell \cite{alberts1995molecular}. The 3-dimensional structure of the protein, also called ``tertiary structure", is tailored to bind to other proteins in a specific manner to accomplish a specific function. 
+Proteins compose up to 50\% of a cell's dry weight compared to DNA which makes up only 3\% \cite{alberts1995molecular}. 
+Proteins perform their functions mainly by interacting with other proteins, forming complex pathways that execute a vast array of cellular functions including catalysing of chemical reactions, cell signalling, and providing structural conformation of the cell \cite{alberts1995molecular}. 
+The 3-dimensional structure of a protein, also called ``tertiary structure", is tailored to bind to other proteins in a specific manner to accomplish a specific function. 
 
-The human genome has a total of 3 Giga-base-pairs (Gb), and those bases are divided into 22 ``autosomal'' chromosome pairs (in each pair one chromsome is maternally inherited and the other paternally inherited) and ``sex" chromosomes. The longest of the autosomal chromosomes is roughly 250 Mega-bases (Mb) and the shortest one is ~50 Mb.
+The human genome has a total of 3 Giga-base-pairs (Gb), and those bases are divided into 22 autosomal chromosome pairs (in each pair one chromsome is maternally inherited and the other paternally inherited) and two sex chromosomes. 
+The longest of the autosomal chromosomes is roughly 250 Mega-bases (Mb) in length and the shortest one is ~50 Mb.
 
-In order to compare DNA from different individuals (or samples), we need a ``reference genome". Having a standard reference sequence facilitates comparisons and analysis. For most well studied organisms, ``reference genome" sequences are available and current large scale sequencing projects are extending significantly the number of genomes known, e.g. one project seeks to sequence 10,000 mammalian genomes \cite{haussler2009genome}, another is targeting all microbes that live within the human gut \cite{turnbaugh2007human}. The human reference genome (e.g. GRCh37) does not correspond to the DNA of any particular person, but to a ``mosaic" of the genomes of thirteen anonymous volunteers from Buffalo, New York \cite{schneider2013genome}.
+In order to compare DNA from different individuals (or samples), we need a ``reference genome". 
+Having a standard reference sequence facilitates comparisons and analysis. 
+For most well studied organisms, reference genome sequences are available and current large scale sequencing projects are extending significantly the number of genomes known, e.g. one project seeks to sequence 10,000 mammalian genomes \cite{haussler2009genome}, another is targeting all microbes that live within the human gut \cite{turnbaugh2007human}. 
+The human reference genome (e.g. GRCh37) does not correspond to the DNA of any particular person, but to a mosaic of the genomes of thirteen anonymous volunteers from Buffalo, New York \cite{schneider2013genome}.
 
-When the genome of an individual is sequenced, the DNA is compared to the ``reference genome". Most of the DNA is the same, but there are differences. These differences, generically known as ``genetic variants" (or ``variants", for short), describe the particular genetic make-up of each individual. There are several different ways a sample can differ from a reference genome. Each variant is the result of a mutations that happened at some point in the evolutionary history of the individual (or that of the reference genome). Variant types can be roughly categorized in the following way:
+When the genome of an individual is sequenced, the DNA is compared to the reference genome. 
+Most of the DNA is the same, but there are differences. 
+These differences, generically known as ``genetic variants" (or ``variants", for short), describe the particular genetic make-up of each individual. 
+There are several different ways a sample can differ from a reference genome. 
+Each variant is the result of a mutations that happened at some point in the evolutionary history of the individual (or that of the reference genome). Variant types can be roughly categorized in the following way:
 
 \begin{description}
 
-	\item[Single nucleotide variants (SNV)] or Single nucleotide polymorphism (SNP) are the simplest and more common variants produced by single base difference (e.g. a base in the reference genome, at a given coordinate,  is an `A', whereas the sample is `C'). Depending on whether the variant was identified in an individual or in a population, it is called a Single Nucleotide Variant (SNV) or Single Nucleotide Polymorphism (SNP). It is estimated that there are roughly $3.6M$ SNPs per individual \cite{10002012integrated}. There are several biological mechanisms responsible for this type of variants: i) replication errors, ii) errors introduced by DNA repair mechanism, iii) deamination (a base is changed by hydrolysis which may not be corrected by DNA repair mechanisms), iv) tautomerism (and alteration on the hydrogen bond that results in an incorrect pairing) \cite{griffiths2005introduction}.
+	\item[Single nucleotide variants (SNV)] or Single nucleotide polymorphisms (SNP) are the simplest and more common variants produced by single base difference (e.g. a base in the reference genome, at a given coordinate,  is an `A', whereas the sample is `C'). 
+	Depending on whether the variant was identified in an individual or in a population, it is called a Single Nucleotide Variant (SNV) or Single Nucleotide Polymorphism (SNP). 
+	It is estimated that there are roughly $3.6M$ SNPs per individual \cite{10002012integrated}. 
+	There are several biological mechanisms responsible for this type of variant: 
+	i) replication errors, 
+	ii) errors introduced by DNA repair mechanism, 
+	iii) deamination (a base is changed by hydrolysis which may not be corrected by DNA repair mechanisms), 
+	iv) tautomerism (and alteration on the hydrogen bond that results in an incorrect pairing) \cite{griffiths2005introduction}.
 
-	\item[Multiple nucleotide polymorphism (MNP)] are sequence differences affecting several consecutive nucleotides and are typically treated as a single variant locus if they are in perfect linkage disequilibrium (e.g. reference is ‘ACG' whereas the sample is ‘TGC'). .
+	\item[Multiple nucleotide polymorphisms (MNP)] are sequence differences affecting several consecutive nucleotides and are typically treated as a single variant locus if they are in perfect linkage disequilibrium (e.g. reference is ACG whereas the sample is TGC).
 
-	\item[Insertions (INS)] refer to a sample having one or more extra base(s) compared to the reference genome (e.g. the reference sequence is ‘AT' and the sample is ‘ACT'). Short insertions and deletions (indels) of a chromosome region range from 1 to 20 bases in length are reported to be 10 to 30 times less frequent than SNV \cite{10002012integrated}. Small insertions are usually attributed to DNA polymerase slipping and replicating the same bases (this produces a type of insertion known as duplication). Large insertions can be caused by unequal cross-over event (during meiosis) or transposable elements.
+	\item[Insertions (INS)] refer to a sample having one or more extra base(s) compared to the reference genome (e.g. the reference sequence is AT and the sample is ACT). 
+	Short insertions and deletions (indels) of a chromosome region range from 1 to 20 bases in length are reported to be 10 to 30 times less frequent than SNV \cite{10002012integrated}. 
+	Small insertions are usually attributed to DNA polymerase slipping and replicating the same bases (this produces a type of insertion known as duplication). 
+	Large insertions can be caused by unequal cross-over event (during meiosis) or transposable elements.
 
-	\item[Deletions (DEL)] are the opposite of insertions, the sample has some base(s) removed with respect to the reference genome (e.g. reference is ‘ACT' and sample is ‘AT'). As in the case of insertions, deletions can also be caused by ribosomal slippage, cross-over events during meiosis. Those include large deletions, which can result in the loss of an exon or one or more whole genes \cite{alberts1995molecular}. Short deletions are 10 to 30 times less frequent than SNV \cite{10002012integrated}.
+	\item[Deletions (DEL)] are the opposite of insertions, the sample has one or more base(s) removed with respect to the reference genome (e.g. reference is ACT and sample is AT). 
+	As in the case of insertions, deletions can also be caused by ribosomal slippage, cross-over events during meiosis. 
+	Those include large deletions, which can result in the loss of an exon or one or more whole genes \cite{alberts1995molecular}. 
+	Short deletions are 10 to 30 times less frequent than SNV \cite{10002012integrated}.
 
 	\item[Copy number variations (CNVs)] arise when the sample has two or more copies of the same genomic region (e.g. a whole gene that has been duplicated or triplicated) or conversely, when the sample has fewer copies than the reference genome. Copy number variations are often attributed to homologous recombination events \cite{alberts1995molecular}.
 
@@ -30,21 +59,34 @@ When the genome of an individual is sequenced, the DNA is compared to the ``refe
 
 \end{description}
 
-\noindent As humans have two copies of each autosome, variants could affect zero, one or two of the chromosomes and are called ``homozygous reference", ``heterozygous", and ``homozygous alternative" respectively. Variants are also classified based on how common they are within the population: common ($\ge 5\%$), low frequency ($\le 5\%$), or rare ($\le 0.1\%$). How these types of genetic variants influence traits or disease risk is a topic of intense research that is discussed throughout this thesis.
+\noindent As humans have two copies of each autosome, variants could affect zero, one or two of the chromosomes and are called ``homozygous reference", ``heterozygous", and ``homozygous alternative" respectively. 
+Variants are also classified based on how common they are within the population: common ($\ge 5\%$), low frequency ($\le 5\%$), or rare ($\le 0.1\%$). 
+How these types of genetic variants influence traits or disease risk is a topic of intense research that is discussed throughout this thesis.
 
 \section{DNA and disease risk}
 
-It would be fair to say that the Garrod family was fascinated by urine. As a physician at King's College, Alfred Baring Garrod, discovered gout related abnormalities in uric acid \cite{kennedy2001}. His son, Sir Archibald Garrod, was interested in a condition known as alkaptonuria, in which children are mostly asymptomatic except for producing brown or black urine, but by the age of 30 individuals develop pain in joints of the spine, hips and knees. In 1902, Archibald observed that the family inheritance pattern of alkaptonuria resembled Mendel's recessive pattern and postulated that a mutation in a metabolic gene was responsible for the disease. Publishing his finding he gave birth to a new field of study known as ``Human biochemical genetics" \cite{kennedy2001}.
+It would be fair to say that the Garrod family was fascinated by urine. 
+As a physician at King's College, Alfred Baring Garrod, discovered gout related abnormalities in uric acid \cite{kennedy2001}. 
+His son, Sir Archibald Garrod, was interested in a condition known as alkaptonuria, in which children are mostly asymptomatic except for producing brown or black urine, but by the age of 30 individuals develop pain in joints of the spine, hips and knees. 
+In 1902, Archibald observed that the family inheritance pattern of alkaptonuria resembled Mendel's recessive pattern and postulated that a mutation in a metabolic gene was responsible for the disease. 
+Publishing his finding he gave birth to a new field of study known as ``Human biochemical genetics" \cite{kennedy2001}.
 
-Diseases having simple inheritance patterns, such as alkaptonuria, cystic fibrosis, phenylketonuria and Huntington's are also known as Mendelian diseases \cite{kennedy2001}. The genetic components of several Mendelian diseases have been discovered since the mechanism was first elucidated by Garrod in 1902 and the process has been accelerated in recent years, thanks to the application of DNA sequencing techniques \cite{bamshad2011exome}.
+Diseases having simple inheritance patterns, such as alkaptonuria, cystic fibrosis, phenylketonuria and Huntington's are also known as Mendelian diseases \cite{kennedy2001}. 
+The genetic components of several Mendelian diseases have been discovered since the mechanism was first elucidated by Garrod in 1902 and the process has been accelerated in recent years, thanks to the application of DNA sequencing techniques \cite{bamshad2011exome}.
 
-In complex diseases (or complex traits), such as diabetes or Alzheimer's disease, affected individuals cannot be segregated within pedigrees (i.e. no simple pattern of inheritance can be identified). In contrast to Mendelian diseases the aetiology of complex traits is complicated due to factors such as: incomplete penetrance (symptoms are not always present in individuals who have the disease-causing mutation) and genetic heterogeneity (caused by any of a large number of alleles). This makes it more difficult to pinpoint the genetic variants that increase risk of complex disease as demonstrated by the failure of linkage analysis methods and later on GWAS \cite{botstein2003discovering}.
+In complex diseases (or complex traits), such as diabetes or Alzheimer's disease, affected individuals cannot be segregated within pedigrees (i.e. no simple pattern of inheritance can be identified). 
+In contrast to Mendelian diseases the aetiology of complex traits is complicated due to factors such as: incomplete penetrance (symptoms are not always present in individuals who have the disease-causing mutation) and genetic heterogeneity (caused by any of a large number of alleles). 
+This makes it more difficult to pinpoint the genetic variants that increase risk of complex disease as demonstrated by the failure of linkage analysis methods and later on GWAS \cite{botstein2003discovering}.
 
 \subsection{Heritability and Missing heritability}
 
-We all know that ``tall parents tend to have tall children", which is an informal way to say that height is a highly heritable trait. It is said that there are 30 cm from the tallest 5\% to the shortest 5\% of the population and genetics account for 80\% to 90\% of this variation \cite{wood2014defining}, which means that 27cm of variance are assumed to be ``carried" by DNA variants from parents to offspring. Since 2010 the GIANT consortia has been investigating the genetic component of complex traits like height, body mass index (BMI) and waist to hip ratio (WHR). Even though they found many variants associated those traits, their findings only explain 10\% of the phenotypic variance which corresponds to only a few centimeters in height \cite{wood2014defining}.
+We all know that ``tall parents tend to have tall children", which is an informal way to say that height is a highly heritable trait. 
+It is said that there are 30 cm from the tallest 5\% to the shortest 5\% of the population and genetics account for 80\% to 90\% of this variation \cite{wood2014defining}, which means that 27cm of variance are assumed to be ``carried" by DNA variants from parents to offspring. 
+Since 2010 the GIANT consortia has been investigating the genetic component of complex traits like height, body mass index (BMI) and waist to hip ratio (WHR). Even though they found many variants associated those traits, their findings only explain 10\% of the phenotypic variance which corresponds to only a few centimeters in height \cite{wood2014defining}.
 
-In order to measure heritability we need a formal definition. Heritability is defined as the proportion of phenotypic variance that is attributed to genetic variations. The total phenotypic variation is assumed to be caused by a combination of ``environmental" and genetic variations $Var[P] = Var[G] + Var[E] + 2 Cov[G, E]$ \cite{zuk2012mystery}
+In order to measure this genetic contribution to disease or traits we need a formal definition. 
+Heritability is defined as the proportion of phenotypic variance that is attributed to genetic variation. 
+The total phenotypic variation is assumed to be caused by a combination of ``environmental" and genetic variations $Var[P] = Var[G] + Var[E] + 2 Cov[G, E]$ \cite{zuk2012mystery}
 \iffinal
 \footnote{Although the referenced paper's notation does not seem absolutely consistent, we quote Emerson \textit{``A foolish consistency is the hobgoblin of little minds"} and proceed...}
 \fi
@@ -52,52 +94,115 @@ In order to measure heritability we need a formal definition. Heritability is de
 
 The environmental variance $Var[E]$ is the phenotypic variance attributable only to environment, that is the variance for individuals having the same genome $Var[E] = Var[P|G]$. This can be estimated by studying monozygotic and dizygotic twins.
 
-If the covariance factor $Cov[G, E]$ is assumed to be zero, we can define heritability as $H^2 = \frac{Var[G] }{ Var[P]}$. This is called ``broad sense heritability" because $Var[G]$ takes into account all possible forms of genetic variance: $Var[G] = Var[G_A] + Var[G_D] + Var[G_I]$, where $Var[G_A]$ is the additive variance, $Var[G_D]$ is the variance from dominant alleles, and $Var[G_I]$ is the variance from interacting alleles (epistasis). Non-additive terms are difficult to estimate, so a simpler form of heritability called ``narrow sense heritability" that only takes into account additive variance is defined as $h^2 = \frac{ Var[G_A] }{ Var[P] }$ \cite{zuk2012mystery}.
+If the covariance factor $Cov[G, E]$ is assumed to be zero, we can define heritability as $H^2 = \frac{Var[G] }{ Var[P]}$. 
+This is called ``broad sense heritability" because $Var[G]$ takes into account all possible forms of genetic variance: $Var[G] = Var[G_A] + Var[G_D] + Var[G_I]$, where $Var[G_A]$ is the additive variance, $Var[G_D]$ is the variance from dominant alleles, and $Var[G_I]$ is the variance from interacting alleles (epistasis). 
+Non-additive terms are difficult to estimate, so a simpler form of heritability called ``narrow sense heritability" that only takes into account additive variance is defined as $h^2 = \frac{ Var[G_A] }{ Var[P] }$ \cite{zuk2012mystery}.
 
-Focusing on narrow sense heritability, the concept of ``explained heritability" is defined as the part of heritability due to known variants with respect to phenotypic variation ($\pi_{explained} = h^2_{known} / h^2_{all}$). Similarly, missing heritability is defined as $\pi_{missing} = 1 \pi_{explained} = 1 h^2_{known} / h^2_{all}$. When all variants associated with traits are known, then $\pi_{missing} = 0$.
+Focusing on narrow sense heritability, the concept of ``explained heritability" is defined as the part of heritability due to known variants with respect to phenotypic variation ($\pi_{explained} = h^2_{known} / h^2_{all}$). 
+Similarly, missing heritability is defined as $\pi_{missing} = 1 - \pi_{explained} = 1 - h^2_{known} / h^2_{all}$. 
+When all variants associated with traits are known, then $h^2_{known} = h^2_{all}$ and $\pi_{missing} = 0$.
 
-Until recently, it was widely assumed by the research community that the problem of missing heritability lay in finding the appropriate genetic variants to account for the numerator of the equation ($h^2_{known}$) \cite{zuk2012mystery}. However, in a series of theorems published recently, it has been proposed that there is a problem in the way the denominator is estimated \cite{zuk2012mystery}. The authors created a limiting pathway model ($LP(k)$) that accounts for epistasis (gene-gene interactions) in $k$ biological pathways. They showed that a severe inflation of $h^2_{all}$ estimators occurs even for small values of $k$ (e.g. $k \in [2,10]$). As a result, genetic variants estimated to account only for $20\%$ of heritability, could actually account for as much as $80\%$ using an appropriate model \cite{zuk2012mystery}.
+Until recently, it was widely assumed by the research community that the problem of missing heritability lay in finding the appropriate genetic variants to account for the numerator of the equation ($h^2_{known}$) \cite{zuk2012mystery}. 
+However, in a series of theorems published recently, it has been proposed that there is a problem in the way the denominator is estimated \cite{zuk2012mystery}. 
+In the aforementioned papers, Zuk et alii created a limiting pathway model ($LP(k)$) that accounts for epistasis (gene-gene interactions) in $k$ biological pathways. They showed that a severe inflation of $h^2_{all}$ estimators occurs even for small values of $k$ (e.g. $k \in [2,10]$). 
+As a result, genetic variants estimated to account only for $20\%$ of heritability, could actually account for as much as $80\%$ using an appropriate model \cite{zuk2012mystery}.
 
-Even though this result is encouraging, the problem is now shifted to detecting epistatic interactions, a problem that we discuss in section \ref{sec:epi} and Chapter \ref{ch:gwas}. In the same work \cite{zuk2012mystery}, the authors show an example of power calculation assuming relatively large genetic effect that would require sequencing roughly $5,000$ individuals to detect links to genetic variants, which is a large but nowadays not uncommon, sample size. Nevertheless other estimates place the sample size requirements as high as  $500,000$ individuals \cite{zuk2012mystery}. Even though this represents an extremely large number of samples, it is quickly becoming possible thanks to large technological advances and cost reductions in sequencing and genotyping technologies.
+Even though this result is encouraging, the problem is now shifted to detecting epistatic interactions, a problem that we discuss this in section \ref{sec:epi} and Chapter \ref{ch:gwas}.
+Identifying epistatic interactions is a hard problem and requires very large sample sizes. 
+In the same work \cite{zuk2012mystery}, the authors show an example of power calculation assuming relatively large genetic effect that would require sequencing roughly $5,000$ individuals to detect links to genetic variants, which is a large but nowadays not uncommon, sample size. 
+Nevertheless other estimates place the sample size requirements as high as  $500,000$ individuals \cite{zuk2012mystery}. 
+Even though this represents an extremely large number of samples, it is quickly becoming possible thanks to large technological advances and cost reductions in sequencing and genotyping technologies.
 
 \subsection{Conclusions}
 
-Although some genetic causes for complex traits, such as type II diabetes, have been found, only a small portion of the phenotypic variance can be explained. This might indicate that many risk variants are yet to be discovered. Recent studies on the topic of missing heritability suggest that the root of these ``difficult to find genetic variants" might be found in epistatic interactions (analyzed in section \ref{sec:epigwas}) or rare variants (see section \ref{sec:comonrare}). Analysis of either requires more complex statistical models and larger sample sizes with the corresponding increase in computational requirements. In Chapter \ref{ch:gwas} of this thesis, we focus on methods for finding epistatic interactions related to complex disease and develop computationally tractable algorithms that can process data from sequencing experiments involving large number of samples in a reasonable amount of time.
+Although some genetic causes for complex traits, such as type II diabetes, have been found, only a small portion of the phenotypic variance can be explained. 
+This might indicate that many risk variants are yet to be discovered. 
+Recent studies on the topic of missing heritability suggest that the root of these ``difficult to find genetic variants" might be found in epistatic interactions (analyzed in section \ref{sec:epigwas}) or rare variants (see section \ref{sec:comonrare}). 
+Analysis of either requires more complex statistical models and larger sample sizes with the corresponding increase in computational requirements. 
+In Chapter \ref{ch:gwas} of this thesis, we focus on methods for finding epistatic interactions related to complex disease and develop computationally tractable algorithms that can process data from sequencing experiments involving large number of samples in a reasonable amount of time.
 
 %---
 \section{Identification of genetic variants}
 %---
 
-Two of the main milestones in genetics were the discovery of the DNA structure in 1953 \cite{watson1953molecular}, followed by the first draft of the human genome in 2004 \cite{collins2004finishing}. The cost of sequencing the first human reference genome was around \$3 billion (unadjusted US dollars) and it was an endeavor that took around 10 years. Since that time, DNA sequencing technology has evolved substantially so that a human genome can now be sequenced in three days for a price of less than \$1,000, according to prices estimated by Illumina, one of the main genome sequencer manufacturers \cite{hayden2015is}.
+Two of the main milestones in genetics were the discovery of the DNA structure in 1953 \cite{watson1953molecular}, followed by the first draft of the human genome in 2004 \cite{collins2004finishing}. 
+The cost of sequencing the first human reference genome was around \$3 billion (unadjusted US dollars) and it was an endeavor that took around 10 years. 
+Since that time, DNA sequencing technology has evolved substantially so that a human genome can now be sequenced in three days for a price of less than \$1,000, according to prices estimated by Illumina, one of the main genome sequencer manufacturers \cite{hayden2015is}.
 
-The amount of information delivered by sequencing devices is growing faster than computer speed (Moore's law) and data storage capacity \cite{schatz2010cloud}. Just as a crude example, a leading edge sequencing system is advertized to be capable of delivering 18,000 human genomes at $30 \times$ coverage per year, yielding over 3.2 PB of information. Having to process huge amounts of sequencing information poses several challenges, a problem informally known as ``data deluge''.
+The amount of information delivered by sequencing devices is growing faster than computer speed (Moore's law) and data storage capacity \cite{schatz2010cloud}. 
+A crude example, a leading edge sequencing system is advertized to be capable of delivering 18,000 human genomes at $30 \times$ coverage per year, yielding over 3.2 PB of information. 
+Having to process huge amounts of sequencing information poses several challenges, a problem informally known as ``data deluge''.
 % In this section, we explain how sequencing data is generated and how the huge amount of information delivered by a sequencer can be handled in order to make the problem tractable. 
-From this raw data we want to obtain a set of candidate genomic variants that contribute to disease risk with the ultimate goal to translate these risk variants into biological knowledge. As expected, processing huge datasets consisting of thousands of sample is a complex problem. In Chapter \ref{ch:bds} we show how mitigate or solve some of these issues, by designing a computer language specially tailored to tackle what are know as ``Big data" problems.
+From this raw data we want to obtain a set of candidate genomic variants that contribute to disease risk with the ultimate goal to translate these risk variants into biological knowledge. 
+As expected, processing huge datasets consisting of thousands of sample is a complex problem. 
+In Chapter \ref{ch:bds} we show how to mitigate or solve some of these issues, by designing a computer language specially tailored to tackle what are known as ``Big data" problems.
 
 \subsection{Sequencing data}
 
-DNA sequencing machines are based on different technologies, in a nutshell all these technologies detect a set of polymers (or chains) of DNA nucleotides and outputs a set of strings of A, C, G, and Ts. Unfortunately, current technological limitations make it impossible to ``read" a full chromosome as one long DNA sequence. Instead, modern sequencers produce a large number of ``short reads", which range from 100 bases to 20 Kilo-bases (Kb) in length, depending on the technology \cite{quail2012tale}. Since sequencers are unable to read long DNA chains, preparing the DNA for sequencing involves fragmenting it into small pieces. These DNA fragments are a random sub-samples of the original chromosomes \cite{shendure2008next}. Reading each part of the genome several times allows to increase accuracy and ensure that the sequencer reads as much as possible of the original chromosomes. The coverage of a sequencing experiment is defined as the number of times each base of the genome is read on average \cite{shendure2008next,quail2012tale}. For instance, if the sequencing experiment is designed to produce one billion reads, and each read is 150 bases long, then the total number of bases read is 150Gb. Since the human genome is 3Gb, the coverage is said to be $50 \times$.
+DNA sequencing machines are based on different technologies, in a nutshell all these technologies detect a set of polymers (or chains) of DNA nucleotides and outputs a set of strings of A, C, G, and Ts. 
+Unfortunately, current technological limitations make it impossible to ``read" a full chromosome as one long DNA sequence. 
+Instead, modern sequencers produce a large number of ``short reads", which range from 100 bases to 20 Kilo-bases (Kb) in length, depending on the technology \cite{quail2012tale}. 
+Since sequencers are unable to read long DNA chains, preparing the DNA for sequencing involves fragmenting it into small pieces. 
+These DNA fragments are a random sub-samples of the original chromosomes \cite{shendure2008next}. 
+Reading each part of the genome several times increases accuracy and ensures that the sequencer reads as much as possible of the original chromosomes. 
+The coverage of a sequencing experiment is defined as the number of times each base of the genome is read on average \cite{shendure2008next,quail2012tale}. 
+For instance, if the sequencing experiment is designed to produce one billion reads, and each read is 150 bases long, then the total number of bases read is 150Gb. Since the human genome is 3Gb, the coverage is said to be $50 \times$.
 
-After sequencing a sample, we have millions of reads but we do not know where these reads originate from in the genome. This is solved by aligning (also called mapping) reads to the reference genome, which is assumed to be very similar to the genome being sequenced. Once the reads are mapped, we can infer if the sample's DNA has any differences with respect to the reference genome, a problem is known as ``variant calling''. 
+After sequencing a sample, we have millions of reads but we do not know where these reads originate from in the genome. 
+This is solved by aligning (also called mapping) reads to the reference genome, which is assumed to be very similar to the genome being sequenced. Once the reads are mapped, we can infer if the sample's DNA has any differences with respect to the reference genome, a problem is known as ``variant calling''. 
 
-Although sequencing costs are dropping fast, it is still expensive to sequence thousands of samples and in some cases it makes sense to focus on specific areas of the genome. A popular experimental setup is to focus on coding regions (exons). A technique called ``exome sequencing" \cite{clark2011performance} consists of capturing exons using a DNA chip and then sequencing the captured DNA fragments only. Exons are roughly 1.2\% of the genome, thus this technique reduces sequencing costs significantly, for which it has been widely used by many research groups although it has the disadvantage of only analysing coding genomic variation.
+Although sequencing costs are dropping fast, it is still expensive to sequence thousands of samples and in some cases it makes sense to focus on specific areas of the genome. 
+A popular experimental setup is to focus on coding regions (exons). 
+A technique called ``exome sequencing" \cite{clark2011performance} consists of capturing exons using a DNA chip and then sequencing the captured DNA fragments only. 
+Exons are roughly 1.2\% of the genome, thus this technique reduces sequencing costs significantly, for which it has been widely used by many research groups although it has the disadvantage of only analysing coding genomic variation.
 
 \subsection{Read mapping}
 
-Once the samples have been sequenced, we have a set of reads from the sequencer. The first step in the analysis is finding the location in the reference genome where each read is supposed to originate from, a process that is complicated by a several factors: i) there are differences between the reference genome and the sample genome, ii) sequencing reads may contain errors, iii) several parts of the reference genome are quite similar making reads from those regions indistinguishable, and iv) a typical sequencing experiment generates millions of reads \cite{shendure2008next}.
+Once the samples have been sequenced, we have a set of reads from the sequencer. 
+The first step in the analysis is finding the location in the reference genome where each read is supposed to originate from, a process that is complicated by a several factors: 
+i) there are differences between the reference genome and the sample genome, 
+ii) sequencing reads may contain errors, 
+iii) several parts of the reference genome are quite similar making reads from those regions indistinguishable, and 
+iv) a typical sequencing experiment generates millions of reads \cite{shendure2008next}.
 
-\paragraph{Local sequence alignment} We introduce a problem known as \textit{local sequence alignment}: Given two sequences $s_1$ and $s_2$ from an alphabet (e.g. $\Sigma = \{A,C,G,T\}$), the alignment problem is to add gap characters (`-') to both sequences, so that a distance, such as Levenshtein distance, $d(s_1,s_2)$ is minimized. This problem has a well known solution, the Smith-Waterman algorithm \cite{smith1981identification}, which is a variation of the global sequence alignment solution from Needleman-Wunsch \cite{needleman1970general}, having an algorithm complexity $O(l_1 . l_2)$ where $l_1$ and $l_2$ are the length of the sequences. So, Smith-Waterman algorithm is slow since in this case one of the sequences is the entire genome.
+\paragraph{Local sequence alignment} 
+We introduce a problem known as \textit{local sequence alignment}: 
+Given two sequences $s_1$ and $s_2$ from an alphabet (e.g. $\Sigma = \{A,C,G,T\}$), the alignment problem is to add gap characters (`-') to both sequences, so that a distance measure, such as Levenshtein distance, $d(s_1,s_2)$ is minimized. 
+This problem has a well known solution, the Smith-Waterman algorithm \cite{smith1981identification}, which is a variation of the global sequence alignment solution from Needleman-Wunsch \cite{needleman1970general}, and has an algorithm complexity $O(l_1 . l_2)$ where $l_1$ and $l_2$ are the length of the sequences. 
+So, Smith-Waterman algorithm is slow since in this case one of the sequences is the entire genome.
 
-In order to speed up sequence alignments, several heuristic approaches emerged. Most notably, BLAST \cite{altschul1990basic}, which could be for mapping sequences to a reference genome. BLAST uses an index of the genome to map parts of the query sequence, called seeds, to the reference genome. Once these seeds have been positioned against the reference, BLAST joins the seeds performing an alignment only using a small part of the reference.
+In order to speed up sequence alignment, several heuristic approaches emerged. 
+Most notably, BLAST \cite{altschul1990basic}, which can be to map sequences to a reference genome. 
+BLAST uses an index of the genome to map parts of the query sequence, called seeds, to the reference genome. 
+Once these seeds have been positioned against the reference, BLAST joins the seeds performing an alignment only using a small part of the reference.
 
-\paragraph{Read mapping} Sequence alignment has an exact algorithm solution and several faster heuristic solutions. But even the fastest solutions are too slow to be used with the millions of reads generated in a typical sequencing experiment. Faster algorithms can be used if we relax our requirements in two ways: i) we allow for sub-optimal results, and ii) instead of requiring the output to be a complete local alignment between a read and the genome, we just want to know the region in the reference genome where the read sequence is from. This relaxed version of the alignment algorithm is called ``read mapping'' and the reduced complexity is enough to speed up the computations significantly. In a nutshell, a read mapping is regarded as correct if it overlaps the true reference genome region where the read originated. Once the mapping is performed, the read is locally aligned, a strategy similar to BLAST algorithm \cite{li2010fast, langmead2009ultrafast}.
+\paragraph{Read mapping} 
+Sequence alignment has an exact algorithmic solution and several faster heuristic solutions. 
+But even the fastest solutions are too slow to be used with the millions of reads generated in a typical sequencing experiment. Faster algorithms can be used if we relax our requirements in two ways: 
+i) we allow for sub-optimal results, and 
+ii) instead of requiring the output to be a complete local alignment between a read and the genome, we just want to know the region in the reference genome where the read sequence is from. 
+This relaxed version of the alignment algorithm is called ``read mapping'' and the reduced complexity is enough to speed up the computations significantly. 
+In a nutshell, a read mapping is regarded as correct if it overlaps the true reference genome region where the read originated. 
+Once the mapping is performed, the read is locally aligned, a strategy similar to BLAST algorithm \cite{li2010fast, langmead2009ultrafast}.
 
-Reformulating the alignment problem as a \textit{mapping} problem allows us to use data structures such as suffix trees to index the reference genome. Using suffix trees we can query for a substring (read) \cite{durbin1998biological} of the indexed string in $O(m)$ time, where $m$ is the length of the query. Alternatively, we can use suffix arrays which are a space optimized alternative to suffix trees \cite{durbin1998biological}. An implicit assumption in this solution, is that the read is very similar to the reference and that there are no gaps. Suffix arrays algorithms are fast but, even though they are memory optimized versions of suffix trees, memory requirements are still high ($O[ n \; log(n) ]$, where $n$ is the length of the indexed sequence, in this case the reference genome) and this becomes the limiting factor. In order to reduce the memory footprint of suffix arrays, Ferragina and Manzini \cite{ferragina2000opportunistic} created a data structure based on the Burrows-Wheeler transform.  This structure, known as an FM-Index, is memory efficient yet fast enough to allow mapping high number of reads.  An FM-index for the human genome can be built in only 1Gb of memory, compared to 12Gb required for an equivalent suffix array \cite{li2010fast}.  Given a genome $G$ and a read $R$, an FM-index search can find the $N_{occ}$ exact occurrences of $R$ in $G$ in $O(|R| + N_{occ} )$ time, where $|R|$ is the length of $R$ \cite{li2010fast}. 
+Reformulating the alignment problem as a \textit{mapping} problem allows us to use data structures such as suffix trees to index the reference genome. 
+Using suffix trees we can query for a substring (read) \cite{durbin1998biological} of the indexed string in $O(m)$ time, where $m$ is the length of the query. 
+Alternatively, we can use suffix arrays which provide a space optimized alternative to suffix trees \cite{durbin1998biological}. 
+An implicit assumption in this solution, is that the read is very similar to the reference and that there are no gaps. 
+Suffix arrays algorithms are fast but, even though they are memory optimized versions of suffix trees, memory requirements are still high ($O[ n \; log(n) ]$, where $n$ is the length of the indexed sequence, in this case the reference genome) and this becomes the limiting factor. 
+In order to reduce the memory footprint of suffix arrays, Ferragina and Manzini \cite{ferragina2000opportunistic} created a data structure based on the Burrows-Wheeler transform. 
+This structure, known as an FM-Index, is memory efficient yet fast enough to allow mapping of a high number of reads. 
+An FM-index for the human genome can be built in only 1Gb of memory, compared to 12Gb required for an equivalent suffix array \cite{li2010fast}.  Given a genome $G$ and a read $R$, an FM-index search can find the $N_{occ}$ exact occurrences of $R$ in $G$ in $O(|R| + N_{occ} )$ time, where $|R|$ is the length of $R$ \cite{li2010fast}. 
 
-We should keep in mind that suffix trees, suffix arrays and FM-indexes are guaranteed to find all matching substring occurrences, nevertheless a sequencing read may not be an exact substring of the reference genome (due to sample's genome differences with the reference genome, read errors, etc.). So, even if efficient indexing and heuristic algorithms can decrease mapping time considerably, these algorithms are not guaranteed to find an optimal mapping. 
-Several parameters, such as read length, sequencing error profile, and genome complexity profile can affect performance.  The most commonly used implementation of the FM-index mapping algorithms are BWA \cite{li2010fast, li2010fastlong} and Bowtie \cite{langmead2009ultrafast, langmead2012fast}.  Each provides optimized versions for the two most common sequencing types: i) short reads with high accuracy \cite{li2010fast,langmead2009ultrafast} or ii) longer reads with lower accuracy \cite{li2010fastlong, langmead2012fast}. 
-It should also be taken into account that read-mapping algorithms implement heuristics to map reads having differences respect to the reference genome, obviously these heuristics are implementation dependent, thus two mapping algorithms can (and often do) lead to different mappings for the same read set which in turn can lead to different variants being called (see section \ref{sec:varcall}).
-
+We should keep in mind that suffix trees, suffix arrays and FM-indexes are guaranteed to find all matching substring occurrences, nevertheless a sequencing read may not be an exact substring of the reference genome (due to sample's genome differences with the reference genome, read errors, etc.). 
+So, even if efficient indexing and heuristic algorithms can decrease mapping time considerably, these algorithms are not guaranteed to find an optimal mapping. 
+Several parameters, such as the read length, sequencing error profile, and genome complexity profile can affect their performance. 
+The most commonly used implementation of the FM-index mapping algorithms are BWA \cite{li2010fast, li2010fastlong} and Bowtie \cite{langmead2009ultrafast, langmead2012fast}.  
+Each provides optimized versions for the two most common sequencing types: 
+i) short reads with high accuracy \cite{li2010fast,langmead2009ultrafast} or 
+ii) longer reads with lower accuracy \cite{li2010fastlong, langmead2012fast}. 
+It should also be taken into account that read-mapping algorithms implement heuristics to map reads having differences with respect to the reference genome. 
+Obviously these heuristics are implementation dependent, thus two mapping algorithms can (and often do) lead to different mappings for the same read set which in turn can lead to different variants being called (see section \ref{sec:varcall}).
 
 \paragraph{Mapping quality\label{sec:mapq}} Sequencers not only provide sequence information, but also provide an error estimate for each base \cite{li2011statistical}.  This is often referred as a quality ($Q$) value, which is the probability of an error, measured in negative decibels $Q = -10 \; log_{10}(\epsilon)$, where $\epsilon$ is the error probability. Mapping quality is an estimate of the probability that a read is incorrectly mapped to the reference genome. 
 
