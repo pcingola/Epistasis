@@ -204,23 +204,48 @@ ii) longer reads with lower accuracy \cite{li2010fastlong, langmead2012fast}.
 It should also be taken into account that read-mapping algorithms implement heuristics to map reads having differences with respect to the reference genome. 
 Obviously these heuristics are implementation dependent, thus two mapping algorithms can (and often do) lead to different mappings for the same read set which in turn can lead to different variants being called (see section \ref{sec:varcall}).
 
-\paragraph{Mapping quality\label{sec:mapq}} Sequencers not only provide sequence information, but also provide an error estimate for each base \cite{li2011statistical}.  This is often referred as a quality ($Q$) value, which is the probability of an error, measured in negative decibels $Q = -10 \; log_{10}(\epsilon)$, where $\epsilon$ is the error probability. Mapping quality is an estimate of the probability that a read is incorrectly mapped to the reference genome. 
+\paragraph{Mapping quality\label{sec:mapq}} 
+Sequencers not only provide sequence information, but also provide an error estimate for each base \cite{li2011statistical}.
+This is often referred as a quality ($Q$) value, which is the probability of an error, measured in negative decibels $Q = -10 \; log_{10}(\epsilon)$, where $\epsilon$ is the error probability. 
+Mapping quality is an estimate of the probability that a read is incorrectly mapped to the reference genome. 
 
-Mapping algorithms provide estimates of mapping quality. In the MAQ model \cite{li2008mapping}, which is one of the earliest models for calculating mapping quality, three main sources of error are explored: i) the probability that a read does not originate from the reference genome (e.g. sample contamination); ii) the probability that the true position is missed by the algorithm (e.g. mapping error); and iii) the probability that the mapping position is not the true one (e.g. if we have several possible mapping positions). It is assumed that the total error probability can be approximated as $\epsilon \approx max(\epsilon_1,\epsilon_2, \epsilon_3)$.
+Mapping algorithms provide estimates of mapping quality. 
+In the MAQ model \cite{li2008mapping}, which is one of the earliest models for calculating mapping quality, three main sources of error are explored: 
+i) the probability that a read does not originate from the reference genome (e.g. sample contamination); 
+ii) the probability that the true position is missed by the algorithm (e.g. mapping error); and 
+iii) the probability that the mapping position is not the true one (e.g. if we have several possible mapping positions). 
+It is assumed that the total error probability can be approximated as $\epsilon \approx max(\epsilon_1,\epsilon_2, \epsilon_3)$.
 
 \subsection{Variant calling \label{sec:varcall}}
 
-Genome-wide variant calling has until recently largely been done using genotyping arrays (for SNVs) or Comparative Genomic Hybridization arrays (for CNVs). The inherent limitations of these technologies, particularly their ability to only assay genotypes at sites that are known in advance to be polymorphic, combined with the declining cost of sequencing, have now made approaches based on high-throughput resequencing the tool of choice for variant calling in clinical studies. 
+Genome-wide variant calling has until recently largely been done using genotyping arrays (for SNVs) or Comparative Genomic Hybridization arrays (for CNVs). 
+The inherent limitations of these technologies, particularly their ability to only assay genotypes at sites that are known in advance to be polymorphic, combined with the declining cost of sequencing, have now made approaches based on high-throughput resequencing the tool of choice for variant calling in clinical studies. 
 
-Once the sequencing reads have been mapped to the reference genome, we can try to find the differences between a sequenced sample and the reference genome. This process is called ``variant calling" \cite{nielsen2011genotype}.  Several factors complicate this task, the two main ones being sequencing errors and mapping errors, described in \ref{sec:mapq}. Based on sequencing data and mapping error estimates, tools such as GATK \cite{mckenna2010genome} and SamTools/BcfTools \cite{li2008mapping} use maximum likelihood models can infer when there is a mismatch between a sample and the reference genome and whether the sample is homozygous or heterozygous for the variant. This method works best for differences of a single base (SNV), but it can also work with different degrees of success for short insertions or deletions (InDels) usually consisting of less than 10 bases. 
+Once the sequencing reads have been mapped to the reference genome, we can try to find differences between a sequenced sample and the reference genome. 
+This process is called ``variant calling" \cite{nielsen2011genotype}.
+Several factors complicate this task, the two main ones being sequencing errors and mapping errors, described in \ref{sec:mapq}. 
+Based on sequencing data and mapping error estimates, tools such as GATK \cite{mckenna2010genome} and SamTools/BcfTools \cite{li2008mapping} use maximum likelihood models to infer when there is a mismatch between the sample and reference genomes and whether the sample is homozygous or heterozygous for the variant. 
+This method works best for differences of a single base (SNV), but it can also work with different degrees of success for short insertions or deletions (InDels) consisting of less than 10 bases. 
 
-Aligning sequences that contain InDels (gaps) is more difficult than ungapped alignments since finding optimal gap boundary depends on the scoring method being used. This biases variant calling algorithms towards detecting false SNVs near InDels \cite{depristo2011framework}.  An approach to reduce this problem is to look for candidate InDels and perform a local realignment in those regions.  This local re-alignment process reduces significantly the number of false positive SNVs \cite{depristo2011framework}. Another approach to reduce the number of false positive SNVs calls near InDels involves the ``Base Alignment Quality" (BAQ) \cite{li2011improving}, which is the probability of misalignment for each base.  It can be shown that replacing the original base quality with the minimum between base quality and BAQ produces an improvement in SNV calling accuracy.  The BAQ can be calculated using a special type of ``Hidden Markov Model" (HMM) designed for sequence alignment \cite{li2011improving, durbin1998biological}. A more sophisticated option for reducing errors consist of performing a local genome re-assembly on each polymorphic region (e.g. HaplotypeCaller algorithm \cite{GATK}).
+Aligning sequences that contain InDels (gaps) is more difficult than ungapped alignments since finding the optimal gap boundary depends on the scoring method being used. 
+This biases variant calling algorithms towards detecting false SNVs near InDels \cite{depristo2011framework}.  
+An approach to reduce this problem is to look for candidate InDels and perform a local realignment in those regions, to reduce significantly the number of false positive SNVs \cite{depristo2011framework}. 
+Another approach involves estimating a ``Base Alignment Quality" (BAQ) \cite{li2011improving} score, which is the probability of misalignment for each base.  
+It can be shown that replacing the original base quality with the minimum between base quality and BAQ produces an improvement in SNV calling accuracy.  
+The BAQ can be calculated using a special type of ``Hidden Markov Model" (HMM) designed for sequence alignment \cite{li2011improving, durbin1998biological}. 
+A more sophisticated option for reducing errors consist of performing a local genome re-assembly on each polymorphic region (e.g. HaplotypeCaller algorithm \cite{GATK}).
 
-Finally, one should note that the error probabilities inferred by the sequencers are far from perfect.  Once the variants have been called, empirical error probabilities can be easily calculated \cite{mckenna2010genome} by comparing sequenced variants to a set of ``gold standard variants" (i.e. variants that have been extensively validated).  This allows to re-calibrate or re-estimate the error profile of the reads.  This is know as a re-calibration step, and usually improves the number of false positives calls \cite{depristo2011framework}.
+Finally, one should note that the error probabilities inferred by the sequencers are far from perfect.  
+Once the variants have been called, empirical error probabilities can be easily calculated \cite{mckenna2010genome} by comparing sequenced variants to a set of ``gold standard variants" (i.e. variants that have been extensively validated).  
+This allows to re-calibrate or re-estimate the error profile of the reads.  This is know as a re-calibration step, and usually improves the number of false positives calls \cite{depristo2011framework}.
 
-Due to the nature of short reads, this family of methods does not work for structural genomic variants, such as large insertions, deletions, copy number variations, inversions, or translocations.  A different family of algorithms are used to identify structural variants generally making use of pair end reads or split reads, but their accuracy so far has been low compared to SNV calling algorithm \cite{o2013low}.
+Due to the nature of short reads, this family of methods does not work for structural genomic variants, such as large insertions, deletions, copy number variations, inversions, or translocations.  
+A different family of algorithms are used to identify structural variants generally making use of pair end reads or split reads, but their accuracy so far has been low compared to SNV calling algorithm \cite{o2013low}.
 
-One of the caveats of current sequencing technologies and computational methods for variant calling, detection accuracy varies significantly for different variant types. SNV are by far the most accurately detected. Insertions and deletions, collectively referred as InDels, can be detected less efficiently depending on their sizes. Small InDels \cite{durbin2010map} consisting of ten bases or less are easier to detect than large InDels consisting of 200 bases or more. The reason being that the most commonly used sequencers reads DNA in stretches roughly 200 bases long. Due to this technological limitations, detection is less reliable for more complex variant types.
+One of the caveats of current sequencing technologies and computational methods for variant calling, detection accuracy varies significantly for different variant types. SNV are by far the most accurately detected. 
+Insertions and deletions, collectively referred as InDels, can be detected less efficiently depending on their sizes. 
+Small InDels consisting of ten bases or less are easier to detect than large InDels consisting of 200 bases or more \cite{durbin2010map}, in part as most commonly used sequencers reads DNA in stretches roughly 200 bases long. 
+Due to this technological limitation, detection is less reliable for more complex variant types.
 
 %---
 \section{Functional annotations of genomic variants \label{sec:funann}}
