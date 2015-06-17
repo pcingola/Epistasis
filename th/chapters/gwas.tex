@@ -143,7 +143,7 @@ We only take into account amino acids pairs within the same chain, that are sepa
 
 \subsection{Calculating likelihood of individual and pairs of alignment columns}
 
-Given a substitution rate matrix $Q$, a multiple sequence alignment $MSA$, and a phylogenetic tree $T$ for the sequences in $MSA$, the likelihood of an alignment column $MSA(i)$ (i.e. $L_1[MSA(i)]$) can be calculated using Felsenstein's algorithm \cite{felsenstein2004inferring}, which has a time complexity of $O(N \cdot |\Sigma|^2)$, where $|\Sigma|=20$ is the alphabet size and $N$ is the number of sequences in the alignment. 
+Given a substitution rate matrix $Q$, a multiple sequence alignment MSA, and a phylogenetic tree $T$ for the sequences in MSA, the likelihood of an alignment column $MSA(i)$ (i.e. $L_1[MSA(i)]$) can be calculated using Felsenstein's algorithm \cite{felsenstein2004inferring}, which has a time complexity of $O(N \cdot |\Sigma|^2)$, where $|\Sigma|=20$ is the alphabet size and $N$ is the number of sequences in the alignment. 
 Given matrix $Q_2$, the same algorithm can be used to compute the likelihood $L_2[ MSA(i), MSA(j) ]$ of a pair of alignment columns $( MSA(i), MSA(j) )$, but now in time $O(N \cdot |\Sigma|^4)$. 
 
 A test for co-evolution of two positions $i$, $j$ from the same or different proteins is obtained from the log-likelihood ratio of these two models: 
@@ -381,30 +381,34 @@ The filters described in Methods section resulted in a number of variant pairs b
 By means of the z-score relationship between Bayes Factor and p-values shown in \cite{goodman1999toward}, we can set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF_T] =  8.0$.
 
 \paragraph{Results}
-Variant annotated and filtered according to the previous paragraphs lead to variant pairs having high log likelihood in our logistic regression model  ($\ell_G > 6$, in equation \ref{eq:gwasLogLikLogReg}) that were further analysed under co-evolutionary and Bayesian models. 
+Variants annotated and filtered according to the previous paragraphs resulted in he identification of variant pairs having log likelihood $\ell_G$ above $6$ (see equation \ref{eq:gwasLogLikLogReg}) that were further analysed under co-evolutionary and Bayesian models. 
 The complete analysis took less than $2$ days using a $1,000$ CPU-cluster, thus showing that an epistatic GWAS analysis is feasible using current computational resources. 
-Table \ref{tab:gwas_13k_results_1} shows the main results from our GWAS epistatic analysis, genes highlighted in red belong to a hand curated set of genes either associated with diabetes or known to be in diabetes related pathway. 
+Table \ref{tab:gwas_13k_results_1} shows the main results from our GWAS epistatic analysis.
+Genes highlighted in red are associated with diabetes or known to be in diabetes-related pathway. 
 It should be noted that some of the top results include amino acid modification sites such as Phosphoserine (or Glycosylation, not shown), which are likely to be interaction loci.
 
 \paragraph{Associations are purely epistatic}
-In order to understand the nature of the putative epistatic associations, we compared our top epistatic GWAS results against a large single marker GWAS study of type II diabetes form the DIAGRAM consortia \cite{zeggini2008meta,voight2010twelve} as well as a meta analysis from the same consortia \cite{morris2012large}.
-For each of our top $1,000$ results we looked up the closest entry from DIAGRAM dataset and analysed the corresponding p-values form all the three publicly released DIAGRAM datasets.
+In order to understand the nature of the putative epistatic associations, we compared our top epistatic GWAS results against a large single marker GWAS study of type II diabetes from the DIAGRAM consortia \cite{zeggini2008meta,voight2010twelve} as well as a meta analysis from the same consortia \cite{morris2012large}.
+For each of our top $1,000$ results we looked up the closest entry from the DIAGRAM dataset (i.e. the entry having smallest distance, as measured in number of bases) and analysed the corresponding p-values from the three publicly released DIAGRAM datasets.
 
 Only $14$ of the top $1,000$ results show suggestive association (p-value $\le 10^{-4}$) in a nearby loci (average distance $977$ bases).
-Of these, only one of them is in our top 10 results (8:30982425\_T/G variant in \textit{WRN} gene has DIAGRAM p-value of $4.6 \times 10^{-4}$ and odds ratio $1.06$), whereas neither of the other suggestive single marker variants are our top 50 results.
-This indicates that our top results are populated by pure epistatic putative effects having no marginal association with disease risk.
-In light of this evidence, it should be noticed that \textit{conditional search} methods (based on selecting the top single marker results and performing epistatic analysis only this subset) would have missed most of our top results.
-Likewise, an extension of that same limitation applies to our own method since we might be missing any three or higher order pure epistatic interaction, a limitation that doesn't seem to be plausible to overcome without introducing prior biological knowledge of interacting loci (which is obviously not available at the moment).
+Of these, only one of them is in our top 10 results (8:30982425\_T/G variant in \textit{WRN} gene) has DIAGRAM p-value of $4.6 \times 10^{-4}$ and odds ratio $1.06$.
+Neither of the other $13$ suggestive single marker variants are our top $50$ results.
+This indicates that our top results are populated by pure epistatic putative effects having little marginal association with disease risk.
+In light of this evidence, it should be noticed that \textit{conditional search} methods (based on selecting the top single-marker results and performing epistatic analysis only on this subset) would have missed most of our top results.
+Likewise, an extension of that same limitation applies to our own method since we might be missing any pure epistatic interaction of order three above, a limitation that doesn't seem to be plausible to overcome without introducing prior biological knowledge of interacting loci (which is obviously not available at the moment).
 
-\figtab{gwas_13k_results_1}{gwas_13k_results_1}{14cm}{Results from epistatic GWAS analysis of type II diabetes sequencing data. First column shows total $log_{10}(BF_T)$; second and third columns show p-value and (raw) Bayes factor for logistic regression model. For each variant in the putative interaction pair: genomic coordinate, gene and functional annotation are shown. Genes marked in red are manually curated gene sets form diabetes related pathways}{Results from epistatic GWAS analysis of type II diabetes sequencing data}
+\figtab{gwas_13k_results_1}{gwas_13k_results_1}{14cm}{Results from epistatic GWAS analysis of type II diabetes sequencing data. 
+%First column shows total $log_{10}(BF_T)$; second and third columns show p-value and (raw) Bayes factor for logistic regression model. For each variant in the putative interaction pair: genomic coordinate, gene and functional annotation are shown. Genes marked in red are manually curated gene sets form diabetes related pathways
+Genes form diabetes related pathways marked in red.}{Results from epistatic GWAS analysis of type II diabetes sequencing data}
 
 \subsection{Power analysis}
 
-In order to asses disease association power we performed extensive simulations.
-As it is often the case in this kind of analysis some simplifying but realistic assumptions were required to make simulations computationally tractable. 
+In order to assess our disease association power we performed extensive simulations.
+As it is often the case in this kind of analyses some simplifying but realistic assumptions were required to make simulations computationally tractable. 
 We assumed that: 
 i) the disease has a logistic risk model;
-ii) risk model has purely epistatic terms, this means that individual loci are assumed to have no marginal effect in disease risk;
+ii) risk model has purely epistatic terms, i.e. that individual loci are assumed to have no marginal effect in disease risk;
 iii) disease prevalence is $8\%$ according the well accepted prevalence for type II diabetes;
 iv) cofactors influencing disease such as population admixture, age and sex were perfectly reduced by the model, meaning that no residual effects remains after correction;
 v) genome wide significance was established as $0.05 / (10^6)^2 = 5 . 10^{-14}$;
@@ -421,16 +425,16 @@ Results for some selected models are shown in Figure \ref{fig:gwas_power}.
 \fig{gwas_power}{gwas_power}{14cm}{Power calculation using a case/control pure two-loci epistatic model for disease prevalences of $8\%$ (type II diabetes). X-axis shows the number of samples in thousands (ranging from 10,000 to 1,000,000) and several joint risk values (from 0.1 to 5) are shown as different colors lines within each plot. Each plot represents a different allele frequencies combination (for each of the two loci), from top to bottom and left to right, the allele frequency value pairs are: $[AF_1=1\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=2.5\%]$, $[AF_1=5\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=1\%]$, $[AF_1=10\%, AF_2=2.5\%]$, $[AF_1=10\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=7.5\%]$, $[AF_1=10\%, AF_2=10\%]$}{Power calculation using a pure two-loci epistatic model}
 
 As expected these simulations show that very large sample sizes are required to find epistatic effects on rare variant loci (i.e. allele frequencies below $1\%$).
-Even if risk is assumed to be over $2$, $3$, or $5$, sample sizes requirements are expected to be over $400,000$, $200,000$ and $100,000$ respectively (see Figure \ref{fig:gwas_power}, top-left plot).
+Even if the risk factor is assumed to be over $2$, $3$, or $5$, sample sizes requirements are expected to be over $400,000$, $200,000$ and $100,000$ respectively (see Figure \ref{fig:gwas_power}, top-left plot).
 For common variants (i.e. allele frequency of $5\%$) the sample sizes look more attainable in the near future, ranging from $10,000$ to $100,000$ samples when risk factors decrease from $5$ to $0.6$ (Figure \ref{fig:gwas_power}, middle row, left plot).
-Finally, for relatively common variants (allele frequency of $10\%$) the sample sizes up to $100,000$ would be required for risk factors of $0.3$ which is still considered a high risk factor (Figure \ref{fig:gwas_power}, bottom right plot).
+Finally, for relatively common variants (allele frequency of $10\%$) the sample sizes up to $100,000$ would be required for risk factors of $0.3$, which is still considered a high risk factor (Figure \ref{fig:gwas_power}, bottom right plot).
 
 Unsurprisingly, our power calculation results show that large sample sizes are required in order to find epistatic interactions even under assumptions of relatively common variants and relatively high risk factors.
-This highlights not only the complexity of finding epistatic genome wide associations but also how elusive these loci can be.
+This highlights how elusive finding epistatic genome wide associations can be.
 
 \paragraph{Power increase}
 Finally it is worth mentioning that our epistatic GWAS method is able to increase power by using additional information from a co-evolutionary model.
-According to our calculations, co-evolutionary information can increase Bayes Factor between $10^2$ and $10^4$, which is roughly equivalent to reducing genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, thus shifting the power curves in Figure \ref{fig:gwas_power} to the left.
+Using distribution estimates (see figure \ref{gwas_figure_2}) we calculate that co-evolutionary information can increase Bayes Factor between $10^2$ and $10^4$, which is roughly equivalent to reducing genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, thus shifting the power curves in Figure \ref{fig:gwas_power} to the left.
 Thus the net effect of adding information from a co-evolutionary model is to reduce sample size requirements roughly by half, which is quite remarkable given the little additional information being used by the model (only a multiple sequence alignment).
 
 %---
@@ -440,40 +444,40 @@ Thus the net effect of adding information from a co-evolutionary model is to red
 In this paper, we propose a novel methodology for genome wide association studies of pairs of variants under putative epistatic interaction. 
 Due to the large number of statistical tests required in an epistatic GWAS analysis and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples.
 Our highly optimized algorithms are applicable to such large scale sequencing genomic studies and we show the application of our methods to a large scale exome sequencing study for type II diabetes consisting of $\sim 13,000$ samples and $\sim 1,7M$ variants. 
-First, this shows that is is indeed feasible to apply our methods GWAS-scale datasets. 
+First, this shows that is is indeed feasible to apply our methods to GWAS-scale datasets. 
 Second, although larger cohorts are needed in order to find risk alleles that have lower frequencies and are not captured by this study, we show several suggestive association of pairs of putatively interacting variants with type II diabetes. 
 
 The co-evolutionary model we propose in section \ref{sec:gwasQ2} requires multiple sequence alignment and the corresponding phylogenetic tree.
-Intuitively, using an $MSA$ with larger number of sequences should improve co-evolutionary model detection and other co-evolutionary approaches indeed require very large $MSA$. 
-Unfortunately, at this moment, $MSA$ consisting of a large number of sequences are available only for a small fraction of all human proteins and they often consist of a mixture of ortholog and paralog sequences which may lead to biases in co-evolutionary models. 
-Furthermore, both the phylogenetic tree and the number of sequences in the $MSA$ should remain constant throughout the genome in order to take advantage of computational optimizations (matrix exponential pre-calculation and ``constant tree caching") that allow the algorithm to be applied at genome-wide scale. 
+Intuitively, using a MSA with larger number of sequences should improve co-evolutionary model detection and other co-evolutionary approaches indeed require very large MSA. 
+Unfortunately, at this moment, MSA consisting of a large number of sequences are available only for a small fraction of all human proteins and they often consist of a mixture of ortholog and paralog sequences which may lead to biases in co-evolutionary models. 
+Furthermore, both the phylogenetic tree and the number of sequences in the MSA should remain constant throughout the genome in order to take advantage of computational optimizations (matrix exponential pre-calculation and ``constant tree caching") that allow the algorithm to be applied at genome-wide scale. 
 Many multiple sequence alignments (such as Pfam) have different number of sequences for each protein (thus different phylogenetic trees). This poses two main disadvantages for our methodology: 
-i) we cannot benefit from the previously mentioned optimizations, since they require a constant phylogenetic tree throughout the whole genome; and 
+i) we cannot benefit from the previously mentioned optimizations %, since they require a constant phylogenetic tree throughout the whole genome
+; and 
 ii) we would add the problem of reconciling different phylogenetic trees from two proteins, which may lead to inconsistencies. 
-For all these reasons we selected UCSC's multi-100way \cite{karolchik2014ucsc}, a genome wide multiple sequence alignment of 100 organisms which has single genome wide phylogenetic tree. 
-This $MSA$ is expected to grow with the advent of projects like G10K \cite{haussler2009genome} thus enabling more precise co-evolutionary predictions. 
+For all these reasons we selected UCSC's multi-100way \cite{karolchik2014ucsc}, a genome wide multiple sequence alignment of 100 vertebrates which has a single genome wide phylogenetic tree. 
+This MSA is expected to grow with the advent of projects like G10K \cite{haussler2009genome} thus enabling more precise co-evolutionary predictions. 
 
-In order to further validate our co-evolutionary model in the context of human disease, we tested whether it can separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). 
-Interestingly, variants categorized as ``benign" or ``druggable" have higher scores (mean $\ell_C$ within protein) than variants categorized as pathogenic (Supplementary Tables \ref{tab:gwas_clinvar}, \ref{tab:gwas_1Kg} and Figure \ref{fig:gwas_clinvar}). 
+In order to further validate our co-evolutionary model in the context of human disease, we tested whether $\ell_C$ scores can separate clinically relevant variants from ClinVar database \cite{landrum2013clinvar} according to their clinical significance attribute (CLNSIG). 
+Interestingly, variants categorized as ``benign" (i.e. non-pathogenic) or ``druggable" (i.e. affecting drug response) have higher scores (mean $\ell_C$ within protein) than variants categorized as pathogenic (Supplementary Tables \ref{tab:gwas_clinvar}, \ref{tab:gwas_1Kg} and Figure \ref{fig:gwas_clinvar}). 
 We speculate that this might be because amino acids that can be compensated would be characterized as ``benign" whereas deleterious amino acids changes cannot be compensated by mutations in other proteins. 
 
 \paragraph{Comparison to other Co-Evolutionary methods}
 There are several methodologies that can be used to predict putative interactions based on co-evolutionary theory.
-Nevertheless most methods are limited respect to their applicability to GWAS-scale analyses:
+Nevertheless most methods are limited with respect to their applicability to GWAS-scale analyses:
 
 \textit{Phylogenetic tree similarity} can be used as a proxy for the co-evolution of interacting proteins. 
 Computational methods use matrix alignment \cite{ramani2003exploiting} which has demonstrated some degree of success. 
 Unfortunately, such methods have two limiting factors: 
 i) they require large (distinct) phylogenetic trees for each protein which are not be available for all proteins in the genome; and 
-ii) use optimizations requiring long computational times to match matrices (e.g. simulated annealing) for each putative pair or proteins.
+ii) solve an optimization problem requiring long computational times to match matrices (e.g. simulated annealing) for each putative pair or proteins.
 
-\textit{Correlation} methods aim to detect changes on one of the interacting proteins that are compensated by mutations in the other \cite{pazos1997correlated,gobel1994correlated}. 
+\textit{Correlation and Mutual information} based methods aim to detect changes on one of the interacting proteins that are compensated by mutations in the other \cite{pazos1997correlated,gobel1994correlated}. 
 Although these methods are fast enough to be applicable to GWAS scale studies, they still have at least two limitations: 
 i) they require large number of sequences in the multiple sequence alignment to overcome noise (as we mentioned large MSAs are not be available throughout the whole genome); and 
-ii) there are affected by biases mainly caused by phylogenetic tree and indirect correlations. 
-  
-\textit{Mutual information} methods share some similarities with correlation-based methods in the sense that are fast for GWAS studies but unfortunately they also require large MSAs and are well known for having bias caused by phylogenetic tree, and indirect correlations \cite{fares2006novel}.
+ii) there are affected by biases mainly caused by phylogenetic relationships and indirect correlations. 
 There are methods based on mutual information than could perform some phylogenetic correction \cite{de2013emerging}, nevertheless they still require a large number of sequences in the MSA and are known to be biased by allele frequencies \cite{dunn2008mutual} which might limit their applicability for GWAS studies (particularly on non-common variants).
+%\textit{Mutual information} methods share some similarities with correlation-based methods in the sense that are fast for GWAS studies but unfortunately they also require large MSAs and are well known for having bias caused by phylogenetic tree, and indirect correlations \cite{fares2006novel}.
     
 \textit{Global models} are designed to disentangle direct interactions from indirect ones. 
 Several methods have been proposed which rely on: 
@@ -487,19 +491,19 @@ Furthermore, in some of the respective papers the authors mention that it is com
 It is therefore not possible to apply any of these method to GWAS-scale studies at the moment.
 
 Our method attempts to solve two of the main problems common to some of the aforementioned methods: 
-i) the requirement of large number of sequence, and 
-ii) the phylogenetic bias.
+i) the requirement of large number of sequences, 
+ii) the phylogenetic bias, and
+iii) running time.
 These goals are achieved, at least partially, by using a well known Markov model of evolution.
-It should be noted that until not long ago it was thought that methods based on Markov evolutionary theory were unsuitable for large scale studies \cite{de2013emerging}.
+%It should be noted that until not long ago it was thought that methods based on Markov evolutionary theory were unsuitable for large scale studies \cite{de2013emerging}.
 
-\paragraph{Comparison to other Epigenetic GWAS methods}
-Although there large amounts of evidence supporting the theory that epistasis is ubiquitous, detecting epistatic interactions in human has been quite difficult and despite significant efforts the results have been scarce and difficult to reproduce \cite{zuk2012mystery}.
-
-Many reasons have been given in this manuscript and elsewhere to indicate why detecting epistasis this is a very difficult task, with the most commonly cited one being the enormous number of statistical tests required, consequently having a significant reduction of statistical power and an increase in computational resources.
+\paragraph{Comparison to other Epistatic GWAS methods}
+%Although there large amounts of evidence supporting the theory that epistasis is ubiquitous, detecting epistatic interactions in human has been quite difficult and despite significant efforts the results have been scarce and difficult to reproduce \cite{zuk2012mystery}.
+Many reasons have been given in this manuscript and elsewhere to indicate why detecting epistasis this is a very difficult task, with the most commonly cited one being the enormous number of statistical tests required, consequently having a significant reduction of statistical power and an increase in computational resources required.
 Thus methods based on exhaustive search can be computationally infeasible for all but very low order interactions analysis \cite{cordell2009detecting}.
 Their counterpart are \textit{conditional search} methods \cite{li2011detecting} which are usually based on selecting the top single value associated variants and then performing epistatic analysis on a small subset.
-Unfortunately these methods are guaranteed to ignore pure epistatic interactions and only detect marginal ones \cite{li2011detecting,cordell2002epistasis}.
-Since there is no biological indication on whether complex traits have marginal or pure epistatic effects \cite{culverhouse2002perspective,zuk2012mystery,li2011detecting}, it might not be safe to rely on these type of methods when performing an unbiased association study.
+Unfortunately these methods will ignore pure epistatic interactions and only detect marginal ones \cite{li2011detecting,cordell2002epistasis}.
+Since there is no biological indication on whether complex traits have marginal or pure epistatic effects \cite{culverhouse2002perspective,zuk2012mystery,li2011detecting}, it might not be safe to rely exclusively on these type of methods when performing an  association study.
 
 Stochastic search based methods \cite{zhang2007bayesian} show great potential, but as far as we known they have not yet produced any significant results most likely due to small sample sizes used in the respective publications. 
 Some authors pointed out that some of most well known methods in this family may have difficulties with large number of samples \cite{de2013emerging}.
@@ -508,13 +512,13 @@ Finally methods based machine learning have been proposed and applied with diffe
 One of the main limitations of machine learning methods lies in the fact that the majority of them do not result in a statistical significance metric (such as p-value or Bayesian factor), thus researchers are often weary of conducting an expensive follow up studies based in results from machine learning algorithms.
 Another limitation is that many machine learning approaches do not for allow appropriate correction from population admixture and other cofactors.
 
-The methodology we proposed in this paper is based on a well established statistical procedures (Logistic Regression) using gold standard corrections for known population cofactors (eigen-analysis) as well as other disease cofactors (such age and sex are known to affect risk of type II diabetes).
+The methodology we proposed in this paper is based on a well established statistical procedures (Logistic Regression) using gold standard corrections for known population cofactors (eigen-analysis) as well as other disease cofactors (such as age and sex are known to affect risk of type II diabetes).
 Our method performs exhaustive search of second order interactions thus is capable of finding pure epistatic interactions pairs as well as marginal ones.
 Finally, we address the power limitations by using co-evolutionary results from a well established Markov model of evolution and combining them with our association analysis by means of a Bayesian model.
 This has the advantage that not only is being based on solid and well accepted theoretical grounds, but also it can increase statistical power and is capable of analysing large GWAS datasets that are becoming available now.
 
 As a limitation, our methodology currently cannot analyse variants that are in complete LD.
-There is evidence suggesting that genes relatively close (in genomic coordinates) tend to be correlated in expression (co-regulated) and likely to be in the same pathway or even to interact \cite{petkov2005evidence}.
+There is evidence suggesting that genes relatively close (in genomic coordinates) tend to have correlated in expression levels and likely to be in the same pathway or even to interact \cite{petkov2005evidence}.
 Nevertheless it seems that complete LD would be a result of ``selective sweeps", in which an allele giving significant fitness advantage becomes more frequent so rapidly that there is little recombination.
 These selective sweeps seem to be rare \cite{hernandez2011classic}, thus this limitation might not be encountered often in practice.
 
@@ -525,4 +529,5 @@ Another line of work is to perform GWAS using kernel based statistics of multipl
 In this case the epistatic information would be used as a function modifying the kernel, instead of a Bayesian prior.
 It has also been suggested that positive selection might be used as an additional prior of epistatic interactions. 
 Nevertheless a study comparing positive selection maps form 9 different methods \cite{akey2009constructing} shows that only $14\%$ of the regions have been identified in more than one study.
-This striking lack of concordance suggests that using positive selection estimates would add more noise than information at this moment, although it is an interesting venue to explore when more reliable estimates become available.
+%This striking lack of concordance suggests that using positive selection estimates would add more noise than information at this moment, although it is an interesting venue to explore when more reliable estimates become available.
+Although there seems to be a lack of concordance at the moment, using positive selection estimates would be an interesting venue to explore in the future.

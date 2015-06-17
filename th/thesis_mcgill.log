@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  17 JUN 2015 13:34
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  17 JUN 2015 14:43
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -561,16 +561,21 @@ LaTeX Warning: Reference `fig:gwas_genegene' on page 25 undefined on input line
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
-Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 399.
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 403.
 (pdftex.def)             Requested size: 398.33858pt x 160.73254pt.
  [28 <./figs/gwas_13k_results_1.png>]
 <figs/gwas_power.png, id=117, 1027.84pt x 1027.84pt>
 File: figs/gwas_power.png Graphic file (type png)
  <use figs/gwas_power.png>
-Package pdftex.def Info: figs/gwas_power.png used on input line 421.
+Package pdftex.def Info: figs/gwas_power.png used on input line 425.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-Overfull \hbox (9.1797pt too wide) in paragraph at lines 432--435
+
+LaTeX Warning: Reference `gwas_figure_2' on page 29 undefined on input line 437
+.
+
+
+Overfull \hbox (9.1797pt too wide) in paragraph at lines 436--439
 \OT1/cmr/m/n/12 method is able to in-crease power by us-ing ad-di-tional in-for
 -ma-tion from a co-evolutionary
  []
@@ -578,29 +583,29 @@ Overfull \hbox (9.1797pt too wide) in paragraph at lines 432--435
 [29] [30 <./figs/gwas_power.png>] [31]
 
 LaTeX Warning: Reference `tab:gwas_clinvar' on page 32 undefined on input line 
-457.
+462.
 
 
-LaTeX Warning: Reference `tab:gwas_1Kg' on page 32 undefined on input line 457.
+LaTeX Warning: Reference `tab:gwas_1Kg' on page 32 undefined on input line 462.
 
 
 
 LaTeX Warning: Reference `fig:gwas_clinvar' on page 32 undefined on input line 
-457.
+462.
 
 [32]
-Overfull \hbox (12.93814pt too wide) in paragraph at lines 461--463
+Overfull \hbox (12.93814pt too wide) in paragraph at lines 466--468
  \OT1/cmr/bx/n/12 Com-par-i-son to other Co-Evolutionary meth-ods.[] \OT1/cmr/m
 /n/12 There are sev-eral method-
  []
 
-[33]
-Overfull \hbox (3.99701pt too wide) in paragraph at lines 475--477
+
+Overfull \hbox (3.99701pt too wide) in paragraph at lines 480--482
 []\OT1/cmr/m/it/12 Mutual in-for-ma-tion \OT1/cmr/m/n/12 meth-ods share some si
 m-i-lar-i-ties with correlation-based meth-
  []
 
-[34] [35] [36]) [37] (./thesis_mcgill.bbl [38
+[33] [34] [35] [36]) [37] (./thesis_mcgill.bbl [38
 
 
 
@@ -608,8 +613,8 @@ m-i-lar-i-ties with correlation-based meth-
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [42] [43]
-[44] [45]) (./thesis_mcgill.aux (./chapters/gwas.aux))
+ [42]
+[43] [44] [45]) (./thesis_mcgill.aux (./chapters/gwas.aux))
 
  *File List*
 mcgilletdclass.cls    2004/12/01 v0.1 McGill University Thesis Class
@@ -683,10 +688,10 @@ LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 6372 strings out of 493315
- 94877 string characters out of 6137904
+ 6373 strings out of 493315
+ 94892 string characters out of 6137904
  185776 words of memory out of 5000000
- 9694 multiletter control sequences out of 15000+600000
+ 9695 multiletter control sequences out of 15000+600000
  10165 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,44p,866b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -703,7 +708,7 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (45 pages, 2307417 bytes).
+Output written on thesis_mcgill.pdf (45 pages, 2306989 bytes).
 PDF statistics:
  218 PDF objects out of 1000 (max. 8388607)
  142 compressed objects within 2 object streams
