@@ -1,0 +1,129 @@
+\contentsline {chapter}{\numberline {1}Introduction }{1}
+\contentsline {section}{\numberline {1.1}Introduction}{1}
+\contentsline {section}{\numberline {1.2}Genomes and genetic variants }{4}
+\contentsline {section}{\numberline {1.3}DNA and disease risk}{8}
+\contentsline {subsection}{\numberline {1.3.1}Heritability and Missing heritability}{9}
+\contentsline {subsection}{\numberline {1.3.2}Conclusions}{11}
+\contentsline {section}{\numberline {1.4}Identification of genetic variants}{11}
+\contentsline {subsection}{\numberline {1.4.1}Sequencing data}{12}
+\contentsline {subsection}{\numberline {1.4.2}Read mapping}{14}
+\contentsline {paragraph}{Local sequence alignment.}{14}
+\contentsline {paragraph}{Read mapping.}{15}
+\contentsline {paragraph}{Mapping quality.}{17}
+\contentsline {subsection}{\numberline {1.4.3}Variant calling }{17}
+\contentsline {section}{\numberline {1.5}Functional annotations of genomic variants }{19}
+\contentsline {subsection}{\numberline {1.5.1}Variant types}{22}
+\contentsline {subsection}{\numberline {1.5.2}Types of genetic annotations}{22}
+\contentsline {subsection}{\numberline {1.5.3}Coding variant annotation}{24}
+\contentsline {subsection}{\numberline {1.5.4}Loss of function variants}{26}
+\contentsline {subsection}{\numberline {1.5.5}Variants with low or moderate impact}{28}
+\contentsline {subsection}{\numberline {1.5.6}Non-coding variant annotation}{31}
+\contentsline {subsection}{\numberline {1.5.7}Impact assessment of non-coding variants}{35}
+\contentsline {paragraph}{Computational sources of evidence.}{35}
+\contentsline {paragraph}{Experimental sources of evidence:.}{36}
+\contentsline {paragraph}{Combining sources of evidence:.}{37}
+\contentsline {subsection}{\numberline {1.5.8}Clinical effect of variants}{38}
+\contentsline {subsection}{\numberline {1.5.9}Data structures and computational efficiency}{41}
+\contentsline {subsection}{\numberline {1.5.10}Conclusions}{42}
+\contentsline {section}{\numberline {1.6}Genome wide association studies}{42}
+\contentsline {subsection}{\numberline {1.6.1}Single variant tests and models }{42}
+\contentsline {subsection}{\numberline {1.6.2}Multiple variant tests}{44}
+\contentsline {subsection}{\numberline {1.6.3}Continuous traits and correcting for co-factors }{44}
+\contentsline {subsection}{\numberline {1.6.4}Population structure }{45}
+\contentsline {subsection}{\numberline {1.6.5}Population structure as confounding variable }{46}
+\contentsline {subsection}{\numberline {1.6.6}Common and Rare variants}{47}
+\contentsline {subsection}{\numberline {1.6.7}Rare variants test}{48}
+\contentsline {section}{\numberline {1.7}Epistasis }{49}
+\contentsline {subsection}{\numberline {1.7.1}Epistasis is ubiquitous}{53}
+\contentsline {subsection}{\numberline {1.7.2}Epistasis examples}{53}
+\contentsline {paragraph}{Non-human.}{53}
+\contentsline {paragraph}{Human.}{55}
+\contentsline {subsection}{\numberline {1.7.3}Epistasis and evolution}{56}
+\contentsline {subsection}{\numberline {1.7.4}Missing heritability}{57}
+\contentsline {subsection}{\numberline {1.7.5}Detecting epistatic interactions}{58}
+\contentsline {subsection}{\numberline {1.7.6}Epistasis \& GWAS}{60}
+\contentsline {subsection}{\numberline {1.7.7}Conclusions }{69}
+\contentsline {section}{\numberline {1.8}Coevolution}{71}
+\contentsline {paragraph}{Co-evolution examples.}{72}
+\contentsline {subsection}{\numberline {1.8.1}Basic co-evolution inference models}{73}
+\contentsline {paragraph}{Phylogenetic tree similarity.}{73}
+\contentsline {paragraph}{Correlated mutations.}{74}
+\contentsline {paragraph}{Phylogenetic correction.}{76}
+\contentsline {paragraph}{Evolutionary timespan.}{77}
+\contentsline {paragraph}{MSA quality influences predictions.}{78}
+\contentsline {paragraph}{Co-Evolution and protein structure.}{79}
+\contentsline {paragraph}{Protein design.}{79}
+\contentsline {subsection}{\numberline {1.8.2}Global co-evolution models }{80}
+\contentsline {paragraph}{Glass spin systems.}{80}
+\contentsline {paragraph}{Direct coupling analysis.}{81}
+\contentsline {paragraph}{Mean field approximation.}{83}
+\contentsline {paragraph}{PSI-COV.}{83}
+\contentsline {paragraph}{Multidimensional mutual information.}{84}
+\contentsline {paragraph}{Bayesian network model.}{85}
+\contentsline {subsection}{\numberline {1.8.3}Algorithm limitations}{85}
+\contentsline {section}{\numberline {1.9}Thesis roadmap and Contributions}{88}
+\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{94}
+\contentsline {section}{\numberline {2.1}Preface}{94}
+\contentsline {section}{\numberline {2.2}Introduction}{96}
+\contentsline {section}{\numberline {2.3}Methods}{100}
+\contentsline {subsection}{\numberline {2.3.1}Language overview}{100}
+\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{101}
+\contentsline {subsection}{\numberline {2.3.3}Robustness}{103}
+\contentsline {paragraph}{Lazy processing.}{104}
+\contentsline {paragraph}{Absolute serialization.}{105}
+\contentsline {paragraph}{Limitations.}{105}
+\contentsline {subsection}{\numberline {2.3.4}Other features}{106}
+\contentsline {paragraph}{Automatic logging.}{106}
+\contentsline {paragraph}{Automatic command line parsing.}{107}
+\contentsline {paragraph}{Task re-execution.}{108}
+\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{108}
+\contentsline {section}{\numberline {2.4}Results}{113}
+\contentsline {paragraph}{Architecture independence.}{113}
+\contentsline {paragraph}{Robustness.}{115}
+\contentsline {paragraph}{Scalability.}{115}
+\contentsline {section}{\numberline {2.5}Discussion}{117}
+\contentsline {chapter}{\numberline {3}A program for annotating and predicting the effects of single nucleotide polymorphisms, SnpEff: SNPs in the genome of Drosophila melanogaster strain $w^{1118} ; iso-2; iso-3$}{118}
+\contentsline {section}{\numberline {3.1}Preface}{118}
+\contentsline {section}{\numberline {3.2}Abstract}{119}
+\contentsline {section}{\numberline {3.3}Introduction}{120}
+\contentsline {section}{\numberline {3.4}Results}{122}
+\contentsline {section}{\numberline {3.5}Discussion}{140}
+\contentsline {section}{\numberline {3.6}Methods }{144}
+\contentsline {section}{\numberline {3.7}Acknowledgements}{148}
+\contentsline {section}{\numberline {3.8}Epilogue}{149}
+\contentsline {subsection}{\numberline {3.8.1}Data structures for annotations}{149}
+\contentsline {chapter}{\numberline {4}Epistatic GWAS analysis}{151}
+\contentsline {section}{\numberline {4.1}Preface}{151}
+\contentsline {section}{\numberline {4.2}Abstract}{152}
+\contentsline {paragraph}{Motivation.}{152}
+\contentsline {paragraph}{Methods.}{152}
+\contentsline {paragraph}{Results.}{153}
+\contentsline {paragraph}{Availability.}{153}
+\contentsline {section}{\numberline {4.3}Introduction}{153}
+\contentsline {section}{\numberline {4.4}Methods }{158}
+\contentsline {subsection}{\numberline {4.4.1}Substitution model for pairs of interacting amino acids }{158}
+\contentsline {subsection}{\numberline {4.4.2}Calculating likelihood of individual and pairs of alignment columns}{161}
+\contentsline {subsection}{\numberline {4.4.3}GWAS model}{162}
+\contentsline {paragraph}{Computational and statistical issues.}{167}
+\contentsline {subsection}{\numberline {4.4.4}Putting it all together}{168}
+\contentsline {section}{\numberline {4.5}Results}{169}
+\contentsline {subsection}{\numberline {4.5.1}Co-evolutionary substitution models}{169}
+\contentsline {subsection}{\numberline {4.5.2}Co-evolutionary model validation}{170}
+\contentsline {subsection}{\numberline {4.5.3}Epistatic GWAS analysis}{176}
+\contentsline {paragraph}{Results.}{176}
+\contentsline {paragraph}{Associations are purely epistatic.}{176}
+\contentsline {subsection}{\numberline {4.5.4}Power analysis}{177}
+\contentsline {paragraph}{Power increase.}{180}
+\contentsline {section}{\numberline {4.6}Discussion}{180}
+\contentsline {paragraph}{Comparison to other Co-Evolutionary methods.}{182}
+\contentsline {paragraph}{Comparison to other Epistatic GWAS methods.}{184}
+\contentsline {paragraph}{Future work.}{186}
+\contentsline {section}{\numberline {4.7}Supplementary material}{187}
+\contentsline {chapter}{\numberline {5}Conclusions }{192}
+\contentsline {section}{\numberline {5.1}Contributions}{192}
+\contentsline {section}{\numberline {5.2}Future work}{194}
+\contentsline {paragraph}{BigDataScript.}{194}
+\contentsline {paragraph}{Variant annotations.}{195}
+\contentsline {paragraph}{GWAS Epistasis.}{195}
+\contentsline {section}{\numberline {5.3}Perspectives}{196}
+\contentsline {extrachapter}{References}{197}
