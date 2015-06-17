@@ -349,18 +349,16 @@ Figure \ref{fig:gwas_jmol} shows the example of a predicted contact $\ell_C = 7.
 Although our approach aims at identifying contacting residues from different proteins, it can also be used to predict the presence or absence of interactions between proteins as a whole. 
 We extracted from BioGrid \cite{stark2006biogrid} a set of $\sim3,000$ pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue (GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets\}). We randomly selected as ``non-interacting" pairs the same number of pairs amongst those that do not fulfil any of the three conditions.
 
-\begin{figure}
-\centering
-\begin{subfigure}{.9\textwidth}
+\begin{figure}[p]
+%\centering
+\begin{subfigure}[t]{0.7\textwidth}
   \centering
-  \includegraphics[width=14cm]{figs/gwas_figure_4_jmol.png}
-  %\caption{A subfigure}
+  \includegraphics[height=10cm]{figs/gwas_figure_4_jmol.png}
   \label{fig:sub1}
-\end{subfigure}%
-\begin{subfigure}{.1\textwidth}
+\end{subfigure}
+\begin{subfigure}[t]{.2\textwidth}
   \centering
-  \includegraphics[width=7cm]{figs/gwas_figure_4_tree_coevolution.png}
-  %\caption{A subfigure}
+  \includegraphics[height=17cm]{figs/gwas_figure_4_tree_coevolution.png}
   \label{fig:sub2}
 \end{subfigure}
 \FigureCaptionOpt{Example of amino acid interaction}{Example of interaction between amino acid \#441 of \textit{Senp1} and \#60 of \textit{Sumo1} proteins detected by our method with $\ell_C = 7.7$. Left: PDB structure 2G4D, shows that the amino acids are in close proximity. Right: Multiple sequence alignment and phylogenetic tree showing the putative compensatory amino acid substitution pair \texttt{D.N} replaced by \texttt{H.S}.}
