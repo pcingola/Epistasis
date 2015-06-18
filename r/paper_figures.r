@@ -1,13 +1,23 @@
 
+library('Matrix')
+library('gplots')
+library('expm')
+
 savePng <- T
 fig2    <- F
 fig3    <- F
 fig4    <- F
 fig5    <- F
-figS1   <- F
+figS1   <- T
 figS2   <- F
 figS3   <- F
-figS4   <- T
+figS4   <- F
+
+if( savePng) {
+	heatmap.keysize <- 0.4
+} else {
+	heatmap.keysize <- 1.0
+}
 
 #-------------------------------------------------------------------------------
 # Compare two distributions
@@ -277,23 +287,37 @@ figureS1 <- function() {
 	Pt0 <- round( 10000 * Pt(t0) )
 
 	d <- max(dim(pam))
+
+	# Calculate relative error
+#	err <- pam * 0
+#	for( i in 1:d ) {
+#		s <- sum(pam[i,]) - pam[i, i]
+#		cat('Rowsum:[', i ,']', s, '\n')
+#		for( j in 1:d ) {
+#			err[i,j] <- abs(pam[i,j] - Pt0[i,j]) / s
+#		}
+#	}
+
 	err <- pam * 0
+	# Mathieu wants log scale ratio (not relative error)
 	for( i in 1:d ) {
-		s <- sum(pam[i,]) - pam[i, i]
-		cat('Rowsum:[', i ,']', s, '\n')
+		cat('Rowsum:[', i ,']\n')
 		for( j in 1:d ) {
-			err[i,j] <- abs(pam[i,j] - Pt0[i,j]) / s
+			err[i,j] <- log2(Pt0[i,j] / pam[i,j])
 		}
+		#err[i,i] <- 0
 	}
 	err[ is.nan(err) ] <- 0
+	err[ is.infinite(err) ] <- 0
 
 	mypalette <- redgreen(100)
 	mypalette <- colorRampPalette(c("red", "white", "green"))(n = 100)
 
-	heatmap.2(Qhat, main = "Qhat", sub="Normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "row", na.rm=T); 
+	heatmap.2(Qhat, main = "Qhat", sub="Normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "row", na.rm=T, keysize = heatmap.keysize); 
 
-	#heatmap.2(err, main = "PAM1 vs P[Qhat, t=1]", sub="Error normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = T, symbreaks = T, scale = "none", na.rm=T); 
-	heatmap.2(err, main = "", sub="Error normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T); 
+	#heatmap.2(err, main = "", sub="Ratio normalized by row", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T, keysize = heatmap.keysize); 
+	hmcols <- colorRampPalette(c("red","white","blue"))(256)
+	heatmap.2(err, main = "", sub="Ratio normalized by row", Rowv=F, Colv=F, col = hmcols, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T, keysize = heatmap.keysize); 
 }
 
 #-------------------------------------------------------------------------------
@@ -305,7 +329,7 @@ figureS2 <- function() {
 	q2 <- Qhat2
 	diag(q2) <- 0
 	mypalette <- colorRampPalette(c("red", "white", "black"))(n = 100)
-	heatmap.2(q2, main = "", sub="Diagonal set to zero", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T); 
+	heatmap.2(q2, main = "", sub="Diagonal set to zero", Rowv=F, Colv=F, col = mypalette, density.info = "none", trace = "none", dendrogram = "none", symm = F, symkey = F, symbreaks = T, scale = "none", na.rm=T, keysize = heatmap.keysize); 
 }
 
 #-------------------------------------------------------------------------------
@@ -330,7 +354,7 @@ figureS3 <- function(ll.alt, ll.null) {
 		title <- ""
 
 		xlim <- c(5,20)
-		plot( density( lla ), col='red', main=title, xlab='', xlim=xlim )
+		plot( density( lla ), col='red', main=title, xlab='log(Lc)', xlim=xlim )
 		lines( density( lln ), col='green' )
 	}
 }
@@ -377,7 +401,7 @@ figureS4 <- function(ll.alt, ll.null) {
 	}
 
 	#plot(density( d.clin$ll ), main="Log-Likelihood by Clinical Significance (CLNSIG)", xlab="Log-likelihood", sub="Black: All, Blue: Unknown, Red: Pathogenic, Green: Benign", xlim = c(0, 75) )	# All entries
-	plot(density( d.clin$ll ), main='', xlab="", sub="", xlim = c(0, 40) )	# All entries
+	plot(density( d.clin$ll ), main='', xlab="log(Lc)", sub="", xlim = c(0, 40) )	# All entries
 
 	# CLNSIG: Unknown
 	keep <- (d.clin$clnsig == 0) | (d.clin$clnsig == 1) | (d.clin$clnsig == 255)
