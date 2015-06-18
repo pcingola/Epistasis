@@ -1,49 +1,72 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
-A level-1 auxiliary file: chapters/gwas_supp.aux
+A level-1 auxiliary file: chapters/gwas.aux
 The style file: plain.bst
-I found no \citation commands---while reading file thesis_mcgill.aux
 Database file #1: mcgilletd.bib
-You've used 0 entries,
+Repeated entry---line 1703 of file mcgilletd.bib
+ : @article{wu2011rare
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2192 of file mcgilletd.bib
+ : @article{mani2008defining
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2344 of file mcgilletd.bib
+ : @article{morcos2011direct
+ :                          ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2377 of file mcgilletd.bib
+ : @article{burger2010disentangling
+ :                                 ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3829 of file mcgilletd.bib
+ : @article{koo2013review
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 4447 of file mcgilletd.bib
+ : @article{morris2012large
+ :                         ,
+I'm skipping whatever remains of this entry
+You've used 67 entries,
             2118 wiz_defined-function locations,
-            498 strings with 4030 characters,
-and the built_in function-call counts, 18 in all, are:
-= -- 0
-> -- 0
-< -- 0
-+ -- 0
-- -- 0
-* -- 2
-:= -- 7
-add.period$ -- 0
-call.type$ -- 0
-change.case$ -- 0
+            896 strings with 18575 characters,
+and the built_in function-call counts, 27493 in all, are:
+= -- 2604
+> -- 1810
+< -- 3
++ -- 725
+- -- 648
+* -- 2421
+:= -- 4755
+add.period$ -- 202
+call.type$ -- 67
+change.case$ -- 510
 chr.to.int$ -- 0
-cite$ -- 0
-duplicate$ -- 0
-empty$ -- 1
-format.name$ -- 0
-if$ -- 1
+cite$ -- 67
+duplicate$ -- 753
+empty$ -- 1755
+format.name$ -- 648
+if$ -- 5376
 int.to.chr$ -- 0
-int.to.str$ -- 0
-missing$ -- 0
-newline$ -- 3
-num.names$ -- 0
-pop$ -- 0
+int.to.str$ -- 67
+missing$ -- 69
+newline$ -- 338
+num.names$ -- 134
+pop$ -- 403
 preamble$ -- 1
-purify$ -- 0
+purify$ -- 445
 quote$ -- 0
-skip$ -- 1
+skip$ -- 511
 stack$ -- 0
-substring$ -- 0
-swap$ -- 0
-text.length$ -- 0
+substring$ -- 1780
+swap$ -- 85
+text.length$ -- 3
 text.prefix$ -- 0
 top$ -- 0
-type$ -- 0
+type$ -- 264
 warning$ -- 0
-while$ -- 0
-width$ -- 0
-write$ -- 2
-(There was 1 error message)
+while$ -- 244
+width$ -- 69
+write$ -- 736
+(There were 6 error messages)
