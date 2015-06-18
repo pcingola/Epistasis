@@ -7,8 +7,8 @@ savePng <- T
 fig2    <- F
 fig3    <- F
 fig4    <- F
-fig5    <- F
-figS1   <- T
+fig5    <- T
+figS1   <- F
 figS2   <- F
 figS3   <- F
 figS4   <- F
@@ -212,11 +212,11 @@ figure5 <- function() {
 						title <- paste('Power    AF_1:', af1, '    AF_2:', af2)
 						title <- paste('AF1:', af1, '    AF2:', af2)
 
-						xlab <- 'Sample size [in thousands]'
 						xlab <- ''
+						xlab <- 'Sample size [in thousands]'
 
-						ylab <- 'Power %'
 						ylab <- ''
+						ylab <- 'Power %'
 
 						plot( samplesK, perc, ylim=c(0,100), xlab=xlab, ylab=ylab, main=title, pch=pch, col=col, type='l')
 						points( samplesK[nonzero], perc[nonzero], pch=pch, col=col)
