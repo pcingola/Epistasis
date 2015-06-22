@@ -1,3 +1,6 @@
+\contentsline {extrachapter}{\MakeUppercase {Abstract}}{ii}
+\contentsline {extrachapter}{\MakeUppercase {ABR\'{E}G\'{E}}}{iii}
+\contentsline {extrachapter}{\MakeUppercase {List of Figures and Tables}}{vii}
 \contentsline {chapter}{\numberline {1}Introduction }{1}
 \contentsline {section}{\numberline {1.1}Introduction}{1}
 \contentsline {section}{\numberline {1.2}Genomes and genetic variants }{4}

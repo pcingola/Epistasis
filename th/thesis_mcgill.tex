@@ -97,50 +97,51 @@
 	\begin{romanPagenumber}{2}
 	
 	\iffinal
+
 		%-----------------------------------------------------------------------------
 		% Acknowledgements
 		%-----------------------------------------------------------------------------
 		
-		%\SetAcknowledgeName{\MakeUppercase{Acknowledgements}}
-		%\SetAcknowledgeText{
-		%I would like to thank my feet for all their support, my arms for always being by my side and my fingers, who I can always count on.
-		%}
-		%
-		%\Acknowledge
-		
-		%-----------------------------------------------------------------------------
-		%         English Abstract
-		%-----------------------------------------------------------------------------
-		
-		\SetAbstractEnName{\MakeUppercase{Abstract}}%
-		\SetAbstractEnText{ 
+		\SetAcknowledgeName{\MakeUppercase{Acknowledgements}}
+		\SetAcknowledgeText{
 		}
-		\AbstractEn%
-		
-		%-----------------------------------------------------------------------------
-		%         French Abstract
-		%-----------------------------------------------------------------------------
-		
-		\SetAbstractFrName{\MakeUppercase{ABR\'{E}G\'{E}}}%
-		\SetAbstractFrText{ 
-		}
-		\AbstractFr%
-		
-		%-----------------------------------------------------------------------------
-		% Tables
-		%-----------------------------------------------------------------------------
-		
-		\TOCHeading{\MakeUppercase{Table of Contents}}
-		% \LOTHeading{\MakeUppercase{List of Tables}}
-		\LOFHeading{\MakeUppercase{List of Figures and Tables}}
-		\tableofcontents 
-		%\listoftables 
-		\listoffigures
-	\else
-		% Not the final version? Only show TOC (skip list of figures, tables, abstract, etc.)
-		\TOCHeading{\MakeUppercase{Table of Contents}}
-		\tableofcontents 
+		\Acknowledge
+	
 	\fi
+
+	%-----------------------------------------------------------------------------
+	%         English Abstract
+	%-----------------------------------------------------------------------------
+	
+	\SetAbstractEnName{\MakeUppercase{Abstract}}%
+	\SetAbstractEnText{ 
+Abundant genome sequence information from large cohorts of individuals can now be routinely obtained and this information is poised to ease the identification of genetic variations linked to complex disease. 
+In this work, I investigate the computational and statistical challenges involved in the analysis of large genomic datasets and I tackle three different aspects of the analysis, each of them having very different characteristics.
+First, in order to analyse large amounts of data from genomic studies we design a programming language, BigDataScript, that simplifies the creation of robust and scalable data analysis pipelines.
+Second, we create genomic variant annotation and prioritization methods (SnpEff and SnpSift) that help to calculate putative genetic effects and estimate the genetic impact of variants.
+Finally, we address the problem of finding associations between interacting genetic loci and disease by proposing a methodology that combines population-level genetic information with evolutionary information in order to increase the statistical power in epistatic genome wide association studies 
+	}
+	\AbstractEn%
+	
+	%-----------------------------------------------------------------------------
+	%         French Abstract
+	%-----------------------------------------------------------------------------
+	
+	\SetAbstractFrName{\MakeUppercase{ABR\'{E}G\'{E}}}%
+	\SetAbstractFrText{ 
+	}
+	\AbstractFr%
+	
+	%-----------------------------------------------------------------------------
+	% Tables
+	%-----------------------------------------------------------------------------
+	
+	\TOCHeading{\MakeUppercase{Table of Contents}}
+	% \LOTHeading{\MakeUppercase{List of Tables}}
+	\LOFHeading{\MakeUppercase{List of Figures and Tables}}
+	\tableofcontents 
+	%\listoftables 
+	\listoffigures
 	
 	\end{romanPagenumber}
 
