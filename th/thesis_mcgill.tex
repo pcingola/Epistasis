@@ -83,8 +83,8 @@
 % Conditional expression for faster build during "development" cycle
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
 \newif\ifthesis
-%\thesistrue
-\thesisfalse
+\thesistrue
+%\thesisfalse
 
 % Final version?
 \newif\iffinal
@@ -167,6 +167,7 @@
 \else
 	% Only show the chapter we are currently working on
 	\include{chapters/gwas}
+	\include{chapters/gwas_supp}
 \fi
 
 \ifthesis

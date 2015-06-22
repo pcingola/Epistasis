@@ -378,10 +378,10 @@ As shown in Figure \ref{fig:gwas_genegene}), prediction accuracy is quite good (
 We applied our methods to a cohort of $\sim 13,000$ individuals in a case-control study of type II diabetes \cite{mccarthy2015T2D}.
 This multi-ethnic study covers exons of unrelated individuals from five major ancestral groups (European descent, South Asian, East Asian, Hispanic and African American descent) using an average sequencing coverage over $80 \times$, yielding $1.7$ million coding variants. 
 The filters described in Methods section resulted in a number of variant pairs being analysed of less than $50$ million. 
-By means of the z-score relationship between Bayes Factor and p-values shown in \cite{goodman1999toward}, we can set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF_T] =  8.0$.
+By means of the z-score relationship between Bayes Factor and p-values shown in \cite{goodman1999toward}, we can set the GWAS significance threshold for $50$ million pairs at $log_{10}[BF_T] =  9.0$.
 
 \paragraph{Results}
-Variants annotated and filtered according to the previous paragraphs resulted in he identification of variant pairs having log likelihood $\ell_G$ above $6$ (see equation \ref{eq:gwasLogLikLogReg}) that were further analysed under co-evolutionary and Bayesian models. 
+Variants annotated and filtered according to the previous paragraphs resulted in he identification of  $689,186$ variant pairs having log likelihood $\ell_G$ above $6$ (see equation \ref{eq:gwasLogLikLogReg}) that were further analysed under co-evolutionary and Bayesian models yielding $303$ pairs with log Bayes Factor $log_10[BF_T]$ over $9.0$. 
 The complete analysis took less than $2$ days using a $1,000$ CPU-cluster, thus showing that an epistatic GWAS analysis is feasible using current computational resources. 
 Table \ref{tab:gwas_13k_results_1} shows the main results from our GWAS epistatic analysis.
 Genes highlighted in red are associated with diabetes or known to be in diabetes-related pathway. 
@@ -431,11 +431,6 @@ Finally, for relatively common variants (allele frequency of $10\%$) the sample 
 
 Unsurprisingly, our power calculation results show that large sample sizes are required in order to find epistatic interactions even under assumptions of relatively common variants and relatively high risk factors.
 This highlights how elusive finding epistatic genome wide associations can be.
-
-\paragraph{Power increase}
-Finally it is worth mentioning that our epistatic GWAS method is able to increase power by using additional information from a co-evolutionary model.
-Using distribution estimates (see figure \ref{fig:gwas_figure_2}) we calculate that co-evolutionary information can increase Bayes Factor between $10^2$ and $10^4$, which is roughly equivalent to reducing genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, thus shifting the power curves in Figure \ref{fig:gwas_power} to the left.
-Thus the net effect of adding information from a co-evolutionary model is to reduce sample size requirements roughly by half, which is quite remarkable given the little additional information being used by the model (only a multiple sequence alignment).
 
 %---
 \section{Discussion}
@@ -516,6 +511,11 @@ The methodology we proposed in this paper is based on a well established statist
 Our method performs exhaustive search of second order interactions thus is capable of finding pure epistatic interactions pairs as well as marginal ones.
 Finally, we address the power limitations by using co-evolutionary results from a well established Markov model of evolution and combining them with our association analysis by means of a Bayesian model.
 This has the advantage that not only is being based on solid and well accepted theoretical grounds, but also it can increase statistical power and is capable of analysing large GWAS datasets that are becoming available now.
+%
+%\paragraph{Power increase}
+%Finally it is worth mentioning that our epistatic GWAS method is able to increase power by using additional information from a co-evolutionary model.
+Using distribution estimates (see figure \ref{fig:gwas_figure_2}) we calculate that using co-evolutionary information, our method can increase Bayes Factor between $10^2$ and $10^4$, which is roughly equivalent to reducing genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, (i.e. shifting the power curves in Figure \ref{fig:gwas_power} to the left).
+Thus the net effect of adding information from a co-evolutionary model is to reduce sample size requirements roughly by half, which is remarkable given the little additional information being used by the model (only a multiple sequence alignment).
 
 As a limitation, our methodology currently cannot analyse variants that are in complete LD.
 There is evidence suggesting that genes relatively close (in genomic coordinates) tend to have correlated in expression levels and likely to be in the same pathway or even to interact \cite{petkov2005evidence}.
