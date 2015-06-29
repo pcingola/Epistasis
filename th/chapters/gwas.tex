@@ -271,7 +271,7 @@ Third, if two variants $g_i$ and $g_j$ are such that the interaction term $(g_{s
 Fourth, if the variants and the epistatic term $[g_{s,i}, g_{s,j}, g_{s,i} g_{s,j}]$ are linearly dependent, the logistic regression equations are undetermined, so we skip such variant pairs. 
 Fifth, if one of the variants has high allele frequency with respect to the other, all non-zero epistatic terms may lie in the same positions as non-zero genotypes from the low frequency variant, causing logistic regression estimates to artificially inflate the coefficients of the low frequency variant and the epistatic term thus creating an artificially high association (low p-value). 
 So we filter out these variant pairs as well. 
-Finally, we filter out all variants having Hardy-Weinberg p-value of less than $10^{-6}$, since these variants also artificially inflate the logistic regression coefficients.  
+Finally, we filter out variants having Hardy-Weinberg p-value $10^{-6}$ or less since a low p-value might indicate a sequencing quality problem.
 Once the results are obtained, we can focus on pure epistatic interactions (i.e. interactions with no marginal contribution from each independent loci) by further filtering results and keeping variant pairs whose alternative logistic model (see equation \ref{eq:gwasLogRegH1}) has small absolute values for $\theta_1$ and $\theta_2$ while having large absolute values for $\theta_3$, specifically we keep results if $|\theta_3| > K ( |\theta_1| + |\theta_2| )$ (based on empirical data, we set $K=3$). 
 
 \subsection{Putting it all together}
@@ -280,7 +280,7 @@ In summary, we first calculate the transitions matrices for the Markov models ($
 We analyse variants from genome sequencing data first by filtering only for non-synonymous variants, then analysing all possible pairs of variants and filtering out those that are unsuitable for further analysis.
 % (e.g. in linear dependence, deviation from Hardy-Weinberg equilibrium having p-value less than $10^{-6}$, etc.). 
 From the pairs of variants that pass filtering, we fit two logistic regression models (null and alternative hypothesis), then calculate a p-value using the log-likelihood ratio, and keeping pairs of variants having p-values below a predefined threshold ($10^{-6}$). 
-These pairs of variants are then analysed under our co-evolutionary model, we find the corresponding columns in the multiple sequence alignment and calculate the likelihoods for the null and alternative models by means of Felsenstein's algorithm (using matrices $Q$ and $Q_2$ in respectively). 
+These pairs of variants are then analysed under our co-evolutionary model, we find the corresponding columns in the multiple sequence alignment and calculate the likelihoods for the null and alternative models by means of Felsenstein's algorithm (using matrices $Q$ and $Q_2$ respectively). 
 Finally, likelihoods from co-evolutionary and logistic regression models are used to calculate the total Bayes Factor ($BF_T$) by means of Laplace's approximation:
 %, we extract the co-evolutionary likelihoods from the integrals by assuming independence from genotypes and noting that the probabilities do not depend on $\theta$:
 \begin{eqnarray*}\label{eq:bftot}
@@ -330,7 +330,7 @@ Although the likelihood ratio score by itself cannot perfectly discriminate betw
 
 \fig{gwas_figure_2}{gwas_figure_2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
 
-To confirm that a co-evolutionary model estimated on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis on $\sim3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). 
+To confirm that a co-evolutionary model estimated on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis for $\sim3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). 
 As seen on Figure \ref{fig:gwas_figure_3}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2 \times 10^{-16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. 
 These empirical distributions allow us to approximate of the log odds of the ``interacting" vs ``non-interacting" amino acids distributions as
 \begin{eqnarray*}
@@ -347,7 +347,7 @@ Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (do
 Figure \ref{fig:gwas_jmol} shows the example of a predicted contact $\ell_C = 7.7$ between \textit{Senp1} and \textit{Sumo1} proteins detected by our method. The co-crystallized structure from PDB highlights the interacting amino acids (less than $3$ \r{A} apart) and the corresponding multiple alignment columns.
 
 Although our approach aims at identifying contacting residues from different proteins, it can also be used to predict the presence or absence of interactions between proteins as a whole. 
-We extracted from BioGrid \cite{stark2006biogrid} a set of $\sim3,000$ pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue (GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets\}). We randomly selected as ``non-interacting" pairs the same number of pairs amongst those that do not fulfil any of the three conditions.
+We extracted from BioGrid \cite{stark2006biogrid} a set of $\sim3,000$ pairs of human proteins with evidence of interaction, and further required that both proteins belong to the same pathway (MsigDb, C2 groups \cite{subramanian2005gene}), and their corresponding genes are expressed in the same tissue (GTex \cite{lonsdale2013genotype}, expression of 1 FPKM or more, tissues $\in$ \{skeletal muscle, adipose tissue, pancreatic Islets, liver\}). We randomly selected as ``non-interacting" pairs the same number of pairs amongst those that do not fulfil any of the three conditions.
 
 \begin{figure}[p]
 %\centering
@@ -426,8 +426,8 @@ Results for some selected models are shown in Figure \ref{fig:gwas_power}.
 
 As expected these simulations show that very large sample sizes are required to find epistatic effects on rare variant loci (i.e. allele frequencies below $1\%$).
 Even if the risk factor is assumed to be over $2$, $3$, or $5$, sample sizes requirements are expected to be over $400,000$, $200,000$ and $100,000$ respectively (see Figure \ref{fig:gwas_power}, top-left plot).
-For common variants (i.e. allele frequency of $5\%$) the sample sizes look more attainable in the near future, ranging from $10,000$ to $100,000$ samples when risk factors decrease from $5$ to $0.6$ (Figure \ref{fig:gwas_power}, middle row, left plot).
-Finally, for relatively common variants (allele frequency of $10\%$) the sample sizes up to $100,000$ would be required for risk factors of $0.3$, which is still considered a high risk factor (Figure \ref{fig:gwas_power}, bottom right plot).
+For common variants (i.e. allele frequency of $5\%$) the sample sizes look more attainable in the near future, ranging from $10,000$ to $100,000$ samples when risk factors decrease from $5$ to $1.6$ (Figure \ref{fig:gwas_power}, middle row, left plot).
+Finally, for relatively common variants (allele frequency of $10\%$) the sample sizes up to $100,000$ would be required for risk factors of $1.3$, which is still considered a high risk factor (Figure \ref{fig:gwas_power}, bottom right plot).
 
 Unsurprisingly, our power calculation results show that large sample sizes are required in order to find epistatic interactions even under assumptions of relatively common variants and relatively high risk factors.
 This highlights how elusive finding epistatic genome wide associations can be.
@@ -436,7 +436,7 @@ This highlights how elusive finding epistatic genome wide associations can be.
 \section{Discussion}
 %---
 
-In this paper, we propose a novel methodology for genome wide association studies of pairs of variants under putative epistatic interaction. 
+In this paper, we propose a novel methodology for genome wide association studies to identify pairs of variants under putative epistatic interaction. 
 Due to the large number of statistical tests required in an epistatic GWAS analysis and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples.
 Our highly optimized algorithms are applicable to such large scale sequencing genomic studies and we show the application of our methods to a large scale exome sequencing study for type II diabetes consisting of $\sim 13,000$ samples and $\sim 1,7M$ variants. 
 First, this shows that is is indeed feasible to apply our methods to GWAS-scale datasets. 
@@ -471,7 +471,7 @@ ii) solve an optimization problem requiring long computational times to match ma
 Although these methods are fast enough to be applicable to GWAS scale studies, they still have at least two limitations: 
 i) they require large number of sequences in the multiple sequence alignment to overcome noise (as we mentioned large MSAs are not be available throughout the whole genome); and 
 ii) there are affected by biases mainly caused by phylogenetic relationships and indirect correlations. 
-There are methods based on mutual information than could perform some phylogenetic correction \cite{de2013emerging}, nevertheless they still require a large number of sequences in the MSA and are known to be biased by allele frequencies \cite{dunn2008mutual} which might limit their applicability for GWAS studies (particularly on non-common variants).
+There are methods based on mutual information that could perform some phylogenetic correction \cite{de2013emerging}, nevertheless they still require a large number of sequences in the MSA and are known to be biased by allele frequencies \cite{dunn2008mutual} which might limit their applicability for GWAS studies (particularly on non-common variants).
 %\textit{Mutual information} methods share some similarities with correlation-based methods in the sense that are fast for GWAS studies but unfortunately they also require large MSAs and are well known for having bias caused by phylogenetic tree, and indirect correlations \cite{fares2006novel}.
     
 \textit{Global models} are designed to disentangle direct interactions from indirect ones. 
@@ -496,38 +496,38 @@ These goals are achieved, at least partially, by using a well known Markov model
 %Although there large amounts of evidence supporting the theory that epistasis is ubiquitous, detecting epistatic interactions in human has been quite difficult and despite significant efforts the results have been scarce and difficult to reproduce \cite{zuk2012mystery}.
 Many reasons have been given in this manuscript and elsewhere to indicate why detecting epistasis this is a very difficult task, with the most commonly cited one being the enormous number of statistical tests required, consequently having a significant reduction of statistical power and an increase in computational resources required.
 Thus methods based on exhaustive search can be computationally infeasible for all but very low order interactions analysis \cite{cordell2009detecting}.
-Their counterpart are \textit{conditional search} methods \cite{li2011detecting} which are usually based on selecting the top single value associated variants and then performing epistatic analysis on a small subset.
+Their counterpart are \textit{conditional search} methods \cite{li2011detecting} which are usually based on selecting the top single-marker GWAS results and then performing epistatic analysis on a small subset.
 Unfortunately these methods will ignore pure epistatic interactions and only detect marginal ones \cite{li2011detecting,cordell2002epistasis}.
 Since there is no biological indication on whether complex traits have marginal or pure epistatic effects \cite{culverhouse2002perspective,zuk2012mystery,li2011detecting}, it might not be safe to rely exclusively on these type of methods when performing an  association study.
 
-Stochastic search based methods \cite{zhang2007bayesian} show great potential, but as far as we known they have not yet produced any significant results most likely due to small sample sizes used in the respective publications. 
+Stochastic search based methods \cite{zhang2007bayesian} show great potential, but as far as we know have not yet produced any significant results most likely due to the small sample sizes used in the respective publications. 
 Some authors pointed out that some of most well known methods in this family may have difficulties with large number of samples \cite{de2013emerging}.
 
 Finally methods based machine learning have been proposed and applied with different degrees of success \cite{koo2013review, cordell2009detecting, li2011detecting}.
 One of the main limitations of machine learning methods lies in the fact that the majority of them do not result in a statistical significance metric (such as p-value or Bayesian factor), thus researchers are often weary of conducting an expensive follow up studies based in results from machine learning algorithms.
-Another limitation is that many machine learning approaches do not for allow appropriate correction from population admixture and other cofactors.
+Another limitation is that many machine learning approaches do not allow for appropriate correction for population admixture and other cofactors.
 
-The methodology we proposed in this paper is based on a well established statistical procedures (Logistic Regression) using gold standard corrections for known population cofactors (eigen-analysis) as well as other disease cofactors (such as age and sex are known to affect risk of type II diabetes).
-Our method performs exhaustive search of second order interactions thus is capable of finding pure epistatic interactions pairs as well as marginal ones.
-Finally, we address the power limitations by using co-evolutionary results from a well established Markov model of evolution and combining them with our association analysis by means of a Bayesian model.
-This has the advantage that not only is being based on solid and well accepted theoretical grounds, but also it can increase statistical power and is capable of analysing large GWAS datasets that are becoming available now.
+The methodology we proposed in this paper is based on a well established statistical procedures (Logistic Regression) using standard corrections for known population cofactors (eigen-analysis) as well as other disease cofactors (such as age and sex) known to affect risk of type II diabetes.
+Our method performs an exhaustive search of second order interactions thus is capable of finding pure epistatic interactions pairs as well as marginal ones.
+Finally, we address power limitations by using co-evolutionary results from a well established Markov model of evolution and combining them with our association analysis by means of a Bayesian model.
+This has the advantage of not only being based on solid and well accepted theoretical grounds, but also being able to increase statistical power and to analyse large GWAS datasets that are becoming available now.
 %
 %\paragraph{Power increase}
 %Finally it is worth mentioning that our epistatic GWAS method is able to increase power by using additional information from a co-evolutionary model.
-Using distribution estimates (see figure \ref{fig:gwas_figure_2}) we calculate that using co-evolutionary information, our method can increase Bayes Factor between $10^2$ and $10^4$, which is roughly equivalent to reducing genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, (i.e. shifting the power curves in Figure \ref{fig:gwas_power} to the left).
-Thus the net effect of adding information from a co-evolutionary model is to reduce sample size requirements roughly by half, which is remarkable given the little additional information being used by the model (only a multiple sequence alignment).
+Using distribution estimates (see figure \ref{fig:gwas_figure_2}), we calculate that our method can increase Bayes Factor between $10^2$ and $10^4$ using co-evolutionary information, which is roughly equivalent to increasing the genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, (i.e. shifting the power curves in Figure \ref{fig:gwas_power} to the left).
+Thus the net effect of adding information from a co-evolutionary model is to reduce sample size requirements roughly by half, which is remarkable given the small amount of additional information being used by the model (only a multiple sequence alignment).
 
 As a limitation, our methodology currently cannot analyse variants that are in complete LD.
-There is evidence suggesting that genes relatively close (in genomic coordinates) tend to have correlated in expression levels and likely to be in the same pathway or even to interact \cite{petkov2005evidence}.
+There is evidence suggesting that nearby genes (in genomic coordinates) tend to have correlated expression levels and are likely to be in the same pathway or even interact \cite{petkov2005evidence}.
 Nevertheless it seems that complete LD would be a result of ``selective sweeps", in which an allele giving significant fitness advantage becomes more frequent so rapidly that there is little recombination.
 These selective sweeps seem to be rare \cite{hernandez2011classic}, thus this limitation might not be encountered often in practice.
 
 \paragraph{Future work}
 We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. 
-This would allow to obtain better estimates for well characterized protein interaction regions. 
+In order to obtain better estimates for well characterized protein interaction regions. 
 Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. 
 In this case the epistatic information would be used as a function modifying the kernel, instead of a Bayesian prior.
 It has also been suggested that positive selection might be used as an additional prior of epistatic interactions. 
-Nevertheless a study comparing positive selection maps form 9 different methods \cite{akey2009constructing} shows that only $14\%$ of the regions have been identified in more than one study.
+Nevertheless a study comparing positive selection maps from nine different methods \cite{akey2009constructing} shows that only $14\%$ of the regions have been identified in more than one study.
 %This striking lack of concordance suggests that using positive selection estimates would add more noise than information at this moment, although it is an interesting venue to explore when more reliable estimates become available.
 Although there seems to be a lack of concordance at the moment, using positive selection estimates would be an interesting venue to explore in the future.
