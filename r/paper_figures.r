@@ -7,9 +7,9 @@ savePng <- T
 fig2    <- F
 fig3    <- F
 fig4    <- F
-fig5    <- T
+fig5    <- F
 figS1   <- F
-figS2   <- F
+figS2   <- T
 figS3   <- F
 figS4   <- F
 
