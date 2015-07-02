@@ -48,18 +48,15 @@ $max = $#gts;
 print "# Done: $max lines loaded\n";
 
 # Compute zeros
-for( $i = 0 ; $i <= $max ; $i++ ) {
-	for( $j = $i+1 ; $j <= $max ; $j++ ) {
-		$is = isZero($i, $j);
-		if( $is ) { $countZero++; }
-		$count++;
+for( $count=1 ; $count < 10000000 ; $count++ ) {
+	$i = int(rand($max + 1));
+	$j = int(rand($max + 1));
+	$is = isZero($i, $j);
+	if( $is ) { $countZero++; }
+
+	if( $count % 100 == 0 ) {
+		$perc = 100 * ($countZero / $count);
+		print "$countZero / $count\t$perc %\t$i\t$j\n";
 	}
-
-	$perc = 100 * ($countZero / $count);
-	print "Line $i:\t$countZero / $count\t$perc %\n";
 }
-
-print "Count: $count\n";
-print "Count zero: $countZero\n";
-
 
