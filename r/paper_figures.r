@@ -5,11 +5,12 @@ library('expm')
 
 savePng <- T
 fig2    <- F
+fig2b   <- T
 fig3    <- F
 fig4    <- F
 fig5    <- F
 figS1   <- F
-figS2   <- T
+figS2   <- F
 figS3   <- F
 figS4   <- F
 
@@ -39,6 +40,20 @@ cummProbRatio <- function(x, ll.int, ll.non) {
 	p.int <- sum( ll.int >= x ) / length( ll.int ) 
 	p.non <- sum( ll.non >= x ) / length( ll.non ) 
 	return(p.int / p.non)
+}
+
+#-------------------------------------------------------------------------------
+# True positive rate
+#-------------------------------------------------------------------------------
+truePositiveRate <- function(x, ll.int, ll.non) {
+	return( sum( ll.int >= x ) / length( ll.int ) ) 
+}
+
+#-------------------------------------------------------------------------------
+# True positive rate
+#-------------------------------------------------------------------------------
+falsePositiveRate <- function(x, ll.int, ll.non) {
+	return( sum( ll.non >= x ) / length( ll.non ) )
 }
 
 #-------------------------------------------------------------------------------
@@ -77,6 +92,15 @@ figure2 <- function(lc, la, lalcOdds, x) {
 	axis(side=4, at = pretty(range(lor)))
 	mtext("Log odds ratio", side=4, line=3)
 	lines( supsmu(x, lor), col='gray', lty=2 )
+}
+
+#-------------------------------------------------------------------------------
+# Figure 2b: ROC based on histogram from Fig2
+#-------------------------------------------------------------------------------
+figure2b <- function(fpr, tpr) {
+	xlim <- c(0,1)
+	plot(fpr, tpr, type = "l", col='red', xlab = "False positive rate", ylab = "True positive rate", xlim=xlim, ylim=xlim)
+	abline(0,1, col='grey', lty=5)
 }
 
 #-------------------------------------------------------------------------------
@@ -428,7 +452,7 @@ if( savePng )	png(width=pngSize, height=pngSize)
 #---
 # Figure 2
 #---
-if( fig2 ) {
+if( fig2 || fig2b ) {
 	# Load data 
 	if( !exists('lc') ) {
 		cat('Reading file: likelihood.contact.values.txt\n')
@@ -448,7 +472,20 @@ if( fig2 ) {
 		lalcOdds <- sapply(lalcOddsX, cr)
 	}
 
-	figure2(lc, la, lalcOdds, lalcOddsX)
+	if( !exists('tpr') ) {
+		cat('Calculating true positive rate\n')
+		tp.rate <- function(x) { truePositiveRate(x, lc, la); }
+		tpr <- sapply(lalcOddsX, tp.rate)
+	}
+
+	if( !exists('fpr') ) {
+		cat('Calculating false positive rate\n')
+		fp.rate <- function(x) { falsePositiveRate(x, lc, la); }
+		fpr <- sapply(lalcOddsX, fp.rate)
+	}
+
+	if( fig2 )	{ figure2(lc, la, lalcOdds, lalcOddsX) }
+	if( fig2b )	{ figure2b(fpr, tpr) }
 }
 
 #---

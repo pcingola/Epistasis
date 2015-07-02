@@ -267,7 +267,7 @@ A na{\"i}ve approach would estimate that if a typical genetic sequencing study h
 Fortunately these numbers can be reduced significantly. 
 First, in this study, we only concentrate on non-synonymous coding variants. 
 Second, as required by our co-evolutionary model, only variants overlapping a multiple sequence alignment are taken into account (when several multiple sequence alignments overlapped a region, the alignment with the longest number of proteins was selected).
-Third, if two variants $g_i$ and $g_j$ are such that the interaction term $(g_{s,i} g_{s,j})$ is zero in all samples, which usually happens for pairs of rare variants, then $BF_G = 1$. 
+Third, if two variants $g_i$ and $g_j$ are such that the interaction term $(g_{s,i} g_{s,j})$ is zero in all samples, which usually happens for pairs of rare variants, then $BF_G = 1$ (according to our estimates, this filters out over $95 \%$ of variant pairs). 
 Fourth, if the variants and the epistatic term $[g_{s,i}, g_{s,j}, g_{s,i} g_{s,j}]$ are linearly dependent, the logistic regression equations are undetermined, so we skip such variant pairs. 
 Fifth, if one of the variants has high allele frequency with respect to the other, all non-zero epistatic terms may lie in the same positions as non-zero genotypes from the low frequency variant, causing logistic regression estimates to artificially inflate the coefficients of the low frequency variant and the epistatic term thus creating an artificially high association (low p-value). 
 So we filter out these variant pairs as well. 
@@ -329,8 +329,12 @@ We first assessed the ability of our co-evolutionary model to detect interacting
 Although such pairs of sites are unlikely to exhibit evidence of epistasis in GWAS studies (due to linkage), accurate prediction of interacting sites in a given protein are useful for many other purposes, such as protein structure prediction and prediction of the impact of individual mutations.  
 Figure \ref{fig:gwas_figure_2} shows that interacting sites tend to have higher likelihood ratio scores than non-interacting ones (Mann-Whitney p-value $< 2.2 \times 10^{-16}$). 
 Although the likelihood ratio score by itself cannot perfectly discriminate between the two classes, only 25.9\% of non-interacting pairs have a likelihood ratio above the median likelihood ratio of interacting pairs. 
+Figure \ref{fig} shows a receiver operator curve (ROC) curve for a classifier based on method.
+
 
 \fig{gwas_figure_2}{gwas_figure_2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
+
+\fig{gwas_figure_2b_ROC}{gwas_figure_2b_ROC}{12cm}{Classifier's receiver operator curve (ROC).}{Classifier's receiver operator curve (ROC)}
 
 To confirm that a co-evolutionary model estimated on pairs of interacting sites from the same protein is useful at predicting pairs of interacting sites between proteins, we repeated the same type of analysis for $\sim3,000$ pairs of interacting ($< 3$ \r{A}) and $\sim3,000$ pairs of non-interacting ($>30$ \r{A}) residues from distinct proteins, obtained from co-crystal structures in PDB (see Methods). 
 As seen on Figure \ref{fig:gwas_figure_3}, the two classes of sites have substantially different likelihood ratio distributions (Mann-Whitney one sided test: $p-value < 2.2 \times 10^{-16}$), although slightly less so than for sites from the same protein. Only 29\% of non-interacting sites have a likelihood ratio larger than the median for interacting sites. 

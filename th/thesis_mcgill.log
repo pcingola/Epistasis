@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  2 JUL 2015 10:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  2 JUL 2015 16:54
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -492,90 +492,99 @@ Overfull \hbox (25.23946pt too wide) in paragraph at lines 111--111
  []
 
 [9] [10 <./figs/gwas_epistasis_pipeline.png>] [11] [12] [13] [14] [15] [16]
-[17] [18] [19] [20] <figs/gwas_figure_2.png, id=81, 1027.84pt x 1027.84pt>
+[17] [18] [19] [20]
+
+LaTeX Warning: Reference `fig' on page 21 undefined on input line 332.
+
+<figs/gwas_figure_2.png, id=81, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_2.png Graphic file (type png)
 
 <use figs/gwas_figure_2.png>
-Package pdftex.def Info: figs/gwas_figure_2.png used on input line 333.
+Package pdftex.def Info: figs/gwas_figure_2.png used on input line 335.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
- [21] [22 <./figs/gwas_figure_2.png>]
-<figs/gwas_figure_3.png, id=89, 1027.84pt x 1027.84pt>
+
+<figs/gwas_figure_2b_ROC.png, id=82, 1027.84pt x 1027.84pt>
+File: figs/gwas_figure_2b_ROC.png Graphic file (type png)
+
+<use figs/gwas_figure_2b_ROC.png>
+Package pdftex.def Info: figs/gwas_figure_2b_ROC.png used on input line 337.
+(pdftex.def)             Requested size: 341.43306pt x 341.431pt.
+ [21] [22 <./figs/gwas_figure_2.png>] [23 <./figs/gwas_figure_2b_ROC.png>]
+<figs/gwas_figure_3.png, id=94, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3.png Graphic file (type png)
 
 <use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 347.
+Package pdftex.def Info: figs/gwas_figure_3.png used on input line 351.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 352.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 356.
 
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 352.
-
-<figs/gwas_figure_4_jmol.png, id=90, 580.1675pt x 615.29875pt>
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 356.
+ [24] [25 <./figs/gwas_figure_3.png>]
+<figs/gwas_figure_4_jmol.png, id=104, 580.1675pt x 615.29875pt>
 File: figs/gwas_figure_4_jmol.png Graphic file (type png)
 
 <use figs/gwas_figure_4_jmol.png>
-Package pdftex.def Info: figs/gwas_figure_4_jmol.png used on input line 358.
+Package pdftex.def Info: figs/gwas_figure_4_jmol.png used on input line 362.
 (pdftex.def)             Requested size: 268.28784pt x 284.52756pt.
 
-<figs/gwas_figure_4_tree_coevolution.png, id=91, 2569.6pt x 5145.2225pt>
+<figs/gwas_figure_4_tree_coevolution.png, id=105, 2569.6pt x 5145.2225pt>
 File: figs/gwas_figure_4_tree_coevolution.png Graphic file (type png)
 
 <use figs/gwas_figure_4_tree_coevolution.png>
 Package pdftex.def Info: figs/gwas_figure_4_tree_coevolution.png used on input 
-line 363.
+line 367.
 (pdftex.def)             Requested size: 241.56596pt x 483.69684pt.
 
-Overfull \hbox (155.56636pt too wide) in paragraph at lines 363--365
+Overfull \hbox (155.56636pt too wide) in paragraph at lines 367--369
  [][] 
  []
 
 
-LaTeX Warning: Float too large for page by 24.22026pt on input line 368.
+LaTeX Warning: Float too large for page by 24.22026pt on input line 372.
 
-[23] [24 <./figs/gwas_figure_3.png>]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ¦ in font cmr12!
- [25] [26 <./figs/gwas_figure_4_jmol.png> <./figs/gwas_figure_4_tree_coevolutio
-n.png>] [27]
-<figs/gwas_13k_results_1.png, id=112, 1161.33875pt x 443.6575pt>
+[26] [27 <./figs/gwas_figure_4_jmol.png> <./figs/gwas_figure_4_tree_coevolution
+.png>] [28] <figs/gwas_13k_results_1.png, id=117, 1161.33875pt x 443.6575pt>
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
-Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 405.
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 409.
 (pdftex.def)             Requested size: 398.33858pt x 152.17517pt.
- [28 <./figs/gwas_13k_results_1.png>]
-<figs/gwas_power.png, id=117, 1027.84pt x 1027.84pt>
+ [29 <./figs/gwas_13k_results_1.png>]
+<figs/gwas_power.png, id=122, 1027.84pt x 1027.84pt>
 File: figs/gwas_power.png Graphic file (type png)
  <use figs/gwas_power.png>
-Package pdftex.def Info: figs/gwas_power.png used on input line 427.
+Package pdftex.def Info: figs/gwas_power.png used on input line 431.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-[29] [30 <./figs/gwas_power.png>] [31]
-Overfull \hbox (12.93814pt too wide) in paragraph at lines 463--465
+[30] [31 <./figs/gwas_power.png>] [32]
+Overfull \hbox (12.93814pt too wide) in paragraph at lines 467--469
  \OT1/cmr/bx/n/12 Com-par-i-son to other Co-Evolutionary meth-ods.[] \OT1/cmr/m
 /n/12 There are sev-eral method-
  []
 
-[32] [33] [34] [35]) [36] [37]
+[33] [34] [35] [36]) [37] [38]
 \openout2 = `chapters/gwas_supp.aux'.
 
  (./chapters/gwas_supp.tex
-<figs/gwas_genegene.png, id=148, 1027.84pt x 1027.84pt>
+<figs/gwas_genegene.png, id=153, 1027.84pt x 1027.84pt>
 File: figs/gwas_genegene.png Graphic file (type png)
 
 <use figs/gwas_genegene.png>
 Package pdftex.def Info: figs/gwas_genegene.png used on input line 11.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-<figs/gwas_clinvar.png, id=149, 1027.84pt x 1027.84pt>
+<figs/gwas_clinvar.png, id=154, 1027.84pt x 1027.84pt>
 File: figs/gwas_clinvar.png Graphic file (type png)
 
 <use figs/gwas_clinvar.png>
@@ -586,19 +595,19 @@ Underfull \hbox (badness 10000) in paragraph at lines 16--29
 
  []
 
-) [38
+) [39
 
 
-] [39 <./figs/gwas_genegene.png>] [40 <./figs/gwas_clinvar.png>]
-(./thesis_mcgill.bbl [41
+] [40 <./figs/gwas_genegene.png>] [41 <./figs/gwas_clinvar.png>]
+(./thesis_mcgill.bbl [42
 
 
 
-] [42] [43] [44]
+] [43] [44] [45]
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ” in font cmr12!
- [45] [46] [47]) (./thesis_mcgill.aux
+ [46] [47] [48]) (./thesis_mcgill.aux
 (./chapters/gwas.aux) (./chapters/gwas_supp.aux))
 
  *File List*
@@ -659,6 +668,7 @@ chapters/gwas.tex
     umsb.fd    2013/01/14 v3.01 AMS symbols B
 figs/gwas_epistasis_pipeline.png
 figs/gwas_figure_2.png
+figs/gwas_figure_2b_ROC.png
 figs/gwas_figure_3.png
   omscmr.fd    1999/05/25 v2.5h Standard LaTeX font definitions
 figs/gwas_figure_4_jmol.png
@@ -671,12 +681,15 @@ figs/gwas_clinvar.png
 thesis_mcgill.bbl
  ***********
 
+
+LaTeX Warning: There were undefined references.
+
  ) 
 Here is how much of TeX's memory you used:
- 6393 strings out of 493315
- 95341 string characters out of 6137904
+ 6401 strings out of 493315
+ 95545 string characters out of 6137904
  185798 words of memory out of 5000000
- 9706 multiletter control sequences out of 15000+600000
+ 9713 multiletter control sequences out of 15000+600000
  10165 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,44p,866b,378s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -693,10 +706,10 @@ live/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texl
 ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (47 pages, 2073232 bytes).
+Output written on thesis_mcgill.pdf (48 pages, 2107736 bytes).
 PDF statistics:
- 228 PDF objects out of 1000 (max. 8388607)
- 146 compressed objects within 2 object streams
+ 233 PDF objects out of 1000 (max. 8388607)
+ 148 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
