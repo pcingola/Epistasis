@@ -316,9 +316,16 @@ The structure of $Q_2$, which describes substitution rates between one pair of i
 Of particular interest are pairs of amino acids having high ratio $R(ab,cd) = Q_2 (ab, cd) / ( Q(a,c) \cdot Q(b,d) )$ which is an indicative of co-evolution.
 For example the highest ratio is found in amino acid pair transition \texttt{V.I -> W.W} (i.e. amino acid \texttt{V} mutated to \texttt{W} in one of the sequences, and amino acid \texttt{I} changed to \texttt{W} in the other). 
 In fact all top 10 ratios are transitions to \texttt{W.W} amino acid pairs.
-This makes sense considering that:
-i) individual amino acid substitution rates to tryptophan are generally very low, but that 
-ii) tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
+This makes sense considering that
+%:
+%i) individual amino acid substitution rates to tryptophan are generally very low, but that 
+%ii) 
+tryptophan pairs are well known $\beta$-hairpin stabilizers and are considered as a paradigm for designing stable $\beta$-hairpins \cite{santiveri2010tryptophan}.
+Nevertheless, we should keep in mind that tryptophan is: 
+i) the least frequent amino acid in the genome (having frequency of $1.1\%$ and being encoded in only by \texttt{TGG} codon), and
+ii) is usually in the core of the protein, as opposed to being part of surface interaction sites.
+These facts may indicate that the high $R(ab,cd)$ ratio may be caused by a bias when estimating the model based on within-protein interactions.
+Unfortunately, at the moment there is no enough data from co-crystallized proteins in PDB to estimate the parameters from true interacting loci.
 
 Another type of pair transitions with large $R(ab,cd)$ ratio is the double transitions to a pair of phenylalanine amino acids from a pair of hydrophobic amino acids (Lysine, Asparagine, Glutamine, Arginine, Aspartic acid and Glutamic acid). 
 Phenylalanine-Phenylalanine interaction pairs are assumed to conform $\pi-\pi$ interactions which are predicted and experimentally observed to be energetically favourable \cite{hunter1991pi}.
@@ -330,7 +337,6 @@ Although such pairs of sites are unlikely to exhibit evidence of epistasis in GW
 Figure \ref{fig:gwas_figure_2} shows that interacting sites tend to have higher likelihood ratio scores than non-interacting ones (Mann-Whitney p-value $< 2.2 \times 10^{-16}$). 
 Although the likelihood ratio score by itself cannot perfectly discriminate between the two classes, only 25.9\% of non-interacting pairs have a likelihood ratio above the median likelihood ratio of interacting pairs. 
 Figure \ref{fig} shows a receiver operator curve (ROC) curve for a classifier based on method.
-
 
 \fig{gwas_figure_2}{gwas_figure_2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
 
