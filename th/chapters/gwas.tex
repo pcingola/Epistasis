@@ -308,9 +308,11 @@ Finally, evidence from the co-evolution model and the epistatic GWAS model are c
 \subsection{Co-evolutionary substitution models}
 
 The approach described in Methods was used to obtain substitution rate matrices $Q$ for individual amino acids and $Q_2$ for pairs of physically interacting residues within the same protein. 
-Unsurprisingly, $Q$ (or more precisely a transition matrix $P(t)$ obtained from $Q$) is very similar to well known transitions matrices such as PAM \cite{dayhoff1978model} (Supplementary Figure \ref{fig:gwas_Qhat_vs_PAM1}).
+Unsurprisingly, $Q$ (or more precisely a transition matrix $P(t)$ obtained from $Q$) is very similar to well known transitions matrices such as PAM \cite{dayhoff1978model}. 
+% (Supplementary Figure \ref{fig:gwas_Qhat_vs_PAM1}).
 
-The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer (Supplementary Figure \ref{fig:gwas_Q2}). 
+The structure of $Q_2$, which describes substitution rates between one pair of interacting amino acids to another, is richer.
+% (Supplementary Figure \ref{fig:gwas_Q2}). 
 Of particular interest are pairs of amino acids having high ratio $R(ab,cd) = Q_2 (ab, cd) / ( Q(a,c) \cdot Q(b,d) )$ which is an indicative of co-evolution.
 For example the highest ratio is found in amino acid pair transition \texttt{V.I -> W.W} (i.e. amino acid \texttt{V} mutated to \texttt{W} in one of the sequences, and amino acid \texttt{I} changed to \texttt{W} in the other). 
 In fact all top 10 ratios are transitions to \texttt{W.W} amino acid pairs.
@@ -514,11 +516,12 @@ This has the advantage of not only being based on solid and well accepted theore
 %
 %\paragraph{Power increase}
 %Finally it is worth mentioning that our epistatic GWAS method is able to increase power by using additional information from a co-evolutionary model.
-Using distribution estimates (see figure \ref{fig:gwas_figure_2}), we calculate that our method can increase Bayes Factor between $10^2$ and $10^4$ using co-evolutionary information, which is roughly equivalent to increasing the genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, (i.e. shifting the power curves in Figure \ref{fig:gwas_power} to the left).
+Using distribution estimates (see figure \ref{fig:gwas_figure_2}), we calculate that our method can increase Bayes Factor between $10^2$ and $10^4$ when co-evolutionary information contributes to the total Bayes Factor (i.e. when $\ell_C \ge 0$).
+This improvement is roughly equivalent to increasing the genome wide association p-value threshold by two orders of magnitude \cite{goodman1999toward}, (i.e. shifting the power curves in Figure \ref{fig:gwas_power} to the left).
 Thus the net effect of adding information from a co-evolutionary model is to reduce sample size requirements roughly by half, which is remarkable given the small amount of additional information being used by the model (only a multiple sequence alignment).
 
 As a limitation, our methodology currently cannot analyse variants that are in complete LD.
-There is evidence suggesting that nearby genes (in genomic coordinates) tend to have correlated expression levels and are likely to be in the same pathway or even interact \cite{petkov2005evidence}.
+There is evidence suggesting that nearby genes (in genomic coordinates) tend to have correlated expression levels and may to be in the same pathway or even interact \cite{petkov2005evidence}.
 Nevertheless it seems that complete LD would be a result of ``selective sweeps", in which an allele giving significant fitness advantage becomes more frequent so rapidly that there is little recombination.
 These selective sweeps seem to be rare \cite{hernandez2011classic}, thus this limitation might not be encountered often in practice.
 
