@@ -35,8 +35,14 @@ for( $i=0 ; $l = <STDIN> ; $i++ ) {
 	($chr, $pos, $ref, $alt, $gt) = split /\t/, $l;
 	@gt = split '', $gt;
 	push @gts, [ @gt ];
-	print "Line $i:\n\t$gt\n\t@gt\n\t" . @gts[$i] . "\n" if $debug;
-	print '.';
+
+	if( $debug ) {
+		print "Line $i:\n\t$gt\n\t@gt\n\t" . @gts[$i] . "\n";
+	} elsif ( $i % 100 == 0 ) {
+		print "\nLine $i:\t.";
+	} else {
+		print '.';
+	}
 }
 $max = $#gts;
 print "# Done: $max lines loaded\n";
