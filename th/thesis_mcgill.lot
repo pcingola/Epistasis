@@ -1,0 +1,7 @@
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {table}{\numberline {4.1}{\ignorespaces ClinVar categories have different distributions. Columns 3 and 4 show the mean and median $\ell _C$ values calculated for each variant using the best (highest) within protein $\ell _C$\relax }}{130}
+\contentsline {table}{\numberline {4.2}{\ignorespaces Overall distributions for 1000Genomes, HGMD and ClinVar. Columns 2 and 2 show the mean and median $\ell _C$ values calculated for each variant using the best (highest) within protein $\ell _C$. Values are calculated using a random sub-sample of all variants in each project.\relax }}{130}
+\addvspace {10\p@ }

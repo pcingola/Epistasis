@@ -1,4 +1,5 @@
-\documentclass[12pt,Bold,letterpaper,TexShade]{mcgilletdclass}
+\documentclass[12pt,letterpaper]{report}
+%\documentclass[12pt,Bold,letterpaper,TexShade]{mcgilletdclass}
 
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -34,41 +35,9 @@
 \SetRequirements{A thesis submitted to McGill University in partial fulfillment of the requirements of the degree of Doctor of Philosophy}
 \SetCopyright{Pablo Cingolani 2015}
 
-\makeindex[keylist]
-\makeindex[abbr]
-\listfiles
-
-%-----------------------------------------------------------------------------
-% Code linsting options
-%-----------------------------------------------------------------------------
-
-\definecolor{dkgreen}{rgb}{0,0.6,0}
-\definecolor{gray}{rgb}{0.5,0.5,0.5}
-\definecolor{mauve}{rgb}{0.58,0,0.82}
-
-\lstset{frame=tb,
-  language=Java,
-  aboveskip=3mm,
-  belowskip=3mm,
-  showstringspaces=false,
-  columns=flexible,
-  basicstyle={\small\linespread{1.0}\ttfamily,},
-  numbers=none,
-  numberstyle=\tiny\color{gray},
-  keywordstyle=\color{blue},
-  commentstyle=\color{dkgreen},
-  stringstyle=\color{mauve},
-  breaklines=true,
-  breakatwhitespace=true,
-  numbers=left,
-  stepnumber=1,
-  firstnumber=1,
-  numberfirstline=true
-  tabsize=3
-}
-
-\renewcommand\lstlistingname{Listing}
-\renewcommand\lstlistlistingname{Listings}
+%\makeindex[keylist]
+%\makeindex[abbr]
+%\listfiles
 
 %-----------------------------------------------------------------------------
 % Document stats here
@@ -85,8 +54,8 @@
 % Conditional expression for faster build during "development" cycle
 % See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
 \newif\ifthesis
-%\thesistrue
-\thesisfalse
+\thesistrue
+%\thesisfalse
 
 % Final version?
 \newif\iffinal
@@ -99,23 +68,18 @@
 	\begin{romanPagenumber}{2}
 	
 	\iffinal
-
 		%-----------------------------------------------------------------------------
 		% Acknowledgements
-		%-----------------------------------------------------------------------------
-		
-		\SetAcknowledgeName{\MakeUppercase{Acknowledgements}}
+		%-----------------------------------------------------------------------------		
 		\SetAcknowledgeText{
 		}
-		\Acknowledge
-	
+		\Acknowledge	
 	\fi
 
 	%-----------------------------------------------------------------------------
 	%         English Abstract
 	%-----------------------------------------------------------------------------
 	
-	\SetAbstractEnName{\MakeUppercase{Abstract}}%
 	\SetAbstractEnText{ 
 Abundant genome sequence information from large cohorts of individuals can now be routinely obtained and this information is poised to ease the identification of genetic variations linked to complex disease. 
 In this work, I investigate the computational and statistical challenges involved in the analysis of large genomic datasets and I tackle three different aspects of the analysis, each of them having very different characteristics.
@@ -123,26 +87,25 @@ First, in order to analyse large amounts of data from genomic studies we design 
 Second, we create genomic variant annotation and prioritization methods (SnpEff and SnpSift) that help to calculate putative genetic effects and estimate the genetic impact of variants.
 Finally, we address the problem of finding associations between interacting genetic loci and disease by proposing a methodology that combines population-level genetic information with evolutionary information in order to increase the statistical power in epistatic genome wide association studies 
 	}
-	\AbstractEn%
+	\AbstractEn
 	
 	%-----------------------------------------------------------------------------
 	%         French Abstract
 	%-----------------------------------------------------------------------------
 	
-	\SetAbstractFrName{\MakeUppercase{ABR\'{E}G\'{E}}}%
 	\SetAbstractFrText{ 
 	}
-	\AbstractFr%
+	\AbstractFr
 	
 	%-----------------------------------------------------------------------------
 	% Tables
 	%-----------------------------------------------------------------------------
 	
-	\TOCHeading{\MakeUppercase{Table of Contents}}
-	% \LOTHeading{\MakeUppercase{List of Tables}}
-	\LOFHeading{\MakeUppercase{List of Figures and Tables}}
+	%\renewcommand{\contentsname}{Table of contents}
 	\tableofcontents 
-	%\listoftables 
+
+	\LOFHeading{List of Figures and Tables}
+	\listoftables 
 	\listoffigures
 	
 	\end{romanPagenumber}
@@ -169,8 +132,7 @@ Finally, we address the problem of finding associations between interacting gene
 	\include{chapters/conclusions}
 \else
 	% Only show the chapter we are currently working on
-	\include{chapters/gwas}
-	\include{chapters/gwas_supp}
+	\include{chapters/intro}
 \fi
 
 \ifthesis
