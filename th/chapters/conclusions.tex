@@ -82,19 +82,21 @@ Having tens to hundreds of thousands of CPUs constantly analysing data in produc
 Most academic environments currently use their own infrastructure (local clusters), an approach that may not be easy to further scale.
 For this reason a shift towards cloud infrastructure is already being considered and in some cases implemented by some leading institutions (personal communications).
 
-We developed BDS to help processing not only large dataset currently available, but also the huge datasets that experts consider likely to become available in a not so distant future.
-Even though BDS can currently handle a typical analysis involving thousands of CPUs, scaling further from hundreds of thousands to millions of CPUs would require additional abstraction levels.
-Most notably, the current processing model assumes the existence of a file system, which is used primarily for storing data and logging.
-Under a cloud based environment of $100K$ to $1M$ CPUs, this model is likely to break down and further abstraction would be required.
-For instance, cloud based environments use the concept of buckets instead of files and this should be abstracted away and unified for the user to be able to write more transparent and portable pipelines.
+We developed BDS to help processing not only the large dataset currently available, but also huge datasets that experts consider likely to become available in a not so distant future.
+Even though BDS can currently handle a typical analysis involving tens of thousands of CPUs, further scaling to hundreds of thousands or even millions of CPUs would require additional abstraction levels.
+Most notably, the current processing model assumes the existence of a file system which BDS uses for retrieving input files, storing output results and and logging process status.
+We anticipate that this model can break down on cloud based pipelines running over hundreds of thousands of CPUs.
+Typically cloud based environments use the concept of object storage or buckets instead of file systems.
+We think that the two models (file system and object storage) can be abstracted away in a new unified model enabling the user write even more portable pipelines and letting BDS take care of transparently transferring data to and from the object storage system.
+This could even enable data locality optimizations by moving the processes to the data instead of the data to the process (e.g. when using rack aware systems, such as HDFS).
 %Another models that breaks down is the concept of communicating the program's outputs (processed in slave nodes) to the master node (where the BDS script is being run).
 %It is difficult of impossible to make sense of such a large amount of output, so a sensible mechanism for focusing on a few meaningful
 
-In the context of these large studies, variant annotation and selection for further study would also require some improvements.
-As opposed to the previous problem of processing large datasets, variant annotations is challenging not because of the computational challenges, but rather due to restricted biological knowledge.
-There are obvious needs for better predictions, but more precise models could be developed with help of some systematic variant studies.
+In the context of these large studies, variant annotation improvements would greatly benefit the bottom line.
+As opposed to the previous problem of processing large datasets, variant annotations is challenging not because of the computational challenges but rather due to restricted biological knowledge.
+Advanced models of variant effect could be developed with help of systematic studies.
 For instance, a systematic analysis of loss of function and nonsense mediated decay variants would entail creating all possible stop gained mutations in one or more genes and analysing the protein output in each case (obviously this is an ambitious and challenging project to say the least, but so were other projects like 1KG, EST, GTeX and ENCODE, just to mention a few).
-Lower impact variants, such as non-synonymous, pose even further challenges since there is no consensus on how to measure 'partial protein gain/loss of function' (e.g. in protein affected by a non-synonymous variant, interaction with protein X is degrades by $50\%$ whereas interaction with protein Y is improved $20\%$).
+Lower impact variants, such as non-synonymous, pose even further challenges since there is no consensus on how to measure partial protein gain/loss of function (e.g. in protein affected by a non-synonymous variant, interaction efficiency with protein X is degraded by $50\%$ whereas interaction with protein Y is improved $20\%$).
 Such analysis, which are beyond the current state of technology, could only be feasible by supporting long term technology development projects.
 
 We should keep in mind that the ultimate goal when studying complex traits is to have an impact on human health.
