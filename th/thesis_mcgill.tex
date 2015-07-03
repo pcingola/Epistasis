@@ -1,5 +1,4 @@
 \documentclass[12pt,letterpaper]{report}
-%\documentclass[12pt,Bold,letterpaper,TexShade]{mcgilletdclass}
 
 \usepackage{amsfonts}
 \usepackage{amsmath}
@@ -17,11 +16,6 @@
 
 \input{def_mcgill}
 
-\captionsetup[table]{skip=12pt}    % Rob says that tables should have more space between table end and caption start
-
-%\addtolength{\hoffset}{0pt}		% Have you configured your TeX system for proper page alignment? See the McGillETD documentation
-%\addtolength{\voffset}{0pt}
-
 %-----------------------------------------------------------------------------
 % Student info
 %-----------------------------------------------------------------------------
@@ -31,14 +25,10 @@
 \SetDegreeType{PhD.}
 \SetDepartment{School of Computer Science}
 \SetUniversity{McGill University}
-\SetUniversityAddr{Montreal,Quebec}
-\SetThesisDate{March 2015}
+\SetUniversityAddr{Montreal, Quebec, Canada}
+\SetThesisDate{July 2015}
 \SetRequirements{A thesis submitted to McGill University in partial fulfillment of the requirements of the degree of Doctor of Philosophy}
 \SetCopyright{Pablo Cingolani 2015}
-
-%\makeindex[keylist]
-%\makeindex[abbr]
-%\listfiles
 
 %-----------------------------------------------------------------------------
 % Document stats here
@@ -46,19 +36,20 @@
 
 \begin{document}
 
+% Create title page
 \maketitle
 
 %-----------------------------------------------------------------------------
 % Input any special commands below
 %-----------------------------------------------------------------------------
 
-% Conditional expression for faster build during "development" cycle
-% See http://tex.stackexchange.com/questions/5894/latex-conditional-expression
+% Conditional expression for faster build during "development cycle"
 \newif\ifthesis
-\thesistrue
-%\thesisfalse
+\thesistrue       % Final thesis version: Uncomment this line and comment the next one
+%\thesisfalse    % Development cycle: Uncomment this line and comment the previous one (faster LaTeX compile)
 
-% Final version?
+% Final version? 
+% This is used to add items only for final submission
 \newif\iffinal
 %\finaltrue
 \finalfalse
@@ -68,14 +59,13 @@
 
 	\begin{romanPagenumber}{2}
 	
-	\iffinal
-		%-----------------------------------------------------------------------------
-		% Acknowledgements
-		%-----------------------------------------------------------------------------		
-		\SetAcknowledgeText{
-		}
-		\Acknowledge	
-	\fi
+	%-----------------------------------------------------------------------------
+	% Acknowledgements
+	%-----------------------------------------------------------------------------		
+	\SetAcknowledgeText{
+	Thank you....
+	}
+	\Acknowledge	
 
 	%-----------------------------------------------------------------------------
 	%         English Abstract
@@ -106,7 +96,7 @@ Finally, we address the problem of finding associations between interacting gene
 	\tableofcontents 
 
 	\LOFHeading{List of Figures and Tables}
-	\listoftables 
+	%\listoftables 
 	\listoffigures
 	
 	\end{romanPagenumber}
@@ -119,7 +109,8 @@ Finally, we address the problem of finding associations between interacting gene
 % Chapters
 %-----------------------------------------------------------------------------
 
-\onehalfspacing
+% McGill requires double spacing
+\doublespacing
 
 \ifthesis
 	% Show all chapters on 'thesis' mode
@@ -134,17 +125,16 @@ Finally, we address the problem of finding associations between interacting gene
 	\include{chapters/gwas_supp}
 	\include{chapters/conclusions}
 \else
-	% Only show the chapter we are currently working on
+	% Only show the chapter we are currently working on (faster LaTex build)
 	\include{chapters/intro}
 \fi
 
-\ifthesis
-	% Show all appendices & bibliography in 'thesis' mode
+%-----------------------------------------------------------------------------
+% Appendices
+%-----------------------------------------------------------------------------
 
-	%-----------------------------------------------------------------------------
-	% Appendices
-	%-----------------------------------------------------------------------------
-	%\ETDAppendix{Appendix A}{ \include{appendix/algorithm_details} }%
+\ifthesis
+	% Show all appendices (if any)
 \else
 	% Skip all appendices and bibliography
 \fi

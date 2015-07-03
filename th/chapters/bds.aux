@@ -1,51 +1,51 @@
 \relax 
-\@writefile{toc}{\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{61}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}BigDataScript: A scripting language for data pipelines }{78}}
 \@writefile{lof}{\addvspace {10\p@ }}
 \@writefile{lot}{\addvspace {10\p@ }}
-\newlabel{ch:bds}{{2}{61}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.1}Preface}{61}}
+\newlabel{ch:bds}{{2}{78}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Preface}{78}}
 \citation{zuk2014searching}
 \citation{auwera2013fastq}
-\@writefile{toc}{\contentsline {section}{\numberline {2.2}Introduction}{62}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Introduction}{80}}
 \citation{sadedin2012bpipe}
 \citation{napolitano2013bioinformatic}
 \citation{sadedin2012bpipe}
-\@writefile{toc}{\contentsline {section}{\numberline {2.3}Methods}{65}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Language overview}{65}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{65}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}\texttt  {pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5).}{66}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Methods}{83}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.1}Language overview}{83}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.2}Abstraction from resources}{84}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.1}\texttt  {pipeline.bds} program. A simple pipeline example featuring and a maximum of 6 h of execution time (Line 5).}{85}}
 \citation{napolitano2013bioinformatic}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}Robustness}{67}}
-\@writefile{toc}{\contentsline {paragraph}{Lazy processing}{67}}
-\@writefile{toc}{\contentsline {paragraph}{Absolute serialization}{68}}
-\@writefile{toc}{\contentsline {paragraph}{Limitations}{68}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Other features}{68}}
-\@writefile{toc}{\contentsline {paragraph}{Automatic logging}{68}}
-\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}\texttt  {pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt  {myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt  {myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt  {myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt  {myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt  {myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt  {mainOut <- outs}).}{69}}
-\@writefile{toc}{\contentsline {paragraph}{Automatic command line parsing}{70}}
-\@writefile{toc}{\contentsline {paragraph}{Task re-execution}{70}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{70}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces BDS report showing pipeline’s task execution timeline}}{72}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.3}Robustness}{86}}
+\@writefile{toc}{\contentsline {paragraph}{Lazy processing}{86}}
+\@writefile{toc}{\contentsline {paragraph}{Absolute serialization}{87}}
+\@writefile{toc}{\contentsline {paragraph}{Limitations}{87}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Other features}{88}}
+\@writefile{toc}{\contentsline {paragraph}{Automatic logging}{88}}
+\@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}\texttt  {pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt  {myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt  {myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt  {myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt  {myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt  {myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt  {mainOut <- outs}).}{88}}
+\@writefile{toc}{\contentsline {paragraph}{Automatic command line parsing}{89}}
+\@writefile{toc}{\contentsline {paragraph}{Task re-execution}{89}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{90}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces BDS report showing pipeline’s task execution timeline}}{92}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}
-\newlabel{fig:bdsreport}{{2.1}{72}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Execution example \texttt  {pipeline.bds}}}{73}}
-\newlabel{fig:bdsexec}{{2.2}{73}}
+\newlabel{fig:bdsreport}{{2.1}{92}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces Execution example \texttt  {pipeline.bds}}}{93}}
+\newlabel{fig:bdsexec}{{2.2}{93}}
 \citation{mckenna2010genome}
 \citation{cingolani2012program}
 \citation{cingolani2012using}
-\@writefile{toc}{\contentsline {section}{\numberline {2.4}Results}{74}}
-\@writefile{toc}{\contentsline {paragraph}{Architecture independence}{74}}
-\@writefile{toc}{\contentsline {paragraph}{Robustness}{74}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Whole-genome sequencing analysis pipeline's flow chart}}{75}}
-\newlabel{fig:bdspipeline}{{2.3}{75}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Architecture independence example}}{76}}
-\newlabel{tab:bdstablearch}{{2.4}{76}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace  {}1000}}{76}}
-\newlabel{tab:bdstablescale}{{2.5}{76}}
-\@writefile{toc}{\contentsline {paragraph}{Scalability}{76}}
-\@writefile{toc}{\contentsline {section}{\numberline {2.5}Discussion}{76}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Results}{94}}
+\@writefile{toc}{\contentsline {paragraph}{Architecture independence}{94}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces Whole-genome sequencing analysis pipeline's flow chart}}{95}}
+\newlabel{fig:bdspipeline}{{2.3}{95}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Architecture independence example}}{96}}
+\newlabel{tab:bdstablearch}{{2.4}{96}}
+\@writefile{toc}{\contentsline {paragraph}{Robustness}{96}}
+\@writefile{toc}{\contentsline {paragraph}{Scalability}{96}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.5}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace  {}1000}}{97}}
+\newlabel{tab:bdstablescale}{{2.5}{97}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Discussion}{97}}
 \@setckpt{chapters/bds}{
-\setcounter{page}{78}
+\setcounter{page}{99}
 \setcounter{equation}{0}
 \setcounter{enumi}{19}
 \setcounter{enumii}{0}
