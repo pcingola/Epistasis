@@ -12,14 +12,15 @@
 \usepackage{geometry}
 \usepackage{graphicx}
 \usepackage{listings}
+\usepackage{setspace}
 \usepackage{subcaption}
 
 \input{def_mcgill}
 
 \captionsetup[table]{skip=12pt}    % Rob says that tables should have more space between table end and caption start
 
-\addtolength{\hoffset}{0pt}		% Have you configured your TeX system for proper page alignment? See the McGillETD documentation
-\addtolength{\voffset}{0pt}
+%\addtolength{\hoffset}{0pt}		% Have you configured your TeX system for proper page alignment? See the McGillETD documentation
+%\addtolength{\voffset}{0pt}
 
 %-----------------------------------------------------------------------------
 % Student info
@@ -118,18 +119,20 @@ Finally, we address the problem of finding associations between interacting gene
 % Chapters
 %-----------------------------------------------------------------------------
 
+\onehalfspacing
+
 \ifthesis
 	% Show all chapters on 'thesis' mode
 	\include{chapters/intro}
-	\include{chapters/intro_variants}
-	\include{chapters/intro_epistasis}
-	\include{chapters/intro_coevolution}
-	\include{chapters/intro_roadmap}
-	\include{chapters/bds}
-	\include{chapters/snpeff}
-	\include{chapters/gwas}
-	\include{chapters/gwas_supp}
-	\include{chapters/conclusions}
+%	\include{chapters/intro_variants}
+%	\include{chapters/intro_epistasis}
+%	\include{chapters/intro_coevolution}
+%	\include{chapters/intro_roadmap}
+%	\include{chapters/bds}
+%	\include{chapters/snpeff}
+%	\include{chapters/gwas}
+%	\include{chapters/gwas_supp}
+%	\include{chapters/conclusions}
 \else
 	% Only show the chapter we are currently working on
 	\include{chapters/intro}

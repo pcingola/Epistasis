@@ -171,12 +171,12 @@
 \newcommand*{\SetCopyright}[1]{\renewcommand*{\ETDCopyright}{#1}}
 \newcommand*{\ETDCopyright}{Date223333}
 
-\newenvironment{QZ@Cent}{\centering}{\par}
+\newenvironment{cent}{\centering}{\par}
 
 \renewcommand{\maketitle}{
 	\clearpage
 	\thispagestyle{empty}
-	\begin{QZ@Cent}
+	\begin{cent}
 		\Title
 		\vfill
 		\GoSingle
@@ -193,7 +193,7 @@
 		\vfill
 		\ETDRequirements\normalsize\normalfont \\*[\BaseDiff\baselineskip]
 		\ETDCopyright\normalsize\normalfont \\*[\BaseDiff\baselineskip]
-	\end{QZ@Cent}
+	\end{cent}
 	\vspace*{0.5in}
 	\clearpage
 }
@@ -214,9 +214,9 @@
 	\begin{simpleenv}{}{}{}{}
 		\pagestyle{plain}
 		\GoSingle
-		\begin{QZ@Cent}
+		\begin{cent}
 			\bfseries{\ETDAcknowledgeName}
-		\end{QZ@Cent}
+		\end{cent}
 		\vspace*{0.5in}
 		\par
 		\GoDouble
@@ -242,6 +242,9 @@
     \clearpage
     \pagestyle{plain}
     \GoSingle
+	\begin{cent}
+		\bfseries{\ETDAbstractEnName}
+	\end{cent}
     \par
     \GoDouble
     \ETDAbstractEnText
@@ -257,7 +260,6 @@
     \clearpage
     \pagestyle{plain}
     \GoSingle
-    %\addcontentsline{toc}{extrachapter}{\ETDAbstractFrName}
     \par
     \GoDouble
     \ETDAbstractFrText

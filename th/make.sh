@@ -15,5 +15,5 @@ echo " References"
 echo "================================================================================"
 grep Reference make.out || true
 
-# open *.pdf
+open *.pdf
 
