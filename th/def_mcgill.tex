@@ -1,3 +1,14 @@
+
+%-------------------------------------------------------------------------------
+% McGill thesis definitions.
+%
+% This is based on McGill's guidelines:
+% 	 i) https://www.mcgill.ca/gps/thesis/guidelines/preparation
+%	ii)	McGill template 0.61 (link to McGill's page no longer avaialble)
+%
+%															Pablo Cingolani 2015
+%-------------------------------------------------------------------------------
+
 %% Lemma, Theorem, etc.
 \newtheorem{lemma}{{\bf Lema}}[chapter]
 \newtheorem{theorem}{{\bf Teorema}}[chapter]
@@ -5,7 +16,7 @@
 \newtheorem{definition}{{\bf Definici\'on}}[chapter]
 \newtheorem{propo}{{\bf Proposicion}}[chapter]
 
-%% 
+%% Some useful shortcuts
 \renewcommand{\vec}[1]{\mbox{$\,${\bf #1}}}
 \newcommand{\C}{\mbox{$\mbox{l}\!\!\!\mbox{C}$}}
 \newcommand{\N}{\mbox{$\mbox{I}\!\mbox{N}$}}
@@ -38,6 +49,7 @@
 %-------------------------------------------------------------------------------
 % Line spacing
 %-------------------------------------------------------------------------------
+
 \newcommand{\BaseDiff}{0}
 
 \newcommand{\GoSingle}{\renewcommand{\baselinestretch}{1}
@@ -49,89 +61,9 @@
 }
 
 %-------------------------------------------------------------------------------
-% Tables
+% Title page
 %-------------------------------------------------------------------------------
 
-% Define \mytable
-% Include one of my tables, in the standard way
-%  Parm 1 is the table name
-%  Parm 2 is the caption for the "List of tables"
-%  Parm 3 is the real caption
-\newcommand{\mytable}[3]{
-    \begin{table}[htbp]
-        \begin{minipage}{\textwidth}
-          \begin{center}
-	          \TableCaptionOpt{#2 \label{tab:#1}}{#3}
-			  \label{tab:#1}
-              \input{tables/#1/table.tex}
-          \end{center}
-        \end{minipage}
-    \end{table}
-    \normalsize
-}
-
-%-------------------------------------------------------------------------------
-% Figures
-%-------------------------------------------------------------------------------
-
-% Define \fig
-% Include one of my figures, in the standard way
-%  Parm 1 : File name (no extension)
-%  Parm 2 : Label (without 'fig:')
-%  Parm 3 : Width
-%  Parm 4 : Caption
-%  Parm 5 : Figure name (for table of contents)
-
-% \newcommand{\fig}[5]{
-% \begin{figure}[ht]
-%     \begin{center}
-%         \begin{minipage}{#3}
-%             \includegraphics[ width={#3} ]{figs/#1}
-%             \FigureCaptionOpt{#4}{#5}
-%             \label{fig:#2}
-%         \end{minipage}
-%     \end{center}
-% \end{figure}
-% }
-
-\newcommand*{\TableCaptionOpt}[2]{
-	\caption[#1]{#2}
-}
-
-\newcommand*{\FigureCaptionOpt}[2]{
-	\caption[#1]{#2}
-}
-
-\newcommand{\fig}[5]{
-\begin{figure}
-  \begin{center}
-    \includegraphics[ width={#3} ]{figs/#1}
-    \FigureCaptionOpt{#5}{#4}
-    \label{fig:#2}
-  \end{center}
-\end{figure}
-}
-
-% Define \figtab
-% Include one of my figures (but the figure actually contains a table)
-%  Parm 1 : File name (no extension)
-%  Parm 2 : Width
-%  Parm 3 : Caption
-%  Parm 4 : Table name (for table of contents)
-\newcommand{\figtab}[5]{
-\begin{figure}
-  \renewcommand{\figurename}{Table }
-  \begin{center}
-    \includegraphics[ width={#3} ]{figs/#1}
-    \TableCaptionOpt{#5}{#4}
-    \label{tab:#2}
-  \end{center}
-\end{figure}
-}
-
-%-------------------------------------------------------------------------------
-% Title pages
-%-------------------------------------------------------------------------------
 \newcommand*{\SetTitle}[1]{\renewcommand*{\Title}{#1}}
 \newcommand*{\Title}{No Title Given}
 
@@ -173,6 +105,7 @@
 
 \newenvironment{cent}{\centering}{\par}
 
+% Create a title page
 \renewcommand{\maketitle}{
 	\clearpage
 	\thispagestyle{empty}
@@ -225,9 +158,34 @@
 }
 
 %-------------------------------------------------------------------------------
+% Preface
+%-------------------------------------------------------------------------------
+
+\newcommand*{\SetPrefaceName}[1]{\renewcommand*{\ETDPrefaceName}{#1}}
+\newcommand*{\ETDPrefaceName}{Preface \& Contribution of Authors}
+
+\newcommand*{\SetPrefaceText}[1]{\renewcommand*{\ETDPrefaceText}{#1}}
+\newcommand*{\ETDPrefaceText}{Preface text goes here!}
+
+\newcommand{\Preface}{
+	\begin{simpleenv}{}{}{}{}
+		\pagestyle{plain}
+		\GoSingle
+		\begin{cent}
+			\bfseries{\ETDPrefaceName}
+		\end{cent}
+		\vspace*{0.5in}
+		\par
+		\GoDouble
+		\ETDPrefaceText
+	\end{simpleenv}
+}
+
+%-------------------------------------------------------------------------------
 % Abstracts
 %-------------------------------------------------------------------------------
 
+% English abstract
 \newenvironment{romanPagenumber}[1]
 {\setcounter{page}{#1}\renewcommand{\thepage}{\roman{page}}}
 {\pagenumbering{arabic}}
@@ -250,6 +208,7 @@
     \ETDAbstractEnText
 }
 
+% Freanch abstract
 \newcommand*{\SetAbstractFrName}[1]{\renewcommand*{\ETDAbstractFrName}{#1}}
 \newcommand*{\ETDAbstractFrName}{Abr\'{e}g\'{e}}
 
@@ -279,22 +238,81 @@
 \setcounter{tocdepth}{2}
 \renewcommand{\contentsname}{Table of contents}
 
-%\renewcommand{\tableofcontents}{
-%	\begin{simpleenv}{}{}{}{}
-%		\pagestyle{plain}
-%		\chapter*{\contentsname}
-%		\vspace*{-12pt}%
-%		\noindent\phantom{Table}\hfill\par
-%		\@starttoc{toc}
-%	\end{simpleenv}
-%}
-
 %-------------------------------------------------------------------------------
 % List of figures
 %-------------------------------------------------------------------------------
 
 \newcommand*{\LOFHeading}[1]{
     \renewcommand{\listfigurename}{#1}
+}
+
+%-------------------------------------------------------------------------------
+% Tables
+%-------------------------------------------------------------------------------
+
+\newcommand*{\TableCaptionOpt}[2]{
+	\caption[#1]{#2}
+}
+
+% Define \mytable
+% Include one of my tables, in the standard way
+%  Parm 1 is the table name
+%  Parm 2 is the caption for the "List of tables"
+%  Parm 3 is the real caption
+\newcommand{\mytable}[3]{
+    \begin{table}[htbp]
+        \begin{minipage}{\textwidth}
+          \begin{center}
+	          \TableCaptionOpt{#2 \label{tab:#1}}{#3}
+			  \label{tab:#1}
+              \input{tables/#1/table.tex}
+          \end{center}
+        \end{minipage}
+    \end{table}
+    \normalsize
+}
+
+%-------------------------------------------------------------------------------
+% Figures
+%-------------------------------------------------------------------------------
+
+\newcommand*{\FigureCaptionOpt}[2]{
+	\caption[#1]{#2}
+}
+
+% Define \fig
+% Include one of my figures, in the standard way
+%  Parm 1 : File name (no extension)
+%  Parm 2 : Label (without 'fig:')
+%  Parm 3 : Width
+%  Parm 4 : Caption
+%  Parm 5 : Figure name (for table of contents)
+
+\newcommand{\fig}[5]{
+\begin{figure}
+  \begin{center}
+    \includegraphics[ width={#3} ]{figs/#1}
+    \FigureCaptionOpt{#5}{#4}
+    \label{fig:#2}
+  \end{center}
+\end{figure}
+}
+
+% Define \figtab
+% Include one of my figures (but the figure actually contains a table)
+%  Parm 1 : File name (no extension)
+%  Parm 2 : Width
+%  Parm 3 : Caption
+%  Parm 4 : Table name (for table of contents)
+\newcommand{\figtab}[5]{
+\begin{figure}
+  \renewcommand{\figurename}{Table }
+  \begin{center}
+    \includegraphics[ width={#3} ]{figs/#1}
+    \TableCaptionOpt{#5}{#4}
+    \label{tab:#2}
+  \end{center}
+\end{figure}
 }
 
 %-----------------------------------------------------------------------------
@@ -328,3 +346,4 @@
 
 \renewcommand\lstlistingname{Listing}
 \renewcommand\lstlistlistingname{Listings}
+
