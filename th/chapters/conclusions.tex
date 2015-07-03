@@ -73,6 +73,28 @@ Some years ago, projects involving hundreds to a thousand individuals were commo
 To put this in perspective, that is the population of a village, or a small town. 
 Nowadays, projects like the those lead by the T2D consortia sequence in the order of 20,000 people (i.e. the population of a large town). 
 I am aware, through personal communications with other researchers, that projects are being drafted for sequencing over 100,000 individuals (i.e. the population of a small city). 
+
+
+We developed BDS to help in the processing of these huge datasets.
+As a rule of the thumb, a whole genome requires $800$ CPU hours of primary processing (read mapping and variant calling), a number that is reduced to $24$ CPU hours if we only sequence exons.
+[extrapolate to $100,000$ or $1,000,000$ samples]
+[this numbers cannot currently be handled by university cluster ~25K => how many years?]
+[so we need cloud models]
+[bds can use a simplified 'file system' model]
+[buckets instead of files]
+[no communication back to the master, there is no point on showing the output of 100,000 processes to STDOUT]
+
+[better variant effect prediction]
+[at $1,000,000$ many reare varaints will be discovered]
+[better selection based on annotations]
+[need of systematic study of variant, starting from LOF, going all the way down to non-syn]
+[requires a consistent definition of what protein function means for each context (quantitative reduced / gain of function, e.g. interacts 50\% less with protein X but 20\% more with protein Y)]
+
+[clinical variant effect prediction going mainsteram]
+[silo effect with every research company creating their own "curated database"]
+[ClinGen is a good perspective]
+
+[missing heritability]
 This quest for ever bigger sample sizes shows how elusive the genetic causes of complex diseases are. 
 It might be true that huge sample sizes are needed to uncover risk loci, but perhaps one of the reasons why traditional GWAS studies are not finding as many associations as expected is just that we they are looking at the wrong place by not taking into account other possibilities, such as epistasis.
-%The methods developed here aim to help in the processing of these huge datasets (BDS), the annotation and prioritization of variants (SnpEff), and find association between interacting variants and disease risk (epistatic GWAS). 
+
