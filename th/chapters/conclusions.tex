@@ -71,25 +71,33 @@ Finally, we are evaluating the possibility of incorporating higher order interac
 Genomic research for complex disease is trending towards larger and larger cohorts in order to improve statistical power. 
 Some years ago, projects involving hundreds to a thousand individuals were common. 
 To put this in perspective, that is the population of a village, or a small town. 
-Nowadays, projects like the those lead by the T2D consortia sequence in the order of 20,000 people (i.e. the population of a large town). 
-I am aware, through personal communications with other researchers, that projects are being drafted for sequencing over 100,000 individuals (i.e. the population of a small city). 
+Nowadays, projects like the those lead by the T2D consortia sequence in the order of $20,000$ people (i.e. the population of a large town). 
+I am aware, through personal communications with other researchers, that projects are being drafted for sequencing over $100,000$ individuals (i.e. the population of a small city) and some institutions are foreseeing sequencing up to $1,000,000$ samples per year within the next few years. 
 
+As a rule of the thumb, sequence data of a single whole genome requires $800$ CPU hours of primary processing (i.e. read mapping and variant calling).
+For an institution willing to process $1,000,000$ genomes per year this means $800,000,000$ CPU hours just for primary processing.
+In order to keep up with sequencing, data analysis should be also performed within the same time-frame, thus requiring $\sim 92,000$ CPUs burning data $7 \times 24$.
+An over optimistic estimate that assumes no hardware failures, no software failures and no programmed outages.
+Having tens to hundreds of thousands of CPUs constantly analysing data in production environments poses infrastructures challenges.
+Most academic environments currently use their own infrastructure (local clusters), an approach that may not be easy to further scale.
+For this reason a shift towards cloud infrastructure is already being considered and in some cases implemented by some leading institutions (personal communications).
 
-We developed BDS to help in the processing of these huge datasets.
-As a rule of the thumb, a whole genome requires $800$ CPU hours of primary processing (read mapping and variant calling), a number that is reduced to $24$ CPU hours if we only sequence exons.
-[extrapolate to $100,000$ or $1,000,000$ samples]
-[this numbers cannot currently be handled by university cluster ~25K => how many years?]
-[so we need cloud models]
-[bds can use a simplified 'file system' model]
-[buckets instead of files]
-[no communication back to the master, there is no point on showing the output of 100,000 processes to STDOUT]
+We developed BDS to help processing not only large dataset currently available, but also the huge datasets that experts consider likely to become available in a not so distant future.
+Even though BDS can currently handle a typical analysis involving thousands of CPUs, scaling further from hundreds of thousands to millions of CPUs would require additional abstraction levels.
+Most notably, the current processing model assumes the existence of a file system, which is used primarily for storing data and logging.
+Under a cloud based environment of $100K$ to $1M$ CPUs, this model is likely to break down and further abstraction would be required.
+For instance, cloud based environments use the concept of buckets instead of files and this should be abstracted away and unified for the user to be able to write more transparent and portable pipelines.
+%Another models that breaks down is the concept of communicating the program's outputs (processed in slave nodes) to the master node (where the BDS script is being run).
+%It is difficult of impossible to make sense of such a large amount of output, so a sensible mechanism for focusing on a few meaningful
 
-[better variant effect prediction]
-[at $1,000,000$ many reare varaints will be discovered]
-[better selection based on annotations]
-[need of systematic study of variant, starting from LOF, going all the way down to non-syn]
-[requires a consistent definition of what protein function means for each context (quantitative reduced / gain of function, e.g. interacts 50\% less with protein X but 20\% more with protein Y)]
+In the context of these large studies, variant annotation and selection for further study would also require some improvements.
+As opposed to the previous problem of processing large datasets, variant annotations is challenging not because of the computational challenges, but rather due to restricted biological knowledge.
+There are obvious needs for better predictions, but more precise models could be developed with help of some systematic variant studies.
+For instance, a systematic analysis of loss of function and nonsense mediated decay variants would entail creating all possible stop gained mutations in one or more genes and analysing the protein output in each case (obviously this is an ambitious and challenging project to say the least, but so were other projects like 1KG, EST, GTeX and ENCODE, just to mention a few).
+Lower impact variants, such as non-synonymous, pose even further challenges since there is no consensus on how to measure 'partial protein gain/loss of function' (e.g. in protein affected by a non-synonymous variant, interaction with protein X is degrades by $50\%$ whereas interaction with protein Y is improved $20\%$).
+Such analysis, which are beyond the current state of technology, could only be feasible by supporting long term technology development projects.
 
+Finally, 
 [clinical variant effect prediction going mainsteram]
 [silo effect with every research company creating their own "curated database"]
 [ClinGen is a good perspective]
