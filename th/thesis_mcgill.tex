@@ -9,7 +9,7 @@
 \usepackage{enumitem}
 \usepackage{epsfig}
 \usepackage{framed}
-\usepackage{geometry}
+\usepackage[letterpaper, margin=1in]{geometry}		% Margins should be 1 inch according to McGill requirements (https://www.mcgill.ca/gps/thesis/guidelines/preparation)
 \usepackage{graphicx}
 \usepackage{listings}
 \usepackage{setspace}
@@ -124,15 +124,15 @@ Finally, we address the problem of finding associations between interacting gene
 \ifthesis
 	% Show all chapters on 'thesis' mode
 	\include{chapters/intro}
-%	\include{chapters/intro_variants}
-%	\include{chapters/intro_epistasis}
-%	\include{chapters/intro_coevolution}
-%	\include{chapters/intro_roadmap}
-%	\include{chapters/bds}
-%	\include{chapters/snpeff}
-%	\include{chapters/gwas}
-%	\include{chapters/gwas_supp}
-%	\include{chapters/conclusions}
+	\include{chapters/intro_variants}
+	\include{chapters/intro_epistasis}
+	\include{chapters/intro_coevolution}
+	\include{chapters/intro_roadmap}
+	\include{chapters/bds}
+	\include{chapters/snpeff}
+	\include{chapters/gwas}
+	\include{chapters/gwas_supp}
+	\include{chapters/conclusions}
 \else
 	% Only show the chapter we are currently working on
 	\include{chapters/intro}
