@@ -1,10 +1,987 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{100}
+
+\bibitem{acampora1998murine}
+Dario Acampora, Virginia Avantaggiato, Francesca Tuorto, Paolo Barone, Heinrich
+  Reichert, Robert Finkelstein, and Antonio Simeone.
+\newblock Murine otx1 and drosophila otd genes share conserved genetic
+  functions required in invertebrate and vertebrate brain development.
+\newblock {\em Development}, 125(9):1691--1702, 1998.
+
+\bibitem{ackermann2012systematic}
+Marit Ackermann and Andreas Beyer.
+\newblock Systematic detection of epistatic interactions based on allele pair
+  frequencies.
+\newblock {\em PLoS genetics}, 8(2):e1002463, 2012.
+
+\bibitem{adzhubei2010method}
+I.A. Adzhubei, S.~Schmidt, L.~Peshkin, V.E. Ramensky, A.~Gerasimova, P.~Bork,
+  A.S. Kondrashov, and S.R. Sunyaev.
+\newblock A method and server for predicting damaging missense mutations.
+\newblock {\em Nature methods}, 7(4):248--249, 2010.
+
+\bibitem{agamy2010mutations}
+Orly Agamy, Bruria~Ben Zeev, Dorit Lev, Barak Marcus, Dina Fine, Dan Su, Ginat
+  Narkis, Rivka Ofir, Chen Hoffmann, Esther Leshinsky-Silver, et~al.
+\newblock Mutations disrupting selenocysteine formation cause progressive
+  cerebello-cerebral atrophy.
+\newblock {\em The American Journal of Human Genetics}, 87(4):538--544, 2010.
+
+\bibitem{akey2009constructing}
+Joshua~M Akey.
+\newblock Constructing genomic maps of positive selection in humans: Where do
+  we go from here?
+\newblock {\em Genome research}, 19(5):711--722, 2009.
+
+\bibitem{alberts1995molecular}
+Bruce Alberts, Dennis Bray, Julian Lewis, Martin Raff, Keith Roberts, James~D
+  Watson, and AV~Grimstone.
+\newblock Molecular biology of the cell (3rd edn).
+\newblock {\em Trends in Biochemical Sciences}, 1995.
+
+\bibitem{altschul1990basic}
+S.F. Altschul, W.~Gish, W.~Miller, E.W. Myers, D.J. Lipman, et~al.
+\newblock Basic local alignment search tool.
+\newblock {\em Journal of molecular biology}, 215(3):403--410, 1990.
+
+\bibitem{altschul1997gapped}
+Stephen~F Altschul, Thomas~L Madden, Alejandro~A Sch{\"a}ffer, Jinghui Zhang,
+  Zheng Zhang, Webb Miller, and David~J Lipman.
+\newblock Gapped blast and psi-blast: a new generation of protein database
+  search programs.
+\newblock {\em Nucleic acids research}, 25(17):3389--3402, 1997.
+
+\bibitem{anders2011dorina}
+Gerd Anders, Sebastian~D Mackowiak, Marvin Jens, Jonas Maaskola, Andreas
+  Kuntzagk, Nikolaus Rajewsky, Markus Landthaler, and Christoph Dieterich.
+\newblock dorina: a database of rna interactions in post-transcriptional
+  regulation.
+\newblock {\em Nucleic acids research}, page gkr1007, 2011.
+
+\bibitem{anderson2009molecular}
+Jennifer~A Anderson, William~D Gilliland, and Charles~H Langley.
+\newblock Molecular population genetics and evolution of drosophila meiosis
+  genes.
+\newblock {\em Genetics}, 181(1):177--185, 2009.
+
+\bibitem{ascano2012identification}
+Manuel Ascano, Markus Hafner, Pavol Cekan, Stefanie Gerstberger, and Thomas
+  Tuschl.
+\newblock Identification of rna--protein interaction networks using par-clip.
+\newblock {\em Wiley Interdisciplinary Reviews: RNA}, 3(2):159--177, 2012.
+
+\bibitem{auwera2013fastq}
+Geraldine~A Auwera, Mauricio~O Carneiro, Christopher Hartl, Ryan Poplin,
+  Guillermo del Angel, Ami Levy-Moonshine, Tadeusz Jordan, Khalid Shakir, David
+  Roazen, Joel Thibault, et~al.
+\newblock From fastq data to high-confidence variant calls: The genome analysis
+  toolkit best practices pipeline.
+\newblock {\em Current protocols in bioinformatics}, pages 11--10, 2013.
+
+\bibitem{balding2006tutorial}
+D.J. Balding.
+\newblock A tutorial on statistical methods for population association studies.
+\newblock {\em Nature Reviews Genetics}, 7(10):781--791, 2006.
+
+\bibitem{bamshad2011exome}
+Michael~J Bamshad, Sarah~B Ng, Abigail~W Bigham, Holly~K Tabor, Mary~J Emond,
+  Deborah~A Nickerson, and Jay Shendure.
+\newblock Exome sequencing as a tool for mendelian disease gene discovery.
+\newblock {\em Nature Reviews Genetics}, 12(11):745--755, 2011.
+
+\bibitem{bansal2007evidence}
+Vikas Bansal, Ali Bashir, and Vineet Bafna.
+\newblock Evidence for large inversion polymorphisms in the human genome from
+  hapmap data.
+\newblock {\em Genome research}, 17(2):219--230, 2007.
+
+\bibitem{barrett2009genome}
+Jeffrey~C Barrett, David~G Clayton, Patrick Concannon, Beena Akolkar, Jason~D
+  Cooper, Henry~A Erlich, C{\'e}cile Julier, Grant Morahan, J{\o}rn Nerup,
+  Concepcion Nierras, et~al.
+\newblock Genome-wide association study and meta-analysis find that over 40
+  loci affect risk of type 1 diabetes.
+\newblock {\em Nature genetics}, 41(6):703--707, 2009.
+
+\bibitem{begun1992levels}
+David~J Begun and Charles~F Aquadro.
+\newblock Levels of naturally occurring dna polymorphism correlate with
+  recombination rates in d. melanogaster.
+\newblock 1992.
+
+\bibitem{bell2011carrier}
+Callum~J Bell, Darrell~L Dinwiddie, Neil~A Miller, Shannon~L Hateley, Elena~E
+  Ganusova, Joann Mudge, Ray~J Langley, Lu~Zhang, Clarence~C Lee, Faye~D
+  Schilkey, et~al.
+\newblock Carrier testing for severe childhood recessive diseases by
+  next-generation sequencing.
+\newblock {\em Science translational medicine}, 3(65):65ra4--65ra4, 2011.
+
+\bibitem{bernstein2010nih}
+Bradley~E Bernstein, John~A Stamatoyannopoulos, Joseph~F Costello, Bing Ren,
+  Aleksandar Milosavljevic, Alexander Meissner, Manolis Kellis, Marco~A Marra,
+  Arthur~L Beaudet, Joseph~R Ecker, et~al.
+\newblock The nih roadmap epigenomics mapping consortium.
+\newblock {\em Nature biotechnology}, 28(10):1045--1048, 2010.
+
+\bibitem{binney1992theory}
+James~J Binney, NJ~Dowrick, AJ~Fisher, and M~Newman.
+\newblock {\em The theory of critical phenomena: an introduction to the
+  renormalization group}.
+\newblock Oxford University Press, Inc., 1992.
+
+\bibitem{birney2007identification}
+Ewan Birney, John~A Stamatoyannopoulos, Anindya Dutta, Roderic Guig{\'o},
+  Thomas~R Gingeras, Elliott~H Margulies, Zhiping Weng, Michael Snyder,
+  Emmanouil~T Dermitzakis, Robert~E Thurman, et~al.
+\newblock Identification and analysis of functional elements in 1\% of the
+  human genome by the encode pilot project.
+\newblock {\em Nature}, 447(7146):799--816, 2007.
+
+\bibitem{blanchette2004aligning}
+Mathieu Blanchette, W~James Kent, Cathy Riemer, Laura Elnitski, Arian~FA Smit,
+  Krishna~M Roskin, Robert Baertsch, Kate Rosenbloom, Hiram Clawson, Eric~D
+  Green, et~al.
+\newblock Aligning multiple genomic sequences with the threaded blockset
+  aligner.
+\newblock {\em Genome research}, 14(4):708--715, 2004.
+
+\bibitem{botstein2003discovering}
+David Botstein and Neil Risch.
+\newblock Discovering genotypes underlying human phenotypes: past successes for
+  mendelian disease, future approaches for complex disease.
+\newblock {\em Nature genetics}, 33:228--237, 2003.
+
+\bibitem{boyle2012annotation}
+Alan~P Boyle, Eurie~L Hong, Manoj Hariharan, Yong Cheng, Marc~A Schaub, Maya
+  Kasowski, Konrad~J Karczewski, Julie Park, Benjamin~C Hitz, Shuai Weng,
+  et~al.
+\newblock Annotation of functional variation in personal genomes using
+  regulomedb.
+\newblock {\em Genome research}, 22(9):1790--1797, 2012.
+
+\bibitem{brem2005genetic}
+Rachel~B Brem, John~D Storey, Jacqueline Whittle, and Leonid Kruglyak.
+\newblock Genetic interactions between polymorphisms that affect gene
+  expression in yeast.
+\newblock {\em Nature}, 436(7051):701--703, 2005.
+
+\bibitem{brenner1965genetic}
+Sydney Brenner, AOW Stretton, and S~Kaplan.
+\newblock Genetic code: the ‘nonsense’triplets for chain termination and
+  their suppression.
+\newblock 1965.
+
+\bibitem{brogna2009nonsense}
+Saverio Brogna and Jikai Wen.
+\newblock Nonsense-mediated mrna decay (nmd) mechanisms.
+\newblock {\em Nature structural \& molecular biology}, 16(2):107--113, 2009.
+
+\bibitem{broyden1970convergence}
+Charles~George Broyden.
+\newblock The convergence of a class of double-rank minimization algorithms 1.
+  general considerations.
+\newblock {\em IMA Journal of Applied Mathematics}, 6(1):76--90, 1970.
+
+\bibitem{bryne2008jaspar}
+Jan~Christian Bryne, Eivind Valen, Man-Hung~Eric Tang, Troels Marstrand, Ole
+  Winther, Isabelle da~Piedade, Anders Krogh, Boris Lenhard, and Albin
+  Sandelin.
+\newblock Jaspar, the open access database of transcription factor-binding
+  profiles: new content and tools in the 2008 update.
+\newblock {\em Nucleic acids research}, 36(suppl 1):D102--D106, 2008.
+
+\bibitem{burger2010disentangling}
+Lukas Burger and Erik van Nimwegen.
+\newblock Disentangling direct from indirect co-evolution of residues in
+  protein alignments.
+\newblock {\em PLoS computational biology}, 6(1):e1000633, 2010.
+
+\bibitem{carlborg2004epistasis}
+{\"O}rjan Carlborg and Chris~S Haley.
+\newblock Epistasis: too often neglected in complex trait studies?
+\newblock {\em Nature Reviews Genetics}, 5(8):618--625, 2004.
+
+\bibitem{carrasquillo2002genome}
+Minerva~M Carrasquillo, Andrew~S McCallion, Erik~G Puffenberger, Carl~S Kashuk,
+  Nassim Nouri, and Aravinda Chakravarti.
+\newblock Genome-wide association study and mouse model identify interaction
+  between ret and ednrb pathways in hirschsprung disease.
+\newblock {\em Nature genetics}, 32(2):237--244, 2002.
+
+\bibitem{celniker2009unlocking}
+Susan~E Celniker, Laura~AL Dillon, Mark~B Gerstein, Kristin~C Gunsalus, Steven
+  Henikoff, Gary~H Karpen, Manolis Kellis, Eric~C Lai, Jason~D Lieb, David~M
+  MacAlpine, et~al.
+\newblock Unlocking the secrets of the genome.
+\newblock {\em Nature}, 459(7249):927--930, 2009.
+
+\bibitem{chang1979beta}
+Judy~C Chang and Yuet~Wai Kan.
+\newblock beta 0 thalassemia, a nonsense mutation in man.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  76(6):2886--2889, 1979.
+
+\bibitem{charlesworth1987relative}
+B~Charlesworth, JA~Coyne, and NH~Barton.
+\newblock The relative rates of evolution of sex chromosomes and autosomes.
+\newblock {\em American Naturalist}, pages 113--146, 1987.
+
+\bibitem{chintapalli2007using}
+Venkateswara~R Chintapalli, Jing Wang, and Julian~AT Dow.
+\newblock Using flyatlas to identify better drosophila melanogaster models of
+  human disease.
+\newblock {\em Nature genetics}, 39(6):715--720, 2007.
+
+\bibitem{choi2012predicting}
+Yongwook Choi, Gregory~E Sims, Sean Murphy, Jason~R Miller, and Agnes~P Chan.
+\newblock Predicting the functional effect of amino acid substitutions and
+  indels.
+\newblock {\em PloS one}, 7(10):e46688, 2012.
+
+\bibitem{cibulskis2013sensitive}
+Kristian Cibulskis, Michael~S Lawrence, Scott~L Carter, Andrey Sivachenko,
+  David Jaffe, Carrie Sougnez, Stacey Gabriel, Matthew Meyerson, Eric~S Lander,
+  and Gad Getz.
+\newblock Sensitive detection of somatic point mutations in impure and
+  heterogeneous cancer samples.
+\newblock {\em Nature biotechnology}, 31(3):213--219, 2013.
+
+\bibitem{cingolani2012program}
+P.~Cingolani, A.~Platts, M.~Coon, T.~Nguyen, L.~Wang, S.J. Land, X.~Lu, D.M.
+  Ruden, et~al.
+\newblock A program for annotating and predicting the effects of single
+  nucleotide polymorphisms, snpeff: Snps in the genome of drosophila
+  melanogaster strain w1118; iso-2; iso-3.
+\newblock {\em Fly}, 6(2):0--1, 2012.
+
+\bibitem{cingolani2012using}
+Pablo Cingolani, Viral~M Patel, Melissa Coon, Tung Nguyen, Susan~J Land,
+  Douglas~M Ruden, and Xiangyi Lu.
+\newblock Using drosophila melanogaster as a model for genotoxic chemical
+  mutational studies with a new program, snpsift.
+\newblock {\em Toxicogenomics in non-mammalian species}, page~92, 2012.
+
+\bibitem{cingolani2015bigdatascript}
+Pablo Cingolani, Rob Sladek, and Mathieu Blanchette.
+\newblock Bigdatascript: a scripting language for data pipelines.
+\newblock {\em Bioinformatics}, 31(1):10--16, 2015.
+
+\bibitem{clark2014multidimensional}
+Greg~W Clark, Sharon~H Ackerman, Elisabeth~R Tillier, and Domenico~L Gatti.
+\newblock Multidimensional mutual information methods for the analysis of
+  covariation in multiple sequence alignments.
+\newblock {\em BMC bioinformatics}, 15(1):157, 2014.
+
+\bibitem{clark2011performance}
+M.J. Clark, R.~Chen, H.Y.K. Lam, K.J. Karczewski, R.~Chen, G.~Euskirchen, A.J.
+  Butte, and M.~Snyder.
+\newblock Performance comparison of exome dna sequencing technologies.
+\newblock {\em Nature biotechnology}, 29(10):908--914, 2011.
+
+\bibitem{clarke2011basic}
+G.M. Clarke, C.A. Anderson, F.H. Pettersson, L.R. Cardon, A.P. Morris, and K.T.
+  Zondervan.
+\newblock Basic statistical analysis in genetic case-control studies.
+\newblock {\em Nature protocols}, 6(2):121--133, 2011.
+
+\bibitem{collins2004finishing}
+FS~Collins, ES~Lander, J.~Rogers, RH~Waterston, and I.~Conso.
+\newblock Finishing the euchromatic sequence of the human genome.
+\newblock {\em Nature}, 431(7011):931--945, 2004.
+
+\bibitem{combarros2009epistasis}
+Onofre Combarros, Mario Cortina-Borja, A~David Smith, and Donald~J Lehmann.
+\newblock Epistasis in sporadic alzheimer's disease.
+\newblock {\em Neurobiology of aging}, 30(9):1333--1349, 2009.
+
+\bibitem{10002012integrated}
+1000 Genomes~Project Consortium et~al.
+\newblock An integrated map of genetic variation from 1,092 human genomes.
+\newblock {\em Nature}, 491(7422):56--65, 2012.
+
+\bibitem{consortium2014genome}
+Diabetes~SAT2D Consortium, Diabetes~MAT2D Consortium, Anubha Mahajan, Min~Jin
+  Go, Weihua Zhang, Jennifer~E Below, Kyle~J Gaulton, Teresa Ferreira, Momoko
+  Horikoshi, Andrew~D Johnson, et~al.
+\newblock Genome-wide trans-ancestry meta-analysis provides insight into the
+  genetic architecture of type 2 diabetes susceptibility.
+\newblock {\em Nature genetics}, 46(3):234--244, 2014.
+
+\bibitem{encode2012integrated}
+ENCODE~Project Consortium et~al.
+\newblock An integrated encyclopedia of dna elements in the human genome.
+\newblock {\em Nature}, 489(7414):57--74, 2012.
+
+\bibitem{uniprot2013update}
+UniProt Consortium et~al.
+\newblock Update on activities at the universal protein resource (uniprot) in
+  2013.
+\newblock {\em Nucleic acids research}, 41(D1):D43--D47, 2013.
+
+\bibitem{cook2004tree}
+Nancy~R Cook, Robert~YL Zee, and Paul~M Ridker.
+\newblock Tree and spline based association analysis of gene--gene interaction
+  models for ischemic stroke.
+\newblock {\em Statistics in medicine}, 23(9):1439--1453, 2004.
+
+\bibitem{cordell2002epistasis}
+Heather~J Cordell.
+\newblock Epistasis: what it means, what it doesn't mean, and statistical
+  methods to detect it in humans.
+\newblock {\em Human molecular genetics}, 11(20):2463--2468, 2002.
+
+\bibitem{cordell2009detecting}
+Heather~J Cordell.
+\newblock Detecting gene--gene interactions that underlie human diseases.
+\newblock {\em Nature Reviews Genetics}, 10(6):392--404, 2009.
+
+\bibitem{cormen2001introduction}
+Thomas~H Cormen, Charles~E Leiserson, Ronald~L Rivest, Clifford Stein, et~al.
+\newblock {\em Introduction to algorithms}, volume~2.
+\newblock MIT press Cambridge, 2001.
+
+\bibitem{coulombe2009fine}
+Jasmin Coulombe-Huntington, Kevin~CL Lam, Christel Dias, and Jacek Majewski.
+\newblock Fine-scale variation and genetic determinants of alternative splicing
+  across individuals.
+\newblock {\em PLoS genetics}, 5(12):e1000766, 2009.
+
+\bibitem{coutinho2007evidence}
+Ana~M Coutinho, In{\^e}s Sousa, Madalena Martins, Catarina Correia, Teresa
+  Morgadinho, Celeste Bento, Carla Marques, Assun{\c{c}}{\~a}o Ata{\'\i}de,
+  Teresa~S Miguel, Jason~H Moore, et~al.
+\newblock Evidence for epistasis between slc6a4 and itgb3 in autism etiology
+  and in the determination of platelet serotonin levels.
+\newblock {\em Human genetics}, 121(2):243--256, 2007.
+
+\bibitem{cox1988psi}
+BS~Cox, MF~Tuite, and CS~McLaughlin.
+\newblock The $\psi$ factor of yeast: a problem in inheritance.
+\newblock {\em Yeast}, 4(3):159--178, 1988.
+
+\bibitem{crick1961general}
+Francis Crick, Leslie Barnett, Sydney Brenner, and Richard~J Watts-Tobin.
+\newblock {\em General nature of the genetic code for proteins}.
+\newblock Macmillan Journals Limited, 1961.
+
+\bibitem{culverhouse2004detecting}
+Robert Culverhouse, Tsvika Klein, and William Shannon.
+\newblock Detecting epistatic interactions contributing to quantitative traits.
+\newblock {\em Genetic epidemiology}, 27(2):141--152, 2004.
+
+\bibitem{culverhouse2002perspective}
+Robert Culverhouse, Brian~K Suarez, Jennifer Lin, and Theodore Reich.
+\newblock A perspective on epistasis: limits of models displaying no main
+  effect.
+\newblock {\em The American Journal of Human Genetics}, 70(2):461--471, 2002.
+
+\bibitem{danecek2011variant}
+Petr Danecek, Adam Auton, Goncalo Abecasis, Cornelis~A Albers, Eric Banks,
+  Mark~A DePristo, Robert~E Handsaker, Gerton Lunter, Gabor~T Marth, Stephen~T
+  Sherry, et~al.
+\newblock The variant call format and vcftools.
+\newblock {\em Bioinformatics}, 27(15):2156--2158, 2011.
+
+\bibitem{darwin1859origin}
+Charles Darwin.
+\newblock On the origin of species by means of natural selection, or.
+\newblock {\em The Preservation of Favoured Races in the Struggle for Life,
+  London/Die Entstehung der Arten durch nat{\"u}rliche Zuchtwahl, Leipzig oJ},
+  1859.
+
+\bibitem{darwin1877various}
+Charles Darwin.
+\newblock {\em On the various contrivances by which British and foreign orchids
+  are fertilised by insects}.
+\newblock 1877.
+
+\bibitem{daubechies2010iteratively}
+Ingrid Daubechies, Ronald DeVore, Massimo Fornasier, and C~Sinan
+  G{\"u}nt{\"u}rk.
+\newblock Iteratively reweighted least squares minimization for sparse
+  recovery.
+\newblock {\em Communications on Pure and Applied Mathematics}, 63(1):1--38,
+  2010.
+
+\bibitem{davydov2010identifying}
+E.V. Davydov, D.L. Goode, M.~Sirota, G.M. Cooper, A.~Sidow, and S.~Batzoglou.
+\newblock Identifying a high fraction of the human genome to be under selective
+  constraint using gerp++.
+\newblock {\em PLoS computational biology}, 6(12):e1001025, 2010.
+
+\bibitem{dayhoff1978model}
+Margaret~O Dayhoff and Robert~M Schwartz.
+\newblock A model of evolutionary change in proteins.
+\newblock In {\em In Atlas of protein sequence and structure}. Citeseer, 1978.
+
+\bibitem{de2013emerging}
+David de~Juan, Florencio Pazos, and Alfonso Valencia.
+\newblock Emerging methods in protein co-evolution.
+\newblock {\em Nature Reviews Genetics}, 14(4):249--261, 2013.
+
+\bibitem{dennis2003david}
+Glynn Dennis~Jr, Brad~T Sherman, Douglas~A Hosack, Jun Yang, Wei Gao,
+  H~Clifford Lane, Richard~A Lempicki, et~al.
+\newblock David: database for annotation, visualization, and integrated
+  discovery.
+\newblock {\em Genome biol}, 4(5):P3, 2003.
+
+\bibitem{depristo2011framework}
+M.A. DePristo, E.~Banks, R.~Poplin, K.V. Garimella, J.R. Maguire, C.~Hartl,
+  A.A. Philippakis, G.~Del~Angel, M.A. Rivas, M.~Hanna, et~al.
+\newblock A framework for variation discovery and genotyping using
+  next-generation dna sequencing data.
+\newblock {\em Nature genetics}, 43(5):491--498, 2011.
+
+\bibitem{dickson2010identifying}
+Russell~J Dickson, Lindi~M Wahl, Andrew~D Fernandes, and Gregory~B Gloor.
+\newblock Identifying and seeing beyond multiple sequence alignment errors
+  using intra-molecular protein covariation.
+\newblock {\em PloS one}, 5(6):e11082, 2010.
+
+\bibitem{dobzhansky1950genetics}
+Theodosius Dobzhansky.
+\newblock Genetics of natural populations. xix. origin of heterosis through
+  natural selection in populations of drosophila pseudoobscura.
+\newblock {\em Genetics}, 35(3):288, 1950.
+
+\bibitem{dreesen1988brown}
+TD~Dreesen, DH~Johnson, and S~Henikoff.
+\newblock The brown protein of drosophila melanogaster is similar to the white
+  protein and to components of active transport complexes.
+\newblock {\em Molecular and cellular biology}, 8(12):5206--5215, 1988.
+
+\bibitem{dunn2008mutual}
+Stanley~D Dunn, Lindi~M Wahl, and Gregory~B Gloor.
+\newblock Mutual information without the influence of phylogeny or entropy
+  dramatically improves residue contact prediction.
+\newblock {\em Bioinformatics}, 24(3):333--340, 2008.
+
+\bibitem{durbin1998biological}
+R.~Durbin.
+\newblock {\em Biological sequence analysis: probabilistic models of proteins
+  and nucleic acids}.
+\newblock Cambridge Univ Pr, 1998.
+
+\bibitem{durbin2010map}
+R.M. Durbin, D.L. Altshuler, G.R. Abecasis, D.R. Bentley, A.~Chakravarti, A.G.
+  Clark, F.S. Collins, F.M. De~La~Vega, P.~Donnelly, M.~Egholm, et~al.
+\newblock A map of human genome variation from population-scale sequencing.
+\newblock {\em Nature}, 467(7319):1061--1073, 2010.
+
+\bibitem{ehrlich1964butterflies}
+Paul~R Ehrlich and Peter~H Raven.
+\newblock Butterflies and plants: a study in coevolution.
+\newblock {\em Evolution}, pages 586--608, 1964.
+
+\bibitem{evans2011interaction}
+David~M Evans, Chris~CA Spencer, Jennifer~J Pointon, Zhan Su, David Harvey,
+  Grazyna Kochan, Udo Oppermann, Alexander Dilthey, Matti Pirinen, Millicent~A
+  Stone, et~al.
+\newblock Interaction between erap1 and hla-b27 in ankylosing spondylitis
+  implicates peptide handling in the mechanism for hla-b27 in disease
+  susceptibility.
+\newblock {\em Nature genetics}, 43(8):761--767, 2011.
+
+\bibitem{fairbrother2002predictive}
+William~G Fairbrother, Ru-Fang Yeh, Phillip~A Sharp, and Christopher~B Burge.
+\newblock Predictive identification of exonic splicing enhancers in human
+  genes.
+\newblock {\em Science}, 297(5583):1007--1013, 2002.
+
+\bibitem{fares2006novel}
+Mario~A Fares and Simon~AA Travers.
+\newblock A novel method for detecting intramolecular coevolution: adding a
+  further dimension to selective constraints analyses.
+\newblock {\em Genetics}, 173(1):9--23, 2006.
+
+\bibitem{felsenstein2004inferring}
+Joseph Felsenstein and Joseph Felenstein.
+\newblock {\em Inferring phylogenies}, volume~2.
+\newblock Sinauer Associates Sunderland, 2004.
+
+\bibitem{ferragina2000opportunistic}
+P.~Ferragina and G.~Manzini.
+\newblock Opportunistic data structures with applications.
+\newblock In {\em Foundations of Computer Science, 2000. Proceedings. 41st
+  Annual Symposium on}, pages 390--398. IEEE, 2000.
+
+\bibitem{fisher1958genetical}
+Ronald~Aylmer Fisher.
+\newblock {\em The genetical theory of natural selection}.
+\newblock Рипол Классик, 1958.
+
+\bibitem{fitch1970improved}
+Walter~M Fitch and Etan Markowitz.
+\newblock An improved method for determining codon variability in a gene and
+  its application to the rate of fixation of mutations in evolution.
+\newblock {\em Biochemical genetics}, 4(5):579--593, 1970.
+
+\bibitem{flanigan2009dmd}
+Kevin~M Flanigan, Diane~M Dunn, Andrew von Niederhausern, Michael~T Howard,
+  Jerry Mendell, Anne Connolly, Carol Saunders, Ann Modrcin, Majed Dasouki,
+  Giacomo~P Comi, et~al.
+\newblock Dmd trp3x nonsense mutation associated with a founder effect in north
+  american families with mild becker muscular dystrophy.
+\newblock {\em Neuromuscular Disorders}, 19(11):743--748, 2009.
+
+\bibitem{flicek2012ensembl}
+Paul Flicek, Ikhlak Ahmed, M~Ridwan Amode, Daniel Barrell, Kathryn Beal, Simon
+  Brent, Denise Carvalho-Silva, Peter Clapham, Guy Coates, Susan Fairley,
+  et~al.
+\newblock Ensembl 2013.
+\newblock {\em Nucleic acids research}, page gks1236, 2012.
+
+\bibitem{gao2010classification}
+Hong Gao, Julie~M Granka, and Marcus~W Feldman.
+\newblock On the classification of epistatic interactions.
+\newblock {\em Genetics}, 184(3):827--837, 2010.
+
+\bibitem{garber2009identifying}
+M.~Garber, M.~Guttman, M.~Clamp, M.C. Zody, N.~Friedman, and X.~Xie.
+\newblock Identifying novel constrained elements by exploiting biased
+  substitution patterns.
+\newblock {\em Bioinformatics}, 25(12):i54--i62, 2009.
+
+\bibitem{gatfield2003nonsense}
+David Gatfield, Leonie Unterholzner, Francesca~D Ciccarelli, Peer Bork, and
+  Elisa Izaurralde.
+\newblock Nonsense-mediated mrna decay in drosophila: at the intersection of
+  the yeast and mammalian pathways.
+\newblock {\em The EMBO journal}, 22(15):3960--3970, 2003.
+
+\bibitem{giardine2005galaxy}
+Belinda Giardine, Cathy Riemer, Ross~C Hardison, Richard Burhans, Laura
+  Elnitski, Prachi Shah, Yi~Zhang, Daniel Blankenberg, Istvan Albert, James
+  Taylor, et~al.
+\newblock Galaxy: a platform for interactive large-scale genome analysis.
+\newblock {\em Genome research}, 15(10):1451--1455, 2005.
+
+\bibitem{gibson2012rare}
+G.~Gibson.
+\newblock Rare and common variants: twenty arguments.
+\newblock {\em Nature Reviews Genetics}, 13(2):135--145, 2012.
+
+\bibitem{gloor2005mutual}
+Gregory~B Gloor, Louise~C Martin, Lindi~M Wahl, and Stanley~D Dunn.
+\newblock Mutual information in protein multiple sequence alignments reveals
+  two classes of coevolving positions.
+\newblock {\em Biochemistry}, 44(19):7156--7165, 2005.
+
+\bibitem{gobel1994correlated}
+Ulrike G{\"o}bel, Chris Sander, Reinhard Schneider, and Alfonso Valencia.
+\newblock Correlated mutations and residue contacts in proteins.
+\newblock {\em Proteins: Structure, Function, and Bioinformatics},
+  18(4):309--317, 1994.
+
+\bibitem{goecks2010galaxy}
+Jeremy Goecks, Anton Nekrutenko, James Taylor, et~al.
+\newblock Galaxy: a comprehensive approach for supporting accessible,
+  reproducible, and transparent computational research in the life sciences.
+\newblock {\em Genome Biol}, 11(8):R86, 2010.
+
+\bibitem{goh2000co}
+Chern-Sing Goh, Andrew~A Bogan, Marcin Joachimiak, Dirk Walther, and Fred~E
+  Cohen.
+\newblock Co-evolution of proteins with their interaction partners.
+\newblock {\em Journal of molecular biology}, 299(2):283--293, 2000.
+
+\bibitem{goodman1999toward}
+Steven~N Goodman.
+\newblock Toward evidence-based medical statistics. 2: The bayes factor.
+\newblock {\em Annals of internal medicine}, 130(12):1005--1013, 1999.
+
+\bibitem{gregersen2006functional}
+Jon~W Gregersen, Kamil~R Kranc, Xiayi Ke, Pia Svendsen, Lars~S Madsen,
+  Allan~Randrup Thomsen, Lon~R Cardon, John~I Bell, and Lars Fugger.
+\newblock Functional epistasis on a common mhc haplotype associated with
+  multiple sclerosis.
+\newblock {\em Nature}, 443(7111):574--577, 2006.
+
+\bibitem{griffiths2005introduction}
+Anthony~JF Griffiths.
+\newblock {\em An introduction to genetic analysis}.
+\newblock Macmillan, 2005.
+
+\bibitem{guarente1991generating}
+L~Guarente, YS~Lin, M~Carey, L~Breeden, MA~Osley, J~Gould, S~Kim, M~Kane, and
+  L~Hereford.
+\newblock Generating yeast transcriptional activators containing no yeast
+  protein sequences.
+\newblock {\em Nature}, 350, 1991.
+
+\bibitem{guariguata2014global}
+L~Guariguata, DR~Whiting, I~Hambleton, J~Beagley, U~Linnenkamp, and JE~Shaw.
+\newblock Global estimates of diabetes prevalence for 2013 and projections for
+  2035.
+\newblock {\em Diabetes research and clinical practice}, 103(2):137--149, 2014.
+
+\bibitem{hafner2012genome}
+Markus Hafner, Steve Lianoglou, Thomas Tuschl, and Doron Betel.
+\newblock Genome-wide identification of mirna targets by par-clip.
+\newblock {\em Methods}, 58(2):94--105, 2012.
+
+\bibitem{hamosh2005online}
+Ada Hamosh, Alan~F Scott, Joanna~S Amberger, Carol~A Bocchini, and Victor~A
+  McKusick.
+\newblock Online mendelian inheritance in man (omim), a knowledgebase of human
+  genes and genetic disorders.
+\newblock {\em Nucleic acids research}, 33(suppl 1):D514--D517, 2005.
+
+\bibitem{hartl1997principles}
+D.L. Hartl and A.G. Clark.
+\newblock {\em Principles of population genetics}.
+\newblock Sinauer associates Sunderland, Massachusetts, 2007.
+
+\bibitem{haussler2009genome}
+David Haussler, Stephen~J O'Brien, Oliver~A Ryder, F~Keith Barker, Michele
+  Clamp, Andrew~J Crawford, Robert Hanner, Olivier Hanotte, Warren~E Johnson,
+  Jimmy~A McGuire, et~al.
+\newblock Genome 10k: a proposal to obtain whole-genome sequence for 10 000
+  vertebrate species.
+\newblock {\em Journal of Heredity}, 100(6):659--674, 2009.
+
+\bibitem{hayden2015is}
+Erika Hayden.
+\newblock Is the \$1,000 genome for real?
+\newblock {\em Nature}, 2015.
+
+\bibitem{helwak2013mapping}
+Aleksandra Helwak, Grzegorz Kudla, Tatiana Dudnakova, and David Tollervey.
+\newblock Mapping the human mirna interactome by clash reveals frequent
+  noncanonical binding.
+\newblock {\em Cell}, 153(3):654--665, 2013.
+
+\bibitem{hernandez2011classic}
+Ryan~D Hernandez, Joanna~L Kelley, Eyal Elyashiv, S~Cord Melton, Adam Auton,
+  Gilean McVean, Guy Sella, Molly Przeworski, et~al.
+\newblock Classic selective sweeps were rare in recent human evolution.
+\newblock {\em science}, 331(6019):920--924, 2011.
+
+\bibitem{hindorff2009potential}
+Lucia~A Hindorff, Praveen Sethupathy, Heather~A Junkins, Erin~M Ramos,
+  Jayashri~P Mehta, Francis~S Collins, and Teri~A Manolio.
+\newblock Potential etiologic and functional implications of genome-wide
+  association loci for human diseases and traits.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  106(23):9362--9367, 2009.
+
+\bibitem{hosack2003identifying}
+Douglas~A Hosack, Glynn Dennis~Jr, Brad~T Sherman, H~Clifford Lane, Richard~A
+  Lempicki, et~al.
+\newblock Identifying biological themes within lists of genes with ease.
+\newblock {\em Genome Biol}, 4(10):R70, 2003.
+
+\bibitem{huang2012epistasis}
+Wen Huang, Stephen Richards, Mary~Anna Carbone, Dianhui Zhu, Robert~RH Anholt,
+  Julien~F Ayroles, Laura Duncan, Katherine~W Jordan, Faye Lawrence, Michael~M
+  Magwire, et~al.
+\newblock Epistasis dominates the genetic architecture of drosophila
+  quantitative traits.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  109(39):15553--15559, 2012.
+
+\bibitem{hunter1991pi}
+Christopher~A Hunter, Juswinder Singh, and Janet~M Thornton.
+\newblock $\pi$-$\pi$ interactions: The geometry and energetics of
+  phenylalanine-phenylalanine interactions in proteins.
+\newblock {\em Journal of molecular biology}, 218(4):837--846, 1991.
+
+\bibitem{hurst2004evolutionary}
+Laurence~D Hurst, Csaba P{\'a}l, and Martin~J Lercher.
+\newblock The evolutionary dynamics of eukaryotic gene order.
+\newblock {\em Nature Reviews Genetics}, 5(4):299--310, 2004.
+
+\bibitem{ivanov2011identification}
+Ivaylo~P Ivanov, Andrew~E Firth, Audrey~M Michel, John~F Atkins, and Pavel~V
+  Baranov.
+\newblock Identification of evolutionarily conserved non-aug-initiated
+  n-terminal extensions in human coding sequences.
+\newblock {\em Nucleic acids research}, 39(10):4220--4234, 2011.
 
 \bibitem{jager2014jannovar}
 Marten J{\"a}ger, Kai Wang, Sebastian Bauer, Damian Smedley, Peter Krawitz, and
   Peter~N Robinson.
 \newblock Jannovar: a java library for exome annotation.
 \newblock {\em Human mutation}, 35(5):548--555, 2014.
+
+\bibitem{jamra2007first}
+Rami~Abou Jamra, Robert Fuerst, Radka Kaneva, Guillermo~Orozco Diaz, Fabio
+  Rivas, Fermin Mayoral, Eudoxia Gay, Sebastian Sans, Maria~Jose Gonz{\'a}lez,
+  Susana Gil, et~al.
+\newblock The first genomewide interaction and locus-heterogeneity linkage scan
+  in bipolar affective disorder: strong evidence of epistatic effects between
+  loci on chromosomes 2q and 6q.
+\newblock {\em The American Journal of Human Genetics}, 81(5):974--986, 2007.
+
+\bibitem{jasnos2007epistatic}
+Lukasz Jasnos and Ryszard Korona.
+\newblock Epistatic buffering of fitness loss in yeast double deletion strains.
+\newblock {\em Nature genetics}, 39(4):550--554, 2007.
+
+\bibitem{jones2012psicov}
+David~T Jones, Daniel~WA Buchan, Domenico Cozzetto, and Massimiliano Pontil.
+\newblock Psicov: precise structural contact prediction using sparse inverse
+  covariance estimation on large multiple sequence alignments.
+\newblock {\em Bioinformatics}, 28(2):184--190, 2012.
+
+\bibitem{jones1998gabab}
+Kenneth~A Jones, Beth Borowsky, Joe~A Tamm, Douglas~A Craig, Margaret~M Durkin,
+  Meng Dai, Wen-Jeng Yao, Mary Johnson, Caryn Gunwaldsen, Ling-Yan Huang,
+  et~al.
+\newblock Gabab receptors function as a heteromeric assembly of the subunits
+  gababr1 and gababr2.
+\newblock {\em Nature}, 396(6712):674--679, 1998.
+
+\bibitem{joosten2011series}
+Robbie~P Joosten, Tim~AH Te~Beek, Elmar Krieger, Maarten~L Hekkelman, Rob~WW
+  Hooft, Reinhard Schneider, Chris Sander, and Gert Vriend.
+\newblock A series of pdb related databases for everyday needs.
+\newblock {\em Nucleic acids research}, 39(suppl 1):D411--D419, 2011.
+
+\bibitem{jostins2013using}
+Luke Jostins, Adam~P Levine, and Jeffrey~C Barrett.
+\newblock Using genetic prediction from known complex disease loci to guide the
+  design of next-generation sequencing experiments.
+\newblock {\em PloS one}, 8(10):e76328, 2013.
+
+\bibitem{karolchik2014ucsc}
+Donna Karolchik, Galt~P Barber, Jonathan Casper, Hiram Clawson, Melissa~S
+  Cline, Mark Diekhans, Timothy~R Dreszer, Pauline~A Fujita, Luvina Guruvadoo,
+  Maximilian Haeussler, et~al.
+\newblock The ucsc genome browser database: 2014 update.
+\newblock {\em Nucleic acids research}, 42(D1):D764--D770, 2014.
+
+\bibitem{kass1995bayes}
+Robert~E Kass and Adrian~E Raftery.
+\newblock Bayes factors.
+\newblock {\em Journal of the american statistical association},
+  90(430):773--795, 1995.
+
+\bibitem{kennedy2001}
+Martin~Alexander Kennedy.
+\newblock Mendelian genetic disorders.
+\newblock {\em Encyclopedia of Life Sciences}, 2001.
+
+\bibitem{kielbasa2011adaptive}
+Szymon~M Kie{\l}basa, Raymond Wan, Kengo Sato, Paul Horton, and Martin~C Frith.
+\newblock Adaptive seeds tame genomic sequence comparison.
+\newblock {\em Genome research}, 21(3):487--493, 2011.
+
+\bibitem{koch2013long}
+Evan Koch, Mickey Ristroph, and Mark Kirkpatrick.
+\newblock Long range linkage disequilibrium across the human genome.
+\newblock {\em PloS one}, 8(12):e80754, 2013.
+
+\bibitem{kodaman2014human}
+Nuri Kodaman, Alvaro Pazos, Barbara~G Schneider, M~Blanca Piazuelo, Robertino
+  Mera, Rafal~S Sobota, Liviu~A Sicinschi, Carrie~L Shaffer, Judith
+  Romero-Gallo, Thibaut de~Sablet, et~al.
+\newblock Human and helicobacter pylori coevolution shapes the risk of gastric
+  disease.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  111(4):1455--1460, 2014.
+
+\bibitem{koo2013review}
+Ching~Lee Koo, Mei~Jing Liew, Mohd~Saberi Mohamad, and Abdul~Hakim
+  Mohamed~Salleh.
+\newblock A review for detecting gene-gene interactions using machine learning
+  methods in genetic epidemiology.
+\newblock {\em BioMed research international}, 2013, 2013.
+
+\bibitem{kozak1987analysis}
+Marilyn Kozak.
+\newblock An analysis of 5'-noncoding sequences from 699 vertebrate messenger
+  rnas.
+\newblock {\em Nucleic acids research}, 15(20):8125--8148, 1987.
+
+\bibitem{kuhn1995application}
+Roland Kuhn and Renato De~Mori.
+\newblock The application of semantic classification trees to natural language
+  understanding.
+\newblock {\em Pattern Analysis and Machine Intelligence, IEEE Transactions
+  on}, 17(5):449--460, 1995.
+
+\bibitem{kumar2009predicting}
+P.~Kumar, S.~Henikoff, and P.C. Ng.
+\newblock Predicting the effects of coding non-synonymous variants on protein
+  function using the sift algorithm.
+\newblock {\em Nature protocols}, 4(7):1073--1081, 2009.
+
+\bibitem{landrum2013clinvar}
+Melissa~J Landrum, Jennifer~M Lee, George~R Riley, Wonhee Jang, Wendy~S
+  Rubinstein, Deanna~M Church, and Donna~R Maglott.
+\newblock Clinvar: public archive of relationships among sequence variation and
+  human phenotype.
+\newblock {\em Nucleic acids research}, page gkt1113, 2013.
+
+\bibitem{lane2012nextprot}
+Lydie Lane, Ghislaine Argoud-Puy, Aurore Britan, Isabelle Cusin, Paula~D Duek,
+  Olivier Evalet, Alain Gateau, Pascale Gaudet, Anne Gleizes, Alexandre
+  Masselot, et~al.
+\newblock nextprot: a knowledge platform for human proteins.
+\newblock {\em Nucleic acids research}, 40(D1):D76--D83, 2012.
+
+\bibitem{langmead2012fast}
+B.~Langmead and S.L. Salzberg.
+\newblock Fast gapped-read alignment with bowtie 2.
+\newblock {\em Nature Methods}, 2012.
+
+\bibitem{langmead2009ultrafast}
+B.~Langmead, C.~Trapnell, M.~Pop, and S.L. Salzberg.
+\newblock {Ultrafast and memory-efficient alignment of short DNA sequences to
+  the human genome}.
+\newblock {\em Genome Biol}, 10(3):R25, 2009.
+
+\bibitem{lapedes2012using}
+Alan Lapedes, Bertrand Giraud, and Christopher Jarzynski.
+\newblock Using sequence alignments to predict protein structure and stability
+  with high accuracy.
+\newblock {\em arXiv preprint arXiv:1207.2484}, 2012.
+
+\bibitem{larson2012somaticsniper}
+David~E Larson, Christopher~C Harris, Ken Chen, Daniel~C Koboldt, Travis~E
+  Abbott, David~J Dooling, Timothy~J Ley, Elaine~R Mardis, Richard~K Wilson,
+  and Li~Ding.
+\newblock Somaticsniper: identification of somatic point mutations in whole
+  genome sequencing data.
+\newblock {\em Bioinformatics}, 28(3):311--317, 2012.
+
+\bibitem{lazure1981sequence}
+C~Lazure, WT~Hum, and DM~Gibson.
+\newblock Sequence diversity within a subgroup of mouse immunoglobulin kappa
+  chains controlled by the igk-ef2 locus.
+\newblock {\em The Journal of experimental medicine}, 154(1):146--155, 1981.
+
+\bibitem{li2008methods}
+B.~Li and S.M. Leal.
+\newblock Methods for detecting associations with rare variants for common
+  diseases: application to analysis of sequence data.
+\newblock {\em The American Journal of Human Genetics}, 83(3):311--321, 2008.
+
+\bibitem{li2011improving}
+H.~Li.
+\newblock Improving snp discovery by base alignment quality.
+\newblock {\em Bioinformatics}, 27(8):1157--1158, 2011.
+
+\bibitem{li2011statistical}
+H.~Li.
+\newblock A statistical framework for snp calling, mutation discovery,
+  association mapping and population genetical parameter estimation from
+  sequencing data.
+\newblock {\em Bioinformatics}, 27(21):2987--2993, 2011.
+
+\bibitem{li2010fast}
+H.~Li and R.~Durbin.
+\newblock {Fast and accurate short-read alignment with Burrows-Wheeler
+  transform}.
+\newblock {\em Bioinformatics}, 25(5), 2009.
+
+\bibitem{li2010fastlong}
+H.~Li and R.~Durbin.
+\newblock {Fast and accurate long-read alignment with Burrows-Wheeler
+  transform}.
+\newblock {\em Bioinformatics}, 26(5):589, 2010.
+
+\bibitem{li2008mapping}
+H.~Li, J.~Ruan, and R.~Durbin.
+\newblock {Mapping short DNA sequencing reads and calling variants using
+  mapping quality scores}.
+\newblock {\em Genome research}, 18(11):1851, 2008.
+
+\bibitem{li2011detecting}
+Jing Li, Benjamin Horstman, and Yixuan Chen.
+\newblock Detecting epistatic effects in association studies at a genomic level
+  based on an ensemble approach.
+\newblock {\em Bioinformatics}, 27(13):i222--i229, 2011.
+
+\bibitem{liu2012mirsnp}
+Chenxing Liu, Fuquan Zhang, Tingting Li, Ming Lu, Lifang Wang, Weihua Yue, and
+  Dai Zhang.
+\newblock Mirsnp, a database of polymorphisms altering mirna target sites,
+  identifies mirna-related snps in gwas snps and eqtls.
+\newblock {\em BMC genomics}, 13(1):661, 2012.
+
+\bibitem{liu2010cyclin}
+Dongmei Liu and Russell~L Finley.
+\newblock Cyclin y is a novel conserved cyclin essential for development in
+  drosophila.
+\newblock {\em Genetics}, 184(4):1025--1035, 2010.
+
+\bibitem{liu2011dbnsfp}
+Xiaoming Liu, Xueqiu Jian, and Eric Boerwinkle.
+\newblock dbnsfp: a lightweight database of human nonsynonymous snps and their
+  functional predictions.
+\newblock {\em Human mutation}, 32(8):894--899, 2011.
+
+\bibitem{lonsdale2013genotype}
+John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo,
+  Saboor Shad, Richard Hasz, Gary Walters, Fernando Garcia, Nancy Young, et~al.
+\newblock The genotype-tissue expression (gtex) project.
+\newblock {\em Nature genetics}, 45(6):580--585, 2013.
+
+\bibitem{macarthur2012systematic}
+D.G. MacArthur, S.~Balasubramanian, A.~Frankish, N.~Huang, J.~Morris,
+  K.~Walter, L.~Jostins, L.~Habegger, J.K. Pickrell, S.B. Montgomery, et~al.
+\newblock A systematic survey of loss-of-function variants in human
+  protein-coding genes.
+\newblock {\em Science}, 335(6070):823--828, 2012.
+
+\bibitem{maiti2009mutation}
+Baijayanta Maiti, Sandrine Arbogast, Val{\'e}rie Allamand, Mark~W Moyle,
+  Christine~B Anderson, Pascale Richard, Pascale Guicheney, Ana Ferreiro,
+  Kevin~M Flanigan, and Michael~T Howard.
+\newblock A mutation in the sepn1 selenocysteine redefinition element (sre)
+  reduces selenocysteine incorporation and leads to sepn1-related myopathy.
+\newblock {\em Human mutation}, 30(3):411--416, 2009.
+
+\bibitem{mani2008defining}
+Ramamurthy Mani, Robert P~St Onge, John~L Hartman, Guri Giaever, and
+  Frederick~P Roth.
+\newblock Defining genetic interaction.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  105(9):3461--3466, 2008.
+
+\bibitem{manolio2009finding}
+Teri~A Manolio, Francis~S Collins, Nancy~J Cox, David~B Goldstein, Lucia~A
+  Hindorff, David~J Hunter, Mark~I McCarthy, Erin~M Ramos, Lon~R Cardon,
+  Aravinda Chakravarti, et~al.
+\newblock Finding the missing heritability of complex diseases.
+\newblock {\em Nature}, 461(7265):747--753, 2009.
+
+\bibitem{marks2012protein}
+Debora~S Marks, Thomas~A Hopf, and Chris Sander.
+\newblock Protein structure prediction from sequence variation.
+\newblock {\em Nature biotechnology}, 30(11):1072--1080, 2012.
+
+\bibitem{martin2005using}
+LC~Martin, Gregory~B Gloor, SD~Dunn, and Lindi~M Wahl.
+\newblock Using information theory to search for co-evolving residues in
+  proteins.
+\newblock {\em Bioinformatics}, 21(22):4116--4124, 2005.
+
+\bibitem{mattick2001non}
+John~S Mattick.
+\newblock Non-coding rnas: the architects of eukaryotic complexity.
+\newblock {\em EMBO reports}, 2(11):986--991, 2001.
+
+\bibitem{mccarthy2015T2D}
+et.~al. McCarthy, Mark.
+\newblock Variation in protein-coding sequence and predisposition to type 2
+  diabetes.
+\newblock {\em To be published}, 2015.
+
+\bibitem{mckenna2010genome}
+A.~McKenna, M.~Hanna, E.~Banks, A.~Sivachenko, K.~Cibulskis, A.~Kernytsky,
+  K.~Garimella, D.~Altshuler, S.~Gabriel, M.~Daly, et~al.
+\newblock The genome analysis toolkit: a mapreduce framework for analyzing
+  next-generation dna sequencing data.
+\newblock {\em Genome research}, 20(9):1297--1303, 2010.
+
+\bibitem{mckinney2006machine}
+Brett~A McKinney, David~M Reif, Marylyn~D Ritchie, and Jason~H Moore.
+\newblock Machine learning for detecting gene-gene interactions.
+\newblock {\em Applied bioinformatics}, 5(2):77--88, 2006.
 
 \bibitem{mclaren2010deriving}
 William McLaren, Bethan Pritchard, Daniel Rios, Yuan Chen, Paul Flicek, and
@@ -13,10 +990,639 @@ William McLaren, Bethan Pritchard, Daniel Rios, Yuan Chen, Paul Flicek, and
   and snp effect predictor.
 \newblock {\em Bioinformatics}, 26(16):2069--2070, 2010.
 
+\bibitem{miller2006direct}
+Stephen~P Miller, Mark Lunzer, and Antony~M Dean.
+\newblock Direct demonstration of an adaptive constraint.
+\newblock {\em Science}, 314(5798):458--461, 2006.
+
+\bibitem{morcos2011direct}
+Faruck Morcos, Andrea Pagnani, Bryan Lunt, Arianna Bertolino, Debora~S Marks,
+  Chris Sander, Riccardo Zecchina, Jos{\'e}~N Onuchic, Terence Hwa, and Martin
+  Weigt.
+\newblock Direct-coupling analysis of residue coevolution captures native
+  contacts across many protein families.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  108(49):E1293--E1301, 2011.
+
+\bibitem{morris2012large}
+Andrew~P Morris, Benjamin~F Voight, Tanya~M Teslovich, Teresa Ferreira,
+  Ayellet~V Segr{\'e}, Valgerdur Steinthorsdottir, Rona~J Strawbridge, Hassan
+  Khan, Harald Grallert, Anubha Mahajan, et~al.
+\newblock Large-scale association analysis provides insights into the genetic
+  architecture and pathophysiology of type 2 diabetes.
+\newblock {\em Nature genetics}, 44(9):981, 2012.
+
+\bibitem{nagy1998rule}
+Eszter Nagy and Lynne~E Maquat.
+\newblock A rule for termination-codon position within intron-containing genes:
+  when nonsense affects rna abundance.
+\newblock {\em Trends in biochemical sciences}, 23(6):198--199, 1998.
+
+\bibitem{napolitano2013bioinformatic}
+Francesco Napolitano, Renato Mariani-Costantini, and Roberto Tagliaferri.
+\newblock Bioinformatic pipelines in python with leaf.
+\newblock {\em BMC bioinformatics}, 14(1):201, 2013.
+
+\bibitem{needleman1970general}
+Saul~B Needleman and Christian~D Wunsch.
+\newblock A general method applicable to the search for similarities in the
+  amino acid sequence of two proteins.
+\newblock {\em Journal of molecular biology}, 48(3):443--453, 1970.
+
+\bibitem{nelson2001combinatorial}
+MR~Nelson, SLR Kardia, RE~Ferrell, and CF~Sing.
+\newblock A combinatorial partitioning method to identify multilocus genotypic
+  partitions that predict quantitative trait variation.
+\newblock {\em Genome research}, 11(3):458--470, 2001.
+
+\bibitem{nielsen2011genotype}
+Rasmus Nielsen, Joshua~S Paul, Anders Albrechtsen, and Yun~S Song.
+\newblock Genotype and snp calling from next-generation sequencing data.
+\newblock {\em Nature Reviews Genetics}, 12(6):443--451, 2011.
+
+\bibitem{odenheimer1983heterogeneity}
+DANIEL~J Odenheimer, CF~Whitten, DL~Rucknagel, SA~Sarnaik, and CF~Sing.
+\newblock Heterogeneity of sickle-cell anemia based on a profile of
+  hematological variables.
+\newblock {\em American journal of human genetics}, 35(6):1224, 1983.
+
+\bibitem{genetic2010genome}
+Genetic~Analysis of~Psoriasis Consortium \&~the Wellcome Trust Case Control
+  Consortium~2 et~al.
+\newblock A genome-wide association study identifies new psoriasis
+  susceptibility loci and an interaction between hla-c and erap1.
+\newblock {\em Nature genetics}, 42(11):985--990, 2010.
+
+\bibitem{ollikainen2013computational}
+Noah Ollikainen and Tanja Kortemme.
+\newblock Computational protein design quantifies structural constraints on
+  amino acid covariation.
+\newblock {\em PLoS computational biology}, 9(11):e1003313, 2013.
+
+\bibitem{o2013low}
+Jason O’Rawe, Tao Jiang, Guangqing Sun, Yiyang Wu, Wei Wang, Jingchu Hu, Paul
+  Bodily, Lifeng Tian, Hakon Hakonarson, W~Evan Johnson, et~al.
+\newblock Low concordance of multiple variant-calling pipelines: practical
+  implications for exome and genome sequencing.
+\newblock {\em Genome med}, 5(3):28, 2013.
+
+\bibitem{pagon1993genereviews}
+Roberta~A Pagon, Margaret~P Adam, Thomas~D Bird, Cynthia~R Dolan, Chin-To Fong,
+  Richard~JH Smith, and Karen Stephens.
+\newblock Genereviews.
+\newblock 1993.
+
+\bibitem{parks2004systematic}
+Annette~L Parks, Kevin~R Cook, Marcia Belvin, Nicholas~A Dompe, Robert Fawcett,
+  Kari Huppert, Lory~R Tan, Christopher~G Winter, Kevin~P Bogart, Jennifer~E
+  Deal, et~al.
+\newblock Systematic generation of high-resolution deletion coverage of the
+  drosophila melanogaster genome.
+\newblock {\em Nature genetics}, 36(3):288--292, 2004.
+
+\bibitem{patterson2006population}
+N.~Patterson, A.L. Price, and D.~Reich.
+\newblock Population structure and eigenanalysis.
+\newblock {\em PLoS genetics}, 2(12):e190, 2006.
+
+\bibitem{pazos1997correlated}
+Florencio Pazos, Manuela Helmer-Citterich, Gabriele Ausiello, and Alfonso
+  Valencia.
+\newblock Correlated mutations contain information about protein-protein
+  interaction.
+\newblock {\em Journal of molecular biology}, 271(4):511--523, 1997.
+
+\bibitem{pazos2001similarity}
+Florencio Pazos and Alfonso Valencia.
+\newblock Similarity of phylogenetic trees as indicator of protein--protein
+  interaction.
+\newblock {\em Protein engineering}, 14(9):609--614, 2001.
+
+\bibitem{pedersen1989interaction}
+Jan~Chr Pedersen and K{\aa}re Berg.
+\newblock Interaction between low density lipoprotein receptor (ldlr) and
+  apolipoprotein e (apoe) alleles contributes to normal variation in lipid
+  level.
+\newblock {\em Clinical genetics}, 35(5):331--337, 1989.
+
+\bibitem{petkov2005evidence}
+Petko~M Petkov, Joel~H Graber, Gary~A Churchill, Keith DiPetrillo, Benjamin~L
+  King, and Kenneth Paigen.
+\newblock Evidence of a large-scale functional organization of mammalian
+  chromosomes.
+\newblock {\em PLoS genetics}, 1(3):e33, 2005.
+
+\bibitem{phillips2008epistasis}
+Patrick~C Phillips.
+\newblock Epistasis—the essential role of gene interactions in the structure
+  and evolution of genetic systems.
+\newblock {\em Nature Reviews Genetics}, 9(11):855--867, 2008.
+
+\bibitem{platts2009massively}
+Adrian Platts, Susan~J Land, Lang Chen, Grier Page, Parsa Rasouli, Luan Wang,
+  Xiangyi Lu, and Douglas~M Ruden.
+\newblock Massively parallel resequencing of the isogenic drosophila
+  melanogaster strain w1118; iso-2; iso-3 identifies hotspots for mutations in
+  sensory perception genes.
+\newblock {\em Fly}, 3(3):192--204, 2009.
+
+\bibitem{pollard2010detection}
+Katherine~S Pollard, Melissa~J Hubisz, Kate~R Rosenbloom, and Adam Siepel.
+\newblock Detection of nonneutral substitution rates on mammalian phylogenies.
+\newblock {\em Genome research}, 20(1):110--121, 2010.
+
+\bibitem{price2006principal}
+Alkes~L Price, Nick~J Patterson, Robert~M Plenge, Michael~E Weinblatt, Nancy~A
+  Shadick, and David Reich.
+\newblock Principal components analysis corrects for stratification in
+  genome-wide association studies.
+\newblock {\em Nature genetics}, 38(8):904--909, 2006.
+
+\bibitem{price2008long}
+Alkes~L Price, Michael~E Weale, Nick Patterson, Simon~R Myers, Anna~C Need,
+  Kevin~V Shianna, Dongliang Ge, Jerome~I Rotter, Esther Torres, Kent~D Taylor,
+  et~al.
+\newblock Long-range ld can confound genome scans in admixed populations.
+\newblock {\em American journal of human genetics}, 83(1):132, 2008.
+
+\bibitem{pritchard2000proteins}
+Leighton Pritchard and Mark~J Dufton.
+\newblock Do proteins learn to evolve? the hopfield network as a basis for the
+  understanding of protein evolution.
+\newblock {\em Journal of Theoretical Biology}, 202(1):77--86, 2000.
+
+\bibitem{qian2015recent}
+Wei Qian, Hang Zhou, and Kun Tang.
+\newblock Recent coselection in human populations revealed by protein--protein
+  interaction network.
+\newblock {\em Genome biology and evolution}, 7(1):136--153, 2015.
+
+\bibitem{quail2012tale}
+Michael~A Quail, Miriam Smith, Paul Coupland, Thomas~D Otto, Simon~R Harris,
+  Thomas~R Connor, Anna Bertoni, Harold~P Swerdlow, and Yong Gu.
+\newblock A tale of three next generation sequencing platforms: comparison of
+  ion torrent, pacific biosciences and illumina miseq sequencers.
+\newblock {\em BMC genomics}, 13(1):341, 2012.
+
+\bibitem{raj2013common}
+Towfique Raj, Manik Kuchroo, Joseph~M Replogle, Soumya Raychaudhuri, Barbara~E
+  Stranger, and Philip~L De~Jager.
+\newblock Common risk alleles for inflammatory diseases are targets of recent
+  positive selection.
+\newblock {\em The American Journal of Human Genetics}, 92(4):517--529, 2013.
+
+\bibitem{ramani2003exploiting}
+Arun~K Ramani and Edward~M Marcotte.
+\newblock Exploiting the co-evolution of interacting proteins to discover
+  interaction specificity.
+\newblock {\em Journal of molecular biology}, 327(1):273--284, 2003.
+
+\bibitem{ray2013compendium}
+Debashish Ray, Hilal Kazan, Kate~B Cook, Matthew~T Weirauch, Hamed~S
+  Najafabadi, Xiao Li, Serge Gueroussov, Mihai Albu, Hong Zheng, Ally Yang,
+  et~al.
+\newblock A compendium of rna-binding motifs for decoding gene regulation.
+\newblock {\em Nature}, 499(7457):172--177, 2013.
+
+\bibitem{reich2001linkage}
+David~E Reich, Michele Cargill, Stacey Bolk, James Ireland, Pardis~C Sabeti,
+  Daniel~J Richter, Thomas Lavery, Rose Kouyoumjian, Shelli~F Farhadian, Ryk
+  Ward, et~al.
+\newblock Linkage disequilibrium in the human genome.
+\newblock {\em Nature}, 411(6834):199--204, 2001.
+
+\bibitem{rhee2012chip}
+Ho~Sung Rhee and B~Franklin Pugh.
+\newblock Chip-exo method for identifying genomic location of dna-binding
+  proteins with near-single-nucleotide accuracy.
+\newblock {\em Current Protocols in Molecular Biology}, pages 21--24, 2012.
+
+\bibitem{riggs2013towards}
+Erin~Rooney Riggs, Karen~E Wain, Darlene Riethmaier, Melissa Savage, Bethanny
+  Smith-Packard, Erin~B Kaminsky, Heidi~L Rehm, Christa~Lese Martin, David~H
+  Ledbetter, and W~Andrew Faucett.
+\newblock Towards a universal clinical genomics database: the 2012
+  international standards for cytogenomic arrays consortium meeting.
+\newblock {\em Human mutation}, 34(6):915--919, 2013.
+
+\bibitem{ritchie2001multifactor}
+Marylyn~D Ritchie, Lance~W Hahn, Nady Roodi, L~Renee Bailey, William~D Dupont,
+  Fritz~F Parl, and Jason~H Moore.
+\newblock Multifactor-dimensionality reduction reveals high-order interactions
+  among estrogen-metabolism genes in sporadic breast cancer.
+\newblock {\em The American Journal of Human Genetics}, 69(1):138--147, 2001.
+
+\bibitem{rohlfs2010detecting}
+Rori~V Rohlfs, Willie~J Swanson, and Bruce~S Weir.
+\newblock Detecting coevolution through allelic association between physically
+  unlinked loci.
+\newblock {\em The American Journal of Human Genetics}, 86(5):674--685, 2010.
+
+\bibitem{rope2011using}
+A.F. Rope, K.~Wang, R.~Evjenth, J.~Xing, J.J. Johnston, J.J. Swensen, B.~Moore,
+  C.D. Huff, L.M. Bird, J.C. Carey, et~al.
+\newblock Using vaast to identify an x-linked disorder resulting in lethality
+  in male infants due to n-terminal acetyltransferase deficiency.
+\newblock {\em The American Journal of Human Genetics}, 2011.
+
+\bibitem{ruden2008edge}
+Douglas~M Ruden, D~Curtis Jamison, Barry~R Zeeberg, Mark~D Garfinkel, John~N
+  Weinstein, Parsa Rasouli, and Xiangyi Lu.
+\newblock The edge hypothesis: Epigenetically directed genetic errors in
+  repeat-containing proteins (rcps) involved in evolution, neuroendocrine
+  signaling, and cancer.
+\newblock {\em Frontiers in neuroendocrinology}, 29(3):428--444, 2008.
+
+\bibitem{ruiz2013coevolution}
+Mario~X Ruiz-Gonz{\'a}lez and Mario~A Fares.
+\newblock Coevolution analyses illuminate the dependencies between amino acid
+  sites in the chaperonin system groes-l.
+\newblock {\em BMC evolutionary biology}, 13(1):156, 2013.
+
+\bibitem{sabarinathan2013rnasnp}
+Radhakrishnan Sabarinathan, Hakim Tafer, Stefan~E Seemann, Ivo~L Hofacker,
+  Peter~F Stadler, and Jan Gorodkin.
+\newblock The rnasnp web server: predicting snp effects on local rna secondary
+  structure.
+\newblock {\em Nucleic acids research}, 41(W1):W475--W479, 2013.
+
+\bibitem{sadedin2012bpipe}
+Simon~P Sadedin, Bernard Pope, and Alicia Oshlack.
+\newblock Bpipe: a tool for running and managing bioinformatics pipelines.
+\newblock {\em Bioinformatics}, 28(11):1525--1526, 2012.
+
+\bibitem{santiveri2010tryptophan}
+Clara~M Santiveri and M~Jim{\'e}nez.
+\newblock Tryptophan residues: Scarce in proteins but strong stabilizers of
+  $\beta$-hairpin peptides.
+\newblock {\em Peptide Science}, 94(6):779--790, 2010.
+
+\bibitem{sauna2011understanding}
+Zuben~E Sauna and Chava Kimchi-Sarfaty.
+\newblock Understanding the contribution of synonymous mutations to human
+  disease.
+\newblock {\em Nature Reviews Genetics}, 12(10):683--691, 2011.
+
+\bibitem{saurin1999getting}
+William Saurin, Maurice Hofnung, and Elie Dassa.
+\newblock Getting in or out: early segregation between importers and exporters
+  in the evolution of atp-binding cassette (abc) transporters.
+\newblock {\em Journal of molecular evolution}, 48(1):22--41, 1999.
+
+\bibitem{schadt2011first}
+Eric Schadt.
+\newblock First steps on a long road.
+\newblock {\em Science}, 331(6018):691--691, 2011.
+
+\bibitem{schatz2010cloud}
+Michael~C Schatz, Ben Langmead, and Steven~L Salzberg.
+\newblock Cloud computing and the dna data race.
+\newblock {\em Nature biotechnology}, 28(7):691--693, 2010.
+
+\bibitem{scheper2007translation}
+Gert~C Scheper, Marjo~S van~der Knaap, and Christopher~G Proud.
+\newblock Translation matters: protein synthesis defects in inherited disease.
+\newblock {\em Nature Reviews Genetics}, 8(9):711--723, 2007.
+
+\bibitem{schneider2013genome}
+Valerie Schneider and Deanna Church.
+\newblock Genome reference consortium.
+\newblock 2013.
+
+\bibitem{schupbach2010fastepistasis}
+Thierry Sch{\"u}pbach, Ioannis Xenarios, Sven Bergmann, and Karen Kapur.
+\newblock Fastepistasis: a high performance computing solution for quantitative
+  trait epistasis.
+\newblock {\em Bioinformatics}, 26(11):1468--1469, 2010.
+
+\bibitem{shao2008genetic}
+Haifeng Shao, Lindsay~C Burrage, David~S Sinasac, Annie~E Hill, Sheila~R
+  Ernest, William O'Brien, Hayden-William Courtland, Karl~J Jepsen, Andrew
+  Kirby, EJ~Kulbokas, et~al.
+\newblock Genetic architecture of complex traits: large phenotypic effects and
+  pervasive epistasis.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  105(50):19910--19914, 2008.
+
+\bibitem{shendure2008next}
+Jay Shendure and Hanlee Ji.
+\newblock Next-generation dna sequencing.
+\newblock {\em Nature biotechnology}, 26(10):1135--1145, 2008.
+
+\bibitem{shoemaker2007deciphering}
+Benjamin~A Shoemaker and Anna~R Panchenko.
+\newblock Deciphering protein--protein interactions. part i. experimental
+  techniques and databases.
+\newblock {\em PLoS computational biology}, 3(3):e42, 2007.
+
+\bibitem{shoemaker2007decipheringP2}
+Benjamin~A Shoemaker and Anna~R Panchenko.
+\newblock Deciphering protein--protein interactions. part ii. computational
+  methods to predict protein and domain interaction partners.
+\newblock {\em PLoS computational biology}, 3(4):e43, 2007.
+
+\bibitem{siepel2005evolutionarily}
+Adam Siepel, Gill Bejerano, Jakob~S Pedersen, Angie~S Hinrichs, Minmei Hou,
+  Kate Rosenbloom, Hiram Clawson, John Spieth, LaDeana~W Hillier, Stephen
+  Richards, et~al.
+\newblock Evolutionarily conserved elements in vertebrate, insect, worm, and
+  yeast genomes.
+\newblock {\em Genome research}, 15(8):1034--1050, 2005.
+
+\bibitem{single2007global}
+Richard~M Single, Maureen~P Martin, Xiaojiang Gao, Diogo Meyer, Meredith
+  Yeager, Judith~R Kidd, Kenneth~K Kidd, and Mary Carrington.
+\newblock Global diversity and evidence for coevolution of kir and hla.
+\newblock {\em Nature genetics}, 39(9):1114--1119, 2007.
+
+\bibitem{smith1981identification}
+Temple~F Smith and Michael~S Waterman.
+\newblock Identification of common molecular subsequences.
+\newblock {\em Journal of molecular biology}, 147(1):195--197, 1981.
+
+\bibitem{stark2006biogrid}
+Chris Stark, Bobby-Joe Breitkreutz, Teresa Reguly, Lorrie Boucher, Ashton
+  Breitkreutz, and Mike Tyers.
+\newblock Biogrid: a general repository for interaction datasets.
+\newblock {\em Nucleic acids research}, 34(suppl 1):D535--D539, 2006.
+
+\bibitem{stenson2003human}
+Peter~D Stenson, Edward~V Ball, Matthew Mort, Andrew~D Phillips, Jacqueline~A
+  Shiel, Nick~ST Thomas, Shaun Abeysinghe, Michael Krawczak, and David~N
+  Cooper.
+\newblock Human gene mutation database (hgmd{\textregistered}): 2003 update.
+\newblock {\em Human mutation}, 21(6):577--581, 2003.
+
+\bibitem{stoletzki2011positive}
+Nina Stoletzki and Adam Eyre-Walker.
+\newblock The positive correlation between dn/ds and ds in mammals is due to
+  runs of adjacent substitutions.
+\newblock {\em Molecular biology and evolution}, 28(4):1371--1380, 2011.
+
+\bibitem{subramanian2005gene}
+Aravind Subramanian, Pablo Tamayo, Vamsi~K Mootha, Sayan Mukherjee, Benjamin~L
+  Ebert, Michael~A Gillette, Amanda Paulovich, Scott~L Pomeroy, Todd~R Golub,
+  Eric~S Lander, et~al.
+\newblock Gene set enrichment analysis: a knowledge-based approach for
+  interpreting genome-wide expression profiles.
+\newblock {\em Proceedings of the National Academy of Sciences of the United
+  States of America}, 102(43):15545--15550, 2005.
+
+\bibitem{sugihara1990drosophila}
+H~Sugihara, V~Andrisani, and PM~Salvaterra.
+\newblock Drosophila choline acetyltransferase uses a non-aug initiation codon
+  and full length rna is inefficiently translated.
+\newblock {\em Journal of Biological Chemistry}, 265(35):21714--21719, 1990.
+
+\bibitem{GATK}
+GATK team.
+\newblock The genome analysis toolkit.
+\newblock Accessed: 2015.
+
+\bibitem{thibault2004complementary}
+Stephen~T Thibault, Matthew~A Singer, Wesley~Y Miyazaki, Brett Milash,
+  Nicholas~A Dompe, Carol~M Singh, Ross Buchholz, Madelyn Demsky, Robert
+  Fawcett, Helen~L Francis-Lang, et~al.
+\newblock A complementary transposon tool kit for drosophila melanogaster using
+  p and piggybac.
+\newblock {\em Nature genetics}, 36(3):283--287, 2004.
+
+\bibitem{tiret1994synergistic}
+L~Tiret, P~Ducimeti{\`e}re, A~Bonnardeaux, F~Soubrier, O~Poirier, S~Ricard,
+  F~Cambien, P~Marques-Vidal, A~Evans, F~Kee, et~al.
+\newblock Synergistic effects of angiotensin-converting enzyme and
+  angiotensin-ii type 1 receptor gene polymorphisms on risk of myocardial
+  infarction.
+\newblock {\em The Lancet}, 344(8927):910--913, 1994.
+
+\bibitem{tong2001systematic}
+Amy Hin~Yan Tong, Marie Evangelista, Ainslie~B Parsons, Hong Xu, Gary~D Bader,
+  Nicholas Pag{\'e}, Mark Robinson, Sasan Raghibizadeh, Christopher~WV Hogue,
+  Howard Bussey, et~al.
+\newblock Systematic genetic analysis with ordered arrays of yeast deletion
+  mutants.
+\newblock {\em Science}, 294(5550):2364--2368, 2001.
+
+\bibitem{tran2007nonsense}
+Van~Khanh Tran, Yasuhiro Takeshima, Zhujun Zhang, Yasuaki Habara, Kazuhiro
+  Haginoya, Atsushi Nishiyama, Mariko Yagi, and Masafumi Matsuo.
+\newblock A nonsense mutation-created intraexonic splice site is active in the
+  lymphocytes, but not in the skeletal muscle of a dmd patient.
+\newblock {\em Human genetics}, 120(5):737--742, 2007.
+
+\bibitem{tsai2007renin}
+Chia-Ti Tsai, Juey-Jen Hwang, Marylyn~D Ritchie, Jason~H Moore, Fu-Tien Chiang,
+  Ling-Ping Lai, Kuan-Lih Hsu, Chuen-Den Tseng, Jiunn-Lee Lin, and Yung-Zu
+  Tseng.
+\newblock Renin--angiotensin system gene polymorphisms and coronary artery
+  disease in a large angiographic cohort: detection of high order gene--gene
+  interaction.
+\newblock {\em Atherosclerosis}, 195(1):172--180, 2007.
+
+\bibitem{turnbaugh2007human}
+Peter~J Turnbaugh, Ruth~E Ley, Micah Hamady, Claire~M Fraser-Liggett, Rob
+  Knight, and Jeffrey~I Gordon.
+\newblock The human microbiome project.
+\newblock {\em Nature}, 449(7164):804--810, 2007.
+
+\bibitem{tyedmers2008prion}
+Jens Tyedmers, Maria~Lucia Madariaga, and Susan Lindquist.
+\newblock Prion switching in response to environmental stress.
+\newblock {\em PLoS biology}, 6(11):e294, 2008.
+
+\bibitem{tyler2009shadows}
+Anna~L Tyler, Folkert~W Asselbergs, Scott~M Williams, and Jason~H Moore.
+\newblock Shadows of complexity: what biological networks reveal about
+  epistasis and pleiotropy.
+\newblock {\em Bioessays}, 31(2):220--227, 2009.
+
+\bibitem{venkatesan2009empirical}
+Kavitha Venkatesan, Jean-Francois Rual, Alexei Vazquez, Ulrich Stelzl, Irma
+  Lemmens, Tomoko Hirozane-Kishikawa, Tong Hao, Martina Zenkner, Xiaofeng Xin,
+  Kwang-Il Goh, et~al.
+\newblock An empirical framework for binary interactome mapping.
+\newblock {\em Nature methods}, 6(1):83--90, 2009.
+
+\bibitem{voight2010twelve}
+Benjamin~F Voight, Laura~J Scott, Valgerdur Steinthorsdottir, Andrew~P Morris,
+  Christian Dina, Ryan~P Welch, Eleftheria Zeggini, Cornelia Huth, Yurii~S
+  Aulchenko, Gudmar Thorleifsson, et~al.
+\newblock Twelve type 2 diabetes susceptibility loci identified through
+  large-scale association analysis.
+\newblock {\em Nature genetics}, 42(7):579--589, 2010.
+
+\bibitem{waaler1921location}
+GEORG~HM WAALER.
+\newblock The location of a new second chromosome eye colour gene in drosophila
+  melanogaster.
+\newblock {\em Hereditas}, 2(3):391--394, 1921.
+
+\bibitem{wakefield2009bayes}
+Jon Wakefield.
+\newblock Bayes factors for genome-wide association studies: comparison with
+  p-values.
+\newblock {\em Genetic epidemiology}, 33(1):79--86, 2009.
+
 \bibitem{wang2010annovar}
 K.~Wang, M.~Li, and H.~Hakonarson.
 \newblock Annovar: functional annotation of genetic variants from
   high-throughput sequencing data.
 \newblock {\em Nucleic acids research}, 38(16):e164--e164, 2010.
+
+\bibitem{wang2012ldgidb}
+Ming-Chih Wang, Feng-Chi Chen, Yen-Zho Chen, Yao-Ting Huang, and Trees-Juen
+  Chuang.
+\newblock Ldgidb: a database of gene interactions inferred from long-range
+  strong linkage disequilibrium between pairs of snps.
+\newblock {\em BMC research notes}, 5(1):212, 2012.
+
+\bibitem{ward2012haploreg}
+Lucas~D Ward and Manolis Kellis.
+\newblock Haploreg: a resource for exploring chromatin states, conservation,
+  and regulatory motif alterations within sets of genetically linked variants.
+\newblock {\em Nucleic acids research}, 40(D1):D930--D934, 2012.
+
+\bibitem{ward2012interpreting}
+Lucas~D Ward and Manolis Kellis.
+\newblock Interpreting noncoding genetic variation in complex traits and human
+  disease.
+\newblock {\em Nature biotechnology}, 30(11):1095--1106, 2012.
+
+\bibitem{watson1953molecular}
+J.D. Watson and F.H.C. Crick.
+\newblock Molecular structure of nucleic acids.
+\newblock {\em Nature}, 171(4356):737--738, 1953.
+
+\bibitem{weigt2009identification}
+Martin Weigt, Robert~A White, Hendrik Szurmant, James~A Hoch, and Terence Hwa.
+\newblock Identification of direct residue contacts in protein--protein
+  interaction by message passing.
+\newblock {\em Proceedings of the National Academy of Sciences}, 106(1):67--72,
+  2009.
+
+\bibitem{wheeler2008complete}
+David~A Wheeler, Maithreyan Srinivasan, Michael Egholm, Yufeng Shen, Lei Chen,
+  Amy McGuire, Wen He, Yi-Ju Chen, Vinod Makhijani, G~Thomas Roth, et~al.
+\newblock The complete genome of an individual by massively parallel dna
+  sequencing.
+\newblock {\em nature}, 452(7189):872--876, 2008.
+
+\bibitem{whitcomb1996hereditary}
+David~C Whitcomb, Michael~C Gorry, Robert~A Preston, William Furey, Michael~J
+  Sossenheimer, Charles~D Ulrich, Stephen~P Martin, Lawrence~K Gates, Stephen~T
+  Amann, Phillip~P Toskes, et~al.
+\newblock Hereditary pancreatitis is caused by a mutation in the cationic
+  trypsinogen gene.
+\newblock {\em Nature genetics}, 14(2):141--145, 1996.
+
+\bibitem{wickner1994ure3}
+Reed~B Wickner.
+\newblock [ure3] as an altered ure2 protein: evidence for a prion analog in
+  saccharomyces cerevisiae.
+\newblock {\em Science}, 264(5158):566--569, 1994.
+
+\bibitem{wilks1938large}
+Samuel~S Wilks.
+\newblock The large-sample distribution of the likelihood ratio for testing
+  composite hypotheses.
+\newblock {\em The Annals of Mathematical Statistics}, 9(1):60--62, 1938.
+
+\bibitem{wiltshire2006epistasis}
+S~Wiltshire, JT~Bell, CJ~Groves, C~Dina, AT~Hattersley, TM~Frayling, M~Walker,
+  GA~Hitman, M~Vaxillaire, M~Farrall, et~al.
+\newblock Epistasis between type 2 diabetes susceptibility loci on chromosomes
+  1q21-25 and 10q23-26 in northern europeans.
+\newblock {\em Annals of human genetics}, 70(6):726--737, 2006.
+
+\bibitem{wollenberg2000separation}
+Kurt~R Wollenberg and William~R Atchley.
+\newblock Separation of phylogenetic and functional associations in biological
+  sequences by using the parametric bootstrap.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  97(7):3288--3291, 2000.
+
+\bibitem{wood2014defining}
+Andrew~R Wood, Tonu Esko, Jian Yang, Sailaja Vedantam, Tune~H Pers, Stefan
+  Gustafsson, Audrey~Y Chu, Karol Estrada, Jian'an Luan, Zolt{\'a}n Kutalik,
+  et~al.
+\newblock Defining the role of common variation in the genomic and biological
+  architecture of adult human height.
+\newblock {\em Nature genetics}, 46(11):1173--1186, 2014.
+
+\bibitem{wu2011rare}
+M.C. Wu, S.~Lee, T.~Cai, Y.~Li, M.~Boehnke, and X.~Lin.
+\newblock Rare-variant association testing for sequencing data with the
+  sequence kernel association test.
+\newblock {\em The American Journal of Human Genetics}, 2011.
+
+\bibitem{yamaguchi2008distribution}
+Yumi Yamaguchi-Kabata, Makoto~K Shimada, Yosuke Hayakawa, Shinsei Minoshima,
+  Ranajit Chakraborty, Takashi Gojobori, and Tadashi Imanishi.
+\newblock Distribution and effects of nonsense polymorphisms in human genes.
+\newblock {\em PloS one}, 3(10):e3393, 2008.
+
+\bibitem{yang2011starbase}
+Jian-Hua Yang, Jun-Hao Li, Peng Shao, Hui Zhou, Yue-Qin Chen, and Liang-Hu Qu.
+\newblock starbase: a database for exploring microrna--mrna interaction maps
+  from argonaute clip-seq and degradome-seq data.
+\newblock {\em Nucleic acids research}, 39(suppl 1):D202--D209, 2011.
+
+\bibitem{yang2006computational}
+Ziheng Yang.
+\newblock {\em Computational molecular evolution}, volume 284.
+\newblock Oxford University Press Oxford, 2006.
+
+\bibitem{younossi1997control}
+Amelia Younossi-Hartenstein, Patricia Green, Gwo-Jen Liaw, Karen Rudolph,
+  Judith Lengyel, and Volker Hartenstein.
+\newblock Control of early neurogenesis of thedrosophilabrain by the head gap
+  genestll, otd, ems, andbtd.
+\newblock {\em Developmental biology}, 182(2):270--283, 1997.
+
+\bibitem{zeggini2008meta}
+Eleftheria Zeggini, Laura~J Scott, Richa Saxena, Benjamin~F Voight, Jonathan~L
+  Marchini, Tianle Hu, Paul~IW de~Bakker, Gon{\c{c}}alo~R Abecasis, Peter
+  Almgren, Gitte Andersen, et~al.
+\newblock Meta-analysis of genome-wide association data and large-scale
+  replication identifies additional susceptibility loci for type 2 diabetes.
+\newblock {\em Nature genetics}, 40(5):638--645, 2008.
+
+\bibitem{zhang2007bayesian}
+Yu~Zhang and Jun~S Liu.
+\newblock Bayesian inference of epistatic interactions in case-control studies.
+\newblock {\em Nature genetics}, 39(9):1167--1173, 2007.
+
+\bibitem{zhao2006test}
+Jinying Zhao, Li~Jin, and Momiao Xiong.
+\newblock Test for interaction between two unlinked loci.
+\newblock {\em The American Journal of Human Genetics}, 79(5):831--845, 2006.
+
+\bibitem{zheng2006backward}
+Tian Zheng, Hui Wang, and Shaw-Hwa Lo.
+\newblock Backward genotype-trait association (bgta)-based dissection of
+  complex traits in case-control designs.
+\newblock {\em Human heredity}, 62(4):196, 2006.
+
+\bibitem{ziebarth2011polymirts}
+Jesse~D Ziebarth, Anindya Bhattacharya, Anlong Chen, and Yan Cui.
+\newblock Polymirts database 2.0: linking polymorphisms in microrna target
+  sites with human diseases and complex traits.
+\newblock {\em Nucleic acids research}, page gkr1026, 2011.
+
+\bibitem{zuk2012mystery}
+O.~Zuk, E.~Hechter, S.R. Sunyaev, and E.S. Lander.
+\newblock The mystery of missing heritability: Genetic interactions create
+  phantom heritability.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  109(4):1193--1198, 2012.
+
+\bibitem{zuk2014searching}
+Or~Zuk, Stephen~F Schaffner, Kaitlin Samocha, Ron Do, Eliana Hechter, Sekar
+  Kathiresan, Mark~J Daly, Benjamin~M Neale, Shamil~R Sunyaev, and Eric~S
+  Lander.
+\newblock Searching for missing heritability: Designing rare variant
+  association studies.
+\newblock {\em Proceedings of the National Academy of Sciences},
+  111(4):E455--E464, 2014.
 
 \end{thebibliography}

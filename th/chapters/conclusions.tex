@@ -76,36 +76,38 @@ I am aware, through personal communications with other researchers, that project
 
 As a rule of the thumb, sequence data of a single whole genome requires $800$ CPU hours of primary processing (i.e. read mapping and variant calling).
 For an institution willing to process $1,000,000$ genomes per year this means $800,000,000$ CPU hours just for primary processing.
-In order to keep up with sequencing, data analysis should be also performed within the same time-frame, thus requiring $\sim 92,000$ CPUs burning data $7 \times 24$.
-An over optimistic estimate that assumes no hardware failures, no software failures and no programmed outages.
+In order to keep up with sequencing, data analysis should be also performed within the same time-frame, thus requiring $\sim 92,000$ CPUs burning data $7 \times 24$ (an over optimistic estimate that assumes no hardware failures, no software failures and no programmed outages).
 Having tens to hundreds of thousands of CPUs constantly analysing data in production environments poses infrastructures challenges.
 Most academic environments currently use their own infrastructure (local clusters), an approach that may not be easy to further scale.
 For this reason a shift towards cloud infrastructure is already being considered and in some cases implemented by some leading institutions (personal communications).
 
 We developed BDS to help processing not only the large dataset currently available, but also huge datasets that experts consider likely to become available in a not so distant future.
 Even though BDS can currently handle a typical analysis involving tens of thousands of CPUs, further scaling to hundreds of thousands or even millions of CPUs would require additional abstraction levels.
-Most notably, the current processing model assumes the existence of a file system which BDS uses for retrieving input files, storing output results and and logging process status.
+Most notably, the current processing model assumes the existence of a file system which is used for retrieving input files, storing output results and and logging process status.
 We anticipate that this model can break down on cloud based pipelines running over hundreds of thousands of CPUs.
-Typically cloud based environments use the concept of object storage or buckets instead of file systems.
+Typically cloud based environments use the concept of object storage (a.k.a. buckets) instead of file systems.
 We think that the two models (file system and object storage) can be abstracted away in a new unified model enabling the user write even more portable pipelines and letting BDS take care of transparently transferring data to and from the object storage system.
-This could even enable data locality optimizations by moving the processes to the data instead of the data to the process (e.g. when using rack aware systems, such as HDFS).
+This approach has the benefit of also enabling to transparently add data locality optimizations by moving the processes close to the data instead of the traditional approach of moving the data to the process, with various degrees of data locality optimizations ranging from multi-datacenter processing to rack-aware file systems.
 %Another models that breaks down is the concept of communicating the program's outputs (processed in slave nodes) to the master node (where the BDS script is being run).
 %It is difficult of impossible to make sense of such a large amount of output, so a sensible mechanism for focusing on a few meaningful
 
-In the context of these large studies, variant annotation improvements would greatly benefit the bottom line.
+This quest for ever bigger sample sizes shows how elusive the genetic causes of complex diseases are. 
+It might be true that huge sample sizes are needed to uncover risk loci, but perhaps one of the reasons why traditional GWAS studies are not finding as many associations as expected is just that we they are looking at the wrong place by not routinely taking into account other possibilities, such as large InDels, CNVs, and epistasis.
+
+In the context of large cohort studies, variant annotation improvements would greatly benefit the bottom line.
 As opposed to the previous problem of processing large datasets, variant annotations is challenging not because of the computational challenges but rather due to restricted biological knowledge.
 Advanced models of variant effect could be developed with help of systematic studies.
 For instance, a systematic analysis of loss of function and nonsense mediated decay variants would entail creating all possible stop gained mutations in one or more genes and analysing the protein output in each case (obviously this is an ambitious and challenging project to say the least, but so were other projects like 1KG, EST, GTeX and ENCODE, just to mention a few).
 Lower impact variants, such as non-synonymous, pose even further challenges since there is no consensus on how to measure partial protein gain/loss of function (e.g. in protein affected by a non-synonymous variant, interaction efficiency with protein X is degraded by $50\%$ whereas interaction with protein Y is improved $20\%$).
 Such analysis, which are beyond the current state of technology, could only be feasible by supporting long term technology development projects.
 
-We should keep in mind that the ultimate goal when studying complex traits is to have an impact on human health.
-Research results should be available in a systematic way.
-Nevertheless, the current mode of publishing results in scientific journals is not only arcane but also is known to create problems for translational medicine applications because it promotes silo effects in which each company "curated databases" that are not shared since they are regarded as a completive advantage.
-On the other hand, researchers do not often have incentives to create and maintain curated databases, and often they are not maintained after the paper is published and the students leave.
-A refreshing approach adopted by the ClinGen project attempts to create long term curated, high quality, clinically relevant databases.
-Obviously it would be better to have researchers contribute directly to these efforts thus significantly reducing the curation burden.
-Research agencies should incentivize researchers to publish their results in ClinGen and other similar systematic long term efforts that might appear in the future.
+Finally, we should keep in mind that the ultimate goal of complex trait research is to have an impact on human health.
+This implies that research results should be readily available for translational medicine to effectively use of them.
+Scientific publishing dates from 1665 and understandably has some shortcomings at the time of implementing translational medicine.
+An enormous efforts is required to read papers, curate them, and translate their results into meaningful coherent data.
+In the private sector, companies that embark on this costly curation process regard the resulting curated databases as a completive advantage and are unwilling to share them, creating the well known silo effect which leads to several fragmented isolated curation projects with various degrees of success and different qualities.
+On the other hand, in academic environments there are few incentives to create curated databases and often they are not maintained after the paper is published and the students leave their labs, resulting on a plethora of outdated databases with different curation standards.
+A refreshing approach adopted by the ClinGen project attempts to create long term, well curated, high quality, clinically relevant database/s.
+Obviously it would be better to have researchers contribute directly to these efforts thus significantly reducing the curation burden, but currently there are no incentives for researchers to do so.
+If we want to make a more effective use of research results in clinical environments, research agencies should incentivize (or even require) to publish genomic results in ClinGen and other similar systematic long term efforts that might appear in the future.
 
-Finally, this quest for ever bigger sample sizes shows how elusive the genetic causes of complex diseases are. 
-It might be true that huge sample sizes are needed to uncover risk loci, but perhaps one of the reasons why traditional GWAS studies are not finding as many associations as expected is just that we they are looking at the wrong place by not taking into account other possibilities, such as epistasis.
