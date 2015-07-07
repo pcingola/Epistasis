@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  4 JUL 2015 11:45
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  7 JUL 2015 08:51
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -378,10 +378,15 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 ] [4
 
 
-] [5
-
 ]
-(./thesis_mcgill.toc
+Overfull \hbox (5.26227pt too wide) in paragraph at lines 113--114
+[]\OT1/cmr/m/n/12 Il est au-jourd'hui pos-si-ble d'obtenir la s^^Sequence du g^
+^Senome de grandes co-hortes d'individus,
+ []
+
+[5
+
+] (./thesis_mcgill.toc
 LaTeX Font Info:    Try loading font information for U+msa on input line 2.
 
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -1078,10 +1083,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6440 strings out of 493315
- 98497 string characters out of 6137904
+ 6441 strings out of 493315
+ 98505 string characters out of 6137904
  201372 words of memory out of 5000000
- 9695 multiletter control sequences out of 15000+600000
+ 9696 multiletter control sequences out of 15000+600000
  15433 words of font info for 59 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,46p,2605b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1099,7 +1104,7 @@ ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (210 pages, 5886290 bytes).
+Output written on thesis_mcgill.pdf (210 pages, 5887271 bytes).
 PDF statistics:
  777 PDF objects out of 1000 (max. 8388607)
  506 compressed objects within 6 object streams
