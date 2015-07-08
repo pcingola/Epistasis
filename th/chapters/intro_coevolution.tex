@@ -31,13 +31,13 @@ This co‐evolution is proposed to be required for maintaining their specific in
 \item Researchers found that ligands and their G-protein coupled receptors have co-evolved so that each subgroup of ligands has a matching subgroup of receptors \cite{goh2000co}.
 %Ligand-receptor co-evolution can be detected based on N-terminal and C-terminal phosphoglycerate kinase (PGK) which are covalently linked and form an active site at their interface, therefore, they must are inferred to have co-evolved to preserve enzyme function \cite{goh2000co}.
 
-\item In Hsp90 and GroEL heat-shock proteins, co-evolution was detected in ``almost all" functionally or structurally important site \cite{fares2006novel}.
+\item In Hsp90 and GroEL heat-shock proteins, co-evolution was detected in ``almost all" functionally or structurally important sites \cite{fares2006novel}.
 
 \item GroESL is involved in the folding of a wide variety of other proteins with the folding activity mediated by the co-chaperonin GroES  \cite{ruiz2013coevolution}.
 It was recently shown that different overlapping sets of amino acids co-evolve between GroEL and GroES \cite{ruiz2013coevolution}.
 
 \item Gamete recognition genes ZP3 and ZP19 are highly polymorphic among humans and located on different chromosomes.
-Putative interaction was observed between these genes was recently inferred \cite{rohlfs2010detecting}.
+Putative interaction between these genes was recently inferred \cite{rohlfs2010detecting}.
 
 \item Helicobacter pylori is the main cause of gastric cancer. 
 Host-pathogen interaction accounted for most of the difference in the severity of gastric lesions in the populations analysed. 
@@ -98,7 +98,7 @@ Some methods partially correct these effects but while some studies \cite{gloor2
 \paragraph{Phylogenetic correction}
 Mutual information (MI) measures the reduction of uncertainty about one position given information about the other.
 When used as a measurement for co-evolution, MI can be confounded by several factors such as structural and functional constraints, and the background sum of contributions from random noise and shared ancestry.
-In an attempt to improve MI's signal to noise ratio by eliminating or minimizing the second factor, a model postulated by Dunn et alii \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
+In an attempt to improve MI's signal to noise ratio by eliminating or minimizing the second factor, a model postulated by Dunn et al. \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
 They propose that each amino acid position in the MSA has a propensity toward the background MI (related to its entropy and phylogenetic history) and estimate the joint background MI as the product of their propensities.
 It follows that a joint background correction term can be approximated as product of the average background MI divided by the average overall MI of all positions in the MSA, which they call the average product correction (APC) \cite{dunn2008mutual}.
 They show that APC is a metric than can accurately estimate MI in the absence of structural or functional relationships (i.e. the null model) \cite{dunn2008mutual}.
@@ -141,8 +141,8 @@ It has recently been proposed to use co-evolutionary theory in computational met
 Significant similarities were found between the amino acid covariation in natural protein sequences and sequences structures optimized by computational protein design methods \cite{ollikainen2013computational}.
 Because evolutionary selective pressures on function and structure shaped the sequences to be close to optimal for their structures, natural protein sequences provide an excellent source for computational protein design methods.
 %Similarly, computational protein design predicts energetically optimal sequences based on protein structure, so it is expected that highly co-varying amino acids pairs in both designed and natural sequences have co-varied to maintain optimal protein structure.
-This study using computational protein design to quantify protein structure constraints from amino acid covariation for 40 diverse protein domains, shows that structural constraints imposed by covariation play a dominant role in protein architecture.
-Computational protein design methods could make use of knowledge form natural co-evolution effects \cite{ollikainen2013computational}.
+A study using computational protein design to quantify protein structure constraints from amino acid covariation for 40 diverse protein domains, shows that structural constraints imposed by covariation play a dominant role in protein architecture \cite{ollikainen2013computational}.
+Thus, computational protein design methods could make use of knowledge form natural co-evolution effects.
 
 \subsection{Global co-evolution models \label{sec:coevGlobal}}
 
@@ -186,7 +186,7 @@ In their test dataset, the top $10$ candidate interactions identified were shown
 
 \paragraph{Mean field approximation}
 DCA has been shown to yield a large number of correctly predicted contacts based on its ability to disentangle direct and indirect correlations; unfortunately the method is computationally expensive \cite{weigt2009identification}.
-A method published by Morcos et alii \cite{morcos2011direct} proposes a ``mean field" approximation to DCA \cite{weigt2009identification}.
+A method published by Morcos et al. \cite{morcos2011direct} proposes a ``mean field" approximation to DCA \cite{weigt2009identification}.
 They first attempt to mitigate phylogenetic tree biases using a simple sampling correction based on re-weighting  sequences with more than $80\%$ similarity.
 In a nutshell, the approximation method also tries to disentangle direct and indirect couplings by inferring a global statistical and least-constrained model which, as discussed before, is achieved using a maximum-entropy principle leading to a Boltzmann distribution of couplings.
 The partition function ($Z$) is then approximated by keeping only the linear order term in a Taylor series expansion, thus obtaining the mean-field equations.
@@ -203,7 +203,7 @@ Assuming that this covariance matrix can indeed be inverted, the inverse matrix 
 Elements significantly different from zero (off-diagonal) indicate pairs of sites which have strong direct coupling and are thus likely to be in direct physical contact \cite{jones2012psicov}.
 Unfortunately, the empirical covariance matrices are actually almost always singular simply because it is unlikely that every amino acid is observed at every site.
 One of the most powerful techniques to overcome this problem is sparse inverse covariance estimation under Lasso constraints.
-The authors claim that the non-zero terms tend to more accurately relate to correct correlations in the true inverse covariance matrix \cite{jones2012psicov}.
+The authors claim that the non-zero terms tend to accurately relate to correct correlations in the true inverse covariance matrix \cite{jones2012psicov}.
 
 \paragraph{Multidimensional mutual information}
 In a recent study a simple extension of mutual information was proposed by considering ``additional information channels" corresponding to indirect
@@ -250,6 +250,6 @@ Such large number of homogeneous sequences are rarely available and when they ar
 Often, investigators study less well-characterized proteins having MSA of less than $L$ sequences, and low alignment quality due to the presence of many gaps, in which case, existing methods are of limited value \cite{clark2014multidimensional}.
 
 Finally it should be mentioned that results from different models usually do not agree, even for complex global models.
-In a recent study, a comparison of several methods shows that while all methods detected similar numbers of co-varying pairs 
+In a recent study, a comparison of several methods shows that while all methods detected similar numbers of co-varying pairs
 %(when taking into account residues separated by $\le 8$ \AA\ in reference X-ray structures)
 , there is less than $65\%$ overlap between the top scoring prediction from methods based on different principles \cite{clark2014multidimensional}.

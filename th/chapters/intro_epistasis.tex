@@ -21,9 +21,9 @@ These concepts imply that analysis of epistasis can be used to infer functional 
 Some authors even relate the analysis of epistatic gene interactions patterns to the fundamentals of systems biology \cite{phillips2008epistasis}.
 
 Epistasis can be classified by the way a deviation of a double-mutant (having one mutation at each loci) organism's phenotype differed from the expected neutral (non-interacting) phenotype \cite{mani2008defining}.
+A typical example is a mutation in one gene impairing a whole pathway, thus masking the consequence of mutations in other genes of the same pathway \cite{mani2008defining}.
 An interaction is known as ``synergistic" or ``synthetic" when the double mutant has a more extreme phenotype than expected based on the phenotype of the two individual mutants.
 When the phenotype is less severe than expected, then there is a ``alleviating", ``diminishing returns" or ``antagonistic" interaction, which is often attributed to gene products operating in series within the pathway. 
-A typical example is a mutation in one gene impairing a whole pathway, thus masking the consequence of mutations in other genes of the same pathway \cite{mani2008defining}.
 
 Often, a phenotype in human genetics is qualitative and dichotomous, for instance indicating presence or absence of disease. \cite{cordell2002epistasis}.
 Thus mathematical models calculating the joint action of more than one loci focus on the penetrance (the probability of developing disease given genotype).
@@ -46,7 +46,7 @@ For example if each mutation disrupts a distinct pathway limiting cell growth in
 \end{itemize}
 
 It has been shown that the choice of definition can dramatically alter the resulting set of detected interactions \cite{mani2008defining}.
-To evaluate this Mani et alii \cite{mani2008defining} applied all four definitions of interactions to two experiments providing quantitative growth-rate measurements of cell populations. 
+To evaluate this Mani et al. \cite{mani2008defining} applied all four definitions of interactions to two experiments providing quantitative growth-rate measurements of cell populations. 
 They show that: 
 i) the \textit{additive} and \textit{log} definitions have different biases; 
 ii) the \textit{product} and \textit{log} definitions are equivalent for deleterious mutations; 
@@ -105,7 +105,7 @@ Using this information from epistatic interacting loci they were able to infer n
 
 \paragraph{Human}
 Few instances of epistasis in common human diseases have been discovered and well-replicated so far, despite considerable efforts \cite{zuk2012mystery}.
-Although many instances of epistasis related to human disease have been published, with examples from type 2 diabetes\cite{wiltshire2006epistasis}, bipolar effective disorder\cite{jamra2007first}, coronary artery disease\cite{tsai2007renin}, and autism \cite{coutinho2007evidence}; some authors suspect these might be statistical features in the association studies because only a few have functional basis \cite{phillips2008epistasis}.
+Although many instances of epistasis related to human disease have been published, with examples from type 2 diabetes \cite{wiltshire2006epistasis}, bipolar effective disorder \cite{jamra2007first}, coronary artery disease \cite{tsai2007renin}, and autism \cite{coutinho2007evidence}; some authors suspect these might be statistical features in the association studies because only a few have functional basis \cite{phillips2008epistasis}.
 Perhaps the best examples of epistatic interactions in humans include:
 \begin{itemize}
 	\item Interactions involving at least one locus with a large effect such as HLA  \cite{zuk2012mystery}.
@@ -115,7 +115,7 @@ In Type 1 diabetes HLA is assumed to act non-additively with all other risk alle
 
 	\item In Hirschsprung's disease an interaction between RET and EDNRB was uncovered by a genome-wide linkage study (RET having a log-odds of 5.6) \cite{carrasquillo2002genome}.
 
-	\item The ACE gene (angiotensin I converting enzyme) has an epistatic interaction with AGTR1 gene (angiotensin II type 1 receptor ) gene, significantly increasing risk of myocardial infarction when the "D-allele" in ACE  is present in patients carrying a particular AGTR1 allele \cite{tiret1994synergistic}.
+	\item The ACE gene (angiotensin I converting enzyme) has an epistatic interaction with AGTR1 gene (angiotensin II type 1 receptor ) gene, significantly increasing risk of myocardial infarction when the ``D-allele" in ACE  is present in patients carrying a particular AGTR1 allele \cite{tiret1994synergistic}.
 
 	\item Two different sets of interactions are assumed to be responsible for variation in triglyceride levels.
 Notably, the interactions depend on the patient's sex: in females the interaction involves ApoB and ApoE;  and in males the interaction involves the ApoAI/CIII/AIV complex and low-density lipoprotein receptor LDLR \cite{nelson2001combinatorial}.
@@ -163,7 +163,7 @@ iii) bottlenecks are particularly effective at generating long-range LD;
 iv) hitchhiking of linked sites with a positively-selected mutation can generate large haplotype blocks; and
 v) large inversion and other structural variation alter recombination patterns thus causing LD over unusually large regions \cite{bansal2007evidence}.
 
-Under the assumption that long range LD can hint at epistasis due to physical protein interactions, the authors of LDGIdb \cite{wang2012ldgidb} created a catalogue of over $600,000$ pairs of SNPs showing strong long-range linkage disequilibrium, i.e. pairs of SNP pairs that were either located on different chromosomes or on different LD blocks and had $r^2 \ge 0.8$ \cite{wang2012ldgidb}.
+Under the assumption that long range LD can hint at epistasis due to physical protein interactions, Wang et al. created LDGIdb \cite{wang2012ldgidb}, a catalogue of over $600,000$ pairs of SNPs showing strong long-range linkage disequilibrium, i.e. pairs of SNP pairs that were either located on different chromosomes or on different LD blocks and had $r^2 \ge 0.8$ \cite{wang2012ldgidb}.
 However such a simple approach may be of little utility because of technical issues that must be taken into account when performing such association tests: 
 i) commonly used measures of LD (such as $r^2$ and $D'$) are known to give rise to large linkage for variants with minor allele frequencies (MAF) near 0 \cite{koch2013long}; and 
 ii) $r^2$ is not corrected for multiple testing.
@@ -173,7 +173,7 @@ This method has the analytical advantage that the probability asymptotically con
 
 Another approach is to implicitly test over and under-representation of allele pairs in a given population, i.e. to analyse imbalanced allele pair frequencies \cite{ackermann2012systematic}.
 The underlying theory is that such allele pairs are under Dobzhansky-Muller incompatibilities which establishes a fitness bias favouring individuals that inherit over-represented allele combinations \cite{ackermann2012systematic}.
-Based on this, the authors in \cite{ackermann2012systematic} studied a population of 2,002 mice in family trios.
+Based on this, Ackerman et al. \cite{ackermann2012systematic} studied a population of 2,002 mice in family trios.
 They performed a $\chi^2$ test correcting by confounding factors (such as allele frequencies, family structure and allelic drift) based on inspecting $3 \times 3$ contingency tables of all possible two-locus allele combinations.
 They claim that their methodology can detect more interactions than using independent markers and as a result they were able to identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}.
 
@@ -200,13 +200,13 @@ Recent GWAS studies explored genome-level identification of epistatic interactio
 However failure to detect epistasis does not rule out its presence \cite{zuk2012mystery}.
 In theory a sufficient number of contributing purely epistatic interactions could account for all the variation in disease status for any prevalence \cite{culverhouse2002perspective}.
 Nevertheless, when the genetic model of disease is purely epistatic (i.e. no additive or dominance at any of the susceptibility loci), then association methods analysing a single locus at a time cannot detect the loci \cite{culverhouse2002perspective}.
-Furthermore there could be an \textit{n-way} purely epistatic model for which no joint analysis of two, three, or $n-1$ loci gives evidence.
+Furthermore there could be an \textit{n-way} purely epistatic model for which no joint analysis of two, three, or $n-1$ loci shows any evidence of association.
 This leads to the concern that even assessment of all ``$(n-1)$ way" interactions among candidate loci may not be sufficient for detection of the contributing loci \cite{culverhouse2002perspective}.
 
 Another reason why complex human phenotypes fail to find evidence for epistatic interactions may simply be that analytic methods inherently exclude epistasis \cite{culverhouse2002perspective}.
 For example individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect a variant scales inversely with the square of the effect size. 
 The main obstacle is attributed to the exponentially large number of statistical hypotheses tested when comparing all markers against all other markers in a genome analysis \cite{ackermann2012systematic}.
-As an example provided by Zuk et alii \cite{zuk2012mystery}, consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
+As an example provided by Zuk et al. \cite{zuk2012mystery}, consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
 In such a case, assuming $50\%$ power, a significance level of $5 \times 10^{-8}$  and equal number of cases and controls, the sample size required for single loci analysis would be $4,900$.
 In comparison, the sample size required to detect pairwise interaction between those two variants using the same power and an appropriately corrected significance level is roughly $450,000$, so a researcher studying $100,000$ samples would discover all single acting loci but would find little evidence of epistatic interactions, which may be the reason why geneticists that have tested for pairwise epistasis have found few significant signals \cite{zuk2012mystery}.
 It should be noted that even though GWAS involving over $500,000$ samples are not available at the moment, studies using sample sizes in this order are expected to become available within the next couple of years.
@@ -234,25 +234,25 @@ It should be noted that the number of tests necessary to evaluate all two-, thre
 %Unfortunately even though many of these look promising, many of them have only been tested on small data sets \cite{zhang2007bayesian}.
 Other approaches \cite{nelson2001combinatorial, culverhouse2004detecting, ritchie2001multifactor, cook2004tree, zheng2006backward}
 although promising, most have only been applied on small data sets \cite{zhang2007bayesian}.
-Furthermore, methods based on brute-force searches such as combinatorial partitioning \cite{nelson2001combinatorial}, and multifactor-dimensionality reduction \cite{ritchie2001multifactor} are impractical for large data sets \cite{zhang2007bayesian}.
+Methods based on brute-force searches such as combinatorial partitioning \cite{nelson2001combinatorial}, and multifactor-dimensionality reduction \cite{ritchie2001multifactor} are impractical for large data sets \cite{zhang2007bayesian}.
 Nevertheless it was shown \cite{li2011detecting} that it can be feasible to perform GWAS level analysis for two interacting sites.
-Simple methods which explicitly consider interactions can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
+Simple methods which explicitly consider interaction pairs can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
 	
 Exhaustive search methods exists for identifying epistatic variants affecting continuous phenotypes and quantitative trait loci (QTL).
 In this case, matrix algorithm optimizations can significantly speed up computations.
 For instance FastEpistasis applies an efficiently parallelized QR decomposition to derive least squares estimates of the interaction coefficient and its standard error \cite{schupbach2010fastepistasis}.
-This allows it to handle all pairs of $500,000$ variant in a population of $5,000$ individuals in roughly one CPU year, which can be run in about a day on a 256 CPU cluster \cite{schupbach2010fastepistasis}.
+This allows it to handle all pairs of $500,000$ variant in a population of $5,000$ individuals in roughly one CPU year, which can be run in a little bit more than a day on a 256 CPU cluster \cite{schupbach2010fastepistasis}.
 
 	\item \textbf{Linkage disequilibrium} methods use patterns in disease population under two-locus disease models \cite{zhao2006test}.
 	Association can be estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked \cite{zhao2006test}.
-In Zhao et alii \cite{zhao2006test} the authors, based on the assumption that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE), show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population.
+In Zhao et al. \cite{zhao2006test} the authors, based on the assumption that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE), show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population.
 They develop a test statistic to detect of deviations from LD by comparing the difference in the LD levels between two unlinked loci between cases and controls.
 %Assuming that the population frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, in the absence of interaction the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population.
 Under the null hypothesis, this test statistic asymptotically converges to a central $\chi^2$ distribution.
 Their power simulations suggest that in general this LD-based test statistic has much smaller p-values than those of logistic regression analysis concluding that their test has higher power than logistic regression.
 Nevertheless, their model does not account for cofactors, thus making it unsuitable in multi-ethnic GWAS where population stratification may confound disease risk.
 
-	\item \textbf{Stochastic search} methods use sampling to infer whether a locus is an individual risk locus, epistatically affects disease risk, or has not effect (i.e. background locus).
+	\item \textbf{Stochastic search} methods use sampling to infer whether a locus is an individual risk locus, epistatically affects disease risk, or has no effect (i.e. background locus).
 A Bayesian approach for genome-wide case-control studies denoted `bayesian epistasis association mapping' (BEAM) \cite{zhang2007bayesian} is a representative example of this type of method.
 BEAM treats the disease-associated markers and their interactions using a Bayesian partitioning model and computes the posterior probability using Markov chain Monte Carlo.
 The method uses predictors in the form of genetic marker loci divided into three groups: 
@@ -293,7 +293,7 @@ This results in a `forest' of trees have been trained on a particular sample of 
 Instead of trying to create a monolithic learner, this type of methods called ``ensemble systems" attempts to create many heterogeneous ``weak" (or simple) learners. 
 The outcomes of these heterogeneous systems are combined to create an improved model \cite{li2011detecting}.
 
-In Li et alii \cite{li2011detecting}, the authors create an extension of the AdaBoost algorithm where they incorporate an importance score based on Gini impurity to select candidate SNP  in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
+In Li et al. \cite{li2011detecting}, the authors create an extension of the AdaBoost algorithm where they incorporate an importance score based on Gini impurity to select candidate SNP  in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
 Decision trees are usually built with binary splits, but since genotype data takes three possible values $\{0, 1, 2\}$, they also extended their method to create a ternary split.
 AdaBoost draws bootstrap samples to increase the power of a weak learner by weighting the individuals when bootstrapping. 
 So when a weak learner misclassifies an individual, the weight of that individual is increased, and hard to classify individuals are more likely to be included in future bootstrap samples. 
@@ -312,7 +312,7 @@ So far, no method for epistatic GWAS has been widely adopted and there is need o
 
 % GWAS & Epistasis
 Genome wide association studies have traditionally focused on single variants or nearby groups of variants. 
-An often cited reason for the lack of discovery of high impact genetic risk factors in complex disease is that these models ignore interactions among loci \cite{cordell2009detecting} which has recently been pointed out as a potential solution for the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. 
+An often cited reason for the lack of discovery of high impact genetic risk factors in complex disease is that these models ignore interactions among loci \cite{cordell2009detecting} which has recently been pointed out as a potential cause of the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. 
 With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. 
 There are several reasons: 
 i) models using interactions are much more complex and by definition non-linear \cite{gao2010classification}, 
