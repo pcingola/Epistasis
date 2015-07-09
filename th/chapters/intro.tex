@@ -26,3 +26,1224 @@ To address these big data processing problems, Chapter \ref{ch:bds} shows how we
 
 In a nutshell, this thesis addresses computational, analytical, algorithmic and methodological problems of transforming raw sequencing data into biological insight in the aetiology of complex disease. In the rest of this introduction we give the background that provides motivation for our research. 
 
+%---
+\section{Genomes and genetic variants \label{sec:introRef}}
+%---
+
+DNA is composed of four basic building blocks, called ``bases'' or ``nucleotides'' \cite{alberts1995molecular}. 
+These four nucleotides, usually abbreviated $\{A, C, G, T\}$, are Adenine, Cytosine, Guanine, and Thymine. 
+Bases form pairs, either as $A-T$ or $C-G$, that are ordered sequentially to form two long polymers, with backbones that run in opposite directions giving rise to a double-helix structure \cite{watson1953molecular}. 
+Arbitrarily, one of the polymers is called the positive strand and the other is called the negative strand. 
+
+Proteins are composed of chains of amino acids and, as explained by the central dogma of biology \cite{alberts1995molecular},  DNA is the template that instructs the cellular machinery how to produce proteins. 
+There are 20 amino acids, which are the building blocks of all proteins. Each of the twenty amino acids is encoded by a group of three DNA bases called a ``codon'' \cite{crick1961general}. 
+More than one codon can code for the same amino acid (i.e. $4^3=64$ codons $ > 20 $ amino acids) allowing for code redundancy. 
+Additionally, there are codons that mark the end of the protein, these are called ``STOP" and signal molecular machinery to end the translation process \cite{brenner1965genetic}.
+
+Proteins compose up to 50\% of a cell's dry weight compared to DNA which makes up only 3\% \cite{alberts1995molecular}. 
+Proteins perform their functions mainly by interacting with other proteins, forming complex pathways that execute a vast array of cellular functions including catalysing of chemical reactions, cell signalling, and providing structural conformation of the cell \cite{alberts1995molecular}. 
+The 3-dimensional structure of a protein, also called ``tertiary structure", is tailored to bind to other proteins in a specific manner to accomplish a specific function. 
+
+The human genome has a total of 3 Giga-base-pairs (Gb), and those bases are divided into 22 autosomal chromosome pairs (in each pair one chromsome is maternally inherited and the other paternally inherited) and two sex chromosomes. 
+The longest of the autosomal chromosomes is roughly 250 Mega-bases (Mb) in length and the shortest one is ~50 Mb.
+
+In order to compare DNA from different individuals (or samples), we need a ``reference genome". 
+Having a standard reference sequence facilitates comparisons and analysis. 
+For most well studied organisms, reference genome sequences are available and current large scale sequencing projects are extending significantly the number of genomes known, e.g. one project seeks to sequence 10,000 mammalian genomes \cite{haussler2009genome}, another is targeting all microbes that live within the human gut \cite{turnbaugh2007human}. 
+The human reference genome (e.g. GRCh37) does not correspond to the DNA of any particular person, but to a mosaic of the genomes of thirteen anonymous volunteers from Buffalo, New York \cite{schneider2013genome}.
+
+When the genome of an individual is sequenced, the DNA is compared to the reference genome. 
+Most of the DNA is the same, but there are differences. 
+These differences, generically known as ``genetic variants" (or ``variants", for short), describe the particular genetic make-up of each individual. 
+There are several different ways a sample can differ from a reference genome. 
+Each variant is the result of a mutations that happened at some point in the evolutionary history of the individual (or that of the reference genome). Variant types can be roughly categorized in the following way:
+
+\begin{description}
+
+	\item[Single nucleotide variants (SNV)] or Single nucleotide polymorphisms (SNP) are the simplest and more common variants produced by single base difference (e.g. a base in the reference genome, at a given coordinate,  is an `A', whereas the sample is `C'). 
+	Depending on whether the variant was identified in an individual or in a population, it is called a Single Nucleotide Variant (SNV) or Single Nucleotide Polymorphism (SNP). 
+	It is estimated that there are roughly $3.6M$ SNPs per individual \cite{10002012integrated}. 
+	There are several biological mechanisms responsible for this type of variant: 
+	i) replication errors, 
+	ii) errors introduced by DNA repair mechanism, 
+	iii) deamination (a base is changed by hydrolysis which may not be corrected by DNA repair mechanisms), 
+	iv) tautomerism (and alteration on the hydrogen bond that results in an incorrect pairing) \cite{griffiths2005introduction}.
+
+	\item[Multiple nucleotide polymorphisms (MNP)] are sequence differences affecting several consecutive nucleotides and are typically treated as a single variant locus if they are in perfect linkage disequilibrium (e.g. reference is ACG whereas the sample is TGC).
+
+	\item[Insertions (INS)] refer to a sample having one or more extra base(s) compared to the reference genome (e.g. the reference sequence is AT and the sample is ACT). 
+	Short insertions and deletions (indels) of a chromosome region range from 1 to 20 bases in length are reported to be 10 to 30 times less frequent than SNV \cite{10002012integrated}. 
+	Small insertions are usually attributed to DNA polymerase slipping and replicating the same bases (this produces a type of insertion known as duplication). 
+	Large insertions can be caused by unequal cross-over event (during meiosis) or transposable elements.
+
+	\item[Deletions (DEL)] are the opposite of insertions, the sample has one or more base(s) removed with respect to the reference genome (e.g. reference is ACT and sample is AT). 
+	As in the case of insertions, deletions can also be caused by ribosomal slippage, cross-over events during meiosis. 
+	Those include large deletions, which can result in the loss of an exon or one or more whole genes \cite{alberts1995molecular}. 
+	Short deletions are 10 to 30 times less frequent than SNV \cite{10002012integrated}.
+
+	\item[Copy number variations (CNVs)] arise when the sample has two or more copies of the same genomic region (e.g. a whole gene that has been duplicated or triplicated) or conversely, when the sample has fewer copies than the reference genome. Copy number variations are often attributed to homologous recombination events \cite{alberts1995molecular}.
+
+	\item[Rearrangements] such as inversions and translocations are events that involve two or more genomic breakpoints and a reorganization of genomic segments, possibly resulting in gene fusions or loss of critical regulatory elements. Inversions, a type of rearrangement, result from a whole genomic region being inverted.
+
+\end{description}
+
+\noindent As humans have two copies of each autosome, variants could affect zero, one or two of the chromosomes and are called ``homozygous reference", ``heterozygous", and ``homozygous alternative" respectively. 
+Variants are also classified based on how common they are within the population: common ($\ge 5\%$), low frequency ($\le 5\%$), or rare ($\le 1\%$). 
+How these types of genetic variants influence traits or disease risk is a topic of intense research that is discussed throughout this thesis.
+
+\section{DNA and disease risk}
+
+It would be fair to say that the Garrod family was fascinated by urine. 
+As a physician at King's College, Alfred Baring Garrod, discovered gout related abnormalities in uric acid \cite{kennedy2001}. 
+His son, Sir Archibald Garrod, was interested in a condition known as alkaptonuria, in which children are mostly asymptomatic except for producing brown or black urine, but by the age of 30 individuals develop pain in joints of the spine, hips and knees. 
+In 1902, Archibald observed that the family inheritance pattern of alkaptonuria resembled Mendel's recessive pattern and postulated that a mutation in a metabolic gene was responsible for the disease. 
+Publishing his finding he gave birth to a new field of study known as ``Human biochemical genetics" \cite{kennedy2001}.
+
+Diseases having simple inheritance patterns, such as alkaptonuria, cystic fibrosis, phenylketonuria and Huntington's are also known as Mendelian diseases \cite{kennedy2001}. 
+The genetic components of several Mendelian diseases have been discovered since the mechanism was first elucidated by Garrod in 1902 and the process has been accelerated in recent years, thanks to the application of DNA sequencing techniques \cite{bamshad2011exome}.
+
+In complex diseases (or complex traits), such as diabetes or Alzheimer's disease, affected individuals cannot be segregated within pedigrees (i.e. no simple pattern of inheritance can be identified). 
+In contrast to Mendelian diseases the aetiology of complex traits is complicated due to factors such as: incomplete penetrance (symptoms are not always present in individuals who have the disease-causing mutation) and genetic heterogeneity (caused by any of a large number of alleles). 
+This makes it more difficult to pinpoint the genetic variants that increase risk of complex disease as demonstrated by the failure of linkage analysis methods and later on GWAS \cite{botstein2003discovering}.
+
+\subsection{Heritability and Missing heritability}
+
+We all know that ``tall parents tend to have tall children", which is an informal way to say that height is a highly heritable trait. 
+It is said that there are 30 cm from the tallest 5\% to the shortest 5\% of the population and genetics account for 80\% to 90\% of this variation \cite{wood2014defining}, which means that 27cm of variance are assumed to be ``carried" by DNA variants from parents to offspring. 
+Since 2010 the GIANT consortia has been investigating the genetic component of complex traits like height, body mass index (BMI) and waist to hip ratio (WHR). Even though they found many variants associated those traits, their findings only explain 10\% of the phenotypic variance which corresponds to only a few centimeters in height \cite{wood2014defining}.
+
+In order to measure this genetic contribution to disease or traits we need a formal definition. 
+Heritability is defined as the proportion of phenotypic variance that is attributed to genetic variation. 
+The total phenotypic variation is assumed to be caused by a combination of ``environmental" and genetic variations $Var[P] = Var[G] + Var[E] + 2 Cov[G, E]$ \cite{zuk2012mystery}
+\iffinal
+\footnote{Although the referenced paper's notation does not seem absolutely consistent, we quote Emerson \textit{``A foolish consistency is the hobgoblin of little minds"} and proceed...}
+\fi
+.
+
+The environmental variance $Var[E]$ is the phenotypic variance attributable only to environment, that is the variance for individuals having the same genome $Var[E] = Var[P|G]$. This can be estimated by studying monozygotic and dizygotic twins.
+
+If the covariance factor $Cov[G, E]$ is assumed to be zero, we can define heritability as $H^2 = \frac{Var[G] }{ Var[P]}$. 
+This is called ``broad sense heritability" because $Var[G]$ takes into account all possible forms of genetic variance: $Var[G] = Var[G_A] + Var[G_D] + Var[G_I]$, where $Var[G_A]$ is the additive variance, $Var[G_D]$ is the variance from dominant alleles, and $Var[G_I]$ is the variance from interacting alleles (epistasis). 
+Non-additive terms are difficult to estimate, so a simpler form of heritability called ``narrow sense heritability" that only takes into account additive variance is defined as $h^2 = \frac{ Var[G_A] }{ Var[P] }$ \cite{zuk2012mystery}.
+
+Focusing on narrow sense heritability, the concept of ``explained heritability" is defined as the part of heritability due to known variants with respect to phenotypic variation ($\pi_{explained} = h^2_{known} / h^2_{all}$). 
+Similarly, missing heritability is defined as $\pi_{missing} = 1 - \pi_{explained} = 1 - h^2_{known} / h^2_{all}$. 
+When all variants associated with traits are known, then $h^2_{known} = h^2_{all}$ and $\pi_{missing} = 0$.
+
+Until recently, it was widely assumed by the research community that the problem of missing heritability lay in finding the appropriate genetic variants to account for the numerator of the equation ($h^2_{known}$) \cite{zuk2012mystery}. 
+However, in a series of theorems published recently, it has been proposed that there is a problem in the way the denominator is estimated \cite{zuk2012mystery}. 
+In the aforementioned papers, Zuk et al. created a limiting pathway model ($LP(k)$) that accounts for epistasis (gene-gene interactions) in $k$ biological pathways. They showed that a severe inflation of $h^2_{all}$ estimators occurs even for small values of $k$ (e.g. $k \in [2,10]$). 
+As a result, genetic variants estimated to account only for $20\%$ of heritability, could actually account for as much as $80\%$ using an appropriate model \cite{zuk2012mystery}.
+
+Even though this result is encouraging, the problem is now shifted to detecting epistatic interactions, a problem that we discuss this in section \ref{sec:epi} and Chapter \ref{ch:gwas}.
+Identifying epistatic interactions is a hard problem and requires very large sample sizes. 
+In the same work \cite{zuk2012mystery}, the authors show an example of power calculation assuming a single loci genetic effect that would require sequencing roughly $5,000$ individuals to detect links to a genetic variant, which is a large but nowadays not uncommon, sample size. 
+According to their estimates, finding an epistatic interaction of similar effect would require sample sizes as high as  $500,000$ individuals \cite{zuk2012mystery}.
+Even though this represents an extremely large number of samples, it is quickly becoming possible thanks to large technological advances and cost reductions in sequencing and genotyping technologies.
+
+\subsection{Conclusions}
+
+Although some genetic causes for complex traits, such as type II diabetes, have been found, only a small portion of the phenotypic variance can be explained. 
+This might indicate that many risk variants are yet to be discovered. 
+Recent studies on the topic of missing heritability suggest that the root of these ``difficult to find genetic variants" might be found in epistatic interactions (analyzed in section \ref{sec:epigwas}) or rare variants (see section \ref{sec:comonrare}). 
+Analysis of either requires more complex statistical models and larger sample sizes with the corresponding increase in computational requirements. 
+In Chapter \ref{ch:gwas} of this thesis, we focus on methods for finding epistatic interactions related to complex disease and develop computationally tractable algorithms that can process data from sequencing experiments involving large number of samples in a reasonable amount of time.
+
+%---
+\section{Identification of genetic variants}
+%---
+
+Two of the main milestones in genetics were the discovery of the DNA structure in 1953 \cite{watson1953molecular}, followed by the first draft of the human genome in 2004 \cite{collins2004finishing}. 
+The cost of sequencing the first human reference genome was around \$3 billion (unadjusted US dollars) and it was an endeavor that took around 10 years. 
+Since that time, DNA sequencing technology has evolved substantially so that a human genome can now be sequenced in three days for a price of less than \$1,000, according to prices estimated by Illumina, one of the main genome sequencer manufacturers \cite{hayden2015is}.
+
+The amount of information delivered by sequencing devices is growing faster than computer speed (Moore's law) and data storage capacity \cite{schatz2010cloud}. 
+A crude example, a leading edge sequencing system is advertized to be capable of delivering 18,000 human genomes at $30 \times$ coverage per year, yielding over 3.2 PB of information. 
+Having to process huge amounts of sequencing information poses several challenges, a problem informally known as ``data deluge''.
+% In this section, we explain how sequencing data is generated and how the huge amount of information delivered by a sequencer can be handled in order to make the problem tractable. 
+From this raw data we want to obtain a set of candidate genomic variants that contribute to disease risk with the ultimate goal to translate these risk variants into biological knowledge. 
+As expected, processing huge datasets consisting of thousands of sample is a complex problem. 
+In Chapter \ref{ch:bds} we show how to mitigate or solve some of these issues, by designing a computer language specially tailored to tackle what are known as ``Big data" problems.
+
+\subsection{Sequencing data}
+
+DNA sequencing machines are based on different technologies, in a nutshell all these technologies detect a set of polymers (or chains) of DNA nucleotides and outputs a set of strings of A, C, G, and Ts. 
+Unfortunately, current technological limitations make it impossible to ``read" a full chromosome as one long DNA sequence. 
+Instead, modern sequencers produce a large number of ``short reads", which range from 100 bases to 20 Kilo-bases (Kb) in length, depending on the technology \cite{quail2012tale}. 
+Since sequencers are unable to read long DNA chains, preparing the DNA for sequencing involves fragmenting it into small pieces. 
+These DNA fragments are a random sub-samples of the original chromosomes \cite{shendure2008next}. 
+Reading each part of the genome several times increases accuracy and ensures that the sequencer reads as much as possible of the original chromosomes. 
+The coverage of a sequencing experiment is defined as the number of times each base of the genome is read on average \cite{shendure2008next,quail2012tale}. 
+For instance, if the sequencing experiment is designed to produce one billion reads, and each read is 150 bases long, then the total number of bases read is 150Gb. Since the human genome is 3Gb, the coverage is said to be $50$.
+
+After sequencing a sample, we have millions of reads but we do not know where these reads originate from in the genome. 
+This is solved by aligning (also called mapping) reads to the reference genome, which is assumed to be very similar to the genome being sequenced. Once the reads are mapped, we can infer if the sample's DNA has any differences with respect to the reference genome, a problem is known as ``variant calling''. 
+
+Although sequencing costs are dropping fast, it is still expensive to sequence thousands of samples and in some cases it makes sense to focus on specific areas of the genome. 
+A popular experimental setup is to focus on coding regions (exons). 
+A technique called ``exome sequencing" \cite{clark2011performance} consists of capturing exons using a DNA chip and then sequencing the captured DNA fragments only. 
+Exons are roughly 1.2\% of the genome, thus this technique reduces sequencing costs significantly, for which it has been widely used by many research groups although it has the disadvantage of only analysing coding genomic variation.
+
+\subsection{Read mapping}
+
+Once the samples have been sequenced, we have a set of reads from the sequencer. 
+The first step in the analysis is finding the location in the reference genome where each read is supposed to originate from, a process that is complicated by a several factors: 
+i) there are differences between the reference genome and the sample genome, 
+ii) sequencing reads may contain errors, 
+iii) several parts of the reference genome are quite similar making reads from those regions indistinguishable, and 
+iv) a typical sequencing experiment generates millions of reads \cite{shendure2008next}.
+
+\paragraph{Local sequence alignment} 
+We introduce a problem known as \textit{local sequence alignment}: 
+Given two sequences $s_1$ and $s_2$ from an alphabet (e.g. $\Sigma = \{A,C,G,T\}$), the alignment problem is to add gap characters (`-') to both sequences, so that a distance measure, such as Levenshtein distance, $d(s_1,s_2)$ is minimized. 
+This problem has a well known solution, the Smith-Waterman algorithm \cite{smith1981identification}, which is a variation of the global sequence alignment solution from Needleman-Wunsch \cite{needleman1970general}, and has an algorithm complexity $O(l_1 . l_2)$ where $l_1$ and $l_2$ are the length of the sequences. 
+So, Smith-Waterman algorithm is slow since in this case one of the sequences is the entire genome.
+
+In order to speed up sequence alignment, several heuristic approaches emerged. 
+Most notably, BLAST \cite{altschul1990basic}, which can be to map sequences to a reference genome. 
+BLAST uses an index of the genome to map parts of the query sequence, called seeds, to the reference genome. 
+Once these seeds have been positioned against the reference, BLAST joins the seeds performing an alignment only using a small part of the reference.
+
+\paragraph{Read mapping} 
+Sequence alignment has an exact algorithmic solution and several faster heuristic solutions. 
+But even the fastest solutions are too slow to be used with the millions of reads generated in a typical sequencing experiment. Faster algorithms can be used if we relax our requirements in two ways: 
+i) we allow for sub-optimal results, and 
+ii) instead of requiring the output to be a complete local alignment between a read and the genome, we just want to know the region in the reference genome where the read sequence is from. 
+This relaxed version of the alignment algorithm is called ``read mapping'' and the reduced complexity is enough to speed up the computations significantly. 
+In a nutshell, a read mapping is regarded as correct if it overlaps the true reference genome region where the read originated. 
+Once the mapping is performed, the read is locally aligned, a strategy similar to BLAST algorithm \cite{li2010fast, langmead2009ultrafast}.
+
+Reformulating the alignment problem as a \textit{mapping} problem allows us to use data structures such as suffix trees to index the reference genome. 
+Using suffix trees we can query for a substring (read) \cite{durbin1998biological} of the indexed string in $O(m)$ time, where $m$ is the length of the query. 
+Alternatively, we can use suffix arrays which provide a space optimized alternative to suffix trees \cite{durbin1998biological}. 
+An implicit assumption in this solution, is that the read is very similar to the reference and that there are no gaps. 
+Suffix arrays algorithms are fast but, even though they are memory optimized versions of suffix trees, memory requirements are still high ($O[ n \; log(n) ]$, where $n$ is the length of the indexed sequence, in this case the reference genome) and this becomes the limiting factor. 
+In order to reduce the memory footprint of suffix arrays, Ferragina and Manzini \cite{ferragina2000opportunistic} created a data structure based on the Burrows-Wheeler transform. 
+This structure, known as an FM-Index, is memory efficient yet fast enough to allow mapping of a high number of reads. 
+An FM-index for the human genome can be built in only 1Gb of memory, compared to 12Gb required for an equivalent suffix array \cite{li2010fast}.  Given a genome $G$ and a read $R$, an FM-index search can find the $N_{occ}$ exact occurrences of $R$ in $G$ in $O(|R| + N_{occ} )$ time, where $|R|$ is the length of $R$ \cite{li2010fast}. 
+
+We should keep in mind that suffix trees, suffix arrays and FM-indexes are guaranteed to find all matching substring occurrences, nevertheless a sequencing read may not be an exact substring of the reference genome (due to sample's genome differences with the reference genome, read errors, etc.). 
+So, even if efficient indexing and heuristic algorithms can decrease mapping time considerably, these algorithms are not guaranteed to find an optimal mapping. 
+Several parameters, such as the read length, sequencing error profile, and genome complexity profile can affect their performance. 
+The most commonly used implementation of the FM-index mapping algorithms are BWA \cite{li2010fast, li2010fastlong} and Bowtie \cite{langmead2009ultrafast, langmead2012fast}.  
+Each provides optimized versions for the two most common sequencing types: 
+i) short reads with high accuracy \cite{li2010fast,langmead2009ultrafast} or 
+ii) longer reads with lower accuracy \cite{li2010fastlong, langmead2012fast}. 
+It should also be taken into account that read-mapping algorithms implement heuristics to map reads having differences with respect to the reference genome. 
+Obviously these heuristics are implementation dependent, thus two mapping algorithms can (and often do) lead to different mappings for the same read set which in turn can lead to different variants being called (see section \ref{sec:varcall}).
+
+\paragraph{Mapping quality\label{sec:mapq}} 
+Sequencers not only provide sequence information, but also provide an error estimate for each base \cite{li2011statistical}.
+This is often referred as a quality ($Q$) value, which is the probability of an error, measured in negative decibels $Q = -10 \; log_{10}(\epsilon)$, where $\epsilon$ is the error probability. 
+Mapping quality is an estimate of the probability that a read is incorrectly mapped to the reference genome. 
+
+Mapping algorithms provide estimates of mapping quality. 
+In the MAQ model \cite{li2008mapping}, which is one of the earliest models for calculating mapping quality, three main sources of error are explored: 
+i) the probability that a read does not originate from the reference genome (e.g. sample contamination); 
+ii) the probability that the true position is missed by the algorithm (e.g. mapping error); and 
+iii) the probability that the mapping position is not the true one (e.g. if we have several possible mapping positions). 
+It is assumed that the total error probability can be approximated as $\epsilon \approx max(\epsilon_1,\epsilon_2, \epsilon_3)$.
+
+\subsection{Variant calling \label{sec:varcall}}
+
+Genome-wide variant calling has until recently largely been done using genotyping arrays (for SNVs) or Comparative Genomic Hybridization arrays (for CNVs). 
+The inherent limitations of these technologies, particularly their ability to only assay genotypes at sites that are known in advance to be polymorphic, combined with the declining cost of sequencing, have now made approaches based on high-throughput resequencing the tool of choice for variant calling in clinical studies. 
+
+Once the sequencing reads have been mapped to the reference genome, we can try to find differences between a sequenced sample and the reference genome. 
+This process is called ``variant calling" \cite{nielsen2011genotype}.
+Several factors complicate this task, the two main ones being sequencing errors and mapping errors, described in \ref{sec:mapq}. 
+Based on sequencing data and mapping error estimates, tools such as GATK \cite{mckenna2010genome} and SamTools/BcfTools \cite{li2008mapping} use maximum likelihood models to infer when there is a mismatch between the sample and reference genomes and whether the sample is homozygous or heterozygous for the variant. 
+This method works best for differences of a single base (SNV), but it can also work with different degrees of success for short insertions or deletions (InDels) consisting of less than 10 bases. 
+
+Aligning sequences that contain InDels (gaps) is more difficult than ungapped alignments since finding the optimal gap boundary depends on the scoring method being used. 
+This biases variant calling algorithms towards detecting false SNVs near InDels \cite{depristo2011framework}.  
+An approach to reduce this problem is to look for candidate InDels and perform a local realignment in those regions, to reduce significantly the number of false positive SNVs \cite{depristo2011framework}. 
+Another approach involves estimating a ``Base Alignment Quality" (BAQ) \cite{li2011improving} score, which is the probability of misalignment for each base.  
+It can be shown that replacing the original base quality with the minimum between base quality and BAQ produces an improvement in SNV calling accuracy.  
+The BAQ can be calculated using a special type of ``Hidden Markov Model" (HMM) designed for sequence alignment \cite{li2011improving, durbin1998biological}. 
+A more sophisticated option for reducing errors consist of performing a local genome re-assembly on each polymorphic region (e.g. HaplotypeCaller algorithm \cite{GATK}).
+
+Finally, one should note that the error probabilities inferred by the sequencers are far from perfect.  
+Once the variants have been called, empirical error probabilities can be easily calculated \cite{mckenna2010genome} by comparing sequenced variants to a set of ``gold standard variants" (i.e. variants that have been extensively validated).  
+This allows to re-calibrate or re-estimate the error profile of the reads.  This is know as a re-calibration step, and usually improves the number of false positives calls \cite{depristo2011framework}.
+
+Due to the nature of short reads, this family of methods does not work for structural genomic variants, such as large insertions, deletions, copy number variations, inversions, or translocations.  
+A different family of algorithms are used to identify structural variants generally making use of pair end reads or split reads, but their accuracy so far has been low compared to SNV calling algorithm \cite{o2013low}.
+
+One of the caveats of current sequencing technologies and computational methods for variant calling is that detection accuracy varies significantly for different variant types. 
+SNV are by far the most accurately detected. 
+Insertions and deletions, collectively referred as InDels, can be detected less efficiently depending on their sizes. 
+Small InDels consisting of ten bases or less are easier to detect than large InDels consisting of 200 bases or more \cite{durbin2010map}, in part as most commonly used sequencers reads DNA in stretches roughly 200 bases long. 
+Due to this technological limitation, detection is less reliable for more complex variant types.
+
+%---
+\section{Functional annotations of genomic variants \label{sec:funann}}
+%---
+
+The development of cost-effective, high-throughput sequencing technologies have had a profound impact on our ability to study the effects of individual genetic variants on the pathogenesis and progression of both monogenic and common polygenic diseases. 
+As sequencing costs decrease and throughput increases, it has now become possible to quickly identify a large number of sequence polymorphisms (SNVs, indels, structural) using samples from affected and unaffected subjects and investigate these in epidemiologic studies to identify genomic regions where mutations increase disease risk. 
+However, translating this information into biological or clinical insights is challenging as it is often difficult to determine which specific polymorphisms are the main pathogenetic drivers of disease across a population; and more importantly, how they affect the activity of disease-related molecular pathways in tissues and organism a specific patient. 
+In part, this difficulty results from the large number of genetic variants that are observed in individual genomes (the human population is believed to contain approximately 3.5 million polymorphic sites with minor allele frequency above 5\%) combined with the limited ability of computational approaches to distinguish variants with no impact on genome function (the vast majority) from variants affecting gene function or expression that may be associated with disease risk or drug response (the minority). 
+The development of algorithms for automated variant annotation, which link each variant with information that may help predict its molecular and phenotypic impact, is a critical step towards prioritizing variants that may have a functional impact from those that are harmless or have irrelevant functional effects. 
+In this section we review the key concepts and existing approaches in this important field. 
+In Chapter \ref{ch:snpeff} we introduce an approach to collect relevant information that will help answer questions about genetic variants discovered in sequencing studies, including: (i) will a given coding variant affect the ability of a protein to carry its functions; (ii) will a given non-coding variant affect the expression or processing of a given gene; and ultimately (iii) will a given coding or non-coding variant have any impact on phenotypes of interest?
+
+Answering these questions is essential for many types of analyses that use large-scale genomics datasets to study quantitative traits and diseases, particularly when only a small number of individuals is studied comprehensively at a genome-wide level. For example, most genome-wide association studies (GWAS) or exome sequencing studies lack the statistical power to identify rare variants or variants with small effects associated with a disease, in part due to the large number of variants assayed. This limitation can be addressed by directing both statistical analysis and subsequent experimental steps to focus on smaller sets of genetic variants that have been prioritized based on external evidence of their putative impact. The common impairment of DNA repair mechanisms and chromatin stability in malignant cells leads to a similar challenge in cancer genomics, where the hundreds or thousands of mutations that distinguish an individual's tumor and germline genomes need to be classified on the basis of their putative phenotypic effects and potential roles in carcinogenesis.
+
+The large number of databases containing potentially helpful information about a given variant make the process of gathering and presenting relevant data challenging, despite excellent tools that already exist to analyze large genomics datasets (including GATK \cite{mckenna2010genome} and Galaxy \cite{goecks2010galaxy}) and visualize the results (such as the UCSC \cite{karolchik2014ucsc} or Ensembl \cite{flicek2012ensembl} genome browsers). Each of these databases uses its own format and is updated asynchronously, which makes it difficult for any analysis to remain up to date. In addition, the lack of comprehensive and computationally efficient models that allow integrative analyses using these resources, makes the task of comprehensive variant annotation overwhelming. By efficiently combining information from tens or hundreds of genome-wide databases, the tools described here are designed to greatly facilitate the process of variant annotation, and make it accessible to groups with limited bioinformatics expertise or resources.
+
+%---
+\subsection{Variant types}
+%---
+
+Although variant calling is a challenging task and remains an important area of research, many high-quality tools exist for calling SNVs and indels.
+We discuss here the problem of annotating the variants identified by some of these tools.
+The most common type of variant identified by current technologies and analysis approaches is a single base difference with respect to the reference genome (SNV) followed by multiple base differences (MNP), as well as small insertions and deletions (InDels). Here, we focus on annotating these three types of variants which comprise most of the variants in a typical sequencing experiment. We do not address the annotation of large rearrangements due to the challenges involved in their identification and functional characterization and their relative rarity in the germ line.
+
+\subsection{Types of genetic annotations}
+
+The process of genetic variant annotation consists of the collection, integration, and presentation of experimental and computational evidence that may shed light on the impact of each variant on gene or protein activity and ultimately on disease risk or other phenotypes. 
+Variant annotation has traditionally been divided in two apparently independent but actually interrelated tasks based on the variant's location with respect to known protein-coding genes. 
+Coding variant annotation focuses on variants that are located within coding regions of annotated protein-coding genes and attempts to assess their impact on protein function. 
+In contrast, non-coding variant annotation focuses on variants located outside the coding portion of genes (i.e. in intergenic regions, UTRs, introns, or non-protein-coding genes) and aims to assess their potential impact on transcriptional and post-transcriptional gene regulation. 
+These two categories of variant annotations are not mutually exclusive, as variants located within exons can often have an impact on the gene transcript's processing (splicing). 
+In addition, some transcripts can have function  a result of both their protein-coding and non-coding potential \cite{alberts1995molecular}. 
+Despite the intermingling of the notion of coding and non-coding variants, we will consider each type of annotation separately as assessing their impact requires different sources of data and algorithms.
+
+The ultimate goal of variant annotation is to predict the impact of a sequence variant, although this is an ill-defined term. 
+One the one hand, one may be interested in the molecular impact of a variant on the activity of a protein. 
+On the other, one may be interested in a variant's impact on much higher-level phenotypes such as disease risk. 
+Mutations that are predicted to completely abrogate a gene's activity are called loss-of-function (LOF) mutations. 
+Those that are predicted to have less severe consequences are called moderate or low impact mutations. In practice, a variant will be predicted to cause LOF if it has two properties: 
+i) its molecular impact is reliably predictable by existing computational approaches (e.g. gain of stop-codon); and 
+ii) its functional impact, reflected by altered protein activity or expression levels, is expected to be large. 
+Many types of variants, including most non-coding variants, may have a large functional impact but lack predictability, and as a consequence are typically not predicted to be LOF variants.
+
+\subsection{Coding variant annotation}
+
+Coding variants occur in translated exons. 
+When a reliable gene annotation is available, their main impact can be classified by determining their effect on the translated amino acid sequence (if any). 
+A synonymous coding variant (also called silent) does not change the sequence of amino acids encoded by the gene, although it may impact aspects of post-transcriptional regulation such as splicing and translation efficiency and can affect the total protein activity through changes in the amount of translated protein that is made in the cell. 
+In contrast, a non-synonymous coding variant changes one or more amino acids encoded by the gene and can directly alter the protein's activity, localization or stability. 
+Non-synonymous variants include missense substitutions that change a single amino acid, nonsense substitutions that lead to the gain of a stop codon, frame-preserving indels that insert or delete one or more amino acids, and frame-shifting indels that may completely alter the protein's amino acid sequence. 
+Primary annotation and assessment of impact, determines whether a variant falls in any of these categories.
+
+Several factors can affect prediction accuracy in coding variant annotations:
+
+\begin{enumerate}[label=\roman*]
+	
+	\item \textit{Gene misannotation.} Genomic variants that have a significant effect on a protein's expression or function represent a very small fraction of all variants. Assembly and gene annotation errors or genomic oddities that break classical computational models are also rare, but lead to false positives. This implies that one is likely to find a non-negligible fraction of false-positive high-impact variants among the list of what appear to be the strongest candidates for variants with severe effects. Tools such as SnpEff can anticipate some of the most common causes of misannotation, but the number and diversity of the type of events that can lead to false-positives makes the task very challenging. As a consequence, one should always manually inspect the top candidates to ensure that they have been assigned to the correct genes and transcripts.
+	
+	\item \textit{Gene isoforms.} In higher eukaryotes, most genes have more than one transcript (or isoform), due to alternative promoters, splicing, or polyadenylation sites. For example, a human gene has an average of 8.8 annotated messenger RNA (mRNA) isoforms and some genes are believed to have over 4,000 isoforms resulting from complex splicing programs. For these genes, a variant may be coding with respect to one mRNA isoform and non-coding with respect to another. There are two frequent approaches to address this situation: (i) annotate a variant using the most severe functional effect predicted for at least one mRNA isoform; or (ii) use only a single canonical transcript per gene to perform primary annotation. 
+	
+	\item \textit{Variant calling for indels.} Variant annotation relies on knowing the exact genomic coordinates of the variant: this is rarely a problem for isolated SNVs; however, insertions and deletions often cannot be located unambiguously. Consider for example the variant $AA \rightarrow A$. This mutation results in the loss of a single base, but was it the first or second A that was deleted? From the standpoint of the cell, this question is irrelevant and deletion of any A will have the same effect. In contrast, from the standpoint of most variant annotation software, deleting the first A is different from deleting the second. Consider the scenario of a previously annotated transcript where the first A is part of the 5' UTR and the second is the first base of a start codon. If the missing base is assigned to the leftmost position in the motif (as is the current convention), the deletion would be annotated as a low impact 5'UTR variant. However, assigning it to the rightmost A would make it appear to be a high-impact start-codon deletion. Similar issues may arise when considering conservation scores or transcription factor binding site (TFBS) predictions.
+	
+\end{enumerate}
+
+\subsection{Loss of function variants}
+
+True LOF variants are difficult to predict computationally, but specific types of genetic changes will frequently lead to severely impaired protein activity. These include i) stop-gains, also known as nonsense mutations; ii) start-loss mutations which change or remove the transcript's start codon; iii) indels causing frameshifts; iv) large deletions that remove either the first exon or at least 50\% of the protein coding sequence; and v) loss of splice acceptor or donor sites that alter the protein-coding sequence. Variants that introduce premature in-frame stop codons (nonsense mutations and most frameshift indels) are expected to abolish protein function, unless the variant is very near the C-terminus of the coding region \cite{yamaguchi2008distribution} (effectively, downstream of the last functional domain in the protein). Such mutations may have severe consequences in affected cells, tissues or organism, as is seen for mutations that cause monogenic diseases \cite{scheper2007translation}. In addition, a new stop codon that lies upstream of the last exon will likely trigger nonsense mediated decay (NMD), a process that degrades mRNA before protein synthesis occurs \cite{nagy1998rule}. NMD predictions are not exact and many factors can affect mRNA degradation, including the variant's distance from the last exon-exon junction or poly-A tail, and the possibility that transcription may re-initiate downstream of the LOF variant \cite{brogna2009nonsense}.
+
+A variant that leads to the loss of a stop codon, sometimes called a read-through mutation, will result in an elongated protein-coding transcript that terminates at the next in-frame stop codon. While there are no general models that predict how deleterious this may be, such variants can also result in aberrant folding and degradation of the nascent proteins, leading to activation of cellular stress response pathways, in addition to their direct effects on protein activity and expression levels \cite{scheper2007translation}.
+
+The effect of the loss of a start codon depends on the location of a replacement start codon with respect to the translation start site and reading frame of the native protein. If the new start codon maintains the reading frame, the only consequence may be the loss of a few amino acids in the protein transcript; however, in many cases, the new start codon will not be in-frame, thus producing a frame-shifted protein that is later degraded. In addition, the new start codon may lack an appropriate regulatory context (for example, if there is no Kozak sequence nearby or if it disrupts 5' UTR folding) leading to reduced expression of an N-terminally truncated protein. Consequently, losing a start codon is thought to be highly deleterious in most cases, due to the potential that it may reduce both protein production and activity.
+
+Variants affecting rare amino acids are also thought to cause loss of function in proteins. 
+Through a process called translational recoding, a UGA ``Stop" codon located in the appropriate mRNA context (determined by both primary mRNA sequence and secondary structure) may be translated to incorporate a selenocysteine amino acid (Sec / U) \cite{alberts1995molecular}. 
+In humans, it is known to occur 100 codons located in mRNAs whose 3' UTR contains a Selenocysteine insertion sequence element (SECIS). 
+Since the translation machinery goes so far to encode these special rare amino acids, the expectation is that mutations at those sites would be highly deleterious. 
+This is supported by evidence that reduced efficiency of selenocysteine incorporation is linked to severe clinical outcomes, such as early onset myopathy  \cite{maiti2009mutation} and progressive cerebral atrophy  \cite{agamy2010mutations}.
+	
+Since algorithms rely on heuristics, LOF predictions are affected by false-positives, variants predicted to result in a LOF sometimes actually produce proteins that are partially functional  \cite{macarthur2012systematic}. 
+In fact, an apparently healthy individual is typically heterozygous for around 100 predicted LOF variants, and homozygous for roughly 10, but many of those are unlikely to completely abolish the protein function. 
+Indeed, these variants are enriched toward the 3' end of the gene, where they are likely to be less deleterious. 
+
+\subsection{Variants with low or moderate impact}
+
+Compared to the high impact variants discussed above, where extensive prior biological evidence strongly suggests that a specific type of variant will severely impair protein activity, there are few guidelines that can reliably predict how the majority of non-synonymous (missense) variants will alter protein function or expression. As a result, the primary annotation performed by SnpEff and most related software packages will broadly categorize missense substitutions and their accompanying amino acid changes (e.g. $K154 \rightarrow L154$) as moderate impact variants. Short indels whose length is a multiple of three are treated similarly, unless they introduce a stop codon, as their effect will usually be localized.
+
+Once missense and frame-preserving InDel variants are identified, a more detailed estimation of their impact on protein function can be performed using heuristic and statistical models. The most common approaches are based on sequence conservation, either amongst orthologous or homologous proteins, or protein domains, sometimes adding information of the physio-chemical properties of the reference and variant amino acids (e.g. differences in side chain charge, hydrophobicity, or size). The SIFT algorithm \cite{kumar2009predicting} assesses the degree of selection against specific amino acid changes at a given position of a protein sequence by analyzing the substitution process at that site throughout a collection of predicted homologous proteins identified by PSI-BLAST \cite{altschul1997gapped}. Based on this multiple sequence alignment and the highly conserved regions it contains, SIFT calculates a normalized probability of amino acid replacement (called the SIFT score), which estimates the mutation's effect on protein function. Polyphen \cite{adzhubei2010method}, another commonly used tool, takes the process one step further by searching UniProtKB/Swiss-Prot \cite{uniprot2013update} and the DSSP database of secondary structure assignments \cite{joosten2011series} to determine if the variant is located in a known active site in the protein. In contrast to other methods that categorize each variant individually, VAAST \cite{rope2011using}, a commercially available package, computes scores for groups of variants located within a given gene and ``collapses" them into a single category, a concept similar to burden testing performed for rare variants identified in exome sequencing studies. For human proteins, SnpEff makes use of the Database for Non-synonymous SNVs' Functional Predictions \cite{liu2011dbnsfp} (dbNSFP), which collects scores produced by several impact assessment algorithms in a single database. Individually, impact assessment methods usually have an estimated accuracy of 60\% to 80\% when compared to manually curated databases of human variants, but predictions from several algorithms can be combined to provide a stringent, but more accurate estimate of impact \cite{choi2012predicting}.
+
+In most cases these algorithms apply best to SNVs since these are common in populations and there is more genomic sequence and experimental data available to refine the statistical methods. 
+However, some recently developed algorithms are capable of assessing variants other than SNVs, including PROVEAN \cite{choi2012predicting}, which extends SIFT to assess the functional impact of indels.
+
+Non-synonymous and synonymous variants are difficult to assess due to several factors:
+
+\begin{enumerate}[label=\roman*]
+	
+	\item \textit{Imprecise models of protein function.} Accurate impact assessment of coding variants remains an open problem and most computational predictions are riddled with both false positives and false negatives. While both missense variants and frame-preserving indels are broadly catalogued as having moderate effects, this is mostly due to lack of a comprehensive model and the extremely complex computations that would be required for an in-depth analysis (such as protein structure predictions). In these cases, proteomic information can be revealing. SnpEff adds annotations from curated proteomic databases, such as NextProt  \cite{lane2012nextprot}, which can help to elucidate if a mutation alters a critical protein amino acid or domain (such as amino acids that are post-translationally modified as part of a signaling cascade or that are form the active site of an enzyme) resulting in a protein may no longer function.
+	
+	\item \textit{Gain of deleterious function.} Computational variant annotation may eventually be able to fairly accurately predict the molecular impact of a variant in terms of the degree to which it translates in a loss of function for the encoded protein. However, gains of function, including the acquired ability to interact with new partners and disrupt their function, remain vastly more difficult to tackle, although several such variants have been linked to disease \cite{whitcomb1996hereditary}.
+	
+	\item \textit{Unanticipated effects of synonymous variants.} In most cases, synonymous variants are regarded as non-deleterious (or low impact); however, one needs to seriously consider the possibility that they may have greater functional effects by altering mRNA splicing  \cite{coulombe2009fine} or secondary structure  \cite{sabarinathan2013rnasnp}. Synonymous SNVs may also alter translation efficiency, by changing a frequently used to a rarely used codon and have been linked to changes in protein expression  \cite{sauna2011understanding}.
+	
+\end{enumerate}
+
+\subsection{Non-coding variant annotation}
+
+Although coding variants represent less than 2\% of variants in the human genome, they make up the vast majority of confirmed disease-related variants that have been validated at a functional level. This may result from ascertainment bias (since variants in coding regions are straightforward to discover and characterize at a basic level and many studies have largely ignored non-coding variants); or may be explained by the increased complexity of computational approaches and lab assays required to predict and validate the impact of non-coding variants; or by their potentially more subtle impact on gene expression or cell function. Nonetheless, in a compendium of current GWAS studies, roughly 40\% of the variants are intergenic and 30\% intronic. Functional studies of these variants are increasingly emphasizing the importance of non-coding genetic variation at risk loci for complex genetic diseases and traits \cite{hindorff2009potential}.
+
+Functional non-coding regions of the genome encompass a wide variety of regulatory elements contained in DNA and RNA molecules that are involved in transcriptional and post-transcriptional regulation. Cis-regulatory elements include (i) binding sites for DNA-binding proteins such as transcription factors and chromatin remodelers; (ii) binding sites for RNA-binding proteins involved in splicing, mRNA localization, or translational regulation; (iii) micro RNA (miRNA) target sites; and (iv) long non-coding RNA (lncRNA) targets on DNA, RNA and proteins. Non-coding transcripts include well-characterized regulatory RNAs (e.g. miRNA, snoRNA, snRNA, piRNA and lncRNAs) as well as RNAs involved directly in protein synthesis (e.g. tRNA and rRNA).  The annotation and impact assessment of non-coding variants presents a significant challenge for several reasons: (i) reliable technologies to study transcriptional regulatory regions on a genome-wide basis are only just reaching maturity and provide limited resolution of binding sites for individual transcription factors and regulatory RNA molecules; (ii) non-coding functional regions of most genomes remain incompletely mapped as they vary widely among different cell types and cell states (for example, in diseased and healthy tissues); (iii) non-coding regulatory elements often are part of complex transcriptional programs that are time-dependent \cite{mattick2001non}, contain many redundant linkages or reciprocal connections between genes and respond to a wide range of intraand extracellular signals; and (iv) genomic regulatory elements rarely have a strict consensus sequence (for example, compare the position weight matrices used to identify transcription factor or miRNA binding sites with the amino acid triplet code) making the effect of a mutation on gene regulatory programs difficult to predict. As a result, high-quality annotation of non-coding variants relies more heavily on experimental data than is the case for coding variants: since many of these experimental techniques did not study the effects of SNVs on gene regulatory programs, they can only be used to annotate variants and not to predict their effects on gene transcription. In the few cases where the effects of SNVs have been studied (for example, the effects of SNVs that are common in a population and located in genetic loci associated with complex diseases), experimental approaches provide highly accurate functional assessment at a cost of reduced coverage compared to computational approaches.
+
+Large-scale projects such as ENCODE \cite{encode2012integrated} and modENCODE \cite{celniker2009unlocking} have made major steps toward mapping gene transcription and transcriptional regulatory regions in many tissues and cell types, but similar studies in diseased tissues remain at an early stage (for example, the growing collection of disease-related epigenomes from the Epigenome Roadmap \cite{bernstein2010nih}). The base-by-base resolution and number of cell states studied for different types of regulatory elements and non-coding transcripts varies widely among datasets; in part due to the lack of sensitive, comprehensive and high-resolution technologies to study the different molecular species and modes of interaction that can be altered by non-coding variants. Efficient technologies for genome-wide, high-throughput mapping of binding sites for RNA-binding proteins (PAR-CLiP \cite{ascano2012identification}), miRNAs (PAR-CLiP \cite{hafner2012genome} and CLASH \cite{helwak2013mapping}) are starting to be applied on a broad scale as are protocols to map transcription factor binding sites (TFBS) which can improve resolution to a single base (Chip-exo \cite{rhee2012chip}). However, in most cases, DNA and RNA binding sites are only imprecisely located within Chip-Seq peaks that span genomic regions hundreds of base pairs in length, with computational approaches being used to pinpoint the bases most likely mediating the interaction. In the absence of more precise localization data, \textit{de novo} computational prediction of binding sites for DNA and RNA binding proteins remains insufficiently accurate to be of much use in annotating single noncoding variants.
+
+This limitation is particularly critical for functional predictions of putative target sites for microRNAs and other regulatory RNA species. MicroRNAs are short RNA molecules that regulate gene expression post-transcriptionally by binding the messenger RNA of a gene through complementary, usually in the 3' region of the transcript, which leads to mRNA degradation or inhibits translation. Sequence variants that cause the loss or gain of a miRNA target site would lead to dysregulation of the gene, with likely deleterious effects. Although miRNAs are relatively well documented in most model organisms including human, their binding sites are only starting to be mapped experimentally, and computational predictions has very low specificity. Meaningful information regarding the possible role of a variant in disrupting a miRNA target site is starting to emerge \cite{liu2012mirsnp}, although variants that create new miRNA binding sites remain under the radar.
+
+Even if the position of a functional element could be perfectly determined, predicting a variant's impact on chromatin conformation, promoter activity, gene expression, or transcript processing remains challenging. For transcription factors, this involves predicting whether the protein will still be able to recognize its mutated site (and with what affinity), as well as predicting the impact of these changes on gene expression levels. The latter is particularly hard to predict as a result of interactions, competition, and redundancy contained in regulatory networks of transcription factors or RNA binding proteins. As a consequence, computational prediction of the functional impact of non-coding variants remains a very active area of research and there is no broad consensus on the best methodology to use \cite{ward2012interpreting}. One significant exception is the identification of variants affecting canonical splice sites, defined as two bases on the 3' end on the intron (splice site acceptor) and 5' end of the intron (splice site donor). Variants that affect canonical splice sites are easily detected and typically lead to abnormal mRNA processing, involving exon loss or extension that leads to loss of function of the encoded protein.
+
+\subsection{Impact assessment of non-coding variants}
+
+Two broad classes of publicly available genome-wide datasets are commonly combined to assess the functional impact of non-coding genetic variants: (i) computational predictions of sequence conservation and sites involved in molecular interactions such as transcription factor and RBP binding, as well as miRNA-mRNA target interactions; and (ii) experimental genome-wide localization assays for DNA binding proteins, histone modifications, and chromatin accessibility.
+
+\paragraph{Computational sources of evidence} 
+Interspecies sequence conservation plays a key role in scoring and prioritizing non-coding variants. 
+This is based on the assumption that sites or regions that have been more conserved across species than expected under a neutral model of evolution are likely to be functional; suggesting that mutations contained in them are likely to be deleterious. 
+In the absence of strong experimental data, sequence conservation measures calculated from whole genome multiple alignments, (for example using PhastCons \cite{siepel2005evolutionarily}, SciPhy \cite{garber2009identifying}, PhyloP \cite{pollard2010detection}, and GERP  \cite{davydov2010identifying}), have been developed to provide a generic indicator of function for non-coding variants. 
+Although high conservation scores generally mean that a genomic region may be functional, the converse is not true and many experimentally-proven non-coding functional regions show only modest sequence conservation (for example due to binding site turnover events). 
+Finally, some regulatory regions (e.g. specific elements regulating immune response  \cite{raj2013common}) are under positive selection and may thus show less conservation than surrounding neutral regions. 
+
+In humans, genome-wide computational predictions of transcription factor binding sites based on matching to publicly available position weight matrices are available from variety of sources, including Ensembl \cite{flicek2012ensembl} and Jaspar  \cite{bryne2008jaspar}.  Because of the low information content of most binding affinity profiles, the specificity of the predictions is generally very low. Related approaches exist to predict splicing regulatory regions  \cite{fairbrother2002predictive} and miRNA target sites \cite{ziebarth2011polymirts}, some of which are precomputed for whole genomes and available from the UCSC or Ensembl genome browsers. Recent efforts to determine RNA-binding protein sequence affinities can also be used to identify putative binding sites for these proteins in mRNA  \cite{ray2013compendium}.
+
+\paragraph{Experimental sources of evidence:} To investigate the potential impact of variants on transcriptional regulation, many published experimental data sets produced by large-scale projects such as ENCODE \cite{encode2012integrated}, modENCODE \cite{celniker2009unlocking} and Roadmap Epigenomics \cite{bernstein2010nih}, can be used directly by annotation packages. These include: (i) ChIP-seq or ChIP-exo experiments that identify TFBSs on a genome-wide basis; (ii) DNAseI hypersensitivity or Formaldehyde-Assisted Isolation of Regulatory Elements (FAIRE) assays that identify regions with open chromatin; and (iii) ChIP-seq studies to identify the presence of specific promoter or enhancer-associated histone post-translational modifications, which can be combined to identify active, poised, and inactive enhancers and promoters \cite{ray2013compendium}. Most of these data sets are easily available through Galaxy \cite{goecks2010galaxy} (as tracks from the UCSC Genome Browser) or through SnpEff (as downloadable pre-computed datasets). In parallel with the types of studies described above, expression quantitative trait loci (eQTLs) represent an agnostic way to map putative regulatory regions. An increasing number of such loci are available through the GTEX database  \cite{lonsdale2013genotype}. Experimental data that may support assessment of the impact of variants on post-transcriptional regulation remain sparser, although databases such as doRiNa  \cite{anders2011dorina} or starBase  \cite{yang2011starbase} contain genome-wide datasets obtained by CLIP-Seq and degradome sequencing. To our knowledge, these data have yet to be used in the context of variant annotation studies.
+
+\paragraph{Combining sources of evidence:} Despite the variety of computational and experimental sources of evidence available, impact assessment for non-coding variants remains relatively crude, due to the fact that biological models of gene regulation remain fairly simple. 
+Nonetheless, significant steps forward have been made recently and two web-based tools, HaploReg  \cite{ward2012haploreg} and RegulomeDb  \cite{boyle2012annotation}, perform SNV and indel impact assessment for variants from dbSNV on the basis of a broad body of computational and experimental evidence. Both use pre-computed scores for variants from dbSnp and therefore cannot be used for rare variants, but they are extremely valuable for exploration by associating the variant of interest with a variant in dbSnp via linkage disequilibrium. 
+
+Despite some advances in the field, non-coding variants remain one of the most challenging to analyse and annotate. 
+Many factors add to the complexity of the problem, such as:
+
+\begin{enumerate}[label=\roman*]
+	
+	\item \textit{Sparseness of functional sites within ChIP-seq peaks.} Even if a non-coding variant is located in a region that contains a ChIP-seq peak for a given TF and has all the hallmark signatures of regulatory chromatin, the likelihood that it is deleterious remains low, because most DNA bases contained within a peak are non-functional. 
+	
+	\item \textit{Gain of function mutations.} While this section has focused on variants causing the loss of a functional regulatory element, genetic variants may also create new or more effective transcription factor binding sites. These are substantially harder to detect as they can occur in regions that show no evidence of function in individuals possessing the reference allele, and show little conservation across species. Furthermore, computational methods to predict gain of affinity for a given TF caused by a variant have insufficient specificity to be of much use on their own. 
+	
+\end{enumerate}
+
+%---
+\subsection{Clinical effect of variants}
+%---
+
+One of the most revealing types of annotation of both coding and noncoding variants reports whether the variant has previously been implicated in a phenotype or disease. Although such information is available for only a small minority of all deleterious variants, their number is growing and should be the first type of annotation one seeks out. Clinical annotations, until recently, have been scattered in a large number of specialized databases of medical conditions with a genetic basis, including the comprehensive, manually curated collection of genetic loci, variants and phenotypes in the Online Mendelian Inheritance in Man database \cite{hamosh2005online} (OMIM, www.omim.org); web pages containing detailed clinical and genetic information about uncommon disorders in the Swedish National Board of Health and Welfare Database for Rare Diseases (www.socialstyrelsen.se/rarediseases) and the peer-reviewed NIH GeneReviews collection \cite{bryne2008jaspar} (www.ncbi.nlm.nih.gov/books/NBK1116); and a curated collection of over 140,000 mutations associated with common and rare genetic disorders in the commercial Human Gene Mutation Database \cite{stenson2003human} (HGMD, www.hgmd.org/). In most cases, these datasets do not use standardized data collection or reporting formats; are designed to primarily provide information to patients and health professionals through a web interface; and rely on heterogeneous criteria to describe disease phenotypes and clinical outcomes; pathological and other clinical laboratory data; as well as the genetic and biologic experiments that have been used to demonstrate disease mechanisms at a molecular or cellular level. These shortcomings are being addressed by initiatives that provide centralized, evidence-based, comprehensive collections of known relationships between human genetic variants and their phenotype that are suitable for computational analysis, such as the NIH effort to aggregate records from OMIM, GeneReviews \cite{pagon1993genereviews} and locus-specific databases in ClinVar \cite{landrum2013clinvar} (www.ncbi.nlm.nih.gov/clinvar). 
+
+Another important application of variant detection and annotation is in the study of cancer genomes, which is occurring increasingly in clinical settings to support treatment decisions for advanced tumors. Annotation of variants detected in tumor sequences can be analyzed for clinical cohorts, using similar techniques as other complex traits, as well as for individual patients, using techniques to identify differences between somatic (tumor) and germline (healthy) tissues. In the latter case, one looks for cancer-associated mutations that distinguish the somatic genome of cancer cells of an individual from the germline genome in order to find the driving mutations that pinpoint the specific mechanisms underlying tumorigenesis or metastasis. Ideally, these mutations can be used to select a treatment for the patient, establish prognosis, or to identify causative mutations that have led to the cancer's progression. In such a setting, given that sequence differences between the cancer and germline genomes are of greater interest than the background genetic changes between the germline and a reference genome, variant calling is performed using specialized algorithms, such as MuTect  \cite{cibulskis2013sensitive} and SomaticSniper  \cite{larson2012somaticsniper}.
+
+One of the main problems in these databases is annotation accuracy. Biological knowledge, as well as molecular and phenotypic evidence supports the identification of certain groups of high impact variants based on simple criteria (such as premature stops, frameshifts, start lost and rare amino acid mutations); however, it is often hard to predict whether non-synonymous variants will have equally large effects on an organism's health. Even when the accepted ``rules of thumb" used in the primary annotation indicate that protein function is impaired, we should consider that these predictions may be based on a small number of model genes and will require appropriate wet-lab validation or confirmatory studies in cohorts. In addition, as more human genomes are sequenced, it is likely that some genetic variants that have been linked to Mendelian diseases will be found in healthy individuals  \cite{riggs2013towards}; and in many cases, may not actually be disease-causing mutations  \cite{bell2011carrier}.
+
+\subsection{Data structures and computational efficiency}
+
+Most computational pipelines for genomic variant annotation and primary impact assessment are relatively efficient and can annotate variants obtained from large resequencing projects involving thousands of samples within a few minutes or hours even using a moderately powered laptop. This is typically achieved through two key optimizations: (i) creation of reference annotation databases and (ii) implementation of efficient search algorithms. Reference database creation refers to the process of creating and storing precomputed genomic data from the reference genome, which can be searched quickly to extract information relevant to each variant. This process needs to be performed only once per reference genome and most annotation tools have pre-computed databases for many organisms available for users to download.
+
+Since these databases are typically quite large, efficient search algorithms are used together with appropriate data structures to optimize the search process. In ANNOVAR \cite{wang2010annovar}, each chromosome is subdivided in a set of intervals of size $k$ and genomic features for a given chromosome are stored in a hash table of size $L/k$, where $L$ is the length of the chromosome. Another approach, used by SnpEff, is to use an ``interval forest", which is a hash of interval trees  \cite{cormen2001introduction} indexed by chromosome. Querying an interval tree requires $O[log(n) + m]$ time, where $n$ is the number of features in the tree and m is the number of features in the result. 
+
+\subsection{Conclusions}
+
+In Chapter \ref{ch:snpeff} we introduce SnpEff \cite{cingolani2012program} \& SnpSift \cite{cingolani2012using}, two approaches we designed for efficiently performing functional annotations of sequencing variants. These packages allow annotating, prioritizing, filtering and manipulating variant annotations as well as combining several public or custom-created databases. It should be noted SnpEff was one of the first annotation packages and has become one of the most widely used annotation software in both research and clinical environments. 
+
+%---
+\section{Genome wide association studies}
+%---
+
+A genome wide association study aims at identifying genetic variants associated to a particular phenotype. 
+First, the genomes (or exome, depending on the study design) of affected individuals (cases) and healthy individuals (controls) need to be sequenced, variants called, and annotated. 
+Then, the goal is to find variants that exhibit some statistical association with the trait or phenotype of interest, which could be a disease status (e.g. diabetic vs healthy), a biomedical measurement (e.g. cholesterol level), or any measurable characteristic (e.g. height). 
+Since the genome is so large, patterns of mutations that suggest correlation may be encountered by chance, so we need to establish statistical significance in order to distinguish true associations from spurious ones. 
+Like most studies, we will focus our discussion on SNVs, but most methods can be extended to other genomic variants.
+
+\subsection{Single variant tests and models \label{sec:single}}
+
+Consider a simple situation where there is only one variant in the whole genome for the cohort we are analysing. 
+Since each individual has two sets of chromosomes, the variant can be present in one, both, or neither chromosomes, so the number of times a non-reference allele is present in an individual, is $ N_{nr} = \{0, 1,2\}$.
+
+When the trait of interest is binary (e.g healthy vs disease), a cohort can be divided into cases and controls and we can build a 3 by 2 contingency table:
+
+\[
+\begin{array}{l|c|c|c|}
+	& \mbox{Homozygous Reference} & \mbox{Heterozygous} & \mbox{Homozygous non-reference}\\
+	& (N_{nr} = 0) & (N_{nr} = 1) & (N_{nr} = 2) \\
+    \hline 
+    \mbox{Cases} & N_{ca,ref} & N_{ca,het} & N_{ca,hom} \\ 
+    \hline 
+    \mbox{Controls} & N_{co,ref} & N_{co,het} & N_{co,hom} \\
+    \hline 
+\end{array} 
+\]
+
+Further assumptions about how many alleles are required to increase disease risk can reduce this $3 \times 2$ table to a $2 \times 2$ table. 
+In the ``dominant model'', the effect of a mutated gene dominates over the healthy one, so one variant is enough to increase risk. 
+The opposite, called ``recessive model", is when both chromosomes have to be mutated in order to increase risk \cite{balding2006tutorial, clarke2011basic}. 
+In these models, we can count how many cases and controls have at least one variant (dominant model) or two variants (recessive model). 
+This simplifies the previous table, yielding a $2 \times 2$ contingency table, than can be tested using either a $\chi^2$ test or a Fisher exact test \cite{balding2006tutorial}.
+
+Two other commonly used models are the ``multiplicative" and the ``additive" models \cite{balding2006tutorial,clarke2011basic}. 
+In these models, a disease risk is assumed to be multiplied (or increased) by a factor $\gamma$ with every variant present. 
+In this case we cannot simplify the contingency table, so we assess significance using a Cochran-Armitrage test \cite{clarke2011basic}.
+
+\subsection{Multiple variant tests}
+
+In a real case scenario there are thousands or millions of variants in a resequencing or genotyping study. 
+We can extend the concept shown in the previous section by performing individual tests for each variant present in the cohort. 
+Multiple testing can be addressed either by performing a correction, such as False Discovery Rate \cite{balding2006tutorial, clarke2011basic}, or using a stricter genome wide significance level. 
+There are $\sim 3 \times 10^9$ bases in the genome, but taking into account the correlation between nearby variants (linkage disequilibrium), the genome wide significance level is generally accepted to be $p \leq 10^{-8}$.
+
+In order to check if the null hypothesis of a significance tests is adequate, a QQ-plot is used \cite{clarke2011basic} (i.e. plotting the $y = -log(p)$ vs $x = -log[ rank(p) / (N+1) ]$, where $N$ is the total number of variants). 
+Adherence of the p-values to a $y=x$ line on most of the range implies few systematic sources of association \cite{balding2006tutorial, clarke2011basic}. 
+If the p-values have a higher slope than the $y=x$ line, there might be ``inflation", possibly due to co-factors, such as population structure (see section \ref{sec:popStruct}). 
+If the inflation is not too high (e.g. less than $5\%$), this bias can be corrected by shifting the p-values towards the 45 degree line. 
+More sophisticated methods are explained in section \ref{sec:popStruct}.
+
+\subsection{Continuous traits and correcting for co-factors \label{sec:cofactors}}
+
+The methods described so far are suitable for binary ``traits" or ``phenotypes". 
+Statistical methods that link genetic information to traits can also be used for continuous or ``quantitative" traits (such as weight, height and measurements of cholesterol level). 
+A linear regression can be used assuming the traits are approximately normally distributed \cite{balding2006tutorial, clarke2011basic}. 
+A significance test ($p$) for linear models can be calculated using an $F$ statistic, but more sophisticated methods are also available \cite{balding2006tutorial, clarke2011basic}.
+
+Using linear models, it is easy to include known co-factors to correct for biases. 
+For instance, if it is known that a phenotype increases with age or that males are more susceptible than females, age and sex can be added to the linear equation in order to correct for these effects \cite{balding2006tutorial,clarke2011basic}. 
+In a similar manner, we can add co-factors to binary traits using logistic regression.
+
+\subsection{Population structure \label{sec:popStruct}}
+
+It is widely accepted that humans started in Africa and migrated to Europe, then to Asia and later to America \cite{hartl1997principles}. 
+Out of an initial population, a few individuals migrate and colonize a new territory. 
+This implies that the genetic variety of the new colony is significantly reduced compared to the previous population, since the genetic pool is only a small ``founder population". 
+The ``Out of Africa" hypothesis implies that each new migration of humans from Africa to Europe produced a reduction in genetic variety, also known as a ``population bottleneck'' \cite{hartl1997principles}.
+
+As we previously mentioned, each individual inherits two chromosome sets, a maternal and a paternal one. 
+Through recombination a chromosome is formed by a crossover combining maternal and paternal chromosomes and then passed down, thus the offspring has two sets of chromosomes, one from each parent. 
+This breaking and shuffling of chromosomes every generation, increases genetic diversity. Nevertheless if variants are located nearby in the chromosome, the chances that they are separated by a recombination event are smaller than if they are further away from each other. 
+This produces a correlation of close variants or ``linkage disequilibrium" (LD). 
+Nearby highly correlated variants are said to be in the same ``LD-block" \cite{hartl1997principles}. 
+If a population has low genetic variety, the LD-blocks are large. 
+So the African population has more diversity (smaller LD-blocks) and conversely, European, Asian and Amerindian populations have less diversity (larger LD-blocks) \cite{hartl1997principles}.
+
+\subsection{Population structure as confounding variable }
+
+Imagine that we have a cohort of individuals drawn from two populations ($P_A$ and $P_B$) and that individuals in $P_A$ have much higher risk of diabetes than individuals from $P_B$. 
+Now imagine that individuals from $P_A$ have a variant $v_A$ more often, but $v_A$ is actually neutral and has no health effects whatsoever. 
+If we do not take population factors into account our study would conclude that $v_A$ is associated with increased susceptibility to diabetes, just because we see $v_A$ more often in affected individuals. 
+In this case it is clear that population structure is a confounding variable. 
+We could avoid this problem by analyzing each population separately \cite{patterson2006population}, but this would cause a loss of statistical power since we would have fewer samples.
+
+A population that results form inter-breeding of two or more previously separated populations is known as an ``admixed population''. 
+For instance the African-American population is a mixture of, roughly, $80\%$ African and $20\%$ European genomes \cite{hartl1997principles,balding2006tutorial}. 
+In the case that structure is confounding an analysis of an admixed population, such as an African-American cohort, it is not possible to perform a separate analysis of each sub-population \cite{hartl1997principles}.
+
+The admixed population problem can be studied by performing a correction using the eigen-structure of the sample covariance matrix \cite{patterson2006population}. 
+Samples can be arranged as a matrix $C$ where each row is a sample and each column represents a position in the genome where there is a variant. The numbers $C_{i,j}$ in the matrix indicate the number of non-reference alleles in a sample (row $i$) at a genomic position (column $j$). 
+Since the allele can be present in zero, one, or two chromosomes in each individual, the possible values for $C_{i,j}$ are $\{0, 1, 2\}$. 
+The covariance matrix is calculated as $M= \hat{C}^T . \hat{C}$, where $\hat{C}$ is the matrix $C$ corrected to have zero mean columns. 
+Usually, the first two to ten principal components of $M$ are used as factors in linear models (see section \ref{sec:cofactors}) to correct for population structure \cite{patterson2006population}.
+
+Whether a cohort has any population structure and needs correction or not can be tested using two methods: 
+a) plotting the projections of the first two principal components and empirically observing the number of clusters in the chart, or 
+b) using a statistic of the eigenvalues of $M$ based on Tracy-Widom's distribution \cite{patterson2006population}.
+
+\subsection{Common and Rare variants\label{sec:comonrare}}
+
+The ``allele frequency" (AF) is defined as the frequency a variant appears in a population. 
+Variants are usually categorized according to AF into three groups: Common variants ($AF \geq 5\%$), ``low frequency" ($1\% < AF < 5\%$), and ``rare variants" ($AF < 1\%$). 
+Common variants originated earlier in the population while rare variants are either relatively recent or selected against.
+
+There are three main models for disease susceptibility  \cite{hartl1997principles, gibson2012rare}:
+i) the Common-Disease-Common-Variant hypothesis (CDCV) assumes that if disease is common, it must be caused by a common variant; 
+ii) the ``infinitesimal hypothesis" proposes that there are many common variants each having a small effect on risk; and 
+iii) the Common-Disease-Rare-Variant hypothesis proposes that there exists many rare variants, each one having large risk effects.
+
+\subsection{Rare variants test}
+
+The ``rare variant model'' assumes that multiple rare variants have large effects on a trait. 
+The problem is that, since these variants are rare, huge sample sizes are required for tests to identify statistically significant associations. 
+To overcome this problem, methods known as ``burden tests" collapse groups of rare variants that are hypothesised to have  similar effect on gene or protein activity and perform statistical significance tests on the group \cite{li2008methods}. 
+An example of collapsing technique is to count the number of rare variants in the genomic region surrounding an exon or a gene and apply a Fisher exact test, as shown in section \ref{sec:single}. 
+A limitation of some burden tests is that they implicitly assume that all rare variants have the same direction of effect, although in reality they might have no effect, be deleterious, or protective \cite{li2008methods,wu2011rare}.
+
+Several techniques that allow weighting rare variants by collapsing them using a kernel matrix. 
+This allows to incorporate other information, such as allele frequency and functional annotations. 
+It can be shown that the statistic induced by kernel weighting functions follows a mixture of $\chi^2$ distributions and there is an efficient way to approximate it \cite{li2008methods,wu2011rare}, avoiding computationally expensive permutation tests.
+%---
+\section{Epistasis \label{sec:epi}}
+%---
+
+%At the beginning of the 20th century some deviations form classical Mendelian inheritance were characterized.
+William Bateson first described epistasis in 1907 \cite{tyler2009shadows} assessing a discrepancy between the predicted segregation ratios and the observed ones \cite{phillips2008epistasis}.
+The term epistasis, which literally means ``standing upon", was used to describe ``characters'' layered on top of other each other thus masking their expression.
+This original definition describing the situation in which the actions of one locus mask the allelic effects of another locus is an extension of dominance where a completely dominant alleles mask the effects of the recessive allele at the same locus \cite{carlborg2004epistasis, cordell2002epistasis}.
+
+Nowadays the term epistasis is not only used to describe the original definition \cite{cordell2002epistasis}, but also often interpreted as mutations in two genes producing a phenotype that is surprising considering the individual effect of each mutation.
+Furthermore, in some contexts epistasis is used to refer to a broad range of gene-gene interactions, many complex interactions among genetic loci or even interaction between genes and the environment \cite{phillips2008epistasis}.
+Three categories of epistasis commonly used by geneticists are \cite{phillips2008epistasis, zhao2006test}: 
+
+\begin{itemize}
+	\item Functional epistasis: The molecular interactions between proteins, usually consisting of proteins within the same pathway or within a complex.
+	\item Compositional epistasis: Describes the traditional usage of epistasis as described by Bateson (i.e. masking of one allelic effect by an allele at another locus).
+	\item Statistical epistasis: This terminology is attributed to Fisher and defined as a deviance from additive genetic effects.
+\end{itemize}
+
+These concepts imply that analysis of epistasis can be used to infer functional relationships between genes \cite{mani2008defining}, genetic pathways' structure and function as well as evolutionary dynamics \cite{phillips2008epistasis}. 
+Some authors even relate the analysis of epistatic gene interactions patterns to the fundamentals of systems biology \cite{phillips2008epistasis}.
+
+Epistasis can be classified by the way a deviation of a double-mutant (having one mutation at each loci) organism's phenotype differed from the expected neutral (non-interacting) phenotype \cite{mani2008defining}.
+A typical example is a mutation in one gene impairing a whole pathway, thus masking the consequence of mutations in other genes of the same pathway \cite{mani2008defining}.
+An interaction is known as ``synergistic" or ``synthetic" when the double mutant has a more extreme phenotype than expected based on the phenotype of the two individual mutants.
+When the phenotype is less severe than expected, then there is a ``alleviating", ``diminishing returns" or ``antagonistic" interaction, which is often attributed to gene products operating in series within the pathway. 
+
+Often, a phenotype in human genetics is qualitative and dichotomous, for instance indicating presence or absence of disease. \cite{cordell2002epistasis}.
+Thus mathematical models calculating the joint action of more than one loci focus on the penetrance (the probability of developing disease given genotype).
+Assuming an allele is required at both loci in order to express the trait, the effect of allele $A$ can only be observed when allele $B$ is also present.
+This means that the effect at locus $A$ appears masked by locus $B$ and vice-versa \cite{cordell2002epistasis}, which is not precisely analogous to
+what Bateson described since in Bateson's definition if factor $B$ is epistatic to factor $A$, then factor $A$ is not expected to be epistatic to factor $B$ as well \cite{cordell2002epistasis}.
+
+A mathematical definition of epistatic interaction as ``departure from neutrality" requires defining neutrality and measuring phenotype.
+
+\begin{itemize}
+	\item \textit{Phenotype} is often measured using the concept of fitness, particularly in many large-scale genetic interaction studies, since it is relatively easy to measure by population allele frequencies or growth rates of microbial cultures \cite{mani2008defining}. 
+Different measures of fitness can be used in epistasis: i) exponential growth rate of mutant strain respect to wild type ; ii) the increase in population in one wild-type generation; and iii) the relative number of progeny (in one wild-type generation) \cite{mani2008defining}.
+Based on this, four mathematically different definitions of interaction have been used (namely \textit{product}, \textit{additive}, \textit{log}, and \textit{minimum}) \cite{mani2008defining}, but even though some definitions yield identical results under some conditions, an alternative definition choice can lead to different consequences\cite{mani2008defining}.
+
+	\item \textit{Neutrality} predicts the phenotype of an organism without interacting mutations. 
+Genetic interaction studies have differed in their choice of neutrality models, generally using either a multiplicative or a minimum mathematical function. A multiplicative model predicts fitness to be the product of the corresponding single-mutant fitness values. 
+	The minimum model is simply the minimum neutrality of the expected results form non-interacting mutations (e..g the fitness of the less-fit mutant). 
+All the above examples of fitness measures yield the same set of genetic interactions under this neutrality definition. 
+For example if each mutation disrupts a distinct pathway limiting cell growth in a way that one mutation is substantially more limiting than the other, the double mutant might is expected have same result as the most-limiting single mutant \cite{mani2008defining}.
+\end{itemize}
+
+It has been shown that the choice of definition can dramatically alter the resulting set of detected interactions \cite{mani2008defining}.
+To evaluate this Mani et al. \cite{mani2008defining} applied all four definitions of interactions to two experiments providing quantitative growth-rate measurements of cell populations. 
+They show that: 
+i) the \textit{additive} and \textit{log} definitions have different biases; 
+ii) the \textit{product} and \textit{log} definitions are equivalent for deleterious mutations; 
+iii) the \textit{product} definition can reveal functional relationships missed by the \textit{minimum} definition; and 
+iv) interaction networks inferred based on the \textit{minimum} and \textit{product} definitions differ greatly. 
+This leads to the question on which definition to use. 
+By examining the deviation distribution of expected (double-mutant) phenotype from the observed phenotype they found that \textit{product} and \textit{log} definitions not only are the closest to the ideal, but also are practically equivalent when single mutants are deleterious.
+
+The presence or absense of a trait are extreme aspects of ``perturbation in a complex system", but there are no reasons to expect all forms of epistasis to follow this pattern \cite{phillips2008epistasis}.
+When applied to quantitative traits, epistasis also describes a situation in which the phenotype cannot be predicted by the sum of the phenotypes of its single-locus component \cite{carlborg2004epistasis}.
+Many epistatic QTL interactions have been detected in model organisms leading to the conclusion that epistasis makes a large contribution to the genetic regulation of complex traits  \cite{carlborg2004epistasis}.
+
+\subsection{Epistasis is ubiquitous}
+
+One of the most common definition of epistasis is departure from additive effects.
+Nevertheless, there is no reason to think that traits should be additive based on a purely biological perspective \cite{zuk2012mystery} since biology is riddled with non-linearity such as genetic networks which exhibit binary states, ligand - receptors concentration having sigmoid-like responses, concentration saturations of substrate - enzymes reactions, sharp transitions created by cooperative protein binding, the pathways constrained by rate-limiting inputs, etc. \cite{zuk2012mystery}. 
+It has been asserted that epistatic effects are not isolated events, but ubiquitous \cite{tyler2009shadows} and probably inherent properties of biomolecular networks.
+The thought that epistasis in the classical sense may be ubiquitous has been partially confirmed from mutational studies \cite{phillips2008epistasis}.
+Genetic studies of synthetic traits, which occur only when multiple loci or pathways are all disrupted in model organisms, have identified instances of interacting genes revealing that epistasis may be pervasive \cite{zuk2012mystery}. 
+Researchers \cite{phillips2008epistasis} looking for interactions induced by systematically over-expressing genes in Saccharomyces cerevisiae, found that about $15\%$ of studied genes induced growth defects with most over-expression not matching the phenotypes of individual deletions.  
+
+\subsection{Epistasis examples}
+
+\paragraph{Non-human}
+Several genotype-phenotype patterns are known to be caused by epistasis in animal and model organisms. 
+Classic examples including \cite{carlborg2004epistasis}:
+%coat colour in various animals, 
+%comb type in chickens, 
+%kernel colour in wheat, and
+%eye color in flies. 
+%Here we mention some examples:
+
+\begin{itemize}
+
+	\item Coat colour in mammals has been one of the most common examples. 
+In pig, the dominant allele at the KIT locus confers white color coat and is dominant over all locus conferring darker color (melanocortin 1 receptor or MC1R). 
+This can be determined in individuals with the recessive KIT genotype showing what was classically termed `dominant epistasis', 
+yielding a non-Mendelian segregation ratio of 9:4:3 (instead of 9:3:3:1) \cite{carlborg2004epistasis, phillips2008epistasis}.
+
+	\item Drosophila provides another classic example with eye color determination.
+Drosophila eye pigmentation (scarlet, brown, or white) is determined by the synthesis of two drosopterins:  brown pigments (from tryptophan) and red pigments (from GTP) \cite{tyler2009shadows}.
+A mutation that prevents production of the brown pigment results in a fly with red eyes and a mutation preventing red pigment results in a fly with brown eyes.
+Flies with a mutation in the white gene, synthesize neither red nor brown pigment, resulting in a fly with white eyes regardless of the genotype at the brown or scarlet loci \cite{tyler2009shadows}.
+
+	\item Dozens of quantitative traits indicating strong epistasis in mouse and rat \cite{shao2008genetic} have been identified in a panel of chromosome substitution strains. 
+	The effects attributed to the strain-specific region of donor chromosomes exceeds by a median eightfold the expected effect of the donor genome.
+
+	\item Genetic interaction have been studied in a systematic and large-scale manner in Saccharomyces cerevisiae \cite{jasnos2007epistatic, tong2001systematic}.
+Analysis of quantitative traits loci (QTL) for transcripts levels in a two strain cross demonstrated epistatic interaction for $67\%$ of studied pairs (first the strongest QTL was found and then the strongest remaining QTL conditional on the first genotype was selected) \cite{brem2005genetic}. 
+
+	\item In a study comparing three Drosophila inbred lines (Drosophila melanogaster Genetic Reference Panel) and a large out-bred and inter-cross derived  population \cite{huang2012epistasis}, a set of candidate SNPs was selected by assessing allele frequency changes between the extremes of the distribution for each trait. 
+The researchers found that the majority of these SNPs participated in at least one epistatic interaction \cite{huang2012epistasis}.
+Using this information from epistatic interacting loci they were able to infer networks affecting quantitative traits \cite{huang2012epistasis}.
+
+\end{itemize}
+
+\paragraph{Human}
+Few instances of epistasis in common human diseases have been discovered and well-replicated so far, despite considerable efforts \cite{zuk2012mystery}.
+Although many instances of epistasis related to human disease have been published, with examples from type 2 diabetes \cite{wiltshire2006epistasis}, bipolar effective disorder \cite{jamra2007first}, coronary artery disease \cite{tsai2007renin}, and autism \cite{coutinho2007evidence}; some authors suspect these might be statistical features in the association studies because only a few have functional basis \cite{phillips2008epistasis}.
+Perhaps the best examples of epistatic interactions in humans include:
+\begin{itemize}
+	\item Interactions involving at least one locus with a large effect such as HLA  \cite{zuk2012mystery}.
+Two different interactions involving HLA alleles and ERAP have been discovered in GWAS from ankylosing spondylitis and psoriasis where the HLA alleles have odds ratios of 40.8 and 4.66 respectively \cite{evans2011interaction, genetic2010genome}.
+In the autoimmune disease multiple sclerosis researchers found evidence of genetic interactions between two histocompatibility loci known to be associated with the disease (HLA-DRB5*0101 in DR2a and HLA-DRB1*1501 in DR2b) \cite{gregersen2006functional}. 
+In Type 1 diabetes HLA is assumed to act non-additively with all other risk alleles (HLA has have an effect of 5.5) \cite{barrett2009genome}.
+
+	\item In Hirschsprung's disease an interaction between RET and EDNRB was uncovered by a genome-wide linkage study (RET having a log-odds of 5.6) \cite{carrasquillo2002genome}.
+
+	\item The ACE gene (angiotensin I converting enzyme) has an epistatic interaction with AGTR1 gene (angiotensin II type 1 receptor ) gene, significantly increasing risk of myocardial infarction when the ``D-allele" in ACE  is present in patients carrying a particular AGTR1 allele \cite{tiret1994synergistic}.
+
+	\item Two different sets of interactions are assumed to be responsible for variation in triglyceride levels.
+Notably, the interactions depend on the patient's sex: in females the interaction involves ApoB and ApoE;  and in males the interaction involves the ApoAI/CIII/AIV complex and low-density lipoprotein receptor LDLR \cite{nelson2001combinatorial}.
+
+	\item Sickle-cell anemia is regarded as a Mendelian trait but is modified by epistatic interactions as evidenced by the fact that patients homozygous for two polymorphisms near the $G\gamma$ locus have only mild clinical symptoms \cite{odenheimer1983heterogeneity}.
+
+	\item Elevated blood serum cholesterol levels in humans is associated with an ApoE allele depending on the genotype at the LDLR (low density lipoprotein receptor) gene locus \cite{pedersen1989interaction}.
+
+\end{itemize}
+
+\subsection{Epistasis and evolution}
+
+From an evolutionary perspective, some authors argue that the nonlinear nature of epistatic interactions between polymorphic loci is the genetic basis of canalization (the robustness or ability of a population to produce the same phenotype regardless of environmental variability) and speciation \cite{huang2012epistasis}.
+
+It has also been pointed out that interactions have an important influence on evolutionary phenomena such as genetic divergence and affects the evolution of the structure of genetic systems \cite{phillips2008epistasis} based on studies and models showing that epistasis can have a limiting role on the possible paths that evolution can take \cite{miller2006direct}.
+
+Theoretical arguments that date back to Fisher assert that when genes interact there is evolutionary pressure to promote their genetic linkage as a means of enhancing the co-inheritance of favourable allelic combinations \cite{fisher1958genetical}.
+Under this assumption linkage can facilitate the maintenance of epistatic interactions and vice versa, thus explaining some molecular evolution complexity \cite{phillips2008epistasis}.
+This has been supported by analysis of complex gene regulation patterns in localized genomic regions \cite{birney2007identification}.
+For variety of organisms (such as yeast, Caenorhabditis, Drosophila, higher plants, and mammals) genes sharing expression patterns are more likely to be in proximity \cite{hurst2004evolutionary}.
+This evidence shows that regional controls of chromatin structure and expression may give rise to gene clusters by promoting their coregulation \cite{petkov2005evidence}.
+
+\subsection{Missing heritability}
+
+At the dawn of the ``GWAS era" in 2002 it was hypothesised that there existed a large class of genetic traits for which GWAS would fail, namely purely epistatic models containing no additive or dominance variation at any of the susceptibility loci. 
+Thus association case/control methods ``will have no power if the loci are examined individually" \cite{culverhouse2002perspective}.
+Furthermore, it was mathematically shown that for such models maximizing the broad sense heritability (under some constraints) is equivalent maximizing gene interaction variance \cite{culverhouse2002perspective}.
+
+In a seminal series of papers \cite{zuk2012mystery, zuk2014searching} further mathematical proof of the link between epistasis and heritability was provided.
+The authors claim that missing heritability arises by an overestimation of the denominator that happens when epistasis is ignored \cite{zuk2012mystery}.
+This overestimation, called ``phantom heritability", was shown to inflate the denominator over $60\%$ in Cohn's disease, thus accounting for up to $80\%$ of the missing heritability \cite{zuk2012mystery}.
+Even though the prevailing view among geneticists is that interactions play at most a minor role in explaining missing heritability, their work shows that simple and plausible models can give rise to substantial phantom heritability \cite{zuk2012mystery}
+
+In moderately heritable complex diseases for which single-locus GWAS analyses have not accounted for the predicted phenotypic variance these epistatic models provide one possible explanation so it is worth pursuing a hypothesis of interacting loci \cite{culverhouse2002perspective}.
+
+\subsection{Detecting epistatic interactions}
+
+Linkage disequilibrium (LD) between close sites is the result of un-recombined chromosome blocks within common ancestry \cite{reich2001linkage}.
+However LD between widely separated sites suggests epistatic selection forces are at work \cite{fisher1958genetical, koch2013long}.
+In an analysis using the Yorubian population (from Ibadan, Nigeria) of the HapMap dataset, patterns of LD were quantified and the significance of overall disequilibrium per chromosome was evaluated of using randomization \cite{koch2013long}, showing an excess of long range associations on all 22 autosomes. 
+Although this is suggestive of epistasis, other hypotheses should not be ruled out:
+i) population admixture has been proposed to explain unusual patterns of long range LD \cite{price2008long};
+ii) recombination between distant chromosome blocks may not completely erase LD caused by drift even in a population at demographic equilibrium;
+iii) bottlenecks are particularly effective at generating long-range LD;
+iv) hitchhiking of linked sites with a positively-selected mutation can generate large haplotype blocks; and
+v) large inversion and other structural variation alter recombination patterns thus causing LD over unusually large regions \cite{bansal2007evidence}.
+
+Under the assumption that long range LD can hint at epistasis due to physical protein interactions, Wang et al. created LDGIdb \cite{wang2012ldgidb}, a catalogue of over $600,000$ pairs of SNPs showing strong long-range linkage disequilibrium, i.e. pairs of SNP pairs that were either located on different chromosomes or on different LD blocks and had $r^2 \ge 0.8$ \cite{wang2012ldgidb}.
+However such a simple approach may be of little utility because of technical issues that must be taken into account when performing such association tests: 
+i) commonly used measures of LD (such as $r^2$ and $D'$) are known to give rise to large linkage for variants with minor allele frequencies (MAF) near 0 \cite{koch2013long}; and 
+ii) $r^2$ is not corrected for multiple testing.
+A better alternative is to measure the probability that a large value of the disequilibrium $D$ is observed if there is no association.
+The aforementioned problems can be corrected by conditioning the probability on the sampled allele frequencies at the two loci.
+This method has the analytical advantage that the probability asymptotically converges to a Fisher's exact test \cite{koch2013long}.
+
+Another approach is to implicitly test over and under-representation of allele pairs in a given population, i.e. to analyse imbalanced allele pair frequencies \cite{ackermann2012systematic}.
+The underlying theory is that such allele pairs are under Dobzhansky-Muller incompatibilities which establishes a fitness bias favouring individuals that inherit over-represented allele combinations \cite{ackermann2012systematic}.
+Based on this, Ackerman et al. \cite{ackermann2012systematic} studied a population of 2,002 mice in family trios.
+They performed a $\chi^2$ test correcting by confounding factors (such as allele frequencies, family structure and allelic drift) based on inspecting $3 \times 3$ contingency tables of all possible two-locus allele combinations.
+They claim that their methodology can detect more interactions than using independent markers and as a result they were able to identify 168 LD block pairs with imbalanced alleles \cite{ackermann2012systematic}.
+
+By exploiting the  intense selective pressures imposed by the process of inbred mouse populations, it can be expected that clusters of functionally related genes are likely to be selected for coadapted allelic combinations in genes that influence fitness and survival.
+This hypothesis would result in regions of linkage disequilibrium (LD) among inbred strain genomes that should occur more often than expected by chance \cite{petkov2005evidence}.
+In a study using 60 inbred mouse strains \cite{petkov2005evidence}, the authors study LD using permutation tests and show that extreme patterns of LD give rise to a scale-free network architecture.
+Further pathway analysis identifies biological functions underlying several of these networks, hinting that selective factors acting to generate LD networks during inbreeding reflect functional interaction \cite{petkov2005evidence}.
+
+%Although detection of epistasis is valuable, in this thesis we focus on the context of complex disease.
+In the next sub-section we introduce methods combining GWAS and epistatic analysis to find epistatic loci affecting disease risk.
+
+\subsection{Epistasis \& GWAS}
+
+In recent years there have been a growing number of GWAS.
+Most of them have used a single-locus analysis strategy, in which each variant is tested individually for association with a specific phenotype \cite{cordell2009detecting}.
+Some researchers mentioned that it may be inadequate to describe relationships between genotype and phenotype in complex disease by simply summing the modest effects from several contributing loci \cite{culverhouse2002perspective}.
+Nevertheless, the extent to which epistasis is involved in complex traits is not known so we cannot assume that epistasis will be found for every trait in every population \cite{carlborg2004epistasis}.
+However epistasis has been overlooked and should to be routinely explored in complex trait studies \cite{carlborg2004epistasis}.
+This is particularly important for researchers of moderately heritable complex diseases for which locus-by-locus analyses have not accounted for the predicted genetic variance.
+In this case there could be value in pursuing a hypothesis of epistatic loci \cite{culverhouse2002perspective} that owing to their interaction, might not be identified by using standard single-locus tests \cite{cordell2009detecting}.
+It is also hoped that detecting such interactions will allow elucidation of biological pathways that underpin complex disease \cite{cordell2009detecting}.
+
+Recent GWAS studies explored genome-level identification of epistatic interactions \cite{ackermann2012systematic}; and even though methodological and sample size progress has been made, these could hardly identify a significant number of interactions. 
+However failure to detect epistasis does not rule out its presence \cite{zuk2012mystery}.
+In theory a sufficient number of contributing purely epistatic interactions could account for all the variation in disease status for any prevalence \cite{culverhouse2002perspective}.
+Nevertheless, when the genetic model of disease is purely epistatic (i.e. no additive or dominance at any of the susceptibility loci), then association methods analysing a single locus at a time cannot detect the loci \cite{culverhouse2002perspective}.
+Furthermore there could be an \textit{n-way} purely epistatic model for which no joint analysis of two, three, or $n-1$ loci shows any evidence of association.
+This leads to the concern that even assessment of all ``$(n-1)$ way" interactions among candidate loci may not be sufficient for detection of the contributing loci \cite{culverhouse2002perspective}.
+
+Another reason why complex human phenotypes fail to find evidence for epistatic interactions may simply be that analytic methods inherently exclude epistasis \cite{culverhouse2002perspective}.
+For example individual interaction effects are expected to be much smaller than linear effects, and the sample size required to detect a variant scales inversely with the square of the effect size. 
+The main obstacle is attributed to the exponentially large number of statistical hypotheses tested when comparing all markers against all other markers in a genome analysis \cite{ackermann2012systematic}.
+As an example provided by Zuk et al. \cite{zuk2012mystery}, consider two variants with frequency $20\%$ and increasing risk by 1.3 fold, which is a large effect.
+In such a case, assuming $50\%$ power, a significance level of $5 \times 10^{-8}$  and equal number of cases and controls, the sample size required for single loci analysis would be $4,900$.
+In comparison, the sample size required to detect pairwise interaction between those two variants using the same power and an appropriately corrected significance level is roughly $450,000$, so a researcher studying $100,000$ samples would discover all single acting loci but would find little evidence of epistatic interactions, which may be the reason why geneticists that have tested for pairwise epistasis have found few significant signals \cite{zuk2012mystery}.
+It should be noted that even though GWAS involving over $500,000$ samples are not available at the moment, studies using sample sizes in this order are expected to become available within the next couple of years.
+
+Existing approaches for identifying interactions in the context of GWAS can be grouped into five broad categories \cite{li2011detecting}:
+\begin{enumerate}
+	\item \textbf{Exhaustive search} methods extend classical single-locus GWAS statistics such as the Pearson's $\chi^2$ test or logistic regression.
+For instance, using the definition of epistasis as ``departure from a linear model" \cite{cordell2009detecting}, in a logistic regression model the input for sample $s$ analysing loci $i$ and $j$ would include terms with each of the genotypes ($g_{s,i}$ and $g_{s,j}$), as well as an ``interaction term" ($g_{s,i} \cdot g_{s,j}$) \cite{cordell2002epistasis}. 
+
+\begin{eqnarray*} \label{eq:gwasLogRegH1}
+    P( d_s | g_{s,i},g_{s,j}) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
+    & & ... + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
+\end{eqnarray*}
+
+where $d_s$ is disease status, $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for sample $s$.
+Logistic models involving interactions between more than two variants can be defined similarly, but require more parameters and extremely large samples are required to accurately fit them.
+
+It should be noted that the number of tests necessary to evaluate all two-, three- and four-way interactions for 30-60 candidate loci, has a range similar to the number of tests suggested for a single GWAS, thus searching for n-way interactions among all the markers would be impracticable \cite{culverhouse2002perspective}.
+%Other approaches include: 
+%combinatorial partitioning method \cite{nelson2001combinatorial}, 
+%restricted partitioning method \cite{culverhouse2004detecting}, 
+%multifactor-dimensionality reduction \cite{ritchie2001multifactor}, 
+%multivariate adaptive regression spline \cite{cook2004tree}, and 
+%backward genotype-trait association (BGTA)\cite{zheng2006backward}. 
+%Unfortunately even though many of these look promising, many of them have only been tested on small data sets \cite{zhang2007bayesian}.
+Other approaches \cite{nelson2001combinatorial, culverhouse2004detecting, ritchie2001multifactor, cook2004tree, zheng2006backward}
+although promising, most have only been applied on small data sets \cite{zhang2007bayesian}.
+Methods based on brute-force searches such as combinatorial partitioning \cite{nelson2001combinatorial}, and multifactor-dimensionality reduction \cite{ritchie2001multifactor} are impractical for large data sets \cite{zhang2007bayesian}.
+Nevertheless it was shown \cite{li2011detecting} that it can be feasible to perform GWAS level analysis for two interacting sites.
+Simple methods which explicitly consider interaction pairs can actually achieve reasonably high power with realistic sample sizes under different interaction models with some marginal effects, even after adjustments of multiple testing using the Bonferroni correction.
+	
+Exhaustive search methods exists for identifying epistatic variants affecting continuous phenotypes and quantitative trait loci (QTL).
+In this case, matrix algorithm optimizations can significantly speed up computations.
+For instance FastEpistasis applies an efficiently parallelized QR decomposition to derive least squares estimates of the interaction coefficient and its standard error \cite{schupbach2010fastepistasis}.
+This allows it to handle all pairs of $500,000$ variant in a population of $5,000$ individuals in roughly one CPU year, which can be run in a little bit more than a day on a 256 CPU cluster \cite{schupbach2010fastepistasis}.
+
+	\item \textbf{Linkage disequilibrium} methods use patterns in disease population under two-locus disease models \cite{zhao2006test}.
+	Association can be estimated assuming that deviation of the penetrance from independence at an individual locus creates linkage disequilibrium (LD) even if two loci are unlinked \cite{zhao2006test}.
+In Zhao et al. \cite{zhao2006test} the authors, based on the assumption that two disease-susceptibility loci are in Hardy-Weinberg equilibrium (HWE), show that in the presence of interaction the two loci will be in linkage disequilibrium in the disease population.
+They develop a test statistic to detect of deviations from LD by comparing the difference in the LD levels between two unlinked loci between cases and controls.
+%Assuming that the population frequency of a haplotype is equal to the product of the frequencies of the component alleles of the haplotype, in the absence of interaction the proportion of individuals carrying a haplotype in the disease population is equal to the product of the proportions of individuals carrying the component alleles of the haplotype in the disease population.
+Under the null hypothesis, this test statistic asymptotically converges to a central $\chi^2$ distribution.
+Their power simulations suggest that in general this LD-based test statistic has much smaller p-values than those of logistic regression analysis concluding that their test has higher power than logistic regression.
+Nevertheless, their model does not account for cofactors, thus making it unsuitable in multi-ethnic GWAS where population stratification may confound disease risk.
+
+	\item \textbf{Stochastic search} methods use sampling to infer whether a locus is an individual risk locus, epistatically affects disease risk, or has no effect (i.e. background locus).
+A Bayesian approach for genome-wide case-control studies denoted `bayesian epistasis association mapping' (BEAM) \cite{zhang2007bayesian} is a representative example of this type of method.
+BEAM treats the disease-associated markers and their interactions using a Bayesian partitioning model and computes the posterior probability using Markov chain Monte Carlo.
+The method uses predictors in the form of genetic marker loci divided into three groups: 
+i) markers not associated with disease, 
+ii) markers individually contributing to disease risk, and 
+iii) markers that interact with each other \cite{zhang2007bayesian}.
+Membership of each marker in each of the three groups is defined by the prior (Dirichlet) distributions.
+Given a prior distributions for regression coefficients values given by group membership, a posterior distribution can be generated using MCMC simulation \cite{cordell2009detecting}.
+At the end, it uses a statistic (called B-Statistic) to infer significance from the samples in MCMC. 
+Although it avoids explicitly computing all interactions the method could in theory find high-order interactions. 
+Since BEAM was originally designed for genotyped markers, its power can be hampered by allele frequency discrepancies between unobserved disease loci and linked genotyped markers.
+This is a common problem when using indirect markers and the authors show that in an extreme case when the MAF discrepancy was maximized all tested methods had little power to detect interaction associations.
+In the original paper, the authors apply BEAM to a data set containing $116,204$ SNPs genotyped for $96$ affected individuals and $50$ controls for an association study of age-related macular degeneration (AMD).
+Unfortunately BEAM did not find any significant interactions, most likely due to the small sample size.
+Runtime and power are primarily determined by the number of MCMC rounds with a suggested number of MCMC iterations as the quadratic of the number of SNPs.
+This is a main factor limiting applicability of the algorithm \cite{li2011detecting}, so BEAM cannot easily be applied to large GWAS studies because computational limitations make it unsuitable to handle over $500,000$ markers with sample sizes of $5,000$ or more individuals, which are now commonly sequenced or genotyped \cite{cordell2009detecting}.
+
+	\item \textbf{Conditional search} methods usually perform analyses in stages \cite{li2011detecting}.
+A small subset of significant loci is identified in the first stage, typically using single locus association statistics.
+Then this subset is mined using multi-locus association using an exhaustive method. 
+A well known approach in this category is ``stepwise logistic regression" which works as follows:
+i) all markers are individually tested for association with disease using a logistic regression model;
+ii) loci are ranked based on the results of single-locus tests;
+iii) the top (usually $10\%$) are selected for epistatic association, and
+iv) all two-way (or three-way) interactions are tested. 
+Even this stepwise approach can become computationally intractable for high-order interactions \cite{zhang2007bayesian}.
+Analysis of stepwise logistic regression approach to identify two-way and three-way interactions demonstrated that searching for interactions in genome-wide association mapping can be more fruitful than traditional approaches that exclusively focus on marginal effects \cite{zhang2007bayesian}.
+As a counter argument for stepwise logistic regression, we should take into account that the effect of one locus is altered or masked by another locus  (in the presence of epistasis), thus power to detect the first locus is likely to be reduced and the joint effects will be hindered by their interaction \cite{cordell2002epistasis}. 
+Methods based on conditional search can greatly reduce the computational burden by a couple of orders of magnitude, but with the risk of missing markers with small marginal effect \cite{li2011detecting}.
+
+	\item \textbf{Machine learning} approaches can also be used to detect epistasis.
+A popular approach uses Random Forests \cite{li2011detecting} or other regression tree partitioning approaches based on classification.
+In this context, trees are constructed using rules based on the values of a predictor variable such as a SNP to differentiate observations such as case-control status \cite{cordell2009detecting}.
+A popular rule selection mechanism is to use the variable that maximizes the reduction in Gini impurity \cite{kuhn1995application} at each node (intuitively, when child nodes have lower impurity from a split based on an attribute each child node will have purer classification).
+Random Forests are constructed by drawing samples with replacement from the original sample. 
+A classification tree is created for each bootstrap sample, but only a random subset of the possible predictor variables is considered. 
+This results in a `forest' of trees have been trained on a particular sample of observations. \cite{cordell2009detecting}.
+Instead of trying to create a monolithic learner, this type of methods called ``ensemble systems" attempts to create many heterogeneous ``weak" (or simple) learners. 
+The outcomes of these heterogeneous systems are combined to create an improved model \cite{li2011detecting}.
+
+In Li et al. \cite{li2011detecting}, the authors create an extension of the AdaBoost algorithm where they incorporate an importance score based on Gini impurity to select candidate SNP  in a way that genotype frequencies from the two classes (case and control) are expected to be more different.
+Decision trees are usually built with binary splits, but since genotype data takes three possible values $\{0, 1, 2\}$, they also extended their method to create a ternary split.
+AdaBoost draws bootstrap samples to increase the power of a weak learner by weighting the individuals when bootstrapping. 
+So when a weak learner misclassifies an individual, the weight of that individual is increased, and hard to classify individuals are more likely to be included in future bootstrap samples. 
+The ensemble classifier votes by weighting weak learner instances by training set accuracy.  \cite{li2011detecting}.
+Using simulation, they claim that their method outperforms similar ensemble approaches, as well as statistical methods (logistic regression), although they mention performance degradation when the risk allele frequency is low \cite{li2011detecting}.
+
+\end{enumerate}
+
+Although all these models have advantages under some assumptions, none of them seems to be a ``clear winner" over the rest \cite{cordell2009detecting}. 
+All of these models suffer from the increase in number of tests that need to be performed, which raises two issues: 
+i) multiple testing, and 
+ii) computational feasibility.
+So far, no method for epistatic GWAS has been widely adopted and there is need of different approaches to be explored. In Chapter \ref{ch:gwas} we propose an approach to combine co-evolutionary models and GWAS epistasis of pairs of putatively interacting loci.
+
+\subsection{Conclusions \label{sec:epigwas}}
+
+% GWAS & Epistasis
+Genome wide association studies have traditionally focused on single variants or nearby groups of variants. 
+An often cited reason for the lack of discovery of high impact genetic risk factors in complex disease is that these models ignore interactions among loci \cite{cordell2009detecting} which has recently been pointed out as a potential cause of the ``missing heritability" problem \cite{zuk2012mystery, zuk2014searching}. 
+With interactions being so ubiquitous in cell function, one may wonder why they have been so neglected by GWAS. 
+There are several reasons: 
+i) models using interactions are much more complex and by definition non-linear \cite{gao2010classification}, 
+ii) information on which proteins interacts with which other proteins is incomplete \cite{venkatesan2009empirical},
+iii) in the cases where there protein-protein interaction information is available, precise interacting sites are rarely know \cite{venkatesan2009empirical}, and
+iv) protein interactions are not the only sources of epistatic loci, other types of interaction loci are less known and may be even harder to map.
+Due to the lack of knowledge about interaction loci, we need to explore all possible combinations, thus the number of $N$ order interactions grows as $O(M^N)$ where $M$ is the number of variants \cite{de2013emerging}.
+This requires exponentially more computational power than single locus models.
+This also severely reduces statistical power, which translates into requiring larger cohorts, thus increasing sample collection and sequencing costs \cite{de2013emerging}.
+
+In Chapter \ref{ch:gwas} we develop a computationally tractable model for analysing putative interaction of pairs of variants from GWAS involving large case-control cohorts of complex disease. 
+Our model is based on analysing cross-species multiple sequence alignments using a co-evolutionary model in order to obtain informative interaction prior probabilities that can be combined to perform GWAS analysis of pairs of non-synonymous variants that may interact.
+%---
+\section{Coevolution}
+%---
+
+In a book published in 1859 entitled \textit{``On the origin of species by means of natural selection"} \cite{darwin1859origin}, Charles Darwin introduced the concept of co-evolution referring to the coordinated changes occurring in pairs of organisms.
+In another of his books \textit{``On the various contrivances by which British and foreign orchids are fertilised by insects"}, first published in 1862  \cite{darwin1877various}; Darwin further explored this concept and providing more detailed examples.
+By observing the relationship between the size of orchids' corolla and the length of the proboscis of pollinators, Darwin predicted the existence of a new species able to suck from a large spur  which was later confirmed \cite{de2013emerging}.
+
+Co‐evolution originally referred to the coordinated changes occurring in pairs of organisms to improve or refine interactions.
+This concept was later extended to pairs of proteins or more generically, any pair of biomolecules which can be within the same organism \cite{de2013emerging}.
+The modern use of co-evolution methods in genetics is often attributed to Dobzhansky's \cite{dobzhansky1950genetics} and Elrich's \cite{ehrlich1964butterflies} seminal works that were published in 1950 and 1964 respectively.
+In recent years, much effort has been dedicated to research of coordinated sequence changes in proteins (and genes) were co‐evolution could be an important and widespread catalyst of fitness optimization \cite{de2013emerging}.
+
+Distinct allele combinations in co-evolving genes interact to confer different degrees of fitness. 
+If this fitness difference is large, selection for alleles could maintain allelic association even between unlinked loci \cite{rohlfs2010detecting}, thus co-evolving genes are expected to maintain their interaction by pressures favouring compensatory mutations \cite{rohlfs2010detecting}.
+Under this hypothesis, genetic loci may be invariable due to their functional or structural constraints but these constraints may change subject to mutations in their functional counterpart \cite{fares2006novel}.
+In many cases, selective advantages for a specific allele pair could fixate the optimal allele pair in the population \cite{rohlfs2010detecting}.
+
+\paragraph{Co-evolution examples}
+In the absence of a clear positive control, identifying gene pairs that is certainly co-evolving are a difficult task \cite{rohlfs2010detecting}.
+Here, some well known examples of co-evolution in humans are introduced:
+
+\begin{itemize}
+
+\item HLA ligand and killer-cell immunoglobulin-like receptor (KIR) are two genes located on different chromosomes forming a well established interacting immune-response pair.
+Their allele frequencies are highly correlated in human populations as one expects under allele matching selection \cite{single2007global}.
+
+\item A remarkable similarity in the phylogenetic trees of ligands (such as insulin and interleukins) and their corresponding receptors was observed.
+This co‐evolution is proposed to be required for maintaining their specific interactions \cite{pazos2001similarity}.
+
+\item Researchers found that ligands and their G-protein coupled receptors have co-evolved so that each subgroup of ligands has a matching subgroup of receptors \cite{goh2000co}.
+%Ligand-receptor co-evolution can be detected based on N-terminal and C-terminal phosphoglycerate kinase (PGK) which are covalently linked and form an active site at their interface, therefore, they must are inferred to have co-evolved to preserve enzyme function \cite{goh2000co}.
+
+\item In Hsp90 and GroEL heat-shock proteins, co-evolution was detected in ``almost all" functionally or structurally important sites \cite{fares2006novel}.
+
+\item GroESL is involved in the folding of a wide variety of other proteins with the folding activity mediated by the co-chaperonin GroES  \cite{ruiz2013coevolution}.
+It was recently shown that different overlapping sets of amino acids co-evolve between GroEL and GroES \cite{ruiz2013coevolution}.
+
+\item Gamete recognition genes ZP3 and ZP19 are highly polymorphic among humans and located on different chromosomes.
+Putative interaction between these genes was recently inferred \cite{rohlfs2010detecting}.
+
+\item Helicobacter pylori is the main cause of gastric cancer. 
+Host-pathogen interaction accounted for most of the difference in the severity of gastric lesions in the populations analysed. 
+For instance African H. pylori ancestry was relatively benign in population of African ancestry but was deleterious in individuals with substantial Amerindian ancestry \cite{kodaman2014human}.
+This is in an example of co-evolution modulating disease risk.
+
+\end{itemize}
+
+\subsection{Basic co-evolution inference models}
+
+In this section we review the first methods aimed to uncover co-evolution.
+These ``basic methods" serve not only to understand the historical perspective but also they are the basis of more advanced methodologies described in section \ref{sec:coevGlobal}.
+
+\paragraph{Phylogenetic tree similarity}
+%Co‐evolution of interacting species, such as symbionts-hosts, predators-prey, and parasites-hosts, is assumed to be manifested by similarities in the phylogenetic trees \cite{de2013emerging}.
+Proteins and their interaction partners co-evolve so that divergent changes in one are complemented their interaction partner. 
+These changes can be manifested by ``similar evolutionary trees" \cite{goh2000co}.
+Thus phylogenetic similarity approaches can successfully be applied for protein-protein co‐evolution assumed to be caused by physical interactions.
+These kind of methods have been shown to be capable of identifying interaction partners, such as ligand-receptor pairs \cite{de2013emerging}.
+
+Similarly, evolutionary relationships within protein families can be mined to predict physical interaction specificities \cite{ramani2003exploiting}.
+Duplicate genes (paralogs) can diverge in a way such that new binding specificities develop, thus the underlying hypothesis is that interacting proteins exhibit coordinated evolution and tend to have similar phylogenetic trees.
+This was first demonstrated in a study of chemokines and their receptors showing phylogenetic tree similarities \cite{goh2000co}.
+%Using similarity of phylogenetic trees as a proxy for the co-evolution of interacting proteins \cite{ramani2003exploiting}, a computational method based on matrix alignment can find an optimal alignment between protein family similarity matrices (conceptually equivalent to superimposing  phylogenetic trees from the two protein families) \cite{ramani2003exploiting}.
+%One matrix is shuffled using stochastic simulated annealing-based to make the two matrices maximally agree by minimizing the root mean square difference.
+%Interactions can be predicted by observing equivalent columns proteins heading in the two matrices.  \cite{ramani2003exploiting}
+
+\paragraph{Correlated mutations}
+Although some methods based on phylogenetic tree similarity exists, the majority of co-evolutionary methods focuses on analysis of multiple sequence alignment \cite{rohlfs2010detecting}.
+Proteins have evolved to interact or function in specific molecular complexes and the specificity of these interactions is essential for their function. Consequently, residue contacts constrain the protein sequences to some extent \cite{pazos1997correlated}.
+In other words, 
+%sequences form interacting proteins react as a consequence of adaptation, thus 
+it is reasonable to assume that evolution of sequence changes on one of the interacting proteins must be compensated by mutations in the other \cite{pazos1997correlated}.
+It should be noted that this relationship between co-evolution and interaction is not symmetrical
+%While interaction would involve coevolution, 
+since co-evolution does not imply physical interaction \cite{fares2006novel}.
+This is emphasized by the fact that co-evolution between clusters of sites not in contact has also been shown \cite{pritchard2000proteins}.
+
+%Identification of genes showing signs of adaptive evolution can be used in determining functional regions in proteins \cite{fares2006novel}.
+It has long been suggested that correlations in amino acid changes can be used to infer protein contact, thus helping predict tertiary protein structure \cite{fitch1970improved, morcos2011direct, burger2010disentangling, de2013emerging}.
+A large number of genomes and protein sequences have become available in recent years enabling the analysis of co-evolution by means of statistical inference of covariation patterns based on multiple protein sequence alignments \cite{burger2010disentangling, burger2010disentangling}, which has been a fruitful technique for predicting contacting residues in the structure.
+This interdependent changes in amino acids was formulated for the first time by the ``covarion model" \cite{fitch1970improved} and applied in multiple sequence alignments of a family of homologue proteins \cite{de2013emerging}.
+Statistical methods to find correlated mutations between pairs of proteins can identify putative interaction sites in protein pairs \cite{de2013emerging}, but we should keep in mind that correlated mutations suggesting compensatory changes between residues can be due to several factors different than direct contact, such as physical proximity, catalytic action, binding sites, or even maintaining folding stability.
+
+One of the first attempts of statistical inference of co-evolving loci pairs was performed by Gobel et. al in 1994.
+In their seminal paper they point out that \textit{``maintenance of protein function and structure constrains the evolution of amino acid sequences... [sequence alignments] can be exploited to interpret correlated mutations observed in a sequence family as an indication of probable physical contact in three dimensions"} \cite{gobel1994correlated}. 
+They  analysed correlations between different positions in a multiple sequence alignment and used such correlations to predict contact maps.
+In their study of 11 protein families they compare their results with experimentally validated contact maps determined by crystallography, showing prediction accuracy up to $68\%$.
+
+The promise of developing methods for predicting amino acid contacting pairs from sequence information alone was radically different from and more applicable than traditional docking methods \cite{pazos1997correlated}.
+This lead to the development of methods for detecting correlated changes in multiple sequence alignments with the primary objective of using them to detect protein interfaces in interacting molecules \cite{pazos1997correlated}, thus facilitating protein structure prediction.
+It was demonstrated that the correlated sequence information was enough to select the right inter-domain docking solution amongst many alternatives.
+
+Correlation and mutual information (MI) have been used to assess co-evolution but they do not take the evolutionary interdependence between protein residues into account \cite{fares2006novel}.
+Phylogenetic relationships can inflate these co-evolutionary measures, thus one of main limitations of these methods has been their inability to separate phylogenetic linkage from functional and structural co-evolution \cite{fares2006novel}.
+Some methods partially correct these effects but while some studies \cite{gloor2005mutual} claim that these would require alignments of at least $125$ sequences, while other studies \cite{morcos2011direct} suggest that they may require in the order of $1,000$.
+
+\paragraph{Phylogenetic correction}
+Mutual information (MI) measures the reduction of uncertainty about one position given information about the other.
+When used as a measurement for co-evolution, MI can be confounded by several factors such as structural and functional constraints, and the background sum of contributions from random noise and shared ancestry.
+In an attempt to improve MI's signal to noise ratio by eliminating or minimizing the second factor, a model postulated by Dunn et al. \cite{dunn2008mutual} tries to factorize these terms in order to estimate a correction.
+They propose that each amino acid position in the MSA has a propensity toward the background MI (related to its entropy and phylogenetic history) and estimate the joint background MI as the product of their propensities.
+It follows that a joint background correction term can be approximated as product of the average background MI divided by the average overall MI of all positions in the MSA, which they call the average product correction (APC) \cite{dunn2008mutual}.
+They show that APC is a metric than can accurately estimate MI in the absence of structural or functional relationships (i.e. the null model) \cite{dunn2008mutual}.
+Finally, by assuming the null model to be normally distributed, a p-value can be inferred using a Z-score.
+
+Another method, CAPS \cite{fares2006novel}, compares transition probability scores from the blocks substitution matrix (BLOSUM) between two sequences at the sites being analysed for interaction.
+An alignment-specific BLOSUM matrix is applied depending on the average sequence identity.
+Co-evolution between protein sites is estimated by the correlation in the pairwise variability with respect to the mean pairwise variability per site \cite{fares2006novel}.
+A limitation of this method arises when sequences are too divergent, since an alignment including highly divergent sequence groups could show unrealistic level of pairwise identity (BLOSUM values are normalized by the time of divergence between sequences to reduce the impact of this).
+Another problem common to many MSA-based co-evolutionary methods is that constant amino acid sites, which are very likely to be functionally important, cannot be tested for  \cite{fares2006novel}.
+
+\paragraph{Evolutionary timespan}
+What is the appropriate evolutionary time scale required in a multiple sequence alignment in order to perform a co-evolutionary analysis?
+Co-evolution is often analysed over very large time frames based on the evolutionary analysis across different species \cite{qian2015recent}.
+Nevertheless, genome-wide scans have identified several candidate loci that underlies local adaptations, which seems surprising given the short evolutionary time since the human divergence which is estimated have happened around $50,000$ to $100,000$ years ago when humans migrated out of Africa \cite{qian2015recent}.
+In light of this, it may make sense to analyse co-evolution within human populations based on the propositions that multiple genes within a pathway or a functional sub-network may change in the same fitness direction at a same evolutionary rate to achieve a common phenotypic outcome \cite{qian2015recent}.
+In a study using data from the 1000 Genomes project \cite{10002012integrated} form East Asians, Europeans, and Africans populations, researchers found that genes having signals of recent positive selection are significantly closer to each other within protein-protein interaction (PPI) networks \cite{qian2015recent}.
+The approach was also able to identify known examples such as EGLN1 and EPAS1 (hypoxia-response pathway playing key roles in adaptation to high-altitude) as well as multiple genes in the NRG-ERBB4 (developmental) pathway \cite{qian2015recent}.
+This shows that sequences from shorter time spans can also be mined for co-evolution.
+
+\paragraph{MSA quality influences predictions}
+Since many co-evolutionary methods rely so heavily on multiple sequence alignments, it should not be surprising to know that the quality of the input alignment may affect the results.
+As one example, it is well known that structure-based alignment algorithms may be susceptible to shift error and other systematic errors, thus strong covariation signal can be caused by alignment errors leading to false positive predictions \cite{dickson2010identifying}.
+The phylogeny of the sequences also affects performance, since methods work better on large protein families having a wide but homogeneously distributed degree of sequence similarity ranging from distant to similar sequences \cite{de2013emerging}.
+In a recent study co-evolutionary methods applied to different alignments of the same protein family gave rise to distinct results, demonstrating that the measurement of co-evolution may greatly depend on the quality of the sequence alignment \cite{dickson2010identifying}.
+Even when alignments for the same protein family contained comparable numbers of sequences the number of estimated co-varying positions differed significantly.
+The authors of this analysis demonstrated that contact prediction can be improved by removing alignment errors due to several factors such as partial or otherwise erroneous sequences, the presence of paralogous sequences, and improper structure alignment.
+
+\paragraph{Co-Evolution and protein structure}
+Protein structure prediction from amino acid sequence is one of the ultimate goals in computational biology \cite{burger2010disentangling}, despite significant efforts the general problem of de novo three-dimensional structure prediction has remained one of the most challenging problems in the field \cite{marks2012protein}.
+Unfortunately, \textit{de-novo} protein structure prediction does not scale with longer proteins since the conformational space grows exponentially with the protein length.
+Inter-residue contact information can constrain the fold thus significantly reducing the search space.
+Since covariation patterns can complement experimental structural biology thus helping to elucidate functional interactions, information of co-evolutionary couplings between residues are often used to compute protein three-dimensional structures from amino acid sequences \cite{marks2012protein}.
+It has been observed that information about protein residue contacts, can be used to elucidate the fold of some proteins \cite{jones2012psicov}.
+Researchers demonstrated that using co-evolutionary information from multiple sequence alignments greatly helps to deduce which amino acid pairs are close (or in contact) in the three-dimensional structure thus allowing the protein fold to be determined with a reasonable accuracy \cite{marks2012protein}.
+It is not surprising that the vast majority of methods for finding protein co-evolution are designed with the specific aim of generating results useful in the context of protein folding.
+
+\paragraph{Protein design}
+It has recently been proposed to use co-evolutionary theory in computational methods for protein design.
+Significant similarities were found between the amino acid covariation in natural protein sequences and sequences structures optimized by computational protein design methods \cite{ollikainen2013computational}.
+Because evolutionary selective pressures on function and structure shaped the sequences to be close to optimal for their structures, natural protein sequences provide an excellent source for computational protein design methods.
+%Similarly, computational protein design predicts energetically optimal sequences based on protein structure, so it is expected that highly co-varying amino acids pairs in both designed and natural sequences have co-varied to maintain optimal protein structure.
+A study using computational protein design to quantify protein structure constraints from amino acid covariation for 40 diverse protein domains, shows that structural constraints imposed by covariation play a dominant role in protein architecture \cite{ollikainen2013computational}.
+Thus, computational protein design methods could make use of knowledge form natural co-evolution effects.
+
+\subsection{Global co-evolution models \label{sec:coevGlobal}}
+
+Imagine a protein sequence of length $L = a_1, a_2, ... , a_n$, amino acid $a_i$ is coupled directly with $a_j$, and $a_j$ to $a_k$, then $a_i$ and $a_k$ will show correlation despite not being directly coupled \cite{weigt2009identification}.
+This is an important problem when inferring co-evolution as indirect coupling can make it difficult to recognize the directly co-evolving loci.
+%occurring when more than two positions show coordinated substitution patterns.
+%Apparent co‐variation between two positions is the consequence of the evolutionary interdependence and these indirect couplings can make it difficult to recognize the directly interdependent positions.
+
+As opposed to models using the independence assumption, a `global' model treats correlated pairs of residues as dependent on each other thereby minimizing effects of transitivity  \cite{marks2012protein}.
+Since direct couplings are more reliable predictions of physical interactions, approaches that can distinguish direct from indirect couplings have been an intensive area of study \cite{de2013emerging}.
+Global approaches are designed to reach high scores only for amino acid pairs that are likely to be causative of the observed correlations  \cite{marks2012protein}.
+In this section we introduce these methods.
+
+
+\paragraph{Glass spin systems}
+Global interaction models are well understood in statistical physics.
+A typical example are long-range order observed in spin systems, where the spins only have short-range direct interactions \cite{binney1992theory}.
+One of the first global models for co-evolution was proposed by Lapedes \cite{lapedes2012using}, who used a Monte Carlo algorithm to infer the simplest probabilistic distribution able to account for the whole network of co‐variations \cite{de2013emerging}.
+He presented a sequence-based probabilistic theory addressing co-operative effects in interacting positions in proteins assuming that a sequence of length $L$ is a global state of an \textit{L-site} spin system of twenty states (for twenty amino acids).
+Then he solved the global statistical formalism based on maximizing entropy under constraints which are known to lead to Boltzmann statistics \cite{marks2012protein}.
+Finally the conditional mutual information is calculated using this Boltzmann model which leads to the degree of covariation between residues at two positions factoring out contributions by interaction with the rest of the residues \cite{marks2012protein}.
+The amount sequence data is a limiting factor when performing inference of Boltzmann distribution parameters, thus it is usually infeasible to use more than first order distributions \cite{lapedes2012using}.
+Another limitation is the phylogenetic relatedness of these sequences, which is not addressed in this algorithm and has the potential to decrease accuracy \cite{lapedes2012using}.
+
+\paragraph{Direct coupling analysis}
+A similar approach called  direct-coupling analysis (DCA) was also based on spin-glass physics \cite{weigt2009identification}.
+In their implementation a generalized message-passing technique is used to massively parallelize the algorithm implementation.
+As in in the work of Lapedes \cite{lapedes2012using} an application of the maximum entropy principle yields the Boltzmann distribution which is used to estimate the second order interaction model.
+In principle higher correlations of three or more positions can be included, however dataset size (i.e. number of sequences in the MSA) does not allow for inference beyond two-residue model parameters. 
+Determining model parameters, which is the most computationally expensive task is achieved by using a two-step procedure: 
+i) given a candidate set of model parameters, single and two residue distributions are estimated; 
+ii) the summation over all possible protein sequences would require $O(|\Sigma_{AA}|^{N-2} N^2)$ steps (where $\Sigma_{AA}$ is the amino acid alphabet and $|\Sigma_{AA}|$ is the alphabet size), so an approximation is performed using MCMC sampling. 
+This last step is the most expensive step and is expected to be very slow for 21-state variables.
+The message-passing approach implemented using an efficient heuristic, reduces the computational complexity to $O(|\Sigma_{AA}|^2 N^4)$.
+Once all probability distributions are estimated, gradient descent is used to adjust the coupling strengths maximizing the joint probability of the data.
+Since the model is convex, it is guaranteed to converge to a single global maximum.
+Finally, a quantity called direct information (DI) measures the part of the mutual information of a position pair induced by the direct coupling (intuitively similar to mutual information in a two-variable model).
+Even after all optimizations and parallelizations, the method could not be applied to more than $60$ positions in the protein alignment simultaneously.
+The authors apply the method to a dataset consisting of over $2,500$ bacterial genes from a two-component signal transduction system,. Their global inference robustly identified residue pairs proximal in space between sensor kinase (SK) and response regulator (RR) proteins as well as homo-interactions in RR proteins \cite{weigt2009identification}.
+In their test dataset, the top $10$ candidate interactions identified were shown to be true contacts, furthermore these predictions were then used to calculate an interacting protein complex quite accurately (3 \AA\  RMSD) \cite{weigt2009identification}.
+
+\paragraph{Mean field approximation}
+DCA has been shown to yield a large number of correctly predicted contacts based on its ability to disentangle direct and indirect correlations; unfortunately the method is computationally expensive \cite{weigt2009identification}.
+A method published by Morcos et al. \cite{morcos2011direct} proposes a ``mean field" approximation to DCA \cite{weigt2009identification}.
+They first attempt to mitigate phylogenetic tree biases using a simple sampling correction based on re-weighting  sequences with more than $80\%$ similarity.
+In a nutshell, the approximation method also tries to disentangle direct and indirect couplings by inferring a global statistical and least-constrained model which, as discussed before, is achieved using a maximum-entropy principle leading to a Boltzmann distribution of couplings.
+The partition function ($Z$) is then approximated by keeping only the linear order term in a Taylor series expansion, thus obtaining the mean-field equations.
+This approach is based on small-coupling expansion, thus a Taylor expansion around zero, a technique introduced in disordered Ising spinglass models with binary variables.
+A well known result is that the first derivative of the Gibbs potential, the Legendre transform of the free energy $F = - ln(Z)$, equals the average of the coupling term in the Hamiltonian.
+This simplifies this average calculation since the joint distribution of all variables becomes factorized over the single sites \cite{morcos2011direct}.
+This mfDCA algorithm speeds up the original DCA implementation by $10^3$ to $10^4$ times \cite{morcos2011direct}, and can run on alignments up to $500$ amino acids per row which is an order of magnitude larger the previous version of DCA based on message passing \cite{morcos2011direct, weigt2009identification}.
+
+\paragraph{PSI-COV}
+Like other methods, PSI-COV \cite{jones2012psicov} starts from a multiple sequence alignment.
+A covariance matrix is calculated by counting how often a given pair of amino acids occurs in a particular pair of positions, summing over all sequences in the MSA.
+Since this matrix contains the raw data capturing all residue pair relationships, one can then compute a measure of causative correlations in the global statistical approaches by taking the inverse of the covariance matrix \cite{jones2012psicov, marks2012protein}.
+Assuming that this covariance matrix can indeed be inverted, the inverse matrix relates to the degree of direct coupling, a well known fact in statistical theory under the assumption of continuous Gaussian multivariate distributions \cite{marks2012protein}.
+Elements significantly different from zero (off-diagonal) indicate pairs of sites which have strong direct coupling and are thus likely to be in direct physical contact \cite{jones2012psicov}.
+Unfortunately, the empirical covariance matrices are actually almost always singular simply because it is unlikely that every amino acid is observed at every site.
+One of the most powerful techniques to overcome this problem is sparse inverse covariance estimation under Lasso constraints.
+The authors claim that the non-zero terms tend to accurately relate to correct correlations in the true inverse covariance matrix \cite{jones2012psicov}.
+
+\paragraph{Multidimensional mutual information}
+In a recent study a simple extension of mutual information was proposed by considering ``additional information channels" corresponding to indirect
+amino acid dependencies \cite{clark2014multidimensional}.
+This is achieved by defining the information $I(X_1 ; X_3 ; X_2)$ representing an `interaction information' for a channel with two inputs $X_1$ and $X_3$ and a single output $X_2$.
+The effect of the indirect input ($X_3$) on the transmission between $X_1$ and $X_2$ can then be marginalized simply by summing mutual information for each possible value $X_3$ weighted by the probability of occurrence \cite{clark2014multidimensional}.
+Similarly a four variable model extension can be defined, in which case the marginalization would be done over two variables ($X_3$ and $X_4$).
+The authors test and compare their results using a set of $9$ MSAs consisting of less than $400$ sequences each, showing that their simple extension is comparable to other maximum entropy statistical models \cite{clark2014multidimensional}.
+Even thought the method is simple, the marginalization sums impose a heavy computational burden requiring long execution times and large memory footprints making the method impractical for sequences longer than 200 residues \cite{clark2014multidimensional}.
+
+\paragraph{Bayesian network model}
+Another attempt to disentangle direct from indirect statistical dependencies between residues assumes that the sequences in a MSA are drawn from unknown joint probability distribution \cite{burger2010disentangling}. 
+The model considers pairwise conditional dependencies and factorizes the joint probability by a single other position which the residue depends on, using the conditional probabilities as nuisance parameters that are integrated out when calculating the likelihood of the alignment. 
+Most notably, the model does not consider only the best way of choosing the dependent position, but rather sums over all possible ways in which dependencies could be chosen.
+This sum over all spanning trees is a generalization of Kirchhoff's matrix-tree theorem and can be efficiently computed form the Laplacian of the dependency matrix.
+
+\subsection{Algorithm limitations}
+
+%Residue co‐evolution was originally detected using correlated amino acid changes in pairs of positions represented by two columns of the MSA.
+%Under the assumption of interdependent amino acid frequencies or similar patterns of amino acid substitutions it can be assessed by a linear correlation, a method that shows a small but significant capability to recover pairs of positions in physical contact \cite{de2013emerging}.
+
+%MI
+Mutual information was one of the first proposed methods used to detect co‐varying positions. 
+As opposed to correlation-based methods, mutual information considers the distribution of each amino acid in the different sequences for a position quantifying whether presence of an amino acid one position can be used to predict presence of an amino acid in the other position.
+Mutual information does not take into account which amino acids are present, therefore different amino acids are treated just as symbols \cite{de2013emerging}.
+MI is an attractive and simple metric because it explicitly measures the dependence of one position on another, but it is limited by factors such as: 
+i) positions with higher entropy (variability), tend to have higher MI than positions of lower entropy even though the latter are more constrained and would seem more likely to be co-evolving \cite{dunn2008mutual}; and 
+ii) MI arises when alignments do not contain enough sequences to reduce the noise to signal ratio, it was shown that alignments should contain at least 125 sequences to significantly reduce this effect \cite{martin2005using}.
+
+% PHYLO
+The influence of the background phylogenetic relationship between sequences in the MSA confounds results and some efforts have tried to address this by removing certain problematic clades from the MSA.
+For instance, it has been shown that the effect may be limited to some degree by excluding highly similar sequences (from closely related species) from the alignment \cite{wollenberg2000separation}.
+Continuous-time Markov process model for sequence co‐evolution can model this explicitly and some approaches have been implemented for small-scale studies of co‐evolution in small protein families, but computational limitations have hindered their usage in large-scale studies \cite{de2013emerging}.
+Other confounding effect is an uneven representation of protein sequence members (e.g. having several small subgroups and one large subgroup) which leads to statistical noise \cite{marks2012protein}.
+
+%Indirect correlations arise because if $A$ correlates with and $B$ are in contact with each other and $B$ and $C$ are in contact as well, there is an observed indirect correlation between $A$ and $C$ \cite{marks2012protein}.
+Since amino acids often contact more than one amino acids, transitive effects tend to form a network.
+Thus pairs of residues analysed using a simple statistical model (such as correlation or mutual information) may not necessarily be close in space or functionally constrained \cite{marks2012protein}.
+Algorithms to overcome this limitation exists, but they are based in global probabilistic models which require parameter estimation of complex distributions, such as the Bolzmann distribution, as well as marginalizing over all indirect variables.
+This makes global models computational prohibitively for all but very small datasets and impossible to apply to genome wide scale analysis.
+
+Usually co-evolutionary methods are tested with high quality MSAs containing large number of sequences varying from $5L$ to $25L$ (where $L$ is  sequence length).
+Such large number of homogeneous sequences are rarely available and when they are, they usually correspond to well studied proteins and might already have a crystallized structure, thus analysis of amino acids in contact are not needed to infer the 3-D structure.
+Often, investigators study less well-characterized proteins having MSA of less than $L$ sequences, and low alignment quality due to the presence of many gaps, in which case, existing methods are of limited value \cite{clark2014multidimensional}.
+
+Finally it should be mentioned that results from different models usually do not agree, even for complex global models.
+In a recent study, a comparison of several methods shows that while all methods detected similar numbers of co-varying pairs
+%(when taking into account residues separated by $\le 8$ \AA\ in reference X-ray structures)
+, there is less than $65\%$ overlap between the top scoring prediction from methods based on different principles \cite{clark2014multidimensional}.
+%---
+\section{Thesis roadmap and Contributions}
+%---
+
+The original research presented in this thesis covers topics of computational and statistical methodologies related to the analysis of sequencing variants to unveil genetic links to complex disease. 
+Broadly speaking, we address three types of problems: 
+i) data processing of large datasets from high throughput biological experiments such as resequencing in the context of a GWAS (Chapter \ref{ch:bds}); 
+ii) functional annotation of variants, i.e. calculating variant's impact at the molecular, cellular or even clinical level (Chapter \ref{ch:snpeff}); 
+iii) identification of genetic risk factors for complex disease using models that combine population-level and evolutionary-level data to detect putative epistatic interactions (Chapter \ref{ch:gwas}). 
+When applicable, background material specific to each chapter is presented in a preface, together with an explanation of how that chapter ties in with the rest of the thesis.
+
+This thesis comprises text and figures of articles that have either been published, submitted for publication, or ready to be submitted (waiting upon data embargo restrictions):
+\\
+
+\begin{description}
+	
+	\item[Chapter \ref{ch:bds}] ~ 
+	
+		\begin{enumerate}
+			\item \textbf{P. Cingolani}, R. Sladek, and M. Blanchette. ``BigDataScript: a scripting language for data pipelines." Bioinformatics 31.1 (2015): 10-16.
+		\end{enumerate}
+
+		For this paper, PC conceptualized the idea and performed the language design and implementation. RS \& MB helped in designing robustness testing procedures. PC, RS \& MB wrote the manuscript.
+		\\
+	
+	\item[Chapter \ref{ch:snpeff}] ~
+	
+		\begin{enumerate}[resume]
+			\item \textbf{P. Cingolani}, A. Platts, M. Coon, T. Nguyen, L. Wang, S.J. Land, X. Lu, D.M. Ruden, et al. ``A program for annotating and predicting the effects of single nucleotide polymorphisms, snpeff: Snps in the genome of drosophila melanogaster strain $w^{1118}; iso-2; iso-3$". Fly, 6(2), 2012.
+		\end{enumerate}
+
+		For this paper, PC conceptualized the idea, implemented the program and performed testing.
+		AP contributed several feature ideas, software testing and suggested improvements.
+		XL, DR, SL, LW, TN, MC, LW performed mutagenesis and sequencing experiments.
+		XL and DR performed the biological interpretation of the data.
+		All authors contributed to the manuscript.
+		\\
+
+		SnpEff's accompanying publication (SnpSift):
+	
+		\begin{enumerate}[resume]		
+			\item \textbf{P. Cingolani}, V. M. Patel, M. Coon, T. Nguyen, S. Land, D. M. Ruden, and X. Lu.`` Using drosophila melanogaster as a model for genotoxic chemical mutational studies with a new program, snpsift". Toxicogenomics in non-mammalian species, page 92, 2012.
+		\end{enumerate}
+		
+		~ \\
+
+		We used SnpEff \& SnpSift and developed a number of new functionalities in the context of two collaborative GWAS projects on type II diabetes:
+
+		~ \\
+			
+		\begin{enumerate}[resume]
+		
+			\item M. McCarthy, T2D Genes Consortia. ``Variation in protein-coding sequence and predisposition to type 2 diabetes", Ready for submission.
+			
+			\item A. Mahajan, X. Sim, H. Ng, A. Manning, M. Rivas, H. Heather, A. Locke, N. Grarup, H. K. Im, \textbf{P. Cingolani}, et al. ``Identification and Functional Characterization of G6PC2 Coding Variants Influencing Glycemic Traits Define an Effector Transcript at the G6PC2-ABCB11 Locus." PLoS genetics 11.1 (2015): e1004876-e1004876.
+		
+		\end{enumerate}
+		~ \\
+	
+	\item[Chapter \ref{ch:gwas}] ~
+	
+		\begin{enumerate}[resume]
+		\item \textbf{P. Cingolani}, R. Sladek, and M. Blanchette. ``A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies". Ready for submission (data embargo restrictions).
+		\end{enumerate}
+	
+		For this paper, PC designed the methodology under the supervision of MB and RS. PC implemented the algorithms. PC, RS \& MB wrote the manuscript. This work uses data from the T2D consortia, thus it cannot be published until the main T2D paper is accepted for publication (according to T2D data embargo).
+		\\
+	
+	\item[Other contributions] ~	\linebreak
+		During my thesis I have co-authored several other scientific articles (grouped by topic) published, submitted for publication, or ready to be submitted, not mentioned in this thesis:
+		\\
+
+	\item[Epigenetics] ~
+
+		\begin{enumerate}[resume]
+			\item \textbf{P. Cingolani}, X. Cao, R. Khetani, C.C. Chen, M. Coon, A. Bollig-Fischer, S. Land, Y. Huang, M. Hudson, M. Garfinkel, and others. ``Intronic Non-CG DNA hydroxymethylation and alternative mRNA splicing in honey bees." BMC genomics 14.1 (2013): 666.
+			\item M. Senut, A. Sen, \textbf{P. Cingolani}, A. Shaik, S. Land, Susan J and D. M. Ruden. ``Lead exposure disrupts global DNA methylation in human embryonic stem cells and alters their neuronal differentiation." Toxicological Sciences (2014).
+			\item D. M. Ruden, \textbf{P. Cingolani}, A. Sen, W. Qu, L. Wang, M. Senut, M. Garfinkel, V. Sollars, X. Lu, ``Epigenetics as an answer to Darwin's 'special difficulty' Part 2: Natural selection of metastable epialleles in honeybee castes", Frontiers in Genetics (2015).
+			\item M. Senut, A. Sen, \textbf{P. Cingolani}, A. Shaik, S. Land, Susan J and D. M. Ruden. ``Lead exposure induces changes in 5-hydroxymethylcytosine clusters in CpG islands in human embryonic stem cells and umbilical cord blood", Submitted to `Epigenomics.
+			\item M. Senut, \textbf{P. Cingolani}, A. Sen, Arko, A. Kruger, A. Shaik, H. Hirsch, S. Suhr, D. Ruden. ``Epigenetics of early-life lead exposure and effects on brain development." Epigenomics 4.6 (2012): 665-674.
+		\end{enumerate}
+		~ \\
+	
+	\item[GWAS \& Disease] ~
+	
+		\begin{enumerate}[resume]
+			\item K. Oualkacha, Z. Dastani, R. Li, \textbf{P. Cingolani}, T. Spector, C. Hammond, J. Richards, A. Ciampi, C. Greenwood. ``Adjusted sequence kernel association test for rare variants controlling for cryptic and family relatedness." Genetic epidemiology 37.4 (2013): 366-376.
+			\item S. Bongfen, I. Rodrigue-Gervais, J. Berghout, S. Torre, \textbf{P. Cingolani}, S. Wiltshire, G. Leiva-Torres, L. Letourneau, R. Sladek, M. Blanchette, and others. ``An N-ethyl-N-nitrosourea (ENU)-induced dominant negative mutation in the JAK3 kinase protects against cerebral malaria." PloS one 7.2 (2012): e31012.
+			\item C. Meunier, L. Van Der Kraak, C. Turbide, N. Groulx, I. Labouba, Ingrid, \textbf{P. Cingolani}, M. Blanchette, G. Yeretssian, A. Mes-Masson, M. Saleh, and others. ``Positional mapping and candidate gene analysis of the mouse Ccs3 locus that regulates differential susceptibility to carcinogen-induced colorectal cancer." PloS one 8.3 (2013): e58733.
+			\item G. Caignard, G. Leiva-Torres, M. Leney-Greene, B. Charbonneau, A. Dumaine, N. Fodil-Cornu, M. Pyzik, \textbf{P. Cingolani}, J. Schwartzentruber, J. Dupaul-Chicoine, and others. ``Genome-wide mouse mutagenesis reveals CD45-mediated T cell function as critical in protective immunity to HSV-1." PLoS pathogens 9.9 (2013): e1003637.
+			\item M. Bouttier, D. Laperriere, M. Babak Memari, M. Verway, E. Mitchell, \textbf{P. Cingolani}, T. Wang, M. Behr, R. Sladek, M. Blanchette, S. Mader and J. White. ``Genomics analysis reveals elevated LXRα signaling reduces M. tuberculosis viability", Submitted to Journal of Clinical Investigation.
+			\item M. Bouttier, D. Laperriere, M. Babak Memari, M. Verway, E. Mitchell, \textbf{P. Cingolani}, T. Wang, M. Behr, R. Sladek, M. Blanchette, S. Mader and J. White. ``Genomic analysis of enhancers engaged in M. tuberculosis-infected macrophages reveals that LXR signaling reduces mycobacterial burden", Submitted to PLOS Pathogens.
+		\end{enumerate}	
+		~ \\
+	
+	\item[Fuzzy logic] ~
+
+		\begin{enumerate}[resume]
+			\item \textbf{P. Cingolani} and Jesus Alcala-Fdez. ``jFuzzyLogic: a robust and flexible Fuzzy-Logic inference system language implementation." FUZZ-IEEE. 2012.
+			\item \textbf{P. Cingolani} and Jesus Alcala-Fdez. ``jFuzzyLogic: a java library to design fuzzy logic controllers according to the standard for fuzzy control programming." International Journal of Computational Intelligence Systems (2013), vol 6, pages 65-75.
+		\end{enumerate}	
+
+\end{description}
