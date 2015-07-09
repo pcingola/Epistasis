@@ -1,0 +1,103 @@
+%---
+\section{Thesis roadmap and Contributions}
+%---
+
+The original research presented in this thesis covers topics of computational and statistical methodologies related to the analysis of sequencing variants to unveil genetic links to complex disease. 
+Broadly speaking, we address three types of problems: 
+i) data processing of large datasets from high throughput biological experiments such as resequencing in the context of a GWAS (Chapter \ref{ch:bds}); 
+ii) functional annotation of variants, i.e. calculating variant's impact at the molecular, cellular or even clinical level (Chapter \ref{ch:snpeff}); 
+iii) identification of genetic risk factors for complex disease using models that combine population-level and evolutionary-level data to detect putative epistatic interactions (Chapter \ref{ch:gwas}). 
+When applicable, background material specific to each chapter is presented in a preface, together with an explanation of how that chapter ties in with the rest of the thesis.
+
+This thesis comprises text and figures of articles that have either been published, submitted for publication, or ready to be submitted (waiting upon data embargo restrictions):
+\\
+
+\begin{description}
+	
+	\item[Chapter \ref{ch:bds}] ~ 
+	
+		\begin{enumerate}
+			\item \textbf{P. Cingolani}, R. Sladek, and M. Blanchette. ``BigDataScript: a scripting language for data pipelines." Bioinformatics 31.1 (2015): 10-16.
+		\end{enumerate}
+
+		For this paper, PC conceptualized the idea and performed the language design and implementation. RS \& MB helped in designing robustness testing procedures. PC, RS \& MB wrote the manuscript.
+		\\
+	
+	\item[Chapter \ref{ch:snpeff}] ~
+	
+		\begin{enumerate}[resume]
+			\item \textbf{P. Cingolani}, A. Platts, M. Coon, T. Nguyen, L. Wang, S.J. Land, X. Lu, D.M. Ruden, et al. ``A program for annotating and predicting the effects of single nucleotide polymorphisms, snpeff: Snps in the genome of drosophila melanogaster strain $w^{1118}; iso-2; iso-3$". Fly, 6(2), 2012.
+		\end{enumerate}
+
+		For this paper, PC conceptualized the idea, implemented the program and performed testing.
+		AP contributed several feature ideas, software testing and suggested improvements.
+		XL, DR, SL, LW, TN, MC, LW performed mutagenesis and sequencing experiments.
+		XL and DR performed the biological interpretation of the data.
+		All authors contributed to the manuscript.
+		\\
+
+		SnpEff's accompanying publication (SnpSift):
+	
+		\begin{enumerate}[resume]		
+			\item \textbf{P. Cingolani}, V. M. Patel, M. Coon, T. Nguyen, S. Land, D. M. Ruden, and X. Lu.`` Using drosophila melanogaster as a model for genotoxic chemical mutational studies with a new program, snpsift". Toxicogenomics in non-mammalian species, page 92, 2012.
+		\end{enumerate}
+		
+		~ \\
+
+		We used SnpEff \& SnpSift and developed a number of new functionalities in the context of two collaborative GWAS projects on type II diabetes:
+
+		~ \\
+			
+		\begin{enumerate}[resume]
+		
+			\item M. McCarthy, T2D Genes Consortia. ``Variation in protein-coding sequence and predisposition to type 2 diabetes", Ready for submission.
+			
+			\item A. Mahajan, X. Sim, H. Ng, A. Manning, M. Rivas, H. Heather, A. Locke, N. Grarup, H. K. Im, \textbf{P. Cingolani}, et al. ``Identification and Functional Characterization of G6PC2 Coding Variants Influencing Glycemic Traits Define an Effector Transcript at the G6PC2-ABCB11 Locus." PLoS genetics 11.1 (2015): e1004876-e1004876.
+		
+		\end{enumerate}
+		~ \\
+	
+	\item[Chapter \ref{ch:gwas}] ~
+	
+		\begin{enumerate}[resume]
+		\item \textbf{P. Cingolani}, R. Sladek, and M. Blanchette. ``A co-evolutionary approach for detecting epistatic interactions in genome-wide association studies". Ready for submission (data embargo restrictions).
+		\end{enumerate}
+	
+		For this paper, PC designed the methodology under the supervision of MB and RS. PC implemented the algorithms. PC, RS \& MB wrote the manuscript. This work uses data from the T2D consortia, thus it cannot be published until the main T2D paper is accepted for publication (according to T2D data embargo).
+		\\
+	
+	\item[Other contributions] ~	\linebreak
+		During my thesis I have co-authored several other scientific articles (grouped by topic) published, submitted for publication, or ready to be submitted, not mentioned in this thesis:
+		\\
+
+	\item[Epigenetics] ~
+
+		\begin{enumerate}[resume]
+			\item \textbf{P. Cingolani}, X. Cao, R. Khetani, C.C. Chen, M. Coon, A. Bollig-Fischer, S. Land, Y. Huang, M. Hudson, M. Garfinkel, and others. ``Intronic Non-CG DNA hydroxymethylation and alternative mRNA splicing in honey bees." BMC genomics 14.1 (2013): 666.
+			\item M. Senut, A. Sen, \textbf{P. Cingolani}, A. Shaik, S. Land, Susan J and D. M. Ruden. ``Lead exposure disrupts global DNA methylation in human embryonic stem cells and alters their neuronal differentiation." Toxicological Sciences (2014).
+			\item D. M. Ruden, \textbf{P. Cingolani}, A. Sen, W. Qu, L. Wang, M. Senut, M. Garfinkel, V. Sollars, X. Lu, ``Epigenetics as an answer to Darwin's 'special difficulty' Part 2: Natural selection of metastable epialleles in honeybee castes", Frontiers in Genetics (2015).
+			\item M. Senut, A. Sen, \textbf{P. Cingolani}, A. Shaik, S. Land, Susan J and D. M. Ruden. ``Lead exposure induces changes in 5-hydroxymethylcytosine clusters in CpG islands in human embryonic stem cells and umbilical cord blood", Submitted to `Epigenomics.
+			\item M. Senut, \textbf{P. Cingolani}, A. Sen, Arko, A. Kruger, A. Shaik, H. Hirsch, S. Suhr, D. Ruden. ``Epigenetics of early-life lead exposure and effects on brain development." Epigenomics 4.6 (2012): 665-674.
+		\end{enumerate}
+		~ \\
+	
+	\item[GWAS \& Disease] ~
+	
+		\begin{enumerate}[resume]
+			\item K. Oualkacha, Z. Dastani, R. Li, \textbf{P. Cingolani}, T. Spector, C. Hammond, J. Richards, A. Ciampi, C. Greenwood. ``Adjusted sequence kernel association test for rare variants controlling for cryptic and family relatedness." Genetic epidemiology 37.4 (2013): 366-376.
+			\item S. Bongfen, I. Rodrigue-Gervais, J. Berghout, S. Torre, \textbf{P. Cingolani}, S. Wiltshire, G. Leiva-Torres, L. Letourneau, R. Sladek, M. Blanchette, and others. ``An N-ethyl-N-nitrosourea (ENU)-induced dominant negative mutation in the JAK3 kinase protects against cerebral malaria." PloS one 7.2 (2012): e31012.
+			\item C. Meunier, L. Van Der Kraak, C. Turbide, N. Groulx, I. Labouba, Ingrid, \textbf{P. Cingolani}, M. Blanchette, G. Yeretssian, A. Mes-Masson, M. Saleh, and others. ``Positional mapping and candidate gene analysis of the mouse Ccs3 locus that regulates differential susceptibility to carcinogen-induced colorectal cancer." PloS one 8.3 (2013): e58733.
+			\item G. Caignard, G. Leiva-Torres, M. Leney-Greene, B. Charbonneau, A. Dumaine, N. Fodil-Cornu, M. Pyzik, \textbf{P. Cingolani}, J. Schwartzentruber, J. Dupaul-Chicoine, and others. ``Genome-wide mouse mutagenesis reveals CD45-mediated T cell function as critical in protective immunity to HSV-1." PLoS pathogens 9.9 (2013): e1003637.
+			\item M. Bouttier, D. Laperriere, M. Babak Memari, M. Verway, E. Mitchell, \textbf{P. Cingolani}, T. Wang, M. Behr, R. Sladek, M. Blanchette, S. Mader and J. White. ``Genomics analysis reveals elevated LXRα signaling reduces M. tuberculosis viability", Submitted to Journal of Clinical Investigation.
+			\item M. Bouttier, D. Laperriere, M. Babak Memari, M. Verway, E. Mitchell, \textbf{P. Cingolani}, T. Wang, M. Behr, R. Sladek, M. Blanchette, S. Mader and J. White. ``Genomic analysis of enhancers engaged in M. tuberculosis-infected macrophages reveals that LXR signaling reduces mycobacterial burden", Submitted to PLOS Pathogens.
+		\end{enumerate}	
+		~ \\
+	
+	\item[Fuzzy logic] ~
+
+		\begin{enumerate}[resume]
+			\item \textbf{P. Cingolani} and Jesus Alcala-Fdez. ``jFuzzyLogic: a robust and flexible Fuzzy-Logic inference system language implementation." FUZZ-IEEE. 2012.
+			\item \textbf{P. Cingolani} and Jesus Alcala-Fdez. ``jFuzzyLogic: a java library to design fuzzy logic controllers according to the standard for fuzzy control programming." International Journal of Computational Intelligence Systems (2013), vol 6, pages 65-75.
+		\end{enumerate}	
+
+\end{description}
