@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  8 JUL 2015 16:11
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  9 JUL 2015 11:04
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -224,6 +224,9 @@ File: listings.cfg 2007/02/22 1.4 listings configuration
 ))
 Package: listings 2007/02/22 1.4 (Carsten Heinz)
 
+(/usr/local/texlive/2013/texmf-dist/tex/latex/placeins/placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
 (/usr/local/texlive/2013/texmf-dist/tex/latex/setspace/setspace.sty
 Package: setspace 2011/12/19 v6.7a set line spacing
 )
@@ -252,18 +255,18 @@ LaTeX Warning: Label `eq:gwasLogRegH1' multiply defined.
 ) (./chapters/gwas_supp.aux) (./chapters/conclusions.aux))
 \openout1 = `thesis_mcgill.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 37.
-LaTeX Font Info:    ... okay on input line 37.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 38.
+LaTeX Font Info:    ... okay on input line 38.
 Package caption Info: Begin \AtBeginDocument code.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
@@ -360,12 +363,12 @@ e
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
 \c@lstlisting=\count127
-LaTeX Font Info:    Try loading font information for OMS+cmr on input line 40.
+LaTeX Font Info:    Try loading font information for OMS+cmr on input line 41.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/base/omscmr.fd
 File: omscmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
 LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
-(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 40.
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 41.
  [1
 
 
@@ -379,7 +382,7 @@ LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <12> not available
 
 
 ]
-Overfull \hbox (5.26227pt too wide) in paragraph at lines 121--122
+Overfull \hbox (5.26227pt too wide) in paragraph at lines 122--123
 []\OT1/cmr/m/n/12 Il est au-jourd'hui pos-si-ble d'obtenir la s^^Sequence du g^
 ^Senome de grandes co-hortes d'individus,
  []
@@ -763,49 +766,49 @@ Missing character: There is no ” in font cmr12!
 File: figs/snpeff_table1.png Graphic file (type png)
 
 <use figs/snpeff_table1.png>
-Package pdftex.def Info: figs/snpeff_table1.png used on input line 33.
+Package pdftex.def Info: figs/snpeff_table1.png used on input line 34.
 (pdftex.def)             Requested size: 398.33858pt x 85.31056pt.
  [102 <./figs/snpeff_table1.png>] [103]
 <figs/snpeff_table2.png, id=383, 1086.0575pt x 983.675pt>
 File: figs/snpeff_table2.png Graphic file (type png)
 
 <use figs/snpeff_table2.png>
-Package pdftex.def Info: figs/snpeff_table2.png used on input line 57.
+Package pdftex.def Info: figs/snpeff_table2.png used on input line 58.
 (pdftex.def)             Requested size: 398.33858pt x 360.78702pt.
  [104] [105 <./figs/snpeff_table2.png>]
 <figs/snpeff_table3.png, id=391, 637.38126pt x 895.345pt>
 File: figs/snpeff_table3.png Graphic file (type png)
 
 <use figs/snpeff_table3.png>
-Package pdftex.def Info: figs/snpeff_table3.png used on input line 65.
+Package pdftex.def Info: figs/snpeff_table3.png used on input line 66.
 (pdftex.def)             Requested size: 227.62204pt x 319.74187pt.
  [106] [107 <./figs/snpeff_table3.png>] [108]
 [109] <figs/snpeff_table4.png, id=404, 1866.975pt x 544.0325pt>
 File: figs/snpeff_table4.png Graphic file (type png)
 
 <use figs/snpeff_table4.png>
-Package pdftex.def Info: figs/snpeff_table4.png used on input line 79.
+Package pdftex.def Info: figs/snpeff_table4.png used on input line 80.
 (pdftex.def)             Requested size: 398.33858pt x 116.06816pt.
 
 <figs/snpeff_fig1.png, id=405, 1230.5975pt x 775.89874pt>
 File: figs/snpeff_fig1.png Graphic file (type png)
 
 <use figs/snpeff_fig1.png>
-Package pdftex.def Info: figs/snpeff_fig1.png used on input line 81.
+Package pdftex.def Info: figs/snpeff_fig1.png used on input line 82.
 (pdftex.def)             Requested size: 398.33858pt x 251.14592pt.
  [110 <./figs/snpeff_table4.png>]
 <figs/snpeff_table5.png, id=409, 1555.8125pt x 951.555pt>
 File: figs/snpeff_table5.png Graphic file (type png)
 
 <use figs/snpeff_table5.png>
-Package pdftex.def Info: figs/snpeff_table5.png used on input line 85.
+Package pdftex.def Info: figs/snpeff_table5.png used on input line 86.
 (pdftex.def)             Requested size: 398.33858pt x 243.62338pt.
 
 <figs/snpeff_table6.png, id=410, 1871.99374pt x 745.78625pt>
 File: figs/snpeff_table6.png Graphic file (type png)
 
 <use figs/snpeff_table6.png>
-Package pdftex.def Info: figs/snpeff_table6.png used on input line 87.
+Package pdftex.def Info: figs/snpeff_table6.png used on input line 88.
 (pdftex.def)             Requested size: 398.33858pt x 158.69086pt.
  [111 <./figs/snpeff_fig1.png>] [112 <./figs/snpeff_table5.png> <./figs/snpeff_
 table6.png>]
@@ -817,14 +820,14 @@ Missing character: There is no “ in font cmr12!
 File: figs/snpeff_fig2.png Graphic file (type png)
 
 <use figs/snpeff_fig2.png>
-Package pdftex.def Info: figs/snpeff_fig2.png used on input line 95.
+Package pdftex.def Info: figs/snpeff_fig2.png used on input line 96.
 (pdftex.def)             Requested size: 398.33858pt x 230.78773pt.
  [113] [114 <./figs/snpeff_fig2.png>]
 <figs/snpeff_table7.png, id=425, 1866.975pt x 897.3525pt>
 File: figs/snpeff_table7.png Graphic file (type png)
 
 <use figs/snpeff_table7.png>
-Package pdftex.def Info: figs/snpeff_table7.png used on input line 99.
+Package pdftex.def Info: figs/snpeff_table7.png used on input line 100.
 (pdftex.def)             Requested size: 398.33858pt x 191.44823pt.
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -833,7 +836,7 @@ Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
 
-Overfull \hbox (78.95596pt too wide) in paragraph at lines 101--102
+Overfull \hbox (78.95596pt too wide) in paragraph at lines 102--103
 \OT1/cmr/m/n/12 ment Search Tool (BLASTp) with the non-redundant (nr) pro-tein 
 database (http://www.ncbi.nlm.nih.gov/),
  []
@@ -842,25 +845,25 @@ database (http://www.ncbi.nlm.nih.gov/),
 File: figs/snpeff_fig3.png Graphic file (type png)
 
 <use figs/snpeff_fig3.png>
-Package pdftex.def Info: figs/snpeff_fig3.png used on input line 103.
+Package pdftex.def Info: figs/snpeff_fig3.png used on input line 104.
 (pdftex.def)             Requested size: 398.33858pt x 585.1706pt.
 
 
-LaTeX Warning: Float too large for page by 15.74057pt on input line 103.
+LaTeX Warning: Float too large for page by 15.74057pt on input line 104.
 
 [115 <./figs/snpeff_table7.png>] [116] [117 <./figs/snpeff_fig3.png>] [118]
 <figs/snpeff_fig4.png, id=440, 1381.16pt x 937.5025pt>
 File: figs/snpeff_fig4.png Graphic file (type png)
 
 <use figs/snpeff_fig4.png>
-Package pdftex.def Info: figs/snpeff_fig4.png used on input line 121.
+Package pdftex.def Info: figs/snpeff_fig4.png used on input line 122.
 (pdftex.def)             Requested size: 398.33858pt x 270.38103pt.
  [119 <./figs/snpeff_fig4.png>]
 <figs/snpeff_fig6.png, id=444, 600.2425pt x 996.72375pt>
 File: figs/snpeff_fig6.png Graphic file (type png)
 
 <use figs/snpeff_fig6.png>
-Package pdftex.def Info: figs/snpeff_fig6.png used on input line 127.
+Package pdftex.def Info: figs/snpeff_fig6.png used on input line 128.
 (pdftex.def)             Requested size: 398.33858pt x 661.47461pt.
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -870,16 +873,16 @@ Missing character: There is no € in font cmr12!
 Missing character: There is no “ in font cmr12!
 
 
-LaTeX Warning: Float too large for page by 106.54459pt on input line 127.
+LaTeX Warning: Float too large for page by 106.54459pt on input line 128.
 
 
-Overfull \hbox (3.65627pt too wide) in paragraph at lines 129--130
+Overfull \hbox (3.65627pt too wide) in paragraph at lines 130--131
 \OT1/cmr/m/n/12 ref-er-ence genome ver-sions that can be an-a-lyzed (http://snp
 eff. source-forge.net/SnpSift.html).
  []
 
 
-Overfull \hbox (19.45798pt too wide) in paragraph at lines 129--130
+Overfull \hbox (19.45798pt too wide) in paragraph at lines 130--131
 \OT1/cmr/m/n/12 mat-ics web-site as well as or-gan-ism spe-cific databases, suc
 h as Fly-Base (Drosophila melanogaster),
  []
@@ -889,11 +892,11 @@ h as Fly-Base (Drosophila melanogaster),
 File: figs/snpeff_fig5.png Graphic file (type png)
 
 <use figs/snpeff_fig5.png>
-Package pdftex.def Info: figs/snpeff_fig5.png used on input line 145.
+Package pdftex.def Info: figs/snpeff_fig5.png used on input line 146.
 (pdftex.def)             Requested size: 398.33858pt x 539.05109pt.
 
 
-LaTeX Warning: Float too large for page by 13.12106pt on input line 145.
+LaTeX Warning: Float too large for page by 13.12106pt on input line 146.
 
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
@@ -913,11 +916,11 @@ File: figs/gwas_epistasis_pipeline.png Graphic file (type png)
 
 <use figs/gwas_epistasis_pipeline.png>
 Package pdftex.def Info: figs/gwas_epistasis_pipeline.png used on input line 11
-1.
+2.
 (pdftex.def)             Requested size: 455.24408pt x 347.57796pt.
  [133 <./figs/gwas_epistasis_pipeline.png>] [134] [135] [136] [137] [138] [139]
  [140] [141] [142]
-Overfull \hbox (13.5312pt too wide) in paragraph at lines 330--332
+Overfull \hbox (13.5312pt too wide) in paragraph at lines 331--333
 \OT1/cmr/m/n/12 paragine, Glu-tamine, Argi-nine, As-par-tic acid and Glu-tamic 
 acid). Phenylalanine-Phenylalanine
  []
@@ -926,28 +929,28 @@ acid). Phenylalanine-Phenylalanine
 File: figs/gwas_figure_2.png Graphic file (type png)
 
 <use figs/gwas_figure_2.png>
-Package pdftex.def Info: figs/gwas_figure_2.png used on input line 341.
+Package pdftex.def Info: figs/gwas_figure_2.png used on input line 342.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
  [143]
 <figs/gwas_figure_2b_ROC.png, id=527, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_2b_ROC.png Graphic file (type png)
 
 <use figs/gwas_figure_2b_ROC.png>
-Package pdftex.def Info: figs/gwas_figure_2b_ROC.png used on input line 343.
+Package pdftex.def Info: figs/gwas_figure_2b_ROC.png used on input line 344.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
  [144 <./figs/gwas_figure_2.png>] [145 <./figs/gwas_figure_2b_ROC.png>]
 <figs/gwas_figure_3.png, id=536, 1027.84pt x 1027.84pt>
 File: figs/gwas_figure_3.png Graphic file (type png)
 
 <use figs/gwas_figure_3.png>
-Package pdftex.def Info: figs/gwas_figure_3.png used on input line 357.
+Package pdftex.def Info: figs/gwas_figure_3.png used on input line 358.
 (pdftex.def)             Requested size: 341.43306pt x 341.431pt.
  [146 <./figs/gwas_figure_3.png>]
 <figs/gwas_figure_4_jmol.png, id=541, 580.1675pt x 615.29875pt>
 File: figs/gwas_figure_4_jmol.png Graphic file (type png)
 
 <use figs/gwas_figure_4_jmol.png>
-Package pdftex.def Info: figs/gwas_figure_4_jmol.png used on input line 368.
+Package pdftex.def Info: figs/gwas_figure_4_jmol.png used on input line 369.
 (pdftex.def)             Requested size: 268.28784pt x 284.52756pt.
 
 <figs/gwas_figure_4_tree_coevolution.png, id=542, 2569.6pt x 5145.2225pt>
@@ -955,10 +958,10 @@ File: figs/gwas_figure_4_tree_coevolution.png Graphic file (type png)
 
 <use figs/gwas_figure_4_tree_coevolution.png>
 Package pdftex.def Info: figs/gwas_figure_4_tree_coevolution.png used on input 
-line 373.
+line 374.
 (pdftex.def)             Requested size: 241.56596pt x 483.69684pt.
 
-Overfull \hbox (147.6164pt too wide) in paragraph at lines 373--375
+Overfull \hbox (147.6164pt too wide) in paragraph at lines 374--376
  [][] 
  []
 
@@ -974,13 +977,13 @@ on.png>] [149]
 File: figs/gwas_13k_results_1.png Graphic file (type png)
 
 <use figs/gwas_13k_results_1.png>
-Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 415.
+Package pdftex.def Info: figs/gwas_13k_results_1.png used on input line 416.
 (pdftex.def)             Requested size: 398.33858pt x 152.17517pt.
  [150 <./figs/gwas_13k_results_1.png>]
 <figs/gwas_power.png, id=560, 1027.84pt x 1027.84pt>
 File: figs/gwas_power.png Graphic file (type png)
  <use figs/gwas_power.png>
-Package pdftex.def Info: figs/gwas_power.png used on input line 437.
+Package pdftex.def Info: figs/gwas_power.png used on input line 438.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
 [151] [152 <./figs/gwas_power.png>] [153] [154] [155] [156]) [157]
@@ -992,24 +995,24 @@ Package pdftex.def Info: figs/gwas_power.png used on input line 437.
 File: figs/gwas_genegene.png Graphic file (type png)
 
 <use figs/gwas_genegene.png>
-Package pdftex.def Info: figs/gwas_genegene.png used on input line 11.
+Package pdftex.def Info: figs/gwas_genegene.png used on input line 13.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
 <figs/gwas_clinvar.png, id=585, 1027.84pt x 1027.84pt>
 File: figs/gwas_clinvar.png Graphic file (type png)
 
 <use figs/gwas_clinvar.png>
-Package pdftex.def Info: figs/gwas_clinvar.png used on input line 13.
+Package pdftex.def Info: figs/gwas_clinvar.png used on input line 15.
 (pdftex.def)             Requested size: 398.33858pt x 398.34662pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 16--29
+Underfull \hbox (badness 10000) in paragraph at lines 18--31
 
  []
 
 ) [158
 
 
- <./figs/gwas_genegene.png>] [159 <./figs/gwas_clinvar.png>] [160]
+] [159 <./figs/gwas_genegene.png>] [160 <./figs/gwas_clinvar.png>]
 \openout2 = `chapters/conclusions.aux'.
 
 
@@ -1083,10 +1086,10 @@ LaTeX Warning: There were multiply-defined labels.
 
  ) 
 Here is how much of TeX's memory you used:
- 6441 strings out of 493315
- 98505 string characters out of 6137904
- 201372 words of memory out of 5000000
- 9696 multiletter control sequences out of 15000+600000
+ 6457 strings out of 493315
+ 98844 string characters out of 6137904
+ 201440 words of memory out of 5000000
+ 9708 multiletter control sequences out of 15000+600000
  15433 words of font info for 59 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,11n,46p,2605b,1546s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -1104,7 +1107,7 @@ ive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy8.pfb></usr/local/texliv
 e/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/local/texlive
 /2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/local/texlive/
 2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (210 pages, 5888202 bytes).
+Output written on thesis_mcgill.pdf (210 pages, 5888121 bytes).
 PDF statistics:
  777 PDF objects out of 1000 (max. 8388607)
  506 compressed objects within 6 object streams

@@ -29,10 +29,11 @@ The rest of the chapter is from the following paper: \textbf{P. Cingolani}, R. S
 \section{Abstract}
 %---
 
-\paragraph{Motivation} Epistasis, broadly defined as genetic interactions, is one of the likely factors explaining why variants identified to date by genome-wide association studies (GWAS) account for a small portion of heritable risk for complex diseases. Due to their high complexity, reduced statistical power and sometimes prohibitive computational requirements, epistatic GWAS analyses have rarely been performed. 
+\paragraph{Motivation} Epistasis, broadly defined as genetic interactions, is one of the likely factors explaining why variants identified to date by genome-wide association studies (GWAS) account for a small portion of heritable risk in complex diseases. 
+Due to their high complexity, reduced statistical power and sometimes prohibitive computational requirements, epistatic GWAS analyses have rarely been performed. 
 
 \paragraph{Methods} In this paper, we propose a novel methodology for identifying putative epistatic interactions by combining interspecies comparison and population level variation. 
-Using crystal structures for individual proteins and for complexes as well as genome wide multiple species alignment, we create a co-evolutionary substitution model that allows the calculation of the posterior probability of physical interaction between residues. 
+Using crystal structures for individual proteins and protein complexes as well as genome wide multiple species alignment, we create a co-evolutionary substitution model that allows the calculation of the posterior probability of physical interaction between residues. 
 These probabilities are then used as the interaction priors for an epistatic GWAS analysis using a Bayesian framework. 
 
 \paragraph{Results} Our algorithms can be applied to genome scale sequencing studies for tens of thousands of samples, that typically yield millions of variants. 
@@ -80,20 +81,20 @@ Furthermore, a recent study shows that overall agreement between methods is not 
 Considering epistatic interactions in GWAS is challenging for several reasons: 
 i) interaction models are non-linear \cite{gao2010classification}; 
 ii) analysing all order $N$ variant combinations requires great computational power and efficient algorithms or might just be infeasible because the number tests grows exponentially with $N$ \cite{phillips2008epistasis}; 
-iii) multiple hypothesis testing correction can render association tests underpowered for all but very large cohorts \cite{gao2010classification, phillips2008epistasis}
+iii) multiple hypothesis testing correction can render association tests underpowered for all but very large cohorts \cite{gao2010classification, phillips2008epistasis};
 iv) there is no consensus of what genetic interaction means, which is reflected in the difficulty to find a unified model \cite{phillips2008epistasis,mani2008defining}; and 
 v) the required sample sizes to detect epistatic interactions depend on phenotypic effect size and variants' allele frequencies with some estimates assuming on the order of 10,000 to 500,000 cases \cite{jostins2013using} to be required (such cohorts are only now becoming feasible due to improvements and cost reductions in sequencing technology).
 For all these reasons the application of epistatic models to sequencing studies has not been widespread.
 
 Approaches for epistatic GWAS do exist and they are based on a wide array of methodologies. 
 In Zhao et al. \cite{zhao2006test}, the authors infer epistatic interaction probabilities by noting that interactions create linkage disequilibrium patterns in the disease population. 
-A Bayesian framework in \cite{zhang2007bayesian} takes into account several risk models and uses Dirichlet priors to solve each model analytically, then they combine them in the full model posterior distribution calculated using an MCMC sampling technique. 
+A Bayesian framework in Zhang et al. \cite{zhang2007bayesian} takes into account several risk models and uses Dirichlet priors to solve each model analytically, then they combine them in the full model posterior distribution calculated using an MCMC sampling technique. 
 In Ackermann et al. \cite{ackermann2012systematic}, the authors look for over / under-represented allele pairs in a given family pedigree by performing an analysis of imbalanced allele pair frequencies.
 Finally, finding interacting variants can be viewed as an attribute selection problem, thus many machine learning methodologies have been proposed \cite{mckinney2006machine}. 
 While all algorithms have relative advantages, there is no standard in epistatic GWAS analysis and we believe that better methods can be created by combining other sources of biological information, such as evolutionary evidence.
 
 In this work we propose an approach to prioritize pairs of variants identified in case/control cohorts by combining genome wide association with epistatic interaction models. 
-In a nutshell, our method uses recently computed 100-way vertebrate genome alignments \cite{blanchette2004aligning} to calculate interaction posterior probabilities for any given pair of residues in human proteins. 
+In a nutshell, our method uses a 100-way vertebrate genome alignment \cite{blanchette2004aligning} to calculate interaction posterior probabilities for any given pair of residues in human proteins. 
 This is achieved by contrasting the likelihood of the observed pair of alignment columns under a joint substitution model that factors in dependencies between interacting sites, and a null model of independent evolution. 
 The posterior probabilities can then used as priors to modulate the evidence of epistatic interaction derived from GWAS data. 
 Our implementation is efficient enough to be applied to GWAS-scale datasets of tens of thousands of samples. 
@@ -169,8 +170,8 @@ Consider a GWAS with $N_S$  samples (individuals) and $N_V$ variants, we use the
 Let $\bar{d} = [d_1, ..., d_{N_s}]$ be a phenotype vector and $g_{s,i} \in \{0,1,2\}$ a genomic variant for sample $s$ at locus $i$. A logistic model of disease risk \cite{balding2006tutorial} is
 \begin{eqnarray*}
     p_{s,i} & = & P( d_s=1 | g_{s,i}, \bar{\theta} ) \\
-    & = & \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ... ) \\
-    & = & \frac{1}{1 + e^{-(\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_4 c_{s,2} + ...})} \\
+    & = & \phi( \theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_3 c_{s,2} + ... ) \\
+    & = & \frac{1}{1 + e^{-(\theta_0 + \theta_1 g_{s,i} + \theta_2 c_{s,1} + \theta_3 c_{s,2} + ...})} \\
     & = & \phi( \bar{\theta}^T \bar{g}_{s,i})
 \end{eqnarray*}
 \noindent where $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for each individual $s$ (these covariates usually include sex, age and eigenvalues from population structure analysis \cite{price2006principal}), $\bar{g}_{s,i} = [ 1, g_{s,i} , c_{s,1}, c_{s,2}, ... , c_{s,N_C} ]$, and $\bar{\theta} = [\theta_1, \theta_2, ..., \theta_m] $. 
@@ -183,7 +184,7 @@ The parameter estimates $\bar{\theta}$ are obtained by solving the maximum likel
 Using this model, we have two hypotheses: 
 i) the null hypothesis, $H_0$, assumes that genotype does not influence disease probability (i.e. $\theta_1 = 0$); and
 ii) the alternate hypothesis, $H_1$, assumes that the genotype does influence disease probability (i.e. $\theta_1 \neq 0$). 
-We can compare these two hypotheses using a likelihood ratio test, so we define
+We can compare these two hypotheses using a log likelihood ratio test, so we define
 \begin{eqnarray*} \label{eq:gwasLogLikLogReg}
 	% L_G & = & \frac{L( \bar{\theta} | H_1 ) }{ L( \bar{\theta}' | H_0 ) }\\
 	\ell_G & = & log \left[ \frac{L( \bar{\theta} | H_1 ) }{ L( \bar{\theta}' | H_0 ) } \right]
@@ -194,7 +195,7 @@ According to Wilk's theorem \cite{wilks1938large}, the log likelihood ratio has 
 Next, we extend the logistic model to accommodate interacting loci. For an individual (sample $s$), we model interactions between two genetic loci $i$ and $j$, having genotypes $g_{s,i}$ and $g_{s,j}$, by extending the logistic model
 \begin{eqnarray} \label{eq:gwasLogRegH1}
     P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
-    & & ... + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
+    & & + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
     & = & \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
 \end{eqnarray}
 \noindent where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. 
@@ -242,7 +243,7 @@ The multivariate case for $\bar{x} \in \Re^d$ is an analogous extension that use
 \end{eqnarray}
 Using equation \ref{eq:laplace} we can try to approximate the improper integrals in equation \ref{eq:bf2} by the transformation $L(\bar{\theta}) = e^{\ell(\bar{\theta})}$, where $\ell(\cdot)$ is the log-likelihood of the data, so we can use Laplace approximation by applying Eq.\ref{eq:laplace} at the point of the maximum likelihood.
 In order to do so, we need to calculate the Hessian matrix in Eq.\ref{eq:laplace}.
-Fortunately in logistic models 
+Fortunately in logistic models
 %a few simplifications can be made by considering that $L(\bar{\theta}) = \prod_{s=1}^{N_S}{ \phi( \bar{\theta}^T \bar{g}_s)^{d_s} [ 1-\phi( \bar{\theta}^T \bar{g}_s) ]^{1-d_i} }$, so 
 , it can be shown that for genotype terms
 \begin{eqnarray*}
@@ -256,15 +257,15 @@ In order to estimate these distributions, we run the logistic regression fitting
 As expected most parameters have uni-modal distribution, except for $\theta_3$, which has a multi-modal distribution. 
 For all parameters, except $\theta_3$, we use a normal distribution centred at the mean and variance set to one ($\sigma=1)$ even though most times the variance is much smaller. 
 This is done to avoid penalizing outliers too heavily and to have smooth derivatives near the maximum likelihood estimates. 
-For $\theta_3$, which has a multi-modal distribution, we fit a mixture model parameters using an EM algorithm to fit a Gaussian bimodal.
+For $\theta_3$, we use a Gaussian bimodal distribution fitting the parameters by means of an EM algorithm.
 
 \paragraph{Computational and statistical issues} 
 The computational burden for the detection of pairs of interacting genetic loci affecting disease risk is significantly larger than in a standard (single variant) GWAS study. 
 A priori all pairs of variants should be analysed, thus significantly increasing the number of statistical tests. 
 This also reduces the statistical power since the required p-value significance level would be orders of magnitude smaller. 
-A na{\"i}ve approach would estimate that if a typical genetic sequencing study has $10^6$ variants, a GWAS on epistatic variants would square that number of statistical tests, thus p-values required for significance would be in the order of $0.05 / (10^6)^2 = 5 \cdot 10^{-14}$. 
+A na{\"i}ve approach would estimate that if a typical genetic sequencing study has $10^6$ variants, a GWAS on epistatic variant pairs would square that number of statistical tests, thus p-values required for significance would be in the order of $0.05 / (10^6)^2 = 5 \cdot 10^{-14}$. 
 
-Fortunately these numbers can be reduced significantly. 
+Fortunately the number of tests can be reduced significantly. 
 First, in this study, we only concentrate on non-synonymous coding variants. 
 Second, as required by our co-evolutionary model, only variants overlapping a multiple sequence alignment are taken into account (when several multiple sequence alignments overlapped a region, the alignment with the longest number of proteins was selected).
 Third, if two variants $g_i$ and $g_j$ are such that the interaction term $(g_{s,i} g_{s,j})$ is zero in all samples, which usually happens for pairs of rare variants, then $BF_G = 1$ (according to our estimates, this filters out over $95 \%$ of variant pairs). 
@@ -336,7 +337,7 @@ We first assessed the ability of our co-evolutionary model to detect interacting
 Although such pairs of sites are unlikely to exhibit evidence of epistasis in GWAS studies (due to linkage), accurate prediction of interacting sites in a given protein are useful for many other purposes, such as protein structure prediction and prediction of the impact of individual mutations.  
 Figure \ref{fig:gwas_figure_2} shows that interacting sites tend to have higher likelihood ratio scores than non-interacting ones (Mann-Whitney p-value $< 2.2 \times 10^{-16}$). 
 Although the likelihood ratio score by itself cannot perfectly discriminate between the two classes, only 25.9\% of non-interacting pairs have a likelihood ratio above the median likelihood ratio of interacting pairs. 
-Figure \ref{fig:gwas_figure_2b_ROC} shows a receiver operator curve (ROC) curve for a classifier based on method.
+Figure \ref{fig:gwas_figure_2b_ROC} shows a receiver operator curve (ROC) curve for a classifier based on our method.
 
 \fig{gwas_figure_2}{gwas_figure_2}{12cm}{Histogram of log-likelihood values of pairs of amino acids in contact (red) and not in contact (blue) for amino acids within the protein (PDB). Log-odds of contacting vs non-contacting pairs (black) and smoothed log-odds (dotted grey).}{Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}
 
@@ -437,7 +438,7 @@ Results for some selected models are shown in Figure \ref{fig:gwas_power}.
 \fig{gwas_power}{gwas_power}{14cm}{Power calculation using a case/control pure two-loci epistatic model for disease prevalences of $8\%$ (type II diabetes). X-axis shows the number of samples in thousands (ranging from 10,000 to 1,000,000) and several joint risk values (from 0.1 to 5) are shown as different colors lines within each plot. Each plot represents a different allele frequencies combination (for each of the two loci), from top to bottom and left to right, the allele frequency value pairs are: $[AF_1=1\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=1\%]$, $[AF_1=5\%, AF_2=2.5\%]$, $[AF_1=5\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=1\%]$, $[AF_1=10\%, AF_2=2.5\%]$, $[AF_1=10\%, AF_2=5\%]$, $[AF_1=10\%, AF_2=7.5\%]$, $[AF_1=10\%, AF_2=10\%]$}{Power calculation using a pure two-loci epistatic model}
 
 As expected these simulations show that very large sample sizes are required to find epistatic effects on rare variant loci (i.e. allele frequencies below $1\%$).
-Even if the risk factor is assumed to be over $2$, $3$, or $5$, sample sizes requirements are expected to be over $400,000$, $200,000$ and $100,000$ respectively (see Figure \ref{fig:gwas_power}, top-left plot).
+Even if the risk factor is assumed to be over $2$, $3$, or $5$, sample sizes requirements are expected to be over $400,000$; $200,000$; and $100,000$ respectively (see Figure \ref{fig:gwas_power}, top-left plot).
 For common variants (i.e. allele frequency of $5\%$) the sample sizes look more attainable in the near future, ranging from $10,000$ to $100,000$ samples when risk factors decrease from $5$ to $1.6$ (Figure \ref{fig:gwas_power}, middle row, left plot).
 Finally, for relatively common variants (allele frequency of $10\%$) the sample sizes up to $100,000$ would be required for risk factors of $1.3$, which is still considered a high risk factor (Figure \ref{fig:gwas_power}, bottom right plot).
 
@@ -452,7 +453,7 @@ In this paper, we propose a novel methodology for genome wide association studie
 Due to the large number of statistical tests required in an epistatic GWAS analysis and the corresponding reduction of statistical power, this type of analysis is meant to be applied to datasets consisting of large number of samples.
 Our highly optimized algorithms are applicable to such large scale sequencing genomic studies and we show the application of our methods to a large scale exome sequencing study for type II diabetes consisting of $\sim 13,000$ samples and $\sim 1,7M$ variants. 
 First, this shows that is is indeed feasible to apply our methods to GWAS-scale datasets. 
-Second, although larger cohorts are needed in order to find risk alleles that have lower frequencies and are not captured by this study, we show several suggestive association of pairs of putatively interacting variants with type II diabetes. 
+Second, although larger cohorts are needed in order to find risk alleles that have lower frequencies and are not captured by this study, we show several suggestive association of pairs of putatively interacting variants affecting type II diabetes risk. 
 
 The co-evolutionary model we propose in section \ref{sec:gwasQ2} requires multiple sequence alignment and the corresponding phylogenetic tree.
 Intuitively, using a MSA with larger number of sequences should improve co-evolutionary model detection and other co-evolutionary approaches indeed require very large MSA. 
@@ -497,7 +498,7 @@ All these models are so computationally heavy that can only be applied to very s
 Furthermore, in some of the respective papers the authors mention that it is computationally infeasible to apply them to a single pair of proteins if the length is over a some low number of amino acids (e.g. $60$ \cite{weigt2009identification} or $500$ \cite{morcos2011direct}). 
 It is therefore not possible to apply any of these method to GWAS-scale studies at the moment.
 
-Our method attempts to solve two of the main problems common to some of the aforementioned methods: 
+Our method attempts to solve three of the main problems common to some of the aforementioned methods: 
 i) the requirement of large number of sequences, 
 ii) the phylogenetic bias, and
 iii) running time.
@@ -536,8 +537,7 @@ Nevertheless it seems that complete LD would be a result of ``selective sweeps",
 These selective sweeps seem to be rare \cite{hernandez2011classic}, thus this limitation might not be encountered often in practice.
 
 \paragraph{Future work}
-We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains. 
-In order to obtain better estimates for well characterized protein interaction regions. 
+We plan to extend our method to include context specific information by creating $Q_2$ estimates for different protein domains, in order to obtain better estimates for well characterized protein interaction regions. 
 Another line of work is to perform GWAS using kernel based statistics of multiple variants \cite{wu2011rare} thus allowing simultaneous analysis of nearby variants in a putative interaction hotspot. 
 In this case the epistatic information would be used as a function modifying the kernel, instead of a Bayesian prior.
 It has also been suggested that positive selection might be used as an additional prior of epistatic interactions. 
