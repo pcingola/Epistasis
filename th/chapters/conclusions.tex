@@ -16,7 +16,7 @@ This is mainly done by mapping reads to a reference genome and then using varian
 This step is characterized by requiring fast parallel algorithms and usually, due to the amount of data involved, I/O can be one of the bottlenecks. Algorithms that work on ``chunks of data" instead of the whole data-set are preferred, and in many cases exist, because working on disjoint data makes the problem easier to parallelize. 
 Usually several stages of these highly specialized algorithms are combined into a ``data analysis pipeline". 
 Programming data analysis pipelines is not trivial since it requires process coordination, robustness, scalability and flexibility (data processing pipelines, particularly in research environments, tend to change often). 
-Although data pipeline solutions are often available in the form of libraries, these libraries tend to make pipeline programming cumbersome or create new programming paradigms thus introducing a steep learning curve. 
+Although data pipeline solutions are often available in the form of libraries, these libraries tend to make pipeline programming cumbersome or create new programming paradigms and thus introduce a steep learning curve. 
 In Chapter \ref{ch:bds}, we address problems related to pipeline programming in a novel way by creating a new programming language, BDS, that simplifies the creation of robust, scalable and flexible data pipelines. 
 Although the main rationale behind the development of BDS was managing our sequencing data pipelines, it is a flexible programming language that can be applied to many large data pipelines.
 
@@ -49,12 +49,12 @@ These three chapters (three steps) complete our journey from ``raw data" to ``bi
 Here we propose several improvements, extensions and future directions of work for each of the topics discussed in this thesis. \\
 
 \paragraph{BigDataScript}
-We are adding native support for new clusters and frameworks, such as LSF, Mesos, Kubertes as well as a \textit{``Generic cluster"} API which allows the user to customize BigDataScript for any cluster or framework by encapsulating task management via user defined scripts. 
+We are adding native support for new clusters and frameworks, such as LSF \cite{REF}, Mesos \cite{REF}, Kubertes \cite{REF} as well as a \textit{``Generic cluster"} API which allows the user to customize BigDataScript for any cluster or framework by encapsulating task management via user defined scripts. 
 On the language specification side, we are exploring ways to add functional constructs such as \texttt{map}, \texttt{apply}, \texttt{filter} as well as support for \textit{map/reduce} and \textit{scatter/gather} which are convenient ways to define some problems in data pipeline programming. 
 Finally we, will incorporate user-defined data structures or a basic class mechanism (BDS currently supports maps and list).
 
 \paragraph{Variant annotations} In an effort coordinated with the developers of other annotations tools (such as ANNOVAR \cite{wang2010annovar}, ENSEMBL’s Variant effect predictor -VEP- \cite{mclaren2010deriving}, JAnnovar \cite{jager2014jannovar}, etc.) we are creating new annotation standard for VCF files. 
-We are actively collaborating with the \textit{``Global Alliance for Genomics and Health"} (GA4GH) in the creation of variant annotation specification \& API definitions. 
+We are actively collaborating with the \textit{``Global Alliance for Genomics and Health"} (GA4GH) to create a new variant annotation specification \& API definitions. 
 We plan to extend SnpEff's variant annotation capabilities to \textit{haplotype-based} annotations, which means taking into account phasing information to calculate compound variant effects (e.g. phased SNPs affecting the same codon or compensating frame shifts within the same DNA strand). 
 Finally, we are using information-theoretic analysis of splice sites from several species in order to improve splicing effect predictions.
 
@@ -72,42 +72,43 @@ Genomic research for complex disease is trending towards larger and larger cohor
 Some years ago, projects involving hundreds to a thousand individuals were common. 
 To put this in perspective, that is the population of a village, or a small town. 
 Nowadays, projects like the those lead by the T2D consortia sequence in the order of $20,000$ people (i.e. the population of a large town). 
-I am aware, through personal communications with other researchers, that projects are being drafted for sequencing over $100,000$ individuals (i.e. the population of a small city) and some institutions are foreseeing sequencing up to $1,000,000$ samples per year within the next few years. 
+I am aware, through personal communications with other researchers, that projects are being drafted for sequencing over $100,000$ individuals (i.e. the population of a small city) and some institutions are foreseeing sequencing up to $1,000,000$ samples per year within the next few years (personal communications). 
 
-As a rule of the thumb, sequence data of a single whole genome requires $800$ CPU hours of primary processing (i.e. read mapping and variant calling).
-For an institution willing to process $1,000,000$ genomes per year this means $800,000,000$ CPU hours just for primary processing.
-In order to keep up with sequencing, data analysis should be also performed within the same time-frame, thus requiring $\sim 92,000$ CPUs burning data $7 \times 24$ (an over optimistic estimate that assumes no hardware failures, no software failures and no programmed outages).
+As a rule of the thumb, sequence data of a single whole genome requires $\sim800$ CPU hours of primary processing (i.e. read mapping and variant calling).
+For an institution planning to process $1,000,000$ genomes per year will require $\sim800,000,000$ CPU hours just for primary processing.
+In order to keep up with sequencing, data analysis should be also performed within the same time-frame, thus requiring $\sim92,000$ CPUs processing data continuously (an over optimistic estimate that assumes no hardware failures, no software failures and no programmed outages).
 Having tens to hundreds of thousands of CPUs constantly analysing data in production environments poses infrastructures challenges.
-Most academic environments currently use their own infrastructure (local clusters), an approach that may not be easy to further scale.
-For this reason a shift towards cloud infrastructure is already being considered and in some cases implemented by some leading institutions (personal communications).
+Most academic environments currently use their own infrastructure (local clusters), an approach that may not be easy to scale further.
+For this reason a shift towards a cloud infrastructure is already being considered by some leading institutions (personal communications).
 
-We developed BDS to help processing not only the large dataset currently available, but also huge datasets that experts consider likely to become available in a not so distant future.
-Even though BDS can currently handle a typical analysis involving tens of thousands of CPUs, further scaling to hundreds of thousands or even millions of CPUs would require additional abstraction levels.
+We developed BDS to help processing both the large datasets currently available, and also huge datasets that experts consider likely to become available in the near future.
+Even though BDS can currently handle typical analyses involving tens of thousands of CPUs, further scaling to hundreds of thousands or even millions of CPUs would require additional abstraction levels.
 Most notably, the current processing model assumes the existence of a file system which is used for retrieving input files, storing output results and and logging process status.
 We anticipate that this model can break down on cloud based pipelines running over hundreds of thousands of CPUs.
-Typically cloud based environments use the concept of object storage (a.k.a. buckets) instead of file systems.
+Typically cloud based environments use the concept of object storage (also called buckets) instead of file systems.
 We think that the two models (file system and object storage) can be abstracted away in a new unified model enabling the user write even more portable pipelines and letting BDS take care of transparently transferring data to and from the object storage system.
-This approach has the benefit of also enabling to transparently add data locality optimizations by moving the processes close to the data instead of the traditional approach of moving the data to the process, with various degrees of data locality optimizations ranging from multi-datacenter processing to rack-aware file systems.
+This approach has the benefit of also enabling users to transparently add data locality optimizations by moving the processes close to the data instead of the traditional approach of moving the data to the process, with various degrees of data locality optimizations ranging from multi-datacenter processing to rack-aware file systems.
 %Another models that breaks down is the concept of communicating the program's outputs (processed in slave nodes) to the master node (where the BDS script is being run).
 %It is difficult of impossible to make sense of such a large amount of output, so a sensible mechanism for focusing on a few meaningful
 
 The quest for ever bigger sample sizes shows how elusive the genetic causes of complex diseases are. 
-It might be true that huge sample sizes are needed to uncover risk loci, but perhaps one of the reasons why traditional GWAS studies are not finding as many associations as expected is just that we they are looking at the wrong place by not routinely taking into account other possibilities, such as large InDels, CNVs, and epistasis.
+It might be true that huge sample sizes are needed to uncover risk loci, but perhaps one of the reasons why traditional GWAS studies are have not found as many associations as expected is that we they are looking at the wrong place by not routinely taking into account other types of disease variants (e.g. InDels or CNVs) or models for interacting variants (epistasis).
+%possibilities, such as large InDels, CNVs, and epistasis.
 
-In the context of large cohort studies, variant annotation improvements would greatly benefit the bottom line.
-As opposed to the previous problem of processing large datasets, variant annotations is challenging not because of the computational challenges but rather due to restricted biological knowledge.
-Advanced variant effect models could be developed with help of systematic studies.
-For instance, a systematic analysis of loss of function and nonsense mediated decay variants would entail creating all possible stop gained mutations in one or more genes and analysing the protein output in each case (obviously this is an ambitious and challenging project to say the least, but so were other projects like 1KG, EST, GTeX and ENCODE, just to mention a few).
-Lower impact variants, such as non-synonymous, pose even further challenges since there is no consensus on how to measure partial protein gain/loss of function (e.g. in protein affected by a non-synonymous variant, interaction efficiency with protein X is degraded by $50\%$ whereas interaction with protein Y is improved $20\%$).
-Such analysis, which are beyond the current state of technology, could only be feasible by supporting long term technology development projects.
+In the context of large cohort studies, variant annotation improvements would greatly benefit the outcome.
+Compared to the previous problem of processing large datasets, variant annotation is challenging not because of the computational challenges but rather due to restricted biological knowledge.
+Advanced variant effects models could be developed with help of systematic studies.
+For instance, a systematic analysis of loss of function and nonsense mediated decay variants would entail creating all possible stop gained mutations in one or more genes and analysing the protein output in each case (obviously this is an ambitious and challenging project, but so were other projects like 1KG \cite{10002012integrated}, GTeX \cite{lonsdale2013genotype} and ENCODE \cite{encode2012integrated}, just to mention a few).
+Lower impact variants, such as non-synonymous variants, pose even further challenges since there is no consensus on how to measure partial protein gain or loss of function (e.g. in a protein affected by a non-synonymous variant, interaction efficiency with protein X is degraded by $50\%$ whereas interaction with protein Y is improved $20\%$).
+Such analyses, which are beyond the current state of technology, could only be feasible by supporting long term technology development projects.
 
 Finally, we should keep in mind that the ultimate goal of complex trait research is to have an impact on human health.
 This implies that research results should be readily available for translational medicine to effectively use of them.
-Scientific publishing dates from 1665 and understandably has some shortcomings at the time of implementing translational medicine.
-An enormous efforts is required to read papers, curate them, and translate their results into meaningful coherent data.
-In the private sector, companies that embark on this costly curation process regard the resulting curated databases as a completive advantage and are unwilling to share them, creating the well known silo effect which leads to several fragmented isolated curation projects with various degrees of success and different qualities.
-On the other hand, in academic environments there are few incentives to create curated databases and often they are not maintained after the paper is published and the students leave their labs, resulting on a plethora of outdated databases with different curation standards.
+Scientific journals date from 1665 \cite{REF} and understandably has some shortcomings in the era of translational medicine.
+An enormous effort is required to read papers, curate them, and translate their results into meaningful coherent data.
+In the private sector, companies that embark on this costly curation process regard the resulting curated databases as a competitive advantage and are unwilling to share them, creating the well known silo effect which leads to several fragmented isolated curation projects with various degrees of success and different qualities.
+On the other hand, there are few incentives in academic environments to create curated databases or to maintain them after the paper is published and the students leave their labs, resulting on a plethora of outdated databases with different curation standards.
 A refreshing approach adopted by the ClinGen project attempts to create long term, well curated, high quality, clinically relevant database/s.
 Obviously it would be better to have researchers contribute directly to these efforts thus significantly reducing the curation burden, but currently there are no incentives for researchers to do so.
-If we want to make a more effective use of research results in clinical environments, research agencies should incentivize (or even require) to publish genomic results in ClinGen and other similar systematic long term efforts that might appear in the future.
+If we want to make more effective use of research results in clinical environments, research agencies should incentivize (or even require) investigators to publish genomic results in ClinGen and other similar systematic long term efforts that might appear in the future.
 
