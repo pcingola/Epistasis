@@ -129,7 +129,7 @@ Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
 You've used 262 entries,
             2118 wiz_defined-function locations,
-            1840 strings with 60576 characters,
+            1840 strings with 60579 characters,
 and the built_in function-call counts, 110414 in all, are:
 = -- 10379
 > -- 7539
