@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  10 JUL 2015 11:10
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013) (format=pdflatex 2013.5.30)  10 JUL 2015 15:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -390,15 +390,6 @@ Underfull \hbox (badness 10000) in paragraph at lines 49--50
 
  []
 
-
-LaTeX Warning: Citation `REF' on page 4 undefined on input line 52.
-
-
-LaTeX Warning: Citation `REF' on page 4 undefined on input line 52.
-
-
-LaTeX Warning: Citation `REF' on page 4 undefined on input line 52.
-
 Missing character: There is no â in font cmr12!
 Missing character: There is no € in font cmr12!
 Missing character: There is no ™ in font cmr12!
@@ -412,23 +403,31 @@ LaTeX Font Info:    Try loading font information for U+msb on input line 74.
 (/usr/local/texlive/2013/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) [5] [6]
+[7]) [8] (./thesis_mcgill.bbl
+Underfull \hbox (badness 1221) in paragraph at lines 28--32
+[]\OT1/cmr/m/n/12 IBM.  Lsf: Ibm plat-form com-put-ing.  Web page, July 2015.  
+http://www-
+ []
 
-LaTeX Warning: Citation `REF' on page 7 undefined on input line 107.
-
-[7]) [8] (./thesis_mcgill.bbl) [9
+[9
 
 
-] (./thesis_mcgill.aux
-(./chapters/conclusions.aux))
+]
+Underfull \hbox (badness 1097) in paragraph at lines 58--63
+\OT1/cmr/m/n/12 Press-Re-lease, July 2014.  http://www.technologyreview.com/new
+s/528946/british-
+ []
+
+) [10] (./thesis_mcgill.aux (./chapters/conclusions.aux))
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 5773 strings out of 493315
- 85644 string characters out of 6137904
+ 5778 strings out of 493315
+ 85717 string characters out of 6137904
  175062 words of memory out of 5000000
- 9126 multiletter control sequences out of 15000+600000
+ 9131 multiletter control sequences out of 15000+600000
  10320 words of font info for 39 fonts, out of 8000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,5n,40p,504b,307s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -439,10 +438,10 @@ usr/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></us
 r/local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr
 /local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmti12.pfb></usr/
 local/texlive/2013/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on thesis_mcgill.pdf (9 pages, 94661 bytes).
+Output written on thesis_mcgill.pdf (10 pages, 96503 bytes).
 PDF statistics:
- 62 PDF objects out of 1000 (max. 8388607)
- 43 compressed objects within 1 object stream
+ 65 PDF objects out of 1000 (max. 8388607)
+ 45 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

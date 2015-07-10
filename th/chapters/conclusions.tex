@@ -49,7 +49,7 @@ These three chapters (three steps) complete our journey from ``raw data" to ``bi
 Here we propose several improvements, extensions and future directions of work for each of the topics discussed in this thesis. \\
 
 \paragraph{BigDataScript}
-We are adding native support for new clusters and frameworks, such as LSF \cite{REF}, Mesos \cite{REF}, Kubertes \cite{REF} as well as a \textit{``Generic cluster"} API which allows the user to customize BigDataScript for any cluster or framework by encapsulating task management via user defined scripts. 
+We are adding native support for new clusters and frameworks, such as LSF \cite{lsf}, Mesos \cite{hindman2011mesos}, Kubertes \cite{kubernetes} as well as a \textit{``Generic cluster"} API which allows the user to customize BigDataScript for any cluster or framework by encapsulating task management via user defined scripts. 
 On the language specification side, we are exploring ways to add functional constructs such as \texttt{map}, \texttt{apply}, \texttt{filter} as well as support for \textit{map/reduce} and \textit{scatter/gather} which are convenient ways to define some problems in data pipeline programming. 
 Finally we, will incorporate user-defined data structures or a basic class mechanism (BDS currently supports maps and list).
 
@@ -72,7 +72,7 @@ Genomic research for complex disease is trending towards larger and larger cohor
 Some years ago, projects involving hundreds to a thousand individuals were common. 
 To put this in perspective, that is the population of a village, or a small town. 
 Nowadays, projects like the those lead by the T2D consortia sequence in the order of $20,000$ people (i.e. the population of a large town). 
-I am aware, through personal communications with other researchers, that projects are being drafted for sequencing over $100,000$ individuals (i.e. the population of a small city) and some institutions are foreseeing sequencing up to $1,000,000$ samples per year within the next few years (personal communications). 
+Projects are being drafted for sequencing over $100,000$ individuals \cite{UK100K} (i.e. the population of a small city) and some institutions are foreseeing sequencing up to $1,000,000$ samples per year within the next few years \cite{precisionUS1M}.
 
 As a rule of the thumb, sequence data of a single whole genome requires $\sim800$ CPU hours of primary processing (i.e. read mapping and variant calling).
 For an institution planning to process $1,000,000$ genomes per year will require $\sim800,000,000$ CPU hours just for primary processing.
@@ -104,7 +104,7 @@ Such analyses, which are beyond the current state of technology, could only be f
 
 Finally, we should keep in mind that the ultimate goal of complex trait research is to have an impact on human health.
 This implies that research results should be readily available for translational medicine to effectively use of them.
-Scientific journals date from 1665 \cite{REF} and understandably has some shortcomings in the era of translational medicine.
+Scientific journals date from 1665 \cite{kronick1962history} and understandably has some shortcomings in the era of translational medicine.
 An enormous effort is required to read papers, curate them, and translate their results into meaningful coherent data.
 In the private sector, companies that embark on this costly curation process regard the resulting curated databases as a competitive advantage and are unwilling to share them, creating the well known silo effect which leads to several fragmented isolated curation projects with various degrees of success and different qualities.
 On the other hand, there are few incentives in academic environments to create curated databases or to maintain them after the paper is published and the students leave their labs, resulting on a plethora of outdated databases with different curation standards.

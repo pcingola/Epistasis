@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{10002012integrated}
 1000 Genomes~Project Consortium et~al.
@@ -10,11 +10,36 @@ ENCODE~Project Consortium et~al.
 \newblock An integrated encyclopedia of dna elements in the human genome.
 \newblock {\em Nature}, 489(7414):57--74, 2012.
 
+\bibitem{kubernetes}
+Google.
+\newblock Kubernetes: Manage a cluster of linux containers as a single system
+  to accelerate dev and simplify ops.
+\newblock Web page, July 2015.
+\newblock http://kubernetes.io.
+
+\bibitem{hindman2011mesos}
+Benjamin Hindman, Andy Konwinski, Matei Zaharia, Ali Ghodsi, Anthony~D Joseph,
+  Randy~H Katz, Scott Shenker, and Ion Stoica.
+\newblock Mesos: A platform for fine-grained resource sharing in the data
+  center.
+\newblock In {\em NSDI}, volume~11, pages 22--22, 2011.
+
+\bibitem{lsf}
+IBM.
+\newblock Lsf: Ibm platform computing.
+\newblock Web page, July 2015.
+\newblock http://www-03.ibm.com/systems/platformcomputing/products/lsf.
+
 \bibitem{jager2014jannovar}
 Marten J{\"a}ger, Kai Wang, Sebastian Bauer, Damian Smedley, Peter Krawitz, and
   Peter~N Robinson.
 \newblock Jannovar: a java library for exome annotation.
 \newblock {\em Human mutation}, 35(5):548--555, 2014.
+
+\bibitem{kronick1962history}
+David~A Kronick et~al.
+\newblock history of scientific and technical periodicals.
+\newblock 1962.
 
 \bibitem{lonsdale2013genotype}
 John Lonsdale, Jeffrey Thomas, Mike Salvatore, Rebecca Phillips, Edmund Lo,
@@ -28,6 +53,20 @@ William McLaren, Bethan Pritchard, Daniel Rios, Yuan Chen, Paul Flicek, and
 \newblock Deriving the consequences of genomic variants with the ensembl api
   and snp effect predictor.
 \newblock {\em Bioinformatics}, 26(16):2069--2070, 2010.
+
+\bibitem{UK100K}
+Antonio Regalado.
+\newblock British government picks illumina to sequence 100,000 genomes.
+\newblock PressRelease, July 2014.
+\newblock
+  http://www.technologyreview.com/news/528946/british-government-picks-illumina-to-sequence-100000-genomes.
+
+\bibitem{precisionUS1M}
+Antonio Regalado.
+\newblock U.s. to develop dna study of one million people.
+\newblock PressRelease, January 2015.
+\newblock
+  http://www.technologyreview.com/news/534591/us-to-develop-dna-study-of-one-million-people.
 
 \bibitem{wang2010annovar}
 K.~Wang, M.~Li, and H.~Hakonarson.
