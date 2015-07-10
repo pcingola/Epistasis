@@ -27,7 +27,10 @@ dirGwasOut		:= "$dir/gwas"	help GWAS output directory
 # Main
 #-------------------------------------------------------------------------------
 
-if( param ) parameterEstimation()
+if( param ) {
+	#parameterEstimation()
+	parameterEstimationQ2()
+}
 
 if( model ) {
 	#analysisNextProt()
@@ -37,7 +40,7 @@ if( model ) {
 	#analysisGeneGene()
 	#analysisClinvar()
 	#analysisInteracting()
-	analysisCompoundProteins()
+	#analysisCompoundProteins()
 }
 
 if( gwas ) {
