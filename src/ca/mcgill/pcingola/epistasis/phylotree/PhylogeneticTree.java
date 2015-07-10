@@ -299,7 +299,7 @@ public class PhylogeneticTree {
 		String rightDistStr = phylo.substring(rightIdx + 2, rightNum);
 		distanceRight = Gpr.parseDoubleSafe(rightDistStr);
 
-		this.id = (int) ids.inc();
+		id = (int) ids.inc();
 		left = newNode(this, leftStr, ids);
 		right = newNode(this, rightStr, ids);
 
@@ -394,7 +394,7 @@ public class PhylogeneticTree {
 	}
 
 	public void setSequence(byte aa1, byte aa2) {
-		sequenceCode = GprSeq.aaCodePairCode(aa1, aa2);
+		sequenceCode = GprSeq.aaPairCode(aa1, aa2);
 	}
 
 	public void setSequence(char aa) {
