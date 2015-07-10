@@ -308,7 +308,7 @@ Diabetes~SAT2D Consortium, Diabetes~MAT2D Consortium, Anubha Mahajan, Min~Jin
 \newblock {\em Nature Genetics}, 46(3):234--244, 2014.
 
 \bibitem{encode2012integrated}
-ENCODE~Project Consortium et~al.
+ENCODE~Project Consortium.
 \newblock An integrated encyclopedia of dna elements in the human genome.
 \newblock {\em Nature}, 489(7414):57--74, 2012.
 
@@ -991,7 +991,7 @@ John~S Mattick.
 \newblock {\em EMBO reports}, 2(11):986--991, 2001.
 
 \bibitem{mccarthy2015T2D}
-et~al. McCarthy, Mark.
+Mark McCarthy and T2D~Genes Consortia.
 \newblock Variation in protein-coding sequence and predisposition to type 2
   diabetes.
 \newblock {\em To be published}, 2015.
@@ -1055,7 +1055,7 @@ Saul~B Needleman and Christian~D Wunsch.
 \newblock {\em Journal of Molecular Biology}, 48(3):443--453, 1970.
 
 \bibitem{nelson2001combinatorial}
-MR~Nelson, SLR Kardia, RE~Ferrell, and CF~Sing.
+M~Nelson, S~Kardia, R~Ferrell, and C~Sing.
 \newblock A combinatorial partitioning method to identify multilocus genotypic
   partitions that predict quantitative trait variation.
 \newblock {\em Genome Research}, 11(3):458--470, 2001.
@@ -1066,10 +1066,10 @@ Rasmus Nielsen, Joshua~S Paul, Anders Albrechtsen, and Yun~S Song.
 \newblock {\em Nature Reviews Genetics}, 12(6):443--451, 2011.
 
 \bibitem{odenheimer1983heterogeneity}
-DANIEL~J Odenheimer, CF~Whitten, DL~Rucknagel, SA~Sarnaik, and CF~Sing.
+D~Odenheimer, C~Whitten, D~Rucknagel, S~Sarnaik, and C~Sing.
 \newblock Heterogeneity of sickle-cell anemia based on a profile of
   hematological variables.
-\newblock {\em American Journal of human genetics}, 35(6):1224, 1983.
+\newblock {\em The American Journal of Human Genetics}, 35(6):1224, 1983.
 
 \bibitem{genetic2010genome}
 Genetic~Analysis of~Psoriasis Consortium \&~the Wellcome Trust Case Control
@@ -1092,10 +1092,10 @@ Jason O’Rawe, Tao Jiang, Guangqing Sun, Yiyang Wu, Wei Wang, Jingchu Hu, Paul
 \newblock {\em Genome Medicine}, 5(3):28, 2013.
 
 \bibitem{pagon1993genereviews}
-Roberta~A Pagon, Margaret~P Adam, Thomas~D Bird, Cynthia~R Dolan, Chin-To Fong,
-  Richard~JH Smith, and Karen Stephens.
+RA~Pagon, TD~Bird, CR~Dolan, and K~Stephens.
 \newblock Genereviews.
-\newblock 1993.
+\newblock {\em Seattle (WA): University of Washington, Seattle}, 1993.
+\newblock http://www.ncbi.nlm.nih.gov/books/NBK1116/.
 
 \bibitem{parks2004systematic}
 Annette~L Parks, Kevin~R Cook, Marcia Belvin, Nicholas~A Dompe, Robert Fawcett,
@@ -1168,7 +1168,7 @@ Alkes~L Price, Michael~E Weale, Nick Patterson, Simon~R Myers, Anna~C Need,
   Kevin~V Shianna, Dongliang Ge, Jerome~I Rotter, Esther Torres, Kent~D Taylor,
   et~al.
 \newblock Long-range ld can confound genome scans in admixed populations.
-\newblock {\em American Journal of human genetics}, 83(1):132, 2008.
+\newblock {\em The American Journal of Human Genetics}, 83(1):132, 2008.
 
 \bibitem{pritchard2000proteins}
 Leighton Pritchard and Mark~J Dufton.
@@ -1415,8 +1415,8 @@ H~Sugihara, V~Andrisani, and PM~Salvaterra.
 
 \bibitem{GATK}
 GATK team.
-\newblock The genome analysis toolkit.
-\newblock Accessed: 2015.
+\newblock The genome analysis toolkit, 2015.
+\newblock https://www.broadinstitute.org/ gatk.
 
 \bibitem{thibault2004complementary}
 Stephen~T Thibault, Matthew~A Singer, Wesley~Y Miyazaki, Brett Milash,
@@ -1491,7 +1491,7 @@ Benjamin~F Voight, Laura~J Scott, Valgerdur Steinthorsdottir, Andrew~P Morris,
 \newblock {\em Nature Genetics}, 42(7):579--589, 2010.
 
 \bibitem{waaler1921location}
-GEORG~HM WAALER.
+G~Waaler.
 \newblock The location of a new second chromosome eye colour gene in drosophila
   melanogaster.
 \newblock {\em Hereditas}, 2(3):391--394, 1921.

@@ -86,6 +86,10 @@ Here we mention some selected features that are useful in pipeline programming. 
 
 \paragraph{Automatic logging} Logging all actions performed in pipelines is important for three reasons: (i) it helps debugging; (ii) it improves repeatability; and (iii) it performs audits in cases where detailed documentation and logging are required by regulatory authorities (such as clinical trials).
 
+Creating log files is simple, but it adds boilerplate code and increases the complexity of the pipeline. BDS performs automatic logging in three different ways. First, it directs all process StdOut/StdErr output to the console. Second, as having a single output can be confusing when dealing with thousands of processes running in parallel, BDS automatically logs each process’s outputs (StdOut and StdErr) and exit codes in separate clearly identified files. Third, BDS creates a report showing both an overview and details of pipeline execution (Fig. \ref{fig:bdspipeline}).
+
+\paragraph{Automatic command line parsing} Programming flexible data pipelines often involves parsing command-line inputs—a relatively simple but tedious task. BDS simplifies this task by automatically assigning values to variables specified through the command line. As an example, if the program in Listing 1 is called \texttt{pipeline.bds}, then invoking the program as \texttt{pipeline.bds -in another.file} will automatically replace the value of variable \texttt{in} with \texttt{another.file}.
+
 \begin{lstlisting}[
    language=Python,
    caption={\texttt{pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt{myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt{myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt{myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt{myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt{myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt{mainOut <- outs}).}
@@ -110,10 +114,6 @@ task ( mainOut <- outs, mem=10*G ) {
     sys myProcessAll $mainIn > $mainOut
 }
 \end{lstlisting}
-
-Creating log files is simple, but it adds boilerplate code and increases the complexity of the pipeline. BDS performs automatic logging in three different ways. First, it directs all process StdOut/StdErr output to the console. Second, as having a single output can be confusing when dealing with thousands of processes running in parallel, BDS automatically logs each process’s outputs (StdOut and StdErr) and exit codes in separate clearly identified files. Third, BDS creates a report showing both an overview and details of pipeline execution (Fig. \ref{fig:bdspipeline}).
-
-\paragraph{Automatic command line parsing} Programming flexible data pipelines often involves parsing command-line inputs—a relatively simple but tedious task. BDS simplifies this task by automatically assigning values to variables specified through the command line. As an example, if the program in Listing 1 is called \texttt{pipeline.bds}, then invoking the program as \texttt{pipeline.bds -in another.file} will automatically replace the value of variable \texttt{in} with \texttt{another.file}.
 
 \paragraph{Task re-execution} Tasks can be re-executed automatically on failure. The number of retries can be configured globally (as a command-line argument) or by a task (using the \texttt{retry} variable). Only after failing \texttt{retry+1} times will a task will be considered to have failed.
 

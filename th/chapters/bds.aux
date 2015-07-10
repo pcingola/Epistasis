@@ -21,9 +21,9 @@
 \@writefile{toc}{\contentsline {paragraph}{Limitations}{85}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.4}Other features}{86}}
 \@writefile{toc}{\contentsline {paragraph}{Automatic logging}{86}}
+\@writefile{toc}{\contentsline {paragraph}{Automatic command line parsing}{86}}
 \@writefile{lol}{\contentsline {lstlisting}{\numberline {2.2}\texttt  {pipeline\_2.bds} program. A two-step pipeline with task dependencies. The first step (line 9) requires to run \texttt  {myProcess} command on a hundred input files, which can be executed in parallel. The second step (line 19) processes the output of those hundred files and creates a single output file (using fictitious \texttt  {myProcessAll} command). It should be noted that we never explicitly state which hardware we are using: (i) if the pipeline is run on a dual-core computer, as each process requires 2 CPUs, one \texttt  {myProcess} instance will be executed at the time until the 100 tasks are completed; (ii) if it is run on a 64-core server, then 32 \texttt  {myProcess} instances will be executed in parallel; (iii) if it is run on a cluster, then 100 \texttt  {myProcess} instances will be scheduled and the cluster resource management system will decide how to execute them; and (iv) if it is run on a single-core computer, execution will fail owing to lack of resources. Thus, the pipeline runs independent of the underlying architecture. The task defined in line 18 depends on all the outputs from tasks in line 8 (\texttt  {mainOut <- outs}).}{86}}
-\@writefile{toc}{\contentsline {paragraph}{Automatic command line parsing}{87}}
-\@writefile{toc}{\contentsline {paragraph}{Task re-execution}{87}}
+\@writefile{toc}{\contentsline {paragraph}{Task re-execution}{88}}
 \@writefile{toc}{\contentsline {subsection}{\numberline {2.3.5}BDS implementation}{88}}
 \@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces BDS report showing pipeline’s task execution timeline}}{90}}
 \providecommand*\caption@xref[2]{\@setref\relax\@undefined{#1}}

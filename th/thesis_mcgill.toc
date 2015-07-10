@@ -74,8 +74,8 @@
 \contentsline {paragraph}{Limitations}{85}
 \contentsline {subsection}{\numberline {2.3.4}Other features}{86}
 \contentsline {paragraph}{Automatic logging}{86}
-\contentsline {paragraph}{Automatic command line parsing}{87}
-\contentsline {paragraph}{Task re-execution}{87}
+\contentsline {paragraph}{Automatic command line parsing}{86}
+\contentsline {paragraph}{Task re-execution}{88}
 \contentsline {subsection}{\numberline {2.3.5}BDS implementation}{88}
 \contentsline {section}{\numberline {2.4}Results}{92}
 \contentsline {paragraph}{Architecture independence}{92}

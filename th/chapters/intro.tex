@@ -779,12 +779,10 @@ Existing approaches for identifying interactions in the context of GWAS can be g
 \begin{enumerate}
 	\item \textbf{Exhaustive search} methods extend classical single-locus GWAS statistics such as the Pearson's $\chi^2$ test or logistic regression.
 For instance, using the definition of epistasis as ``departure from a linear model" \cite{cordell2009detecting}, in a logistic regression model the input for sample $s$ analysing loci $i$ and $j$ would include terms with each of the genotypes ($g_{s,i}$ and $g_{s,j}$), as well as an ``interaction term" ($g_{s,i} \cdot g_{s,j}$) \cite{cordell2002epistasis}. 
-
 \begin{eqnarray*} \label{eq:gwasLogRegH1}
     P( d_s | g_{s,i},g_{s,j}) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
     & & ... + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
 \end{eqnarray*}
-
 where $d_s$ is disease status, $\phi(\cdot)$ is the sigmoid function, $c_{s,1}, c_{s,2}, ... $ are covariates for sample $s$.
 Logistic models involving interactions between more than two variants can be defined similarly, but require more parameters and extremely large samples are required to accurately fit them.
 

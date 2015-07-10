@@ -113,11 +113,11 @@ Repeated entry---line 3951 of file mcgilletd.bib
  : @article{clark2011performance
  :                              ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 4310 of file mcgilletd.bib
+Repeated entry---line 4311 of file mcgilletd.bib
  : @article{kuhn1995application
  :                             ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 4447 of file mcgilletd.bib
+Repeated entry---line 4448 of file mcgilletd.bib
  : @article{morris2012large
  :                         ,
 I'm skipping whatever remains of this entry
@@ -125,47 +125,46 @@ Warning--empty journal in begun1992levels
 Warning--empty journal in brenner1965genetic
 Warning--empty publisher in darwin1877various
 Warning--empty journal in kronick1962history
-Warning--empty journal in pagon1993genereviews
 Warning--empty journal in schneider2013genome
 You've used 262 entries,
             2118 wiz_defined-function locations,
-            1834 strings with 60436 characters,
-and the built_in function-call counts, 110414 in all, are:
-= -- 10379
-> -- 7539
+            1834 strings with 60377 characters,
+and the built_in function-call counts, 110338 in all, are:
+= -- 10377
+> -- 7524
 < -- 15
-+ -- 3026
-- -- 2714
-* -- 9715
-:= -- 19067
-add.period$ -- 792
++ -- 3020
+- -- 2708
+* -- 9705
+:= -- 19053
+add.period$ -- 793
 call.type$ -- 262
-change.case$ -- 2072
+change.case$ -- 2070
 chr.to.int$ -- 0
-cite$ -- 268
+cite$ -- 267
 duplicate$ -- 2977
 empty$ -- 6869
-format.name$ -- 2714
-if$ -- 21589
+format.name$ -- 2708
+if$ -- 21578
 int.to.chr$ -- 0
 int.to.str$ -- 262
 missing$ -- 267
-newline$ -- 1317
+newline$ -- 1318
 num.names$ -- 524
-pop$ -- 1725
+pop$ -- 1718
 preamble$ -- 1
-purify$ -- 1820
+purify$ -- 1818
 quote$ -- 0
 skip$ -- 2080
 stack$ -- 0
 substring$ -- 6918
-swap$ -- 377
+swap$ -- 378
 text.length$ -- 15
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 1028
-warning$ -- 6
+warning$ -- 5
 while$ -- 950
 width$ -- 265
-write$ -- 2861
+write$ -- 2865
 (There were 28 error messages)
