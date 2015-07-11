@@ -2,10 +2,6 @@ This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
 A level-1 auxiliary file: chapters/intro.aux
-A level-1 auxiliary file: chapters/bds.aux
-A level-1 auxiliary file: chapters/snpeff.aux
-A level-1 auxiliary file: chapters/gwas.aux
-A level-1 auxiliary file: chapters/conclusions.aux
 The style file: apacite.bst
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
@@ -15,7 +11,7 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
-Reallocated field_info (elt_size=4) to 17052 items from 5000.
+Reallocated field_info (elt_size=4) to 13556 items from 5000.
 Database file #1: mcgilletd.bib
 Repeated entry---line 793 of file mcgilletd.bib
  : @article{langmead2009ultrafast
@@ -105,10 +101,6 @@ Repeated entry---line 2962 of file mcgilletd.bib
  : @article{davydov2010identifying
  :                                ,
 I'm skipping whatever remains of this entry
-Repeated entry---line 3364 of file mcgilletd.bib
- : @article{jones1998gabab
- :                        ,
-I'm skipping whatever remains of this entry
 Repeated entry---line 3534 of file mcgilletd.bib
  : @book{cormen2001introduction
  :                             ,
@@ -116,10 +108,6 @@ I'm skipping whatever remains of this entry
 Repeated entry---line 3631 of file mcgilletd.bib
  : @article{brenner1965genetic
  :                            ,
-I'm skipping whatever remains of this entry
-Repeated entry---line 3829 of file mcgilletd.bib
- : @article{koo2013review
- :                       ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3951 of file mcgilletd.bib
  : @article{clark2011performance
@@ -129,64 +117,55 @@ Repeated entry---line 4311 of file mcgilletd.bib
  : @article{kuhn1995application
  :                             ,
 I'm skipping whatever remains of this entry
-Reallocated str_pool (elt_size=1) to 130000 items from 65000.
-Repeated entry---line 4448 of file mcgilletd.bib
- : @article{morris2012large
- :                         ,
-I'm skipping whatever remains of this entry
 apacite.bst [2012/02/25 v6.01 APA bibliography style]
 Warning--No journal in rhee2012chip
 Warning--`others' not consistent with 6th ed. of the APA Manual
-Warning--No journal in begun1992levels
 Warning--No journal in brenner1965genetic
 Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--`others' not consistent with 6th ed. of the APA Manual
-Warning--`others' not consistent with 6th ed. of the APA Manual
-Warning--No journal in kronick1962history
-Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--No journal in schneider2013genome
-You've used 262 entries,
+You've used 186 entries,
             6735 wiz_defined-function locations,
-            2564 strings with 66840 characters,
-and the built_in function-call counts, 593510 in all, are:
-= -- 71276
-> -- 5478
-< -- 30936
-+ -- 34119
-- -- 652
-* -- 40250
-:= -- 111270
-add.period$ -- 976
-call.type$ -- 262
-change.case$ -- 4497
+            2178 strings with 50167 characters,
+and the built_in function-call counts, 421374 in all, are:
+= -- 50544
+> -- 3929
+< -- 21869
++ -- 24205
+- -- 457
+* -- 28636
+:= -- 78917
+add.period$ -- 687
+call.type$ -- 186
+change.case$ -- 3179
 chr.to.int$ -- 0
-cite$ -- 531
-duplicate$ -- 18329
-empty$ -- 21351
-format.name$ -- 10541
-if$ -- 107638
+cite$ -- 377
+duplicate$ -- 13050
+empty$ -- 15208
+format.name$ -- 7591
+if$ -- 76408
 int.to.chr$ -- 0
-int.to.str$ -- 536
+int.to.str$ -- 380
 missing$ -- 0
-newline$ -- 6920
-num.names$ -- 2088
-pop$ -- 8297
+newline$ -- 4934
+num.names$ -- 1480
+pop$ -- 5774
 preamble$ -- 1
-purify$ -- 1053
+purify$ -- 741
 quote$ -- 0
-skip$ -- 34885
+skip$ -- 24837
 stack$ -- 0
-substring$ -- 37181
-swap$ -- 9953
-text.length$ -- 616
+substring$ -- 26366
+swap$ -- 7128
+text.length$ -- 421
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 21170
-warning$ -- 13
-while$ -- 3564
+type$ -- 14962
+warning$ -- 9
+while$ -- 2558
 width$ -- 0
-write$ -- 9126
-(There were 29 error messages)
+write$ -- 6539
+(There were 26 error messages)
