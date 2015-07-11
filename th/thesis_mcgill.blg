@@ -1,7 +1,11 @@
 This is BibTeX, Version 0.99d (TeX Live 2013)
 Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: thesis_mcgill.aux
+A level-1 auxiliary file: chapters/intro.aux
+A level-1 auxiliary file: chapters/bds.aux
+A level-1 auxiliary file: chapters/snpeff.aux
 A level-1 auxiliary file: chapters/gwas.aux
+A level-1 auxiliary file: chapters/conclusions.aux
 The style file: apacite.bst
 Reallocated glb_str_ptr (elt_size=4) to 20 items from 10.
 Reallocated global_strs (elt_size=20001) to 20 items from 10.
@@ -11,10 +15,63 @@ Reallocated wiz_functions (elt_size=4) to 6000 items from 3000.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated singl_function (elt_size=4) to 100 items from 50.
 Reallocated wiz_functions (elt_size=4) to 9000 items from 6000.
+Reallocated field_info (elt_size=4) to 17052 items from 5000.
 Database file #1: mcgilletd.bib
+Repeated entry---line 793 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 803 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 813 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 849 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1352 of file mcgilletd.bib
+ : @article{langmead2009ultrafast
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1362 of file mcgilletd.bib
+ : @article{li2010fast
+ :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1372 of file mcgilletd.bib
+ : @article{li2010fastlong
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1464 of file mcgilletd.bib
+ : @article{li2008mapping
+ :                       ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1475 of file mcgilletd.bib
+ : @article{li2011improving
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1625 of file mcgilletd.bib
+ : @article{kumar2009predicting
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1658 of file mcgilletd.bib
+ : @article{rope2011using
+ :                       ,
+I'm skipping whatever remains of this entry
 Repeated entry---line 1703 of file mcgilletd.bib
  : @article{wu2011rare
  :                    ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 1862 of file mcgilletd.bib
+ : @book{durbin1998biological
+ :                           ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2038 of file mcgilletd.bib
+ : @article{mckenna2010genome
+ :                           ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 2192 of file mcgilletd.bib
  : @article{mani2008defining
@@ -28,58 +85,108 @@ Repeated entry---line 2377 of file mcgilletd.bib
  : @article{burger2010disentangling
  :                                 ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 2535 of file mcgilletd.bib
+ : @article{wang2010annovar
+ :                         ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2722 of file mcgilletd.bib
+ : @article{adzhubei2010method
+ :                            ,
+I'm skipping whatever remains of this entry
 I was expecting a `,' or a `}'---line 2899 of file mcgilletd.bib
  :   title={}
  :           ChIP-exo} Method for Identifying Genomic Location of {DNA}-Binding Proteins with Near-Single-Nucleotide Accuracy},
+I'm skipping whatever remains of this entry
+Repeated entry---line 2940 of file mcgilletd.bib
+ : @article{garber2009identifying
+ :                               ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 2962 of file mcgilletd.bib
+ : @article{davydov2010identifying
+ :                                ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3364 of file mcgilletd.bib
+ : @article{jones1998gabab
+ :                        ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3534 of file mcgilletd.bib
+ : @book{cormen2001introduction
+ :                             ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 3631 of file mcgilletd.bib
+ : @article{brenner1965genetic
+ :                            ,
 I'm skipping whatever remains of this entry
 Repeated entry---line 3829 of file mcgilletd.bib
  : @article{koo2013review
  :                       ,
 I'm skipping whatever remains of this entry
+Repeated entry---line 3951 of file mcgilletd.bib
+ : @article{clark2011performance
+ :                              ,
+I'm skipping whatever remains of this entry
+Repeated entry---line 4311 of file mcgilletd.bib
+ : @article{kuhn1995application
+ :                             ,
+I'm skipping whatever remains of this entry
+Reallocated str_pool (elt_size=1) to 130000 items from 65000.
 Repeated entry---line 4448 of file mcgilletd.bib
  : @article{morris2012large
  :                         ,
 I'm skipping whatever remains of this entry
 apacite.bst [2012/02/25 v6.01 APA bibliography style]
-You've used 67 entries,
+Warning--No journal in rhee2012chip
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--No journal in begun1992levels
+Warning--No journal in brenner1965genetic
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--No journal in kronick1962history
+Warning--`others' not consistent with 6th ed. of the APA Manual
+Warning--No journal in schneider2013genome
+You've used 262 entries,
             6735 wiz_defined-function locations,
-            1627 strings with 24845 characters,
-and the built_in function-call counts, 148120 in all, are:
-= -- 17898
-> -- 1376
-< -- 7553
-+ -- 8416
-- -- 161
-* -- 10055
-:= -- 27658
-add.period$ -- 255
-call.type$ -- 67
-change.case$ -- 1156
+            2564 strings with 66840 characters,
+and the built_in function-call counts, 593510 in all, are:
+= -- 71276
+> -- 5478
+< -- 30936
++ -- 34119
+- -- 652
+* -- 40250
+:= -- 111270
+add.period$ -- 976
+call.type$ -- 262
+change.case$ -- 4497
 chr.to.int$ -- 0
-cite$ -- 134
-duplicate$ -- 4423
-empty$ -- 5384
-format.name$ -- 2578
-if$ -- 26991
+cite$ -- 531
+duplicate$ -- 18329
+empty$ -- 21351
+format.name$ -- 10541
+if$ -- 107638
 int.to.chr$ -- 0
-int.to.str$ -- 138
+int.to.str$ -- 536
 missing$ -- 0
-newline$ -- 1767
-num.names$ -- 536
-pop$ -- 2018
+newline$ -- 6920
+num.names$ -- 2088
+pop$ -- 8297
 preamble$ -- 1
-purify$ -- 268
+purify$ -- 1053
 quote$ -- 0
-skip$ -- 8889
+skip$ -- 34885
 stack$ -- 0
-substring$ -- 9159
-swap$ -- 2485
-text.length$ -- 153
+substring$ -- 37181
+swap$ -- 9953
+text.length$ -- 616
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 5424
-warning$ -- 0
-while$ -- 854
+type$ -- 21170
+warning$ -- 13
+while$ -- 3564
 width$ -- 0
-write$ -- 2322
-(There were 7 error messages)
+write$ -- 9126
+(There were 29 error messages)
