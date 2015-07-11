@@ -89,10 +89,6 @@ Repeated entry---line 2722 of file mcgilletd.bib
  : @article{adzhubei2010method
  :                            ,
 I'm skipping whatever remains of this entry
-I was expecting a `,' or a `}'---line 2899 of file mcgilletd.bib
- :   title={}
- :           ChIP-exo} Method for Identifying Genomic Location of {DNA}-Binding Proteins with Near-Single-Nucleotide Accuracy},
-I'm skipping whatever remains of this entry
 Repeated entry---line 2940 of file mcgilletd.bib
  : @article{garber2009identifying
  :                               ,
@@ -118,7 +114,6 @@ Repeated entry---line 4311 of file mcgilletd.bib
  :                             ,
 I'm skipping whatever remains of this entry
 apacite.bst [2012/02/25 v6.01 APA bibliography style]
-Warning--No journal in rhee2012chip
 Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--No journal in brenner1965genetic
 Warning--`others' not consistent with 6th ed. of the APA Manual
@@ -129,43 +124,43 @@ Warning--`others' not consistent with 6th ed. of the APA Manual
 Warning--No journal in schneider2013genome
 You've used 186 entries,
             6735 wiz_defined-function locations,
-            2178 strings with 50167 characters,
-and the built_in function-call counts, 421374 in all, are:
-= -- 50544
-> -- 3929
-< -- 21869
-+ -- 24205
-- -- 457
-* -- 28636
-:= -- 78917
-add.period$ -- 687
+            2182 strings with 50358 characters,
+and the built_in function-call counts, 422856 in all, are:
+= -- 50719
+> -- 3943
+< -- 21997
++ -- 24346
+- -- 459
+* -- 28764
+:= -- 79331
+add.period$ -- 689
 call.type$ -- 186
-change.case$ -- 3179
+change.case$ -- 3195
 chr.to.int$ -- 0
-cite$ -- 377
-duplicate$ -- 13050
-empty$ -- 15208
-format.name$ -- 7591
-if$ -- 76408
+cite$ -- 374
+duplicate$ -- 13083
+empty$ -- 15198
+format.name$ -- 7615
+if$ -- 76598
 int.to.chr$ -- 0
 int.to.str$ -- 380
 missing$ -- 0
-newline$ -- 4934
-num.names$ -- 1480
-pop$ -- 5774
+newline$ -- 4944
+num.names$ -- 1488
+pop$ -- 5780
 preamble$ -- 1
-purify$ -- 741
+purify$ -- 744
 quote$ -- 0
-skip$ -- 24837
+skip$ -- 24869
 stack$ -- 0
-substring$ -- 26366
-swap$ -- 7128
-text.length$ -- 421
+substring$ -- 26520
+swap$ -- 7143
+text.length$ -- 422
 text.prefix$ -- 0
 top$ -- 1
-type$ -- 14962
-warning$ -- 9
-while$ -- 2558
+type$ -- 14944
+warning$ -- 8
+while$ -- 2564
 width$ -- 0
-write$ -- 6539
-(There were 26 error messages)
+write$ -- 6551
+(There were 25 error messages)

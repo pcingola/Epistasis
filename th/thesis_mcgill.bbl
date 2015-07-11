@@ -1,21 +1,6 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
-\APACciteatitle {rhee2012chip}}{%
-\APACciteatitle {rhee2012chip}}{%
-{\protect \APACyear {{\protect \bibnodate {}}}}%
-}]{%
-rhee2012chip}
-\APACinsertmetastar {%
-rhee2012chip}%
-
-\newblock
-\APACrefYearMonthDay{{\protect \bibnodate {}}}{}{}.
-\newblock
-
-\PrintBackRefs{\CurrentBib}
-
-\bibitem [\protect \citeauthoryear {%
 Ackermann%
 \ \BBA {} Beyer%
 }{%
@@ -4105,6 +4090,34 @@ Reich, D\BPBI E.%
   disequilibrium in the human genome}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature}{411}{6834}{199--204}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Rhee%
+\ \BBA {} Pugh%
+}{%
+Rhee%
+\ \BBA {} Pugh%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+rhee2012chip}
+\APACinsertmetastar {%
+rhee2012chip}%
+\begin{APACrefauthors}%
+Rhee, H\BPBI S.%
+\BCBT {}\ \BBA {} Pugh, B\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{ChIP-exo} Method for Identifying Genomic Location of
+  {DNA}-Binding Proteins with Near-Single-Nucleotide Accuracy} {{ChIP-exo}
+  method for identifying genomic location of {DNA}-binding proteins with
+  near-single-nucleotide accuracy}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Current Protocols in Molecular Biology}{}{}{21--24}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
