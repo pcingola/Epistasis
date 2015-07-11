@@ -3,6 +3,7 @@
 \usepackage{amsfonts}
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{apacite}
 \usepackage{caption}
 \usepackage{color}
 \usepackage{enumitem}
@@ -160,11 +161,11 @@ Enfin, nous abordons le probl\`eme de l'identification de liens entre les maladi
 
 \ifthesis
 	% Show all chapters on 'thesis' mode
-	\include{chapters/intro}
-	\include{chapters/bds}
-	\include{chapters/snpeff}
+%	\include{chapters/intro}
+%	\include{chapters/bds}
+%	\include{chapters/snpeff}
 	\include{chapters/gwas}
-	\include{chapters/conclusions}
+%	\include{chapters/conclusions}
 \else
 	% Only show the chapter we are currently working on (faster LaTex build)
 	\include{chapters/conclusions}
@@ -186,7 +187,8 @@ Enfin, nous abordons le probl\`eme de l'identification de liens entre les maladi
 %       bibtex thesis_mcgill
 %-----------------------------------------------------------------------------
 \bibHeading{References}
-\bibliographystyle{plain}
+%\bibliographystyle{plain}
+\bibliographystyle{apacite}
 \bibliography{mcgilletd}		% File: mcgilletd.bib
 
 \end{document}

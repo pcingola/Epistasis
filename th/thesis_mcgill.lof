@@ -1,32 +1,10 @@
 \addvspace {10\p@ }
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {2.1}{\ignorespaces BDS report showing pipeline’s task execution timeline}}{90}
-\contentsline {figure}{\numberline {2.2}{\ignorespaces Execution example \texttt {pipeline.bds}}}{91}
-\contentsline {figure}{\numberline {2.3}{\ignorespaces Whole-genome sequencing analysis pipeline's flow chart}}{93}
-\contentsline {figure}{\numberline {2.4}{\ignorespaces Architecture independence example}}{94}
-\contentsline {figure}{\numberline {2.5}{\ignorespaces Scaling dataset sized by a factor of \nobreakspace {}1000}}{95}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {3.1}{\ignorespaces Output of SnpEff.}}{100}
-\contentsline {figure}{\numberline {3.2}{\ignorespaces Detailed effect list from SnpEff}}{103}
-\contentsline {figure}{\numberline {3.3}{\ignorespaces Information provided by SnpEff in tab separated output format (TXT)}}{105}
-\contentsline {figure}{\numberline {3.4}{\ignorespaces Information provided by SnpEff in variant call format (VCF)}}{108}
-\contentsline {figure}{\numberline {3.5}{\ignorespaces Classification of SNPs in $w^{1118} ; iso-2; iso-3$}}{109}
-\contentsline {figure}{\numberline {3.6}{\ignorespaces 60 Genes with start-gaineded SNPs with ATGs}}{110}
-\contentsline {figure}{\numberline {3.7}{\ignorespaces Genes with start-gained SNP GO categories in $w^{1118} ; iso-2; iso-3$}}{110}
-\contentsline {figure}{\numberline {3.8}{\ignorespaces Analysis of Eip63E start-gained SNP in $w^{1118} ; iso-2; iso-3$}}{112}
-\contentsline {figure}{\numberline {3.9}{\ignorespaces Stop gained and stop lost in $w^{1118} ; iso-2; iso-3$}}{113}
-\contentsline {figure}{\numberline {3.10}{\ignorespaces Oc/Otd has two stop-gained SNPs in $w^{1118} ; iso-2; iso-3$}}{115}
-\contentsline {figure}{\numberline {3.11}{\ignorespaces CG34326 has one stop-gained SNP in $w^{1118} ; iso-2; iso-3$ in the non-conserved C-terminal region.}}{117}
-\contentsline {figure}{\numberline {3.12}{\ignorespaces Nonsynonymous to synonymous ratios along the chromosome arms in $w^{1118} ; iso-2; iso-3$}}{119}
-\contentsline {figure}{\numberline {3.13}{\ignorespaces CG13958 has a stop lost SNP in $w^{1118} ; iso-2; iso-3$}}{122}
-\addvspace {10\p@ }
-\contentsline {figure}{\numberline {4.1}{\ignorespaces Analysis pipeline schematic}}{131}
-\contentsline {figure}{\numberline {4.2}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}}{142}
-\contentsline {figure}{\numberline {4.3}{\ignorespaces Classifier's receiver operator curve (ROC)}}{143}
-\contentsline {figure}{\numberline {4.4}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (co-crystallized proteins)}}{144}
-\contentsline {figure}{\numberline {4.5}{\ignorespaces Example of amino acid interaction}}{146}
-\contentsline {figure}{\numberline {4.6}{\ignorespaces Results from epistatic GWAS analysis of type II diabetes sequencing data}}{148}
-\contentsline {figure}{\numberline {4.7}{\ignorespaces Power calculation using a pure two-loci epistatic model}}{150}
-\contentsline {figure}{\numberline {4.8}{\ignorespaces Distribution of $\ell _C$ for interacting genes and non-interacting genes}}{156}
-\contentsline {figure}{\numberline {4.9}{\ignorespaces Distribution of $\ell _C$ across different clinical categories from ClinVar database}}{157}
-\addvspace {10\p@ }
+\contentsline {figure}{\numberline {1.1}{\ignorespaces Analysis pipeline schematic}}{9}
+\contentsline {figure}{\numberline {1.2}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (within protein).}}{20}
+\contentsline {figure}{\numberline {1.3}{\ignorespaces Classifier's receiver operator curve (ROC)}}{21}
+\contentsline {figure}{\numberline {1.4}{\ignorespaces Histogram of log-likelihood values of pairs of amino acids in contact vs not in contact (co-crystallized proteins)}}{22}
+\contentsline {figure}{\numberline {1.5}{\ignorespaces Example of amino acid interaction}}{24}
+\contentsline {figure}{\numberline {1.6}{\ignorespaces Results from epistatic GWAS analysis of type II diabetes sequencing data}}{26}
+\contentsline {figure}{\numberline {1.7}{\ignorespaces Power calculation using a pure two-loci epistatic model}}{28}
+\contentsline {figure}{\numberline {1.8}{\ignorespaces Distribution of $\ell _C$ for interacting genes and non-interacting genes}}{34}
+\contentsline {figure}{\numberline {1.9}{\ignorespaces Distribution of $\ell _C$ across different clinical categories from ClinVar database}}{35}

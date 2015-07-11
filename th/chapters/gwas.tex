@@ -560,7 +560,12 @@ Although there seems to be a lack of concordance at the moment, using positive s
 
 \fig{gwas_clinvar}{gwas_clinvar}{14cm}{Distribution of $\ell_C$ across different clinical categories from ClinVar database showing a clear separation on ``\textit{Benign}" variants}{Distribution of $\ell_C$ across different clinical categories from ClinVar database}
 
+\FloatBarrier
+
+\begin{center}
+
 \begin{table}[ht]
+\centering
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline 
 Significance (CLNSIG)   &   Count  & $Mean[\ell_C]$  &  $Median[\ell_C]$ \\
@@ -579,6 +584,7 @@ Other (255)             &     10   &      20.0       &    11.3     \\
 \end{table}
 
 \begin{table}[ht]
+\centering
 \begin{tabular}{|c|c|c|}
 \hline 
 Project      & $Mean[\ell_C]$  &  $Median[\ell_C]$ \\
@@ -591,3 +597,5 @@ ClinVar      &            18.6 &          11.9  \\
 \caption{Overall distributions for 1000Genomes, HGMD and ClinVar. Columns 2 and 2 show the mean and median $\ell_C$ values calculated for each variant using the best (highest) within protein $\ell_C$. Values are calculated using a random sub-sample of all variants in each project.}
 \label{tab:gwas_1Kg}
 \end{table}
+
+\end{center}
