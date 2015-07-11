@@ -1,6 +1,37 @@
 \begin{thebibliography}{}
 
 \bibitem [\protect \citeauthoryear {%
+Acampora%
+\ \protect \BOthers {.}}{%
+Acampora%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1998}}%
+}]{%
+acampora1998murine}
+\APACinsertmetastar {%
+acampora1998murine}%
+\begin{APACrefauthors}%
+Acampora, D.%
+, Avantaggiato, V.%
+, Tuorto, F.%
+, Barone, P.%
+, Reichert, H.%
+, Finkelstein, R.%
+\BCBL {}\ \BBA {} Simeone, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Murine Otx1} and {Drosophila} otd genes share conserved
+  genetic functions required in invertebrate and vertebrate brain development}
+  {{Murine Otx1} and {Drosophila} otd genes share conserved genetic functions
+  required in invertebrate and vertebrate brain development}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Development}{125}{9}{1691--1702}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Ackermann%
 \ \BBA {} Beyer%
 }{%
@@ -86,6 +117,30 @@ Agamy, O.%
 \newblock
 \APACjournalVolNumPages{The American Journal of Human
   Genetics}{87}{4}{538--544}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Akey%
+}{%
+Akey%
+}{%
+{\protect \APACyear {2009}}%
+}]{%
+akey2009constructing}
+\APACinsertmetastar {%
+akey2009constructing}%
+\begin{APACrefauthors}%
+Akey, J\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Constructing genomic maps of positive selection in
+  humans: Where do we go from here?} {Constructing genomic maps of positive
+  selection in humans: Where do we go from here?}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome Research}{19}{5}{711--722}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -205,6 +260,34 @@ Anders, G.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Anderson%
+, Gilliland%
+\BCBL {}\ \BBA {} Langley%
+}{%
+Anderson%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+anderson2009molecular}
+\APACinsertmetastar {%
+anderson2009molecular}%
+\begin{APACrefauthors}%
+Anderson, J\BPBI A.%
+, Gilliland, W\BPBI D.%
+\BCBL {}\ \BBA {} Langley, C\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Molecular population genetics and evolution of
+  {Drosophila} meiosis genes} {Molecular population genetics and evolution of
+  {Drosophila} meiosis genes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genetics}{181}{1}{177--185}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Ascano%
 , Hafner%
 , Cekan%
@@ -235,6 +318,37 @@ Ascano, M.%
 \newblock
 \APACjournalVolNumPages{Wiley Interdisciplinary Reviews:
   {RNA}}{3}{2}{159--177}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Auwera%
+\ \protect \BOthers {.}}{%
+Auwera%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+auwera2013fastq}
+\APACinsertmetastar {%
+auwera2013fastq}%
+\begin{APACrefauthors}%
+Auwera, G\BPBI A.%
+, Carneiro, M\BPBI O.%
+, Hartl, C.%
+, Poplin, R.%
+, del Angel, G.%
+, Levy-Moonshine, A.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {From {FastQ} Data to High-Confidence Variant Calls: The
+  Genome Analysis Toolkit Best Practices Pipeline} {From {FastQ} data to
+  high-confidence variant calls: The genome analysis toolkit best practices
+  pipeline}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Current protocols in bioinformatics}{}{}{11--10}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -348,6 +462,34 @@ Barrett, J\BPBI C.%
   diabetes}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature Genetics}{41}{6}{703--707}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Begun%
+\ \BBA {} Aquadro%
+}{%
+Begun%
+\ \BBA {} Aquadro%
+}{%
+{\protect \APACyear {1992}}%
+}]{%
+begun1992levels}
+\APACinsertmetastar {%
+begun1992levels}%
+\begin{APACrefauthors}%
+Begun, D\BPBI J.%
+\BCBT {}\ \BBA {} Aquadro, C\BPBI F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1992}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Levels of naturally occurring {DNA} polymorphism
+  correlate with recombination rates in {D.} melanogaster} {Levels of naturally
+  occurring {DNA} polymorphism correlate with recombination rates in {D.}
+  melanogaster}.{\BBCQ}
+\newblock
+
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -468,6 +610,36 @@ Birney, E.%
   pilot project}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature}{447}{7146}{799--816}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Blanchette%
+\ \protect \BOthers {.}}{%
+Blanchette%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2004}}%
+}]{%
+blanchette2004aligning}
+\APACinsertmetastar {%
+blanchette2004aligning}%
+\begin{APACrefauthors}%
+Blanchette, M.%
+, Kent, W\BPBI J.%
+, Riemer, C.%
+, Elnitski, L.%
+, Smit, A\BPBI F.%
+, Roskin, K\BPBI M.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2004}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Aligning multiple genomic sequences with the threaded
+  blockset aligner} {Aligning multiple genomic sequences with the threaded
+  blockset aligner}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome Research}{14}{4}{708--715}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -614,6 +786,30 @@ Brogna, S.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Broyden%
+}{%
+Broyden%
+}{%
+{\protect \APACyear {1970}}%
+}]{%
+broyden1970convergence}
+\APACinsertmetastar {%
+broyden1970convergence}%
+\begin{APACrefauthors}%
+Broyden, C\BPBI G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1970}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The convergence of a class of double-rank minimization
+  algorithms 1. general considerations} {The convergence of a class of
+  double-rank minimization algorithms 1. general considerations}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{IMA Journal of Applied Mathematics}{6}{1}{76--90}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Bryne%
 \ \protect \BOthers {.}}{%
 Bryne%
@@ -754,6 +950,89 @@ Celniker, S\BPBI E.%
   secrets of the genome}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature}{459}{7249}{927--930}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chang%
+\ \BBA {} Kan%
+}{%
+Chang%
+\ \BBA {} Kan%
+}{%
+{\protect \APACyear {1979}}%
+}]{%
+chang1979beta}
+\APACinsertmetastar {%
+chang1979beta}%
+\begin{APACrefauthors}%
+Chang, J\BPBI C.%
+\BCBT {}\ \BBA {} Kan, Y\BPBI W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1979}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Beta 0 thalassemia, a nonsense mutation in man} {Beta 0
+  thalassemia, a nonsense mutation in man}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of the National Academy of
+  Sciences}{76}{6}{2886--2889}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Charlesworth%
+, Coyne%
+\BCBL {}\ \BBA {} Barton%
+}{%
+Charlesworth%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1987}}%
+}]{%
+charlesworth1987relative}
+\APACinsertmetastar {%
+charlesworth1987relative}%
+\begin{APACrefauthors}%
+Charlesworth, B.%
+, Coyne, J.%
+\BCBL {}\ \BBA {} Barton, N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1987}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The relative rates of evolution of sex chromosomes and
+  autosomes} {The relative rates of evolution of sex chromosomes and
+  autosomes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{American Naturalist}{}{}{113--146}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Chintapalli%
+, Wang%
+\BCBL {}\ \BBA {} Dow%
+}{%
+Chintapalli%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+chintapalli2007using}
+\APACinsertmetastar {%
+chintapalli2007using}%
+\begin{APACrefauthors}%
+Chintapalli, V\BPBI R.%
+, Wang, J.%
+\BCBL {}\ \BBA {} Dow, J\BPBI A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Using {FlyAtlas} to identify better {Drosophila}
+  melanogaster models of human disease} {Using {FlyAtlas} to identify better
+  {Drosophila} melanogaster models of human disease}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{39}{6}{715--720}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -1034,6 +1313,66 @@ Collins, F.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Combarros%
+, Cortina-Borja%
+, Smith%
+\BCBL {}\ \BBA {} Lehmann%
+}{%
+Combarros%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+combarros2009epistasis}
+\APACinsertmetastar {%
+combarros2009epistasis}%
+\begin{APACrefauthors}%
+Combarros, O.%
+, Cortina-Borja, M.%
+, Smith, A\BPBI D.%
+\BCBL {}\ \BBA {} Lehmann, D\BPBI J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Epistasis in sporadic {Alzheimer}'s disease} {Epistasis
+  in sporadic {Alzheimer}'s disease}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Neurobiology of Aging}{30}{9}{1333--1349}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+D\BPBI S.~Consortium%
+\ \protect \BOthers {.}}{%
+D\BPBI S.~Consortium%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+consortium2014genome}
+\APACinsertmetastar {%
+consortium2014genome}%
+\begin{APACrefauthors}%
+Consortium, D\BPBI S.%
+, Consortium, D\BPBI M.%
+, Mahajan, A.%
+, Go, M\BPBI J.%
+, Zhang, W.%
+, Below, J\BPBI E.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Genome-wide trans-ancestry meta-analysis provides
+  insight into the genetic architecture of type 2 diabetes susceptibility}
+  {Genome-wide trans-ancestry meta-analysis provides insight into the genetic
+  architecture of type 2 diabetes susceptibility}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{46}{3}{234--244}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 E\BPBI P.~Consortium%
 }{%
 E\BPBI P.~Consortium%
@@ -1274,6 +1613,33 @@ Coutinho, A\BPBI M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Cox%
+, Tuite%
+\BCBL {}\ \BBA {} McLaughlin%
+}{%
+Cox%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1988}}%
+}]{%
+cox1988psi}
+\APACinsertmetastar {%
+cox1988psi}%
+\begin{APACrefauthors}%
+Cox, B.%
+, Tuite, M.%
+\BCBL {}\ \BBA {} McLaughlin, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The $\psi$ factor of yeast: a problem in inheritance}
+  {The $\psi$ factor of yeast: a problem in inheritance}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Yeast}{4}{3}{159--178}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Crick%
 , Barnett%
 , Brenner%
@@ -1362,6 +1728,35 @@ Culverhouse, R.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Danecek%
+\ \protect \BOthers {.}}{%
+Danecek%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+danecek2011variant}
+\APACinsertmetastar {%
+danecek2011variant}%
+\begin{APACrefauthors}%
+Danecek, P.%
+, Auton, A.%
+, Abecasis, G.%
+, Albers, C\BPBI A.%
+, Banks, E.%
+, DePristo, M\BPBI A.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The variant call format and {VCFtools}} {The variant
+  call format and {VCFtools}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bioinformatics}{27}{15}{2156--2158}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Darwin%
 }{%
 Darwin%
@@ -1409,6 +1804,37 @@ Darwin, C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Daubechies%
+, DeVore%
+, Fornasier%
+\BCBL {}\ \BBA {} G{\"u}nt{\"u}rk%
+}{%
+Daubechies%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+daubechies2010iteratively}
+\APACinsertmetastar {%
+daubechies2010iteratively}%
+\begin{APACrefauthors}%
+Daubechies, I.%
+, DeVore, R.%
+, Fornasier, M.%
+\BCBL {}\ \BBA {} G{\"u}nt{\"u}rk, C\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Iteratively reweighted least squares minimization for
+  sparse recovery} {Iteratively reweighted least squares minimization for
+  sparse recovery}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Communications on Pure and Applied
+  Mathematics}{63}{1}{1--38}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Davydov%
 \ \protect \BOthers {.}}{%
 Davydov%
@@ -1438,6 +1864,33 @@ Davydov, E.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Dayhoff%
+\ \BBA {} Schwartz%
+}{%
+Dayhoff%
+\ \BBA {} Schwartz%
+}{%
+{\protect \APACyear {1978}}%
+}]{%
+dayhoff1978model}
+\APACinsertmetastar {%
+dayhoff1978model}%
+\begin{APACrefauthors}%
+Dayhoff, M\BPBI O.%
+\BCBT {}\ \BBA {} Schwartz, R\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1978}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A model of evolutionary change in proteins} {A model of
+  evolutionary change in proteins}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {In Atlas of protein sequence and structure.} {In atlas
+  of protein sequence and structure.}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 de Juan%
 , Pazos%
 \BCBL {}\ \BBA {} Valencia%
@@ -1462,6 +1915,36 @@ de Juan, D.%
   methods in protein co-evolution}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature Reviews Genetics}{14}{4}{249--261}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Dennis~Jr%
+\ \protect \BOthers {.}}{%
+Dennis~Jr%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2003}}%
+}]{%
+dennis2003david}
+\APACinsertmetastar {%
+dennis2003david}%
+\begin{APACrefauthors}%
+Dennis~Jr, G.%
+, Sherman, B\BPBI T.%
+, Hosack, D\BPBI A.%
+, Yang, J.%
+, Gao, W.%
+, Lane, H\BPBI C.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{DAVID}: database for annotation, visualization, and
+  integrated discovery} {{DAVID}: database for annotation, visualization, and
+  integrated discovery}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome Biology}{4}{5}{P3}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -1549,6 +2032,35 @@ Dobzhansky, T.%
   pseudoobscura}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Genetics}{35}{3}{288}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Dreesen%
+, Johnson%
+\BCBL {}\ \BBA {} Henikoff%
+}{%
+Dreesen%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1988}}%
+}]{%
+dreesen1988brown}
+\APACinsertmetastar {%
+dreesen1988brown}%
+\begin{APACrefauthors}%
+Dreesen, T.%
+, Johnson, D.%
+\BCBL {}\ \BBA {} Henikoff, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1988}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The brown protein of Drosophila melanogaster is similar
+  to the white protein and to components of active transport complexes.} {The
+  brown protein of drosophila melanogaster is similar to the white protein and
+  to components of active transport complexes.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Molecular and Cellular Biology}{8}{12}{5206--5215}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -1751,6 +2263,31 @@ Fares, M\BPBI A.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Felsenstein%
+\ \BBA {} Felenstein%
+}{%
+Felsenstein%
+\ \BBA {} Felenstein%
+}{%
+{\protect \APACyear {2004}}%
+}]{%
+felsenstein2004inferring}
+\APACinsertmetastar {%
+felsenstein2004inferring}%
+\begin{APACrefauthors}%
+Felsenstein, J.%
+\BCBT {}\ \BBA {} Felenstein, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2004}.
+\newblock
+\APACrefbtitle {Inferring phylogenies} {Inferring phylogenies}\ (\BVOL~2).
+\newblock
+\APACaddressPublisher{}{Sinauer Associates Sunderland}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Ferragina%
 \ \BBA {} Manzini%
 }{%
@@ -1827,6 +2364,37 @@ Fitch, W\BPBI M.%
   application to the rate of fixation of mutations in evolution}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Biochemical Genetics}{4}{5}{579--593}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Flanigan%
+\ \protect \BOthers {.}}{%
+Flanigan%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+flanigan2009dmd}
+\APACinsertmetastar {%
+flanigan2009dmd}%
+\begin{APACrefauthors}%
+Flanigan, K\BPBI M.%
+, Dunn, D\BPBI M.%
+, von Niederhausern, A.%
+, Howard, M\BPBI T.%
+, Mendell, J.%
+, Connolly, A.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{DMD Trp3X} nonsense mutation associated with a founder
+  effect in North American families with mild {Becker} muscular dystrophy}
+  {{DMD Trp3X} nonsense mutation associated with a founder effect in north
+  american families with mild {Becker} muscular dystrophy}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Neuromuscular Disorders}{19}{11}{743--748}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -1914,6 +2482,39 @@ Garber, M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Gatfield%
+, Unterholzner%
+, Ciccarelli%
+, Bork%
+\BCBL {}\ \BBA {} Izaurralde%
+}{%
+Gatfield%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2003}}%
+}]{%
+gatfield2003nonsense}
+\APACinsertmetastar {%
+gatfield2003nonsense}%
+\begin{APACrefauthors}%
+Gatfield, D.%
+, Unterholzner, L.%
+, Ciccarelli, F\BPBI D.%
+, Bork, P.%
+\BCBL {}\ \BBA {} Izaurralde, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Nonsense-mediated m{RNA} decay in {Drosophila}: at the
+  intersection of the yeast and mammalian pathways} {Nonsense-mediated m{RNA}
+  decay in {Drosophila}: at the intersection of the yeast and mammalian
+  pathways}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The EMBO Journal}{22}{15}{3960--3970}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 {GATK Team}%
 }{%
 {GATK Team}%
@@ -1933,6 +2534,36 @@ GATK}%
 \APACrefbtitle {The Genome Analysis Toolkit.} {The genome analysis toolkit.}
 \newblock
 \APACrefnote{https://www.broadinstitute.org/gatk}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Giardine%
+\ \protect \BOthers {.}}{%
+Giardine%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
+}]{%
+giardine2005galaxy}
+\APACinsertmetastar {%
+giardine2005galaxy}%
+\begin{APACrefauthors}%
+Giardine, B.%
+, Riemer, C.%
+, Hardison, R\BPBI C.%
+, Burhans, R.%
+, Elnitski, L.%
+, Shah, P.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Galaxy: a platform for interactive large-scale genome
+  analysis} {Galaxy: a platform for interactive large-scale genome
+  analysis}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome Research}{15}{10}{1451--1455}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2081,6 +2712,56 @@ Goh, C\BHBI S.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Goodman%
+}{%
+Goodman%
+}{%
+{\protect \APACyear {1999}}%
+}]{%
+goodman1999toward}
+\APACinsertmetastar {%
+goodman1999toward}%
+\begin{APACrefauthors}%
+Goodman, S\BPBI N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Toward evidence-based medical statistics. 2: {The} Bayes
+  factor} {Toward evidence-based medical statistics. 2: {The} bayes
+  factor}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Annals of Internal Medicine}{130}{12}{1005--1013}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Google%
+}{%
+Google%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+kubernetes}
+\APACinsertmetastar {%
+kubernetes}%
+\begin{APACrefauthors}%
+Google.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{July}{}.
+\newblock
+\APACrefbtitle {Kubernetes: Manage a cluster of Linux containers as a single
+  system to accelerate Dev and simplify Ops.} {Kubernetes: Manage a cluster of
+  linux containers as a single system to accelerate dev and simplify ops.}
+\newblock
+\APAChowpublished {Web page}.
+\newblock
+\APACrefnote{http://kubernetes.io}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Gregersen%
 \ \protect \BOthers {.}}{%
 Gregersen%
@@ -2131,6 +2812,66 @@ Griffiths, A\BPBI J.%
   genetic analysis}.
 \newblock
 \APACaddressPublisher{}{Macmillan}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Guarente%
+\ \protect \BOthers {.}}{%
+Guarente%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1991}}%
+}]{%
+guarente1991generating}
+\APACinsertmetastar {%
+guarente1991generating}%
+\begin{APACrefauthors}%
+Guarente, L.%
+, Lin, Y.%
+, Carey, M.%
+, Breeden, L.%
+, Osley, M.%
+, Gould, J.%
+\BDBL {}Hereford, L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1991}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Generating yeast transcriptional activators containing
+  no yeast protein sequences} {Generating yeast transcriptional activators
+  containing no yeast protein sequences}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature}{350}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Guariguata%
+\ \protect \BOthers {.}}{%
+Guariguata%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+guariguata2014global}
+\APACinsertmetastar {%
+guariguata2014global}%
+\begin{APACrefauthors}%
+Guariguata, L.%
+, Whiting, D.%
+, Hambleton, I.%
+, Beagley, J.%
+, Linnenkamp, U.%
+\BCBL {}\ \BBA {} Shaw, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Global estimates of diabetes prevalence for 2013 and
+  projections for 2035} {Global estimates of diabetes prevalence for 2013 and
+  projections for 2035}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Diabetes Research and Clinical
+  Practice}{103}{2}{137--149}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2306,6 +3047,66 @@ Helwak, A.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Hernandez%
+\ \protect \BOthers {.}}{%
+Hernandez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+hernandez2011classic}
+\APACinsertmetastar {%
+hernandez2011classic}%
+\begin{APACrefauthors}%
+Hernandez, R\BPBI D.%
+, Kelley, J\BPBI L.%
+, Elyashiv, E.%
+, Melton, S\BPBI C.%
+, Auton, A.%
+, McVean, G.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Classic selective sweeps were rare in recent human
+  evolution} {Classic selective sweeps were rare in recent human
+  evolution}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Science}{331}{6019}{920--924}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hindman%
+\ \protect \BOthers {.}}{%
+Hindman%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+hindman2011mesos}
+\APACinsertmetastar {%
+hindman2011mesos}%
+\begin{APACrefauthors}%
+Hindman, B.%
+, Konwinski, A.%
+, Zaharia, M.%
+, Ghodsi, A.%
+, Joseph, A\BPBI D.%
+, Katz, R\BPBI H.%
+\BDBL {}Stoica, I.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Mesos: A Platform for Fine-Grained Resource Sharing in
+  the Data Center.} {Mesos: A platform for fine-grained resource sharing in the
+  data center.}{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {NSDI} {Nsdi}\ (\BVOL~11, \BPGS\ 22--22).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Hindorff%
 \ \protect \BOthers {.}}{%
 Hindorff%
@@ -2335,6 +3136,34 @@ Hindorff, L\BPBI A.%
 \newblock
 \APACjournalVolNumPages{Proceedings of the National Academy of
   Sciences}{106}{23}{9362--9367}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hosack%
+\ \protect \BOthers {.}}{%
+Hosack%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2003}}%
+}]{%
+hosack2003identifying}
+\APACinsertmetastar {%
+hosack2003identifying}%
+\begin{APACrefauthors}%
+Hosack, D\BPBI A.%
+, Dennis~Jr, G.%
+, Sherman, B\BPBI T.%
+, Lane, H\BPBI C.%
+, Lempicki, R\BPBI A.%
+\BCBL {}\ \BOthersPeriod {.}\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2003}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Identifying biological themes within lists of genes with
+  {EASE}} {Identifying biological themes within lists of genes with
+  {EASE}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome Biology}{4}{10}{R70}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2369,6 +3198,35 @@ Huang, W.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Hunter%
+, Singh%
+\BCBL {}\ \BBA {} Thornton%
+}{%
+Hunter%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1991}}%
+}]{%
+hunter1991pi}
+\APACinsertmetastar {%
+hunter1991pi}%
+\begin{APACrefauthors}%
+Hunter, C\BPBI A.%
+, Singh, J.%
+\BCBL {}\ \BBA {} Thornton, J\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1991}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {$\pi$-$\pi$ interactions: The geometry and energetics of
+  phenylalanine-phenylalanine interactions in proteins} {$\pi$-$\pi$
+  interactions: The geometry and energetics of phenylalanine-phenylalanine
+  interactions in proteins}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Molecular Biology}{218}{4}{837--846}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Hurst%
 , P{\'a}l%
 \BCBL {}\ \BBA {} Lercher%
@@ -2393,6 +3251,92 @@ Hurst, L\BPBI D.%
   evolutionary dynamics of eukaryotic gene order}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature Reviews Genetics}{5}{4}{299--310}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+IBM%
+}{%
+IBM%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+lsf}
+\APACinsertmetastar {%
+lsf}%
+\begin{APACrefauthors}%
+IBM.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{July}{}.
+\newblock
+\APACrefbtitle {{LSF}: {IBM} Platform Computing.} {{LSF}: {IBM} platform
+  computing.}
+\newblock
+\APAChowpublished {Web page}.
+\newblock
+\APACrefnote{http://www-03.ibm.com/systems/platformcomputing/products/lsf}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ivanov%
+, Firth%
+, Michel%
+, Atkins%
+\BCBL {}\ \BBA {} Baranov%
+}{%
+Ivanov%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+ivanov2011identification}
+\APACinsertmetastar {%
+ivanov2011identification}%
+\begin{APACrefauthors}%
+Ivanov, I\BPBI P.%
+, Firth, A\BPBI E.%
+, Michel, A\BPBI M.%
+, Atkins, J\BPBI F.%
+\BCBL {}\ \BBA {} Baranov, P\BPBI V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Identification of evolutionarily conserved
+  {non-AUG-initiated N-terminal} extensions in human coding sequences}
+  {Identification of evolutionarily conserved {non-AUG-initiated N-terminal}
+  extensions in human coding sequences}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic Acids Research}{39}{10}{4220--4234}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+J{\"a}ger%
+\ \protect \BOthers {.}}{%
+J{\"a}ger%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+jager2014jannovar}
+\APACinsertmetastar {%
+jager2014jannovar}%
+\begin{APACrefauthors}%
+J{\"a}ger, M.%
+, Wang, K.%
+, Bauer, S.%
+, Smedley, D.%
+, Krawitz, P.%
+\BCBL {}\ \BBA {} Robinson, P\BPBI N.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Jannovar: a java library for exome annotation}
+  {Jannovar: a java library for exome annotation}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Human Mutation}{35}{5}{548--555}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2457,12 +3401,12 @@ Jasnos, L.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Jones%
+D\BPBI T.~Jones%
 , Buchan%
 , Cozzetto%
 \BCBL {}\ \BBA {} Pontil%
 }{%
-Jones%
+D\BPBI T.~Jones%
 \ \protect \BOthers {.}}{%
 {\protect \APACyear {2012}}%
 }]{%
@@ -2485,6 +3429,36 @@ Jones, D\BPBI T.%
   covariance estimation on large multiple sequence alignments}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Bioinformatics}{28}{2}{184--190}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+K\BPBI A.~Jones%
+\ \protect \BOthers {.}}{%
+K\BPBI A.~Jones%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1998}}%
+}]{%
+jones1998gabab}
+\APACinsertmetastar {%
+jones1998gabab}%
+\begin{APACrefauthors}%
+Jones, K\BPBI A.%
+, Borowsky, B.%
+, Tamm, J\BPBI A.%
+, Craig, D\BPBI A.%
+, Durkin, M\BPBI M.%
+, Dai, M.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1998}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{GABAB} receptors function as a heteromeric assembly of
+  the subunits {GABABR1} and {GABABR2}} {{GABAB} receptors function as a
+  heteromeric assembly of the subunits {GABABR1} and {GABABR2}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature}{396}{6712}{674--679}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2517,6 +3491,35 @@ Joosten, R\BPBI P.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Jostins%
+, Levine%
+\BCBL {}\ \BBA {} Barrett%
+}{%
+Jostins%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+jostins2013using}
+\APACinsertmetastar {%
+jostins2013using}%
+\begin{APACrefauthors}%
+Jostins, L.%
+, Levine, A\BPBI P.%
+\BCBL {}\ \BBA {} Barrett, J\BPBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Using Genetic Prediction from Known Complex Disease Loci
+  to Guide the Design of Next-Generation Sequencing Experiments} {Using genetic
+  prediction from known complex disease loci to guide the design of
+  next-generation sequencing experiments}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{PloS One}{8}{10}{e76328}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Karolchik%
 \ \protect \BOthers {.}}{%
 Karolchik%
@@ -2546,6 +3549,32 @@ Karolchik, D.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Kass%
+\ \BBA {} Raftery%
+}{%
+Kass%
+\ \BBA {} Raftery%
+}{%
+{\protect \APACyear {1995}}%
+}]{%
+kass1995bayes}
+\APACinsertmetastar {%
+kass1995bayes}%
+\begin{APACrefauthors}%
+Kass, R\BPBI E.%
+\BCBT {}\ \BBA {} Raftery, A\BPBI E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1995}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bayes factors} {Bayes factors}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of the American Statistical
+  Association}{90}{430}{773--795}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Kennedy%
 }{%
 Kennedy%
@@ -2566,6 +3595,37 @@ Kennedy, M\BPBI A.%
   disorders}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Encyclopedia of Life Sciences}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kie{\l}basa%
+, Wan%
+, Sato%
+, Horton%
+\BCBL {}\ \BBA {} Frith%
+}{%
+Kie{\l}basa%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+kielbasa2011adaptive}
+\APACinsertmetastar {%
+kielbasa2011adaptive}%
+\begin{APACrefauthors}%
+Kie{\l}basa, S\BPBI M.%
+, Wan, R.%
+, Sato, K.%
+, Horton, P.%
+\BCBL {}\ \BBA {} Frith, M\BPBI C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Adaptive seeds tame genomic sequence comparison}
+  {Adaptive seeds tame genomic sequence comparison}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genome Research}{21}{3}{487--493}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2624,6 +3684,85 @@ Kodaman, N.%
 \newblock
 \APACjournalVolNumPages{Proceedings of the National Academy of
   Sciences}{111}{4}{1455--1460}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Koo%
+, Liew%
+, Mohamad%
+\BCBL {}\ \BBA {} Mohamed~Salleh%
+}{%
+Koo%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+koo2013review}
+\APACinsertmetastar {%
+koo2013review}%
+\begin{APACrefauthors}%
+Koo, C\BPBI L.%
+, Liew, M\BPBI J.%
+, Mohamad, M\BPBI S.%
+\BCBL {}\ \BBA {} Mohamed~Salleh, A\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A review for detecting gene-gene interactions using
+  machine learning methods in genetic epidemiology} {A review for detecting
+  gene-gene interactions using machine learning methods in genetic
+  epidemiology}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BioMed Research International}{2013}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kozak%
+}{%
+Kozak%
+}{%
+{\protect \APACyear {1987}}%
+}]{%
+kozak1987analysis}
+\APACinsertmetastar {%
+kozak1987analysis}%
+\begin{APACrefauthors}%
+Kozak, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1987}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {An analysis of 5'-noncoding sequences from 699
+  vertebrate messenger {RNA}s} {An analysis of 5'-noncoding sequences from 699
+  vertebrate messenger {RNA}s}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic Acids Research}{15}{20}{8125--8148}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Kronick%
+\ \protect \BOthers {.}}{%
+Kronick%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1962}}%
+}]{%
+kronick1962history}
+\APACinsertmetastar {%
+kronick1962history}%
+\begin{APACrefauthors}%
+Kronick, D\BPBI A.%
+\BCBT {}\ \BOthersPeriod {.}
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1962}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {History of scientific and technical periodicals}
+  {History of scientific and technical periodicals}.{\BBCQ}
+\newblock
+
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -2857,6 +3996,36 @@ Larson, D\BPBI E.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Lazure%
+, Hum%
+\BCBL {}\ \BBA {} Gibson%
+}{%
+Lazure%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1981}}%
+}]{%
+lazure1981sequence}
+\APACinsertmetastar {%
+lazure1981sequence}%
+\begin{APACrefauthors}%
+Lazure, C.%
+, Hum, W.%
+\BCBL {}\ \BBA {} Gibson, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1981}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Sequence diversity within a subgroup of mouse
+  immunoglobulin kappa chains controlled by the {IgK-Ef2} locus.} {Sequence
+  diversity within a subgroup of mouse immunoglobulin kappa chains controlled
+  by the {IgK-Ef2} locus.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The Journal of Experimental
+  Medicine}{154}{1}{146--155}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 B.~Li%
 \ \BBA {} Leal%
 }{%
@@ -3076,6 +4245,33 @@ Liu, C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+D.~Liu%
+\ \BBA {} Finley%
+}{%
+D.~Liu%
+\ \BBA {} Finley%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+liu2010cyclin}
+\APACinsertmetastar {%
+liu2010cyclin}%
+\begin{APACrefauthors}%
+Liu, D.%
+\BCBT {}\ \BBA {} Finley, R\BPBI L.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Cyclin Y} is a novel conserved cyclin essential for
+  development in {Drosophila}} {{Cyclin Y} is a novel conserved cyclin
+  essential for development in {Drosophila}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genetics}{184}{4}{1025--1035}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 X.~Liu%
 , Jian%
 \BCBL {}\ \BBA {} Boerwinkle%
@@ -3227,6 +4423,35 @@ Mani, R.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Manolio%
+\ \protect \BOthers {.}}{%
+Manolio%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+manolio2009finding}
+\APACinsertmetastar {%
+manolio2009finding}%
+\begin{APACrefauthors}%
+Manolio, T\BPBI A.%
+, Collins, F\BPBI S.%
+, Cox, N\BPBI J.%
+, Goldstein, D\BPBI B.%
+, Hindorff, L\BPBI A.%
+, Hunter, D\BPBI J.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Finding the missing heritability of complex diseases}
+  {Finding the missing heritability of complex diseases}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature}{461}{7265}{747--753}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Marks%
 , Hopf%
 \BCBL {}\ \BBA {} Sander%
@@ -3308,6 +4533,33 @@ Mattick, J\BPBI S.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+McCarthy%
+\ \BBA {} Consortia%
+}{%
+McCarthy%
+\ \BBA {} Consortia%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+mccarthy2015T2D}
+\APACinsertmetastar {%
+mccarthy2015T2D}%
+\begin{APACrefauthors}%
+McCarthy, M.%
+\BCBT {}\ \BBA {} Consortia, T\BPBI G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Variation in protein-coding sequence and predisposition
+  to type 2 diabetes} {Variation in protein-coding sequence and predisposition
+  to type 2 diabetes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{To be published}{}{}{}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 McKenna%
 \ \protect \BOthers {.}}{%
 McKenna%
@@ -3336,6 +4588,64 @@ McKenna, A.%
   sequencing data}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Genome Research}{20}{9}{1297--1303}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+McKinney%
+, Reif%
+, Ritchie%
+\BCBL {}\ \BBA {} Moore%
+}{%
+McKinney%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+mckinney2006machine}
+\APACinsertmetastar {%
+mckinney2006machine}%
+\begin{APACrefauthors}%
+McKinney, B\BPBI A.%
+, Reif, D\BPBI M.%
+, Ritchie, M\BPBI D.%
+\BCBL {}\ \BBA {} Moore, J\BPBI H.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Machine learning for detecting gene-gene interactions}
+  {Machine learning for detecting gene-gene interactions}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Applied Bioinformatics}{5}{2}{77--88}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+McLaren%
+\ \protect \BOthers {.}}{%
+McLaren%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+mclaren2010deriving}
+\APACinsertmetastar {%
+mclaren2010deriving}%
+\begin{APACrefauthors}%
+McLaren, W.%
+, Pritchard, B.%
+, Rios, D.%
+, Chen, Y.%
+, Flicek, P.%
+\BCBL {}\ \BBA {} Cunningham, F.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Deriving the consequences of genomic variants with the
+  Ensembl {API} and {SNP} Effect Predictor} {Deriving the consequences of
+  genomic variants with the ensembl {API} and {SNP} effect predictor}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bioinformatics}{26}{16}{2069--2070}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -3398,6 +4708,37 @@ Morcos, F.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Morris%
+\ \protect \BOthers {.}}{%
+Morris%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+morris2012large}
+\APACinsertmetastar {%
+morris2012large}%
+\begin{APACrefauthors}%
+Morris, A\BPBI P.%
+, Voight, B\BPBI F.%
+, Teslovich, T\BPBI M.%
+, Ferreira, T.%
+, Segr{\'e}, A\BPBI V.%
+, Steinthorsdottir, V.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Large-scale association analysis provides insights into
+  the genetic architecture and pathophysiology of type 2 diabetes} {Large-scale
+  association analysis provides insights into the genetic architecture and
+  pathophysiology of type 2 diabetes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{44}{9}{981}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Nagy%
 \ \BBA {} Maquat%
 }{%
@@ -3423,6 +4764,33 @@ Nagy, E.%
   affects {RNA} abundance}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Trends in Biochemical Sciences}{23}{6}{198--199}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Napolitano%
+, Mariani-Costantini%
+\BCBL {}\ \BBA {} Tagliaferri%
+}{%
+Napolitano%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+napolitano2013bioinformatic}
+\APACinsertmetastar {%
+napolitano2013bioinformatic}%
+\begin{APACrefauthors}%
+Napolitano, F.%
+, Mariani-Costantini, R.%
+\BCBL {}\ \BBA {} Tagliaferri, R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bioinformatic pipelines in Python with {Leaf}}
+  {Bioinformatic pipelines in python with {Leaf}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{BMC Bioinformatics}{14}{1}{201}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -3662,6 +5030,37 @@ Pagon, R.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Parks%
+\ \protect \BOthers {.}}{%
+Parks%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2004}}%
+}]{%
+parks2004systematic}
+\APACinsertmetastar {%
+parks2004systematic}%
+\begin{APACrefauthors}%
+Parks, A\BPBI L.%
+, Cook, K\BPBI R.%
+, Belvin, M.%
+, Dompe, N\BPBI A.%
+, Fawcett, R.%
+, Huppert, K.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2004}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Systematic generation of high-resolution deletion
+  coverage of the {Drosophila} melanogaster genome} {Systematic generation of
+  high-resolution deletion coverage of the {Drosophila} melanogaster
+  genome}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{36}{3}{288--292}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Patterson%
 , Price%
 \BCBL {}\ \BBA {} Reich%
@@ -3829,6 +5228,38 @@ Phillips, P\BPBI C.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Platts%
+\ \protect \BOthers {.}}{%
+Platts%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+platts2009massively}
+\APACinsertmetastar {%
+platts2009massively}%
+\begin{APACrefauthors}%
+Platts, A.%
+, Land, S\BPBI J.%
+, Chen, L.%
+, Page, G.%
+, Rasouli, P.%
+, Wang, L.%
+\BDBL {}Ruden, D\BPBI M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Massively parallel resequencing of the isogenic
+  {Drosophila} melanogaster strain w1118; iso-2; iso-3 identifies hotspots for
+  mutations in sensory perception genes} {Massively parallel resequencing of
+  the isogenic {Drosophila} melanogaster strain w1118; iso-2; iso-3 identifies
+  hotspots for mutations in sensory perception genes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Fly}{3}{3}{192--204}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Pollard%
 , Hubisz%
 , Rosenbloom%
@@ -3856,6 +5287,36 @@ Pollard, K\BPBI S.%
   phylogenies}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Genome Research}{20}{1}{110--121}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Price%
+\ \protect \BOthers {.}}{%
+Price%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+price2006principal}
+\APACinsertmetastar {%
+price2006principal}%
+\begin{APACrefauthors}%
+Price, A\BPBI L.%
+, Patterson, N\BPBI J.%
+, Plenge, R\BPBI M.%
+, Weinblatt, M\BPBI E.%
+, Shadick, N\BPBI A.%
+\BCBL {}\ \BBA {} Reich, D.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Principal components analysis corrects for
+  stratification in genome-wide association studies} {Principal components
+  analysis corrects for stratification in genome-wide association
+  studies}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{38}{8}{904--909}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -4064,6 +5525,56 @@ Ray, D.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Regalado%
+}{%
+Regalado%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+UK100K}
+\APACinsertmetastar {%
+UK100K}%
+\begin{APACrefauthors}%
+Regalado, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{July}{}.
+\newblock
+\APACrefbtitle {British Government Picks Illumina to Sequence 100,000 Genomes.}
+  {British government picks illumina to sequence 100,000 genomes.}
+\newblock
+\APAChowpublished {PressRelease}.
+\newblock
+\APACrefnote{http://www.technologyreview.com/news/528946/british-government-picks-illumina-to-sequence-100000-genomes}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Regalado%
+}{%
+Regalado%
+}{%
+{\protect \APACyear {2015}}%
+}]{%
+precisionUS1M}
+\APACinsertmetastar {%
+precisionUS1M}%
+\begin{APACrefauthors}%
+Regalado, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2015}{January}{}.
+\newblock
+\APACrefbtitle {{U.S.} to Develop {DNA} Study of One Million People.} {{U.S.}
+  to develop {DNA} study of one million people.}
+\newblock
+\APAChowpublished {PressRelease}.
+\newblock
+\APACrefnote{http://www.technologyreview.com/news/534591/us-to-develop-dna-study-of-one-million-people}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Reich%
 \ \protect \BOthers {.}}{%
 Reich%
@@ -4244,6 +5755,38 @@ Rope, A.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Ruden%
+\ \protect \BOthers {.}}{%
+Ruden%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+ruden2008edge}
+\APACinsertmetastar {%
+ruden2008edge}%
+\begin{APACrefauthors}%
+Ruden, D\BPBI M.%
+, Jamison, D\BPBI C.%
+, Zeeberg, B\BPBI R.%
+, Garfinkel, M\BPBI D.%
+, Weinstein, J\BPBI N.%
+, Rasouli, P.%
+\BCBL {}\ \BBA {} Lu, X.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The {EDGE} hypothesis: Epigenetically directed genetic
+  errors in repeat-containing proteins ({RCPs}) involved in evolution,
+  neuroendocrine signaling, and cancer} {The {EDGE} hypothesis: Epigenetically
+  directed genetic errors in repeat-containing proteins ({RCPs}) involved in
+  evolution, neuroendocrine signaling, and cancer}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Frontiers in Neuroendocrinology}{29}{3}{428--444}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Ruiz-Gonz{\'a}lez%
 \ \BBA {} Fares%
 }{%
@@ -4301,6 +5844,61 @@ Sabarinathan, R.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Sadedin%
+, Pope%
+\BCBL {}\ \BBA {} Oshlack%
+}{%
+Sadedin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2012}}%
+}]{%
+sadedin2012bpipe}
+\APACinsertmetastar {%
+sadedin2012bpipe}%
+\begin{APACrefauthors}%
+Sadedin, S\BPBI P.%
+, Pope, B.%
+\BCBL {}\ \BBA {} Oshlack, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Bpipe}: a tool for running and managing bioinformatics
+  pipelines} {{Bpipe}: a tool for running and managing bioinformatics
+  pipelines}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Bioinformatics}{28}{11}{1525--1526}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Santiveri%
+\ \BBA {} Jim{\'e}nez%
+}{%
+Santiveri%
+\ \BBA {} Jim{\'e}nez%
+}{%
+{\protect \APACyear {2010}}%
+}]{%
+santiveri2010tryptophan}
+\APACinsertmetastar {%
+santiveri2010tryptophan}%
+\begin{APACrefauthors}%
+Santiveri, C\BPBI M.%
+\BCBT {}\ \BBA {} Jim{\'e}nez, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Tryptophan residues: Scarce in proteins but strong
+  stabilizers of $\beta$-hairpin peptides} {Tryptophan residues: Scarce in
+  proteins but strong stabilizers of $\beta$-hairpin peptides}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Peptide Science}{94}{6}{779--790}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Sauna%
 \ \BBA {} Kimchi-Sarfaty%
 }{%
@@ -4325,6 +5923,59 @@ Sauna, Z\BPBI E.%
   human disease}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature Reviews Genetics}{12}{10}{683--691}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Saurin%
+, Hofnung%
+\BCBL {}\ \BBA {} Dassa%
+}{%
+Saurin%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1999}}%
+}]{%
+saurin1999getting}
+\APACinsertmetastar {%
+saurin1999getting}%
+\begin{APACrefauthors}%
+Saurin, W.%
+, Hofnung, M.%
+\BCBL {}\ \BBA {} Dassa, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1999}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Getting in or out: early segregation between importers
+  and exporters in the evolution of {ATP-binding} cassette ({ABC})
+  transporters} {Getting in or out: early segregation between importers and
+  exporters in the evolution of {ATP-binding} cassette ({ABC})
+  transporters}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Molecular Evolution}{48}{1}{22--41}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Schadt%
+}{%
+Schadt%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+schadt2011first}
+\APACinsertmetastar {%
+schadt2011first}%
+\begin{APACrefauthors}%
+Schadt, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {First Steps on a Long Road} {First steps on a long
+  road}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Science}{331}{6018}{691--691}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -4496,6 +6147,61 @@ Shendure, J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Shoemaker%
+\ \BBA {} Panchenko%
+}{%
+Shoemaker%
+\ \BBA {} Panchenko%
+}{%
+{\protect \APACyear {2007}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+shoemaker2007deciphering}
+\APACinsertmetastar {%
+shoemaker2007deciphering}%
+\begin{APACrefauthors}%
+Shoemaker, B\BPBI A.%
+\BCBT {}\ \BBA {} Panchenko, A\BPBI R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007{\protect \BCnt {1}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Deciphering protein-protein interactions. {Part I}.
+  {Experimental} techniques and databases} {Deciphering protein-protein
+  interactions. {Part I}. {Experimental} techniques and databases}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{PLoS Computational Biology}{3}{3}{e42}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Shoemaker%
+\ \BBA {} Panchenko%
+}{%
+Shoemaker%
+\ \BBA {} Panchenko%
+}{%
+{\protect \APACyear {2007}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+shoemaker2007decipheringP2}
+\APACinsertmetastar {%
+shoemaker2007decipheringP2}%
+\begin{APACrefauthors}%
+Shoemaker, B\BPBI A.%
+\BCBT {}\ \BBA {} Panchenko, A\BPBI R.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007{\protect \BCnt {2}}}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Deciphering protein-protein interactions. {Part II}.
+  {Computational} methods to predict protein and domain interaction partners}
+  {Deciphering protein-protein interactions. {Part II}. {Computational} methods
+  to predict protein and domain interaction partners}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{PLoS Computational Biology}{3}{4}{e43}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Siepel%
 \ \protect \BOthers {.}}{%
 Siepel%
@@ -4582,6 +6288,34 @@ Smith, T\BPBI F.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Stark%
+\ \protect \BOthers {.}}{%
+Stark%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2006}}%
+}]{%
+stark2006biogrid}
+\APACinsertmetastar {%
+stark2006biogrid}%
+\begin{APACrefauthors}%
+Stark, C.%
+, Breitkreutz, B\BHBI J.%
+, Reguly, T.%
+, Boucher, L.%
+, Breitkreutz, A.%
+\BCBL {}\ \BBA {} Tyers, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2006}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{BioGRID}: a general repository for interaction
+  datasets} {{BioGRID}: a general repository for interaction datasets}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nucleic Acids Research}{34}{suppl 1}{D535--D539}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Stenson%
 \ \protect \BOthers {.}}{%
 Stenson%
@@ -4609,6 +6343,126 @@ Stenson, P\BPBI D.%
   update}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Human Mutation}{21}{6}{577--581}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Stoletzki%
+\ \BBA {} Eyre-Walker%
+}{%
+Stoletzki%
+\ \BBA {} Eyre-Walker%
+}{%
+{\protect \APACyear {2011}}%
+}]{%
+stoletzki2011positive}
+\APACinsertmetastar {%
+stoletzki2011positive}%
+\begin{APACrefauthors}%
+Stoletzki, N.%
+\BCBT {}\ \BBA {} Eyre-Walker, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The positive correlation between {dN/dS} and {dS} in
+  mammals is due to runs of adjacent substitutions} {The positive correlation
+  between {dN/dS} and {dS} in mammals is due to runs of adjacent
+  substitutions}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Molecular Biology and Evolution}{28}{4}{1371--1380}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Subramanian%
+\ \protect \BOthers {.}}{%
+Subramanian%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2005}}%
+}]{%
+subramanian2005gene}
+\APACinsertmetastar {%
+subramanian2005gene}%
+\begin{APACrefauthors}%
+Subramanian, A.%
+, Tamayo, P.%
+, Mootha, V\BPBI K.%
+, Mukherjee, S.%
+, Ebert, B\BPBI L.%
+, Gillette, M\BPBI A.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2005}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Gene set enrichment analysis: a knowledge-based approach
+  for interpreting genome-wide expression profiles} {Gene set enrichment
+  analysis: a knowledge-based approach for interpreting genome-wide expression
+  profiles}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Proceedings of the National Academy of
+  Sciences}{102}{43}{15545--15550}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Sugihara%
+, Andrisani%
+\BCBL {}\ \BBA {} Salvaterra%
+}{%
+Sugihara%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1990}}%
+}]{%
+sugihara1990drosophila}
+\APACinsertmetastar {%
+sugihara1990drosophila}%
+\begin{APACrefauthors}%
+Sugihara, H.%
+, Andrisani, V.%
+\BCBL {}\ \BBA {} Salvaterra, P.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1990}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{Drosophila} choline acetyltransferase uses a {non-AUG}
+  initiation codon and full length {RNA} is inefficiently translated.}
+  {{Drosophila} choline acetyltransferase uses a {non-AUG} initiation codon and
+  full length {RNA} is inefficiently translated.}{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Biological
+  Chemistry}{265}{35}{21714--21719}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Thibault%
+\ \protect \BOthers {.}}{%
+Thibault%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2004}}%
+}]{%
+thibault2004complementary}
+\APACinsertmetastar {%
+thibault2004complementary}%
+\begin{APACrefauthors}%
+Thibault, S\BPBI T.%
+, Singer, M\BPBI A.%
+, Miyazaki, W\BPBI Y.%
+, Milash, B.%
+, Dompe, N\BPBI A.%
+, Singh, C\BPBI M.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2004}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A complementary transposon tool kit for {Drosophila}
+  melanogaster using {P} and {piggyBac}} {A complementary transposon tool kit
+  for {Drosophila} melanogaster using {P} and {piggyBac}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{36}{3}{283--287}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -4674,6 +6528,37 @@ Tong, A\BPBI H\BPBI Y.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Tran%
+\ \protect \BOthers {.}}{%
+Tran%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2007}}%
+}]{%
+tran2007nonsense}
+\APACinsertmetastar {%
+tran2007nonsense}%
+\begin{APACrefauthors}%
+Tran, V\BPBI K.%
+, Takeshima, Y.%
+, Zhang, Z.%
+, Habara, Y.%
+, Haginoya, K.%
+, Nishiyama, A.%
+\BDBL {}Matsuo, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2007}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {A nonsense mutation-created intraexonic splice site is
+  active in the lymphocytes, but not in the skeletal muscle of a {DMD} patient}
+  {A nonsense mutation-created intraexonic splice site is active in the
+  lymphocytes, but not in the skeletal muscle of a {DMD} patient}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Human Genetics}{120}{5}{737--742}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Tsai%
 \ \protect \BOthers {.}}{%
 Tsai%
@@ -4734,6 +6619,33 @@ Turnbaugh, P\BPBI J.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Tyedmers%
+, Madariaga%
+\BCBL {}\ \BBA {} Lindquist%
+}{%
+Tyedmers%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+tyedmers2008prion}
+\APACinsertmetastar {%
+tyedmers2008prion}%
+\begin{APACrefauthors}%
+Tyedmers, J.%
+, Madariaga, M\BPBI L.%
+\BCBL {}\ \BBA {} Lindquist, S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Prion switching in response to environmental stress}
+  {Prion switching in response to environmental stress}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{PLoS Biology}{6}{11}{e294}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Tyler%
 , Asselbergs%
 , Williams%
@@ -4790,6 +6702,85 @@ Venkatesan, K.%
   {An empirical framework for binary interactome mapping}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature Methods}{6}{1}{83--90}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Voight%
+\ \protect \BOthers {.}}{%
+Voight%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2010}}%
+}]{%
+voight2010twelve}
+\APACinsertmetastar {%
+voight2010twelve}%
+\begin{APACrefauthors}%
+Voight, B\BPBI F.%
+, Scott, L\BPBI J.%
+, Steinthorsdottir, V.%
+, Morris, A\BPBI P.%
+, Dina, C.%
+, Welch, R\BPBI P.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2010}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Twelve type 2 diabetes susceptibility loci identified
+  through large-scale association analysis} {Twelve type 2 diabetes
+  susceptibility loci identified through large-scale association
+  analysis}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{42}{7}{579--589}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Waaler%
+}{%
+Waaler%
+}{%
+{\protect \APACyear {1921}}%
+}]{%
+waaler1921location}
+\APACinsertmetastar {%
+waaler1921location}%
+\begin{APACrefauthors}%
+Waaler, G.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1921}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The location of a new second chromosome eye colour gene
+  in {Drosophila} melanogaster} {The location of a new second chromosome eye
+  colour gene in {Drosophila} melanogaster}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Hereditas}{2}{3}{391--394}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wakefield%
+}{%
+Wakefield%
+}{%
+{\protect \APACyear {2009}}%
+}]{%
+wakefield2009bayes}
+\APACinsertmetastar {%
+wakefield2009bayes}%
+\begin{APACrefauthors}%
+Wakefield, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Bayes factors for genome-wide association studies:
+  comparison with P-values} {Bayes factors for genome-wide association studies:
+  comparison with p-values}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Genetic Epidemiology}{33}{1}{79--86}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -4969,6 +6960,36 @@ Weigt, M.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
+Wheeler%
+\ \protect \BOthers {.}}{%
+Wheeler%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+wheeler2008complete}
+\APACinsertmetastar {%
+wheeler2008complete}%
+\begin{APACrefauthors}%
+Wheeler, D\BPBI A.%
+, Srinivasan, M.%
+, Egholm, M.%
+, Shen, Y.%
+, Chen, L.%
+, McGuire, A.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The complete genome of an individual by massively
+  parallel {DNA} sequencing} {The complete genome of an individual by massively
+  parallel {DNA} sequencing}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature}{452}{7189}{872--876}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
 Whitcomb%
 \ \protect \BOthers {.}}{%
 Whitcomb%
@@ -4996,6 +7017,54 @@ Whitcomb, D\BPBI C.%
   in the cationic trypsinogen gene}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nature Genetics}{14}{2}{141--145}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wickner%
+}{%
+Wickner%
+}{%
+{\protect \APACyear {1994}}%
+}]{%
+wickner1994ure3}
+\APACinsertmetastar {%
+wickner1994ure3}%
+\begin{APACrefauthors}%
+Wickner, R\BPBI B.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1994}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {[{URE3}] as an altered {URE2} protein: evidence for a
+  prion analog in {Saccharomyces} cerevisiae} {[{URE3}] as an altered {URE2}
+  protein: evidence for a prion analog in {Saccharomyces} cerevisiae}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Science}{264}{5158}{566--569}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Wilks%
+}{%
+Wilks%
+}{%
+{\protect \APACyear {1938}}%
+}]{%
+wilks1938large}
+\APACinsertmetastar {%
+wilks1938large}%
+\begin{APACrefauthors}%
+Wilks, S\BPBI S.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1938}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {The large-sample distribution of the likelihood ratio
+  for testing composite hypotheses} {The large-sample distribution of the
+  likelihood ratio for testing composite hypotheses}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{The Annals of Mathematical Statistics}{9}{1}{60--62}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
@@ -5149,9 +7218,9 @@ Yamaguchi-Kabata, Y.%
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
-Yang%
+J\BHBI H.~Yang%
 \ \protect \BOthers {.}}{%
-Yang%
+J\BHBI H.~Yang%
 \ \protect \BOthers {.}}{%
 {\protect \APACyear {2011}}%
 }]{%
@@ -5176,6 +7245,90 @@ Yang, J\BHBI H.%
   CLIP-Seq and Degradome-Seq} data}.{\BBCQ}
 \newblock
 \APACjournalVolNumPages{Nucleic Acids Research}{39}{suppl 1}{D202--D209}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Z.~Yang%
+}{%
+Z.~Yang%
+}{%
+{\protect \APACyear {2006}}%
+}]{%
+yang2006computational}
+\APACinsertmetastar {%
+yang2006computational}%
+\begin{APACrefauthors}%
+Yang, Z.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2006}.
+\newblock
+\APACrefbtitle {Computational molecular evolution} {Computational molecular
+  evolution}\ (\BVOL~284).
+\newblock
+\APACaddressPublisher{}{Oxford University Press Oxford}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Younossi-Hartenstein%
+\ \protect \BOthers {.}}{%
+Younossi-Hartenstein%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {1997}}%
+}]{%
+younossi1997control}
+\APACinsertmetastar {%
+younossi1997control}%
+\begin{APACrefauthors}%
+Younossi-Hartenstein, A.%
+, Green, P.%
+, Liaw, G\BHBI J.%
+, Rudolph, K.%
+, Lengyel, J.%
+\BCBL {}\ \BBA {} Hartenstein, V.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{1997}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Control of Early Neurogenesis of theDrosophilaBrain by
+  the {Head Gap Genestll, otd, ems, andbtd}} {Control of early neurogenesis of
+  thedrosophilabrain by the {Head Gap Genestll, otd, ems, andbtd}}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Developmental Biology}{182}{2}{270--283}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Zeggini%
+\ \protect \BOthers {.}}{%
+Zeggini%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2008}}%
+}]{%
+zeggini2008meta}
+\APACinsertmetastar {%
+zeggini2008meta}%
+\begin{APACrefauthors}%
+Zeggini, E.%
+, Scott, L\BPBI J.%
+, Saxena, R.%
+, Voight, B\BPBI F.%
+, Marchini, J\BPBI L.%
+, Hu, T.%
+\BDBL {}others%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2008}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Meta-analysis of genome-wide association data and
+  large-scale replication identifies additional susceptibility loci for type 2
+  diabetes} {Meta-analysis of genome-wide association data and large-scale
+  replication identifies additional susceptibility loci for type 2
+  diabetes}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Nature Genetics}{40}{5}{638--645}.
 \PrintBackRefs{\CurrentBib}
 
 \bibitem [\protect \citeauthoryear {%
