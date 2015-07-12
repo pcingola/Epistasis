@@ -195,7 +195,7 @@ According to Wilk's theorem \cite{wilks1938large}, the log likelihood ratio has 
 Next, we extend the logistic model to accommodate interacting loci. For an individual (sample $s$), we model interactions between two genetic loci $i$ and $j$, having genotypes $g_{s,i}$ and $g_{s,j}$, by extending the logistic model
 \begin{eqnarray} \label{eq:gwasLogRegH1}
     P( d_s | g_{s,i},g_{s,j}, H_1) & = & \phi[ \theta_0 + \theta_1 g_{s,i} + \theta_2 g_{s,j} + \theta_3 (g_{s,i} g_{s,j}) \\
-    & & + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \\
+    & & + \theta_4 c_{s,1} + ... + \theta_m c_{s,N_{cov}} ] \nonumber \\
     & = & \phi( \bar{\theta}^T \bar{g}_{s,i,j}) )
 \end{eqnarray}
 \noindent where $\bar{g}_{s,i,j} =  [1, g_{s,i}, g_{s,j}, ( g_{s,i} g_{s,j}), c_{s,1}, c_{s,2}, ..., c_{s,N_{cov}} ]^T$. 
