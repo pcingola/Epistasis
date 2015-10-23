@@ -28,8 +28,7 @@ dirGwasOut		:= "$dir/gwas"	help GWAS output directory
 #-------------------------------------------------------------------------------
 
 if( param ) {
-	#parameterEstimation()
-	parameterEstimationQ2()
+	parameterEstimation()
 }
 
 if( model ) {
