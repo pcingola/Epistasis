@@ -439,7 +439,7 @@ public class Epistasis implements CommandLine {
 			aaFreqsFile = args[argNum++];
 			q2MatrixFile = args[argNum++];
 			aaFreqsContactFile = args[argNum++];
-			int neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbours' on each side
+			int neighbours = Gpr.parseIntSafe(args[argNum++]); // Number of 'neighbors' on each side
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			runLikelihood(neighbours);
 			break;
@@ -656,8 +656,8 @@ public class Epistasis implements CommandLine {
 								, EntropySeq.entropy(d.aaSeq2) //
 								, EntropySeq.conservation(d.aaSeq1) //
 								, EntropySeq.conservation(d.aaSeq2) //
-								) //
-				);
+		) //
+		);
 
 		//---
 		// Count first 'AA' (all)
@@ -673,7 +673,7 @@ public class Epistasis implements CommandLine {
 		aaContactsUniq.stream() //
 				.filter(d -> EntropySeq.conservation(d.aaSeq1) < 1.0 && EntropySeq.conservation(d.aaSeq2) < 1.0) // Do not calculate on fully conserved sequences (entropy is zero)
 				.forEach(d -> countFirstAa.addScore(d.getAaPair(), f.apply(d))) //
-		;
+				;
 		System.err.println("Count fist AA (non-fully conserved) " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_" + type + "\t", countFirstAa.toStringSort()));
 
 		//---
@@ -684,7 +684,7 @@ public class Epistasis implements CommandLine {
 				.filter(d -> !d.annotations1.isEmpty() && !d.annotations2.isEmpty()) // Only entries having annotations
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach(ap -> countFirstAaAnnAll.inc(ap)) //
-				) //
+		) //
 		;
 		System.err.println("Count fist AA with annotations (all):\n" + Gpr.prependEachLine("COUNT_AA_NEXTPROT_" + type + "\t", countFirstAaAnnAll.toStringSort()));
 
@@ -698,8 +698,8 @@ public class Epistasis implements CommandLine {
 				.forEach( //
 						d -> d.getAaPairAnnotations().forEach( // Add to all annotation pairs
 								ap -> countFirstAaAnn.addScore(ap, f.apply(d)) //
-								) //
-				) //
+		) //
+		) //
 		;
 		System.err.println("Count fist AA with annotations (non-fully conserved), " + type + " :\n" + Gpr.prependEachLine("COUNT_AA_NON_FULL_CONS_NEXTPROT_" + type + "\t", countFirstAaAnn.toStringSort()));
 
@@ -869,7 +869,7 @@ public class Epistasis implements CommandLine {
 							.peek(i -> total.inc()) //
 							.filter(i -> msa.isFullyConserved(i, num)) //
 							.forEach(i -> conserved.inc()) //
-					);
+			);
 
 			//---
 			// Count number of 'fully conserved' AA windows of n-columns around 'AA in contact'
@@ -882,7 +882,7 @@ public class Epistasis implements CommandLine {
 					.map(d -> new Pair<String[], String[]>(msas.colSequences(d.msa1, d.msaIdx1, num), msas.colSequences(d.msa2, d.msaIdx2, num))) //
 					.filter(p -> isFullyConserved(p.getFirst()) && isFullyConserved(p.getSecond())) //
 					.forEach(d -> conservedIc.inc()) //
-			;
+					;
 
 			//---
 			// Show results
@@ -1149,7 +1149,7 @@ public class Epistasis implements CommandLine {
 		TransitionsAa sum = msas.stream() //
 				.map(msa -> transitions(msa)) // Calculate transitions
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		;
+				;
 		System.out.println(Gpr.prependEachLine("AA_SINGLE_BG\t", sum));
 
 		//---
@@ -1159,7 +1159,7 @@ public class Epistasis implements CommandLine {
 		aaContacts.stream()//
 				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) //
 				.forEach(d -> transPairs.count(d)) //
-		;
+				;
 		System.out.println(Gpr.prependEachLine("AA_PAIRS_IN_CONTACT\t", transPairs));
 
 		//---
@@ -1266,7 +1266,7 @@ public class Epistasis implements CommandLine {
 				.parallelStream() //
 				.map(id -> transitionPairsBg(id, (int) count.inc(), maxCount)) //
 				.reduce(zero, (t1, t2) -> t1.add(t2)) // Reduce by adding
-		;
+				;
 
 		return sum;
 	}
