@@ -1,13 +1,12 @@
 package ca.mcgill.pcingola.epistasis.entropy;
 
-import gnu.trove.map.hash.TObjectIntHashMap;
-import gnu.trove.procedure.TObjectIntProcedure;
-
 import java.util.Arrays;
 
 import ca.mcgill.mcb.pcingola.stats.BooleanMutable;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.pcingola.epistasis.msa.MsaSimilarity;
+import gnu.trove.map.hash.TObjectIntHashMap;
+import gnu.trove.procedure.TObjectIntProcedure;
 
 /**
  * Entropy and other functions for sequences
@@ -162,6 +161,25 @@ public class EntropySeq {
 
 		return corr(codei, codej);
 
+	}
+
+	public static double correlation(byte codei[], byte codej[]) {
+		return -1.0;
+	}
+
+	public static double correlation(String coli, String colj) {
+		if (coli.length() != colj.length()) throw new RuntimeException("Lengths do not match!");
+
+		// Convert string to byte codes
+		int numAligns = coli.length();
+		byte codei[] = new byte[numAligns];
+		byte codej[] = new byte[numAligns];
+		for (int i = 0; i < numAligns; i++) {
+			codei[i] = GprSeq.aa2Code(coli.charAt(i));
+			codej[i] = GprSeq.aa2Code(colj.charAt(i));
+		}
+
+		return correlation(codei, codej);
 	}
 
 	/**

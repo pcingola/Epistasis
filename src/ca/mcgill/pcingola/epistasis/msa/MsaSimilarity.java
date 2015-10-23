@@ -21,7 +21,6 @@ public class MsaSimilarity {
 
 	public static final byte ALIGN_GAP = (byte) -1;
 	public static double SHOW_THRESHOLD = 0.99;
-	// public static final int MIN_SECOND_TOP_BASE_COUNT = 5;
 	public static final int MIN_AA_DISTANCE = 25;
 	public static final int SCORE_BINS = 1000;
 	public static int SHOW_EVERY = 1000;

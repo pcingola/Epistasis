@@ -123,7 +123,7 @@ public class DistanceResult {
 				&& chr2.equals(d.chr2) //
 				&& pos1 == d.pos1 //
 				&& pos2 == d.pos2 //
-		;
+				;
 	}
 
 	/**
@@ -147,9 +147,9 @@ public class DistanceResult {
 								.forEach( //
 										ann2 -> anns.add(aaPair + "\t" //
 												+ (reversed ? ann2 + "\t" + ann1 : ann1 + "\t" + ann2) //
-										) //
-								) //
-				);
+		) //
+		) //
+		);
 
 		return anns;
 	}
@@ -197,7 +197,7 @@ public class DistanceResult {
 				+ "\t" + aaSeq2 //
 				+ "\t" + annotations1 //
 				+ "\t" + annotations2 //
-		;
+				;
 	}
 
 	/**
@@ -207,6 +207,6 @@ public class DistanceResult {
 		return "" //
 				+ (chr1 != null ? "\t" + chr1 + ":" + pos1 : "") //
 				+ (chr2 != null ? "\t" + chr2 + ":" + pos2 : "") //
-		;
+				;
 	}
 }

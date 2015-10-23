@@ -374,3 +374,13 @@ void analysisCompoundProteins() {
 	}
 }
 
+#-------------------------------------------------------------------------------
+# Statistics requested for final submission
+#-------------------------------------------------------------------------------
+void analysisFinalSubmit() {
+	# Single base
+	aaStats := "$dir/fs.contact.txt"
+	println "\nCalculating statsfinalsubmission:\n\t'$aaStats'\n\t'$aaStatsSummary'"
+	task( aaStats <- aaNextProt )	sys $cmdEpistasis statsfinalsubmission $type $aaNextProt > $aaStats 
+}
+

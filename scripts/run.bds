@@ -40,6 +40,8 @@ if( model ) {
 	#analysisClinvar()
 	#analysisInteracting()
 	#analysisCompoundProteins()
+
+	analysisFinalSubmit()
 }
 
 if( gwas ) {

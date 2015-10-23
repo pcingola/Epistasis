@@ -301,6 +301,13 @@ public class Epistasis implements CommandLine {
 		String type = "";
 
 		switch (cmd.toLowerCase()) {
+
+		case "statsfinalsubmission":
+			aaContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			runStatsFinalSubmision();
+			break;
+
 		case "aacontactstats":
 			type = args[argNum++];
 			aaContactFile = args[argNum++];
@@ -645,7 +652,7 @@ public class Epistasis implements CommandLine {
 		//---
 		aaContactsUniq.stream() //
 				.forEach( //
-						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
 								, d //
 								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
 								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
@@ -1118,6 +1125,40 @@ public class Epistasis implements CommandLine {
 				+ "\tis_symmetric:\t" + Q2.isSymmetric() //
 		);
 
+	}
+
+	/**
+	 * Thesis final submission: "New statistics requested" that are actually the 
+	 * same I've shown 2 years ago. No comments.
+	 */
+	void runStatsFinalSubmision() {
+		load();
+
+		// Group by genomic position
+		Timer.showStdErr("Sort by position");
+		DistanceResults aaContactsUniq = new DistanceResults();
+		aaContacts.stream() //
+				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
+				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
+		aaContactsUniq.addMins(); // Move 'best' results from hash to list
+
+		// Calculate and show stats
+		aaContactsUniq.stream() //
+				.forEach( //
+						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+								, "d" //
+								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+								, EntropySeq.entropy(d.aaSeq1) //
+								, EntropySeq.entropy(d.aaSeq2) //
+								, EntropySeq.conservation(d.aaSeq1) //
+								, EntropySeq.conservation(d.aaSeq2) //
+								, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+		) //
+		);
 	}
 
 	/**
