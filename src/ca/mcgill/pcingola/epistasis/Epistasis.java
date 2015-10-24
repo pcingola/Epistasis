@@ -1176,9 +1176,10 @@ public class Epistasis implements CommandLine {
 		// Calculate and show stats
 		aaContactsUniq.stream() //
 				.forEach( //
-						d -> System.out.printf("%s\t%.6e\n" //
+						d -> System.out.printf("%s\t%.6e\t%.6e\n" //
 								, "d" //
 								, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+								, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
 		) //
 		);
 

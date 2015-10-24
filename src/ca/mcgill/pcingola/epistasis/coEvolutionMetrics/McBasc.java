@@ -31,15 +31,29 @@ public class McBasc {
 	 */
 	protected boolean useFodor = true;
 
-	protected boolean debug = true;
+	protected boolean debug = false;
 	protected String coli, colj; // Columns 'i' and 'j' from the alignment
 	protected byte codei[], codej[]; // Columns transformed from string to codes
 	double meanS_i, sigmaS_i;
 	double meanS_j, sigmaS_j;
 	AaSimilarityMatrix similarytyMatrix;
 
+	/**
+	 * Correlation between two columns in an MSA
+	 */
 	public static double correlation(AaSimilarityMatrix similarytyMatrix, String coli, String colj) {
 		McBasc mcBasc = new McBasc(similarytyMatrix, coli, colj);
+		mcBasc.setUseFodor(false);
+		return mcBasc.score();
+	}
+
+	/**
+	 * Correlation between two columns in an MSA
+	 * Try to follow Fodor's implementation
+	 */
+	public static double correlationFodor(AaSimilarityMatrix similarytyMatrix, String coli, String colj) {
+		McBasc mcBasc = new McBasc(similarytyMatrix, coli, colj);
+		mcBasc.setUseFodor(true);
 		return mcBasc.score();
 	}
 
