@@ -19,8 +19,10 @@ import ca.mcgill.mcb.pcingola.stats.Counter;
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
 import ca.mcgill.mcb.pcingola.util.Timer;
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.AaSimilarityMatrix;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.McBasc;
 import ca.mcgill.pcingola.epistasis.gwas.GwasEpistasis;
 import ca.mcgill.pcingola.epistasis.likelihood.CoEvolutionLikelihood;
 import ca.mcgill.pcingola.epistasis.likelihood.TrLikelihoodMatrix;
@@ -63,10 +65,11 @@ public class Epistasis implements CommandLine {
 	double aaFreqs[], aaFreqsContact[];
 	String[] args;
 	String cmd;
-	String aaContactFile, aaFreqsFile, aaFreqsContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, q2MatrixFile, treeFile;
+	String aaContactFile, aaFreqsFile, aaFreqsContactFile, configFile, genome, idMapFile, multAlignFile, pdbDir, qMatrixFile, q2MatrixFile, similarityMatrixFile, treeFile;
 	Random random = new Random(20140716);
 	LikelihoodTreeAa tree;
 	DistanceResults aaContacts;
+	AaSimilarityMatrix similarytyMatrix;
 	TransitionMatrix Q, Q2;
 	MultipleSequenceAlignmentSet msas;
 	EstimateTransitionMatrix mltm;
@@ -129,6 +132,7 @@ public class Epistasis implements CommandLine {
 		if (aaContactFile != null) loadAaContact(aaContactFile);
 		if (qMatrixFile != null) loadQ(qMatrixFile);
 		if (q2MatrixFile != null) loadQ2(q2MatrixFile);
+		if (similarityMatrixFile != null) loadMcLachlanMatrix(similarityMatrixFile);
 
 		if (multAlignFile != null) {
 			loadMsas(multAlignFile);
@@ -226,6 +230,13 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
+	 * Load similarity matrix (McLachlan's matrix)
+	 */
+	void loadMcLachlanMatrix(String fileName) {
+		similarytyMatrix = new AaSimilarityMatrix(fileName);
+	}
+
+	/**
 	 * Load MSAs
 	 */
 	void loadMsas(String multAlign) {
@@ -304,6 +315,7 @@ public class Epistasis implements CommandLine {
 
 		case "statsfinalsubmission":
 			aaContactFile = args[argNum++];
+			similarityMatrixFile = args[argNum++];
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			runStatsFinalSubmision();
 			break;
@@ -1128,7 +1140,7 @@ public class Epistasis implements CommandLine {
 	}
 
 	/**
-	 * Thesis final submission: "New statistics requested" that are actually the 
+	 * Thesis final submission: "New statistics requested" that are actually the
 	 * same I've shown 2 years ago. No comments.
 	 */
 	void runStatsFinalSubmision() {
@@ -1142,23 +1154,34 @@ public class Epistasis implements CommandLine {
 				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
 		aaContactsUniq.addMins(); // Move 'best' results from hash to list
 
+		//		// Calculate and show stats
+		//		aaContactsUniq.stream() //
+		//				.forEach( //
+		//						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+		//								, "d" //
+		//								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+		//								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+		//								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+		//								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+		//								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+		//								, EntropySeq.entropy(d.aaSeq1) //
+		//								, EntropySeq.entropy(d.aaSeq2) //
+		//								, EntropySeq.conservation(d.aaSeq1) //
+		//								, EntropySeq.conservation(d.aaSeq2) //
+		//								, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+		//								, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+		//		) //
+		//		);
+
 		// Calculate and show stats
 		aaContactsUniq.stream() //
 				.forEach( //
-						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
+						d -> System.out.printf("%s\t%.6e\n" //
 								, "d" //
-								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-								, EntropySeq.entropy(d.aaSeq1) //
-								, EntropySeq.entropy(d.aaSeq2) //
-								, EntropySeq.conservation(d.aaSeq1) //
-								, EntropySeq.conservation(d.aaSeq2) //
-								, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+								, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
 		) //
 		);
+
 	}
 
 	/**

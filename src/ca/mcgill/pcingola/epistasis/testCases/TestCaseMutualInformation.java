@@ -6,7 +6,7 @@ import junit.framework.TestCase;
 
 import org.junit.Assert;
 
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq;
 import ca.mcgill.pcingola.epistasis.msa.MsaSimilarityMutInf;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignment;
 import ca.mcgill.pcingola.epistasis.msa.MultipleSequenceAlignmentSet;

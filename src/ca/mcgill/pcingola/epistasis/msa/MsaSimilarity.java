@@ -6,8 +6,8 @@ import java.util.stream.IntStream;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.Timer;
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq;
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq.InformationFunction;
 import ca.mcgill.pcingola.epistasis.pdb.DistanceResult;
 
 /**

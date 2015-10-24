@@ -29,6 +29,7 @@ public class TestSuiteAll {
 		suite.addTestSuite(TestCaseLogisticRegressionT2d.class);
 		suite.addTestSuite(TestCaseLaplaceIntegral.class);
 		suite.addTestSuite(TestCaseGwas.class);
+		suite.addTestSuite(TestCaseMcBasc.class);
 
 		return suite;
 	}

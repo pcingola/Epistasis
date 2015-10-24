@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import ca.mcgill.mcb.pcingola.util.Gpr;
 import ca.mcgill.mcb.pcingola.util.GprSeq;
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq.InformationFunction;
 
 /**
  * Implement a 'distance' by variation of information

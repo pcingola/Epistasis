@@ -3,7 +3,7 @@ package ca.mcgill.pcingola.epistasis.msa;
 import java.util.Arrays;
 
 import ca.mcgill.mcb.pcingola.util.GprSeq;
-import ca.mcgill.pcingola.epistasis.entropy.EntropySeq.InformationFunction;
+import ca.mcgill.pcingola.epistasis.coEvolutionMetrics.EntropySeq.InformationFunction;
 
 /**
  * Implement a 'similarity' by mutual information

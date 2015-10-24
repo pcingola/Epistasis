@@ -1,4 +1,4 @@
-package ca.mcgill.pcingola.epistasis.entropy;
+package ca.mcgill.pcingola.epistasis.coEvolutionMetrics;
 
 import java.util.Arrays;
 
@@ -26,13 +26,9 @@ public class EntropySeq {
 	final short ONE = 1;
 
 	int count = 0;
-
 	double mi, varInf, hxy, hx, hy, hcondXY, hcondYX;
-
 	TObjectIntHashMap<String> countI = new TObjectIntHashMap<>();
-
 	TObjectIntHashMap<String> countJ = new TObjectIntHashMap<>();
-
 	TObjectIntHashMap<String> countIJ = new TObjectIntHashMap<>();
 
 	/**
@@ -127,7 +123,10 @@ public class EntropySeq {
 		return ((double) countEq) / ((double) count);
 	}
 
-	public static double corr(byte codei[], byte codej[]) {
+	/**
+	 * Naive correlation
+	 */
+	public static double correlation(byte codei[], byte codej[]) {
 		int count = 0, sum = 0;
 		int len = codei.length;
 
@@ -136,7 +135,7 @@ public class EntropySeq {
 			byte basei = codei[i];
 			byte basej = codej[i];
 
-			// TODO: Take gaps into account?
+			// Do not take gaps into account
 			if ((basei < 0) || (basej < 0)) continue;
 
 			count++;
@@ -147,9 +146,9 @@ public class EntropySeq {
 	}
 
 	/**
-	 * Correlation between two sequences
+	 * Naive correlation between two sequences
 	 */
-	public static double corr(String seqi, String seqj) {
+	public static double correlation(String seqi, String seqj) {
 		// Convert string to byte codes
 		int numAligns = seqi.length();
 		byte codei[] = new byte[numAligns];
@@ -157,26 +156,6 @@ public class EntropySeq {
 		for (int i = 0; i < numAligns; i++) {
 			codei[i] = GprSeq.aa2Code(seqi.charAt(i));
 			codej[i] = GprSeq.aa2Code(seqj.charAt(i));
-		}
-
-		return corr(codei, codej);
-
-	}
-
-	public static double correlation(byte codei[], byte codej[]) {
-		return -1.0;
-	}
-
-	public static double correlation(String coli, String colj) {
-		if (coli.length() != colj.length()) throw new RuntimeException("Lengths do not match!");
-
-		// Convert string to byte codes
-		int numAligns = coli.length();
-		byte codei[] = new byte[numAligns];
-		byte codej[] = new byte[numAligns];
-		for (int i = 0; i < numAligns; i++) {
-			codei[i] = GprSeq.aa2Code(coli.charAt(i));
-			codej[i] = GprSeq.aa2Code(colj.charAt(i));
 		}
 
 		return correlation(codei, codej);
