@@ -185,12 +185,14 @@ public class McBasc {
 		}
 
 		// Correlation coefficient
-		// Note: Fodor's implementation always divides by N^2 independently
-		// of the number of term in the sum
-		double n2 = useFodor ? N * N : count;
-
-		double r_ij = 2.0 / (sigmaS_i * sigmaS_j * n2) * sum;
-		return r_ij;
+		if (useFodor) {
+			// Note: Fodor's implementation always divides by N^2 independently
+			// of the number of term in the sum.
+			// Also the first coefficient is 2.0 since it assumes a symmetric
+			// matrix and only sums the upper triangle.
+			return 2.0 / (sigmaS_i * sigmaS_j * N * N) * sum;
+		}
+		return 1.0 / (sigmaS_i * sigmaS_j * count) * sum;
 	}
 
 	public void setDebug(boolean debug) {
