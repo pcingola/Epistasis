@@ -1170,23 +1170,25 @@ public class Epistasis implements CommandLine {
 		pdDist.distanceStream() // Get all distance calculations
 				.filter(d -> (d.distance <= distThreshold) || (Math.random() < 0.005)) // Filter out some 'not-in-contact' values (there are too many)
 				.map(d -> pdbGenomeMsas.mapToMsa(d)) // Add MSA sequences to distance entries
-				.filter(d -> (d != null) && (d.aaSeq1 != null) && (d.aaSeq2 != null)) // Filter unmapped entries
-				.forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e%s\n" //
-						, d //
-						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-						, EntropySeq.entropy(d.aaSeq1) //
-						, EntropySeq.entropy(d.aaSeq2) //
-						, EntropySeq.conservation(d.aaSeq1) //
-						, EntropySeq.conservation(d.aaSeq2) //
-						, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
-						, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-						, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-						, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
-						;
+				.filter(d -> (d != null) // Filter out unmapped entries
+						&& (d.aaSeq1 != null) && !d.aaSeq1.isEmpty() // Missing sequence 1?
+						&& (d.aaSeq2 != null) && !d.aaSeq2.isEmpty() // Missing sequence 2?
+		).forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e%s\n" //
+				, d //
+				, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+				, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+				, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+				, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+				, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+				, EntropySeq.entropy(d.aaSeq1) //
+				, EntropySeq.entropy(d.aaSeq2) //
+				, EntropySeq.conservation(d.aaSeq1) //
+				, EntropySeq.conservation(d.aaSeq2) //
+				, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+				, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+				, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+				, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
+				;
 
 	}
 

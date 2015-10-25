@@ -32,7 +32,6 @@ public class DistanceResult {
 	public DistanceResult() {
 		pdbId = pdbChainId = transcriptId = aaSeq1 = aaSeq2 = chr1 = chr2 = annotations1 = annotations2 = msa1 = msa2 = "";
 		aaPos1 = aaPos2 = pos1 = pos2 = msaIdx1 = msaIdx2 = -1;
-		//		chr1Num = chr2Num = -1;
 		distance = -1;
 		aa1 = aa2 = '.';
 	}
