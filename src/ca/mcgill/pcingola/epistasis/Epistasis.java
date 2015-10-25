@@ -1173,7 +1173,7 @@ public class Epistasis implements CommandLine {
 				.filter(d -> (d != null) // Filter out unmapped entries
 						&& (d.aaSeq1 != null) && !d.aaSeq1.isEmpty() // Missing sequence 1?
 						&& (d.aaSeq2 != null) && !d.aaSeq2.isEmpty() // Missing sequence 2?
-		).forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e%s\n" //
+		).forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%s\n" //
 				, d //
 				, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
 				, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
