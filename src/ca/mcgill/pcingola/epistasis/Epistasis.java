@@ -1170,7 +1170,7 @@ public class Epistasis implements CommandLine {
 		pdDist.distanceStream() // Get all distance calculations
 				.filter(d -> (d.distance <= distThreshold) || (Math.random() < 0.005)) // Filter out some 'not-in-contact' values (there are too many)
 				.map(d -> pdbGenomeMsas.mapToMsa(d)) // Add MSA sequences to distance entries
-				.filter(d -> d != null) // Filter unmapped entries
+				.filter(d -> (d != null) && (d.aaSeq1 != null) && (d.aaSeq2 != null)) // Filter unmapped entries
 				.forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e%s\n" //
 						, d //
 						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
