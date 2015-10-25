@@ -382,7 +382,7 @@ void analysisFinalSubmit() {
 	fsStats := "$dir/fs.txt"
 	println "\nCalculating statsfinalsubmission:\n\t'$fsStats'"
 	task( fsStats <- [idMapBest, tree, msaBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
-		sys $cmdEpistasis statsfinalsubmission $snpeffConfig $genome $similarityMatrix 3.0 15.0 25 $pdbDir $idMapBest $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $fsStats 
+		sys $cmdEpistasisXL statsfinalsubmission $snpeffConfig $genome $similarityMatrix 3.0 15.0 25 $pdbDir $idMapBest $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $fsStats 
 	}
 }
 
