@@ -313,13 +313,6 @@ public class Epistasis implements CommandLine {
 
 		switch (cmd.toLowerCase()) {
 
-		case "statsfinalsubmission":
-			aaContactFile = args[argNum++];
-			similarityMatrixFile = args[argNum++];
-			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
-			runStatsFinalSubmision();
-			break;
-
 		case "aacontactstats":
 			type = args[argNum++];
 			aaContactFile = args[argNum++];
@@ -623,6 +616,27 @@ public class Epistasis implements CommandLine {
 			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
 			filterMsaByIdMap = true;
 			runTransitions(numSamples);
+			break;
+
+		case "statsfinalsubmission":
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			similarityMatrixFile = args[argNum++];
+			distThreshold = Gpr.parseDoubleSafe(args[argNum++]); // Max distance threshold for 'in-contact'
+			double distThresholdNon = Gpr.parseDoubleSafe(args[argNum++]); // Min distance threshold for 'NOT in-contact'
+			if (distThreshold <= 0) usage("Distance must be a positive number: '" + args[argNum - 1] + "'");
+			aaMinSeparation = Gpr.parseIntSafe(args[argNum++]);
+			if (aaMinSeparation <= 0) usage("AA separation must be a positive number: '" + args[argNum - 1] + "'");
+			pdbDir = args[argNum++];
+			idMapFile = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			runStatsFinalSubmision(distThreshold, distThresholdNon, aaMinSeparation);
 			break;
 
 		default:
@@ -1073,12 +1087,12 @@ public class Epistasis implements CommandLine {
 	/**
 	 * Run Pdb distance
 	 */
-	void runPdbDistFar(double distThreshold, int aaMinSeparation) {
+	void runPdbDistFar(double distanceThresholdNon, int aaMinSeparation) {
 		load();
 
 		// Run analysis
-		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
-		pdDist.setFar(true);
+		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, Double.POSITIVE_INFINITY, aaMinSeparation, idMapper);
+		pdDist.setDistanceThresholdNon(distanceThresholdNon);
 		pdDist.run();
 	}
 
@@ -1143,45 +1157,36 @@ public class Epistasis implements CommandLine {
 	 * Thesis final submission: "New statistics requested" that are actually the
 	 * same I've shown 2 years ago. No comments.
 	 */
-	void runStatsFinalSubmision() {
+	void runStatsFinalSubmision(double distThreshold, double distThresholdNon, int aaMinSeparation) {
 		load();
 
-		// Group by genomic position
-		Timer.showStdErr("Sort by position");
-		DistanceResults aaContactsUniq = new DistanceResults();
-		aaContacts.stream() //
-				.filter(d -> !d.aaSeq1.isEmpty() && !d.aaSeq2.isEmpty()) // Filter out empty sequences
-				.forEach(d -> aaContactsUniq.collectMin(d, d.toStringPos()));
-		aaContactsUniq.addMins(); // Move 'best' results from hash to list
+		CoEvolutionLikelihood coEvolutionLikelihood = newInteractionLikelihood();
+		Timer.showStdErr("Pre-calculating matrix exponentials");
+		coEvolutionLikelihood.precalcExps();
 
-		//		// Calculate and show stats
-		//		aaContactsUniq.stream() //
-		//				.forEach( //
-		//						d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\n" //
-		//								, "d" //
-		//								, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-		//								, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-		//								, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-		//								, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-		//								, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-		//								, EntropySeq.entropy(d.aaSeq1) //
-		//								, EntropySeq.entropy(d.aaSeq2) //
-		//								, EntropySeq.conservation(d.aaSeq1) //
-		//								, EntropySeq.conservation(d.aaSeq2) //
-		//								, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
-		//								, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-		//		) //
-		//		);
-
-		// Calculate and show stats
-		aaContactsUniq.stream() //
-				.forEach( //
-						d -> System.out.printf("%s\t%.6e\t%.6e\n" //
-								, "d" //
-								, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-								, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-		) //
-		);
+		// Run analysis
+		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, distThreshold, aaMinSeparation, idMapper);
+		pdDist.setDistanceThresholdNon(distThresholdNon);
+		pdDist.distanceStream() // Get all distance calculations
+				.filter(d -> (d.distance <= distThreshold) || (Math.random() < 0.005)) // Filter out some 'not-in-contact' values (there are too many)
+				.map(d -> pdbGenomeMsas.mapToMsa(d)) // Add MSA sequences to distance entries
+				.filter(d -> d != null) // Filter unmapped entries
+				.forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e%s\n" //
+						, d //
+						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq2) //
+						, EntropySeq.conservation(d.aaSeq1) //
+						, EntropySeq.conservation(d.aaSeq2) //
+						, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+						, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+						, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+						, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
+						;
 
 	}
 

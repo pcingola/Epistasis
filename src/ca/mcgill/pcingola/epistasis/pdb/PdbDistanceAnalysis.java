@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.biojava.bio.structure.AminoAcid;
 import org.biojava.bio.structure.Atom;
@@ -30,9 +31,10 @@ public class PdbDistanceAnalysis {
 	public static final boolean verbose = true || debug;
 	public static final ArrayList<DistanceResult> EMPTY_DISTANCES = new ArrayList<>();
 
-	boolean far = false;
+	//	boolean far = false;
 	String pdbDir;
 	double distanceThreshold;
+	double distanceThresholdNon = Double.POSITIVE_INFINITY; // Distance threshold for 'not in contact'
 	double sumDist[];
 	int count[];
 	int countTh[];
@@ -62,7 +64,7 @@ public class PdbDistanceAnalysis {
 	/**
 	 * Distances within two amino acids within the same chain
 	 */
-	List<DistanceResult> distance(Chain chain) {
+	List<DistanceResult> distance(Chain chain, boolean printDistance) {
 		ArrayList<DistanceResult> results = new ArrayList<>();
 		List<AminoAcid> aas = aminoAcids(chain);
 
@@ -78,11 +80,13 @@ public class PdbDistanceAnalysis {
 				sumDist[aadist] += d;
 				count[aadist]++;
 
-				if ((!far && d <= distanceThreshold) || (far && d > distanceThreshold)) {
+				if ((Double.isFinite(distanceThreshold) && d <= distanceThreshold) // Amino acids in close distance
+						|| (Double.isFinite(distanceThresholdNon) && (d > distanceThresholdNon)) // Amino acids far apart
+				) {
 					countTh[aadist]++;
 					DistanceResult dres = new DistanceResult(aa1, aa2, d);
 					results.add(dres);
-					System.out.println((far ? "AA_NOT_IN_CONTACT\t" : "AA_IN_CONTACT\t") + dres);
+					if (printDistance) System.out.println(((d <= distanceThreshold) ? "AA_IN_CONTACT\t" : "AA_NOT_IN_CONTACT\t") + dres);
 				}
 			}
 		}
@@ -93,7 +97,7 @@ public class PdbDistanceAnalysis {
 	/**
 	 * Distances associated with this entry
 	 */
-	List<DistanceResult> distance(String pdbId) {
+	List<DistanceResult> distance(String pdbId, boolean printDistance) {
 		try {
 			// Does file exists?
 			String pdbFileName = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
@@ -112,7 +116,7 @@ public class PdbDistanceAnalysis {
 			if (idMapper.getByPdbId(id) == null) return EMPTY_DISTANCES;
 
 			// Distance
-			return distance(pdbStruct);
+			return distance(pdbStruct, printDistance);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -122,12 +126,12 @@ public class PdbDistanceAnalysis {
 	/**
 	 * Distances within all chains in a structure
 	 */
-	List<DistanceResult> distance(Structure structure) {
+	List<DistanceResult> distance(Structure structure, boolean printDistance) {
 		ArrayList<DistanceResult> results = new ArrayList<>();
 
 		// Distance
-		for (Chain chain1 : structure.getChains())
-			results.addAll(distance(chain1));
+		for (Chain chain : structure.getChains())
+			results.addAll(distance(chain, printDistance));
 
 		return results;
 	}
@@ -151,6 +155,17 @@ public class PdbDistanceAnalysis {
 		return distMin;
 	}
 
+	public Stream<DistanceResult> distanceStream() {
+		// Calculate distances for each one
+		return idMapper.getEntries().stream() //
+				.map(ime -> ime.pdbId) //
+				.sorted() //
+				.distinct() //
+				.parallel() //
+				.flatMap(pid -> distance(pid, false).stream()) //
+				;
+	}
+
 	/**
 	 * Run
 	 */
@@ -161,16 +176,20 @@ public class PdbDistanceAnalysis {
 				.sorted() //
 				.distinct() //
 				.parallel() //
-				.flatMap(pid -> distance(pid).stream()) //
+				.flatMap(pid -> distance(pid, true).stream()) //
 				.collect(Collectors.toList()) //
 				;
 
 		return res;
 	}
 
-	public void setFar(boolean far) {
-		this.far = far;
+	public void setDistanceThresholdNon(double distanceThresholdNon) {
+		this.distanceThresholdNon = distanceThresholdNon;
 	}
+
+	//	public void setFar(boolean far) {
+	//		this.far = far;
+	//	}
 
 	@Override
 	public String toString() {

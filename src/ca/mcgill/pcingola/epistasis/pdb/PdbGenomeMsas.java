@@ -304,7 +304,7 @@ public class PdbGenomeMsas extends SnpEff {
 	 * rare border conditions", 'msa' changes (e.g. when 'pos' maps to
 	 * the last AA and the next exon has frame=1). This case is a quirk
 	 * on how UCSC numbers AA in their multiple sequence alignments.
-
+	
 	 * @return false on failure
 	 */
 	public MsaCoordinates mapMsaTrPos2AaIdx(MultipleSequenceAlignment msa, Transcript tr, int pos) {
@@ -355,12 +355,12 @@ public class PdbGenomeMsas extends SnpEff {
 	/**
 	 * Map 'DistanceResult' (Pdb coordinates) to MSA (genomic coordinates)
 	 */
-	public void mapToMsa(DistanceResult dres) {
+	public DistanceResult mapToMsa(DistanceResult dres) {
 		// Find trancript IDs using PDB ids
 		List<IdMapperEntry> idmes = idMapper.getByPdbId(dres.pdbId, dres.pdbChainId);
 		if (idmes == null || idmes.isEmpty()) {
 			warn("No mapping found for PdbId: ", "'" + dres.pdbId + "', chain '" + dres.pdbChainId + "'");
-			return;
+			return null;
 		}
 
 		// Find all transcripts, then map <tr, pos> to <msaId, aaIdx>
@@ -373,13 +373,13 @@ public class PdbGenomeMsas extends SnpEff {
 			// Transcript's protein doesn't match MSA's protein? Nothing to do
 			if (!checkSequenceGenomeMsas(trid)) {
 				countMatch.inc("_Total\tERROR\tTR-MSA");
-				return;
+				return null;
 			}
 
 			Transcript tr = trancriptById.get(trid);
 			if (tr == null) {
 				warn("Transcript not found", trid);
-				return;
+				return null;
 			}
 
 			// Find genomic position based on AA position
@@ -463,6 +463,8 @@ public class PdbGenomeMsas extends SnpEff {
 				}
 			}
 		}
+
+		return dres;
 	}
 
 	/**
@@ -584,7 +586,7 @@ public class PdbGenomeMsas extends SnpEff {
 				.sorted() //
 				.distinct() //
 				.collect(Collectors.joining(";") //
-				);
+		);
 	}
 
 	public Structure readPdbFile(String pdbFile) {
