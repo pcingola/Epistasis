@@ -464,7 +464,7 @@ cat('LL(MSA):', llmsa.test$p.value, '\n')
 # Note: Negative values (-1) indicate that the calculation cannot be perfromed, so we filter them out
 corr.ic  <- fs$corr[ic & (fs$corr >= 0) ]
 corr.nic <- fs$corr[!ic & (fs$corr >= 0) ]
-compareHist(corr.ic, corr.nic, "McBASC", c(0,1), "McBASC", "Density", 100)
+compareHist(corr.ic, corr.nic, "", c(0,1), "Correlation (McBASC)", "Density", 100)
 corr.test <- wilcox.test(corr.ic, corr.nic)
 cat('McBASC:', corr.test$p.value, '\n')
 
@@ -472,14 +472,14 @@ cat('McBASC:', corr.test$p.value, '\n')
 # Note: Negative values (-1) indicate that the calculation cannot be perfromed, so we filter them out
 corr.ic  <- fs$corr.fodor[ic & (fs$corr.fodor >= 0) ]
 corr.nic <- fs$corr.fodor[!ic & (fs$corr.fodor >= 0) ]
-compareHist(corr.ic, corr.nic, "McBASC (Fodor)", c(0,1), "McBASC (Fodor)", "Density", 100)
+compareHist(corr.ic, corr.nic, "", c(0,1), "Correlation (McBASC)", "Density", 100)
 corr.test <- wilcox.test(corr.ic, corr.nic)
 cat('McBASC (Fodor):', corr.test$p.value, '\n')
 
 # MI 
-mi.ic  <- fs$mi[ic & (fs$mi > 0) ]
-mi.nic <- fs$mi[!ic & (fs$mi > 0) ]
-compareHist(mi.ic, mi.nic, "MI", c(0,2.5), "MI", "Density", 100)
+mi.ic  <- fs$mi[ic & (fs$mi > 0)  & (fs$mi < 1)]
+mi.nic <- fs$mi[!ic & (fs$mi > 0) & (fs$mi < 1) ]
+compareHist(mi.ic, mi.nic, "", c(0,1), "Mutual information", "Density", 100)
 mi.test <- wilcox.test(mi.ic, mi.nic)
 cat('MI:', mi.test$p.value, '\n')
 
