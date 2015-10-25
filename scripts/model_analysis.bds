@@ -379,8 +379,10 @@ void analysisCompoundProteins() {
 #-------------------------------------------------------------------------------
 void analysisFinalSubmit() {
 	# Single base
-	aaStats := "$dir/fs.contact.txt"
-	#println "\nCalculating statsfinalsubmission:\n\t'$aaStats'\n\t'$aaStatsSummary'"
-	#task( aaStats <- aaNextProt )	sys $cmdEpistasis statsfinalsubmission $type $aaNextProt > $aaStats 
+	fsStats := "$dir/fs.txt"
+	println "\nCalculating statsfinalsubmission:\n\t'$fsStats'"
+	task( fsStats <- [idMapBest, tree, msaBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+		sys $cmdEpistasis statsfinalsubmission $snpeffConfig $genome $similarityMatrix 3.0 15.0 25 $pdbDir $idMapBest $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs | tee $fsStats 
+	}
 }
 
