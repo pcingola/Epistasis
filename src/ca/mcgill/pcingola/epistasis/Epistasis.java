@@ -639,11 +639,11 @@ public class Epistasis implements CommandLine {
 			runStatsFinalSubmision(distThreshold, distThresholdNon, aaMinSeparation);
 			break;
 
-		case "statsfinalsubmission2":
+		case "statsPdbFile":
 			String pdbFile = args[argNum++];
-			//			configFile = args[argNum++];
-			//			genome = args[argNum++];
-			//			pdbDir = args[argNum++];
+			configFile = args[argNum++];
+			genome = args[argNum++];
+			similarityMatrixFile = args[argNum++];
 			idMapFile = args[argNum++];
 			treeFile = args[argNum++];
 			multAlignFile = args[argNum++];
@@ -1190,22 +1190,23 @@ public class Epistasis implements CommandLine {
 				.filter(d -> (d != null) // Filter out unmapped entries
 						&& (d.aaSeq1 != null) && !d.aaSeq1.isEmpty() // Missing sequence 1?
 						&& (d.aaSeq2 != null) && !d.aaSeq2.isEmpty() // Missing sequence 2?
-		).forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%s\n" //
-				, d //
-				, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
-				, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
-				, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
-				, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
-				, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
-				, EntropySeq.entropy(d.aaSeq1) //
-				, EntropySeq.entropy(d.aaSeq2) //
-				, EntropySeq.conservation(d.aaSeq1) //
-				, EntropySeq.conservation(d.aaSeq2) //
-				, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
-				, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-				, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
-				, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
-				;
+		) //
+				.forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%s\n" //
+						, d //
+						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq2) //
+						, EntropySeq.conservation(d.aaSeq1) //
+						, EntropySeq.conservation(d.aaSeq2) //
+						, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+						, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+						, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+						, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
+						;
 	}
 
 	/**
@@ -1216,13 +1217,34 @@ public class Epistasis implements CommandLine {
 	void runStatsFinalSubmision2(String pdbFile) {
 		load();
 
-		//		CoEvolutionLikelihood coEvolutionLikelihood = newInteractionLikelihood();
-		//		Timer.showStdErr("Pre-calculating matrix exponentials");
-		//		coEvolutionLikelihood.precalcExps();
+		CoEvolutionLikelihood coEvolutionLikelihood = newInteractionLikelihood();
+		Timer.showStdErr("Pre-calculating matrix exponentials");
+		coEvolutionLikelihood.precalcExps();
 
 		// Run analysis
-		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, 1e6, 0, idMapper);
-		pdDist.distanceFile(pdbFile, true);
+		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, 1e6, 1, idMapper);
+		pdDist.distanceFile(pdbFile, false) //
+				.stream() // Get all distances within this PDB entry
+				.map(d -> pdbGenomeMsas.mapToMsa(d)) // Add MSA sequences to distance entries
+				.filter(d -> (d != null) // Filter out unmapped entries
+						&& (d.aaSeq1 != null) && !d.aaSeq1.isEmpty() // Missing sequence 1 or 2?
+						&& (d.aaSeq2 != null) && !d.aaSeq2.isEmpty()) //
+				.forEach(d -> System.out.printf("%s\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%.6e\t%s\n" //
+						, d //
+						, EntropySeq.mutualInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.entropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.variationOfInformation(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq1, d.aaSeq2) //
+						, EntropySeq.condEntropy(d.aaSeq2, d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq1) //
+						, EntropySeq.entropy(d.aaSeq2) //
+						, EntropySeq.conservation(d.aaSeq1) //
+						, EntropySeq.conservation(d.aaSeq2) //
+						, EntropySeq.correlation(d.aaSeq1, d.aaSeq2) //
+						, McBasc.correlation(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+						, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
+						, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
+						;
 	}
 
 	/**

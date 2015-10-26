@@ -98,7 +98,7 @@ public class IdMapper {
 			System.err.println("map\t" + k);
 			map.get(k).forEach(im -> System.err.println("\t\t" + im + "\tAA_contacts: " + contacts(distanceResults, im)));
 		} //
-				);
+		);
 
 		return best;
 	}

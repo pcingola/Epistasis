@@ -124,30 +124,6 @@ public class EntropySeq {
 	}
 
 	/**
-	 * Naive correlation
-	 */
-	public static double correlation(byte codei[], byte codej[]) {
-		int count = 0, sum = 0;
-		int len = codei.length;
-
-		if (Math.random() < 2) throw new RuntimeException("THIS CALCULATION IS WRONG!");
-
-		// Count matching bases
-		for (int i = 0; i < len; i++) {
-			byte basei = codei[i];
-			byte basej = codej[i];
-
-			// Do not take gaps into account
-			if ((basei < 0) || (basej < 0)) continue;
-
-			count++;
-			if (basei == basej) sum++;
-		}
-
-		return ((double) sum) / ((double) count);
-	}
-
-	/**
 	 * Naive correlation between two sequences
 	 */
 	public static double correlation(String seqi, String seqj) {
@@ -160,7 +136,7 @@ public class EntropySeq {
 			codej[i] = GprSeq.aa2Code(seqj.charAt(i));
 		}
 
-		return correlation(codei, codej);
+		return numberOfMatches(codei, codej);
 	}
 
 	/**
@@ -359,6 +335,28 @@ public class EntropySeq {
 		}
 
 		return mutualInformation(codei, codej);
+	}
+
+	/**
+	 * Number of 'matches'
+	 */
+	public static double numberOfMatches(byte codei[], byte codej[]) {
+		int count = 0, sum = 0;
+		int len = codei.length;
+
+		// Count matching bases
+		for (int i = 0; i < len; i++) {
+			byte basei = codei[i];
+			byte basej = codej[i];
+
+			// Do not take gaps into account
+			if ((basei < 0) || (basej < 0)) continue;
+
+			count++;
+			if (basei == basej) sum++;
+		}
+
+		return ((double) sum) / ((double) count);
 	}
 
 	/**
