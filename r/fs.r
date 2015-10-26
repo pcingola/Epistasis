@@ -497,7 +497,6 @@ compareHist(vi.ic, vi.nic, "VI", c(-5,2.2), "VI", "Density", 100)
 vi.test <- wilcox.test(vi.ic, vi.nic)
 cat('VI log:', vi.test$p.value, '\n')
 
-
 # McBASC Fodor et. al. implementation
 # Note: Negative values (-1) indicate that the calculation cannot be perfromed, so we filter them out
 corr.ic  <- log2( fs$corr.fodor[ic & (fs$corr.fodor >= 0) ] )

@@ -3,16 +3,31 @@ library('Matrix')
 library('gplots')
 library('expm')
 
-savePng <- T
+savePng <- F
+
+# Main figures
 fig2    <- F
-fig2b   <- T
+fig2b   <- F
 fig3    <- F
 fig4    <- F
 fig5    <- F
+
+# Suppleamentary
 figS1   <- F
 figS2   <- F
 figS3   <- F
 figS4   <- F
+
+# Thesis final submission
+figFS1  <- F
+figFS2  <- T
+figFS3  <- T
+
+# Physical distance threshold to be considered as 'in-contact'
+dist.th <- 8.0
+
+# LL(MSA) threshold to be considered as 'in-contact'
+llmsa.th <- 10.0
 
 if( savePng) {
 	heatmap.keysize <- 0.4
@@ -443,6 +458,171 @@ figureS4 <- function(ll.alt, ll.null) {
 }
 
 #-------------------------------------------------------------------------------
+# Figure FS1: Thesis' final submission
+#-------------------------------------------------------------------------------
+
+figureFS1 <- function(fs) {
+	# Add 'in-contact' criteria
+	ic <- (fs$dist <= 3.0)
+
+	# LL(MSA)
+	minx <- -40
+	maxx <- 25
+	llmsa.ic  <- fs$llmsa[ic & (fs$llmsa >= minx) & (fs$llmsa <= maxx)]
+	llmsa.nic <- fs$llmsa[!ic & (fs$llmsa >= minx) & (fs$llmsa <= maxx)]
+	compareHist(llmsa.ic, llmsa.nic, "LL(MSA)", c(-40,30), "LL(MSA)", "Density", 100)
+	llmsa.test <- wilcox.test(llmsa.ic, llmsa.nic)
+	cat('LL(MSA):', llmsa.test$p.value, '\n')
+
+	# McBASC. 
+	# Note: Negative values (-1) indicate that the calculation cannot be perfromed, so we filter them out
+	corr.ic  <- fs$corr[ic & (fs$corr >= 0) ]
+	corr.nic <- fs$corr[!ic & (fs$corr >= 0) ]
+	compareHist(corr.ic, corr.nic, "", c(0,1), "Correlation (McBASC)", "Density", 100)
+	corr.test <- wilcox.test(corr.ic, corr.nic)
+	cat('McBASC:', corr.test$p.value, '\n')
+
+	# McBASC Fodor et. al. implementation
+	# Note: Negative values (-1) indicate that the calculation cannot be perfromed, so we filter them out
+	corr.ic  <- fs$corr.fodor[ic & (fs$corr.fodor >= 0) ]
+	corr.nic <- fs$corr.fodor[!ic & (fs$corr.fodor >= 0) ]
+	compareHist(corr.ic, corr.nic, "", c(0,1), "Correlation (McBASC)", "Density", 100)
+	corr.test <- wilcox.test(corr.ic, corr.nic)
+	cat('McBASC (Fodor):', corr.test$p.value, '\n')
+
+	# MI 
+	mi.ic  <- fs$mi[ic & (fs$mi > 0)  & (fs$mi < 1)]
+	mi.nic <- fs$mi[!ic & (fs$mi > 0) & (fs$mi < 1) ]
+	compareHist(mi.ic, mi.nic, "", c(0,1), "Mutual information", "Density", 100)
+	mi.test <- wilcox.test(mi.ic, mi.nic)
+	cat('MI:', mi.test$p.value, '\n')
+
+	# Variation of information
+	vi.ic  <- fs$vi[ic & (fs$vi >= 0) ]
+	vi.nic <- fs$vi[!ic & (fs$vi >= 0) ]
+	compareHist(vi.ic, vi.nic, "VI", c(0,4.5), "VI", "Density", 100)
+	vi.test <- wilcox.test(vi.ic, vi.nic)
+	cat('VI:', vi.test$p.value, '\n')
+
+	# Variation of information
+	vi.ic  <- log2( fs$vi[ic & (fs$vi > 0) ] )
+	vi.nic <- log2( fs$vi[!ic & (fs$vi > 0) ] )
+	compareHist(vi.ic, vi.nic, "VI", c(-5,2.2), "VI", "Density", 100)
+	vi.test <- wilcox.test(vi.ic, vi.nic)
+	cat('VI log:', vi.test$p.value, '\n')
+
+	# McBASC Fodor et. al. implementation
+	# Note: Negative values (-1) indicate that the calculation cannot be perfromed, so we filter them out
+	corr.ic  <- log2( fs$corr.fodor[ic & (fs$corr.fodor >= 0) ] )
+	corr.nic <- log2( fs$corr.fodor[!ic & (fs$corr.fodor >= 0) ] )
+	compareHist(corr.ic, corr.nic, "Log McBASC (Fodor)", c( -15,1), "Log McBASC (Fodor)", "Density", 100)
+	corr.test <- wilcox.test(corr.ic, corr.nic)
+	cat('Log McBASC (Fodor):', corr.test$p.value, '\n')
+}
+
+#-------------------------------------------------------------------------------
+# Figure FS2: Thesis' final submission
+#-------------------------------------------------------------------------------
+
+figureFS2 <- function(pdb.id, d, ic.paper) {
+	# Add 'in-contact' criteria
+	ic <- (d$dist <= dist.th)
+
+	#---
+	# Create images from data
+	#---
+	m.size <- max( d$aa1.pos, d$aa2.pos ) 
+	md <- matrix(NA, m.size, m.size)
+	mll <- matrix(0, m.size, m.size)
+	mll.bin <- matrix(0, m.size, m.size)
+	mll.top <- matrix(0, m.size, m.size)
+	mic.paper <- matrix(0, m.size, m.size)
+
+	#---
+	# Create images from data
+	#---
+	len <- dim(d)[1]
+	max.dist <- max(d$dist)
+	#cat("Matrix size:", m.size, "\tmax.dist:", max.dist, "\tdata.len:", len, "\n")
+	for( i in seq(1, len) ) {
+		dd <- d[i,]
+		p1 <- dd$aa1.pos
+		p2 <- dd$aa2.pos
+		dist <- dd$dist
+
+		md[p1,p2] <- dist
+		md[p2,p1] <- dist
+
+		mll[p1,p2] <- dd$llmsa
+		mll[p2,p1] <- dd$llmsa
+	}
+	mic <- md <= dist.th
+
+	# Top N LL(MSA) values
+	N <- 50
+	topN <- sort(d$llmsa, decreasing=T)[N]
+	#cat('Top', N,' value', topN, '\tcount:', sum(mll >= topN), '\n')
+	mll.top[ mll >= topN ] <- 1
+	
+	# Binary 'mll' matrix
+	mll.bin[ mll >= llmsa.th ] <- 1
+
+	#---
+	# Create images from paper's data
+	#---
+	len <- dim(ic.paper)[1]
+	for( i in seq(1, len) ) {
+		dd <- ic.paper[i,]
+		p1 <- dd$pos1
+		p2 <- dd$pos2
+		mic.paper[p1,p2] <- 1
+		mic.paper[p2,p1] <- 1
+	}
+
+	#---
+	# Show images
+	#---
+	md <- md / max.dist
+	md <- 1 - md	# Number closer to 1.0 indicates 'in contact' (i.e. closer ditance)
+	md[ is.na(md) ] <- 0	# Fill missing data
+
+	# Scale mll to [0, 1]
+	mll <- (mll - min(mll)) / (max(mll) - min(mll))	
+
+	col <- grey(seq(1, 0, length = 256))
+	image(md, axes = FALSE, col = col, main=paste(pdb.id, 'Distance'))
+	image(mic, axes = FALSE, col = col, main=paste(pdb.id, 'In contact (', dist.th, ')'))
+	image(mll, axes = FALSE, col = col, main=paste(pdb.id, 'LL(MSA)'))
+	image(mll.bin, axes = FALSE, col = col, main=paste(pdb.id, 'LL(MSA) >=', llmsa.th))
+	image(mll.top, axes = FALSE, col = col, main=paste(pdb.id, 'Top', N,'[ LL(MSA) ]'))
+	image(mic.paper, axes = FALSE, col = col, main=paste(pdb.id, 'In contact (Paper)'))
+
+	return( list(md=md, mic=mic, mll=mll, mll.bin=mll.bin, mll.top=mll.top, mic.paper=mic.paper) )
+}
+
+#-------------------------------------------------------------------------------
+# Compare results to paper
+#-------------------------------------------------------------------------------
+compareToPaper <- function(pid, res) {
+	cat('\n')
+	tit <- paste(pid, dist.th, llmsa.th, sep='\t')
+	compareTpFp( paste(tit, 'Top LL(MSA)', sep='\t'), res$mll.top, res$mic)
+	compareTpFp( paste(tit, 'LL(MSA) >=', llmsa.th, sep='\t'), res$mll.bin, res$mic)
+	compareTpFp( paste(tit, 'paper', sep='\t'), res$mic.paper, res$mic)
+}
+
+compareTpFp <- function(title, m, mic) {
+	count <- sum( m == 1 )
+	tp <- (!is.na(mic)) & (!is.na(m)) & (m == 1) & mic 
+	#cat('\tMatches', title, ':', sum(tp), '\trate:', (sum(tp)/count), '\n')
+
+	fp <- (!is.na(mic)) & (!is.na(m)) & (m == 1) & (!mic) 
+	#cat('\tFalse positives', title, ':', sum(fp), '\trate:', (sum(fp)/count), '\n')
+
+	cat(title, sum(tp), (sum(tp)/count), sum(fp), (sum(fp)/count), '\n', sep='\t')
+}
+
+#-------------------------------------------------------------------------------
 # Main
 #-------------------------------------------------------------------------------
 
@@ -542,6 +722,60 @@ if( figS3 ) {
 if( figS4 ) { figureS4() }
 
 #---
+# Final submission figures
+#---
+if( figFS1 ) {
+	if( !exists('fs') ) {
+		fileName <- "fs_R.txt"
+		cat('Loading', fileName, '\n')
+		fs = read.table(fileName, sep="\t", header=TRUE)
+		cat('Done\n')
+	}
+
+	figureFS1(fs)
+}
+
+if( figFS2 ) {
+	if( !exists('pdb.1a17') ) {
+		fileName <- "1a17_R.txt"
+		cat('Loading', fileName, '\n')
+		pdb.1a17 = read.table(fileName, sep="\t", header=TRUE)
+
+		fileName <- "1a17_paper.txt"
+		cat('Loading', fileName, '\n')
+		pdb.1a17.paper = read.table(fileName, sep="\t", header=TRUE)
+
+		cat('Done\n')
+	}
+
+	pid <- '1A17'
+	res.1a17 <- figureFS2(pid, pdb.1a17, pdb.1a17.paper)
+
+	# Compare to paper
+	compareToPaper(pid, res.1a17)
+}
+
+if( figFS3 ) {
+	if( !exists('pdb.1ubi') ) {
+		fileName <- "1ubi_R.txt"
+		cat('Loading', fileName, '\n')
+		pdb.1ubi = read.table(fileName, sep="\t", header=TRUE)
+
+		fileName <- "1ubi_paper.txt"
+		cat('Loading', fileName, '\n')
+		pdb.1ubi.paper = read.table(fileName, sep="\t", header=TRUE)
+
+		cat('Done\n')
+	}
+
+	pid <- "1UBI"
+	res.1ubi <- figureFS2(pid, pdb.1ubi, pdb.1ubi.paper)
+
+	# Compare to paper
+	compareToPaper(pid, res.1ubi)
+}
+
+#---
 # High definition plots
 #---
 if( savePng )	{
@@ -556,3 +790,15 @@ if( figS2 ) { figureS2() }
 # Close graphics device
 if( savePng )	dev.off()
 
+
+for( dist.th in c(3, 5, 8) ) {
+	for( llmsa.th in c(0, 3, 5, 8, 10, 12, 15) ) {
+		pid <- '1A17'
+		res.1a17 <- figureFS2(pid, pdb.1a17, pdb.1a17.paper)
+		compareToPaper(pid, res.1a17)
+
+		pid <- "1UBI"
+		res.1ubi <- figureFS2(pid, pdb.1ubi, pdb.1ubi.paper)
+		compareToPaper(pid, res.1ubi)
+	}
+}
