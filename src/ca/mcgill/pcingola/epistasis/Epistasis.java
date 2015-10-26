@@ -639,6 +639,22 @@ public class Epistasis implements CommandLine {
 			runStatsFinalSubmision(distThreshold, distThresholdNon, aaMinSeparation);
 			break;
 
+		case "statsfinalsubmission2":
+			String pdbFile = args[argNum++];
+			//			configFile = args[argNum++];
+			//			genome = args[argNum++];
+			//			pdbDir = args[argNum++];
+			idMapFile = args[argNum++];
+			treeFile = args[argNum++];
+			multAlignFile = args[argNum++];
+			qMatrixFile = args[argNum++];
+			aaFreqsFile = args[argNum++];
+			q2MatrixFile = args[argNum++];
+			aaFreqsContactFile = args[argNum++];
+			if (args.length != argNum) usage("Unused parameter '" + args[argNum] + "' for command '" + cmd + "'");
+			runStatsFinalSubmision2(pdbFile);
+			break;
+
 		default:
 			throw new RuntimeException("Unknown command: '" + cmd + "'");
 		}
@@ -1155,7 +1171,8 @@ public class Epistasis implements CommandLine {
 
 	/**
 	 * Thesis final submission: "New statistics requested" that are actually the
-	 * same I've shown 2 years ago. No comments.
+	 * same I've shown 2 years ago.
+	 * No comments.
 	 */
 	void runStatsFinalSubmision(double distThreshold, double distThresholdNon, int aaMinSeparation) {
 		load();
@@ -1189,7 +1206,23 @@ public class Epistasis implements CommandLine {
 				, McBasc.correlationFodor(similarytyMatrix, d.aaSeq1, d.aaSeq2) //
 				, coEvolutionLikelihood.logLikelihoodRatioStr(d.msa1, d.msaIdx1, d.msa2, d.msaIdx2, true, 0))) //
 				;
+	}
 
+	/**
+	 * Thesis final submission: "New statistics requested" that are actually the
+	 * same I've shown 2 years ago.
+	 * No comments.
+	 */
+	void runStatsFinalSubmision2(String pdbFile) {
+		load();
+
+		//		CoEvolutionLikelihood coEvolutionLikelihood = newInteractionLikelihood();
+		//		Timer.showStdErr("Pre-calculating matrix exponentials");
+		//		coEvolutionLikelihood.precalcExps();
+
+		// Run analysis
+		PdbDistanceAnalysis pdDist = new PdbDistanceAnalysis(pdbDir, 1e6, 0, idMapper);
+		pdDist.distanceFile(pdbFile, true);
 	}
 
 	/**

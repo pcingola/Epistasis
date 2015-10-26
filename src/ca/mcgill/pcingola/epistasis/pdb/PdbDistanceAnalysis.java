@@ -95,17 +95,23 @@ public class PdbDistanceAnalysis {
 	}
 
 	/**
-	 * Distances associated with this entry
+	 * Distances within all chains in a structure
 	 */
-	List<DistanceResult> distance(String pdbId, boolean printDistance) {
-		try {
-			// Does file exists?
-			String pdbFileName = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
-			if (!Gpr.exists(pdbFileName)) {
-				Gpr.debug("Cannot open file '" + pdbFileName + "'");
-				return EMPTY_DISTANCES;
-			}
+	List<DistanceResult> distance(Structure structure, boolean printDistance) {
+		ArrayList<DistanceResult> results = new ArrayList<>();
 
+		// Distance
+		for (Chain chain : structure.getChains())
+			results.addAll(distance(chain, printDistance));
+
+		return results;
+	}
+
+	/**
+	 * Distances associated with this PDB file
+	 */
+	public List<DistanceResult> distanceFile(String pdbFileName, boolean printDistance) {
+		try {
 			// Read structure form file
 			PdbFile pdbreader = new PdbFile();
 			if (verbose) System.err.println("Distance: " + pdbFileName);
@@ -124,16 +130,18 @@ public class PdbDistanceAnalysis {
 	}
 
 	/**
-	 * Distances within all chains in a structure
+	 * Distances associated with this entry
 	 */
-	List<DistanceResult> distance(Structure structure, boolean printDistance) {
-		ArrayList<DistanceResult> results = new ArrayList<>();
+	public List<DistanceResult> distanceId(String pdbId, boolean printDistance) {
+		// Does file exists?
+		String pdbFileName = pdbDir + "/" + pdbId.toLowerCase() + ".pdb";
+		if (!Gpr.exists(pdbFileName)) {
+			Gpr.debug("Cannot open file '" + pdbFileName + "'");
+			return EMPTY_DISTANCES;
+		}
 
-		// Distance
-		for (Chain chain : structure.getChains())
-			results.addAll(distance(chain, printDistance));
-
-		return results;
+		// Read structure form file
+		return distanceFile(pdbFileName, printDistance);
 	}
 
 	/**
@@ -162,7 +170,7 @@ public class PdbDistanceAnalysis {
 				.sorted() //
 				.distinct() //
 				.parallel() //
-				.flatMap(pid -> distance(pid, false).stream()) //
+				.flatMap(pid -> distanceId(pid, false).stream()) //
 				;
 	}
 
@@ -176,7 +184,7 @@ public class PdbDistanceAnalysis {
 				.sorted() //
 				.distinct() //
 				.parallel() //
-				.flatMap(pid -> distance(pid, true).stream()) //
+				.flatMap(pid -> distanceId(pid, true).stream()) //
 				.collect(Collectors.toList()) //
 				;
 
