@@ -384,5 +384,15 @@ void analysisFinalSubmit() {
 	task( fsStats <- [idMapBest, tree, msaBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
 		sys $cmdEpistasisXL statsfinalsubmission $snpeffConfig $genome $similarityMatrix 3.0 15.0 25 $pdbDir $idMapBest $tree $msaBest $qhat $aaFreqs $qhat2 $aa2Freqs > $fsStats 
 	}
+
+	for( string pid : ['1a17', '1ubi'] ) {
+		out := "$dir/$pid.txt"
+		pdbFile := "$dir/$pid.pdb"
+		idMapFile := "$dir/idMap_ensemblId_refseq_pdbId.1a17_1ubi.txt"
+		msasFile := "$dir/msas_1a17_1ubi.fa"
+		task( out <- [pdbFile, idMapFile, msasFile, tree, msaBest, qhat, aaFreqs, qhat2, aa2Freqs] ) {
+			sys $cmdEpistasis statsPdbFile $pdbFile $snpeffConfig $genome $similarityMatrix $idMapFile $tree $msasFile $qhat $aaFreqs $qhat2 $aa2Freqs > $out 
+		}
+	}
 }
 

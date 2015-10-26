@@ -639,7 +639,7 @@ public class Epistasis implements CommandLine {
 			runStatsFinalSubmision(distThreshold, distThresholdNon, aaMinSeparation);
 			break;
 
-		case "statsPdbFile":
+		case "statspdbfile":
 			String pdbFile = args[argNum++];
 			configFile = args[argNum++];
 			genome = args[argNum++];
